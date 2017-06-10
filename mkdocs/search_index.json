@@ -2,13 +2,568 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to http4k\n\n\nPlease visit the \nWiki\n  whilst this page is updated", 
-            "title": "Home"
+            "text": "http4k\n is an HTTP toolkit written in \nKotlin\n that enables the serving and consuming of HTTP services in a functional and consistent way.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIt consists of a core library \nhttp4k-core\n providing a base HTTP implementation + a number of abstractions for various functionalities (such as \nservers, clients, templating etc) that are provided as optional add-on libraries.\n\n\nThe principles of the toolkit are:\n\n\n\n\nApplication as a Function:\n Based on the Twitter paper \n\"Your Server as a Function\"\n, all HTTP services can be composed \nof 2 types of simple function:\n\n\nHttpHandler:\n \n(Request) -\n Response\n - provides a remote call for processing a Request. \n\n\nFilter:\n \n(HttpHandler) -\n HttpHandler\n - adds Request/Response pre/post processing. These filters are composed to make stacks of reusable behaviour that can \nthen be applied to an \nHttpHandler\n.\n\n\n\n\n\n\nImmutablility:\n All entities in the library are immutable unless their function explicitly disallows this.\n\n\nSymmetric:\n The \nHttpHandler\n interface is identical for both HTTP services and clients. This allows for simple offline testability of applications, as well as \nplugging together of services without HTTP container being required.\n\n\nDependency-lite:\n The \nhttp4k-core\n module has ZERO dependencies. Add-on modules only have dependencies required for specific implementation.\n\n\nTestability\n Built by \nTDD\n enthusiasts, so supports \nsuper-easy\n mechanisms for both In and Out of Container testing of:\n\n\nindividual endpoints\n\n\napplications\n\n\nfull suites of microservices\n\n\n\n\n\n\nModularity:\n Common behaviours are abstracted into the \nhttp4k-core\n module. Current add-ons cover:\n\n\nPluggable HTTP client adapters for Apache and OkHttp\n\n\nPluggable Server backends: Single LOC Server spinup for Jetty, Netty and Undertow\n\n\nTypesafe, auto-validating, self-documenting (via Swagger) contracts for HTTP services\n\n\nHTTP message adapters for Argo JSON, Gson JSON and Jackson JSON (includes auto-marshalling)\n\n\nTemplating support: Caching and Hot-Reload engine support for Handlebars\n\n\n\n\nModule feature overview\n\n\n\n\nCore:\n \n\n\nBase HTTP handler and \nimmutable HTTP message\n objects, cookie handling. \n\n\nCommonly used HTTP functionalities provided as reusable Filters (caching, debugging, \nZipkin request tracing\n)\n\n\nPath-based routing\n, including nestable contexts\n\n\nTypesafe HTTP message construction/desconstruction\n using Lenses\n\n\nStatic file-serving\n capability with \nCaching and Hot-Reload\n \n\n\nServlet implementation to allow \nzero-dependency plugin to any Servlet container\n\n\nCore abstraction APIs implemented by the other modules \n\n\n\n\n\n\nClient:\n \n\n\nSingle LOC\n HTTP client adapters \n\n\nApache\n\n\nOkHttp\n\n\n\n\n\n\n\n\n\n\nServer:\n\n\nSingle LOC\n server backend spinup for:\n\n\nJetty\n\n\nNetty\n\n\nUndertow\n\n\n\n\n\n\nAPI design allows for plugging into configurable instances of each\n\n\n\n\n\n\nBETA!\n \nContracts:\n \n\n\nDefinite \nTypesafe\n HTTP contracts, defining required and optional path/query/header/bodies\n\n\nTypesafe\n path matching\n\n\nAuto-validation\n of incoming requests == \nzero boilerplate validation code\n\n\nSelf-documenting for all routes - eg. Built in support for live \nSwagger\n description endpoints including \nJSON Schema\n model breakdown. \n\n\nTemplating:\n \n\n\nPluggable\n templating system support for:\n\n\nHandlebars \n\n\n\n\n\n\nCaching and \nHot-Reload\n template support\n\n\n\n\n\n\nMessage formats:\n \n\n\nConsistent API provides first class support for marshalling JSON to/from HTTP messages for:\n\n\nJackson\n -includes support for \nfully automatic marshalling of Data classes\n)\n\n\nGson\n -includes support for \nfully automatic marshalling of Data classes\n)\n\n\nArgo\n\n\n\n\n\n\n\n\n\n\n\n\nAcknowledgments\n\n\n\n\nDan Bodart\n's \nutterlyidle\n\n\nIvan Moore\n for pairing on \"BarelyMagical\", a 50-line wrapper around utterlyidle to allow \"Server as a Function\"", 
+            "title": "Introduction"
         }, 
         {
-            "location": "/#welcome-to-http4k", 
-            "text": "Please visit the  Wiki   whilst this page is updated", 
-            "title": "Welcome to http4k"
+            "location": "/#module-feature-overview", 
+            "text": "Core:    Base HTTP handler and  immutable HTTP message  objects, cookie handling.   Commonly used HTTP functionalities provided as reusable Filters (caching, debugging,  Zipkin request tracing )  Path-based routing , including nestable contexts  Typesafe HTTP message construction/desconstruction  using Lenses  Static file-serving  capability with  Caching and Hot-Reload    Servlet implementation to allow  zero-dependency plugin to any Servlet container  Core abstraction APIs implemented by the other modules     Client:    Single LOC  HTTP client adapters   Apache  OkHttp      Server:  Single LOC  server backend spinup for:  Jetty  Netty  Undertow    API design allows for plugging into configurable instances of each    BETA!   Contracts:    Definite  Typesafe  HTTP contracts, defining required and optional path/query/header/bodies  Typesafe  path matching  Auto-validation  of incoming requests ==  zero boilerplate validation code  Self-documenting for all routes - eg. Built in support for live  Swagger  description endpoints including  JSON Schema  model breakdown.   Templating:    Pluggable  templating system support for:  Handlebars     Caching and  Hot-Reload  template support    Message formats:    Consistent API provides first class support for marshalling JSON to/from HTTP messages for:  Jackson  -includes support for  fully automatic marshalling of Data classes )  Gson  -includes support for  fully automatic marshalling of Data classes )  Argo", 
+            "title": "Module feature overview"
+        }, 
+        {
+            "location": "/#acknowledgments", 
+            "text": "Dan Bodart 's  utterlyidle  Ivan Moore  for pairing on \"BarelyMagical\", a 50-line wrapper around utterlyidle to allow \"Server as a Function\"", 
+            "title": "Acknowledgments"
+        }, 
+        {
+            "location": "/rationale/", 
+            "text": "http4k\n is the distillation of 15 years worth of experience of using various server-side libraries and we've stolen good ideas from everywhere we can. For instance - \nthe routing module is inspired by \nUtterlyIdle\n, the \"Server as a function\" and filter model is stolen from \n\nFinagle\n, and the contract module/Swagger generator is ported from \nFintrospect\n. With the growing \nadoption of Kotlin, we wanted something that would fully leverage the features of the language and it felt like a good time to start something from scratch.\n\n\nFor our purposes, we needed something that:\n\n\n\n\nStarts/stops ultra quickly.\n\n\nEasily testable outside of an HTTP container, and testing should require little to no custom infrastructure.\n\n\nProvides typesafe HTTP message deconstruction/construction (in this case via Lenses).\n\n\nAutomatically deals with contract breaches (missing/invalid params etc) to remove boilerplate.\n\n\nAbsolutely no magic involved: No reflection. No annotations.\n\n\nMinimal dependencies (\nhttp4k-core\n has zero).\n\n\nAutomatic generation of Swagger documentation (including JSON Schema models).\n\n\nHas a symmetric server/client API (\nHttpHandler\n should just be \nRequest -\n Response\n).\n\n\nHas immutable Request/Response objects.\n\n\n\n\nAll of these things summed together allow us to construct entire suites of services which can be tested either wired together without HTTP, or spun up in containers \nin 1 LOC. The symmetric HTTP API also allows filter chains (often called interceptors in other frameworks) to be constructed into reusable units/stacks for both \nserver and client sides (eg. logging/metrics/caching...) since they can be composed together for later use. We can also easily create simple Fake servers for any \nHTTP contract, which means (in combination with CDC suites) we can end-to-end test micro-services in an outside-in way (using GOOS-style acceptance tests). This \nmeans that you are easily able to answer questions like \"what happens if this HTTP dependency continually takes \n 5 seconds to respond?\" - which is a question you \ncan't easily answer if you're faking out your dependencies inside the HTTP boundary.\n\n\nConcepts", 
+            "title": "Rationale & Concepts"
+        }, 
+        {
+            "location": "/rationale/#concepts", 
+            "text": "", 
+            "title": "Concepts"
+        }, 
+        {
+            "location": "/installation/", 
+            "text": "All \nhttp4k\n libraries are available on Maven Central and JCenter. Add the following to your Gradle file, substituting in the latest version displayed in the sidebar:\n\n\ncompile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n2.3.0", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/quickstart/", 
+            "text": "Quickstart\n\n\nThis simple example demonstates how to serve and consume HTTP services using \nhttp4k\n. \n\n\nTo install, add these dependencies to your \nGradle\n file:\n\n\ndependencies\n \n{\n\n    \ncompile\n \ngroup:\n \norg.http4k\n,\n \nname:\n \nhttp4k-core\n,\n \nversion:\n \n2.3.0\n\n    \ncompile\n \ngroup:\n \norg.http4k\n,\n \nname:\n \nhttp4k-server-jetty\n,\n \nversion:\n \n2.3.0\n\n    \ncompile\n \ngroup:\n \norg.http4k\n,\n \nname:\n \nhttp4k-client-apache\n,\n \nversion:\n \n2.3.0\n\n\n}\n\n\n\n\n\n\nThe following creates a simple endpoint, binds it to a Jetty server then starts, queries, and stops it.", 
+            "title": "Getting started"
+        }, 
+        {
+            "location": "/quickstart/#quickstart", 
+            "text": "This simple example demonstates how to serve and consume HTTP services using  http4k .   To install, add these dependencies to your  Gradle  file:  dependencies   { \n     compile   group:   org.http4k ,   name:   http4k-core ,   version:   2.3.0 \n     compile   group:   org.http4k ,   name:   http4k-server-jetty ,   version:   2.3.0 \n     compile   group:   org.http4k ,   name:   http4k-client-apache ,   version:   2.3.0  }   The following creates a simple endpoint, binds it to a Jetty server then starts, queries, and stops it.", 
+            "title": "Quickstart"
+        }, 
+        {
+            "location": "/guide/modules/core/", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-core\", version: \"2.3.0\"\n\n\nAbout\n\n\nThe core module has ZERO dependencies and provides the following:\n\n\n\n\nImmutable versions of the HTTP spec objects (Request, Response, Cookies etc).\n\n\nHTTP handler and filter abstractions which models services as simple, composable functions.\n\n\nSimple routing implementation, plus \nHttpHandlerServlet\n to enable plugging into any Servlet engine. \n\n\nLens\n mechanism for typesafe destructuring and construction of HTTP messages.\n\n\nAbstractions for Servers, Clients, messasge formats, Templating etc.\n\n\n\n\nHttpHandlers\n\n\nIn \nhttp4k\n, an HTTP service is just a typealias of a simple function:\n\n\ntypealias\n \nHttpHandler\n \n=\n \n(\nRequest\n)\n \n-\n \nResponse\n\n\n\n\n\n\nFirst described in this Twitter paper \n\"Your Server as a Function\"\n, this abstraction allows us lots of \nflexibility in a language like Kotlin, since the conceptual barrier to service construction is reduced to effectively nil. Here is the simplest example - note that we don't need any special infrastructure to create an \nHttpHandler\n, neither do we \nneed to launch a real HTTP container to exercise it:\n\n\nval\n \nhandler\n \n=\n \n{\n \nrequest\n:\n \nRequest\n \n-\n \nResponse\n(\nOK\n).\nbody\n(\nHello, ${request.query(\nname\n)}!\n)\n \n}\n\n\nval\n \nget\n \n=\n \nRequest\n(\nMethod\n.\nGET\n,\n \n/\n).\nquery\n(\nname\n,\n \nJohn Doe\n)\n\n\nval\n \nresponse\n \n=\n \napp\n(\nget\n)\n\n\n\nprintln\n(\nresponse\n.\nstatus\n)\n\n\nprintln\n(\nresponse\n.\nbodyString\n())\n\n\n\n\n\n\nTo mount the \nHttpHandler\n in a container, the can simply be converted to a Servlet by calling \nhandler.asServlet()\n\n\nFilters\n\n\nFilters add extra processing to either the Request or Response. In \nhttp4k\n, they are modelled as:\n\n\ninterface\n \nFilter\n \n:\n \n(\nHttpHandler\n)\n \n-\n \nHttpHandler\n\n\n\n\n\n\nFilters are designed to simply compose together (using \nthen()\n) , creating reusable stacks of behaviour which can then be applied to any \nHttpHandler\n. \nFor example, to add Basic Auth and latency reporting to a service:\n\n\nval\n \nhandler\n \n=\n \n{\n \n_\n:\n \nRequest\n \n-\n \nResponse\n(\nOK\n)\n \n}\n\n\n\nval\n \nmyFilter\n \n=\n \nFilter\n \n{\n\n    \nnext\n:\n \nHttpHandler\n \n-\n \n{\n\n        \nrequest\n:\n \nRequest\n \n-\n \n            \nval\n \nstart\n \n=\n \nSystem\n.\ncurrentTimeMillis\n()\n\n            \nval\n \nresponse\n \n=\n \nnext\n(\nit\n)\n\n            \nval\n \nlatency\n \n=\n \nSystem\n.\ncurrentTimeMillis\n()\n \n-\n \nstart\n\n            \nprintln\n(\nI took $latency ms\n)\n\n            \nresponse\n\n    \n}\n\n\n}\n\n\nval\n \nlatencyAndBasicAuth\n:\n \nHttpHandler\n \n=\n \nServerFilters\n.\nBasicAuth\n(\nmy realm\n,\n \nuser\n,\n \npassword\n).\nthen\n(\nmyFilter\n)\n\n\nval\n \napp\n:\n \nHttpHandler\n \n=\n \nlatencyAndBasicAuth\n.\nthen\n(\nhandler\n)\n\n\n\n\n\n\nThe \nhttp4k-core\n module comes with a set of handy Filters for application to both Server and Client \nHttpHandlers\n, covering common things like:\n\n\n\n\nRequest tracing headers (x-b3-traceid etc)\n\n\nBasic Auth\n\n\nCache Control\n\n\nCORS\n\n\nCookie handling\n\n\nDebugging request and responses\n\n\n\n\nCheck out the \norg.http4k.filter\n package for the exact list.\n\n\nSimple Routing\n\n\nBasic routing for mapping a URL pattern to an \nHttpHandler\n:\n\n\nroutes\n(\n\n    \n/hello/{name:*}\n \nto\n \nGET\n \nbind\n \n{\n \nrequest\n:\n \nRequest\n \n-\n \nResponse\n(\nOK\n).\nbody\n(\nHello, ${request.path(\nname\n)}!\n)\n \n},\n\n    \n/fail\n \nto\n \nPOST\n \nbind\n \n{\n \nrequest\n:\n \nRequest\n \n-\n \nResponse\n(\nINTERNAL_SERVER_ERROR\n)\n \n}\n\n\n).\nasServer\n(\nJetty\n(\n8000\n)).\nstart\n()\n\n\n\n\n\n\nNote that the \nhttp4k-contract\n module contains a more typesafe implementation of routing functionality.\n\n\nTypesafe parameter destructuring/construction of HTTP messages with Lenses\n\n\nGetting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. \nFor this purpose, we can use a \nLens\n. A Lens is a bi-directional \nentity which can be used to either get or set a particular value from/onto an HTTP message. \nhttp4k\n provides a DSL \nto configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement \nfor those parts (i.e. mandatory or optional). Some examples of declarations are:\n\n\nval\n \npathLocalDate\n \n=\n \nPath\n.\nlocalDate\n().\nof\n(\ndate\n)\n\n\nval\n \nrequiredQuery\n \n=\n \nQuery\n.\nrequired\n(\nmyQueryName\n)\n\n\nval\n \nnonEmptyQuery\n \n=\n \nQuery\n.\nnonEmptyString\n().\nrequired\n(\nmyNonEmptyQuery\n)\n\n\nval\n \noptionalHeader\n \n=\n \nHeader\n.\nint\n().\noptional\n(\nContent-Length\n)\n\n\nval\n \nresponseBody\n \n=\n \nBody\n.\nstring\n(\nPLAIN_TEXT\n).\ntoLens\n()\n\n\n\n// Most of the useful common JDK types are covered. However, if we want to use our own types, we can just use `map()`\n\n\ndata\n \nclass\n \nCustomType\n(\nval\n \nvalue\n:\n \nString\n)\n\n\nval\n \nrequiredCustomQuery\n \n=\n \nQuery\n.\nmap\n(\n::\nCustomType\n,\n \n{\n \nit\n.\nvalue\n \n}).\nrequired\n(\nmyCustomType\n)\n\n\n\n//To use the Lens, simply `invoke() or extract()` it using an HTTP message to extract the value, or alternatively `invoke() or inject()` it with the value if we are modifying (via copy) the message:\n\n\nval\n \nhandler\n \n=\n \nroutes\n(\n\n    \n/hello/{date:*}\n \nto\n \nGET\n \nbind\n \n{\n \nrequest\n:\n \nRequest\n \n-\n \n         \nval\n \npathDate\n:\n \nLocalDate\n \n=\n \npathLocalDate\n(\nrequest\n)\n \n         \n// SAME AS: \n\n         \n// val pathDate: LocalDate = pathLocalDate.extract(request)\n\n\n         \nval\n \ncustomType\n:\n \nCustomType\n \n=\n \nrequiredCustomQuery\n(\nrequest\n)\n\n         \nval\n \nanIntHeader\n:\n \nInt\n?\n \n=\n \noptionalHeader\n(\nrequest\n)\n\n\n         \nval\n \nbaseResponse\n \n=\n \nResponse\n(\nOK\n)\n\n         \nval\n \nresponseWithHeader\n \n=\n \noptionalHeader\n(\nanIntHeader\n,\n \nbaseResponse\n)\n\n         \n// SAME AS:\n\n         \n// val responseWithHeader = optionalHeader.inject(anIntHeader, baseResponse)\n\n\n         \nresponseBody\n(\nyou sent $pathDate and $customType\n,\n \nresponseWithHeader\n)\n \n      \n}\n\n\n)\n\n\n\nval\n \napp\n \n=\n \nServerFilters\n.\nCatchLensFailure\n.\nthen\n(\nhandler\n(\nRequest\n(\nMethod\n.\nGET\n,\n \n/hello/2000-01-01?myCustomType=someValue\n)))\n\n\n//With the addition of the `CatchLensFailure` filter, no other validation is required when using Lenses, as **http4k** will handle invalid requests by returning a BAD_REQUEST (400) response.\n\n\n\n//More convieniently for construction of HTTP messages, multiple lenses can be used at once to modify a message, which is useful for properly building both requests and responses in a typesafe way without resorting to string values (especially in \n\n\nURLs\n \nwhich\n \nshould\n \nnever\n \nbe\n \nconstructed\n \nusing\n \nString\n \nconcatenation\n):\n\n\n\nval\n \nmodifiedRequest\n:\n \nRequest\n \n=\n \nRequest\n(\nMethod\n.\nGET\n,\n \nhttp://google.com/{pathLocalDate}\n).\nwith\n(\n\n    \npathLocalDate\n \nof\n \nLocalDate\n.\nnow\n(),\n\n    \nrequiredQuery\n \nof\n \nmyAmazingString\n,\n\n    \noptionalHeader\n \nof\n \n123\n\n\n)\n\n\n\n\n\n\nOther features\n\n\nCreates \ncurl\n command for a given request:\n\n\nval\n \ncurl\n \n=\n \nRequest\n(\nPOST\n,\n \nhttp://httpbin.org/post\n).\nbody\n(\nlistOf\n(\nfoo\n \nto\n \nbar\n).\ntoBody\n()).\ntoCurl\n()\n\n\n// curl -X POST --data \nfoo=bar\n \nhttp://httpbin.org/post", 
+            "title": "Core"
+        }, 
+        {
+            "location": "/guide/modules/core/#installation-gradle", 
+            "text": "compile group: \"org.http4k\", name: \"http4k-core\", version: \"2.3.0\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/core/#about", 
+            "text": "The core module has ZERO dependencies and provides the following:   Immutable versions of the HTTP spec objects (Request, Response, Cookies etc).  HTTP handler and filter abstractions which models services as simple, composable functions.  Simple routing implementation, plus  HttpHandlerServlet  to enable plugging into any Servlet engine.   Lens  mechanism for typesafe destructuring and construction of HTTP messages.  Abstractions for Servers, Clients, messasge formats, Templating etc.", 
+            "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/core/#httphandlers", 
+            "text": "In  http4k , an HTTP service is just a typealias of a simple function:  typealias   HttpHandler   =   ( Request )   -   Response   First described in this Twitter paper  \"Your Server as a Function\" , this abstraction allows us lots of \nflexibility in a language like Kotlin, since the conceptual barrier to service construction is reduced to effectively nil. Here is the simplest example - note that we don't need any special infrastructure to create an  HttpHandler , neither do we \nneed to launch a real HTTP container to exercise it:  val   handler   =   {   request :   Request   -   Response ( OK ). body ( Hello, ${request.query( name )}! )   }  val   get   =   Request ( Method . GET ,   / ). query ( name ,   John Doe )  val   response   =   app ( get )  println ( response . status )  println ( response . bodyString ())   To mount the  HttpHandler  in a container, the can simply be converted to a Servlet by calling  handler.asServlet()", 
+            "title": "HttpHandlers"
+        }, 
+        {
+            "location": "/guide/modules/core/#filters", 
+            "text": "Filters add extra processing to either the Request or Response. In  http4k , they are modelled as:  interface   Filter   :   ( HttpHandler )   -   HttpHandler   Filters are designed to simply compose together (using  then() ) , creating reusable stacks of behaviour which can then be applied to any  HttpHandler . \nFor example, to add Basic Auth and latency reporting to a service:  val   handler   =   {   _ :   Request   -   Response ( OK )   }  val   myFilter   =   Filter   { \n     next :   HttpHandler   -   { \n         request :   Request   -  \n             val   start   =   System . currentTimeMillis () \n             val   response   =   next ( it ) \n             val   latency   =   System . currentTimeMillis ()   -   start \n             println ( I took $latency ms ) \n             response \n     }  }  val   latencyAndBasicAuth :   HttpHandler   =   ServerFilters . BasicAuth ( my realm ,   user ,   password ). then ( myFilter )  val   app :   HttpHandler   =   latencyAndBasicAuth . then ( handler )   The  http4k-core  module comes with a set of handy Filters for application to both Server and Client  HttpHandlers , covering common things like:   Request tracing headers (x-b3-traceid etc)  Basic Auth  Cache Control  CORS  Cookie handling  Debugging request and responses   Check out the  org.http4k.filter  package for the exact list.", 
+            "title": "Filters"
+        }, 
+        {
+            "location": "/guide/modules/core/#simple-routing", 
+            "text": "Basic routing for mapping a URL pattern to an  HttpHandler :  routes ( \n     /hello/{name:*}   to   GET   bind   {   request :   Request   -   Response ( OK ). body ( Hello, ${request.path( name )}! )   }, \n     /fail   to   POST   bind   {   request :   Request   -   Response ( INTERNAL_SERVER_ERROR )   }  ). asServer ( Jetty ( 8000 )). start ()   Note that the  http4k-contract  module contains a more typesafe implementation of routing functionality.", 
+            "title": "Simple Routing"
+        }, 
+        {
+            "location": "/guide/modules/core/#typesafe-parameter-destructuringconstruction-of-http-messages-with-lenses", 
+            "text": "Getting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. \nFor this purpose, we can use a  Lens . A Lens is a bi-directional \nentity which can be used to either get or set a particular value from/onto an HTTP message.  http4k  provides a DSL \nto configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement \nfor those parts (i.e. mandatory or optional). Some examples of declarations are:  val   pathLocalDate   =   Path . localDate (). of ( date )  val   requiredQuery   =   Query . required ( myQueryName )  val   nonEmptyQuery   =   Query . nonEmptyString (). required ( myNonEmptyQuery )  val   optionalHeader   =   Header . int (). optional ( Content-Length )  val   responseBody   =   Body . string ( PLAIN_TEXT ). toLens ()  // Most of the useful common JDK types are covered. However, if we want to use our own types, we can just use `map()`  data   class   CustomType ( val   value :   String )  val   requiredCustomQuery   =   Query . map ( :: CustomType ,   {   it . value   }). required ( myCustomType )  //To use the Lens, simply `invoke() or extract()` it using an HTTP message to extract the value, or alternatively `invoke() or inject()` it with the value if we are modifying (via copy) the message:  val   handler   =   routes ( \n     /hello/{date:*}   to   GET   bind   {   request :   Request   -  \n          val   pathDate :   LocalDate   =   pathLocalDate ( request )  \n          // SAME AS:  \n          // val pathDate: LocalDate = pathLocalDate.extract(request) \n\n          val   customType :   CustomType   =   requiredCustomQuery ( request ) \n          val   anIntHeader :   Int ?   =   optionalHeader ( request ) \n\n          val   baseResponse   =   Response ( OK ) \n          val   responseWithHeader   =   optionalHeader ( anIntHeader ,   baseResponse ) \n          // SAME AS: \n          // val responseWithHeader = optionalHeader.inject(anIntHeader, baseResponse) \n\n          responseBody ( you sent $pathDate and $customType ,   responseWithHeader )  \n       }  )  val   app   =   ServerFilters . CatchLensFailure . then ( handler ( Request ( Method . GET ,   /hello/2000-01-01?myCustomType=someValue )))  //With the addition of the `CatchLensFailure` filter, no other validation is required when using Lenses, as **http4k** will handle invalid requests by returning a BAD_REQUEST (400) response.  //More convieniently for construction of HTTP messages, multiple lenses can be used at once to modify a message, which is useful for properly building both requests and responses in a typesafe way without resorting to string values (especially in   URLs   which   should   never   be   constructed   using   String   concatenation ):  val   modifiedRequest :   Request   =   Request ( Method . GET ,   http://google.com/{pathLocalDate} ). with ( \n     pathLocalDate   of   LocalDate . now (), \n     requiredQuery   of   myAmazingString , \n     optionalHeader   of   123  )", 
+            "title": "Typesafe parameter destructuring/construction of HTTP messages with Lenses"
+        }, 
+        {
+            "location": "/guide/modules/core/#other-features", 
+            "text": "Creates  curl  command for a given request:  val   curl   =   Request ( POST ,   http://httpbin.org/post ). body ( listOf ( foo   to   bar ). toBody ()). toCurl ()  // curl -X POST --data  foo=bar   http://httpbin.org/post", 
+            "title": "Other features"
+        }, 
+        {
+            "location": "/guide/modules/servers/", 
+            "text": "Installation (Gradle)\n\n\nJetty:\n \ncompile group: \"org.http4k\", name: \"http4k-server-jetty\", version: \"2.3.0\"\n\n\nNetty:\n \ncompile group: \"org.http4k\", name: \"http4k-server-netty\", version: \"2.3.0\"\n\n\nUndertow:\n \ncompile group: \"org.http4k\", name: \"http4k-server-undertow\", version: \"2.3.0\"\n\n\nAbout\n\n\nServer-backend modules provide a consistent API mount HttpHandlers into the specified container in 1 LOC, by simply passing a \nServerConfig\n implementation (in this case \nJetty\n):\n\n\n{\n \n_\n:\n \nRequest\n \n-\n \nResponse\n(\nOK\n).\nbody\n(\nHello World\n)\n \n}.\nasServer\n(\nJetty\n(\n8000\n)).\nstart\n().\nblock\n()\n\n\n\n\n\n\nAlteratively, all server-backend modules allow for plugging \nhttp4k\n handlers into the relevant server API, which allows for custom Server configuration.", 
+            "title": "Server Backend"
+        }, 
+        {
+            "location": "/guide/modules/servers/#installation-gradle", 
+            "text": "Jetty:   compile group: \"org.http4k\", name: \"http4k-server-jetty\", version: \"2.3.0\"  Netty:   compile group: \"org.http4k\", name: \"http4k-server-netty\", version: \"2.3.0\"  Undertow:   compile group: \"org.http4k\", name: \"http4k-server-undertow\", version: \"2.3.0\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/servers/#about", 
+            "text": "Server-backend modules provide a consistent API mount HttpHandlers into the specified container in 1 LOC, by simply passing a  ServerConfig  implementation (in this case  Jetty ):  {   _ :   Request   -   Response ( OK ). body ( Hello World )   }. asServer ( Jetty ( 8000 )). start (). block ()   Alteratively, all server-backend modules allow for plugging  http4k  handlers into the relevant server API, which allows for custom Server configuration.", 
+            "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/clients/", 
+            "text": "Installation (Gradle)\n\n\nApache:\n \ncompile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"2.3.0\"\n\n\nOkHttp:\n \ncompile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"2.3.0\"\n\n\nAbout\n\n\nSupported HTTP client adapter APIs are wrapped to provide an \nHttpHandler\n interface in 1 LOC:\n\n\nval\n \nclient\n \n=\n \nApacheClient\n()\n\n\nval\n \nrequest\n \n=\n \nRequest\n(\nMethod\n.\nGET\n,\n \nhttp://httpbin.org/get\n).\nquery\n(\nlocation\n,\n \nJohn Doe\n)\n\n\nval\n \nresponse\n \n=\n \nclient\n(\nrequest\n)\n\n\nprintln\n(\nresponse\n.\nstatus\n)\n\n\nprintln\n(\nresponse\n.\nbodyString\n())\n\n\n\n\n\n\nAlteratively, all client adapter modules allow for custom configuration of the relevant Client configuration.", 
+            "title": "HTTP Client"
+        }, 
+        {
+            "location": "/guide/modules/clients/#installation-gradle", 
+            "text": "Apache:   compile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"2.3.0\"  OkHttp:   compile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"2.3.0\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/clients/#about", 
+            "text": "Supported HTTP client adapter APIs are wrapped to provide an  HttpHandler  interface in 1 LOC:  val   client   =   ApacheClient ()  val   request   =   Request ( Method . GET ,   http://httpbin.org/get ). query ( location ,   John Doe )  val   response   =   client ( request )  println ( response . status )  println ( response . bodyString ())   Alteratively, all client adapter modules allow for custom configuration of the relevant Client configuration.", 
+            "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/message_formats/", 
+            "text": "Installation (Gradle)\n\n\nArgo:\n  \ncompile group: \"org.http4k\", name: \"http4k-format-argo\", version: \"2.3.0\"\n\n\nGson:\n  \ncompile group: \"org.http4k\", name: \"http4k-format-gson\", version: \"2.3.0\"\n\n\nJackson:\n \ncompile group: \"org.http4k\", name: \"http4k-format-jackson\", version: \"2.3.0\"\n\n\nAbout\n\n\nThese modules add the ability to use JSON as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of \nstandard methods and extension methods for converting common types into native JSON objects, including custom Lens methods for each library so that \nJSON node objects can be written and read directly from HTTP messages:", 
+            "title": "Message Formats"
+        }, 
+        {
+            "location": "/guide/modules/message_formats/#installation-gradle", 
+            "text": "Argo:    compile group: \"org.http4k\", name: \"http4k-format-argo\", version: \"2.3.0\"  Gson:    compile group: \"org.http4k\", name: \"http4k-format-gson\", version: \"2.3.0\"  Jackson:   compile group: \"org.http4k\", name: \"http4k-format-jackson\", version: \"2.3.0\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/message_formats/#about", 
+            "text": "These modules add the ability to use JSON as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of \nstandard methods and extension methods for converting common types into native JSON objects, including custom Lens methods for each library so that \nJSON node objects can be written and read directly from HTTP messages:", 
+            "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/templating/", 
+            "text": "Installation (Gradle)\n\n\nHandlebars:\n \ncompile group: \"org.http4k\", name: \"http4k-template-handlebars\", version: \"2.3.0\"\n\n\nAbout\n\n\nThe pluggable \nhttp4k\n templating API adds \nViewModel\n rendering for common templating libraries. The implementations provide the a number of renderers for views:\n\n Cached on the classpath\n\n Cached from the filesystem\n* Hot-Reloading from the filesystem\n\n\ndata\n \nclass\n \nPerson\n(\nval\n \nname\n:\n \nString\n,\n \nval\n \nage\n:\n \nInt\n)\n \n:\n \nViewModel\n\n\n\nval\n \nrenderer\n \n=\n \nHandlebarsTemplates\n().\nHotReload\n(\nsrc/test/resources\n)\n\n\n\nval\n \napp\n:\n \nHttpHandler\n \n=\n \n{\n\n    \nval\n \nviewModel\n \n=\n \nPerson\n(\nBob\n,\n \n45\n)\n\n    \nval\n \nrenderedView\n \n=\n \nrenderer\n(\nviewModel\n)\n\n    \nResponse\n(\nOK\n).\nbody\n(\nrenderedView\n)\n\n\n}\n\n\n\nprintln\n(\napp\n(\nRequest\n(\nMethod\n.\nGET\n,\n \n/someUrl\n)))", 
+            "title": "Templating"
+        }, 
+        {
+            "location": "/guide/modules/templating/#installation-gradle", 
+            "text": "Handlebars:   compile group: \"org.http4k\", name: \"http4k-template-handlebars\", version: \"2.3.0\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/templating/#about", 
+            "text": "The pluggable  http4k  templating API adds  ViewModel  rendering for common templating libraries. The implementations provide the a number of renderers for views:  Cached on the classpath  Cached from the filesystem\n* Hot-Reloading from the filesystem  data   class   Person ( val   name :   String ,   val   age :   Int )   :   ViewModel  val   renderer   =   HandlebarsTemplates (). HotReload ( src/test/resources )  val   app :   HttpHandler   =   { \n     val   viewModel   =   Person ( Bob ,   45 ) \n     val   renderedView   =   renderer ( viewModel ) \n     Response ( OK ). body ( renderedView )  }  println ( app ( Request ( Method . GET ,   /someUrl )))", 
+            "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/contracts/", 
+            "text": "NOTE\n\n\nAlthough the functionality is sound, the Contract API is still in Beta in undergoing changes as it is finalised.\n\n\nInstallation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-contract\", version: \"2.3.0\"\n\n\nAbout\n\n\nThe \nhttp4k-contract\n module adds a much more sophisticated routing mechanism to that available in \nhttp4k-core\n. It adds the facility \nto declare server-side \nRoutes\n in a completely typesafe way, leveraging the Lens functionality from the core. These \nRoutes\n are \ncombined into \nRouteModules\n, which have the following features:\n\n\n\n\nAuto-validating\n - the \nRoute\n contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a \nHTTP 400\n (BAD_REQUEST)\n response.     \n\n\nSelf-describing:\n - a generated endpoint is provided which describes all of the \nRoutes\n in that module. Implementations  include \nSwagger/OpenAPI\n documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.\n\n\nSecurity:\n to secure the \nRoutes\n  against unauthorised access. Current implementations include \nApiKey\n.\n\n\n\n\n\n\n\nWhen launched, Swagger format documentation (including JSON schema models) can be found at the route of the module.\n\n\nFor a more extended example, see the following example apps: \n\n\n\n\nTodo backend (typesafe contract version)\n\n\nTDD'd example application", 
+            "title": "Typesafe Contracts"
+        }, 
+        {
+            "location": "/guide/modules/contracts/#note", 
+            "text": "Although the functionality is sound, the Contract API is still in Beta in undergoing changes as it is finalised.", 
+            "title": "NOTE"
+        }, 
+        {
+            "location": "/guide/modules/contracts/#installation-gradle", 
+            "text": "compile group: \"org.http4k\", name: \"http4k-contract\", version: \"2.3.0\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/contracts/#about", 
+            "text": "The  http4k-contract  module adds a much more sophisticated routing mechanism to that available in  http4k-core . It adds the facility \nto declare server-side  Routes  in a completely typesafe way, leveraging the Lens functionality from the core. These  Routes  are \ncombined into  RouteModules , which have the following features:   Auto-validating  - the  Route  contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a  HTTP 400\n (BAD_REQUEST)  response.       Self-describing:  - a generated endpoint is provided which describes all of the  Routes  in that module. Implementations  include  Swagger/OpenAPI  documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.  Security:  to secure the  Routes   against unauthorised access. Current implementations include  ApiKey .    When launched, Swagger format documentation (including JSON schema models) can be found at the route of the module.  For a more extended example, see the following example apps:    Todo backend (typesafe contract version)  TDD'd example application", 
+            "title": "About"
+        }, 
+        {
+            "location": "/guide/testing/", 
+            "text": "The creators of \nhttp4k\n takes testing very seriously - so seriously that there really isn't that much to say here! \nThe API has been designed to make it as simple as possible to test both individual endpoints and entire applications in a consistent fashion, which is aided by remembering that:\n\n\n\n\nThe input and output \nRequest/Response\n objects are immutable.\n\n\nHttpHandler\n endpoints are just functions.\n\n\nAn entire \nhttp4k\n application is \njust\n an \nHttpHandler\n.\n\n\n\n\nBecause of the above, there really isn't much required in the way of \"testing infrastructure\" - no magic containers or test fixtures that you might find in other frameworks. \nTesting is just matter of calling the correct function! Additionally, because the server and client HttpHandler interfaces are symmetrical - moving between in and out of container contexts \n(or indeed even to another HTTP framework entirely) is just a matter of switching out the HttpHandler implementation from the constructed app (out of container) to an HTTP client (in-container).\n\n\nThat said, possibly the most useful thing is to demonstrate the process that we have developed to test micro-services. A simple example of the development process can be found \n\nhere\n.", 
+            "title": "Application Testing"
+        }, 
+        {
+            "location": "/guide/example/", 
+            "text": "Application Design\n\n\nWhat follows is a guide to \nhow\n we build \nhttp4k\n applications test first to provide excellent test coverage driven by decoupled tests. \n\n\nFor this example, we will use an example of a Maths app with the following requirements:\n\n The app must add 2 numbers together via an HTTP call\n\n The app must multiply 2 numbers together via an HTTP call\n* Answers generated by the service will be logged (via HTTP POST) to another server - the Recorder.\n\n\nApps can generally be split into 3 tiers:\n\n\n\n\nEndpoint: \nHttpHandlers\n are constructed individually, by providing a builder function which takes the business-level dependencies. \n\n\nApplication: Builder function which takes the transport-level dependencies, and converts them into business-level dependencies. All routes are constructed and collected in this tier.\n\n\nServer: Builder function which takes the configuration for environmental concerns such as ports and downstream urls.", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/guide/example/#application-design", 
+            "text": "What follows is a guide to  how  we build  http4k  applications test first to provide excellent test coverage driven by decoupled tests.   For this example, we will use an example of a Maths app with the following requirements:  The app must add 2 numbers together via an HTTP call  The app must multiply 2 numbers together via an HTTP call\n* Answers generated by the service will be logged (via HTTP POST) to another server - the Recorder.  Apps can generally be split into 3 tiers:   Endpoint:  HttpHandlers  are constructed individually, by providing a builder function which takes the business-level dependencies.   Application: Builder function which takes the transport-level dependencies, and converts them into business-level dependencies. All routes are constructed and collected in this tier.  Server: Builder function which takes the configuration for environmental concerns such as ports and downstream urls.", 
+            "title": "Application Design"
+        }, 
+        {
+            "location": "/guide/example/_1_building_a_walking_skeleton/", 
+            "text": "Until we have an application that can be deployed, we cannot create any business value. The Walking Skeleton\nmodel dictates that putting the most trivial endpoint into a production environment will prove our deployment\npipeline is sound, and helps to set the direction for the testing strategy that we will use going forward.\n\n\nWe start with in ICT (In-Container-Test), which have the job of testing server-level concerns such as monitoring,\ndocumentation, and checking in a high-level way that the business endpoints are wired correctly.\n\n\nRequirements:\n\n\n\n\nThe service can be pinged over HTTP to prove that is still alive.\n\n\n\n\nProduction:\n\n\n\n\nTests:", 
+            "title": "1. Building a walking skeleton"
+        }, 
+        {
+            "location": "/guide/example/_1_building_a_walking_skeleton/#requirements", 
+            "text": "The service can be pinged over HTTP to prove that is still alive.", 
+            "title": "Requirements:"
+        }, 
+        {
+            "location": "/guide/example/_1_building_a_walking_skeleton/#production", 
+            "text": "", 
+            "title": "Production:"
+        }, 
+        {
+            "location": "/guide/example/_1_building_a_walking_skeleton/#tests", 
+            "text": "", 
+            "title": "Tests:"
+        }, 
+        {
+            "location": "/guide/example/_2_adding_the_first_endpoint/", 
+            "text": "Starting with another EndToEnd test, we can then drill-down into the functional behaviour of the system by introducing\nOCT (Out of Container) tests and converting the e2e test to just test endpoint wiring (so far). The common assertions have\nalso been converted to reusable extension methods on Response.\n\n\nRequirements:\n\n\n\n\nImplement an \"add\" service, which will sum a number of integer values.\n\n\n\n\nProduction:\n\n\n\n\nTests:", 
+            "title": "2. Adding an endpoint"
+        }, 
+        {
+            "location": "/guide/example/_2_adding_the_first_endpoint/#requirements", 
+            "text": "Implement an \"add\" service, which will sum a number of integer values.", 
+            "title": "Requirements:"
+        }, 
+        {
+            "location": "/guide/example/_2_adding_the_first_endpoint/#production", 
+            "text": "", 
+            "title": "Production:"
+        }, 
+        {
+            "location": "/guide/example/_2_adding_the_first_endpoint/#tests", 
+            "text": "", 
+            "title": "Tests:"
+        }, 
+        {
+            "location": "/guide/example/_3_adding_the_second_endpoint/", 
+            "text": "Requirements:\n\n\n\n\nImplement a \"multiply\" service, which will find the product of a number of integer values.\n\n\n\n\nProduction:\n\n\n\n\nTests:", 
+            "title": "3. Adding another endpoint"
+        }, 
+        {
+            "location": "/guide/example/_3_adding_the_second_endpoint/#requirements", 
+            "text": "Implement a \"multiply\" service, which will find the product of a number of integer values.", 
+            "title": "Requirements:"
+        }, 
+        {
+            "location": "/guide/example/_3_adding_the_second_endpoint/#production", 
+            "text": "", 
+            "title": "Production:"
+        }, 
+        {
+            "location": "/guide/example/_3_adding_the_second_endpoint/#tests", 
+            "text": "", 
+            "title": "Tests:"
+        }, 
+        {
+            "location": "/guide/example/_4_adding_an_external_dependency/", 
+            "text": "At this point, the separation of the layers starts to become clear:\n- The server layer is responsible for taking external configuration and instantiating the app layer.\n- The application layer API is only in terms of HTTP transports - it constructs business level abstractions\nwhich are passed down into to the individual endpoints\n\n\nThe process here is to create fake versions of the dependency which can be tested against through the business interface.\nThis requires another style of testing, CDCs (Consumer Driven Contracts), to be created. These contract tests ensure that our\ninteractions with the external service are valid.\n\n\nRequirements:\n\n\n\n\nResults from calculations should be POSTed via HTTP to another \"answer recording\" service.\n\n\n\n\nImplementation Notes:\n\n\nThe following process is followed to us to the final state, whilst always allowing us to keep the build green:\n\n\n\n\nDetermine the HTTP contract required by the Recorder (in this case an HTTP POST to /{answer}\n\n\nCreate RecorderCdc and RealRecorderTest and make it pass for the real dependency by implementing the Recorder\n\n\nCreate FakeRecorderTest and FakeRecorderHttp and make it pass for the fake. We can now use the Fake to implement our requirement\n\n\nInclude the FakeRecorderHttp in the setup of EndToEndTest, starting and stopping the server (even though it's not doing anything)\n\n\nPass the configuration of the Recorder (baseUri) into the MyMathServer, which uses it to create the recorder HttpHandler\n\n\nFactor AppEnvironment out of the functional tests. This is where all the setup of the functional testing environment will be done\n\n\nIntroduce the recorder HttpHandler to MyMathApp, creating a FakeRecorderHttp in the AppEnvironment\n\n\nAlter the AddFunctionalTest and MultiplyFunctionalTest to set the expectations on the interactions recorder in FakeRecorderHttp\n\n\nIn MyMathApp, create the Recorder business implementation (Recorder) and pass it to calculate(), then implement the call to record()\n\n\n\n\nProduction:\n\n\n\n\nTests:", 
+            "title": "4. An external dependency"
+        }, 
+        {
+            "location": "/guide/example/_4_adding_an_external_dependency/#requirements", 
+            "text": "Results from calculations should be POSTed via HTTP to another \"answer recording\" service.", 
+            "title": "Requirements:"
+        }, 
+        {
+            "location": "/guide/example/_4_adding_an_external_dependency/#implementation-notes", 
+            "text": "The following process is followed to us to the final state, whilst always allowing us to keep the build green:   Determine the HTTP contract required by the Recorder (in this case an HTTP POST to /{answer}  Create RecorderCdc and RealRecorderTest and make it pass for the real dependency by implementing the Recorder  Create FakeRecorderTest and FakeRecorderHttp and make it pass for the fake. We can now use the Fake to implement our requirement  Include the FakeRecorderHttp in the setup of EndToEndTest, starting and stopping the server (even though it's not doing anything)  Pass the configuration of the Recorder (baseUri) into the MyMathServer, which uses it to create the recorder HttpHandler  Factor AppEnvironment out of the functional tests. This is where all the setup of the functional testing environment will be done  Introduce the recorder HttpHandler to MyMathApp, creating a FakeRecorderHttp in the AppEnvironment  Alter the AddFunctionalTest and MultiplyFunctionalTest to set the expectations on the interactions recorder in FakeRecorderHttp  In MyMathApp, create the Recorder business implementation (Recorder) and pass it to calculate(), then implement the call to record()", 
+            "title": "Implementation Notes:"
+        }, 
+        {
+            "location": "/guide/example/_4_adding_an_external_dependency/#production", 
+            "text": "", 
+            "title": "Production:"
+        }, 
+        {
+            "location": "/guide/example/_4_adding_an_external_dependency/#tests", 
+            "text": "", 
+            "title": "Tests:"
+        }, 
+        {
+            "location": "/cookbook/server_as_a_function/", 
+            "text": "This is the simplest example of \"Server as a function\". There is no routing involved, nor any server. Testing can be done out-of-container.", 
+            "title": "Server as a function"
+        }, 
+        {
+            "location": "/performance/", 
+            "text": "The \nhttp4k\n server-backend modules provide a very thin adapter layer over the raw APIs of the underlying servers, so \nshould perform at a very low overhead compared to the raw server.\n\n\nTech Empower Benchmarks\n\n\nWe have entered \nhttp4k\n into the prominent \nTech Empower Framework Benchmarks\n \nproject, which assesses frameworks over a series of realistic tests, including:\n\n\n\n\nJSON response processing\n\n\nRandom data-updates (database)\n\n\nRandom data reads (database)\n\n\nTemplate-rendering (HTML)\n\n\nPlain-text pipelining\n\n\n\n\nFor this benchmark, no customisation or performance tuning of the underlying servers was done - the default Server \nconstruction mechanic was used, as below:\n\n\nfun\n \nmain\n(\nargs\n:\n \nArray\nString\n)\n \n{\n\n    \nHttp4kBenchmarkServer\n.\nstart\n(\nNetty\n(\n9000\n))\n\n\n}\n\n\n\n\n\n\nCommand-line JVM options, however, were tuned for the test to take advantage of various JVM features.\n\n\nThe full implementation of the benchmark can be found \nhere\n.\n\n\nResults\n\n\nResults and analysis will be posted here when the next round (R15) of the benchmarks is published.", 
+            "title": "Performance"
+        }, 
+        {
+            "location": "/performance/#tech-empower-benchmarks", 
+            "text": "We have entered  http4k  into the prominent  Tech Empower Framework Benchmarks  \nproject, which assesses frameworks over a series of realistic tests, including:   JSON response processing  Random data-updates (database)  Random data reads (database)  Template-rendering (HTML)  Plain-text pipelining   For this benchmark, no customisation or performance tuning of the underlying servers was done - the default Server \nconstruction mechanic was used, as below:  fun   main ( args :   Array String )   { \n     Http4kBenchmarkServer . start ( Netty ( 9000 ))  }   Command-line JVM options, however, were tuned for the test to take advantage of various JVM features.  The full implementation of the benchmark can be found  here .", 
+            "title": "Tech Empower Benchmarks"
+        }, 
+        {
+            "location": "/performance/#results", 
+            "text": "Results and analysis will be posted here when the next round (R15) of the benchmarks is published.", 
+            "title": "Results"
+        }, 
+        {
+            "location": "/in_action/", 
+            "text": "See http4k in action in these external projects:\n\n\n\n\nTodo backend (simple version)\n\n\nTodo backend (typesafe contract version)\n\n\nTDD'd example application\n\n\nStage-by-stage example of development process (London TDD style)", 
+            "title": "In action"
+        }, 
+        {
+            "location": "/in_action/#see-http4k-in-action-in-these-external-projects", 
+            "text": "Todo backend (simple version)  Todo backend (typesafe contract version)  TDD'd example application  Stage-by-stage example of development process (London TDD style)", 
+            "title": "See http4k in action in these external projects:"
+        }, 
+        {
+            "location": "/changelog/", 
+            "text": "Changelog\n\n\n\nThis list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:\n\n\nv2.3.0\n\n\n\n\nMake Route a Router so we can nest them together.\n\n\n\n\nv2.2.1\n\n\n\n\nRemove excess \"charset\" from headers in Undertow\n\n\n\n\nv2.2.0\n\n\n\n\nRename  \nby()\n to \nbind()\n in routing for clarity. \n\n\n\n\nv2.1.2\n\n\n\n\nFix for #24 - UriTemplate captures query parameters when the trailing path parameter is a regex.\n\n\n\n\nv2.1.0\n\n\n\n\nAdded GSON full-auto functions to convert arbitary objects to/from JSON.\n\n\n\n\nv2.0.5\n\n\n\n\nFix #23. Contract now supports multi-part URL params (for hardcoded parts)\n\n\n\n\nv2.0.4\n\n\n\n\nFix #22. Uri template does not parse out correct path params when URL starts with a path part.\n\n\n\n\nv2.0.3\n\n\n\n\ntoString() implementations to aid debugging\n\n\n\n\nv2.0.1\n\n\n\n\nReadded missing default parameter for \nnewRequest()\n on RouteSpec\n\n\n\n\nv2.0.0\n\n\n\n\nBreaking: Inversion of routing API. \nGET to \"/someUri\"\n is now \n\"/someUri\" to GET\n for consistency across the entire API.\n\n\n\n\nv1.33.1\n\n\n\n\nReimplementation of \nhttp4k-contract\n API to match main routing API. Contracts are now nestable.\n\n\n\n\nv1.32.2\n\n\n\n\nFix Filters being applied twice in \nContractRoutingHttpHandler\n\n\n\n\nv1.32.1\n\n\n\n\nMore work on \nhttp4k-contract\n contract API\n\n\n\n\nv1.31.0\n\n\n\n\nRework \nhttp4k-contract\n routing to be mounted in the same way as other \nRoutingHttpHandlers\n\n\n\n\nv1.30.0\n\n\n\n\nFilters are now applied consistently to all Routers\n\n\n\n\nv1.29.0\n\n\n\n\nTweak to DSL for defining StaticRouters\n\n\n\n\nv1.28.1\n\n\n\n\nFix for #18: FollowRedirect will now work if location header includes charset information.  \n\n\n\n\nv1.28.0\n\n\n\n\nNew DSL for defining StaticRouters\n\n\n\n\nv1.27.0\n\n\n\n\nMerged StaticContent and StaticRouter and repackage of contract API into other packages\n\n\n\n\nv1.26.2\n\n\n\n\nExtend fix for #17 to request \nCookie\n header.\n\n\n\n\nv1.26.1\n\n\n\n\nFix for #17. Cookie can now parse a cookie without attributes and ending in semicolon.\n\n\n\n\nv1.26.0\n\n\n\n\nAdded nestable Routers.\n\n\nMerging of Modules and Routers. \nRouter\n is the new \nModule\n! \nRouteModule\n is now \nContractRouter\n, so rename in code will be required.\n\n\n\n\nv1.25.1\n\n\n\n\nFix for #15. OkHttp client handling of POSTs with no body.\n\n\n\n\nv1.25.0\n\n\n\n\nCan add custom mime types to Static Content\n\n\nGenerateDataClasses is capable of more complex object graphs\n\n\n\n\nv1.24.0\n\n\n\n\nRemove \nHttpHandler.asServer\n in favour of \nHttpHandler.startServer\n to avoid confusion.\n\n\nIntroduce \nStatus.description()\n.\n\n\n\n\nv1.23.0\n\n\n\n\nNetty sets content-length header.\n\n\n\n\nv1.22.2\n\n\n\n\nFix for #12. Undertow not constructing response correctly.\n\n\n\n\nv1.22.0\n\n\n\n\nNew module with Undertow.io support \nhttp4k-server-undertow\n\n\nJackson implementation now ignores unknown properties in incoming messages\n\n\nNetty implementation tidied up\n\n\n\n\nv1.21.1\n\n\n\n\nFix for #11. Netty implementation returns incorrect status codes.\n\n\n\n\nv1.21.0\n\n\n\n\nAdd synonym methods for Lenses to aid readability. We now have \ninvoke(IN)/extract(IN)\n and `invoke(IN, TARGET)/inject(IN, TARGET)\n\n\n\n\nv1.20.0\n\n\n\n\nhttp4k-contracts\n: Add option to change the route of the module description route\n\n\n\n\nv1.19.1\n\n\n\n\nhttp4k-contracts\n: Fix for contract module description routes not being authenticated via security filter\n\n\n\n\nv1.19.0\n\n\n\n\nhttp4k-contracts\n: Add \nSwagger\n module rendering with JSON schema models for messages.\n\n\n\n\nv1.18.0\n\n\n\n\nAdd \nnonEmptyString()\n lens type to all request parts.\n\n\n\n\nv1.17.0\n\n\n\n\nGeneral rework\n\n\n\n\nv1.16.0\n\n\n\n\nFurther work on Path Lenses. They are now fully supported and consistent for both simple and contract routing scenarios.\n\n\n\n\nv1.15.0\n\n\n\n\nPath lenses are now bidirectional, so can be used to populate requests as well as bodies an headers etc.\n\n\nRoutes can now create shell Requests for themselves, using \nroute.newRequest()\n\n\n\n\nv1.14.0\n\n\n\n\nBody is now non-nullable (use \nBody.EMPTY\n instead)\n\n\nRename methods \nBodyLens\n API for consistency and clarity. \nrequired()\n is now \ntoLens()\n. \nto()' binding method is now\nof().\n\n\n\n\nv1.13.0\n\n\n\n\nNew client module: \nhttp4k-client-okhttp\n\n\n\n\nv1.12.0\n\n\n\n\nTidying\n\n\n\n\nv1.11.0\n\n\n\n\nAdded option for Body content-negotiation to be strict or non-strict (the default). Always be strict in what you send, relaxed in what you will accept. :)\n\n\n\n\nv1.10.0\n\n\n\n\nMoved \nCredentials\n to \norg.http4k.core\n package.\n\n\nAdd various filters, including \nSetHostFrom\n and \nCatchAll\n.\n\n\n\n\nv1.9.0\n\n\n\n\nAdded \nGenerateDataClasses\n so you can generate Kotlin data classes from JSON messages.\n\n\n\n\nv1.8.0\n\n\n\n\nAdded CORs support\n\n\n\n\nv1.7.0\n\n\n\n\nAdded auto() to Jackson, so you can auto convert body objects into and out of Requests/Responses\n\n\n\n\nv1.6.0\n\n\n\n\nAdded CachingFilters\n\n\n\n\nv1.5.0\n\n\n\n\nRemoved static factory methods for Request/Response. They were confusing/incomplete and users can easily recreate them via extension functions.\n\n\nMerge \norg.http4k.core.Body\n and \norg.http4k.lens.Body\n.\n\n\nAdd Request/Response message parsers.\n\n\n\n\nv1.4.0\n\n\n\n\nTurn Body into ByteBuffer wrapper rather than typealias. That should make .toString() behave as most people would expected.\n\n\n\n\nv1.3.0\n\n\n\n\nRemoved non-mandatory parameters from Request and Response constructors. This is aid API clarity.\nand force users to use the API methods for properly constructing the objects.\n\n\nRegex Lens added.\n\n\n\n\nv1.0.0\n\n\n\n\nInitial major release.", 
+            "title": "Changelog"
+        }, 
+        {
+            "location": "/changelog/#v230", 
+            "text": "Make Route a Router so we can nest them together.", 
+            "title": "v2.3.0"
+        }, 
+        {
+            "location": "/changelog/#v221", 
+            "text": "Remove excess \"charset\" from headers in Undertow", 
+            "title": "v2.2.1"
+        }, 
+        {
+            "location": "/changelog/#v220", 
+            "text": "Rename   by()  to  bind()  in routing for clarity.", 
+            "title": "v2.2.0"
+        }, 
+        {
+            "location": "/changelog/#v212", 
+            "text": "Fix for #24 - UriTemplate captures query parameters when the trailing path parameter is a regex.", 
+            "title": "v2.1.2"
+        }, 
+        {
+            "location": "/changelog/#v210", 
+            "text": "Added GSON full-auto functions to convert arbitary objects to/from JSON.", 
+            "title": "v2.1.0"
+        }, 
+        {
+            "location": "/changelog/#v205", 
+            "text": "Fix #23. Contract now supports multi-part URL params (for hardcoded parts)", 
+            "title": "v2.0.5"
+        }, 
+        {
+            "location": "/changelog/#v204", 
+            "text": "Fix #22. Uri template does not parse out correct path params when URL starts with a path part.", 
+            "title": "v2.0.4"
+        }, 
+        {
+            "location": "/changelog/#v203", 
+            "text": "toString() implementations to aid debugging", 
+            "title": "v2.0.3"
+        }, 
+        {
+            "location": "/changelog/#v201", 
+            "text": "Readded missing default parameter for  newRequest()  on RouteSpec", 
+            "title": "v2.0.1"
+        }, 
+        {
+            "location": "/changelog/#v200", 
+            "text": "Breaking: Inversion of routing API.  GET to \"/someUri\"  is now  \"/someUri\" to GET  for consistency across the entire API.", 
+            "title": "v2.0.0"
+        }, 
+        {
+            "location": "/changelog/#v1331", 
+            "text": "Reimplementation of  http4k-contract  API to match main routing API. Contracts are now nestable.", 
+            "title": "v1.33.1"
+        }, 
+        {
+            "location": "/changelog/#v1322", 
+            "text": "Fix Filters being applied twice in  ContractRoutingHttpHandler", 
+            "title": "v1.32.2"
+        }, 
+        {
+            "location": "/changelog/#v1321", 
+            "text": "More work on  http4k-contract  contract API", 
+            "title": "v1.32.1"
+        }, 
+        {
+            "location": "/changelog/#v1310", 
+            "text": "Rework  http4k-contract  routing to be mounted in the same way as other  RoutingHttpHandlers", 
+            "title": "v1.31.0"
+        }, 
+        {
+            "location": "/changelog/#v1300", 
+            "text": "Filters are now applied consistently to all Routers", 
+            "title": "v1.30.0"
+        }, 
+        {
+            "location": "/changelog/#v1290", 
+            "text": "Tweak to DSL for defining StaticRouters", 
+            "title": "v1.29.0"
+        }, 
+        {
+            "location": "/changelog/#v1281", 
+            "text": "Fix for #18: FollowRedirect will now work if location header includes charset information.", 
+            "title": "v1.28.1"
+        }, 
+        {
+            "location": "/changelog/#v1280", 
+            "text": "New DSL for defining StaticRouters", 
+            "title": "v1.28.0"
+        }, 
+        {
+            "location": "/changelog/#v1270", 
+            "text": "Merged StaticContent and StaticRouter and repackage of contract API into other packages", 
+            "title": "v1.27.0"
+        }, 
+        {
+            "location": "/changelog/#v1262", 
+            "text": "Extend fix for #17 to request  Cookie  header.", 
+            "title": "v1.26.2"
+        }, 
+        {
+            "location": "/changelog/#v1261", 
+            "text": "Fix for #17. Cookie can now parse a cookie without attributes and ending in semicolon.", 
+            "title": "v1.26.1"
+        }, 
+        {
+            "location": "/changelog/#v1260", 
+            "text": "Added nestable Routers.  Merging of Modules and Routers.  Router  is the new  Module !  RouteModule  is now  ContractRouter , so rename in code will be required.", 
+            "title": "v1.26.0"
+        }, 
+        {
+            "location": "/changelog/#v1251", 
+            "text": "Fix for #15. OkHttp client handling of POSTs with no body.", 
+            "title": "v1.25.1"
+        }, 
+        {
+            "location": "/changelog/#v1250", 
+            "text": "Can add custom mime types to Static Content  GenerateDataClasses is capable of more complex object graphs", 
+            "title": "v1.25.0"
+        }, 
+        {
+            "location": "/changelog/#v1240", 
+            "text": "Remove  HttpHandler.asServer  in favour of  HttpHandler.startServer  to avoid confusion.  Introduce  Status.description() .", 
+            "title": "v1.24.0"
+        }, 
+        {
+            "location": "/changelog/#v1230", 
+            "text": "Netty sets content-length header.", 
+            "title": "v1.23.0"
+        }, 
+        {
+            "location": "/changelog/#v1222", 
+            "text": "Fix for #12. Undertow not constructing response correctly.", 
+            "title": "v1.22.2"
+        }, 
+        {
+            "location": "/changelog/#v1220", 
+            "text": "New module with Undertow.io support  http4k-server-undertow  Jackson implementation now ignores unknown properties in incoming messages  Netty implementation tidied up", 
+            "title": "v1.22.0"
+        }, 
+        {
+            "location": "/changelog/#v1211", 
+            "text": "Fix for #11. Netty implementation returns incorrect status codes.", 
+            "title": "v1.21.1"
+        }, 
+        {
+            "location": "/changelog/#v1210", 
+            "text": "Add synonym methods for Lenses to aid readability. We now have  invoke(IN)/extract(IN)  and `invoke(IN, TARGET)/inject(IN, TARGET)", 
+            "title": "v1.21.0"
+        }, 
+        {
+            "location": "/changelog/#v1200", 
+            "text": "http4k-contracts : Add option to change the route of the module description route", 
+            "title": "v1.20.0"
+        }, 
+        {
+            "location": "/changelog/#v1191", 
+            "text": "http4k-contracts : Fix for contract module description routes not being authenticated via security filter", 
+            "title": "v1.19.1"
+        }, 
+        {
+            "location": "/changelog/#v1190", 
+            "text": "http4k-contracts : Add  Swagger  module rendering with JSON schema models for messages.", 
+            "title": "v1.19.0"
+        }, 
+        {
+            "location": "/changelog/#v1180", 
+            "text": "Add  nonEmptyString()  lens type to all request parts.", 
+            "title": "v1.18.0"
+        }, 
+        {
+            "location": "/changelog/#v1170", 
+            "text": "General rework", 
+            "title": "v1.17.0"
+        }, 
+        {
+            "location": "/changelog/#v1160", 
+            "text": "Further work on Path Lenses. They are now fully supported and consistent for both simple and contract routing scenarios.", 
+            "title": "v1.16.0"
+        }, 
+        {
+            "location": "/changelog/#v1150", 
+            "text": "Path lenses are now bidirectional, so can be used to populate requests as well as bodies an headers etc.  Routes can now create shell Requests for themselves, using  route.newRequest()", 
+            "title": "v1.15.0"
+        }, 
+        {
+            "location": "/changelog/#v1140", 
+            "text": "Body is now non-nullable (use  Body.EMPTY  instead)  Rename methods  BodyLens  API for consistency and clarity.  required()  is now  toLens() .  to()' binding method is now of().", 
+            "title": "v1.14.0"
+        }, 
+        {
+            "location": "/changelog/#v1130", 
+            "text": "New client module:  http4k-client-okhttp", 
+            "title": "v1.13.0"
+        }, 
+        {
+            "location": "/changelog/#v1120", 
+            "text": "Tidying", 
+            "title": "v1.12.0"
+        }, 
+        {
+            "location": "/changelog/#v1110", 
+            "text": "Added option for Body content-negotiation to be strict or non-strict (the default). Always be strict in what you send, relaxed in what you will accept. :)", 
+            "title": "v1.11.0"
+        }, 
+        {
+            "location": "/changelog/#v1100", 
+            "text": "Moved  Credentials  to  org.http4k.core  package.  Add various filters, including  SetHostFrom  and  CatchAll .", 
+            "title": "v1.10.0"
+        }, 
+        {
+            "location": "/changelog/#v190", 
+            "text": "Added  GenerateDataClasses  so you can generate Kotlin data classes from JSON messages.", 
+            "title": "v1.9.0"
+        }, 
+        {
+            "location": "/changelog/#v180", 
+            "text": "Added CORs support", 
+            "title": "v1.8.0"
+        }, 
+        {
+            "location": "/changelog/#v170", 
+            "text": "Added auto() to Jackson, so you can auto convert body objects into and out of Requests/Responses", 
+            "title": "v1.7.0"
+        }, 
+        {
+            "location": "/changelog/#v160", 
+            "text": "Added CachingFilters", 
+            "title": "v1.6.0"
+        }, 
+        {
+            "location": "/changelog/#v150", 
+            "text": "Removed static factory methods for Request/Response. They were confusing/incomplete and users can easily recreate them via extension functions.  Merge  org.http4k.core.Body  and  org.http4k.lens.Body .  Add Request/Response message parsers.", 
+            "title": "v1.5.0"
+        }, 
+        {
+            "location": "/changelog/#v140", 
+            "text": "Turn Body into ByteBuffer wrapper rather than typealias. That should make .toString() behave as most people would expected.", 
+            "title": "v1.4.0"
+        }, 
+        {
+            "location": "/changelog/#v130", 
+            "text": "Removed non-mandatory parameters from Request and Response constructors. This is aid API clarity.\nand force users to use the API methods for properly constructing the objects.  Regex Lens added.", 
+            "title": "v1.3.0"
+        }, 
+        {
+            "location": "/changelog/#v100", 
+            "text": "Initial major release.", 
+            "title": "v1.0.0"
+        }, 
+        {
+            "location": "/contributing/", 
+            "text": "Contributers' Guide\n\n\n\nThere are many ways in which you can contribute to the development of the library:\n\n\n\n\nGive us a Star on Github - you know you want to ;)\n\n\nQuestions can be directed towards the Gitter channel, or on Twitter \n@http4k\n\n\nFor issues, please describe giving as much detail as you can - including version and steps to recreate\n\n\n\n\npull requests\n\n\nIf there are any message format library or templating engine bindings that you'd like to see supported, then please feel free to suggest them or provide a PR. \n\n\n\n\nJSON formats: create a new module with an implementation of \nJson\n by following the \nArgo\n example in the source.\n\n\nTemplating engines: create a new module with a \nTemplates\nimplementation by following the \nHandlebarsTemplates\n example in the source\n\n\n\n\ngeneral guidelines\n\n\n\n\nAt the moment, PRs should be sent to the master branch - this might change in future so check back everytime!\n\n\nSource/binary compatibility always must be kept as far as possible - this is a must for minor and patch versions\n\n\nPR changes should have test coverage\n\n\nAll the PRs must pass the Travis CI jobs before merging them\n\n\n\n\nhttps://travis-ci.org/http4k/http4k\n\n\nTesting with default settings is required when push changes:\n\n\nsh\n./gradlew check", 
+            "title": "Contributers' Guide"
+        }, 
+        {
+            "location": "/contributing/#pull-requests", 
+            "text": "If there are any message format library or templating engine bindings that you'd like to see supported, then please feel free to suggest them or provide a PR.    JSON formats: create a new module with an implementation of  Json  by following the  Argo  example in the source.  Templating engines: create a new module with a  Templates implementation by following the  HandlebarsTemplates  example in the source", 
+            "title": "pull requests"
+        }, 
+        {
+            "location": "/contributing/#general-guidelines", 
+            "text": "At the moment, PRs should be sent to the master branch - this might change in future so check back everytime!  Source/binary compatibility always must be kept as far as possible - this is a must for minor and patch versions  PR changes should have test coverage  All the PRs must pass the Travis CI jobs before merging them   https://travis-ci.org/http4k/http4k  Testing with default settings is required when push changes:  sh\n./gradlew check", 
+            "title": "general guidelines"
+        }, 
+        {
+            "location": "/support/", 
+            "text": "", 
+            "title": "Help & Support"
         }
     ]
 }

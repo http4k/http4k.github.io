@@ -1,0 +1,1252 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <meta name="description" content="Http4k documentation">
+    
+    
+    <link rel="canonical" href="http://www.http4k.org/changelog/">
+    
+    
+    <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
+    
+    
+    <link rel="shortcut icon" href="../assets/images/favicon.png">
+    
+    <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.3">
+    
+    
+    
+    <title>Changelog - http4k</title>
+    
+    
+    
+    <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
+    
+    
+    <link rel="stylesheet" href="../assets/stylesheets/application-acc56dad49.css">
+    
+    <link rel="stylesheet" href="../assets/stylesheets/application-8817cfa535.palette.css">
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+    <style>body, input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+    }
+
+    code, kbd, pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+    }</style>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    <link rel="stylesheet" href=".././css/site.css">
+    
+    
+</head>
+
+
+
+
+<body data-md-color-primary="indigo" data-md-color-accent="blue">
+
+<svg class="md-svg">
+    <defs>
+        
+        
+        <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+    </defs>
+</svg>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+<label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+
+<header class="md-header" data-md-component="header">
+    <nav class="md-header-nav md-grid">
+        <div class="md-flex">
+            <div class="md-flex__cell md-flex__cell--shrink">
+                
+                <a href="http://www.http4k.org" title="http4k" class="md-logo md-header-nav__button">
+                    <img src="../img/logo_1100x200_white_on_blue.png" height="24">
+                </a>
+                
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+                <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+            
+            Changelog
+          
+        </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+                
+                <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+                
+<div class="md-search" data-md-component="search">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" accesskey="s" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                
+            </div>
+            
+            <div class="md-flex__cell md-flex__cell--shrink">
+                <div class="md-header-nav__source">
+                    
+
+
+  
+
+
+  <a href="https://github.com/http4k/http4k/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+</header>
+
+<div class="md-container">
+    
+    
+    <ul class="statusLink">
+        <li><a href="https://travis-ci.org/http4k/http4k"><img alt="build status" src="https://travis-ci.org/http4k/http4k.svg?branch=master"/></a></li>
+        <li><a href="https://coveralls.io/github/http4k/http4k?branch=master"><img alt="coverage" src="https://coveralls.io/repos/http4k/http4k/badge.svg?branch=master"/></a></li>
+        <li><a href="http//www.apache.org/licenses/LICENSE-2.0"><img alt="GitHub license" src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat"/></a></li>
+        <li><a href="https://bintray.com/http4k/maven/http4k-core/_latestVersion"><img alt="Download" src="https://api.bintray.com/packages/http4k/maven/http4k-core/images/download.svg"/></a></li>
+        <li><a href="http://kotlinlang.org"><img alt="kotlin" src="https://img.shields.io/badge/kotlin-1.1.2-blue.svg"/></a></li>
+        <li><a href="https://codebeat.co/projects/github-com-http4k-http4k-master"><img alt="codebeat badge" src="https://codebeat.co/badges/5b369ed4-af27-46f4-ad9c-a307d900617e"/></a></li>
+        <li><a href="https://kotlin.link"><img alt="Awesome Kotlin Badge" src="https://kotlin.link/awesome-kotlin.svg"/></a></li>
+        <li><a href="https://gitter.im/http4k/http4k"><img alt="Gitter" src="https://img.shields.io/badge/gitter-join%20chat-1dce73.svg"/></a></li>
+    </ul>
+    <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+            
+            
+            <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                    <div class="md-sidebar__inner">
+                        <nav class="md-nav md-nav--primary" data-md-level="0">
+    <label class="md-nav__title md-nav__title--site" for="drawer">
+        
+        <i class="md-logo md-nav__button">
+            <img src="../img/logo_1100x200_white_on_blue.png">
+        </i>
+        
+        http4k
+    </label>
+    
+    <div class="md-nav__source">
+        
+
+
+  
+
+
+  <a href="https://github.com/http4k/http4k/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+    
+    <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../rationale/" title="Rationale & Concepts" class="md-nav__link">
+      Rationale & Concepts
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../installation/" title="Installation" class="md-nav__link">
+      Installation
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../quickstart/" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Developer Guide
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Developer Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Modules
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Modules
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/modules/core/" title="Core" class="md-nav__link">
+      Core
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/modules/servers/" title="Server Backend" class="md-nav__link">
+      Server Backend
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/modules/clients/" title="HTTP Client" class="md-nav__link">
+      HTTP Client
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/modules/message_formats/" title="Message Formats" class="md-nav__link">
+      Message Formats
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/modules/templating/" title="Templating" class="md-nav__link">
+      Templating
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/modules/contracts/" title="Typesafe Contracts" class="md-nav__link">
+      Typesafe Contracts
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/testing/" title="Application Testing" class="md-nav__link">
+      Application Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
+    
+    <label class="md-nav__link" for="nav-5-3">
+      Worked TDD Example
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-3">
+        Worked TDD Example
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/example/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/example/_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
+      1. Building a walking skeleton
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/example/_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
+      2. Adding an endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/example/_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
+      3. Adding another endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guide/example/_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
+      4. An external dependency
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Cookbook
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Cookbook
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cookbook/server_as_a_function/" title="Server as a function" class="md-nav__link">
+      Server as a function
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../performance/" title="Performance" class="md-nav__link">
+      Performance
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../in_action/" title="In action" class="md-nav__link">
+      In action
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Changelog
+      </label>
+    
+    <a href="./" title="Changelog" class="md-nav__link md-nav__link--active">
+      Changelog
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v230" title="v2.3.0" class="md-nav__link">
+    v2.3.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v221" title="v2.2.1" class="md-nav__link">
+    v2.2.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v220" title="v2.2.0" class="md-nav__link">
+    v2.2.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v212" title="v2.1.2" class="md-nav__link">
+    v2.1.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v210" title="v2.1.0" class="md-nav__link">
+    v2.1.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v205" title="v2.0.5" class="md-nav__link">
+    v2.0.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v204" title="v2.0.4" class="md-nav__link">
+    v2.0.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v203" title="v2.0.3" class="md-nav__link">
+    v2.0.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v201" title="v2.0.1" class="md-nav__link">
+    v2.0.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v200" title="v2.0.0" class="md-nav__link">
+    v2.0.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1331" title="v1.33.1" class="md-nav__link">
+    v1.33.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1322" title="v1.32.2" class="md-nav__link">
+    v1.32.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1321" title="v1.32.1" class="md-nav__link">
+    v1.32.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1310" title="v1.31.0" class="md-nav__link">
+    v1.31.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1300" title="v1.30.0" class="md-nav__link">
+    v1.30.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1290" title="v1.29.0" class="md-nav__link">
+    v1.29.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1281" title="v1.28.1" class="md-nav__link">
+    v1.28.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1280" title="v1.28.0" class="md-nav__link">
+    v1.28.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1270" title="v1.27.0" class="md-nav__link">
+    v1.27.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1262" title="v1.26.2" class="md-nav__link">
+    v1.26.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1261" title="v1.26.1" class="md-nav__link">
+    v1.26.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1260" title="v1.26.0" class="md-nav__link">
+    v1.26.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1251" title="v1.25.1" class="md-nav__link">
+    v1.25.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1250" title="v1.25.0" class="md-nav__link">
+    v1.25.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1240" title="v1.24.0" class="md-nav__link">
+    v1.24.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1230" title="v1.23.0" class="md-nav__link">
+    v1.23.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1222" title="v1.22.2" class="md-nav__link">
+    v1.22.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1220" title="v1.22.0" class="md-nav__link">
+    v1.22.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1211" title="v1.21.1" class="md-nav__link">
+    v1.21.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1210" title="v1.21.0" class="md-nav__link">
+    v1.21.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1200" title="v1.20.0" class="md-nav__link">
+    v1.20.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1191" title="v1.19.1" class="md-nav__link">
+    v1.19.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1190" title="v1.19.0" class="md-nav__link">
+    v1.19.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1180" title="v1.18.0" class="md-nav__link">
+    v1.18.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1170" title="v1.17.0" class="md-nav__link">
+    v1.17.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1160" title="v1.16.0" class="md-nav__link">
+    v1.16.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1150" title="v1.15.0" class="md-nav__link">
+    v1.15.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1140" title="v1.14.0" class="md-nav__link">
+    v1.14.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1130" title="v1.13.0" class="md-nav__link">
+    v1.13.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1120" title="v1.12.0" class="md-nav__link">
+    v1.12.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1110" title="v1.11.0" class="md-nav__link">
+    v1.11.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v1100" title="v1.10.0" class="md-nav__link">
+    v1.10.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v190" title="v1.9.0" class="md-nav__link">
+    v1.9.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v180" title="v1.8.0" class="md-nav__link">
+    v1.8.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v170" title="v1.7.0" class="md-nav__link">
+    v1.7.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v160" title="v1.6.0" class="md-nav__link">
+    v1.6.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v150" title="v1.5.0" class="md-nav__link">
+    v1.5.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v140" title="v1.4.0" class="md-nav__link">
+    v1.4.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v130" title="v1.3.0" class="md-nav__link">
+    v1.3.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v100" title="v1.0.0" class="md-nav__link">
+    v1.0.0
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../contributing/" title="Contributers' Guide" class="md-nav__link">
+      Contributers' Guide
+    </a>
+  </li>
+
+        
+        
+        
+        
+
+
+  <li class="md-nav__item">
+    <a href="../support/" title="Help & Support" class="md-nav__link">
+      Help & Support
+    </a>
+  </li>
+
+        
+    </ul>
+</nav>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="md-content">
+                <article class="md-content__inner md-typeset">
+                    
+                    
+                    <a href="https://github.com/http4k/http4k/edit/master/docs/changelog/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    
+                    
+                    <h1>Changelog</h1>
+                    
+                    <h2 class="github">Changelog</h2>
+
+<p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
+<h3 id="v230">v2.3.0</h3>
+<ul>
+<li>Make Route a Router so we can nest them together.</li>
+</ul>
+<h3 id="v221">v2.2.1</h3>
+<ul>
+<li>Remove excess "charset" from headers in Undertow</li>
+</ul>
+<h3 id="v220">v2.2.0</h3>
+<ul>
+<li>Rename  <code>by()</code> to <code>bind()</code> in routing for clarity. </li>
+</ul>
+<h3 id="v212">v2.1.2</h3>
+<ul>
+<li>Fix for #24 - UriTemplate captures query parameters when the trailing path parameter is a regex.</li>
+</ul>
+<h3 id="v210">v2.1.0</h3>
+<ul>
+<li>Added GSON full-auto functions to convert arbitary objects to/from JSON.</li>
+</ul>
+<h3 id="v205">v2.0.5</h3>
+<ul>
+<li>Fix #23. Contract now supports multi-part URL params (for hardcoded parts)</li>
+</ul>
+<h3 id="v204">v2.0.4</h3>
+<ul>
+<li>Fix #22. Uri template does not parse out correct path params when URL starts with a path part.</li>
+</ul>
+<h3 id="v203">v2.0.3</h3>
+<ul>
+<li>toString() implementations to aid debugging</li>
+</ul>
+<h3 id="v201">v2.0.1</h3>
+<ul>
+<li>Readded missing default parameter for <code>newRequest()</code> on RouteSpec</li>
+</ul>
+<h3 id="v200">v2.0.0</h3>
+<ul>
+<li>Breaking: Inversion of routing API. <code>GET to "/someUri"</code> is now <code>"/someUri" to GET</code> for consistency across the entire API.</li>
+</ul>
+<h3 id="v1331">v1.33.1</h3>
+<ul>
+<li>Reimplementation of <code>http4k-contract</code> API to match main routing API. Contracts are now nestable.</li>
+</ul>
+<h3 id="v1322">v1.32.2</h3>
+<ul>
+<li>Fix Filters being applied twice in <code>ContractRoutingHttpHandler</code></li>
+</ul>
+<h3 id="v1321">v1.32.1</h3>
+<ul>
+<li>More work on <code>http4k-contract</code> contract API</li>
+</ul>
+<h3 id="v1310">v1.31.0</h3>
+<ul>
+<li>Rework <code>http4k-contract</code> routing to be mounted in the same way as other <code>RoutingHttpHandlers</code></li>
+</ul>
+<h3 id="v1300">v1.30.0</h3>
+<ul>
+<li>Filters are now applied consistently to all Routers</li>
+</ul>
+<h3 id="v1290">v1.29.0</h3>
+<ul>
+<li>Tweak to DSL for defining StaticRouters</li>
+</ul>
+<h3 id="v1281">v1.28.1</h3>
+<ul>
+<li>Fix for #18: FollowRedirect will now work if location header includes charset information.  </li>
+</ul>
+<h3 id="v1280">v1.28.0</h3>
+<ul>
+<li>New DSL for defining StaticRouters</li>
+</ul>
+<h3 id="v1270">v1.27.0</h3>
+<ul>
+<li>Merged StaticContent and StaticRouter and repackage of contract API into other packages</li>
+</ul>
+<h3 id="v1262">v1.26.2</h3>
+<ul>
+<li>Extend fix for #17 to request <code>Cookie</code> header.</li>
+</ul>
+<h3 id="v1261">v1.26.1</h3>
+<ul>
+<li>Fix for #17. Cookie can now parse a cookie without attributes and ending in semicolon.</li>
+</ul>
+<h3 id="v1260">v1.26.0</h3>
+<ul>
+<li>Added nestable Routers.</li>
+<li>Merging of Modules and Routers. <code>Router</code> is the new <code>Module</code>! <code>RouteModule</code> is now <code>ContractRouter</code>, so rename in code will be required.</li>
+</ul>
+<h3 id="v1251">v1.25.1</h3>
+<ul>
+<li>Fix for #15. OkHttp client handling of POSTs with no body.</li>
+</ul>
+<h3 id="v1250">v1.25.0</h3>
+<ul>
+<li>Can add custom mime types to Static Content</li>
+<li>GenerateDataClasses is capable of more complex object graphs</li>
+</ul>
+<h3 id="v1240">v1.24.0</h3>
+<ul>
+<li>Remove <code>HttpHandler.asServer</code> in favour of <code>HttpHandler.startServer</code> to avoid confusion.</li>
+<li>Introduce <code>Status.description()</code>.</li>
+</ul>
+<h3 id="v1230">v1.23.0</h3>
+<ul>
+<li>Netty sets content-length header.</li>
+</ul>
+<h3 id="v1222">v1.22.2</h3>
+<ul>
+<li>Fix for #12. Undertow not constructing response correctly.</li>
+</ul>
+<h3 id="v1220">v1.22.0</h3>
+<ul>
+<li>New module with Undertow.io support <code>http4k-server-undertow</code></li>
+<li>Jackson implementation now ignores unknown properties in incoming messages</li>
+<li>Netty implementation tidied up</li>
+</ul>
+<h3 id="v1211">v1.21.1</h3>
+<ul>
+<li>Fix for #11. Netty implementation returns incorrect status codes.</li>
+</ul>
+<h3 id="v1210">v1.21.0</h3>
+<ul>
+<li>Add synonym methods for Lenses to aid readability. We now have <code>invoke(IN)/extract(IN)</code> and `invoke(IN, TARGET)/inject(IN, TARGET)</li>
+</ul>
+<h3 id="v1200">v1.20.0</h3>
+<ul>
+<li><code>http4k-contracts</code>: Add option to change the route of the module description route</li>
+</ul>
+<h3 id="v1191">v1.19.1</h3>
+<ul>
+<li><code>http4k-contracts</code>: Fix for contract module description routes not being authenticated via security filter</li>
+</ul>
+<h3 id="v1190">v1.19.0</h3>
+<ul>
+<li><code>http4k-contracts</code>: Add <code>Swagger</code> module rendering with JSON schema models for messages.</li>
+</ul>
+<h3 id="v1180">v1.18.0</h3>
+<ul>
+<li>Add <code>nonEmptyString()</code> lens type to all request parts.</li>
+</ul>
+<h3 id="v1170">v1.17.0</h3>
+<ul>
+<li>General rework</li>
+</ul>
+<h3 id="v1160">v1.16.0</h3>
+<ul>
+<li>Further work on Path Lenses. They are now fully supported and consistent for both simple and contract routing scenarios.</li>
+</ul>
+<h3 id="v1150">v1.15.0</h3>
+<ul>
+<li>Path lenses are now bidirectional, so can be used to populate requests as well as bodies an headers etc.</li>
+<li>Routes can now create shell Requests for themselves, using <code>route.newRequest()</code></li>
+</ul>
+<h3 id="v1140">v1.14.0</h3>
+<ul>
+<li>Body is now non-nullable (use <code>Body.EMPTY</code> instead)</li>
+<li>Rename methods <code>BodyLens</code> API for consistency and clarity. <code>required()</code> is now <code>toLens()</code>. <code>to()' binding method is now</code>of().</li>
+</ul>
+<h3 id="v1130">v1.13.0</h3>
+<ul>
+<li>New client module: <code>http4k-client-okhttp</code></li>
+</ul>
+<h3 id="v1120">v1.12.0</h3>
+<ul>
+<li>Tidying</li>
+</ul>
+<h3 id="v1110">v1.11.0</h3>
+<ul>
+<li>Added option for Body content-negotiation to be strict or non-strict (the default). Always be strict in what you send, relaxed in what you will accept. :)</li>
+</ul>
+<h3 id="v1100">v1.10.0</h3>
+<ul>
+<li>Moved <code>Credentials</code> to <code>org.http4k.core</code> package.</li>
+<li>Add various filters, including <code>SetHostFrom</code> and <code>CatchAll</code>.</li>
+</ul>
+<h3 id="v190">v1.9.0</h3>
+<ul>
+<li>Added <code>GenerateDataClasses</code> so you can generate Kotlin data classes from JSON messages.</li>
+</ul>
+<h3 id="v180">v1.8.0</h3>
+<ul>
+<li>Added CORs support</li>
+</ul>
+<h3 id="v170">v1.7.0</h3>
+<ul>
+<li>Added auto() to Jackson, so you can auto convert body objects into and out of Requests/Responses</li>
+</ul>
+<h3 id="v160">v1.6.0</h3>
+<ul>
+<li>Added CachingFilters</li>
+</ul>
+<h3 id="v150">v1.5.0</h3>
+<ul>
+<li>Removed static factory methods for Request/Response. They were confusing/incomplete and users can easily recreate them via extension functions.</li>
+<li>Merge <code>org.http4k.core.Body</code> and <code>org.http4k.lens.Body</code>.</li>
+<li>Add Request/Response message parsers.</li>
+</ul>
+<h3 id="v140">v1.4.0</h3>
+<ul>
+<li>Turn Body into ByteBuffer wrapper rather than typealias. That should make .toString() behave as most people would expected.</li>
+</ul>
+<h3 id="v130">v1.3.0</h3>
+<ul>
+<li>Removed non-mandatory parameters from Request and Response constructors. This is aid API clarity.
+and force users to use the API methods for properly constructing the objects.</li>
+<li>Regex Lens added.</li>
+</ul>
+<h3 id="v100">v1.0.0</h3>
+<ul>
+<li>Initial major release.</li>
+</ul>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </article>
+            </div>
+        </div>
+    </main>
+    
+    
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../in_action/" title="In action" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                In action
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../contributing/" title="Contributers' Guide" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Contributers' Guide
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+    
+</div>
+
+<script src="../assets/javascripts/application-b30566c560.js"></script>
+
+
+<script>app.initialize({url: {base: ".."}})</script>
+
+
+
+
+
+</body>
+</html>
