@@ -9,28 +9,28 @@
     <meta name="description" content="Http4k documentation">
     
     
-    <link rel="canonical" href="http://www.http4k.org/guide/example/_3_adding_the_second_endpoint/">
+    <link rel="canonical" href="http://www.http4k.org/cookbook/nestable_routes/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
     
     
-    <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+    <link rel="shortcut icon" href="../../assets/images/favicon.png">
     
     <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.7.3">
     
     
     
-    <title>3. Adding another endpoint - http4k</title>
+    <title>Nestable routes - http4k</title>
     
     
     
-    <script src="../../../assets/javascripts/modernizr-1df76c4e58.js"></script>
+    <script src="../../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-    <link rel="stylesheet" href="../../../assets/stylesheets/application-acc56dad49.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/application-acc56dad49.css">
     
-    <link rel="stylesheet" href="../../../assets/stylesheets/application-8817cfa535.palette.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/application-8817cfa535.palette.css">
     
     
     
@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-    <link rel="stylesheet" href="../../.././css/site.css">
+    <link rel="stylesheet" href="../.././css/site.css">
     
     
 </head>
@@ -78,7 +78,7 @@
             <div class="md-flex__cell md-flex__cell--shrink">
                 
                 <a href="http://www.http4k.org" title="http4k" class="md-logo md-header-nav__button">
-                    <img src="../../../img/logo_1100x200_white_on_blue.png" height="24">
+                    <img src="../../img/logo_1100x200_white_on_blue.png" height="24">
                 </a>
                 
             </div>
@@ -91,15 +91,11 @@
             
               
                 <span class="md-header-nav__parent">
-                  Developer Guide
-                </span>
-              
-                <span class="md-header-nav__parent">
-                  Worked TDD Example
+                  Cookbook
                 </span>
               
             
-            3. Adding another endpoint
+            Nestable routes
           
         </span>
             </div>
@@ -182,7 +178,7 @@
     <label class="md-nav__title md-nav__title--site" for="drawer">
         
         <i class="md-logo md-nav__button">
-            <img src="../../../img/logo_1100x200_white_on_blue.png">
+            <img src="../../img/logo_1100x200_white_on_blue.png">
         </i>
         
         http4k
@@ -218,7 +214,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../.." title="Introduction" class="md-nav__link">
+    <a href="../.." title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -230,7 +226,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../rationale/" title="Rationale & Concepts" class="md-nav__link">
+    <a href="../../rationale/" title="Rationale & Concepts" class="md-nav__link">
       Rationale & Concepts
     </a>
   </li>
@@ -242,7 +238,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../installation/" title="Installation" class="md-nav__link">
+    <a href="../../installation/" title="Installation" class="md-nav__link">
       Installation
     </a>
   </li>
@@ -254,7 +250,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../quickstart/" title="Getting started" class="md-nav__link">
+    <a href="../../quickstart/" title="Getting started" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -264,12 +260,10 @@
         
         
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
     <label class="md-nav__link" for="nav-5">
       Developer Guide
@@ -306,7 +300,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/core/" title="Core" class="md-nav__link">
+    <a href="../../guide/modules/core/" title="Core" class="md-nav__link">
       Core
     </a>
   </li>
@@ -318,7 +312,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/servers/" title="Server Backend" class="md-nav__link">
+    <a href="../../guide/modules/servers/" title="Server Backend" class="md-nav__link">
       Server Backend
     </a>
   </li>
@@ -330,7 +324,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/clients/" title="HTTP Client" class="md-nav__link">
+    <a href="../../guide/modules/clients/" title="HTTP Client" class="md-nav__link">
       HTTP Client
     </a>
   </li>
@@ -342,7 +336,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/message_formats/" title="Message Formats" class="md-nav__link">
+    <a href="../../guide/modules/message_formats/" title="Message Formats" class="md-nav__link">
       Message Formats
     </a>
   </li>
@@ -354,7 +348,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/templating/" title="Templating" class="md-nav__link">
+    <a href="../../guide/modules/templating/" title="Templating" class="md-nav__link">
       Templating
     </a>
   </li>
@@ -366,7 +360,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/contracts/" title="Typesafe Contracts" class="md-nav__link">
+    <a href="../../guide/modules/contracts/" title="Typesafe Contracts" class="md-nav__link">
       Typesafe Contracts
     </a>
   </li>
@@ -383,7 +377,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../testing/" title="Application Testing" class="md-nav__link">
+    <a href="../../guide/testing/" title="Application Testing" class="md-nav__link">
       Application Testing
     </a>
   </li>
@@ -393,12 +387,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
     
     <label class="md-nav__link" for="nav-5-3">
       Worked TDD Example
@@ -416,7 +408,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Introduction" class="md-nav__link">
+    <a href="../../guide/example/" title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -428,7 +420,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
+    <a href="../../guide/example/_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
       1. Building a walking skeleton
     </a>
   </li>
@@ -440,7 +432,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
+    <a href="../../guide/example/_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
       2. Adding an endpoint
     </a>
   </li>
@@ -450,57 +442,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        3. Adding another endpoint
-      </label>
-    
-    <a href="./" title="3. Adding another endpoint" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../guide/example/_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
       3. Adding another endpoint
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requirements" title="Requirements:" class="md-nav__link">
-    Requirements:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#production" title="Production:" class="md-nav__link">
-    Production:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tests" title="Tests:" class="md-nav__link">
-    Tests:
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -510,7 +456,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
+    <a href="../../guide/example/_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
       4. An external dependency
     </a>
   </li>
@@ -530,10 +476,12 @@
         
         
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
     
     <label class="md-nav__link" for="nav-6">
       Cookbook
@@ -551,7 +499,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/server_as_a_function/" title="Server as a function" class="md-nav__link">
+    <a href="../server_as_a_function/" title="Server as a function" class="md-nav__link">
       Server as a function
     </a>
   </li>
@@ -563,7 +511,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/client_as_a_function/" title="Client as a function" class="md-nav__link">
+    <a href="../client_as_a_function/" title="Client as a function" class="md-nav__link">
       Client as a function
     </a>
   </li>
@@ -575,7 +523,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/container_integration/" title="Container integration" class="md-nav__link">
+    <a href="../container_integration/" title="Container integration" class="md-nav__link">
       Container integration
     </a>
   </li>
@@ -587,7 +535,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/simple_routing/" title="Simple routing" class="md-nav__link">
+    <a href="../simple_routing/" title="Simple routing" class="md-nav__link">
       Simple routing
     </a>
   </li>
@@ -597,11 +545,18 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../../cookbook/nestable_routes/" title="Nestable routes" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+    <a href="./" title="Nestable routes" class="md-nav__link md-nav__link--active">
       Nestable routes
     </a>
+    
   </li>
 
         
@@ -611,7 +566,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/using_json/" title="Using JSON" class="md-nav__link">
+    <a href="../using_json/" title="Using JSON" class="md-nav__link">
       Using JSON
     </a>
   </li>
@@ -623,7 +578,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/using_templates/" title="Using templates" class="md-nav__link">
+    <a href="../using_templates/" title="Using templates" class="md-nav__link">
       Using templates
     </a>
   </li>
@@ -635,7 +590,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/generating_data_classes_from_json/" title="Generating data classes from json" class="md-nav__link">
+    <a href="../generating_data_classes_from_json/" title="Generating data classes from json" class="md-nav__link">
       Generating data classes from json
     </a>
   </li>
@@ -647,7 +602,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/typesafe_http_contracts/" title="Typesafe http contracts" class="md-nav__link">
+    <a href="../typesafe_http_contracts/" title="Typesafe http contracts" class="md-nav__link">
       Typesafe http contracts
     </a>
   </li>
@@ -659,7 +614,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/typesafe_http_requests_with_lenses/" title="Typesafe http requests with lenses" class="md-nav__link">
+    <a href="../typesafe_http_requests_with_lenses/" title="Typesafe http requests with lenses" class="md-nav__link">
       Typesafe http requests with lenses
     </a>
   </li>
@@ -671,7 +626,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/test_driven_apps/" title="Test driven apps" class="md-nav__link">
+    <a href="../test_driven_apps/" title="Test driven apps" class="md-nav__link">
       Test driven apps
     </a>
   </li>
@@ -688,7 +643,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../performance/" title="Performance" class="md-nav__link">
+    <a href="../../performance/" title="Performance" class="md-nav__link">
       Performance
     </a>
   </li>
@@ -700,7 +655,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../in_action/" title="In action" class="md-nav__link">
+    <a href="../../in_action/" title="In action" class="md-nav__link">
       In action
     </a>
   </li>
@@ -712,7 +667,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../changelog/" title="Changelog" class="md-nav__link">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
       Changelog
     </a>
   </li>
@@ -724,7 +679,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../contributing/" title="Contributers' Guide" class="md-nav__link">
+    <a href="../../contributing/" title="Contributers' Guide" class="md-nav__link">
       Contributers' Guide
     </a>
   </li>
@@ -736,7 +691,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../support/" title="Help & Support" class="md-nav__link">
+    <a href="../../support/" title="Help & Support" class="md-nav__link">
       Help & Support
     </a>
   </li>
@@ -753,19 +708,12 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/example/_3_adding_the_second_endpoint/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/nestable_routes/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>3. Adding another endpoint</h1>
+                    <h1>Nestable routes</h1>
                     
-                    <h2 id="requirements">Requirements:</h2>
-<ul>
-<li>Implement a "multiply" service, which will find the product of a number of integer values.</li>
-</ul>
-<h2 id="production">Production:</h2>
-<p><script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/example/_3_adding_the_second_endpoint/project.kt"></script></p>
-<h2 id="tests">Tests:</h2>
-<p><script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/example/_3_adding_the_second_endpoint/tests.kt"></script></p>
+                    <script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nestable_routes/example.kt"></script>
                     
                     
                     
@@ -784,7 +732,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../simple_routing/" title="Simple routing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -793,19 +741,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                2. Adding an endpoint
+                Simple routing
               </span>
             </div>
           </a>
         
         
-          <a href="../_4_adding_an_external_dependency/" title="4. An external dependency" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../using_json/" title="Using JSON" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                4. An external dependency
+                Using JSON
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -835,10 +783,10 @@
     
 </div>
 
-<script src="../../../assets/javascripts/application-b30566c560.js"></script>
+<script src="../../assets/javascripts/application-b30566c560.js"></script>
 
 
-<script>app.initialize({url: {base: "../../.."}})</script>
+<script>app.initialize({url: {base: "../.."}})</script>
 
 
 
