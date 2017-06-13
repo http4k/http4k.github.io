@@ -249,15 +249,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example" title="Example" class="md-nav__link">
-    Example
+  <a href="#module-feature-overview" title="Module feature overview" class="md-nav__link">
+    Module feature overview
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#module-feature-overview" title="Module feature overview" class="md-nav__link">
-    Module feature overview
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -802,14 +802,68 @@ plugging together of services without HTTP container being required.</li>
 <li>HTTP message adapters for Argo JSON, Gson JSON and Jackson JSON (includes auto-marshalling)</li>
 <li>Templating support: Caching and Hot-Reload engine support for Handlebars</li>
 </ul>
-<p><span class="github"></p>
+<h2 id="module-feature-overview">Module feature overview</h2>
+<ul>
+<li><a href="http://http4k.org/guide/modules/core">Core:</a> <ul>
+<li>Base HTTP handler and <strong>immutable HTTP message</strong> objects, cookie handling. </li>
+<li>Commonly used HTTP functionalities provided as reusable Filters (caching, debugging, <strong>Zipkin request tracing</strong>)</li>
+<li><strong>Path-based routing</strong>, including nestable contexts</li>
+<li><strong>Typesafe HTTP message construction/desconstruction</strong> using Lenses</li>
+<li><strong>Static file-serving</strong> capability with <strong>Caching and Hot-Reload</strong> </li>
+<li>Servlet implementation to allow <strong>zero-dependency plugin to any Servlet container</strong></li>
+<li>Core abstraction APIs implemented by the other modules </li>
+</ul>
+</li>
+<li><a href="http://http4k.org/guide/modules/clients">Client:</a> <ul>
+<li><strong>Single LOC</strong> HTTP client adapters <ul>
+<li><strong>Apache</strong></li>
+<li><strong>OkHttp</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="http://http4k.org/guide/modules/servers">Server:</a><ul>
+<li><strong>Single LOC</strong> server backend spinup for:<ul>
+<li><strong>Jetty</strong></li>
+<li><strong>Netty</strong></li>
+<li><strong>Undertow</strong></li>
+</ul>
+</li>
+<li>API design allows for plugging into configurable instances of each</li>
+</ul>
+</li>
+<li><strong>BETA!</strong> <a href="http://http4k.org/guide/modules/contracts">Contracts:</a> </li>
+<li>Definite <strong>Typesafe</strong> HTTP contracts, defining required and optional path/query/header/bodies</li>
+<li><strong>Typesafe</strong> path matching</li>
+<li><strong>Auto-validation</strong> of incoming requests == <strong>zero boilerplate validation code</strong></li>
+<li>Self-documenting for all routes - eg. Built in support for live <strong>Swagger</strong> description endpoints including <strong>JSON Schema</strong> model breakdown. </li>
+<li><a href="http://http4k.org/guide/modules/templating">Templating:</a> <ul>
+<li><strong>Pluggable</strong> templating system support for:<ul>
+<li><strong>Handlebars</strong> </li>
+<li><strong>Pebble</strong></li>
+<li><strong>Thymeleaf</strong></li>
+</ul>
+</li>
+<li>Caching and <strong>Hot-Reload</strong> template support</li>
+</ul>
+</li>
+<li><a href="http://http4k.org/guide/modules/message_formats">Message formats:</a> <ul>
+<li>Consistent API provides first class support for marshalling JSON to/from HTTP messages for:<ul>
+<li><strong>Jackson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong>)</li>
+<li><strong>Gson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong>)</li>
+<li><strong>Argo</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="example">Example</h2>
-<p>This quick example is designed to convey the simplicity &amp; features of <strong>http4k</strong>. There is also a <a href="https://github.com/http4k/http4k/wiki/Quickstart">quickstart</a> on the wiki for the simplest possible starting point.</p>
+<p>This quick example is designed to convey the simplicity &amp; features of <strong>http4k</strong>. See also the <a href="http://www.http4k.org/quickstart/">quickstart</a> for the simplest possible starting point.</p>
 <p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
 <div class="codehilite"><pre><span></span><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.3.0&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.3.0&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-apache&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.3.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.5.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.5.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-apache&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.5.0&quot;</span>
 <span class="o">}</span>
 </pre></div>
 
@@ -893,62 +947,6 @@ plugging together of services without HTTP container being required.</li>
 </pre></div>
 
 
-<p></span></p>
-<h2 id="module-feature-overview">Module feature overview</h2>
-<ul>
-<li><a href="http://http4k.org/guide/modules/core">Core:</a> <ul>
-<li>Base HTTP handler and <strong>immutable HTTP message</strong> objects, cookie handling. </li>
-<li>Commonly used HTTP functionalities provided as reusable Filters (caching, debugging, <strong>Zipkin request tracing</strong>)</li>
-<li><strong>Path-based routing</strong>, including nestable contexts</li>
-<li><strong>Typesafe HTTP message construction/desconstruction</strong> using Lenses</li>
-<li><strong>Static file-serving</strong> capability with <strong>Caching and Hot-Reload</strong> </li>
-<li>Servlet implementation to allow <strong>zero-dependency plugin to any Servlet container</strong></li>
-<li>Core abstraction APIs implemented by the other modules </li>
-</ul>
-</li>
-<li><a href="http://http4k.org/guide/modules/clients">Client:</a> <ul>
-<li><strong>Single LOC</strong> HTTP client adapters <ul>
-<li><strong>Apache</strong></li>
-<li><strong>OkHttp</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="http://http4k.org/guide/modules/servers">Server:</a><ul>
-<li><strong>Single LOC</strong> server backend spinup for:<ul>
-<li><strong>Jetty</strong></li>
-<li><strong>Netty</strong></li>
-<li><strong>Undertow</strong></li>
-</ul>
-</li>
-<li>API design allows for plugging into configurable instances of each</li>
-</ul>
-</li>
-<li><strong>BETA!</strong> <a href="http://http4k.org/guide/modules/contracts">Contracts:</a> </li>
-<li>Definite <strong>Typesafe</strong> HTTP contracts, defining required and optional path/query/header/bodies</li>
-<li><strong>Typesafe</strong> path matching</li>
-<li><strong>Auto-validation</strong> of incoming requests == <strong>zero boilerplate validation code</strong></li>
-<li>Self-documenting for all routes - eg. Built in support for live <strong>Swagger</strong> description endpoints including <strong>JSON Schema</strong> model breakdown. </li>
-<li><a href="http://http4k.org/guide/modules/templating">Templating:</a> <ul>
-<li><strong>Pluggable</strong> templating system support for:<ul>
-<li><strong>Handlebars</strong> </li>
-<li><strong>Pebble</strong></li>
-<li><strong>Thymeleaf</strong></li>
-</ul>
-</li>
-<li>Caching and <strong>Hot-Reload</strong> template support</li>
-</ul>
-</li>
-<li><a href="http://http4k.org/guide/modules/message_formats">Message formats:</a> <ul>
-<li>Consistent API provides first class support for marshalling JSON to/from HTTP messages for:<ul>
-<li><strong>Jackson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong>)</li>
-<li><strong>Gson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong>)</li>
-<li><strong>Argo</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 <h2 id="acknowledgments">Acknowledgments</h2>
 <ul>
 <li><a href="https://twitter.com/DanielBodart">Dan Bodart</a>'s <a href="https://github.com/bodar/utterlyidle">utterlyidle</a></li>
