@@ -908,15 +908,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 <td><code>Request</code></td>
 <td>Singular or multiple</td>
 <td>Optional or Required</td>
-<td><code>Query.optional("name")</code><br/><code>Query.required("name")</code><br/><code>Query.int().required("name")</code><br/>`Query.localDate().multi.required("name")</td>
-</tr>
-<tr>
-<td><code>&lt;br/&gt;</code>Query.map(::CustomType, { it.value }).required("name")`</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td><code>Query.optional("name")</code><br/><code>Query.required("name")</code><br/><code>Query.int().required("name")</code><br/><code>Query.localDate().multi.required("name")</code><br/><code>Query.map(::CustomType, { it.value }).required("name")</code></td>
 </tr>
 <tr>
 <td>Header</td>
@@ -924,15 +916,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 <td><code>Request</code> or <code>Response</code></td>
 <td>Singular or multiple</td>
 <td>Optional or Required</td>
-<td><code>Header.optional("name")</code><br/><code>Header.required("name")</code><br/><code>Header.int().required("name")</code><br/>`Header.localDate().multi.required("name")</td>
-</tr>
-<tr>
-<td><code>&lt;br/&gt;</code>Header.map(::CustomType, { it.value }).required("name")`</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td><code>Header.optional("name")</code><br/><code>Header.required("name")</code><br/><code>Header.int().required("name")</code><br/><code>Header.localDate().multi.required("name")</code><br/><code>Header.map(::CustomType, { it.value }).required("name")</code></td>
 </tr>
 <tr>
 <td>Path</td>
@@ -948,7 +932,15 @@ to configure these lenses to target particular parts of the message, whilst at t
 <td><code>WebForm</code></td>
 <td>Singular or multiple</td>
 <td>Optional or Required</td>
-<td><code>FormField.optional("name")</code><br/><code>FormField.required("name")</code><br/><code>FormField.int().required("name")</code><br/><code>FormField.localDate().multi.required("name")</code><br/><code>FormField.map(::CustomType, { it.value }).required("name")</code></td>
+<td><code>FormField.optional("name")</code><br/><code>FormField.required("name")</code><br/><code>FormField.int().required("name")</code><br/>`FormField.localDate().multi.required</td>
+</tr>
+<tr>
+<td>("name")<code>&lt;br/&gt;</code>FormField.map(::CustomType, { it.value }).required("name")`</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 <tr>
 <td>Body</td>
