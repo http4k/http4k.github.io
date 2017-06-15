@@ -403,6 +403,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#important-note" title="Important Note" class="md-nav__link">
+    Important Note
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -786,11 +793,11 @@ JSON node objects can be written and read directly from HTTP messages:</p>
 
 <h2 id="auto-marshalling-capabilities">Auto-marshalling capabilities</h2>
 <p>Some of the JSON message libraries (eg. GSON and Jackson) provide the mechanism to automatically marshall data objects to/from JSON using reflection.</p>
-<p>We can use this facility in <strong>http4k</strong> to automatically marshall objects to/from HTTP message bodies:</p>
+<p>We can use this facility in <strong>http4k</strong> to automatically marshall objects to/from HTTP message bodies using *<em>Lenses</em>:</p>
 <script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/auto.kt"></script>
 
-<p><strong>Important Note</strong>
-When handling raw JSON array messages, such as: <code>[123, 456, 567]</code>, there is a slight gotcha when auto-marshalling messages from JSON.</p>
+<h2 id="important-note">Important Note</h2>
+<p>When handling raw JSON array messages, such as: <code>[123, 456, 567]</code>, there is a slight gotcha when auto-marshalling messages from JSON.</p>
 <p>This is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.</p>
 <p>As shown, a workaround to this is to use <code>Body.auto&lt;Array&lt;MyIntWrapper&gt;&gt;().toLens()</code> instead, and then compare using <code>Arrays.equal()</code></p>
 <script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/list_gotcha.kt"></script>
