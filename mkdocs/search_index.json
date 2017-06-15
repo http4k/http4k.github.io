@@ -117,7 +117,7 @@
         }, 
         {
             "location": "/guide/modules/message_formats/", 
-            "text": "Installation (Gradle)\n\n\nArgo:\n  \ncompile group: \"org.http4k\", name: \"http4k-format-argo\", version: \"2.5.1\"\n\n\nGson:\n  \ncompile group: \"org.http4k\", name: \"http4k-format-gson\", version: \"2.5.1\"\n\n\nJackson:\n \ncompile group: \"org.http4k\", name: \"http4k-format-jackson\", version: \"2.5.1\"\n\n\nAbout\n\n\nThese modules add the ability to use JSON as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of \nstandard methods and extension methods for converting common types into native JSON objects, including custom Lens methods for each library so that \nJSON node objects can be written and read directly from HTTP messages:", 
+            "text": "Installation (Gradle)\n\n\nArgo:\n  \ncompile group: \"org.http4k\", name: \"http4k-format-argo\", version: \"2.5.1\"\n\n\nGson:\n  \ncompile group: \"org.http4k\", name: \"http4k-format-gson\", version: \"2.5.1\"\n\n\nJackson:\n \ncompile group: \"org.http4k\", name: \"http4k-format-jackson\", version: \"2.5.1\"\n\n\nAbout\n\n\nThese modules add the ability to use JSON as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of \nstandard methods and extension methods for converting common types into native JSON objects, including custom Lens methods for each library so that \nJSON node objects can be written and read directly from HTTP messages:\n\n\n\n\n\nAuto-marshalling capabilities\n\n\nSome of the JSON message libraries (eg. GSON and Jackson) provide the mechanism to automatically marshall data objects to/from JSON using reflection.\n\n\nWe can use this facility in \nhttp4k\n to automatically marshall objects to/from HTTP message bodies:\n\n\n\n\n\nImportant Note\n\nWhen handling raw JSON array messages, such as: \n[123, 456, 567]\n, there is a slight gotcha when auto-marshalling messages from JSON.\n\n\nThis is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.\n\n\nAs shown, a workaround to this is to use \nBody.auto\nArray\nMyIntWrapper\n().toLens()\n instead, and then compare using \nArrays.equal()", 
             "title": "Message Formats"
         }, 
         {
@@ -129,6 +129,11 @@
             "location": "/guide/modules/message_formats/#about", 
             "text": "These modules add the ability to use JSON as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of \nstandard methods and extension methods for converting common types into native JSON objects, including custom Lens methods for each library so that \nJSON node objects can be written and read directly from HTTP messages:", 
             "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/message_formats/#auto-marshalling-capabilities", 
+            "text": "Some of the JSON message libraries (eg. GSON and Jackson) provide the mechanism to automatically marshall data objects to/from JSON using reflection.  We can use this facility in  http4k  to automatically marshall objects to/from HTTP message bodies:   Important Note \nWhen handling raw JSON array messages, such as:  [123, 456, 567] , there is a slight gotcha when auto-marshalling messages from JSON.  This is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.  As shown, a workaround to this is to use  Body.auto Array MyIntWrapper ().toLens()  instead, and then compare using  Arrays.equal()", 
+            "title": "Auto-marshalling capabilities"
         }, 
         {
             "location": "/guide/modules/templating/", 
