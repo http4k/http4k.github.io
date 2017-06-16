@@ -784,8 +784,13 @@ server and client sides (eg. logging/metrics/caching...) since they can be compo
 <p>Scenarios such as "what happens if this HTTP dependency continually takes &gt; 5 seconds to respond?" are easily modelled - answers you can't easily get if you're faking out your dependencies inside the HTTP boundary.</p>
 <h2 id="concepts">Concepts</h2>
 <ul>
-<li>All incoming and outgoing HTTP services are modelled as <code>HttpHandler</code>, which is modelled as <code>(Request) -&gt; Response</code>:
-    <code>val handler: HttpHandler = { request: Request -&gt; Response(OK) }</code></li>
+<li>All incoming and outgoing HTTP services are modelled as <code>HttpHandler</code>, which is modelled as <code>(Request) -&gt; Response</code>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+</pre></div>
+
+
+<ul>
 <li>Pre/post processing is done using a <code>Filter</code>, which is modelled as <code>(HttpHandler) -&gt; HttpHandler</code>. Filters can therefore be composed together to make reusable "stacks" of behaviour which can be applied to a terminating <code>HttpHandler</code> - to yield 
 a decorated <code>HttpHander</code>:</li>
 </ul>
@@ -795,8 +800,13 @@ a decorated <code>HttpHander</code>:</li>
 
 
 <ul>
-<li>Binding an HttpHandler to a path and HTTP verb yields a <code>Route</code>:
-    <code>val route: Route = "/path" to GET bind { Response(OK).body("you GET bob") }</code></li>
+<li>Binding an HttpHandler to a path and HTTP verb yields a <code>Route</code>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">Route</span> <span class="p">=</span> <span class="s">&quot;/path&quot;</span> <span class="n">to</span> <span class="n">GET</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">}</span>
+</pre></div>
+
+
+<ul>
 <li>Routes can be combined together into a <code>RoutingHttpHandler</code>, which is an <code>HttpHandler</code> which also a <code>Router</code>:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
@@ -818,10 +828,20 @@ a decorated <code>HttpHander</code>:</li>
 
 
 <ul>
-<li>HttpHandlers can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. The decouples the server implementation from the business logic:
-    <code>val jettyServer = app.asServer(Jetty(9000)).start()</code></li>
-<li>Http clients are also HttpHandlers:
-    <code>val client: ApacheClient = ApacheClient()</code></li>
+<li>HttpHandlers can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. The decouples the server implementation from the business logic:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">jettyServer</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
+<li>Http clients are also HttpHandlers:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">ApacheClient</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
 <li>Because the client and server interfaces are the same, apps can simply be plugged together out-of-container by just injecting one into the other:</li>
 </ul>
 <div class="codehilite"><pre><span></span>    <span class="k">val</span> <span class="py">app1</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">MyApp1</span><span class="p">()</span>
