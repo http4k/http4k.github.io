@@ -176,6 +176,21 @@
             "title": "About"
         }, 
         {
+            "location": "/guide/modules/aws/", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-aws\", version: \"2.7.1\"\n\n\nAbout\n\n\nThis module provides super-simple AWS request signing functionality for talking to AWS services. This is implemented as a standard \nFilter\n which can be used to wrap a standard \nHttpHandler\n client:", 
+            "title": "AWS"
+        }, 
+        {
+            "location": "/guide/modules/aws/#installation-gradle", 
+            "text": "compile group: \"org.http4k\", name: \"http4k-aws\", version: \"2.7.1\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/aws/#about", 
+            "text": "This module provides super-simple AWS request signing functionality for talking to AWS services. This is implemented as a standard  Filter  which can be used to wrap a standard  HttpHandler  client:", 
+            "title": "About"
+        }, 
+        {
             "location": "/guide/testing/", 
             "text": "The creators of \nhttp4k\n takes testing very seriously - so seriously that there really isn't that much to say here! \nThe API has been designed to make it as simple as possible to test both individual endpoints and entire applications in a consistent fashion, which is aided by remembering that:\n\n\n\n\nThe input and output \nRequest/Response\n objects are immutable.\n\n\nHttpHandlers\n are just functions.\n\n\nAn entire \nhttp4k\n application is \njust\n an \nHttpHandler\n.\n\n\n\n\nBecause of the above, there really isn't much required in the way of \"testing infrastructure\" - no magic containers or test fixtures that you might find in other frameworks. \nTesting is just matter of calling the correct function! Additionally, because the server and client HttpHandler interfaces are symmetrical - moving between in and out of container contexts \n(or indeed even to another HTTP framework entirely) is just a matter of switching out the HttpHandler implementation from the constructed app (out of container) to an HTTP client (in-container).\n\n\nThat said, possibly the most useful thing is to demonstrate the process that we have developed to test micro-services. A simple example of the development process can be found \n\nhere\n.", 
             "title": "Application Testing"
