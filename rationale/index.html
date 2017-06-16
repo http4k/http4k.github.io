@@ -800,14 +800,14 @@ a decorated <code>HttpHander</code>:</li>
 
 
 <ul>
-<li>Binding an HttpHandler to a path and HTTP verb yields a <code>Route</code>:</li>
+<li>Binding an <code>HttpHandler</code> to a path and HTTP verb yields a <code>Route</code>:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">Route</span> <span class="p">=</span> <span class="s">&quot;/path&quot;</span> <span class="n">to</span> <span class="n">GET</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">}</span>
 </pre></div>
 
 
 <ul>
-<li>Routes can be combined together into a <code>RoutingHttpHandler</code>, which is an <code>HttpHandler</code> which also a <code>Router</code>:</li>
+<li><code>Routes</code> can be combined together into a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a`Router``:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;bob&quot;</span> <span class="n">to</span> <span class="n">GET</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
@@ -818,7 +818,7 @@ a decorated <code>HttpHander</code>:</li>
 
 
 <ul>
-<li>Routers can be combined together to form another <code>HttpHandler</code>:</li>
+<li><code>Routers</code> can be combined together to form another <code>HttpHandler</code>:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">bigApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/this&quot;</span> <span class="n">bind</span> <span class="n">app</span><span class="p">,</span> 
@@ -828,16 +828,16 @@ a decorated <code>HttpHander</code>:</li>
 
 
 <ul>
-<li>HttpHandlers can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. The decouples the server implementation from the business logic:</li>
+<li><code>HttpHandlers</code> can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. The decouples the server implementation from the business logic:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">jettyServer</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 
 
 <ul>
-<li>Http clients are also HttpHandlers:</li>
+<li>An Http client is also a <code>HttpHandler</code>:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">ApacheClient</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
 </pre></div>
 
 
