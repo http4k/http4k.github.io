@@ -776,13 +776,57 @@ adoption of Kotlin, we wanted something that would fully leverage the features o
 <li>Has a symmetric server/client API (<code>HttpHandler</code> should just be <code>Request -&gt; Response</code>).</li>
 <li>Has immutable Request/Response objects.</li>
 </ol>
-<p>All of these things summed together allow us to construct entire suites of services which can be tested either wired together without HTTP, or spun up in containers 
+<p><strong>http4k</strong> ticks all of these boxes.</p>
+<p>It allow us to construct entire suites of services which can be tested either wired together without HTTP, or spun up in containers 
 in 1 LOC. The symmetric HTTP API also allows filter chains (often called interceptors in other frameworks) to be constructed into reusable units/stacks for both 
-server and client sides (eg. logging/metrics/caching...) since they can be composed together for later use. We can also easily create simple Fake servers for any 
-HTTP contract, which means (in combination with CDC suites) we can end-to-end test micro-services in an outside-in way (using GOOS-style acceptance tests). This 
-means that you are easily able to answer questions like "what happens if this HTTP dependency continually takes &gt; 5 seconds to respond?" - which is a question you 
-can't easily answer if you're faking out your dependencies inside the HTTP boundary.</p>
+server and client sides (eg. logging/metrics/caching...) since they can be composed together for later use. </p>
+<p>As a bonus, we can also easily create simple Fake servers for any HTTP contract, which means (in combination with CDC suites) you can end-to-end test micro-services in an outside-in way (using GOOS-style acceptance tests).</p>
+<p>Scenarios such as "what happens if this HTTP dependency continually takes &gt; 5 seconds to respond?" are easily modelled - answers you can't easily get if you're faking out your dependencies inside the HTTP boundary.</p>
 <h2 id="concepts">Concepts</h2>
+<ul>
+<li>All incoming and outgoing HTTP services are modelled as <code>HttpHandler</code>, which is modelled as <code>(Request) -&gt; Response</code>:
+    <code>val handler: HttpHandler = { request: Request -&gt; Response(OK) }</code></li>
+<li>Pre/post processing is done using a <code>Filter</code>, which is modelled as <code>(HttpHandler) -&gt; HttpHandler</code>. Filters can therefore be composed together to make reusable "stacks" of behaviour which can be applied to a terminating <code>HttpHandler</code> - to yield 
+a decorated <code>HttpHander</code>:</li>
+</ul>
+<div class="codehilite"><pre><span></span>    <span class="k">val</span> <span class="py">filter</span><span class="p">:</span> <span class="n">Filter</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;my response header&quot;</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="p">)}</span> <span class="p">}</span>
+    <span class="k">val</span> <span class="py">decorated</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">filter</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li>Binding an HttpHandler to a path and HTTP verb yields a <code>Route</code>:
+    <code>val route: Route = "/path" to GET bind { Response(OK).body("you GET bob") }</code></li>
+<li>Routes can be combined together into a <code>RoutingHttpHandler</code>, which is an <code>HttpHandler</code> which also a <code>Router</code>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;bob&quot;</span> <span class="n">to</span> <span class="n">GET</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s">&quot;rita&quot;</span> <span class="n">to</span> <span class="n">POST</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you POST rita&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s">&quot;sue&quot;</span> <span class="n">to</span> <span class="n">DELETE</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you DELETE sue&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li>Routers can be combined together to form another <code>HttpHandler</code>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">bigApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/this&quot;</span> <span class="n">bind</span> <span class="n">app</span><span class="p">,</span> 
+    <span class="s">&quot;/other&quot;</span> <span class="n">bind</span> <span class="n">app</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li>HttpHandlers can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. The decouples the server implementation from the business logic:
+    <code>val jettyServer = app.asServer(Jetty(9000)).start()</code></li>
+<li>Http clients are also HttpHandlers:
+    <code>val client: ApacheClient = ApacheClient()</code></li>
+<li>Because the client and server interfaces are the same, apps can simply be plugged together out-of-container by just injecting one into the other:</li>
+</ul>
+<div class="codehilite"><pre><span></span>    <span class="k">val</span> <span class="py">app1</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">MyApp1</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">app2</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">MyApp2</span><span class="p">(</span><span class="n">app1</span><span class="p">)</span>
+</pre></div>
                     
                     
                     
