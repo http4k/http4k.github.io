@@ -816,7 +816,7 @@ a decorated <code>HttpHander</code>:</li>
 
 
 <ul>
-<li><code>Routes</code> can be combined together into a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a`Router``:</li>
+<li><code>Routes</code> can be combined together into a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a<code>Router</code>:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;bob&quot;</span> <span class="n">to</span> <span class="n">GET</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
@@ -827,6 +827,7 @@ a decorated <code>HttpHander</code>:</li>
 
 
 <ul>
+<li>A <code>Router</code> is a selective request handler, which attempts to match a request. If it cannot, processing falls through to the next <code>Router</code> in the list.</li>
 <li><code>Routers</code> can be combined together to form another <code>HttpHandler</code>:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">bigApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
