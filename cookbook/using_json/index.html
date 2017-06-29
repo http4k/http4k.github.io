@@ -602,9 +602,41 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Using JSON
+      </label>
+    
     <a href="./" title="Using JSON" class="md-nav__link md-nav__link--active">
       Using JSON
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
+    Gradle setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -750,8 +782,15 @@
                     
                     <h1>Using JSON</h1>
                     
-                    <p>Example of how to use the JSON library API wrappers, in this case the module used is Jackson</p>
-<script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/using_json/example.kt"></script>
+                    <p>Example of how to use the JSON library API wrappers, in this case the module used is Jackson. <strong>http4k</strong> provides an identical interface for all JSON implementations.</p>
+<h3 id="gradle-setup">Gradle setup</h3>
+<div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.11.2&quot;
+    compile group: &quot;org.http4k&quot;, name: &quot;http4k-jackson&quot;, version: &quot;2.11.2&quot;
+</pre></div>
+
+
+<h3 id="code">Code</h3>
+<p><script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/using_json/example.kt"></script></p>
                     
                     
                     
