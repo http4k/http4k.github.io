@@ -590,9 +590,41 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Nestable routes
+      </label>
+    
     <a href="./" title="Nestable routes" class="md-nav__link md-nav__link--active">
       Nestable routes
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
+    Gradle setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code" class="md-nav__link">
+    Code
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -750,7 +782,23 @@
                     
                     <h1>Nestable routes</h1>
                     
-                    <script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nestable_routes/example.kt"></script>
+                    <p>This is a fairly comprehensive example of the core-routing logic available:</p>
+<ul>
+<li>Individual HTTP endpoints are represented as <code>HttpHandlers</code>.</li>
+<li>Binding an <code>HttpHandler</code> to a path and HTTP verb yields a <code>Route</code>.</li>
+<li><code>Routes</code> can be combined together into a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a<code>Router</code>.</li>
+<li>A <code>Router</code> is a selective request handler, which attempts to match a request. If it cannot, processing falls through to the next <code>Router</code> in the list.</li>
+<li>Routers can be combined together to form another <code>HttpHandler</code></li>
+<li>Usage of supplied core library <code>Filters</code></li>
+<li>Serving of static content using a <code>Classpath</code> resource loader</li>
+</ul>
+<h3 id="gradle-setup">Gradle setup</h3>
+<div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.11.2&quot;
+</pre></div>
+
+
+<h3 id="code">Code</h3>
+<script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nestable_routes/example.kt"></script>
                     
                     
                     
