@@ -10,7 +10,7 @@
     <meta name="description" content="Documentation site for the http4k web framework written in Kotlin">
     
     
-    <link rel="canonical" href="https://http4k.org/guide/example/_2_adding_the_first_endpoint/">
+    <link rel="canonical" href="https://http4k.org/guide/modules/hamkrest/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -56,7 +56,7 @@
     
     
     
-    <title>2. Adding an endpoint - http4k</title>
+    <title>Hamkrest - http4k</title>
     
     
     
@@ -130,11 +130,11 @@
                 </span>
               
                 <span class="md-header-nav__parent">
-                  Worked TDD Example
+                  Modules
                 </span>
               
             
-            2. Adding an endpoint
+            Hamkrest
           
         </span>
             </div>
@@ -310,10 +310,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
     
     <label class="md-nav__link" for="nav-5-1">
       Modules
@@ -331,7 +333,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/core/" title="Core" class="md-nav__link">
+    <a href="../core/" title="Core" class="md-nav__link">
       Core
     </a>
   </li>
@@ -343,7 +345,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/servers/" title="Server Backend" class="md-nav__link">
+    <a href="../servers/" title="Server Backend" class="md-nav__link">
       Server Backend
     </a>
   </li>
@@ -355,7 +357,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/clients/" title="HTTP Client" class="md-nav__link">
+    <a href="../clients/" title="HTTP Client" class="md-nav__link">
       HTTP Client
     </a>
   </li>
@@ -367,7 +369,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/message_formats/" title="Message Formats" class="md-nav__link">
+    <a href="../message_formats/" title="Message Formats" class="md-nav__link">
       Message Formats
     </a>
   </li>
@@ -379,7 +381,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/templating/" title="Templating" class="md-nav__link">
+    <a href="../templating/" title="Templating" class="md-nav__link">
       Templating
     </a>
   </li>
@@ -391,7 +393,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/contracts/" title="Typesafe Contracts" class="md-nav__link">
+    <a href="../contracts/" title="Typesafe Contracts" class="md-nav__link">
       Typesafe Contracts
     </a>
   </li>
@@ -403,7 +405,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/aws/" title="AWS" class="md-nav__link">
+    <a href="../aws/" title="AWS" class="md-nav__link">
       AWS
     </a>
   </li>
@@ -413,11 +415,50 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../modules/hamkrest/" title="Hamkrest" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Hamkrest
+      </label>
+    
+    <a href="./" title="Hamkrest" class="md-nav__link md-nav__link--active">
       Hamkrest
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation-gradle" title="Installation (Gradle)" class="md-nav__link">
+    Installation (Gradle)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about" title="About" class="md-nav__link">
+    About
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -427,7 +468,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../modules/webdriver/" title="WebDriver" class="md-nav__link">
+    <a href="../webdriver/" title="WebDriver" class="md-nav__link">
       WebDriver
     </a>
   </li>
@@ -454,12 +495,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
     
     <label class="md-nav__link" for="nav-5-3">
       Worked TDD Example
@@ -477,7 +516,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Introduction" class="md-nav__link">
+    <a href="../../example/" title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -489,7 +528,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
+    <a href="../../example/_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
       1. Building a walking skeleton
     </a>
   </li>
@@ -499,57 +538,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        2. Adding an endpoint
-      </label>
-    
-    <a href="./" title="2. Adding an endpoint" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../example/_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
       2. Adding an endpoint
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requirements" title="Requirements:" class="md-nav__link">
-    Requirements:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#production" title="Production:" class="md-nav__link">
-    Production:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tests" title="Tests:" class="md-nav__link">
-    Tests:
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -559,7 +552,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
+    <a href="../../example/_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
       3. Adding another endpoint
     </a>
   </li>
@@ -571,7 +564,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
+    <a href="../../example/_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
       4. An external dependency
     </a>
   </li>
@@ -814,22 +807,15 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/example/_2_adding_the_first_endpoint/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/modules/hamkrest/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>2. Adding an endpoint</h1>
+                    <h1>Hamkrest</h1>
                     
-                    <p>Starting with another EndToEnd test, we can then drill-down into the functional behaviour of the system by introducing
-OCT (Out of Container) tests and converting the e2e test to just test endpoint wiring (so far). The common assertions have
-also been converted to reusable extension methods on Response.</p>
-<h2 id="requirements">Requirements:</h2>
-<ul>
-<li>Implement an "add" service, which will sum a number of integer values.</li>
-</ul>
-<h2 id="production">Production:</h2>
-<p><script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/example/_2_adding_the_first_endpoint/project.kt"></script></p>
-<h2 id="tests">Tests:</h2>
-<p><script src="http://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/example/_2_adding_the_first_endpoint/tests.kt"></script></p>
+                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+<p><code>compile group: "org.http4k", name: "http4k-testing-hamkrest", version: "2.15.0"</code></p>
+<h3 id="about">About</h3>
+<p>A set of Hamkrest matchers for use when testing <strong>http4k</strong> apps.</p>
                     
                     
                     
@@ -848,7 +834,7 @@ also been converted to reusable extension methods on Response.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../aws/" title="AWS" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -857,19 +843,19 @@ also been converted to reusable extension methods on Response.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                1. Building a walking skeleton
+                AWS
               </span>
             </div>
           </a>
         
         
-          <a href="../_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../webdriver/" title="WebDriver" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                3. Adding another endpoint
+                WebDriver
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
