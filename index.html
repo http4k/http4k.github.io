@@ -833,7 +833,7 @@ then be applied to an <code>HttpHandler</code>.</li>
 <li><strong>Immutablility:</strong> All entities in the library are immutable unless their function explicitly disallows this.</li>
 <li><strong>Symmetric:</strong> The <code>HttpHandler</code> interface is identical for both HTTP services and clients. This allows for simple offline testability of applications, as well as 
 plugging together of services without HTTP container being required.</li>
-<li><strong>Dependency-lite:</strong> The <code>http4k-core</code> module has ZERO dependencies. Add-on modules only have dependencies required for specific implementation.</li>
+<li><strong>Dependency-lite:</strong> Apart the from Kotlin StdLib, <code>http4k-core</code> module has ZERO dependencies and weighs in at ~500kb. Add-on modules only have dependencies required for specific implementation.</li>
 <li><strong>Testability</strong> Built by <strong>TDD</strong> enthusiasts, so supports <strong>super-easy</strong> mechanisms for both In and Out of Container testing of:<ul>
 <li>individual endpoints</li>
 <li>applications</li>
@@ -842,7 +842,7 @@ plugging together of services without HTTP container being required.</li>
 </li>
 <li><strong>Modularity:</strong> Common behaviours are abstracted into the <code>http4k-core</code> module. Current add-ons cover:<ul>
 <li>Pluggable HTTP client adapters for Apache and OkHttp</li>
-<li>Pluggable Server backends: Single LOC Server spinup for Jetty, Netty and Undertow</li>
+<li>Pluggable Server backends: Single LOC Server spinup for Jetty, Netty, Undertow and SunHttp</li>
 <li>Typesafe, auto-validating, self-documenting (via Swagger) contracts for HTTP services</li>
 <li>HTTP message adapters for Argo JSON, Gson JSON and Jackson JSON (includes auto-marshalling)</li>
 <li>Templating support: Caching and Hot-Reload engine support for Handlebars</li>
@@ -858,7 +858,8 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>Path-based routing</strong>, including nestable contexts</li>
 <li><strong>Typesafe HTTP message construction/desconstruction</strong> using Lenses</li>
 <li><strong>Static file-serving</strong> capability with <strong>Caching and Hot-Reload</strong> </li>
-<li>Servlet implementation to allow <strong>zero-dependency plugin to any Servlet container</strong></li>
+<li>Servlet implementation to allow <strong>
+-dependency plugin to any Servlet container</strong></li>
 <li>Launch applications in <strong>1LOC</strong> with an embedded <strong>SunHttp</strong> server backend (recommended for development use only)</li>
 <li>Core abstraction APIs implemented by the other modules </li>
 </ul>
@@ -876,6 +877,7 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>Jetty</strong></li>
 <li><strong>Netty</strong></li>
 <li><strong>Undertow</strong></li>
+<li><strong>SunHttp</strong> (bundled with <code>http4k-core</code>)</li>
 </ul>
 </li>
 <li>API design allows for plugging into configurable instances of each</li>
