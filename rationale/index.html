@@ -835,7 +835,7 @@ a decorated <code>HttpHander</code>:</li>
 <ul>
 <li>Binding an <code>HttpHandler</code> to a path and HTTP verb yields a <code>Route</code>:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">Route</span> <span class="p">=</span> <span class="s">&quot;/path&quot;</span> <span class="n">to</span> <span class="n">GET</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">Route</span> <span class="p">=</span> <span class="s">&quot;/path&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">}</span>
 </pre></div>
 
 
@@ -843,9 +843,9 @@ a decorated <code>HttpHander</code>:</li>
 <li><code>Routes</code> can be combined together into a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a<code>Router</code>:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
-    <span class="s">&quot;bob&quot;</span> <span class="n">to</span> <span class="n">GET</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
-    <span class="s">&quot;rita&quot;</span> <span class="n">to</span> <span class="n">POST</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you POST rita&quot;</span><span class="p">)</span> <span class="p">},</span>
-    <span class="s">&quot;sue&quot;</span> <span class="n">to</span> <span class="n">DELETE</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you DELETE sue&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="s">&quot;bob&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s">&quot;rita&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you POST rita&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s">&quot;sue&quot;</span> <span class="n">bind</span> <span class="n">DELETE</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you DELETE sue&quot;</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
 
