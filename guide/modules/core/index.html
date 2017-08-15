@@ -390,8 +390,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#nestable-path-based-routing" title="Nestable, path-based Routing" class="md-nav__link">
-    Nestable, path-based Routing
+  <a href="#routers-nestable-path-based-routing" title="Routers - Nestable, path-based Routing" class="md-nav__link">
+    Routers - Nestable, path-based Routing
   </a>
   
 </li>
@@ -404,8 +404,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-features" title="Other features" class="md-nav__link">
-    Other features
+  <a href="#serving-static-assets" title="Serving static assets" class="md-nav__link">
+    Serving static assets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-and-response-tostring" title="Request and Response toString()" class="md-nav__link">
+    Request and Response toString()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curl-format" title="CURL format" class="md-nav__link">
+    CURL format
   </a>
   
 </li>
@@ -864,6 +878,7 @@
 <li><a href="https://www21.in.tum.de/teaching/fp/SS15/papers/17.pdf">Lens</a> mechanism for typesafe destructuring and construction of HTTP messages.</li>
 <li>Abstractions for Servers, Clients, JSON Message formats, Templating etc.</li>
 <li><code>SunHttp</code> Single-LOC development Server-backend</li>
+<li>Static file-serving capability with <strong>Caching</strong> and <strong>Hot-Reload</strong></li>
 </ul>
 <h4 id="httphandlers">HttpHandlers</h4>
 <p>In <strong>http4k</strong>, an HTTP service is just a typealias of a simple function:</p>
@@ -919,7 +934,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <li>Debugging request and responses</li>
 </ul>
 <p>Check out the <code>org.http4k.filter</code> package for the exact list.</p>
-<h3 id="nestable-path-based-routing">Nestable, path-based Routing</h3>
+<h3 id="routers-nestable-path-based-routing">Routers - Nestable, path-based Routing</h3>
 <p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and <strong>http4k</strong> will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
 <div class="codehilite"><pre><span></span><span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
@@ -1040,8 +1055,19 @@ to configure these lenses to target particular parts of the message, whilst at t
 </pre></div>
 
 
-<h3 id="other-features">Other features</h3>
-<p>Creates <code>curl</code> command for a given request:</p>
+<h3 id="serving-static-assets">Serving static assets</h3>
+<p>For serving static assets, just bind a path to a Static block as below, using either a Classpath or HotReload based ResourceLoader instance. Typically, HotReload is used during development and the Classpath strategy is used to serve assets in production from an UberJar. This is usually based on a "devmode" flag when constructing your app":</p>
+<div class="codehilite"><pre><span></span><span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;org.http4k.some.package.name&quot;</span><span class="p">))</span>
+    <span class="s">&quot;/hotreload&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">HotReload</span><span class="p">(</span><span class="s">&quot;path/to/static/dir/goes/here&quot;</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h3 id="request-and-response-tostring">Request and Response toString()</h3>
+<p>The HttpMessages used by <strong>http4k</strong> toString in the HTTP wire format, which it simple to capture and replay HTTP message streams later in a similar way to tools like <a href="http://www.mbtest.org/">Mountebank</a>.</p>
+<h3 id="curl-format">CURL format</h3>
+<p>Creates <code>curl</code> command for a given request - this is useful to include in audit logs so exact requests can be replayed if required:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">curl</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span> <span class="n">to</span> <span class="s">&quot;bar&quot;</span><span class="p">).</span><span class="n">toBody</span><span class="p">()).</span><span class="n">toCurl</span><span class="p">()</span>
 <span class="c1">// curl -X POST --data &quot;foo=bar&quot; &quot;http://httpbin.org/post&quot;</span>
 </pre></div>
