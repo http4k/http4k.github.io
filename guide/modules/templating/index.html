@@ -817,10 +817,12 @@
 <p><strong>Pebble:</strong> <code>compile group: "org.http4k", name: "http4k-template-pebble", version: "2.19.0"</code></p>
 <p><strong>Thymeleaf:</strong> <code>compile group: "org.http4k", name: "http4k-template-thymeleaf", version: "2.19.0"</code></p>
 <h3 id="about">About</h3>
-<p>The pluggable <strong>http4k</strong> templating API adds <code>ViewModel</code> rendering for common templating libraries. The implementations provide the a number of renderers for views:
-<em> Cached on the classpath
-</em> Cached from the filesystem
-* Hot-Reloading from the filesystem</p>
+<p>The pluggable <strong>http4k</strong> templating API adds <code>ViewModel</code> rendering for common templating libraries. The implementations provide the a number of renderers for views:</p>
+<ul>
+<li>Cached on the classpath</li>
+<li>Cached from the filesystem</li>
+<li>Hot-Reloading from the filesystem</li>
+</ul>
 <div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
 
 <span class="k">val</span> <span class="py">renderer</span> <span class="p">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="n">HotReload</span><span class="p">(</span><span class="s">&quot;src/test/resources&quot;</span><span class="p">)</span>
