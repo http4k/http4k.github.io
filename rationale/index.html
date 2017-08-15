@@ -835,14 +835,14 @@ a decorated <code>HttpHander</code>:</li>
 
 
 <ul>
-<li>Binding an <code>HttpHandler</code> to a path and HTTP verb yields a <code>Route</code>:</li>
+<li>Binding an <code>HttpHandler</code> to a path and HTTP verb yields a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a<code>Router</code>:</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">Route</span> <span class="p">=</span> <span class="s">&quot;/path&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="s">&quot;/path&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">}</span>
 </pre></div>
 
 
 <ul>
-<li><code>Routes</code> can be combined together into a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a<code>Router</code>:</li>
+<li><code>RoutingHttpHandler</code>s can be grouped together:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;bob&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
@@ -854,7 +854,7 @@ a decorated <code>HttpHander</code>:</li>
 
 <ul>
 <li>A <code>Router</code> is a selective request handler, which attempts to match a request. If it cannot, processing falls through to the next <code>Router</code> in the list.</li>
-<li><code>Routers</code> can be combined together to form another <code>HttpHandler</code>:</li>
+<li><code>Routers</code> can be combined together (under particular context roots) to form another <code>RoutingHttpHandler</code>:</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">bigApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/this&quot;</span> <span class="n">bind</span> <span class="n">app</span><span class="p">,</span> 
