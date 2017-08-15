@@ -390,8 +390,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#simple-routing" title="Simple Routing" class="md-nav__link">
-    Simple Routing
+  <a href="#nestable-path-based-routing" title="Nestable, path-based Routing" class="md-nav__link">
+    Nestable, path-based Routing
   </a>
   
 </li>
@@ -919,16 +919,18 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <li>Debugging request and responses</li>
 </ul>
 <p>Check out the <code>org.http4k.filter</code> package for the exact list.</p>
-<h3 id="simple-routing">Simple Routing</h3>
-<p>Basic routing for mapping a URL pattern to an <code>HttpHandler</code>:</p>
+<h3 id="nestable-path-based-routing">Nestable, path-based Routing</h3>
+<p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and <strong>http4k</strong> will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
 <div class="codehilite"><pre><span></span><span class="n">routes</span><span class="p">(</span>
-    <span class="s">&quot;/hello/{name:*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.path(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/{name:*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.path(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">),</span>
     <span class="s">&quot;/fail&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 
 
-<p>Note that the <code>http4k-contract</code> module contains a more typesafe implementation of routing functionality.</p>
+<p>Note that the <code>http4k-contract</code> module contains a more typesafe implementation of routing functionality, with runtime-generated live documentation in Swagger format.</p>
 <h3 id="typesafe-parameter-destructuringconstruction-of-http-messages-with-lenses">Typesafe parameter destructuring/construction of HTTP messages with Lenses</h3>
 <p>Getting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. 
 For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a>. </p>
