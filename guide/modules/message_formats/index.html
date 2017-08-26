@@ -836,17 +836,19 @@
 <p><strong>Argo:</strong>  <code>compile group: "org.http4k", name: "http4k-format-argo", version: "2.23.3"</code></p>
 <p><strong>Gson:</strong>  <code>compile group: "org.http4k", name: "http4k-format-gson", version: "2.23.3"</code></p>
 <p><strong>Jackson:</strong> <code>compile group: "org.http4k", name: "http4k-format-jackson", version: "2.23.3"</code></p>
+<p><strong>Xml:</strong> <code>compile group: "org.http4k", name: "http4k-format-xml", version: "2.23.3"</code></p>
 <h3 id="about">About</h3>
-<p>These modules add the ability to use JSON as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of 
-standard methods and extension methods for converting common types into native JSON objects, including custom Lens methods for each library so that 
-JSON node objects can be written and read directly from HTTP messages:</p>
+<p>These modules add the ability to use JSON/XML as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of 
+standard methods and extension methods for converting common types into native JSON/XML objects, including custom Lens methods for each library so that 
+JSON/XML node objects can be written and read directly from HTTP messages:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/example.kt"></script>
 
 <h3 id="auto-marshalling-capabilities">Auto-marshalling capabilities</h3>
-<p>Some of the JSON message libraries (eg. GSON and Jackson) provide the mechanism to automatically marshall data objects to/from JSON using reflection.</p>
+<p>Some of the message libraries (eg. GSON, Jackson, XML) provide the mechanism to automatically marshall data objects to/from JSON and XML using reflection.</p>
 <p>We can use this facility in <strong>http4k</strong> to automatically marshall objects to/from HTTP message bodies using *<em>Lenses</em>:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/auto.kt"></script>
 
+<p>There is a utility to generate Kotlin code for JSON and XML data class code <a href="http://http4k-data-class-gen.herokuapp.com/xml">here</a> . These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
 <h4 id="important-note-regarding-json-arrays">Important note regarding JSON arrays</h4>
 <p>When handling raw JSON array messages, such as: <code>[123, 456, 567]</code>, there is a slight gotcha when auto-marshalling messages from JSON.</p>
 <p>This is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.</p>
