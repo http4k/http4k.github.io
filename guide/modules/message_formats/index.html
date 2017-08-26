@@ -848,7 +848,7 @@ JSON/XML node objects can be written and read directly from HTTP messages:</p>
 <p>We can use this facility in <strong>http4k</strong> to automatically marshall objects to/from HTTP message bodies using *<em>Lenses</em>:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/auto.kt"></script>
 
-<p>There is a utility to generate Kotlin code for JSON and XML data class code <a href="http://http4k-data-class-gen.herokuapp.com/xml">here</a> . These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
+<p>There is a utility to generate Kotlin code for JSON and XML data class code <a href="http://http4k-data-class-gen.herokuapp.com">here</a> . These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
 <h4 id="important-note-regarding-json-arrays">Important note regarding JSON arrays</h4>
 <p>When handling raw JSON array messages, such as: <code>[123, 456, 567]</code>, there is a slight gotcha when auto-marshalling messages from JSON.</p>
 <p>This is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.</p>
