@@ -823,18 +823,8 @@
 <li>Cached from the filesystem</li>
 <li>Hot-Reloading from the filesystem</li>
 </ul>
-<div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
-
-<span class="k">val</span> <span class="py">renderer</span> <span class="p">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="n">HotReload</span><span class="p">(</span><span class="s">&quot;src/test/resources&quot;</span><span class="p">)</span>
-
-<span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">viewModel</span> <span class="p">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">renderedView</span> <span class="p">=</span> <span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">)</span>
-    <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">renderedView</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
-</pre></div>
+<p>The examples below are for Handlebars, but the others have the same APIs:
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/templating/example.kt"></script></p>
                     
                     
                     
