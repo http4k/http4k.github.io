@@ -768,6 +768,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#api" title="API" class="md-nav__link">
+    API
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -807,23 +814,28 @@
                     
                     <p>Find here answers to the most common questions that we get asked about <strong>http4k</strong></p>
 <h3 id="general">General</h3>
-<p><strong>Q. Is </strong>http4k<strong> a library or a framework?</strong></p>
+<p><strong>Q. Is http4k a library or a framework?</strong></p>
 <p><strong>A.</strong> Although it has many of the features of a framework, we consider http4k to be a library which adds a common HTTP routing layer. Is it incredibly unopinionated and has been designed to not enforce design decisions on the API user. We use http4k for applications both large and small, using no DI framework.</p>
-<p><strong>Q. Is </strong>http4k<strong> currently used in production?</strong></p>
-<p><strong>A.</strong> Absolutely! The library is currently in use serving the global traffic for a large academic publisher (easily serving 10s of millions of requests per day on a few nodes) and is also being used in production in at least 2 global Investment Banks (that we know of). If you're running http4k in production and would like to be listed on the site as an adpoter, please get in touch.</p>
+<p><strong>Q. Is http4k currently used in production?</strong></p>
+<p><strong>A.</strong> Absolutely! The library is currently in use serving the global traffic for a large academic publisher (easily serving 10s of millions of requests per day on a few nodes) and is also being used in production in at least 2 global Investment Banks (that we know of). If you're running http4k in production and would like to be listed on the site as an adopter, please get in touch.</p>
+<p><strong>Q. Does http4k support an Async model? I need webscale!</strong></p>
+<p><strong>A.</strong> Not at the moment. Adding Async support is a decision that we are thinkning about carefully so that we don't end up complicating the API. When we do add it, it'll probably use co-routines and they're still marked as experimental which is another reason we are holding off. As for the scaling arguments, see the above answer relating to production usage.</p>
+<h3 id="api">API</h3>
 <p><strong>Q. Auto-marshalling: where is the <code>Body.auto</code> method defined?</strong></p>
 <p><strong>A.</strong> <code>Body.auto</code> is an extension method which is declared on the parent singleton <code>object</code> for each of the message libraries that supports auto-marshalling - eg. <code>Jackson</code>, <code>Gson</code> and <code>Xml</code>. All of these objects are declared in the same package, so you need to add an import similar to:
 <code>import org.http4k.format.Jackson.auto</code></p>
-<p><strong>Q. My application uses Lenses, but when they fail I get an HTTP 500 instead of the promised 400.</strong>
-<strong>A.</strong> You forgot to add the <code>ServerFilters.CatchLensFailure</code> filter to your application stack.</p>
-<p><strong>Q. Where are all the useful Filters defined?</strong>
-<strong>A.</strong> Filters are all in the <code>import org.http4k.filter</code> package and are located as methods on a singleton <code>object</code> relevant to their use:
-  - <code>org.http4k.filter.CachingFilters.Request</code> &amp; <code>org.http4k.filter.CachingFilters.Response</code> 
-  - <code>org.http4k.filter.ClientFilters</code>
-  - <code>org.http4k.filter.ServerFilters</code> 
-  - <code>org.http4k.filter.DebuggingFilters</code></p>
-<p><strong>Q. Does http4k support an Async model? I need webscale!</strong>
-<strong>A.</strong> Not at the moment. Adding Async support is a decision that we are thinkning about carefully so that we don't end up complicating the API. When we do add it, it'll probably use co-routines and they're still marked as experimental which is another reason we are holding off. As for the scaling arguments, see the above answer relating to production usage.</p>
+<p><strong>Q. Using Jackson, the Data class auto-marshalling is not working correctly when my JSON fields start with capital letters </strong></p>
+<p><strong>A.</strong> Because of the way in which the Jackson library works, uppercase field names are NOT supported. Either switch out to use <code>http4k-format-gson</code> (which has the same API), or annotate your Data class fields with <code>@JsonAlias</code> to get the deserialisation to work correctly.</p>
+<p><strong>Q. My application uses Lenses, but when they fail I get an HTTP 500 instead of the promised 400.</strong></p>
+<p><strong>A.</strong> You forgot to add the <code>ServerFilters.CatchLensFailure</code> filter to your Server stack.</p>
+<p><strong>Q. Where are all the useful Filters defined?</strong></p>
+<p><strong>A.</strong> Filters are all in the <code>import org.http4k.filter</code> package and are located as methods on a singleton <code>object</code> relevant to their use:</p>
+<ul>
+<li><code>org.http4k.filter.CachingFilters.Request</code> &amp; <code>org.http4k.filter.CachingFilters.Response</code> </li>
+<li><code>org.http4k.filter.ClientFilters</code></li>
+<li><code>org.http4k.filter.ServerFilters</code> </li>
+<li><code>org.http4k.filter.DebuggingFilters</code></li>
+</ul>
                     
                     
                     
