@@ -667,6 +667,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#on-the-web" title="On the web..." class="md-nav__link">
+    On the web...
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#or-manually-using-a-filter" title="Or manually using a filter..." class="md-nav__link">
+    Or manually using a filter...
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
     Gradle setup
   </a>
@@ -806,9 +820,13 @@
                     
                     <h1>Generating data classes from JSON</h1>
                     
-                    <p>This example show the usage of the <code>GenerateDataClasses</code> to generate Kotlin data class code for JSON messages from a remote endpoint. When used in conjunction with the "auto body-marshalling" functionality available with JSON libraries such as Jackson and GSON, this provides a super-fast way to integrate with upstream remote APIs in a typesafe way.</p>
+                    <h3 id="on-the-web">On the web...</h3>
+<p>This <a href="http://http4k-data-class-gen.herokuapp.com/">Heroku</a> app demonstrates how to use JSON and XML automarshalling to communicate using typesafe Body lenses.</p>
+<h3 id="or-manually-using-a-filter">Or manually using a filter...</h3>
+<p>This example show the usage of the <code>GenerateDataClasses</code> to generate Kotlin data class code for JSON messages from a remote endpoint. When used in conjunction with the "auto body-marshalling" functionality available with JSON libraries such as Jackson and GSON, this provides a super-fast way to integrate with upstream remote APIs in a typesafe way.</p>
 <h3 id="gradle-setup">Gradle setup</h3>
 <div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.26.3&quot;
+    compile group: &quot;org.http4k&quot;, name: &quot;http4k-format-gson&quot;, version: &quot;2.26.3&quot;
 </pre></div>
 
 
