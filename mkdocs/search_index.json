@@ -1136,6 +1136,11 @@
             "title": "Sponsors"
         }, 
         {
+            "location": "/faq/", 
+            "text": "Find here answers to the most common questions that we get asked about \nhttp4k\n\n\nQ. Auto-marshalling: where is the \nBody.auto\n method defined?\nA. \nBody.auto\n is an extension method which is declared on the parent singleton \nobject\n for each of the message libraries that supports auto-marshalling - eg. \nJackson\n, \nGson\n and \nXml\n. All of these objects are declared in the same package, so you need to add an import similar to:\n\nimport org.http4k.format.Jackson.auto\n\n\nQ. My application uses Lenses, but when they fail I get an HTTP 500 instead of the promised 400.\nA. You forgot to add the \nServerFilters.CatchLensFailure\n filter to your application stack.\n\n\nQ. Where are all the useful Filters defined?\nA. Filters are all in the \nimport org.http4k.filter\n package and are located as methods on a singleton \nobject\n relevant to their use:\n  - \norg.http4k.filter.CachingFilters.Request\n \n \norg.http4k.filter.CachingFilters.Response\n \n  - \norg.http4k.filter.ClientFilters\n\n  - \norg.http4k.filter.ServerFilters\n \n  - \norg.http4k.filter.DebuggingFilters", 
+            "title": "FAQ"
+        }, 
+        {
             "location": "/support/", 
             "text": "In the first instance, try and see if there is a relevant example in the cookbook - more and more are being added all the time!\n\n\nFor issues, please describe giving as much detail as you can - including version and steps to recreate\n\n\nSlack room:\n #http4k @ \nkotlinlang.slack.com\n\n\nGitter channel:\n http4k/http4k @ \ngitter.im\n\n\nTwitter:\n \n@http4k\n\n\n\n\nLogo usage\n\n\nThe http4k logo design and branding are copyright 2017 to http4k.org. If you'd like to use the http4k logo in a presentation or for other purposes, it's probably fine, but please reach out to let know first on the channels above that you'd like to do so and we can provide the relevant high-quality asset files. Here are the relevant \nbranding guidelines\n.", 
             "title": "Help & Support"

@@ -10,7 +10,7 @@
     <meta name="description" content="Documentation site for the http4k web framework written in Kotlin">
     
     
-    <link rel="canonical" href="https://http4k.org/quickstart/">
+    <link rel="canonical" href="https://http4k.org/faq/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -56,7 +56,7 @@
     
     
     
-    <title>Getting started - http4k</title>
+    <title>FAQ - http4k</title>
     
     
     
@@ -126,7 +126,7 @@
             
               
             
-            Getting started
+            FAQ
           
         </span>
             </div>
@@ -269,54 +269,11 @@
         
         
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Getting started
-      </label>
-    
-    <a href="./" title="Getting started" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../quickstart/" title="Getting started" class="md-nav__link">
       Getting started
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#single-line-cd-bootstrap" title="Single-line CD Bootstrap" class="md-nav__link">
-    Single-line CD Bootstrap
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-should-i-use-this-library" title="Why should I use this library?" class="md-nav__link">
-    Why should I use this library?
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -780,11 +737,18 @@
         
         
 
+  
 
-  <li class="md-nav__item">
-    <a href="../faq/" title="FAQ" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+    <a href="./" title="FAQ" class="md-nav__link md-nav__link--active">
       FAQ
     </a>
+    
   </li>
 
         
@@ -811,27 +775,23 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/quickstart/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/faq/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1 id="quickstart">Quickstart</h1>
-<p>This simple example demonstates how to serve and consume HTTP services using <strong>http4k</strong>. </p>
-<p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
-<div class="codehilite"><pre><span></span><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.26.3&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.26.3&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-apache&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.26.3&quot;</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>The following creates a simple endpoint, binds it to a Jetty server then starts, queries, and stops it.</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/quickstart/example.kt"></script>
-
-<h2 id="single-line-cd-bootstrap">Single-line CD Bootstrap</h2>
-<p>Run the single command in the readme of <a href="https://github.com/http4k/http4k-bootstrap">this repo</a> to create a HelloWorld <strong>http4k</strong> app with a full CD pipeline using Github -&gt; TravisCI -&gt; Heroku.</p>
-<h2 id="why-should-i-use-this-library">Why should I use this library?</h2>
-<p><a href="https://www.http4k.org/server_as_a_function_in_kotlin">Presentation</a> about the development of http4k given at the Kotlin London meetup.</p>
+                    <h1>FAQ</h1>
+                    
+                    <p>Find here answers to the most common questions that we get asked about <strong>http4k</strong></p>
+<p>Q. Auto-marshalling: where is the <code>Body.auto</code> method defined?
+A. <code>Body.auto</code> is an extension method which is declared on the parent singleton <code>object</code> for each of the message libraries that supports auto-marshalling - eg. <code>Jackson</code>, <code>Gson</code> and <code>Xml</code>. All of these objects are declared in the same package, so you need to add an import similar to:
+<code>import org.http4k.format.Jackson.auto</code></p>
+<p>Q. My application uses Lenses, but when they fail I get an HTTP 500 instead of the promised 400.
+A. You forgot to add the <code>ServerFilters.CatchLensFailure</code> filter to your application stack.</p>
+<p>Q. Where are all the useful Filters defined?
+A. Filters are all in the <code>import org.http4k.filter</code> package and are located as methods on a singleton <code>object</code> relevant to their use:
+  - <code>org.http4k.filter.CachingFilters.Request</code> &amp; <code>org.http4k.filter.CachingFilters.Response</code> 
+  - <code>org.http4k.filter.ClientFilters</code>
+  - <code>org.http4k.filter.ServerFilters</code> 
+  - <code>org.http4k.filter.DebuggingFilters</code></p>
                     
                     
                     
@@ -850,7 +810,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../installation/" title="Installation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../contributing/" title="Contribute/Support http4k" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -859,19 +819,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Installation
+                Contribute/Support http4k
               </span>
             </div>
           </a>
         
         
-          <a href="../guide/modules/core/" title="Core" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../support/" title="Help & Support" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Core
+                Help & Support
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
