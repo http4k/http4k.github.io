@@ -428,9 +428,29 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#important-note-regarding-json-arrays" title="Important note regarding JSON arrays" class="md-nav__link">
-    Important note regarding JSON arrays
+  <a href="#faq-aka-gotchas-regarding-auto-marshalling-capabilities" title="FAQ (aka gotchas) regarding Auto-marshalling capabilities" class="md-nav__link">
+    FAQ (aka gotchas) regarding Auto-marshalling capabilities
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uppercase-json-key-names" title="Uppercase JSON key names" class="md-nav__link">
+    Uppercase JSON key names
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-arrays" title="JSON arrays" class="md-nav__link">
+    JSON arrays
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -867,7 +887,10 @@ JSON/XML node objects can be written and read directly from HTTP messages:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/autoXml.kt"></script>
 
 <p>There is a utility to generate Kotlin code for JSON and XML data class code <a href="http://http4k-data-class-gen.herokuapp.com">here</a> . These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
-<h4 id="important-note-regarding-json-arrays">Important note regarding JSON arrays</h4>
+<h4 id="faq-aka-gotchas-regarding-auto-marshalling-capabilities">FAQ (aka gotchas) regarding Auto-marshalling capabilities</h4>
+<h5 id="uppercase-json-key-names">Uppercase JSON key names</h5>
+<p>The Jackson version of the automarshalling does NOT work for objects with uppercase key names - this is a known issue with the Jackson library and we are unable to fix it. Either use the GSON alternative, or annotate your Data class fields with <code>JsonAlias</code> annotations to work around this.</p>
+<h5 id="json-arrays">JSON arrays</h5>
 <p>When handling raw JSON array messages, such as: <code>[123, 456, 567]</code>, there is a slight gotcha when auto-marshalling messages from JSON.</p>
 <p>This is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.</p>
 <p>As shown, a workaround to this is to use <code>Body.auto&lt;Array&lt;MyIntWrapper&gt;&gt;().toLens()</code> instead, and then compare using <code>Arrays.equal()</code></p>
