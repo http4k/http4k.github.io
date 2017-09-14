@@ -750,6 +750,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v2271" title="v2.27.1" class="md-nav__link">
+    v2.27.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v2270" title="v2.27.0" class="md-nav__link">
     v2.27.0
   </a>
@@ -1513,6 +1520,10 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
+<h3 id="v2271">v2.27.1</h3>
+<ul>
+<li>Raise proper Exception (instead of LensFailure) when RequestContexts are not set up correctly, so we don't accidentally classify developer errors as BadRequests</li>
+</ul>
 <h3 id="v2270">v2.27.0</h3>
 <ul>
 <li>Added facility to assign values into a <code>RequestContext</code> which is passed down the Filter chain. </li>
