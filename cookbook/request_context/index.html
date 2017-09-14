@@ -10,7 +10,7 @@
     <meta name="description" content="Documentation site for the http4k web framework written in Kotlin">
     
     
-    <link rel="canonical" href="https://http4k.org/cookbook/typesafe_http_contracts/">
+    <link rel="canonical" href="https://http4k.org/cookbook/request_context/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -56,7 +56,7 @@
     
     
     
-    <title>Typesafe HTTP contracts - http4k</title>
+    <title>Using request contexts - http4k</title>
     
     
     
@@ -130,7 +130,7 @@
                 </span>
               
             
-            Typesafe HTTP contracts
+            Using request contexts
           
         </span>
             </div>
@@ -642,30 +642,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="../request_context/" title="Using request contexts" class="md-nav__link">
-      Using request contexts
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../generating_data_classes_from_json/" title="Generating data classes from JSON" class="md-nav__link">
-      Generating data classes from JSON
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -675,11 +651,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="toc">
-        Typesafe HTTP contracts
+        Using request contexts
       </label>
     
-    <a href="./" title="Typesafe HTTP contracts" class="md-nav__link md-nav__link--active">
-      Typesafe HTTP contracts
+    <a href="./" title="Using request contexts" class="md-nav__link md-nav__link--active">
+      Using request contexts
     </a>
     
       
@@ -702,6 +678,26 @@
     Code
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-based-keys" title="String-based keys" class="md-nav__link">
+    String-based keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lens-based-keys" title="Lens-based keys" class="md-nav__link">
+    Lens-based keys
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -710,6 +706,30 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../generating_data_classes_from_json/" title="Generating data classes from JSON" class="md-nav__link">
+      Generating data classes from JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
+      Typesafe HTTP contracts
+    </a>
   </li>
 
         
@@ -825,26 +845,31 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/typesafe_http_contracts/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/request_context/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>Typesafe HTTP contracts</h1>
+                    <h1>Using request contexts</h1>
                     
-                    <p>This contract example shows:</p>
-<ul>
-<li>2 endpoints with typesafe contracts (marshalling of path parameters and bodies)</li>
-<li>Custom filters (reporting latency)</li>
-<li>API key security via a typesafe Query parameter (this can be a header or a body parameter as well)</li>
-<li>Swagger API documentation - Run this example and point a browser <a href="http://petstore.swagger.io/?url=http://localhost:8000/context/swagger.json">here</a></li>
-</ul>
+                    <p>A <code>RequestContext</code> makes it possible to attach objects to a request whilst it is being passed down through the layers of an application.</p>
+<p>The basic concept is that there is a global shared object which holds a bag of state (indexed by Request). This state can be modified in Filters and then 
+that state accessed inside other Filters or the terminating HttpHandler. There are 2 available choices for manipulating this data:</p>
+<ol>
+<li>Using simple Strings to represent the keys.</li>
+<li>Using <code>RequestContextKey</code>s and the Lens mechanism from the <code>http4k-core</code> module.</li>
+</ol>
+<p>Whilst the first method looks technically simpler, the use of simple Strings does not provide the type-safety of the second, which uses unique shared Key objects to guarantee non-clashing of keys and type-safety of the state.
+Regardless of which of the above mechanisms are used, an instance of the <code>ServerFilters.InitialiseRequestContext</code> Filter must wrap the HttpHandler(s) to activate
+the shared bag of state for each request, and to remove the state after the request is complete.</p>
 <h3 id="gradle-setup">Gradle setup</h3>
 <div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.27.0&quot;
-    compile group: &quot;org.http4k&quot;, name: &quot;http4k-contract&quot;, version: &quot;2.27.0&quot;
 </pre></div>
 
 
 <h3 id="code">Code</h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_contracts/example.kt"></script></p>
+<h4 id="string-based-keys">String-based keys</h4>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/string_key_example.kt"></script></p>
+<h4 id="lens-based-keys">Lens-based keys</h4>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/lens_key_example.kt"></script></p>
                     
                     
                     
@@ -863,7 +888,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../generating_data_classes_from_json/" title="Generating data classes from JSON" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../using_templates/" title="Using templates" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -872,19 +897,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Generating data classes from JSON
+                Using templates
               </span>
             </div>
           </a>
         
         
-          <a href="../typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../generating_data_classes_from_json/" title="Generating data classes from JSON" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Typesafe HTTP requests with lenses
+                Generating data classes from JSON
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
