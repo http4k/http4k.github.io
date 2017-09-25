@@ -10,7 +10,7 @@
     <meta name="description" content="Documentation site for the http4k functional web toolkit written in Kotlin">
     
     
-    <link rel="canonical" href="https://http4k.org/cookbook/typesafe_http_requests_with_lenses/">
+    <link rel="canonical" href="https://http4k.org/cookbook/forms/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -56,7 +56,7 @@
     
     
     
-    <title>Typesafe HTTP requests with lenses - http4k</title>
+    <title>HTML forms - http4k</title>
     
     
     
@@ -130,7 +130,7 @@
                 </span>
               
             
-            Typesafe HTTP requests with lenses
+            HTML forms
           
         </span>
             </div>
@@ -654,6 +654,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
+      Typesafe HTTP requests with lenses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -663,11 +675,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="toc">
-        Typesafe HTTP requests with lenses
+        HTML forms
       </label>
     
-    <a href="./" title="Typesafe HTTP requests with lenses" class="md-nav__link md-nav__link--active">
-      Typesafe HTTP requests with lenses
+    <a href="./" title="HTML forms" class="md-nav__link md-nav__link--active">
+      HTML forms
     </a>
     
       
@@ -686,8 +698,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code" title="Code" class="md-nav__link">
-    Code
+  <a href="#standard-non-typesafe-api" title="Standard (non-typesafe) API" class="md-nav__link">
+    Standard (non-typesafe) API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lens-typesafe-validating-api" title="Lens (typesafe, validating) API" class="md-nav__link">
+    Lens (typesafe, validating) API
   </a>
   
 </li>
@@ -698,18 +717,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../forms/" title="HTML forms" class="md-nav__link">
-      HTML forms
-    </a>
   </li>
 
         
@@ -837,19 +844,25 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/typesafe_http_requests_with_lenses/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/forms/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>Typesafe HTTP requests with lenses</h1>
+                    <h1>HTML forms</h1>
                     
-                    <p>Example showing how to create and apply lenses to requests and responses to both extract and inject typesafe values out of and into HTTP messages. Note that since the <strong>http4k</strong> <code>Request/Response</code> objects are immutable, all injection occurs via copy.</p>
+                    <p>HTML form support is provided on 2 levels:</p>
+<ol>
+<li>Through the use of <code>form()</code> extension methods on <code>Request</code> to get/set String values.</li>
+<li>Using the Lens system, which adds the facility to define form fields in a typesafe way, and to validate form contents (in either a strict (400) or "feedback" mode).</li>
+</ol>
 <h3 id="gradle-setup">Gradle setup</h3>
 <div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.28.0&quot;
 </pre></div>
 
 
-<h3 id="code">Code</h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example.kt"></script></p>
+<h3 id="standard-non-typesafe-api">Standard (non-typesafe) API</h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/html_forms/example_standard.kt"></script></p>
+<h3 id="lens-typesafe-validating-api">Lens (typesafe, validating) API</h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/html_forms/example_lens.kt"></script></p>
                     
                     
                     
@@ -868,7 +881,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../request_context/" title="Using typesafe RequestContexts" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -877,19 +890,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Using typesafe RequestContexts
+                Typesafe HTTP requests with lenses
               </span>
             </div>
           </a>
         
         
-          <a href="../forms/" title="HTML forms" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../generating_data_classes/" title="Generating data classes for messages" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                HTML forms
+                Generating data classes for messages
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

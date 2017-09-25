@@ -756,8 +756,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/generating_data_classes_from_json/" title="Generating data classes from JSON" class="md-nav__link">
-      Generating data classes from JSON
+    <a href="../../../cookbook/typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
+      Typesafe HTTP requests with lenses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cookbook/forms/" title="HTML forms" class="md-nav__link">
+      HTML forms
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cookbook/generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
+      Generating data classes for messages
     </a>
   </li>
 
@@ -770,18 +794,6 @@
   <li class="md-nav__item">
     <a href="../../../cookbook/typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
       Typesafe HTTP contracts
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../cookbook/typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
-      Typesafe HTTP requests with lenses
     </a>
   </li>
 
@@ -1069,8 +1081,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/hello/2000-01-01?myCustomType=someValue&quot;</span><span class="p">)))</span>
 <span class="c1">//With the addition of the `CatchLensFailure` filter, no other validation is required when using Lenses, as **http4k** will handle invalid requests by returning a BAD_REQUEST (400) response.</span>
 
-<span class="c1">//More convieniently for construction of HTTP messages, multiple lenses can be used at once to modify a message, which is useful for properly building both requests and responses in a typesafe way without resorting to string values (especially in </span>
-<span class="n">URLs</span> <span class="n">which</span> <span class="n">should</span> <span class="n">never</span> <span class="n">be</span> <span class="n">constructed</span> <span class="n">using</span> <span class="n">String</span> <span class="n">concatenation</span><span class="p">):</span>
+<span class="c1">//More conveniently for construction of HTTP messages, multiple lenses can be used at once to modify a message, which is useful for properly building both requests and responses in a typesafe way without resorting to string values (especially in URLs which should never be constructed using String concatenation):</span>
 
 <span class="k">val</span> <span class="py">modifiedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://google.com/{pathLocalDate}&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span>
     <span class="n">pathLocalDate</span> <span class="n">of</span> <span class="n">LocalDate</span><span class="p">.</span><span class="n">now</span><span class="p">(),</span>
