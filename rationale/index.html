@@ -860,7 +860,7 @@
 <h2 id="about">About</h2>
 <p><strong>http4k</strong> is the distillation of 15 years worth of experience of using various server-side libraries and we've stolen good ideas from everywhere we can. For instance - 
 the routing module is inspired by <a href="https://github.com/bodar/utterlyidle">UtterlyIdle</a>, the "Server as a function" and filter model is stolen from 
-<a href="https://twitter.github.io/finagle/">Finagle</a>, and the contract module/Swagger generator is ported from <a href="http://fintrospect.io">Fintrospect</a>. With the growing 
+<a href="https://twitter.github.io/finagle/">Finagle</a>, and the contract module OpenApi/Swagger generator is ported from <a href="http://fintrospect.io">Fintrospect</a>. With the growing 
 adoption of Kotlin, we wanted something that would fully leverage the features of the language and it felt like a good time to start something from scratch.</p>
 <p>For our purposes, we needed something that:</p>
 <ol>
@@ -870,7 +870,7 @@ adoption of Kotlin, we wanted something that would fully leverage the features o
 <li>Automatically deals with contract breaches (missing/invalid params etc) to remove boilerplate.</li>
 <li>Absolutely no magic involved: No reflection. No annotations.</li>
 <li>Minimal dependencies (apart from the Kotlin StdLib, <code>http4k-core</code> has zero).</li>
-<li>Automatic generation of Swagger documentation (including JSON Schema models).</li>
+<li>Automatic generation of OpenApi/Swagger documentation (including JSON Schema models).</li>
 <li>Has a symmetric server/client API (<code>HttpHandler</code> should just be <code>Request -&gt; Response</code>).</li>
 <li>Has immutable Request/Response objects.</li>
 </ol>
