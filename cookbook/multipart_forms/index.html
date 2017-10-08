@@ -10,7 +10,7 @@
     <meta name="description" content="Documentation site for the http4k functional web toolkit written in Kotlin">
     
     
-    <link rel="canonical" href="https://http4k.org/cookbook/simple_routing/">
+    <link rel="canonical" href="https://http4k.org/cookbook/multipart_forms/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -56,7 +56,7 @@
     
     
     
-    <title>Simple routing - http4k</title>
+    <title>Multipart forms - http4k</title>
     
     
     
@@ -130,7 +130,7 @@
                 </span>
               
             
-            Simple routing
+            Multipart forms
           
         </span>
             </div>
@@ -594,50 +594,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Simple routing
-      </label>
-    
-    <a href="./" title="Simple routing" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../simple_routing/" title="Simple routing" class="md-nav__link">
       Simple routing
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
-    Gradle setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#code" title="Code" class="md-nav__link">
-    Code
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -717,11 +678,57 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../multipart_forms/" title="Multipart forms" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Multipart forms
+      </label>
+    
+    <a href="./" title="Multipart forms" class="md-nav__link md-nav__link--active">
       Multipart forms
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
+    Gradle setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standard-non-typesafe-api" title="Standard (non-typesafe) API" class="md-nav__link">
+    Standard (non-typesafe) API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lens-typesafe-validating-api" title="Lens (typesafe, validating) API" class="md-nav__link">
+    Lens (typesafe, validating) API
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -861,19 +868,26 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/simple_routing/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/multipart_forms/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>Simple routing</h1>
+                    <h1>Multipart forms</h1>
                     
-                    <p>This example shows how to use the simple routing functionality to bind several routes</p>
+                    <p>Multipart form support is provided on 2 levels:</p>
+<ol>
+<li>Through the creation of a <code>MultipartFormBody</code> which can be set on a <code>Request</code>.</li>
+<li>Using the Lens system, which adds the facility to define form fields in a typesafe way, and to validate form contents (in either a strict (400) or "feedback" mode).</li>
+</ol>
 <h3 id="gradle-setup">Gradle setup</h3>
 <div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.30.0&quot;
+    compile group: &quot;org.http4k&quot;, name: &quot;http4k-multipart&quot;, version: &quot;2.30.0&quot;
 </pre></div>
 
 
-<h3 id="code">Code</h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/simple_routing/example.kt"></script></p>
+<h3 id="standard-non-typesafe-api">Standard (non-typesafe) API</h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/multipart_forms/example_standard.kt"></script></p>
+<h3 id="lens-typesafe-validating-api">Lens (typesafe, validating) API</h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/multipart_forms/example_lens.kt"></script></p>
                     
                     
                     
@@ -892,7 +906,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../container_integration/" title="Container integration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../html_forms/" title="HTML forms" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -901,19 +915,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Container integration
+                HTML forms
               </span>
             </div>
           </a>
         
         
-          <a href="../nestable_routes/" title="Nestable routes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../generating_data_classes/" title="Generating data classes for messages" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Nestable routes
+                Generating data classes for messages
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
