@@ -128,7 +128,7 @@
         {
             "location": "/guide/modules/servers/", 
             "text": "Installation (Gradle)\n\n\nSunHttp (for development only):\n \ncompile group: \"org.http4k\", name: \"http4k-core\", version: \"2.30.0\"\n\n\nJetty:\n \ncompile group: \"org.http4k\", name: \"http4k-server-jetty\", version: \"2.30.0\"\n\n\nNetty:\n \ncompile group: \"org.http4k\", name: \"http4k-server-netty\", version: \"2.30.0\"\n\n\nUndertow:\n \ncompile group: \"org.http4k\", name: \"http4k-server-undertow\", version: \"2.30.0\"\n\n\nAbout\n\n\nServer-backend modules provide a consistent API mount HttpHandlers into the specified container in 1 LOC, by simply passing a \nServerConfig\n implementation (in this case \nJetty\n):\n\n\n{\n \nrequest\n:\n \nRequest\n \n-\n \nResponse\n(\nOK\n).\nbody\n(\nHello World\n)\n \n}.\nasServer\n(\nJetty\n(\n8000\n)).\nstart\n().\nblock\n()\n\n\n\n\n\n\nAlteratively, all server-backend modules allow for plugging \nhttp4k\n handlers into the relevant server API, which allows for custom Server configuration.", 
-            "title": "Server Backend"
+            "title": "Server backend"
         }, 
         {
             "location": "/guide/modules/servers/#installation-gradle", 
@@ -143,7 +143,7 @@
         {
             "location": "/guide/modules/clients/", 
             "text": "Installation (Gradle)\n\n\nApache:\n \ncompile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"2.30.0\"\n\n\nOkHttp:\n \ncompile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"2.30.0\"\n\n\nAbout\n\n\nSupported HTTP client adapter APIs are wrapped to provide an \nHttpHandler\n interface in 1 LOC.\n\n\nActivate streaming mode by passing a \nResponseBodyMode\n (default is non-streaming).\n\n\nThese examples are for the Apache HTTP client, but the API is similar for the others:\n\n\n\n\n\nAlternatively, all client adapter modules allow for custom configuration of the relevant Client configuration by", 
-            "title": "HTTP Client"
+            "title": "HTTP client"
         }, 
         {
             "location": "/guide/modules/clients/#installation-gradle", 
@@ -158,7 +158,7 @@
         {
             "location": "/guide/modules/message_formats/", 
             "text": "Installation (Gradle)\n\n\nArgo:\n  \ncompile group: \"org.http4k\", name: \"http4k-format-argo\", version: \"2.30.0\"\n\n\nGson:\n  \ncompile group: \"org.http4k\", name: \"http4k-format-gson\", version: \"2.30.0\"\n\n\nJackson:\n \ncompile group: \"org.http4k\", name: \"http4k-format-jackson\", version: \"2.30.0\"\n\n\nXml:\n \ncompile group: \"org.http4k\", name: \"http4k-format-xml\", version: \"2.30.0\"\n\n\nAbout\n\n\nThese modules add the ability to use JSON/XML as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of \nstandard methods and extension methods for converting common types into native JSON/XML objects, including custom Lens methods for each library so that \nJSON/XML node objects can be written and read directly from HTTP messages:\n\n\n\n\n\nAuto-marshalling capabilities\n\n\nSome of the message libraries (eg. GSON, Jackson, XML) provide the mechanism to automatically marshall data objects to/from JSON and XML using reflection.\n\n\nWe can use this facility in \nhttp4k\n to automatically marshall objects to/from HTTP message bodies using \nLenses\n:\n\n\nJSON\n\n\n\n\n\nXML\n\n\n\n\n\nThere is a utility to generate Kotlin code for JSON and XML data class code \nhere\n . These data classes are compatible with using the \nBody.auto\nT\n()\n functionality. \n\n\nFAQ (aka gotchas) regarding Auto-marshalling capabilities\n\n\nUppercase JSON key names\n\n\nThe Jackson version of the automarshalling does NOT work for objects with uppercase key names - this is a known issue with the Jackson library and we are unable to fix it. Either use the GSON alternative, or annotate your Data class fields with \nJsonAlias\n annotations to work around this.\n\n\nJSON arrays\n\n\nWhen handling raw JSON array messages, such as: \n[123, 456, 567]\n, there is a slight gotcha when auto-marshalling messages from JSON.\n\n\nThis is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.\n\n\nAs shown, a workaround to this is to use \nBody.auto\nArray\nMyIntWrapper\n().toLens()\n instead, and then compare using \nArrays.equal()", 
-            "title": "Message Formats"
+            "title": "Message formats"
         }, 
         {
             "location": "/guide/modules/message_formats/#installation-gradle", 
@@ -218,7 +218,7 @@
         {
             "location": "/guide/modules/contracts/", 
             "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-contract\", version: \"2.30.0\"\n\n\nAbout\n\n\nThe \nhttp4k-contract\n module adds a much more sophisticated routing mechanism to that available in \nhttp4k-core\n. It adds the facility \nto declare server-side \nRoutes\n in a completely typesafe way, leveraging the Lens functionality from the core. These \nRoutes\n are \ncombined into \nRouteModules\n, which have the following features:\n\n\n\n\nAuto-validating\n - the \nRoute\n contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a \nHTTP 400\n (BAD_REQUEST)\n response.     \n\n\nSelf-describing:\n - a generated endpoint is provided which describes all of the \nRoutes\n in that module. Implementations include \nOpenApi/Swagger\n documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.\n\n\nSecurity:\n to secure the \nRoutes\n  against unauthorised access. Current implementations include \nApiKey\n.\n\n\n\n\n\n\n\nWhen launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.\n\n\nFor a more extended example, see the following example apps: \n\n\n\n\nTodo backend (typesafe contract version)\n\n\nTDD'd example application", 
-            "title": "Typesafe Contracts"
+            "title": "Typesafe contracts"
         }, 
         {
             "location": "/guide/modules/contracts/#installation-gradle", 
@@ -243,6 +243,21 @@
         {
             "location": "/guide/modules/aws/#about", 
             "text": "This module provides super-simple AWS request signing functionality for talking to AWS services. This is implemented as a standard  Filter  which can be used to wrap a standard  HttpHandler  client:", 
+            "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/multipart/", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-multipart\", version: \"2.30.0\"\n\n\nAbout\n\n\nMultipart form support for fields and files, including a set of lens extensions for fields/files.\n\n\nSee the \ncookbook\n for example use.", 
+            "title": "Multipart forms"
+        }, 
+        {
+            "location": "/guide/modules/multipart/#installation-gradle", 
+            "text": "compile group: \"org.http4k\", name: \"http4k-multipart\", version: \"2.30.0\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/multipart/#about", 
+            "text": "Multipart form support for fields and files, including a set of lens extensions for fields/files.  See the  cookbook  for example use.", 
             "title": "About"
         }, 
         {

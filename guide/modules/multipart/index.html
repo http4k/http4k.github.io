@@ -10,7 +10,7 @@
     <meta name="description" content="Documentation site for the http4k functional web toolkit written in Kotlin">
     
     
-    <link rel="canonical" href="https://http4k.org/cookbook/request_context/">
+    <link rel="canonical" href="https://http4k.org/guide/modules/multipart/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -56,16 +56,16 @@
     
     
     
-    <title>Typesafe RequestContexts - http4k</title>
+    <title>Multipart forms - http4k</title>
     
     
     
-    <script src="../../assets/javascripts/modernizr-1df76c4e58.js"></script>
+    <script src="../../../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-    <link rel="stylesheet" href="../../assets/stylesheets/application-acc56dad49.css">
+    <link rel="stylesheet" href="../../../assets/stylesheets/application-acc56dad49.css">
     
-    <link rel="stylesheet" href="../../assets/stylesheets/application-8817cfa535.palette.css">
+    <link rel="stylesheet" href="../../../assets/stylesheets/application-8817cfa535.palette.css">
     
     
     
@@ -85,7 +85,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-    <link rel="stylesheet" href="../.././css/site.css">
+    <link rel="stylesheet" href="../../.././css/site.css">
     
     
 </head>
@@ -113,7 +113,7 @@
             <div class="md-flex__cell md-flex__cell--shrink">
                 
                 <a href="https://http4k.org" title="http4k" class="md-logo md-header-nav__button">
-                    <img src="../../img/logo_1100x200_white_on_blue_trans.png" height="24">
+                    <img src="../../../img/logo_1100x200_white_on_blue_trans.png" height="24">
                 </a>
                 
             </div>
@@ -126,11 +126,15 @@
             
               
                 <span class="md-header-nav__parent">
-                  Cookbook
+                  Developer Guide
+                </span>
+              
+                <span class="md-header-nav__parent">
+                  Modules
                 </span>
               
             
-            Typesafe RequestContexts
+            Multipart forms
           
         </span>
             </div>
@@ -203,7 +207,7 @@
     <label class="md-nav__title md-nav__title--site" for="drawer">
         
         <i class="md-logo md-nav__button">
-            <img src="../../img/logo_1100x200_white_on_blue_trans.png">
+            <img src="../../../img/logo_1100x200_white_on_blue_trans.png">
         </i>
         
         http4k
@@ -239,7 +243,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../.." title="Introduction" class="md-nav__link">
+    <a href="../../.." title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -251,7 +255,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../rationale/" title="Rationale & Concepts" class="md-nav__link">
+    <a href="../../../rationale/" title="Rationale & Concepts" class="md-nav__link">
       Rationale & Concepts
     </a>
   </li>
@@ -263,7 +267,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../installation/" title="Installation" class="md-nav__link">
+    <a href="../../../installation/" title="Installation" class="md-nav__link">
       Installation
     </a>
   </li>
@@ -275,7 +279,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../quickstart/" title="Getting started" class="md-nav__link">
+    <a href="../../../quickstart/" title="Getting started" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -285,10 +289,12 @@
         
         
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
     <label class="md-nav__link" for="nav-5">
       Developer Guide
@@ -304,10 +310,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
     
     <label class="md-nav__link" for="nav-5-1">
       Modules
@@ -325,7 +333,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/core/" title="Core" class="md-nav__link">
+    <a href="../core/" title="Core" class="md-nav__link">
       Core
     </a>
   </li>
@@ -337,7 +345,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/servers/" title="Server backend" class="md-nav__link">
+    <a href="../servers/" title="Server backend" class="md-nav__link">
       Server backend
     </a>
   </li>
@@ -349,7 +357,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/clients/" title="HTTP client" class="md-nav__link">
+    <a href="../clients/" title="HTTP client" class="md-nav__link">
       HTTP client
     </a>
   </li>
@@ -361,7 +369,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/message_formats/" title="Message formats" class="md-nav__link">
+    <a href="../message_formats/" title="Message formats" class="md-nav__link">
       Message formats
     </a>
   </li>
@@ -373,7 +381,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/templating/" title="Templating" class="md-nav__link">
+    <a href="../templating/" title="Templating" class="md-nav__link">
       Templating
     </a>
   </li>
@@ -385,7 +393,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/contracts/" title="Typesafe contracts" class="md-nav__link">
+    <a href="../contracts/" title="Typesafe contracts" class="md-nav__link">
       Typesafe contracts
     </a>
   </li>
@@ -397,7 +405,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/aws/" title="AWS" class="md-nav__link">
+    <a href="../aws/" title="AWS" class="md-nav__link">
       AWS
     </a>
   </li>
@@ -407,11 +415,50 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../guide/modules/multipart/" title="Multipart forms" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Multipart forms
+      </label>
+    
+    <a href="./" title="Multipart forms" class="md-nav__link md-nav__link--active">
       Multipart forms
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation-gradle" title="Installation (Gradle)" class="md-nav__link">
+    Installation (Gradle)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about" title="About" class="md-nav__link">
+    About
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -421,7 +468,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/hamkrest/" title="Hamkrest" class="md-nav__link">
+    <a href="../hamkrest/" title="Hamkrest" class="md-nav__link">
       Hamkrest
     </a>
   </li>
@@ -433,7 +480,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/webdriver/" title="WebDriver" class="md-nav__link">
+    <a href="../webdriver/" title="WebDriver" class="md-nav__link">
       WebDriver
     </a>
   </li>
@@ -450,7 +497,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/testing/" title="Application Testing" class="md-nav__link">
+    <a href="../../testing/" title="Application Testing" class="md-nav__link">
       Application Testing
     </a>
   </li>
@@ -481,7 +528,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/example/" title="Introduction" class="md-nav__link">
+    <a href="../../example/" title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -493,7 +540,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/example/_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
+    <a href="../../example/_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
       1. Building a walking skeleton
     </a>
   </li>
@@ -505,7 +552,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/example/_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
+    <a href="../../example/_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
       2. Adding an endpoint
     </a>
   </li>
@@ -517,7 +564,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/example/_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
+    <a href="../../example/_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
       3. Adding another endpoint
     </a>
   </li>
@@ -529,7 +576,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/example/_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
+    <a href="../../example/_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
       4. An external dependency
     </a>
   </li>
@@ -549,12 +596,10 @@
         
         
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
     <label class="md-nav__link" for="nav-6">
       Cookbook
@@ -572,7 +617,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../server_as_a_function/" title="Server as a function" class="md-nav__link">
+    <a href="../../../cookbook/server_as_a_function/" title="Server as a function" class="md-nav__link">
       Server as a function
     </a>
   </li>
@@ -584,7 +629,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../client_as_a_function/" title="Client as a function" class="md-nav__link">
+    <a href="../../../cookbook/client_as_a_function/" title="Client as a function" class="md-nav__link">
       Client as a function
     </a>
   </li>
@@ -596,7 +641,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../container_integration/" title="Container integration" class="md-nav__link">
+    <a href="../../../cookbook/container_integration/" title="Container integration" class="md-nav__link">
       Container integration
     </a>
   </li>
@@ -608,7 +653,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../simple_routing/" title="Simple routing" class="md-nav__link">
+    <a href="../../../cookbook/simple_routing/" title="Simple routing" class="md-nav__link">
       Simple routing
     </a>
   </li>
@@ -620,7 +665,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../nestable_routes/" title="Nestable routes" class="md-nav__link">
+    <a href="../../../cookbook/nestable_routes/" title="Nestable routes" class="md-nav__link">
       Nestable routes
     </a>
   </li>
@@ -632,7 +677,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../using_json/" title="JSON messaging" class="md-nav__link">
+    <a href="../../../cookbook/using_json/" title="JSON messaging" class="md-nav__link">
       JSON messaging
     </a>
   </li>
@@ -644,7 +689,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../using_templates/" title="Templating engines" class="md-nav__link">
+    <a href="../../../cookbook/using_templates/" title="Templating engines" class="md-nav__link">
       Templating engines
     </a>
   </li>
@@ -654,70 +699,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Typesafe RequestContexts
-      </label>
-    
-    <a href="./" title="Typesafe RequestContexts" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../../cookbook/request_context/" title="Typesafe RequestContexts" class="md-nav__link">
       Typesafe RequestContexts
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
-    Gradle setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#code" title="Code" class="md-nav__link">
-    Code
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#string-based-keys" title="String-based keys" class="md-nav__link">
-    String-based keys
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lens-based-keys" title="Lens-based keys" class="md-nav__link">
-    Lens-based keys
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -727,7 +713,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
+    <a href="../../../cookbook/typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
       Typesafe HTTP requests with lenses
     </a>
   </li>
@@ -739,7 +725,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../html_forms/" title="HTML forms" class="md-nav__link">
+    <a href="../../../cookbook/html_forms/" title="HTML forms" class="md-nav__link">
       HTML forms
     </a>
   </li>
@@ -751,7 +737,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../multipart_forms/" title="Multipart forms" class="md-nav__link">
+    <a href="../../../cookbook/multipart_forms/" title="Multipart forms" class="md-nav__link">
       Multipart forms
     </a>
   </li>
@@ -763,7 +749,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
+    <a href="../../../cookbook/generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
       Generating data classes for messages
     </a>
   </li>
@@ -775,7 +761,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
+    <a href="../../../cookbook/typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
       Typesafe HTTP contracts
     </a>
   </li>
@@ -787,7 +773,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
+    <a href="../../../cookbook/record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
       Recording/replaying HTTP traffic
     </a>
   </li>
@@ -799,7 +785,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../test_driven_apps/" title="Test driven apps" class="md-nav__link">
+    <a href="../../../cookbook/test_driven_apps/" title="Test driven apps" class="md-nav__link">
       Test driven apps
     </a>
   </li>
@@ -816,7 +802,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../performance/" title="Performance" class="md-nav__link">
+    <a href="../../../performance/" title="Performance" class="md-nav__link">
       Performance
     </a>
   </li>
@@ -828,7 +814,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../in_action/" title="In action" class="md-nav__link">
+    <a href="../../../in_action/" title="In action" class="md-nav__link">
       In action
     </a>
   </li>
@@ -840,7 +826,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+    <a href="../../../changelog/" title="Changelog" class="md-nav__link">
       Changelog
     </a>
   </li>
@@ -852,7 +838,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../contributing/" title="Contribute/Support http4k" class="md-nav__link">
+    <a href="../../../contributing/" title="Contribute/Support http4k" class="md-nav__link">
       Contribute/Support http4k
     </a>
   </li>
@@ -864,7 +850,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../faq/" title="FAQ" class="md-nav__link">
+    <a href="../../../faq/" title="FAQ" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -876,7 +862,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../support/" title="Help & Support" class="md-nav__link">
+    <a href="../../../support/" title="Help & Support" class="md-nav__link">
       Help & Support
     </a>
   </li>
@@ -893,31 +879,16 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/request_context/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/modules/multipart/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>Typesafe RequestContexts</h1>
+                    <h1>Multipart forms</h1>
                     
-                    <p>A <code>RequestContext</code> makes it possible to attach objects to a request whilst it is being passed down through the layers of an application.</p>
-<p>The basic concept is that there is a global shared object which holds a bag of state (indexed by Request). This state can be modified in Filters and then 
-that state accessed inside other Filters or the terminating HttpHandler. There are 2 available choices for manipulating this data:</p>
-<ol>
-<li>Using simple Strings to represent the keys.</li>
-<li>Using <code>RequestContextKey</code>s and the Lens mechanism from the <code>http4k-core</code> module.</li>
-</ol>
-<p>Whilst the first method looks technically simpler, the use of simple Strings does not provide the type-safety of the second, which uses unique shared Key objects to guarantee non-clashing of keys and type-safety of the state.
-Regardless of which of the above mechanisms are used, an instance of the <code>ServerFilters.InitialiseRequestContext</code> Filter must wrap the HttpHandler(s) to activate
-the shared bag of state for each request, and to remove the state after the request is complete.</p>
-<h3 id="gradle-setup">Gradle setup</h3>
-<div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.30.0&quot;
-</pre></div>
-
-
-<h3 id="code">Code</h3>
-<h4 id="string-based-keys">String-based keys</h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/string_key_example.kt"></script></p>
-<h4 id="lens-based-keys">Lens-based keys</h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/lens_key_example.kt"></script></p>
+                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+<p><code>compile group: "org.http4k", name: "http4k-multipart", version: "2.30.0"</code></p>
+<h3 id="about">About</h3>
+<p>Multipart form support for fields and files, including a set of lens extensions for fields/files.</p>
+<p>See the <a href="../../../cookbook/html_forms/">cookbook</a> for example use.</p>
                     
                     
                     
@@ -936,7 +907,7 @@ the shared bag of state for each request, and to remove the state after the requ
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../using_templates/" title="Templating engines" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../aws/" title="AWS" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -945,19 +916,19 @@ the shared bag of state for each request, and to remove the state after the requ
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Templating engines
+                AWS
               </span>
             </div>
           </a>
         
         
-          <a href="../typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../hamkrest/" title="Hamkrest" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Typesafe HTTP requests with lenses
+                Hamkrest
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -991,10 +962,10 @@ the shared bag of state for each request, and to remove the state after the requ
     
 </div>
 
-<script src="../../assets/javascripts/application-b30566c560.js"></script>
+<script src="../../../assets/javascripts/application-b30566c560.js"></script>
 
 
-<script>app.initialize({url: {base: "../.."}})</script>
+<script>app.initialize({url: {base: "../../.."}})</script>
 
 
 
