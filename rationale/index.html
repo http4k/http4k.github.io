@@ -899,8 +899,7 @@ adoption of Kotlin, we wanted something that would fully leverage the features o
 <li>Has immutable Request/Response objects.</li>
 </ol>
 <p><strong>http4k</strong> ticks all of these boxes. </p>
-<p>It allow us to construct entire suites of services which can be tested either wired together without HTTP, or spun up in containers 
-in 1 LOC. The symmetric HTTP API also allows Filter chains (often called "Middleware" or "Interceptors" in other frameworks) to be constructed into reusable units/stacks for both 
+<p>It allow us to construct entire suites of services which can be tested either wired together without HTTP, or spun up in containers using a single line of code. The symmetric HTTP API also allows Filter chains (often called "Middleware" or "Interceptors" in other frameworks) to be constructed into reusable units/stacks for both 
 server and client sides (eg. logging/metrics/caching...) since they can be composed together for later use. </p>
 <p>As a bonus, we can also easily create simple Fake servers for any HTTP contract, which means (in combination with CDC suites) you can end-to-end test micro-services in an outside-in way (using GOOS-style acceptance tests).</p>
 <p>Scenarios such as "what happens if this HTTP dependency continually takes &gt; 5 seconds to respond?" are easily modelled - answers you can't easily get if you're faking out your dependencies inside the HTTP boundary.</p>
