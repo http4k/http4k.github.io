@@ -698,8 +698,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code" title="Code" class="md-nav__link">
-    Code
+  <a href="#standard-exception-based-approach" title="Standard (exception based) approach" class="md-nav__link">
+    Standard (exception based) approach
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-custom-result-adts" title="Using custom "Result" ADTs" class="md-nav__link">
+    Using custom "Result" ADTs
   </a>
   
 </li>
@@ -884,8 +891,16 @@
 </pre></div>
 
 
-<h3 id="code">Code</h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example.kt"></script></p>
+<h3 id="standard-exception-based-approach">Standard (exception based) approach</h3>
+<p>Errors in extracting Lenses are propagated as exceptions which are caught and handled by the <code>CatchLensFailure</code> Filter.</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example.kt"></script>
+
+<h3 id="using-custom-result-adts">Using custom "Result" ADTs</h3>
+<p>An alternative approach to using Exceptions to automatically produce <code>BadRequests</code> is to use an Either-type structure, and this would be easy to implement - but the lack of an in-built Result/Either type in the standard Kotlin library means that we 
+don't have a single representation to use without shackling ourselves to another Either-containing library such as Funktionale or Result4k.</p>
+<p>Additionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases.</p>
+<p>Below is an example which uses a custom Result ADT - this will work for all extraction Lenses that you define:</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example_custom_result_adt.kt"></script>
                     
                     
                     

@@ -547,7 +547,7 @@
         }, 
         {
             "location": "/cookbook/typesafe_http_requests_with_lenses/", 
-            "text": "Example showing how to create and apply lenses to requests and responses to both extract and inject typesafe values out of and into HTTP messages. Note that since the \nhttp4k\n \nRequest/Response\n objects are immutable, all injection occurs via copy.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n2.35.1\n\n\n\n\n\n\nCode", 
+            "text": "Example showing how to create and apply lenses to requests and responses to both extract and inject typesafe values out of and into HTTP messages. Note that since the \nhttp4k\n \nRequest/Response\n objects are immutable, all injection occurs via copy.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n2.35.1\n\n\n\n\n\n\nStandard (exception based) approach\n\n\nErrors in extracting Lenses are propagated as exceptions which are caught and handled by the \nCatchLensFailure\n Filter.\n\n\n\n\n\nUsing custom \"Result\" ADTs\n\n\nAn alternative approach to using Exceptions to automatically produce \nBadRequests\n is to use an Either-type structure, and this would be easy to implement - but the lack of an in-built Result/Either type in the standard Kotlin library means that we \ndon't have a single representation to use without shackling ourselves to another Either-containing library such as Funktionale or Result4k.\n\n\nAdditionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases.\n\n\nBelow is an example which uses a custom Result ADT - this will work for all extraction Lenses that you define:", 
             "title": "Typesafe HTTP requests with lenses"
         }, 
         {
@@ -556,9 +556,14 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/typesafe_http_requests_with_lenses/#code", 
-            "text": "", 
-            "title": "Code"
+            "location": "/cookbook/typesafe_http_requests_with_lenses/#standard-exception-based-approach", 
+            "text": "Errors in extracting Lenses are propagated as exceptions which are caught and handled by the  CatchLensFailure  Filter.", 
+            "title": "Standard (exception based) approach"
+        }, 
+        {
+            "location": "/cookbook/typesafe_http_requests_with_lenses/#using-custom-result-adts", 
+            "text": "An alternative approach to using Exceptions to automatically produce  BadRequests  is to use an Either-type structure, and this would be easy to implement - but the lack of an in-built Result/Either type in the standard Kotlin library means that we \ndon't have a single representation to use without shackling ourselves to another Either-containing library such as Funktionale or Result4k.  Additionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases.  Below is an example which uses a custom Result ADT - this will work for all extraction Lenses that you define:", 
+            "title": "Using custom \"Result\" ADTs"
         }, 
         {
             "location": "/cookbook/html_forms/", 
