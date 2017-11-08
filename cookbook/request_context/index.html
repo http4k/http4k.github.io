@@ -89,20 +89,6 @@
     <link rel="stylesheet" href="../.././css/site.css">
     
     
-    <script type="application/ld+json">
-        {
-          "@context" : "http://schema.org",
-          "@type" : "WebSite",
-    
-          "name" : "http4k Request Contexts",
-    
-    
-          "alternateName" : "Recipes for using http4k with per-request context objects",
-    
-          "image": "https://www.http4k.org/img/logo_card_blue_on_white.png",
-          "url" : "https://http4k.org/cookbook/request_context/"
-        }
-        </script>
 </head>
 
 
@@ -924,7 +910,7 @@ that state accessed inside other Filters or the terminating HttpHandler. There a
 Regardless of which of the above mechanisms are used, an instance of the <code>ServerFilters.InitialiseRequestContext</code> Filter must wrap the HttpHandler(s) to activate
 the shared bag of state for each request, and to remove the state after the request is complete.</p>
 <h3 id="gradle-setup">Gradle setup</h3>
-<div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.37.0&quot;
+<div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;2.36.0&quot;
 </pre></div>
 
 
