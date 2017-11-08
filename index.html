@@ -89,20 +89,6 @@
     <link rel="stylesheet" href="././css/site.css">
     
     
-    <script type="application/ld+json">
-        {
-          "@context" : "http://schema.org",
-          "@type" : "WebSite",
-    
-          "name" : "http4k - a functional Kotlin HTTP toolkit",
-    
-    
-          "alternateName" : "http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way.",
-    
-          "image": "https://www.http4k.org/img/logo_card_blue_on_white.png",
-          "url" : "https://http4k.org/"
-        }
-        </script>
 </head>
 
 
@@ -482,18 +468,6 @@
   <li class="md-nav__item">
     <a href="guide/modules/multipart/" title="Multipart forms" class="md-nav__link">
       Multipart forms
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/resilience/" title="Resilience" class="md-nav__link">
-      Resilience
     </a>
   </li>
 
@@ -964,7 +938,6 @@ plugging together of services without HTTP container being required.</li>
 <li>Templating support: Caching and Hot-Reload engine support for Handlebars, Pebble, Dust and Thymeleaf</li>
 <li>AWS request signing: super-simple interactions with AWS services</li>
 <li>Multipart form handling.</li>
-<li>Resilience features: Circuits, retrying, rate limiting, bulkheading - via Resilience4J integration.</li>
 <li>Testing: Selenium WebDriver implementation for lightning fast, browserless testing of <strong>http4k</strong> apps</li>
 <li>Testing: Hamkrest Matchers for <strong>http4k</strong> objects</li>
 </ul>
@@ -1032,10 +1005,6 @@ plugging together of services without HTTP container being required.</li>
 </li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/resilience">Resilience:</a> <ul>
-<li>Support for Circuits, Retrying, Rate-Limiting, Bulkheading via Resilience4J integration.</li>
-</ul>
-</li>
 <li><a href="https://http4k.org/guide/modules/multipart">Multipart:</a> <ul>
 <li>Support for Multipart HTML forms, including Lens extensions for type-safe marshalling of fields.</li>
 </ul>
@@ -1057,9 +1026,9 @@ plugging together of services without HTTP container being required.</li>
 <p>This quick example is designed to convey the simplicity &amp; features of <strong>http4k</strong>. See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point.</p>
 <p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
 <div class="codehilite"><pre><span></span><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.37.0&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.37.0&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.37.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.36.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.36.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;2.36.0&quot;</span>
 <span class="o">}</span>
 </pre></div>
 
@@ -1134,9 +1103,9 @@ plugging together of services without HTTP container being required.</li>
 <span class="c1">//    HTTP/1.1 200</span>
 <span class="c1">//    cache-control: private, must-revalidate</span>
 <span class="c1">//    content-length: 9</span>
-<span class="c1">//    date: Thu, 08 Jun 2.37.03:01:13 GMT</span>
+<span class="c1">//    date: Thu, 08 Jun 2.36.03:01:13 GMT</span>
 <span class="c1">//    expires: 0</span>
-<span class="c1">//    server: Jetty(9.3.16.v2.37.020)</span>
+<span class="c1">//    server: Jetty(9.3.16.v2.36.020)</span>
 <span class="c1">//</span>
 <span class="c1">//    hello Bob</span>
 <span class="p">}</span>
