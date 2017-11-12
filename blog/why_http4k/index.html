@@ -996,7 +996,7 @@
 </pre></div>
 
 
-<p>For another, it means that if applications and clients are interchangeable, you can plug them together in memory without putting them on the network - which makes testing insanely fast:</p>
+<p>For another, it means that since clients are just functions you can easily stub them for testing, and since applications and clients are interchangeable, they can be plugged together in memory without putting them on the network - which makes testing insanely fast:</p>
 <div class="codehilite"><pre><span></span><span class="k">fun</span> <span class="nf">MyApp1</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 <span class="k">fun</span> <span class="nf">MyApp2</span><span class="p">(</span><span class="n">app1</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">app1</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="p">}</span>
 
