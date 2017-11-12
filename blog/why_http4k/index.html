@@ -1015,7 +1015,7 @@
 
 <p>...but we also want to ensure that the expected values are both present and valid, since the above example will fail if either of those things is not true. For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a> to enforce the expected HTTP contract.</p>
 <h3 id="lens-basics">Lens basics</h3>
-<p>A Lens is a bi-directional entity which can be used to either <em>get</em> or <em>set</em> a particular value from/onto an HTTP message. <a href="https://http4k.org"><strong>http4k</strong></a> provides a DSL to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional). For the above example, we could use the <code>Query</code> Lens builder function and then apply the Lens to the message:</p>
+<p>A Lens is a bi-directional entity which can be used to either <em>get</em> (extract) or <em>set</em> (inject) a particular value from/onto an HTTP message. <a href="https://http4k.org"><strong>http4k</strong></a> provides a DSL to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional). For the above example, we could use the <code>Query</code> Lens builder and then apply the Lens to the message:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">pageLens</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span>
 <span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">pageLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?page=123&quot;</span><span class="p">))</span>
 </pre></div>
@@ -1040,9 +1040,11 @@
 </pre></div>
 
 
-<h3 id="more-advanced-lensing">More advanced lensing</h3>
-<div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">CustomType</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">LocalDate</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">requiredCustomQuery</span> <span class="p">=</span> <span class="n">Header</span><span class="p">.</span><span class="n">localDate</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">CustomType</span><span class="p">,</span> <span class="n">CustomType</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;myCustomType&quot;</span><span class="p">)</span>
+<h3 id="advanced-lensing">Advanced lensing</h3>
+<p>Securely extracting JDK primitives from HTTP messages is great, but we really want to avoid primitives entirely and go straight to domain types. During construction of Lens, the builders allow mapping to occur so we can leverage Kotlin data classes:</p>
+<div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">MyDate</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">LocalDate</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">dateQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">localDate</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">MyDate</span><span class="p">,</span> <span class="n">MyDate</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">myDate</span><span class="p">:</span> <span class="n">dateQuery</span> <span class="p">=</span> <span class="n">customQuery</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?date=2000-01-01&quot;</span><span class="p">))</span>
 </pre></div>
 
 
