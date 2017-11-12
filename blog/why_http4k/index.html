@@ -920,7 +920,7 @@
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is simple. Like, really simple. No static API magic, no annotations, no reflection.</li>
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is immutable. It relies on an immutable HTTP model, which makes it a snap to test and debug.</li>
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is symmetric. The remote HTTP model is the same as the incoming model.</li>
-<li><a href="https://http4k.org"><strong>http4k</strong></a> is typesafe. Say goodbye to validation and marshalling boilerplate and hello to auto-generated documentation.</li>
+<li><a href="https://http4k.org"><strong>http4k</strong></a> is typesafe. Say goodbye to validation and marshalling boilerplate and hello to data class-based contracts for HTTP bodies.</li>
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is serverless. Or rather - server independent. Test an app locally and then deploy it into AWS Lambda with no changes.</li>
 </ul>
 <h3 id="oh-god-not-another-framework-why-does-this-even-exist">Oh god not another framework! Why does this even exist?!?</h3>
@@ -1014,6 +1014,7 @@
 
 
 <p>...but we also want to ensure that the expected values are both present and valid, since the above example will fail if either of those things is not true. For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a> to enforce the expected HTTP contract.</p>
+<p>The use of Lenses in <a href="https://http4k.org"><strong>http4k</strong></a> applications can remove the need for writing any parsing or validation code for incoming data, as validations are taken care of by the library. Data received from clients can use exactly the same mechanisms, but violations do need to be handled.</p>
 <h3 id="lens-basics">Lens basics</h3>
 <p>A Lens is a bi-directional entity which can be used to either <em>get</em> (extract) or <em>set</em> (inject) a particular value from/onto an HTTP message. <a href="https://http4k.org"><strong>http4k</strong></a> provides a DSL to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional). For the above example, we could use the <code>Query</code> Lens builder and then apply the Lens to the message:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">pageLens</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span>
@@ -1040,14 +1041,25 @@
 </pre></div>
 
 
-<h3 id="advanced-lensing">Advanced lensing</h3>
-<p>Securely extracting JDK primitives from HTTP messages is great, but we really want to avoid primitives entirely and go straight to domain types. During construction of Lens, the builders allow mapping to occur so we can leverage Kotlin data classes:</p>
+<p>Securely extracting JDK primitives from HTTP messages is great, but we really want to avoid primitives entirely and go straight to domain types. During construction of Lens, the builders allow mapping to occur so we can leverage Kotlin data classes. This works for both get and set operations:</p>
 <div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">MyDate</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">LocalDate</span><span class="p">)</span>
 <span class="k">val</span> <span class="py">dateQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">localDate</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">MyDate</span><span class="p">,</span> <span class="n">MyDate</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">myDate</span><span class="p">:</span> <span class="n">dateQuery</span> <span class="p">=</span> <span class="n">customQuery</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?date=2000-01-01&quot;</span><span class="p">))</span>
+<span class="k">val</span> <span class="py">myDate</span><span class="p">:</span> <span class="n">dateQuery</span> <span class="p">=</span> <span class="n">dateQuery</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?date=2000-01-01&quot;</span><span class="p">))</span>
 </pre></div>
 
 
+<h3 id="lensing-http-bodies-with-data-classes">Lensing HTTP bodies with Data classes</h3>
+<p>Some of the supported message libraries (eg. GSON, Jackson, XML) provide the mechanism to automatically marshall data objects to/from JSON and XML using reflection (oops - looks like we broke our reflection promise - but technically we're not doing it ;) !). This behaviour is supported in <a href="https://http4k.org"><strong>http4k</strong></a> Lenses through the use of the <code>auto()</code> method, which will marshall objects to/from HTTP messages:</p>
+<div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">Email</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Message</span><span class="p">(</span><span class="k">val</span> <span class="py">subject</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">from</span><span class="p">:</span> <span class="n">Email</span><span class="p">,</span> <span class="k">val</span> <span class="py">to</span><span class="p">:</span> <span class="n">Email</span><span class="p">)</span>
+
+<span class="k">val</span> <span class="py">messageLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">Message</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span>
+<span class="k">val</span> <span class="py">body</span> <span class="p">=</span> <span class="s">&quot;&quot;&quot;{&quot;</span><span class="n">subject</span><span class="s">&quot;:&quot;</span><span class="n">hello</span><span class="s">&quot;,&quot;</span><span class="n">from</span><span class="s">&quot;:{&quot;</span><span class="n">value</span><span class="s">&quot;:&quot;</span><span class="n">bob@git</span><span class="p">.</span><span class="n">com</span><span class="s">&quot;},&quot;</span><span class="n">to</span><span class="s">&quot;:{&quot;</span><span class="n">value</span><span class="s">&quot;:&quot;</span><span class="n">sue@git</span><span class="p">.</span><span class="n">com</span><span class="s">&quot;}}&quot;&quot;&quot;</span>
+<span class="k">val</span> <span class="py">message</span><span class="p">:</span> <span class="n">Message</span> <span class="p">=</span> <span class="n">messageLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">body</span><span class="p">))</span>
+</pre></div>
+
+
+<p>This mechanism works for all incoming and outgoing JSON and XML Requests and Responses. To assist with using this way of working, we have created a <a href="http://http4k-data-class-gen.herokuapp.com/">tool</a> to automatically generate a set of data classes for a given messages.</p>
 <h2 id="claim-d-serverless">Claim D. Serverless</h2>
 <p>{{tumbleweed}}</p>
 <h2 id="the-final-words">The final word(s)!</h2>
