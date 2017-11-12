@@ -1016,7 +1016,7 @@
 <p>...but we also want to ensure that the expected values are both present and valid, since the above example will fail if either of those things is not true. For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a> to enforce the expected HTTP contract.</p>
 <p>The use of Lenses in <a href="https://http4k.org"><strong>http4k</strong></a> applications can remove the need for writing any parsing or validation code for incoming data, as validations are taken care of by the library. Data received from clients can use exactly the same mechanisms, but violations do need to be handled.</p>
 <h3 id="lens-basics">Lens basics</h3>
-<p>A Lens is a bi-directional entity which can be used to either <em>get</em> (extract) or <em>set</em> (inject) a particular value from/onto an HTTP message. <a href="https://http4k.org"><strong>http4k</strong></a> provides a DSL to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional). For the above example, we could use the <code>Query</code> Lens builder and then apply the Lens to the message:</p>
+<p>A Lens is a bi-directional entity which can be used to either <em>get</em> (extract) or <em>set</em> (inject) a particular value from/onto an HTTP message. <a href="https://http4k.org"><strong>http4k</strong></a> provides a DSL to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional) and the type. For the above example, we could use the <code>Query</code> Lens builder and then apply the Lens to the message:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">pageLens</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span>
 <span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">pageLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?page=123&quot;</span><span class="p">))</span>
 </pre></div>
@@ -1063,7 +1063,7 @@
 <h2 id="claim-d-serverless">Claim D. Serverless</h2>
 <p>{{tumbleweed}}</p>
 <h2 id="the-final-words">The final word(s)!</h2>
-<p>The <code>http4k-core</code> module rocks in at &lt;1000 lines of code (about 600kb), and has zero dependencies (other than the Kotlin language itself). Additionally, everything in the core is functional and predictable - there is no static API magic going on under the covers (making it impossible to have multiple apps in the same JVM), no compiler-plugins, and no reflection. It also provides:</p>
+<p>The <code>http4k-core</code> module rocks in at &lt;1000 lines of code (about 600kb), and has zero dependencies (other than the Kotlin language itself). Additionally, everything in the core is functional and predictable - there is no static API magic going on under the covers (making it difficult to have multiple apps in the same JVM), no compiler-plugins, and no reflection. It also provides:</p>
 <ul>
 <li>Support for static file serving with HotReload</li>
 <li>A bunch of useful Filters for stuff like <a href="http://zipkin.io/">Zipkin</a> Request Tracing</li>
@@ -1072,14 +1072,14 @@
 </ul>
 <p>There are also a bunch of other modules available, all presented with the same concentration on Testability, API simplicity and consistency:</p>
 <ul>
-<li>Templating engines with HotReload</li>
-<li>Popular JSON/XML library support</li>
-<li>Typesafe, multipart forms processing</li>
-<li><a href="https://aws.amazon.com/">AWS</a> request signing</li>
-<li><a href="http://resilience4j.github.io/resilience4j/">Resilience4j</a> integration, including Circuit Breakers &amp; Rate Limiting</li>
+<li>ViewModel driven templating engines with HotReload.</li>
+<li>Popular JSON/XML library support.</li>
+<li>Typesafe, multipart forms processing.</li>
+<li><a href="https://aws.amazon.com/">AWS</a> request signing.</li>
+<li><a href="http://resilience4j.github.io/resilience4j/">Resilience4j</a> integration, including Circuit Breakers &amp; Rate Limiting.</li>
 <li>Testing support via <a href="https://github.com/npryce/hamkrest">Hamkrest</a> matchers and an in-memory <a href="https://github.com/SeleniumHQ/selenium">WebDriver</a> implementation.</li>
 </ul>
-<p>Lastly, <a href="https://http4k.org">http4k</a> is proven in production, it has been adopted in at least 2 investment banks (that we know of) and is driving traffic for a major publishing website (easily serving 10s of million hits per day on a few nodes) since March 2017. You can see a few example applications <a href="../../in_action/">here</a>.</p>
+<p>Lastly, <a href="https://http4k.org">http4k</a> is proven in production, it has been adopted in at least 2 investment banks (that we know of) and is delivering traffic for a major publishing website (easily serving 10s of million hits per day on a few nodes) since March 2017. You can see a few example applications <a href="../../in_action/">here</a>.</p>
 <h5 id="footnotes">Footnotes</h5>
 <ul>
 <li>"But... but... but... asynchronous! And Webscale!"*, I heard them froth. Yes, you are correct - "Server as a Function" is based on asynchronous functions and <a href="https://http4k.org"><strong>http4k</strong></a> is synchronous. However, we tried this already and found that for 99% of apps it actually makes things harder unless you've got async all the way down. We found that this plainly didn't matter for our use-case so went for Simple™... maybe Kotlin co-routines will make this simpler - we'll see.</li>
