@@ -1006,8 +1006,46 @@
 
 
 <p><a href="https://http4k.org"><strong>http4k</strong></a> provides a HTTP client adapters for both Apache and OkHttp, all with streaming support.</p>
-<h2 id="claim-c-typesafe-http">Claim C. Typesafe HTTP</h2>
-<p>{{tumbleweed}}</p>
+<h2 id="claim-c-typesafe-http-with-lenses">Claim C. Typesafe HTTP with Lenses</h2>
+<p>The immutable <a href="https://http4k.org"><strong>http4k</strong></a> model for HTTP objects contains all the usual suspect methods for getting values from the messages. For instance, if we are expecting a search parameter with a page query:</p>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?page=123&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span><span class="o">!!</span><span class="p">.</span><span class="n">toInt</span>
+</pre></div>
+
+
+<p>...but we also want to ensure that the expected values are both present and valid, since the above example will fail if either of those things is not true. For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a> to enforce the expected HTTP contract.</p>
+<h3 id="lens-basics">Lens basics</h3>
+<p>A Lens is a bi-directional entity which can be used to either <em>get</em> or <em>set</em> a particular value from/onto an HTTP message. <a href="https://http4k.org"><strong>http4k</strong></a> provides a DSL to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional). For the above example, we could use the <code>Query</code> Lens builder function and then apply the Lens to the message:</p>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">pageLens</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">pageLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?page=123&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>If the query parameter is missing or not an Int, the lens extraction operation will fail. There are similar Lens builder functions for all parts of the HTTP message (<code>Header</code>, <code>Path</code>, <code>Body</code>, <code>FormField</code> etc..), and functions for all common JVM primitive types. They are all completely typesafe - there is no reflection or magic going on - just marshalling of the various entities (in this case String to Int conversion).</p>
+<p>In the case of failure, we need to apply a Filter to detect the errors and convert them to a BAD_REQUEST response:</p>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">queryName</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">string</span><span class="p">().</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+      <span class="s">&quot;/post&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">queryName</span><span class="p">(</span><span class="n">request</span><span class="p">))</span> <span class="p">}</span>
+    <span class="p">)</span>
+
+<span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/hello/2000-01-01?myCustomType=someValue&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Lenses also have a function to set an object <em>onto</em> a target object - since HTTP messages in <a href="https://http4k.org"><strong>http4k</strong></a> are immutable, this results in a copy of the object with the value set:</p>
+<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">pageSizeLens</span> <span class="p">=</span> <span class="n">Header</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">pageLens</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">),</span> <span class="m">123</span><span class="p">)</span>
+<span class="c1">// or apply multiple lenses using with()</span>
+<span class="k">val</span> <span class="py">updated</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/foo&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">pageLens</span> <span class="n">of</span> <span class="m">123</span><span class="p">,</span> <span class="n">pageSizeLens</span> <span class="n">of</span> <span class="m">10</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="more-advanced-lensing">More advanced lensing</h3>
+<div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">CustomType</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">LocalDate</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">requiredCustomQuery</span> <span class="p">=</span> <span class="n">Header</span><span class="p">.</span><span class="n">localDate</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">CustomType</span><span class="p">,</span> <span class="n">CustomType</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;myCustomType&quot;</span><span class="p">)</span>
+</pre></div>
+
+
 <h2 id="claim-d-serverless">Claim D. Serverless</h2>
 <p>{{tumbleweed}}</p>
 <h2 id="the-final-words">The final word(s)!</h2>
