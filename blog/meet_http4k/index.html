@@ -1063,7 +1063,7 @@
 <h2 id="claim-d-serverless">Claim D. Serverless</h2>
 <p>{{tumbleweed}}</p>
 <h2 id="the-final-words">The final word(s)!</h2>
-<p>The <code>http4k-core</code> module rocks in at &lt;1000 lines of code (about 600kb), and has zero dependencies (other than the Kotlin language itself). Additionally, everything in the core is functional and predictable - there is no static API magic going on under the covers (making it difficult to have multiple apps in the same JVM), no compiler-plugins, and no reflection. It also provides:</p>
+<p>The <code>http4k-core</code> module rocks in at &lt;1000 lines of code (about 600kb), and has zero dependencies (other than the Kotlin language itself). Additionally, everything in the core is <em>functional and predictable</em> - there is no static API magic going on under the covers (making it difficult to have multiple apps in the same JVM), no compiler-plugins, and no reflection. It also provides:</p>
 <ul>
 <li>Support for static file serving with HotReload.</li>
 <li>A bunch of useful Filters for stuff like <a href="http://zipkin.io/">Zipkin</a> Request Tracing.</li>
@@ -1080,11 +1080,11 @@
 <li><a href="http://resilience4j.github.io/resilience4j/">Resilience4j</a> integration, including Circuit Breakers &amp; Rate Limiting.</li>
 <li>Testing support via <a href="https://github.com/npryce/hamkrest">Hamkrest</a> matchers and an in-memory <a href="https://github.com/SeleniumHQ/selenium">WebDriver</a> implementation.</li>
 </ul>
-<p>Lastly, <a href="https://http4k.org">http4k</a> is proven in production, it has been adopted in at least 2 global investment banks (that we know of) and is delivering traffic for a major publishing website (easily serving 10s of million hits per day on a few nodes) since March 2017. </p>
+<p>Lastly, <a href="https://http4k.org"><strong>http4k</strong></a> is <strong>proven in production</strong>, it has been adopted in at least 2 global investment banks (that we know of) and is delivering traffic for a major publishing website (easily serving 10s of million hits per day on a few nodes) since March 2017. </p>
 <p>You can see a few example applications <a href="../../in_action/">here</a>, including a bootstrap project for creating a <a href="https://github.com/http4k/http4k-bootstrap"><strong>Github -&gt; Travis -&gt; Heroku</strong> CD pipeline</a> in a single command.</p>
 <h5 id="footnotes">Footnotes</h5>
 <ul>
-<li>"But... but... but... asynchronous! And Webscale!", I heard them froth. Yes, you are correct - "Server as a Function" is based on asynchronous functions and <a href="https://http4k.org"><strong>http4k</strong></a> is synchronous. However, we tried this already and found that for 99% of apps it actually makes things harder unless you've got async all the way down. We found that this plainly didn't matter for our use-case so went for Simple™... maybe Kotlin co-routines will make this simpler - we'll see.</li>
+<li><strong>"But... but... but... asynchronous! And Webscale!"</strong>, <em>I heard them froth</em>. Yes, you are correct - "Server as a Function" is based on asynchronous functions and <a href="https://http4k.org"><strong>http4k</strong></a> exposes a synchronous API. However, our experience suggests that for the vast majority of apps, it actually makes API integration harder unless you've got async all the way down - and that is assuming that async clients are actually available for all your various dependency types. We found that this plainly didn't matter for our use-cases so went for <em>Simple API™</em> instead... it's possible however that Kotlin co-routines will allow us to revisit this decision.</li>
 </ul>
                     
                     
