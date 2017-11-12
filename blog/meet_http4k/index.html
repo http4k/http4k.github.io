@@ -1061,7 +1061,20 @@
 
 <p>This mechanism works for all incoming and outgoing JSON and XML Requests and Responses. To assist with using this way of working, we have created a <a href="http://http4k-data-class-gen.herokuapp.com/">tool</a> to automatically generate a set of data classes for a given messages.</p>
 <h2 id="claim-d-serverless">Claim D. Serverless</h2>
-<p>{{tumbleweed}}</p>
+<p>Ah yes - Serverless - the latest in the Cool Kids Club and killer fodder for the resume. Well, since <a href="https://http4k.org"><strong>http4k</strong></a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library.</p>
+<p>In order to achieve this, only a single interface - <code>AppLoader</code> needs to be implemented - this is responsible for creating the <code>HttpHandler</code> which is adapted to the API of the <code>ApiGatewayProxyRequest/ApiGatewayProxyResponse</code> used by AWS. As this is AWS, there is a fair amount of configuration required to make this possible, but the only http4k specific config is to:
+1. Set the function execution to call <code>org.http4k.aws.lambda.LambdaFunction::handle</code>
+2. Set an environment variable for the Lambda <code>HTTP4K_BOOTSTRAP_CLASS</code> to the class of your <code>AppLoader</code> class.</p>
+<p>Here's a simple example:</p>
+<div class="codehilite"><pre><span></span><span class="k">object</span> <span class="nc">TweetEcho</span> <span class="p">:</span> <span class="n">AppLoader</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">Map</span><span class="p">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">&gt;):</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">140</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Although this works in the new version of <a href="https://http4k.org"><strong>http4k</strong></a>, expect this API to change somewhat as is </p>
 <h2 id="the-final-words">The final word(s)!</h2>
 <p>The <code>http4k-core</code> module rocks in at &lt;1000 lines of code (about 600kb), and has zero dependencies (other than the Kotlin language itself). Additionally, everything in the core is <em>functional and predictable</em> - there is no static API magic going on under the covers (making it difficult to have multiple apps in the same JVM), no compiler-plugins, and no reflection. It also provides:</p>
 <ul>
