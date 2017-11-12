@@ -981,7 +981,7 @@
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example_aws.kt"></script>
 
 <h4 id="aws-lambda-integration">AWS Lambda integration</h4>
-<p>Since <a href="https://http4k.org"><strong>http4k</strong></a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library.</p>
+<p>Since <a href="https://http4k.org"><strong>http4k</strong></a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library. This has the added bonus that you can test your applications in a local environment and then simply deploy them to AWS Lambda via S3 upload.</p>
 <p>This is far from a complete guide, but configuring AWS Lambda and the API Gateway involves several stages:
 1. Users, Roles and Policies for the API Gateway and Lambda.
 1. API Gateway to proxy all requests to your Lambda.
