@@ -951,7 +951,7 @@
 </pre></div>
 
 
-<p>To plug it into a different Server-backend, just depend on the relevant module (Jetty, Undertow, Netty) and change the call to <code>asServer()</code>.</p>
+<p>To plug it into a different Server-backend, just depend on the relevant module (Jetty, Undertow, Netty are available) and change the call to <code>asServer()</code>.</p>
 <h3 id="function-2-filter">Function 2: Filter</h3>
 <p><code>Filters</code> provides pre and post Request processing:</p>
 <div class="codehilite"><pre><span></span><span class="k">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">HttpHandler</span>
@@ -990,13 +990,13 @@
 </pre></div>
 
 
-<p>What does that mean in practice? Well - for one thing, it's less for your brain to think about because you already know the API:</p>
+<p>What does that mean in practice? Well - for one thing, it's less for your brain to learn  because you already know the API:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
 <span class="k">val</span> <span class="py">response</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/path&quot;</span><span class="p">))</span>
 </pre></div>
 
 
-<p>For another, it means that since clients are just functions you can easily stub them for testing, and since applications and clients are interchangeable, they can be plugged together in memory without putting them on the network - which makes testing insanely fast:</p>
+<p>For another, it means that since clients are <em>just function</em>s you can easily stub them for testing, and since applications and clients are interchangeable, they can be plugged together in memory without putting them on the network - which makes testing insanely fast:</p>
 <div class="codehilite"><pre><span></span><span class="k">fun</span> <span class="nf">MyApp1</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 <span class="k">fun</span> <span class="nf">MyApp2</span><span class="p">(</span><span class="n">app1</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">app1</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="p">}</span>
 
@@ -1005,9 +1005,9 @@
 </pre></div>
 
 
-<p><a href="https://http4k.org"><strong>http4k</strong></a> provides a HTTP client adapters for both Apache and OkHttp, all with streaming support.</p>
+<p><a href="https://http4k.org"><strong>http4k</strong></a> provides a HTTP client adapters for both <a href="https://hc.apache.org/">Apache</a> and <a href="http://square.github.io/okhttp/">OkHttp</a>, all with streaming support.</p>
 <h2 id="claim-c-typesafe-http-with-lenses">Claim C. Typesafe HTTP with Lenses</h2>
-<p>The immutable <a href="https://http4k.org"><strong>http4k</strong></a> model for HTTP objects contains all the usual suspect methods for getting values from the messages. For instance, if we are expecting a search parameter with a page query:</p>
+<p>The immutable <a href="https://http4k.org"><strong>http4k</strong></a> model for HTTP objects contains all the usual suspect methods for getting values from the messages. For instance, if we are expecting a search parameter with a query containing a page number:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?page=123&quot;</span><span class="p">)</span>
 <span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span><span class="o">!!</span><span class="p">.</span><span class="n">toInt</span>
 </pre></div>
@@ -1073,16 +1073,17 @@
 <p>There are also a bunch of other modules available, all presented with the same concentration on Testability, API simplicity and consistency:</p>
 <ul>
 <li>ViewModel driven templating engines with HotReload.</li>
-<li>Popular JSON/XML library support.</li>
-<li>Typesafe, multipart forms processing.</li>
+<li>Popular JSON/XML library support for HTTP bodies.</li>
+<li>Typesafe, multipart forms processing, with support for Streaming uploads to a storage service.</li>
+<li>Typesafe contract module, providing live <a href="https://www.openapis.org/">OpenApi/Swagger</a> documentation.</li>
 <li><a href="https://aws.amazon.com/">AWS</a> request signing.</li>
 <li><a href="http://resilience4j.github.io/resilience4j/">Resilience4j</a> integration, including Circuit Breakers &amp; Rate Limiting.</li>
 <li>Testing support via <a href="https://github.com/npryce/hamkrest">Hamkrest</a> matchers and an in-memory <a href="https://github.com/SeleniumHQ/selenium">WebDriver</a> implementation.</li>
 </ul>
-<p>Lastly, <a href="https://http4k.org">http4k</a> is proven in production, it has been adopted in at least 2 investment banks (that we know of) and is delivering traffic for a major publishing website (easily serving 10s of million hits per day on a few nodes) since March 2017. You can see a few example applications <a href="../../in_action/">here</a>.</p>
+<p>Lastly, <a href="https://http4k.org">http4k</a> is proven in production, it has been adopted in at least 2 global investment banks (that we know of) and is delivering traffic for a major publishing website (easily serving 10s of million hits per day on a few nodes) since March 2017. You can see a few example applications <a href="../../in_action/">here</a>.</p>
 <h5 id="footnotes">Footnotes</h5>
 <ul>
-<li>"But... but... but... asynchronous! And Webscale!"*, I heard them froth. Yes, you are correct - "Server as a Function" is based on asynchronous functions and <a href="https://http4k.org"><strong>http4k</strong></a> is synchronous. However, we tried this already and found that for 99% of apps it actually makes things harder unless you've got async all the way down. We found that this plainly didn't matter for our use-case so went for Simple™... maybe Kotlin co-routines will make this simpler - we'll see.</li>
+<li>"But... but... but... asynchronous! And Webscale!", I heard them froth. Yes, you are correct - "Server as a Function" is based on asynchronous functions and <a href="https://http4k.org"><strong>http4k</strong></a> is synchronous. However, we tried this already and found that for 99% of apps it actually makes things harder unless you've got async all the way down. We found that this plainly didn't matter for our use-case so went for Simple™... maybe Kotlin co-routines will make this simpler - we'll see.</li>
 </ul>
                     
                     
