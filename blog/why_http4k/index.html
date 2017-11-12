@@ -924,7 +924,8 @@
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is serverless. Or rather - server independent. Test an app locally and then deploy it into AWS Lambda with no changes.</li>
 </ul>
 <h3 id="why-does-it-even-exist">Why does it even exist?!?</h3>
-<p>The first thing to say is that (not very much) of <a href="https://http4k.org"><strong>http4k</strong></a> is new - rather the distillation of 15 years worth of experience of using various server-side libraries and hence most of the good ideas are stolen. For instance - the routing module is inspired by <a href="https://github.com/bodar/utterlyidle">UtterlyIdle</a>, the basic "Server as a function" model is stolen from <a href="https://twitter.github.io/finagle/">Finagle</a>, and the contract module OpenApi/Swagger generator is ported from <a href="http://fintrospect.io/">Fintrospect</a>. With the growing adoption of Kotlin, we wanted something that would fully leverage the features of the language and it felt like a good time to start something from scratch, whilst avoiding the <em>magic</em> that plagues other frameworks.</p>
+<p>The first thing to say is that (not very much) of <a href="https://http4k.org"><strong>http4k</strong></a> is new - rather the distillation of 15 years worth of experience of using various server-side libraries and hence most of the good ideas are stolen. For instance - the routing module is inspired by <a href="https://github.com/bodar/utterlyidle">UtterlyIdle</a>, the basic "Server as a function" model is stolen from <a href="https://twitter.github.io/finagle/">Finagle</a>, and the contract module OpenApi/Swagger generator is ported from <a href="http://fintrospect.io/">Fintrospect</a>. </p>
+<p>With the growing adoption of Kotlin, we wanted something that would fully leverage the features of the language and it felt like a good time to start something from scratch, whilst avoiding the <em>magic</em> that plagues other frameworks and focussing on simple, consistent, and testable APIs.</p>
 <h2 id="claim-a-small-simple-immutable">Claim A: Small, simple, immutable.</h2>
 <p>Based on the awesome <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a> paper from Twitter, <a href="https://http4k.org"><strong>http4k</strong></a> apps are modelled by composing 2 types of simple function. This simplicity turns out to be very powerful.</p>
 <h3 id="function-1-httphandler">Function 1: HttpHandler</h3>
@@ -1007,7 +1008,7 @@
 <p>{{tumbleweed}}</p>
 <h2 id="claim-d-serverless">Claim D. Serverless</h2>
 <p>{{tumbleweed}}</p>
-<h2 id="the-final-word">The final word!</h2>
+<h2 id="the-final-words">The final word(s)!</h2>
 <p>The <code>http4k-core</code> module rocks in at &lt;1000 lines of code (about 600kb), and has zero dependencies (other than the Kotlin language itself). Additionally, everything in the core is functional and predictable - there is no static API magic going on under the covers (making it impossible to have multiple apps in the same JVM), no compiler-plugins, and no reflection. It also provides:</p>
 <ul>
 <li>Support for static file serving with HotReload</li>
