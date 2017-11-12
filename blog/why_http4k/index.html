@@ -972,7 +972,10 @@
 <p><a href="https://http4k.org">http4k</a>'s nestable routing looks a lot like every other Sinatra-style framework these days - and you can infinitely nest <code>HttpHandlers</code> - this just exposes another <code>HttpHandler</code>, so you can easily extract, test and reuse sets of routes as easily as you could with one:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/app&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">decoratedApp</span><span class="p">,</span>
-    <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you POSTed to ${request.path(&quot;</span><span class="n">name</span><span class="s">&quot;)}&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="s">&quot;/other&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/delete&quot;</span> <span class="n">bind</span> <span class="n">DELETE</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
+        <span class="s">&quot;/post/{name}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you POSTed to ${request.path(&quot;</span><span class="n">name</span><span class="s">&quot;)}&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 
@@ -999,7 +1002,7 @@
 </pre></div>
 
 
-<p><a href="https://http4k.org"><strong>http4k</strong></a> provides a HTTP client adapters for both Apache and OkHttp.</p>
+<p><a href="https://http4k.org"><strong>http4k</strong></a> provides a HTTP client adapters for both Apache and OkHttp, all with streaming support.</p>
 <h2 id="claim-c-typesafe-http">Claim C. Typesafe HTTP</h2>
 <p>{{tumbleweed}}</p>
 <h2 id="claim-d-serverless">Claim D. Serverless</h2>
