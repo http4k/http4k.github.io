@@ -232,7 +232,7 @@
         }, 
         {
             "location": "/guide/modules/aws/", 
-            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-aws\", version: \"2.38.0\"\n\n\nAbout\n\n\nThis module provides super-simple AWS request signing functionality for talking to AWS services. This is implemented as a standard \nFilter\n which can be used to wrap a standard \nHttpHandler\n client:", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-aws\", version: \"2.38.0\"\n\n\nAbout\n\n\nThis module provides:\n\n\n\n\nsuper-simple AWS request signing functionality for talking to AWS services.\n\n\nIntegration with AWS Lambda\n\n\n\n\nRequest-signing\n\n\nOnce setup, the various AWS services are actually really simple to integrate with - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.\n\n\nhttp4k provides a \nFilter\n which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:\n\n\n\n\n\nAWS Lambda integration\n\n\nSince \nhttp4k\n is server independent, it turns out to be fairly trivial to deploy full applications to \nAWS Lambda\n, and then call them by setting up the \nAPI Gateway\n to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library.\n\n\nThis is far from a complete guide, but configuring AWS Lambda and the API Gateway involves several stages:\n1. Users, Roles and Policies for the API Gateway and Lambda.\n1. API Gateway to proxy all requests to your Lambda.\n1. Building your http4k application into a standard UberJar.\n1. Optionally using Proguard to minify the JAR.\n1. Package up the (minified) JAR into a standard Zip distribution.\n1. Create and configure the Lambda function, and at the same time:\n    1. Upload the standard Zip file to S3.\n    1. Set the function execution to call the main http4k entry point: \norg.http4k.aws.lambda.LambdaFunction::handle\n\n    1. Set an environment variable for the Lambda \nHTTP4K_BOOTSTRAP_CLASS\n to the class of your \nAppLoader\n class.\n\n\nWe hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the \nAppLoader\n is created and a sneak peak at launching the app locally:", 
             "title": "AWS"
         }, 
         {
@@ -242,8 +242,18 @@
         }, 
         {
             "location": "/guide/modules/aws/#about", 
-            "text": "This module provides super-simple AWS request signing functionality for talking to AWS services. This is implemented as a standard  Filter  which can be used to wrap a standard  HttpHandler  client:", 
+            "text": "This module provides:   super-simple AWS request signing functionality for talking to AWS services.  Integration with AWS Lambda", 
             "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/aws/#request-signing", 
+            "text": "Once setup, the various AWS services are actually really simple to integrate with - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.  http4k provides a  Filter  which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:", 
+            "title": "Request-signing"
+        }, 
+        {
+            "location": "/guide/modules/aws/#aws-lambda-integration", 
+            "text": "Since  http4k  is server independent, it turns out to be fairly trivial to deploy full applications to  AWS Lambda , and then call them by setting up the  API Gateway  to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library.  This is far from a complete guide, but configuring AWS Lambda and the API Gateway involves several stages:\n1. Users, Roles and Policies for the API Gateway and Lambda.\n1. API Gateway to proxy all requests to your Lambda.\n1. Building your http4k application into a standard UberJar.\n1. Optionally using Proguard to minify the JAR.\n1. Package up the (minified) JAR into a standard Zip distribution.\n1. Create and configure the Lambda function, and at the same time:\n    1. Upload the standard Zip file to S3.\n    1. Set the function execution to call the main http4k entry point:  org.http4k.aws.lambda.LambdaFunction::handle \n    1. Set an environment variable for the Lambda  HTTP4K_BOOTSTRAP_CLASS  to the class of your  AppLoader  class.  We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the  AppLoader  is created and a sneak peak at launching the app locally:", 
+            "title": "AWS Lambda integration"
         }, 
         {
             "location": "/guide/modules/multipart/", 

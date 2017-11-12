@@ -454,6 +454,26 @@
     About
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-signing" title="Request-signing" class="md-nav__link">
+    Request-signing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-lambda-integration" title="AWS Lambda integration" class="md-nav__link">
+    AWS Lambda integration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -950,8 +970,30 @@
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
 <p><code>compile group: "org.http4k", name: "http4k-aws", version: "2.38.0"</code></p>
 <h3 id="about">About</h3>
-<p>This module provides super-simple AWS request signing functionality for talking to AWS services. This is implemented as a standard <code>Filter</code> which can be used to wrap a standard <code>HttpHandler</code> client:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example.kt"></script>
+<p>This module provides:</p>
+<ul>
+<li>super-simple AWS request signing functionality for talking to AWS services.</li>
+<li>Integration with AWS Lambda</li>
+</ul>
+<h4 id="request-signing">Request-signing</h4>
+<p>Once setup, the various AWS services are actually really simple to integrate with - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.</p>
+<p>http4k provides a <code>Filter</code> which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example_aws.kt"></script>
+
+<h4 id="aws-lambda-integration">AWS Lambda integration</h4>
+<p>Since <a href="https://http4k.org"><strong>http4k</strong></a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library.</p>
+<p>This is far from a complete guide, but configuring AWS Lambda and the API Gateway involves several stages:
+1. Users, Roles and Policies for the API Gateway and Lambda.
+1. API Gateway to proxy all requests to your Lambda.
+1. Building your http4k application into a standard UberJar.
+1. Optionally using Proguard to minify the JAR.
+1. Package up the (minified) JAR into a standard Zip distribution.
+1. Create and configure the Lambda function, and at the same time:
+    1. Upload the standard Zip file to S3.
+    1. Set the function execution to call the main http4k entry point: <code>org.http4k.aws.lambda.LambdaFunction::handle</code>
+    1. Set an environment variable for the Lambda <code>HTTP4K_BOOTSTRAP_CLASS</code> to the class of your <code>AppLoader</code> class.</p>
+<p>We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the <code>AppLoader</code> is created and a sneak peak at launching the app locally:</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example_lambda.kt"></script>
                     
                     
                     
