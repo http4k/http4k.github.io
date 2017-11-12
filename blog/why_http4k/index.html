@@ -999,7 +999,7 @@
 </pre></div>
 
 
-<p><a href="https://http4k.org">http4k</a> provides a HTTP client adapters for both Apache and OkHttp.</p>
+<p><a href="https://http4k.org"><strong>http4k</strong></a> provides a HTTP client adapters for both Apache and OkHttp.</p>
 <h3 id="3-typesafe-http">3. Typesafe HTTP</h3>
 <p>{{tumbleweed}}</p>
 <h3 id="4-serverless">4. Serverless</h3>
@@ -1008,17 +1008,17 @@
 <p>The <code>http4k-core</code> module rocks in at &lt;1000 lines of code (about 600kb), and has zero dependencies (other than the Kotlin language itself). Additionally, everything in the core is functional and predictable - there is no static API magic going on under the covers (making it impossible to have multiple apps in the same JVM), no compiler-plugins, and no reflection. It also provides:</p>
 <ul>
 <li>Support for static file serving with HotReload</li>
-<li>A bunch of useful Filters for stuff like Zipkin Request Tracing</li>
-<li>A RequestContext mechanism</li>
+<li>A bunch of useful Filters for stuff like <a href="http://zipkin.io/">Zipkin</a> Request Tracing</li>
+<li>A RequestContext mechanism for</li>
 <li>Facilities to record and replay HTTP traffic</li>
 </ul>
 <p>There are also a bunch of other modules available, all presented with the same concentration on Testability, API simplicity and consistency:</p>
 <ul>
-<li>Templating engines</li>
-<li>JSON/XML library support</li>
+<li>Templating engines with HotReload</li>
+<li>Popular JSON/XML library support</li>
 <li>Typesafe, multipart forms processing</li>
-<li>AWS</li>
-<li>Resilience4j integration, including Circuit Breakers &amp; RateLimiters</li>
+<li><a href="https://aws.amazon.com/">AWS</a> request signing</li>
+<li><a href="http://resilience4j.github.io/resilience4j/">Resilience4j</a> integration, including Circuit Breakers &amp; RateLimiters</li>
 <li>Testing support via <a href="https://github.com/npryce/hamkrest">Hamkrest</a> matchers and an in-memory <a href="https://github.com/SeleniumHQ/selenium">WebDriver</a> implementation.</li>
 </ul>
 <p>Lastly, <a href="https://http4k.org">http4k</a> is proven in production, driving traffic for a major publishing website (easily serving 10's of million hits per day on a few nodes) since March 2017. </p>
