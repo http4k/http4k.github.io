@@ -881,8 +881,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#oh-god-not-another-framework-why-does-this-even-exist" title="Oh god not another framework! Why does this even exist?!?" class="md-nav__link">
-    Oh god not another framework! Why does this even exist?!?
+  <a href="#oh-god-not-another-framework-why-does-this-even-exist" title="Oh god, not another framework! Why does this even exist?!?" class="md-nav__link">
+    Oh god, not another framework! Why does this even exist?!?
   </a>
   
 </li>
@@ -1063,7 +1063,7 @@
                     <a href="https://github.com/http4k/http4k/edit/master/src/docs/blog/meet_http4k/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1 id="server-as-a-function-in-kotlin-typesafe-without-the-server">Server as a Function. In Kotlin. Typesafe. Without the Server.</h1>
+                    <h1 id="server-as-a-function-in-kotlin-typesafe-and-now-without-the-server">Server as a Function. In Kotlin. Typesafe. And now without the Server.</h1>
 <h5 id="daviddenton-november-2017"><a href="http://github.com/daviddenton">@daviddenton</a> / november 2017</h5>
 <h2 id="meet-http4k">Meet <a href="https://http4k.org"><strong>http4k</strong></a>.</h2>
 <p>Whenever (yet another) new JVM HTTP framework is released, the inevitable question that rightly get asked is <strong>"How it this different to X?"</strong>. In this post, I'm going to briefly cover what <a href="https://http4k.org"><strong>http4k</strong></a> is, how we think it's different, and address some of those <strong>bold claims</strong> from the title of this post.</p>
@@ -1072,11 +1072,11 @@
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is small. Written in pure functional Kotlin, with zero dependencies.</li>
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is simple. Like, really simple. No static API magic, no annotations, no reflection.</li>
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is immutable. It relies on an immutable HTTP model, which makes it a snap to test and debug.</li>
-<li><a href="https://http4k.org"><strong>http4k</strong></a> is symmetric. The remote HTTP model is the same as the incoming model.</li>
-<li><a href="https://http4k.org"><strong>http4k</strong></a> is typesafe. Say goodbye to validation and marshalling boilerplate and hello to data class-based contracts for HTTP bodies.</li>
+<li><a href="https://http4k.org"><strong>http4k</strong></a> is symmetric. It supports remote calls as a first-class concern, and the remote HTTP model is identical to the incoming HTTP model.</li>
+<li><a href="https://http4k.org"><strong>http4k</strong></a> is typesafe. Say goodbye to all your validation and marshalling boilerplate and hello to automatic request validation and data class-based contracts for HTTP bodies.</li>
 <li><a href="https://http4k.org"><strong>http4k</strong></a> is serverless. Or rather - server independent. Test an app out of container and then deploy it into any supported container - including AWS Lambda.</li>
 </ul>
-<h3 id="oh-god-not-another-framework-why-does-this-even-exist">Oh god not another framework! Why does this even exist?!?</h3>
+<h3 id="oh-god-not-another-framework-why-does-this-even-exist">Oh god, not another framework! Why does this even exist?!?</h3>
 <p>Firstly - we don't consider <a href="https://http4k.org"><strong>http4k</strong></a> to be a framework - it's a set of libraries providing a functional toolkit to serve and consume HTTP services, focusing on simple, consistent, and testable APIs. Hence, whilst it does provide support for various APIs <em>relevant to serving and consuming HTTP</em>, it does not provide every integration under the sun - merely simple points to allow those integrations to be hooked in.</p>
 <p>Another thing to say is that (not very much) of <a href="https://http4k.org"><strong>http4k</strong></a> is new - it's rather the distillation of 15 years worth of experience of using various server-side libraries and hence most of the good ideas are stolen. For instance - the routing module is inspired by <a href="https://github.com/bodar/utterlyidle">UtterlyIdle</a>, the basic "Server as a function" model is stolen from <a href="https://twitter.github.io/finagle/">Finagle</a>, and the contract module OpenApi/Swagger generator is ported from <a href="http://fintrospect.io/">Fintrospect</a>. </p>
 <p>With the growing adoption of Kotlin, we wanted something that would fully leverage the functional features of the language and it felt like a good time to start something from scratch, whilst avoiding the <em>magic</em> that plagues other frameworks. Hence, <a href="https://http4k.org"><strong>http4k</strong></a> is primarily designed to be a Kotlin-first library.</p>
@@ -1251,6 +1251,7 @@
 <h5 id="footnotes">Footnotes</h5>
 <ul>
 <li><strong>"But... but... but... asynchronous! And Webscale!"</strong>, <em>I heard them froth</em>. Yes, you are correct - "Server as a Function" is based on asynchronous functions and <a href="https://http4k.org"><strong>http4k</strong></a> exposes a synchronous API. However, our experience suggests that for the vast majority of apps, it actually makes API integration harder unless you've got async all the way down - and that is assuming that async clients are actually available for all your various dependency types. We found that this plainly didn't matter for our use-cases so went for <em>Simple API™</em> instead... it's possible however that Kotlin co-routines will allow us to revisit this decision.</li>
+<li><strong>What no websockets?</strong> Nope - not yet. Because <a href="https://http4k.org"><strong>http4k</strong></a> has been developed in the context of synchronous HTTP REST-y services, the requirement hasn't actually come up as a use-case yet. And because apps are independent of the actual Server that they are deployed to, would need to be reimplemented on each supported Server backend - which means finding a model that fitted all of them. This <em>is</em>, however, entirely doable... we just need the impetus to actually do it. Feel free to contribute a solution... :)</li>
 </ul>
                     
                     
