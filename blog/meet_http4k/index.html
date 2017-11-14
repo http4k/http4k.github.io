@@ -1066,6 +1066,7 @@
                     <h1 id="server-as-a-function-in-kotlin-typesafe-without-the-server">Server as a Function. In Kotlin. Typesafe. Without the Server.</h1>
 <h5 id="daviddenton-november-2017"><a href="http://github.com/daviddenton">@daviddenton</a> / november 2017</h5>
 <h2 id="meet-http4k">Meet <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a></h2>
+<p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way.</p>
 <p>Whenever (yet another) new JVM HTTP framework is released, the inevitable question that rightly get asked is <strong>"How it this different to X?"</strong>. In this post, I'm going to briefly cover what <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is, how we think it's different, and address some of those <strong>bold claims</strong> from the title of this post.</p>
 <p>Here's a quick rundown of what we think those differences are:</p>
 <ul>
@@ -1073,7 +1074,7 @@
 <li><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is simple. Like, really simple. No static API magic, no annotations, no reflection.</li>
 <li><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is immutable. It relies on an immutable HTTP model, which makes it a snap to test and debug.</li>
 <li><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is symmetric. It supports remote calls as a first-class concern, and the remote HTTP model is identical to the incoming HTTP model.</li>
-<li><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is typesafe. Say goodbye to all your validation and marshalling boilerplate and hello to automatic request validation and data class-based contracts for HTTP bodies.</li>
+<li><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is typesafe. Say goodbye to all your validation and marshalling boilerplate and hello to automatic request validation and data class-based contracts for HTTP bodies using the Lens API.</li>
 <li><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is serverless. Or rather - server independent. Test an app out of container and then deploy it into any supported container - including AWS Lambda.</li>
 </ul>
 <h3 id="oh-god-not-another-framework-why-does-this-even-exist">Oh god, not another framework! Why does this even exist?!?</h3>
