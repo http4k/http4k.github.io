@@ -387,7 +387,7 @@
         }, 
         {
             "location": "/guide/example/_1_building_a_walking_skeleton/", 
-            "text": "Until we have an application that can be deployed, we cannot create any business value. The Walking Skeleton\nmodel dictates that putting the most trivial endpoint into a production environment will prove our deployment\npipeline is sound, and helps to set the direction for the testing strategy that we will use going forward.\n\n\nWe start with in ICT (In-Container-Test), which have the job of testing server-level concerns such as monitoring,\ndocumentation, and checking in a high-level way that the business endpoints are wired correctly.\n\n\nRequirements:\n\n\n\n\nThe service can be pinged over HTTP to prove that is still alive.\n\n\n\n\nProduction:\n\n\n\n\nTests:", 
+            "text": "Until we have an application that can be deployed, we cannot create any business value. The Walking Skeleton\nmodel dictates that putting the most trivial endpoint into a production environment will prove our deployment\npipeline is sound, and helps to set the direction for the testing strategy that we will use going forward.\n\n\nWe start with in ICT (In-Container-Test), which have the job of testing server-level concerns such as monitoring,\ndocumentation, and checking in a high-level way that the business endpoints are wired correctly.\n\n\nRequirements:\n\n\n\n\nThe service can be pinged over HTTP to prove that is still alive.\n\n\n\n\nTests:\n\n\n\n\nProduction:", 
             "title": "1. Building a walking skeleton"
         }, 
         {
@@ -396,18 +396,18 @@
             "title": "Requirements:"
         }, 
         {
-            "location": "/guide/example/_1_building_a_walking_skeleton/#production", 
-            "text": "", 
-            "title": "Production:"
-        }, 
-        {
             "location": "/guide/example/_1_building_a_walking_skeleton/#tests", 
             "text": "", 
             "title": "Tests:"
         }, 
         {
+            "location": "/guide/example/_1_building_a_walking_skeleton/#production", 
+            "text": "", 
+            "title": "Production:"
+        }, 
+        {
             "location": "/guide/example/_2_adding_the_first_endpoint/", 
-            "text": "Starting with another EndToEnd test, we can then drill-down into the functional behaviour of the system by introducing\nOCT (Out of Container) tests and converting the e2e test to just test endpoint wiring (so far). The common assertions have\nalso been converted to reusable extension methods on Response.\n\n\nRequirements:\n\n\n\n\nImplement an \"add\" service, which will sum a number of integer values.\n\n\n\n\nProduction:\n\n\n\n\nTests:", 
+            "text": "Starting with another EndToEnd test, we can then drill-down into the functional behaviour of the system by introducing\nOCT (Out of Container) tests and converting the e2e test to just test endpoint wiring (so far). The common assertions have\nalso been converted to reusable extension methods on Response.\n\n\nRequirements:\n\n\n\n\nImplement an \"add\" service, which will sum a number of integer values.\n\n\n\n\nTests:\n\n\n\n\nProduction:", 
             "title": "2. Adding an endpoint"
         }, 
         {
@@ -416,18 +416,18 @@
             "title": "Requirements:"
         }, 
         {
-            "location": "/guide/example/_2_adding_the_first_endpoint/#production", 
-            "text": "", 
-            "title": "Production:"
-        }, 
-        {
             "location": "/guide/example/_2_adding_the_first_endpoint/#tests", 
             "text": "", 
             "title": "Tests:"
         }, 
         {
+            "location": "/guide/example/_2_adding_the_first_endpoint/#production", 
+            "text": "", 
+            "title": "Production:"
+        }, 
+        {
             "location": "/guide/example/_3_adding_the_second_endpoint/", 
-            "text": "Requirements:\n\n\n\n\nImplement a \"multiply\" service, which will find the product of a number of integer values.\n\n\n\n\nProduction:\n\n\n\n\nTests:", 
+            "text": "Requirements:\n\n\n\n\nImplement a \"multiply\" service, which will find the product of a number of integer values.\n\n\n\n\nTests:\n\n\n\n\nProduction:", 
             "title": "3. Adding another endpoint"
         }, 
         {
@@ -436,18 +436,18 @@
             "title": "Requirements:"
         }, 
         {
-            "location": "/guide/example/_3_adding_the_second_endpoint/#production", 
-            "text": "", 
-            "title": "Production:"
-        }, 
-        {
             "location": "/guide/example/_3_adding_the_second_endpoint/#tests", 
             "text": "", 
             "title": "Tests:"
         }, 
         {
+            "location": "/guide/example/_3_adding_the_second_endpoint/#production", 
+            "text": "", 
+            "title": "Production:"
+        }, 
+        {
             "location": "/guide/example/_4_adding_an_external_dependency/", 
-            "text": "At this point, the separation of the layers starts to become clear:\n- The server layer is responsible for taking external configuration and instantiating the app layer.\n- The application layer API is only in terms of HTTP transports - it constructs business level abstractions\nwhich are passed down into to the individual endpoints\n\n\nThe process here is to create fake versions of the dependency which can be tested against through the business interface.\nThis requires another style of testing, CDCs (Consumer Driven Contracts), to be created. These contract tests ensure that our\ninteractions with the external service are valid.\n\n\nRequirements:\n\n\n\n\nResults from calculations should be POSTed via HTTP to another \"answer recording\" service.\n\n\n\n\nImplementation Notes:\n\n\nThe following process is followed to us to the final state, whilst always allowing us to keep the build green:\n\n\n\n\nDetermine the HTTP contract required by the Recorder (in this case an HTTP POST to /{answer}\n\n\nCreate RecorderCdc and RealRecorderTest and make it pass for the real dependency by implementing the Recorder\n\n\nCreate FakeRecorderTest and FakeRecorderHttp and make it pass for the fake. We can now use the Fake to implement our requirement\n\n\nInclude the FakeRecorderHttp in the setup of EndToEndTest, starting and stopping the server (even though it's not doing anything)\n\n\nPass the configuration of the Recorder (baseUri) into the MyMathServer, which uses it to create the recorder HttpHandler\n\n\nFactor AppEnvironment out of the functional tests. This is where all the setup of the functional testing environment will be done\n\n\nIntroduce the recorder HttpHandler to MyMathApp, creating a FakeRecorderHttp in the AppEnvironment\n\n\nAlter the AddFunctionalTest and MultiplyFunctionalTest to set the expectations on the interactions recorder in FakeRecorderHttp\n\n\nIn MyMathApp, create the Recorder business implementation (Recorder) and pass it to calculate(), then implement the call to record()\n\n\n\n\nProduction:\n\n\n\n\nTests:", 
+            "text": "At this point, the separation of the layers starts to become clear:\n- The server layer is responsible for taking external configuration and instantiating the app layer.\n- The application layer API is only in terms of HTTP transports - it constructs business level abstractions\nwhich are passed down into to the individual endpoints\n\n\nThe process here is to create fake versions of the dependency which can be tested against through the business interface.\nThis requires another style of testing, CDCs (Consumer Driven Contracts), to be created. These contract tests ensure that our\ninteractions with the external service are valid.\n\n\nRequirements:\n\n\n\n\nResults from calculations should be POSTed via HTTP to another \"answer recording\" service.\n\n\n\n\nImplementation Notes:\n\n\nThe following process is followed to us to the final state, whilst always allowing us to keep the build green:\n\n\n\n\nDetermine the HTTP contract required by the Recorder (in this case an HTTP POST to /{answer}\n\n\nCreate RecorderCdc and RealRecorderTest and make it pass for the real dependency by implementing the Recorder\n\n\nCreate FakeRecorderTest and FakeRecorderHttp and make it pass for the fake. We can now use the Fake to implement our requirement\n\n\nInclude the FakeRecorderHttp in the setup of EndToEndTest, starting and stopping the server (even though it's not doing anything)\n\n\nPass the configuration of the Recorder (baseUri) into the MyMathServer, which uses it to create the recorder HttpHandler\n\n\nFactor AppEnvironment out of the functional tests. This is where all the setup of the functional testing environment will be done\n\n\nIntroduce the recorder HttpHandler to MyMathApp, creating a FakeRecorderHttp in the AppEnvironment\n\n\nAlter the AddFunctionalTest and MultiplyFunctionalTest to set the expectations on the interactions recorder in FakeRecorderHttp\n\n\nIn MyMathApp, create the Recorder business implementation (Recorder) and pass it to calculate(), then implement the call to record()\n\n\n\n\nTests:\n\n\n\n\nProduction:", 
             "title": "4. An external dependency"
         }, 
         {
@@ -461,14 +461,14 @@
             "title": "Implementation Notes:"
         }, 
         {
-            "location": "/guide/example/_4_adding_an_external_dependency/#production", 
-            "text": "", 
-            "title": "Production:"
-        }, 
-        {
             "location": "/guide/example/_4_adding_an_external_dependency/#tests", 
             "text": "", 
             "title": "Tests:"
+        }, 
+        {
+            "location": "/guide/example/_4_adding_an_external_dependency/#production", 
+            "text": "", 
+            "title": "Production:"
         }, 
         {
             "location": "/cookbook/server_as_a_function/", 
