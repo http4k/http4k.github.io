@@ -1112,7 +1112,7 @@
 </pre></div>
 
 
-<p>For discoverability reasons this is modelled as an Interface and not a <a href="https://kotlinlang.org/docs/reference/type-aliases.html">typealias</a> - it also has a couple of Kotlin <a href="https://kotlinlang.org/docs/reference/extensions.html">extension methods</a> to allow you to compose <code>Filters</code> with <code>HttpHandlers</code> and other <code>Filters</code>:</p>
+<p>For API conciseness and discoverability reasons this is modelled as an Interface and not a <a href="https://kotlinlang.org/docs/reference/type-aliases.html">Typealias</a> - it also has a couple of Kotlin <a href="https://kotlinlang.org/docs/reference/extensions.html">extension methods</a> to allow you to compose <code>Filters</code> with <code>HttpHandlers</code> and other <code>Filters</code>:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">setContentType</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="p">-&gt;</span>
         <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;text/plain&quot;</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">}</span>
@@ -1173,7 +1173,7 @@
 <h3 id="lens-basics">Lens basics</h3>
 <p>A Lens is a bi-directional entity which can be used to either <em>get</em> or <em>set</em> a particular value from/onto an HTTP message. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides a DSL to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional) and the type. For the above example, we could use the <code>Query</code> Lens builder and then <code>invoke()</code> the Lens on the message to extract the target value:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">pageLens</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">pageLens</span><span class="p">.</span><span class="n">extract</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?page=123&quot;</span><span class="p">))</span>
+<span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">pageLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?page=123&quot;</span><span class="p">))</span>
 </pre></div>
 
 
@@ -1188,7 +1188,7 @@
 </pre></div>
 
 
-<p>Lenses can also be applied with a value (via <code>invoke()</code>) to set it <em>onto</em> a target object - and as HTTP messages in <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> are immutable, this results in a copy of the modified message:</p>
+<p>Lenses can also be applied with a correctly typed value (via <code>invoke()</code>) to set it <em>onto</em> a target object - and as HTTP messages in <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> are immutable, this results in a copy of the modified message:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">pageSizeLens</span> <span class="p">=</span> <span class="n">Header</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">)</span>
 <span class="k">val</span> <span class="py">page</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">pageLens</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">),</span> <span class="m">123</span><span class="p">)</span>
 <span class="c1">// or apply multiple lenses using with()</span>
