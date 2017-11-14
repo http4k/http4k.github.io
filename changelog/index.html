@@ -873,8 +873,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v2380" title="v2.38.0" class="md-nav__link">
-    v2.38.0
+  <a href="#v300" title="v3.0.0" class="md-nav__link">
+    v3.0.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v2381" title="v2.38.1" class="md-nav__link">
+    v2.38.1
   </a>
   
 </li>
@@ -1797,7 +1804,11 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
-<h3 id="v2380">v2.38.0</h3>
+<h3 id="v300">v3.0.0</h3>
+<ul>
+<li>Added <code>http4k-serverless-lambda</code> module, allowing http4k applications to be deployed into AWS Lambda and then called from API Gateway. Effectively, the combination of these two services become just another Server back-end supported by the library. \o/</li>
+</ul>
+<h3 id="v2381">v2.38.1</h3>
 <ul>
 <li><code>RequestContextKey</code> now follow the standardised Lens structure of required, optional, defaulted, and can now be removed (set to null). Replace calls
 to <code>RequestContextKey.of()</code> with <code>RequestContextKey.required()</code> </li>
