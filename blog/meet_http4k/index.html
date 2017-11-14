@@ -1084,12 +1084,12 @@
 <h2 id="claim-a-small-simple-immutable">Claim A: Small, simple, immutable.</h2>
 <p>Based on the awesome <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a> paper from Twitter, <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> apps are modelled by composing 2 types of simple, independent function. </p>
 <h3 id="function-1-httphandler">Function 1: HttpHandler</h3>
-<p>An <code>HttpHandler</code> and represents an HTTP endpoint. It's not even an Interface, modelled merely as a <a href="https://kotlinlang.org/docs/reference/type-aliases.html">Typealias</a>:</p>
+<p>An <code>HttpHandler</code> represents an HTTP endpoint. It's not even an Interface, modelled merely as a <a href="https://kotlinlang.org/docs/reference/type-aliases.html">Typealias</a>:</p>
 <div class="codehilite"><pre><span></span><span class="n">typealias</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Response</span>
 </pre></div>
 
 
-<p>Here's a entire <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> application, which echoes request body back a the user. It only relies on the <code>http4k-core</code> module, which itself has zero dependencies:</p>
+<p>Below is a entire <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> application that echoes the request body back in the response. It only relies on the <code>http4k-core</code> module, which itself has zero dependencies:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
 <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
