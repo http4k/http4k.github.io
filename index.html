@@ -1006,12 +1006,15 @@ plugging together of services without HTTP container being required.</li>
 </li>
 <li><strong>Modularity:</strong> Common behaviours are abstracted into the <code>http4k-core</code> module. Current add-ons cover:<ul>
 <li>Pluggable HTTP client adapters for Apache and OkHttp</li>
-<li>Pluggable Server backends: Single LOC Server spinup for Jetty, Netty, Undertow and SunHttp</li>
-<li>Typesafe, auto-validating, self-documenting (via OpenApi/Swagger) contracts for HTTP services</li>
-<li>HTTP message adapters for Argo JSON, Gson JSON, Jackson JSON and XML - includes auto-marshalling capabilities to convert directly to Kotlin data classes.</li>
+<li>Pluggable Server backends: Single LOC Server spinup for Jetty, Netty, Undertow and SunHttp. </li>
+<li>Serverless backends: Test your application locally and then deploy it to AWS Lambda.</li>
 <li>Templating support: Caching and Hot-Reload engine support for Handlebars, Pebble, Dust and Thymeleaf</li>
-<li>AWS request signing: super-simple interactions with AWS services</li>
-<li>Multipart form handling.</li>
+<li>HTTP message adapters for Argo JSON, Gson JSON, Jackson JSON and XML - includes auto-marshalling capabilities to convert directly to Kotlin data classes.</li>
+</ul>
+</li>
+<li>Typesafe, auto-validating, self-documenting (via OpenApi/Swagger) contracts for HTTP services<ul>
+<li>AWS request signing: super-simple interactions with AWS services.</li>
+<li>Multipart form handling, including stream processing for uploaded files.</li>
 <li>Resilience features: Circuits, retrying, rate limiting, bulkheading - via Resilience4J integration.</li>
 <li>Testing: Selenium WebDriver implementation for lightning fast, browserless testing of <strong>http4k</strong> apps</li>
 <li>Testing: Hamkrest Matchers for <strong>http4k</strong> objects</li>
@@ -1052,8 +1055,12 @@ plugging together of services without HTTP container being required.</li>
 <li>API design allows for plugging into configurable instances of each</li>
 </ul>
 </li>
+<li><a href="https://http4k.org/guide/modules/serverless">Serverless:</a><ul>
+<li>Implement a single Factory method, then upload your http4k applications to AWS Lambda to be called from API Gateway. </li>
+</ul>
+</li>
 <li><a href="https://http4k.org/guide/modules/contracts">Contracts:</a> <ul>
-<li>Definite <strong>Typesafe</strong> HTTP contracts, defining required and optional path/query/header/bodies</li>
+<li>Define <strong>Typesafe</strong> HTTP contracts, with required and optional path/query/header/bodies</li>
 <li><strong>Typesafe</strong> path matching</li>
 <li><strong>Auto-validation</strong> of incoming requests == <strong>zero boilerplate validation code</strong></li>
 <li>Self-documenting for all routes - eg. Built in support for live <strong>OpenApi/Swagger</strong> description endpoints including <strong>JSON Schema</strong> model breakdown. </li>
