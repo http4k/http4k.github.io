@@ -317,12 +317,12 @@
         }, 
         {
             "location": "/guide/modules/contracts/", 
-            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-contract\", version: \"3.1.1\"\n\n\nAbout\n\n\nThe \nhttp4k-contract\n module adds a much more sophisticated routing mechanism to that available in \nhttp4k-core\n. It adds the facility \nto declare server-side \nRoutes\n in a completely typesafe way, leveraging the Lens functionality from the core. These \nRoutes\n are \ncombined into \nRouteModules\n, which have the following features:\n\n\n\n\nAuto-validating\n - the \nRoute\n contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a \nHTTP 400\n (BAD_REQUEST)\n response.     \n\n\nSelf-describing:\n - a generated endpoint is provided which describes all of the \nRoutes\n in that module. Implementations include \nOpenApi/Swagger\n documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.\n\n\nSecurity:\n to secure the \nRoutes\n  against unauthorised access. Current implementations include \nApiKey\n.\n\n\n\n\n\n\n\nWhen launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.\n\n\nFor a more extended example, see the following example apps: \n\n\n\n\nTodo backend (typesafe contract version)\n\n\nTDD'd example application", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \norg.http4k\n, name: \nhttp4k-contract\n, version: \n3.1.1\n\ncompile group: \norg.http4k\n, name: \nhttp4k-format-\ninsert json lib\n, version: \n3.1.1\n\n\n\n\n\n\nAbout\n\n\nThe \nhttp4k-contract\n module adds a much more sophisticated routing mechanism to that available in \nhttp4k-core\n. It adds the facility \nto declare server-side \nRoutes\n in a completely typesafe way, leveraging the Lens functionality from the core. These \nRoutes\n are \ncombined into \nRouteModules\n, which have the following features:\n\n\n\n\nAuto-validating\n - the \nRoute\n contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a \nHTTP 400\n (BAD_REQUEST)\n response.     \n\n\nSelf-describing:\n - a generated endpoint is provided which describes all of the \nRoutes\n in that module. Implementations include \nOpenApi/Swagger\n documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.\n\n\nSecurity:\n to secure the \nRoutes\n  against unauthorised access. Current implementations include \nApiKey\n.\n\n\n\n\n\n\n\nWhen launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.\n\n\nFor a more extended example, see the following example apps: \n\n\n\n\nTodo backend (typesafe contract version)\n\n\nTDD'd example application", 
             "title": "Typesafe contracts"
         }, 
         {
             "location": "/guide/modules/contracts/#installation-gradle", 
-            "text": "compile group: \"org.http4k\", name: \"http4k-contract\", version: \"3.1.1\"", 
+            "text": "compile group:  org.http4k , name:  http4k-contract , version:  3.1.1 \ncompile group:  org.http4k , name:  http4k-format- insert json lib , version:  3.1.1", 
             "title": "Installation (Gradle)"
         }, 
         {
@@ -697,12 +697,12 @@
         }, 
         {
             "location": "/cookbook/typesafe_http_contracts/", 
-            "text": "This contract example shows:\n\n\n\n\n2 endpoints with typesafe contracts (marshalling of path parameters and bodies)\n\n\nCustom filters (reporting latency)\n\n\nAPI key security via a typesafe Query parameter (this can be a header or a body parameter as well)\n\n\nOpenApi/Swagger API documentation - Run this example and point a browser \nhere\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.1\n\n    compile group: \norg.http4k\n, name: \nhttp4k-contract\n, version: \n3.1.1\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-argo\n, version: \n3.1.1\n\n\n\n\n\n\nCode", 
+            "text": "This contract example shows:\n\n\n\n\n2 endpoints with typesafe contracts (marshalling of path parameters and bodies)\n\n\nCustom filters (reporting latency)\n\n\nAPI key security via a typesafe Query parameter (this can be a header or a body parameter as well)\n\n\nOpenApi/Swagger API documentation - Run this example and point a browser \nhere\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.1\n\n    compile group: \norg.http4k\n, name: \nhttp4k-contract\n, version: \n3.1.1\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-argo\n, version: \n3.1.1\n\n\n\n\n\n\nNote: although we use Argo here as our JSON API, you could also switch in any of the \nhttp4k-format-xxx\n JSON modules. \n\n\nCode", 
             "title": "Typesafe HTTP contracts"
         }, 
         {
             "location": "/cookbook/typesafe_http_contracts/#gradle-setup", 
-            "text": "compile group:  org.http4k , name:  http4k-core , version:  3.1.1 \n    compile group:  org.http4k , name:  http4k-contract , version:  3.1.1 \n    compile group:  org.http4k , name:  http4k-format-argo , version:  3.1.1", 
+            "text": "compile group:  org.http4k , name:  http4k-core , version:  3.1.1 \n    compile group:  org.http4k , name:  http4k-contract , version:  3.1.1 \n    compile group:  org.http4k , name:  http4k-format-argo , version:  3.1.1   Note: although we use Argo here as our JSON API, you could also switch in any of the  http4k-format-xxx  JSON modules.", 
             "title": "Gradle setup"
         }, 
         {
