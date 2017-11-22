@@ -988,8 +988,7 @@ server and client sides (eg. logging/metrics/caching...) since they can be compo
 
 <ul>
 <li>Pre/post processing is done using a <code>Filter</code>, which is modelled as <code>(HttpHandler) -&gt; HttpHandler</code>. Filters can therefore be composed together to make reusable "stacks" of behaviour which can be applied to a terminating <code>HttpHandler</code> - to yield 
-a decorated <code>HttpHandl
-er</code>:</li>
+a decorated <code>HttpHandler</code>:</li>
 </ul>
 <div class="codehilite"><pre><span></span>    <span class="k">val</span> <span class="py">filter</span><span class="p">:</span> <span class="n">Filter</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span>
         <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;my response header&quot;</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="p">)</span> <span class="p">}</span>
