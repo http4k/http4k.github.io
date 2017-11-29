@@ -472,7 +472,7 @@
         }, 
         {
             "location": "/cookbook/server_as_a_function/", 
-            "text": "This example is the simplest possible \"server\" implementation. Note that we are not spinning up a server-backend here - but the entire application(!) is testable but firing HTTP requests at it as if it were. \n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCode", 
+            "text": "This example is the simplest possible \"server\" implementation. Note that we are not spinning up a server-backend here - but the entire application(!) is testable but firing HTTP requests at it as if it were. \n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCode (\nsrc\n)", 
             "title": "Server as a function"
         }, 
         {
@@ -481,13 +481,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/server_as_a_function/#code", 
+            "location": "/cookbook/server_as_a_function/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/client_as_a_function/", 
-            "text": "This example demonstrates a client module (in this case the Apache Client). A client is just another HttpHandler.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-client-apache\n, version: \n3.1.3\n\n\n\n\n\n\nCode", 
+            "text": "This example demonstrates a client module (in this case the Apache Client). A client is just another HttpHandler.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-client-apache\n, version: \n3.1.3\n\n\n\n\n\n\nCode (\nsrc\n)", 
             "title": "Client as a function"
         }, 
         {
@@ -496,13 +496,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/client_as_a_function/#code", 
+            "location": "/cookbook/client_as_a_function/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/container_integration/", 
-            "text": "This example shows how to both how to serve an application HttpHandler using an embedded an HTTP server and to query it using an HTTP client. All server-backend implementations are launched in an identical manner (in 1LOC) using implementations of the \nServerConfig\n interface - and a base implementation of this interface is provided for each server backend.\n\n\nAlternatively, any http4k application can be mounted into any Servlet container using the \nasServlet()\n extension method. This is the mechanism used in the Jetty implementation.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-client-apache\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-server-jetty\n, version: \n3.1.3\n\n\n\n\n\n\nCode", 
+            "text": "This example shows how to both how to serve an application HttpHandler using an embedded an HTTP server and to query it using an HTTP client. All server-backend implementations are launched in an identical manner (in 1LOC) using implementations of the \nServerConfig\n interface - and a base implementation of this interface is provided for each server backend.\n\n\nAlternatively, any http4k application can be mounted into any Servlet container using the \nasServlet()\n extension method. This is the mechanism used in the Jetty implementation.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-client-apache\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-server-jetty\n, version: \n3.1.3\n\n\n\n\n\n\nCode (\nsrc\n)", 
             "title": "Container integration"
         }, 
         {
@@ -511,13 +511,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/container_integration/#code", 
+            "location": "/cookbook/container_integration/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/simple_routing/", 
-            "text": "This example shows how to use the simple routing functionality to bind several routes\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCode", 
+            "text": "This example shows how to use the simple routing functionality to bind several routes\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCode (\nsrc\n)", 
             "title": "Simple routing"
         }, 
         {
@@ -526,13 +526,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/simple_routing/#code", 
+            "location": "/cookbook/simple_routing/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/nestable_routes/", 
-            "text": "This is a fairly comprehensive example of the core-routing logic available:\n\n\n\n\nIndividual HTTP endpoints are represented as \nHttpHandlers\n.\n\n\nBinding an \nHttpHandler\n to a path and HTTP verb yields a \nRoute\n.\n\n\nRoutes\n can be combined together into a \nRoutingHttpHandler\n, which is both an \nHttpHandler\n and a\nRouter\n.\n\n\nA \nRouter\n is a selective request handler, which attempts to match a request. If it cannot, processing falls through to the next \nRouter\n in the list.\n\n\nRouters can be combined together to form another \nHttpHandler\n\n\nUsage of supplied core library \nFilters\n\n\nServing of static content using a \nClasspath\n resource loader\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCode", 
+            "text": "This is a fairly comprehensive example of the core-routing logic available:\n\n\n\n\nIndividual HTTP endpoints are represented as \nHttpHandlers\n.\n\n\nBinding an \nHttpHandler\n to a path and HTTP verb yields a \nRoute\n.\n\n\nRoutes\n can be combined together into a \nRoutingHttpHandler\n, which is both an \nHttpHandler\n and a\nRouter\n.\n\n\nA \nRouter\n is a selective request handler, which attempts to match a request. If it cannot, processing falls through to the next \nRouter\n in the list.\n\n\nRouters can be combined together to form another \nHttpHandler\n\n\nUsage of supplied core library \nFilters\n\n\nServing of static content using a \nClasspath\n resource loader\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCode (\nsrc\n)", 
             "title": "Nestable routes"
         }, 
         {
@@ -541,13 +541,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/nestable_routes/#code", 
+            "location": "/cookbook/nestable_routes/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/using_json/", 
-            "text": "Example of how to use the JSON library API wrappers, in this case the module used is Jackson. \nhttp4k\n provides an identical interface for all JSON implementations.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-jackson\n, version: \n3.1.3\n\n\n\n\n\n\nCode", 
+            "text": "Example of how to use the JSON library API wrappers, in this case the module used is Jackson. \nhttp4k\n provides an identical interface for all JSON implementations.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-jackson\n, version: \n3.1.3\n\n\n\n\n\n\nCode (\nsrc\n)", 
             "title": "JSON messaging"
         }, 
         {
@@ -556,13 +556,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/using_json/#code", 
+            "location": "/cookbook/using_json/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/using_templates/", 
-            "text": "Example showing how to use the Templating modules - in this case Handlebars, both by standard response manipulation and via a typesafe view lens.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-template-handlebars\n, version: \n3.1.3\n\n\n\n\n\n\nCode", 
+            "text": "Example showing how to use the Templating modules - in this case Handlebars, both by standard response manipulation and via a typesafe view lens.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-template-handlebars\n, version: \n3.1.3\n\n\n\n\n\n\nCode (\nsrc\n)", 
             "title": "Templating engines"
         }, 
         {
@@ -571,13 +571,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/using_templates/#code", 
+            "location": "/cookbook/using_templates/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/request_context/", 
-            "text": "A \nRequestContext\n makes it possible to attach objects to a request whilst it is being passed down through the layers of an application.\n\n\nThe basic concept is that there is a global shared object which holds a bag of state (indexed by Request). This state can be modified in Filters and then \nthat state accessed inside other Filters or the terminating HttpHandler. There are 2 available choices for manipulating this data:\n\n\n\n\nUsing simple Strings to represent the keys.\n\n\nUsing \nRequestContextKey\ns and the Lens mechanism from the \nhttp4k-core\n module.\n\n\n\n\nWhilst the first method looks technically simpler, the use of simple Strings does not provide the type-safety of the second, which uses unique shared Key objects to guarantee non-clashing of keys and type-safety of the state.\nRegardless of which of the above mechanisms are used, an instance of the \nServerFilters.InitialiseRequestContext\n Filter must wrap the HttpHandler(s) to activate\nthe shared bag of state for each request, and to remove the state after the request is complete.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCode\n\n\nString-based keys\n\n\n\n\nLens-based keys", 
+            "text": "A \nRequestContext\n makes it possible to attach objects to a request whilst it is being passed down through the layers of an application.\n\n\nThe basic concept is that there is a global shared object which holds a bag of state (indexed by Request). This state can be modified in Filters and then \nthat state accessed inside other Filters or the terminating HttpHandler. There are 2 available choices for manipulating this data:\n\n\n\n\nUsing simple Strings to represent the keys.\n\n\nUsing \nRequestContextKey\ns and the Lens mechanism from the \nhttp4k-core\n module.\n\n\n\n\nWhilst the first method looks technically simpler, the use of simple Strings does not provide the type-safety of the second, which uses unique shared Key objects to guarantee non-clashing of keys and type-safety of the state.\nRegardless of which of the above mechanisms are used, an instance of the \nServerFilters.InitialiseRequestContext\n Filter must wrap the HttpHandler(s) to activate\nthe shared bag of state for each request, and to remove the state after the request is complete.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nString-based keys (\nsrc\n)\n\n\n\n\nLens-based keys (\nsrc\n)", 
             "title": "Typesafe RequestContexts"
         }, 
         {
@@ -586,23 +586,18 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/request_context/#code", 
+            "location": "/cookbook/request_context/#string-based-keys-src", 
             "text": "", 
-            "title": "Code"
+            "title": "String-based keys (src)"
         }, 
         {
-            "location": "/cookbook/request_context/#string-based-keys", 
+            "location": "/cookbook/request_context/#lens-based-keys-src", 
             "text": "", 
-            "title": "String-based keys"
-        }, 
-        {
-            "location": "/cookbook/request_context/#lens-based-keys", 
-            "text": "", 
-            "title": "Lens-based keys"
+            "title": "Lens-based keys (src)"
         }, 
         {
             "location": "/cookbook/typesafe_http_requests_with_lenses/", 
-            "text": "Example showing how to create and apply lenses to requests and responses to both extract and inject typesafe values out of and into HTTP messages. Note that since the \nhttp4k\n \nRequest/Response\n objects are immutable, all injection occurs via copy.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nStandard (exception based) approach\n\n\nErrors in extracting Lenses are propagated as exceptions which are caught and handled by the \nCatchLensFailure\n Filter.\n\n\n\n\n\nUsing custom \"Result\" ADTs\n\n\nAn alternative approach to using Exceptions to automatically produce \nBadRequests\n is to use an Either-type structure, and this would be easy to implement - but the lack of an in-built Result/Either type in the standard Kotlin library means that we \ndon't have a single representation to use without shackling ourselves to another Either-containing library such as Funktionale or Result4k.\n\n\nAdditionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases.\n\n\nBelow is an example which uses a custom Result ADT - this will work for all extraction Lenses that you define:", 
+            "text": "Example showing how to create and apply lenses to requests and responses to both extract and inject typesafe values out of and into HTTP messages. Note that since the \nhttp4k\n \nRequest/Response\n objects are immutable, all injection occurs via copy.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nStandard (exception based) approach (\nsrc\n)\n\n\nErrors in extracting Lenses are propagated as exceptions which are caught and handled by the \nCatchLensFailure\n Filter.\n\n\n\n\n\nUsing custom \"Result\" ADTs\n\n\nAn alternative approach to using Exceptions to automatically produce \nBadRequests\n is to use an Either-type structure, and this would be easy to implement - but the lack of an in-built Result/Either type in the standard Kotlin library means that we \ndon't have a single representation to use without shackling ourselves to another Either-containing library such as Funktionale or Result4k.\n\n\nAdditionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases.\n\n\nBelow is an example which uses a custom Result ADT - this will work for all extraction Lenses that you define:\n\n\nCode (\nsrc\n)", 
             "title": "Typesafe HTTP requests with lenses"
         }, 
         {
@@ -611,9 +606,9 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/typesafe_http_requests_with_lenses/#standard-exception-based-approach", 
+            "location": "/cookbook/typesafe_http_requests_with_lenses/#standard-exception-based-approach-src", 
             "text": "Errors in extracting Lenses are propagated as exceptions which are caught and handled by the  CatchLensFailure  Filter.", 
-            "title": "Standard (exception based) approach"
+            "title": "Standard (exception based) approach (src)"
         }, 
         {
             "location": "/cookbook/typesafe_http_requests_with_lenses/#using-custom-result-adts", 
@@ -621,8 +616,13 @@
             "title": "Using custom \"Result\" ADTs"
         }, 
         {
+            "location": "/cookbook/typesafe_http_requests_with_lenses/#code-src", 
+            "text": "", 
+            "title": "Code (src)"
+        }, 
+        {
             "location": "/cookbook/html_forms/", 
-            "text": "HTML form support is provided on 2 levels:\n\n\n\n\nThrough the use of \nform()\n extension methods on \nRequest\n to get/set String values.\n\n\nUsing the Lens system, which adds the facility to define form fields in a typesafe way, and to validate form contents (in either a strict (400) or \"feedback\" mode).\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nStandard (non-typesafe) API\n\n\n\n\nLens (typesafe, validating) API", 
+            "text": "HTML form support is provided on 2 levels:\n\n\n\n\nThrough the use of \nform()\n extension methods on \nRequest\n to get/set String values.\n\n\nUsing the Lens system, which adds the facility to define form fields in a typesafe way, and to validate form contents (in either a strict (400) or \"feedback\" mode).\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nStandard (non-typesafe) API (\nsrc\n)\n\n\n\n\nLens (typesafe, validating) API (\nsrc\n)", 
             "title": "HTML forms"
         }, 
         {
@@ -631,18 +631,18 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/html_forms/#standard-non-typesafe-api", 
+            "location": "/cookbook/html_forms/#standard-non-typesafe-api-src", 
             "text": "", 
-            "title": "Standard (non-typesafe) API"
+            "title": "Standard (non-typesafe) API (src)"
         }, 
         {
-            "location": "/cookbook/html_forms/#lens-typesafe-validating-api", 
+            "location": "/cookbook/html_forms/#lens-typesafe-validating-api-src", 
             "text": "", 
-            "title": "Lens (typesafe, validating) API"
+            "title": "Lens (typesafe, validating) API (src)"
         }, 
         {
             "location": "/cookbook/multipart_forms/", 
-            "text": "Multipart form support is provided on 2 levels:\n\n\n\n\nThrough the creation of a \nMultipartFormBody\n which can be set on a \nRequest\n.\n\n\nUsing the Lens system, which adds the facility to define form fields in a typesafe way, and to validate form contents (in either a strict (400) or \"feedback\" mode).\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-multipart\n, version: \n3.1.3\n\n\n\n\n\n\nStandard (non-typesafe) API\n\n\n\n\nLens (typesafe, validating) API - reads ALL contents onto disk/memory\n\n\n\n\nStreaming - iterate over Multiparts\n\n\n\n\nProcessing Files with a Filter and convert to standard form", 
+            "text": "Multipart form support is provided on 2 levels:\n\n\n\n\nThrough the creation of a \nMultipartFormBody\n which can be set on a \nRequest\n.\n\n\nUsing the Lens system, which adds the facility to define form fields in a typesafe way, and to validate form contents (in either a strict (400) or \"feedback\" mode).\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-multipart\n, version: \n3.1.3\n\n\n\n\n\n\nStandard (non-typesafe) API (\nsrc\n)\n\n\n\n\nLens (typesafe, validating) API - reads ALL contents onto disk/memory (\nsrc\n)\n\n\n\n\nStreaming - iterate over Multiparts (\nsrc\n)\n\n\n\n\nProcessing Files with a Filter and convert to standard form (\nsrc\n)", 
             "title": "Multipart forms"
         }, 
         {
@@ -651,28 +651,28 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/multipart_forms/#standard-non-typesafe-api", 
+            "location": "/cookbook/multipart_forms/#standard-non-typesafe-api-src", 
             "text": "", 
-            "title": "Standard (non-typesafe) API"
+            "title": "Standard (non-typesafe) API (src)"
         }, 
         {
-            "location": "/cookbook/multipart_forms/#lens-typesafe-validating-api-reads-all-contents-onto-diskmemory", 
+            "location": "/cookbook/multipart_forms/#lens-typesafe-validating-api-reads-all-contents-onto-diskmemory-src", 
             "text": "", 
-            "title": "Lens (typesafe, validating) API - reads ALL contents onto disk/memory"
+            "title": "Lens (typesafe, validating) API - reads ALL contents onto disk/memory (src)"
         }, 
         {
-            "location": "/cookbook/multipart_forms/#streaming-iterate-over-multiparts", 
+            "location": "/cookbook/multipart_forms/#streaming-iterate-over-multiparts-src", 
             "text": "", 
-            "title": "Streaming - iterate over Multiparts"
+            "title": "Streaming - iterate over Multiparts (src)"
         }, 
         {
-            "location": "/cookbook/multipart_forms/#processing-files-with-a-filter-and-convert-to-standard-form", 
+            "location": "/cookbook/multipart_forms/#processing-files-with-a-filter-and-convert-to-standard-form-src", 
             "text": "", 
-            "title": "Processing Files with a Filter and convert to standard form"
+            "title": "Processing Files with a Filter and convert to standard form (src)"
         }, 
         {
             "location": "/cookbook/generating_data_classes/", 
-            "text": "On the web...\n\n\nThis \nHeroku\n app demonstrates how to use JSON and XML automarshalling to communicate using typesafe Body lenses.\n\n\nOr manually using a filter...\n\n\nThis example show the usage of the \nGenerateDataClasses\n to generate Kotlin data class code for JSON messages from a remote endpoint. When used in conjunction with the \"auto body-marshalling\" functionality available with JSON libraries such as Jackson and GSON, this provides a super-fast way to integrate with upstream remote APIs in a typesafe way.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-gson\n, version: \n3.1.3\n\n\n\n\n\n\nCode", 
+            "text": "On the web...\n\n\nThis \nHeroku\n app demonstrates how to use JSON and XML automarshalling to communicate using typesafe Body lenses.\n\n\nOr manually using a filter...\n\n\nThis example show the usage of the \nGenerateDataClasses\n to generate Kotlin data class code for JSON messages from a remote endpoint. When used in conjunction with the \"auto body-marshalling\" functionality available with JSON libraries such as Jackson and GSON, this provides a super-fast way to integrate with upstream remote APIs in a typesafe way.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-gson\n, version: \n3.1.3\n\n\n\n\n\n\nCode (\nsrc\n)", 
             "title": "Generating data classes for messages"
         }, 
         {
@@ -691,13 +691,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/generating_data_classes/#code", 
+            "location": "/cookbook/generating_data_classes/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/typesafe_http_contracts/", 
-            "text": "This contract example shows:\n\n\n\n\n2 endpoints with typesafe contracts (marshalling of path parameters and bodies)\n\n\nCustom filters (reporting latency)\n\n\nAPI key security via a typesafe Query parameter (this can be a header or a body parameter as well)\n\n\nOpenApi/Swagger API documentation - Run this example and point a browser \nhere\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-contract\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-argo\n, version: \n3.1.3\n\n\n\n\n\n\nNote: although we use Argo here as our JSON API, you could also switch in any of the \nhttp4k-format-xxx\n JSON modules. \n\n\nCode", 
+            "text": "This contract example shows:\n\n\n\n\n2 endpoints with typesafe contracts (marshalling of path parameters and bodies)\n\n\nCustom filters (reporting latency)\n\n\nAPI key security via a typesafe Query parameter (this can be a header or a body parameter as well)\n\n\nOpenApi/Swagger API documentation - Run this example and point a browser \nhere\n\n\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-contract\n, version: \n3.1.3\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-argo\n, version: \n3.1.3\n\n\n\n\n\n\nNote: although we use Argo here as our JSON API, you could also switch in any of the \nhttp4k-format-xxx\n JSON modules. \n\n\nCode (\nsrc\n)", 
             "title": "Typesafe HTTP contracts"
         }, 
         {
@@ -706,13 +706,13 @@
             "title": "Gradle setup"
         }, 
         {
-            "location": "/cookbook/typesafe_http_contracts/#code", 
+            "location": "/cookbook/typesafe_http_contracts/#code-src", 
             "text": "", 
-            "title": "Code"
+            "title": "Code (src)"
         }, 
         {
             "location": "/cookbook/record_and_replay/", 
-            "text": "A set of classes to provide simple recording/replaying of HTTP traffic. This is perfect for testing purposes, or in short lived, low traffic environments where no proper caches are available.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCaching HTTP Traffic\n\n\nUsing \nFilters\n it's possible to record traffic and then return recorded content instead of making repeated calls. Note that the provided storage \nimplementations DO NOT have any facility for Cache Control or eviction, or respect any response headers around caching. Requests are indexed in a way optimised for retrieval.\n\n\n\n\n\nRecording Streams of HTTP Traffic\n\n\nUsing \nFilters\n it's possible to record a stream traffic and then replay recorded content instead. Requests are indexed in a way optimised for iteration.\n\n\n\n\n\nConcepts\n\n\nThe \norg.http4k.traffic\n package contains the interfaces which make up the core concepts for traffic capture and replay. These interfaces are:\n\n\n\n\nA \nSink\n consumes request/response pairs for storage. \n\n\nA \nSource\n provides lookup of pre-stored Response based on an HTTP Request.\n\n\nReplay\n instances provide streams of HTTP messages as they were received.\n\n\nA \nReadWriteCache\n combines \nSink\n and \nSource\n to provide cache-like storage.\n\n\nA \nReadWriteStream\n combines \nSink\n and \nReplay\n to provide a stream of traffic which can be replayed.\n\n\n\n\nThe API has been designed to be modular so API users can provide their own implementations (store in S3 etc..).", 
+            "text": "A set of classes to provide simple recording/replaying of HTTP traffic. This is perfect for testing purposes, or in short lived, low traffic environments where no proper caches are available.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.1.3\n\n\n\n\n\n\nCaching HTTP Traffic\n\n\nUsing \nFilters\n it's possible to record traffic and then return recorded content instead of making repeated calls. Note that the provided storage \nimplementations DO NOT have any facility for Cache Control or eviction, or respect any response headers around caching. Requests are indexed in a way optimised for retrieval.\n\n\n\n\n\nRecording Streams of HTTP Traffic\n\n\nUsing \nFilters\n it's possible to record a stream traffic and then replay recorded content instead. Requests are indexed in a way optimised for iteration.\n\n\nCode (\nsrc\n)\n\n\n\n\n\nConcepts\n\n\nThe \norg.http4k.traffic\n package contains the interfaces which make up the core concepts for traffic capture and replay. These interfaces are:\n\n\n\n\nA \nSink\n consumes request/response pairs for storage. \n\n\nA \nSource\n provides lookup of pre-stored Response based on an HTTP Request.\n\n\nReplay\n instances provide streams of HTTP messages as they were received.\n\n\nA \nReadWriteCache\n combines \nSink\n and \nSource\n to provide cache-like storage.\n\n\nA \nReadWriteStream\n combines \nSink\n and \nReplay\n to provide a stream of traffic which can be replayed.\n\n\n\n\nThe API has been designed to be modular so API users can provide their own implementations (store in S3 etc..).", 
             "title": "Recording/replaying HTTP traffic"
         }, 
         {
@@ -731,14 +731,24 @@
             "title": "Recording Streams of HTTP Traffic"
         }, 
         {
+            "location": "/cookbook/record_and_replay/#code-src", 
+            "text": "", 
+            "title": "Code (src)"
+        }, 
+        {
             "location": "/cookbook/record_and_replay/#concepts", 
             "text": "The  org.http4k.traffic  package contains the interfaces which make up the core concepts for traffic capture and replay. These interfaces are:   A  Sink  consumes request/response pairs for storage.   A  Source  provides lookup of pre-stored Response based on an HTTP Request.  Replay  instances provide streams of HTTP messages as they were received.  A  ReadWriteCache  combines  Sink  and  Source  to provide cache-like storage.  A  ReadWriteStream  combines  Sink  and  Replay  to provide a stream of traffic which can be replayed.   The API has been designed to be modular so API users can provide their own implementations (store in S3 etc..).", 
             "title": "Concepts"
         }, 
         {
             "location": "/cookbook/test_driven_apps/", 
-            "text": "This example shows the various styles of testing endpoints, and requires both the \nhttp4k-core\n and \nhttp4k-testing-hamkrest\n modules:", 
+            "text": "This example shows the various styles of testing endpoints, and requires both the \nhttp4k-core\n and \nhttp4k-testing-hamkrest\n modules:\n\n\nCode (\nsrc\n)", 
             "title": "Test driven apps"
+        }, 
+        {
+            "location": "/cookbook/test_driven_apps/#code-src", 
+            "text": "", 
+            "title": "Code (src)"
         }, 
         {
             "location": "/performance/", 
