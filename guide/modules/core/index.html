@@ -1056,8 +1056,8 @@
 <li>Simple routing implementation, plus <code>HttpHandlerServlet</code> to enable plugging into any Servlet engine. </li>
 <li><a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a> mechanism for typesafe destructuring and construction of HTTP messages.</li>
 <li>Typesafe Request Context operations using Lenses.</li>
-<li>Abstractions for Servers, Clients, JSON Message formats, Templating etc.</li>
-<li><code>SunHttp</code> Single-LOC development Server-backend</li>
+<li>Abstractions for Servers, Clients, JSON Message formats, Templating, Websockets etc.</li>
+<li><code>SunHttp</code> Ultra-fast single-LOC development server-backend</li>
 <li>Static file-serving capability with <strong>Caching</strong> and <strong>Hot-Reload</strong></li>
 <li>APIs to <strong>record and replay</strong> HTTP traffic to disk or memory</li>
 </ul>
@@ -1206,10 +1206,12 @@ to configure these lenses to target particular parts of the message, whilst at t
 
 
 <h3 id="typesafe-websockets">Typesafe Websockets.</h3>
-<p>Websockets have been modeled using the same methodology as standard HTTP endpoints - ie. with both simplicity and testability as a first class concern, as well as benefiting from Lens-based typesafety. Websocket communication consists of 3 main concepts:
-    1. <code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsConsumer?</code>. This is responsible for matching an HTTP request to a websocket.
-    1. <code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.
-    1. <code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are immutable data classes.</p>
+<p>Websockets have been modeled using the same methodology as standard HTTP endpoints - ie. with both simplicity and testability as a first class concern, as well as benefiting from Lens-based typesafety. Websocket communication consists of 3 main concepts:</p>
+<ol>
+<li><code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsConsumer?</code>. This is responsible for matching an HTTP request to a websocket.</li>
+<li><code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.</li>
+<li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are immutable data classes.</li>
+</ol>
 <p>The routing aspect of Websockets is done using a very similar API to the standard HTTP routing for HTTP messages and dynamic parts of the upgrade request are available when constructing a websocket instance:</p>
 <div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
 
