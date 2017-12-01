@@ -792,8 +792,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#unit-testing-websockets" title="Unit testing websockets " class="md-nav__link">
-    Unit testing websockets 
+  <a href="#testing-websockets" title="Testing websockets " class="md-nav__link">
+    Testing websockets 
   </a>
   
 </li>
@@ -987,8 +987,9 @@
 <h3 id="mixing-http-and-websockets">Mixing HTTP and Websockets <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
 <p>Both Websockets and Http handlers in <strong>http4k</strong> are routed using a similar path-based API:
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"></script></p>
-<h3 id="unit-testing-websockets">Unit testing websockets <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<p><strong>http4k</strong> provides Websockets that are both typesafe (via the Lens API), and testable. Both <code>WsHandlers</code> and <code>PolyHandlers</code> are convertible to a <code>WsClient</code> which provides a synchronous API for testing reactions to Websocket events in an offline environment:</p>
+<h3 id="testing-websockets">Testing websockets <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p><strong>http4k</strong> provides Websockets that are both typesafe (via the Lens API), and testable. Both <code>WsHandlers</code> and <code>PolyHandlers</code> are convertible to a <code>WsClient</code> which provides a synchronous API for testing reactions to Websocket events in an offline environment.</p>
+<p>In the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"></script>
                     
                     
