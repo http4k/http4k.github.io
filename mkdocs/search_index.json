@@ -77,7 +77,7 @@
         }, 
         {
             "location": "/guide/modules/aws/", 
-            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-aws\", version: \"3.2.2\"\n\n\nAbout\n\n\nThis module provides super-simple AWS request signing functionality for talking to AWS services. Once configured with the correct keys, the various AWS services are actually really simple to integrate with they're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.\n\n\nhttp4k provides a \nFilter\n which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-aws\", version: \"3.2.2\"\n\n\nAbout\n\n\nThis module provides super-simple AWS request signing functionality for talking to AWS services. Once configured with the correct keys, the various AWS services are actually really simple to integrate with they're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.\n\n\nhttp4k provides a \nFilter\n which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:\n\n\nCode", 
             "title": "AWS"
         }, 
         {
@@ -89,6 +89,11 @@
             "location": "/guide/modules/aws/#about", 
             "text": "This module provides super-simple AWS request signing functionality for talking to AWS services. Once configured with the correct keys, the various AWS services are actually really simple to integrate with they're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.  http4k provides a  Filter  which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:", 
             "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/aws/#code", 
+            "text": "", 
+            "title": "Code "
         }, 
         {
             "location": "/guide/modules/core/", 
@@ -172,7 +177,7 @@
         }, 
         {
             "location": "/guide/modules/clients/", 
-            "text": "Installation (Gradle)\n\n\nApache:\n \ncompile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"3.2.2\"\n\n\nOkHttp:\n \ncompile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"3.2.2\"\n\n\nAbout\n\n\nSupported HTTP client adapter APIs are wrapped to provide an \nHttpHandler\n interface in 1 LOC.\n\n\nActivate streaming mode by passing a \nBodyMode\n (default is non-streaming).\n\n\nThese examples are for the Apache HTTP client, but the API is similar for the others:\n\n\n\n\n\nAlternatively, all client adapter modules allow for custom configuration of the relevant Client configuration by", 
+            "text": "Installation (Gradle)\n\n\nApache:\n \ncompile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"3.2.2\"\n\n\nOkHttp:\n \ncompile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"3.2.2\"\n\n\nAbout\n\n\nSupported HTTP client adapter APIs are wrapped to provide an \nHttpHandler\n interface in 1 LOC.\n\n\nActivate streaming mode by passing a \nBodyMode\n (default is non-streaming).\n\n\nThese examples are for the Apache HTTP client, but the API is similar for the others:\n\n\nCode \n\n\n\n\nAlternatively, all client adapter modules allow for custom configuration of the relevant Client configuration by", 
             "title": "HTTP client"
         }, 
         {
@@ -182,8 +187,13 @@
         }, 
         {
             "location": "/guide/modules/clients/#about", 
-            "text": "Supported HTTP client adapter APIs are wrapped to provide an  HttpHandler  interface in 1 LOC.  Activate streaming mode by passing a  BodyMode  (default is non-streaming).  These examples are for the Apache HTTP client, but the API is similar for the others:   Alternatively, all client adapter modules allow for custom configuration of the relevant Client configuration by", 
+            "text": "Supported HTTP client adapter APIs are wrapped to provide an  HttpHandler  interface in 1 LOC.  Activate streaming mode by passing a  BodyMode  (default is non-streaming).  These examples are for the Apache HTTP client, but the API is similar for the others:", 
             "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/clients/#code", 
+            "text": "Alternatively, all client adapter modules allow for custom configuration of the relevant Client configuration by", 
+            "title": "Code "
         }, 
         {
             "location": "/guide/modules/message_formats/", 
@@ -347,7 +357,7 @@
         }, 
         {
             "location": "/guide/modules/contracts/", 
-            "text": "Installation (Gradle)\n\n\ncompile group: \norg.http4k\n, name: \nhttp4k-contract\n, version: \n3.2.2\n\ncompile group: \norg.http4k\n, name: \nhttp4k-format-\ninsert json lib\n, version: \n3.2.2\n\n\n\n\n\n\nAbout\n\n\nThe \nhttp4k-contract\n module adds a much more sophisticated routing mechanism to that available in \nhttp4k-core\n. It adds the facility \nto declare server-side \nRoutes\n in a completely typesafe way, leveraging the Lens functionality from the core. These \nRoutes\n are \ncombined into \nRouteModules\n, which have the following features:\n\n\n\n\nAuto-validating\n - the \nRoute\n contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a \nHTTP 400\n (BAD_REQUEST)\n response.     \n\n\nSelf-describing:\n - a generated endpoint is provided which describes all of the \nRoutes\n in that module. Implementations include \nOpenApi/Swagger\n documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.\n\n\nSecurity:\n to secure the \nRoutes\n  against unauthorised access. Current implementations include \nApiKey\n.\n\n\n\n\n\n\n\nWhen launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.\n\n\nFor a more extended example, see the following example apps: \n\n\n\n\nTodo backend (typesafe contract version)\n\n\nTDD'd example application", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \norg.http4k\n, name: \nhttp4k-contract\n, version: \n3.2.2\n\ncompile group: \norg.http4k\n, name: \nhttp4k-format-\ninsert json lib\n, version: \n3.2.2\n\n\n\n\n\n\nAbout\n\n\nThe \nhttp4k-contract\n module adds a much more sophisticated routing mechanism to that available in \nhttp4k-core\n. It adds the facility \nto declare server-side \nRoutes\n in a completely typesafe way, leveraging the Lens functionality from the core. These \nRoutes\n are \ncombined into \nRouteModules\n, which have the following features:\n\n\n\n\nAuto-validating\n - the \nRoute\n contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a \nHTTP 400\n (BAD_REQUEST)\n response.     \n\n\nSelf-describing:\n - a generated endpoint is provided which describes all of the \nRoutes\n in that module. Implementations include \nOpenApi/Swagger\n documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.\n\n\nSecurity:\n to secure the \nRoutes\n  against unauthorised access. Current implementations include \nApiKey\n.\n\n\n\n\nCode \n\n\n\n\n\nWhen launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.\n\n\nFor a more extended example, see the following example apps: \n\n\n\n\nTodo backend (typesafe contract version)\n\n\nTDD'd example application", 
             "title": "Typesafe contracts"
         }, 
         {
@@ -357,12 +367,17 @@
         }, 
         {
             "location": "/guide/modules/contracts/#about", 
-            "text": "The  http4k-contract  module adds a much more sophisticated routing mechanism to that available in  http4k-core . It adds the facility \nto declare server-side  Routes  in a completely typesafe way, leveraging the Lens functionality from the core. These  Routes  are \ncombined into  RouteModules , which have the following features:   Auto-validating  - the  Route  contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a  HTTP 400\n (BAD_REQUEST)  response.       Self-describing:  - a generated endpoint is provided which describes all of the  Routes  in that module. Implementations include  OpenApi/Swagger  documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.  Security:  to secure the  Routes   against unauthorised access. Current implementations include  ApiKey .    When launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.  For a more extended example, see the following example apps:    Todo backend (typesafe contract version)  TDD'd example application", 
+            "text": "The  http4k-contract  module adds a much more sophisticated routing mechanism to that available in  http4k-core . It adds the facility \nto declare server-side  Routes  in a completely typesafe way, leveraging the Lens functionality from the core. These  Routes  are \ncombined into  RouteModules , which have the following features:   Auto-validating  - the  Route  contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a  HTTP 400\n (BAD_REQUEST)  response.       Self-describing:  - a generated endpoint is provided which describes all of the  Routes  in that module. Implementations include  OpenApi/Swagger  documentation, including generation of [JSON schema]\n(http://json-schema.org/) models for messages.  Security:  to secure the  Routes   against unauthorised access. Current implementations include  ApiKey .", 
             "title": "About"
         }, 
         {
+            "location": "/guide/modules/contracts/#code", 
+            "text": "When launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.  For a more extended example, see the following example apps:    Todo backend (typesafe contract version)  TDD'd example application", 
+            "title": "Code "
+        }, 
+        {
             "location": "/guide/modules/webdriver/", 
-            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-testing-webdriver\", version: \"3.2.2\"\n\n\nAbout\n\n\nA basic Selenium WebDriver API implementation for \nhttp4k\n HttpHandlers, which runs completely out of container (no network) for ultra fast tests.\n\n\n\n\n\n\n\n\nFeature\n\n\nSupported\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\nNavigation\n\n\nyes\n\n\nsimple back/forward/refresh history\n\n\n\n\n\n\nCSS selectors\n\n\nyes\n\n\n\n\n\n\n\n\nLink navigation\n\n\nyes\n\n\n\n\n\n\n\n\nForm field entry and submission\n\n\nyes\n\n\n\n\n\n\n\n\nCookie storage\n\n\nyes\n\n\nmanual expiry management\n\n\n\n\n\n\nJavaScript\n\n\nno\n\n\n\n\n\n\n\n\nAlerts\n\n\nno\n\n\n\n\n\n\n\n\nScreenshots\n\n\nno\n\n\n\n\n\n\n\n\nFrames\n\n\nno\n\n\n\n\n\n\n\n\nMultiple windows\n\n\nno\n\n\n\n\n\n\n\n\n\n\nUse the API like any other WebDriver implementation, by simply passing your app HttpHandler to construct it:", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-testing-webdriver\", version: \"3.2.2\"\n\n\nAbout\n\n\nA basic Selenium WebDriver API implementation for \nhttp4k\n HttpHandlers, which runs completely out of container (no network) for ultra fast tests.\n\n\n\n\n\n\n\n\nFeature\n\n\nSupported\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\nNavigation\n\n\nyes\n\n\nsimple back/forward/refresh history\n\n\n\n\n\n\nCSS selectors\n\n\nyes\n\n\n\n\n\n\n\n\nLink navigation\n\n\nyes\n\n\n\n\n\n\n\n\nForm field entry and submission\n\n\nyes\n\n\n\n\n\n\n\n\nCookie storage\n\n\nyes\n\n\nmanual expiry management\n\n\n\n\n\n\nJavaScript\n\n\nno\n\n\n\n\n\n\n\n\nAlerts\n\n\nno\n\n\n\n\n\n\n\n\nScreenshots\n\n\nno\n\n\n\n\n\n\n\n\nFrames\n\n\nno\n\n\n\n\n\n\n\n\nMultiple windows\n\n\nno\n\n\n\n\n\n\n\n\n\n\nUse the API like any other WebDriver implementation, by simply passing your app HttpHandler to construct it:\n\n\nCode", 
             "title": "WebDriver"
         }, 
         {
@@ -374,6 +389,11 @@
             "location": "/guide/modules/webdriver/#about", 
             "text": "A basic Selenium WebDriver API implementation for  http4k  HttpHandlers, which runs completely out of container (no network) for ultra fast tests.     Feature  Supported  Notes      Navigation  yes  simple back/forward/refresh history    CSS selectors  yes     Link navigation  yes     Form field entry and submission  yes     Cookie storage  yes  manual expiry management    JavaScript  no     Alerts  no     Screenshots  no     Frames  no     Multiple windows  no      Use the API like any other WebDriver implementation, by simply passing your app HttpHandler to construct it:", 
             "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/webdriver/#code", 
+            "text": "", 
+            "title": "Code "
         }, 
         {
             "location": "/guide/testing/", 
