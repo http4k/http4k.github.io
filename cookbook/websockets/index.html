@@ -376,8 +376,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/modules/clients/" title="HTTP client" class="md-nav__link">
-      HTTP client
+    <a href="../../guide/modules/clients/" title="HTTP/Websocket client" class="md-nav__link">
+      HTTP/Websocket client
     </a>
   </li>
 
@@ -785,15 +785,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mixing-http-and-websockets" title="Mixing HTTP and Websockets " class="md-nav__link">
-    Mixing HTTP and Websockets 
+  <a href="#mixing-http-and-websocket-services" title="Mixing HTTP and Websocket services " class="md-nav__link">
+    Mixing HTTP and Websocket services 
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#testing-websockets" title="Testing websockets " class="md-nav__link">
-    Testing websockets 
+  <a href="#automarshalling-websockets-messages" title="Automarshalling Websockets messages " class="md-nav__link">
+    Automarshalling Websockets messages 
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-websockets" title="Testing Websockets " class="md-nav__link">
+    Testing Websockets 
   </a>
   
 </li>
@@ -988,6 +995,7 @@
 <div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.2.2&quot;
     compile group: &quot;org.http4k&quot;, name: &quot;http4k-server-jetty&quot;, version: &quot;3.2.2&quot;
     compile group: &quot;org.http4k&quot;, name: &quot;http4k-client-websocket&quot;, version: &quot;3.2.2&quot;
+    compile group: &quot;org.http4k&quot;, name: &quot;http4k-format-jackson&quot;, version: &quot;3.2.2&quot;
 </pre></div>
 
 
@@ -997,10 +1005,13 @@
 <li><code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.</li>
 <li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are immutable data classes.</li>
 </ol>
-<h3 id="mixing-http-and-websockets">Mixing HTTP and Websockets <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<p>Both Websockets and Http handlers in <strong>http4k</strong> are routed using a similar path-based API:
+<h3 id="mixing-http-and-websocket-services">Mixing HTTP and Websocket services <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p>Both Websockets and Http handlers in <strong>http4k</strong> are routed using a similar path-based API. We combine them into a single <code>PolyHandler</code> which can handle both <code>http://</code> and <code>ws://</code>, and then convert to a Server as usual:
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"></script></p>
-<h3 id="testing-websockets">Testing websockets <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<h3 id="automarshalling-websockets-messages">Automarshalling Websockets messages <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_automarshalling.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p>Using the standard Lens API, we can auto-convert Websocket messages on and off the wire. This example uses the Jackson for the marshalling:
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_automarshalling.kt"></script></p>
+<h3 id="testing-websockets">Testing Websockets <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
 <p><strong>http4k</strong> provides Websockets that are both typesafe (via the Lens API), and testable. Both <code>WsHandlers</code> and <code>PolyHandlers</code> are convertible to a <code>WsClient</code> which provides a synchronous API for testing reactions to Websocket events in an offline environment.</p>
 <p>In the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"></script>
