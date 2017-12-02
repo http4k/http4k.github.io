@@ -1031,7 +1031,12 @@
 </ul>
 <p>Additionally, <code>WsMessage</code> objects are used for actual communication - ie. a message which is sent or received on a Websocket. This message can take advantage of the typesafety accorded to other entities in <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> by using the Lens API. And just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are <strong>immutable data classes</strong>.</p>
 <h4 id="an-example-server">An example server <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p>The example below shows how Websockets are dynamically routed, and how a <code>WsHandler</code> can be combined with an <code>HttpHandler</code> to make a <code>PolyHandler</code> - an application which can serve many protocols. Conversion of the <code>PolyHandler</code> to a supporting Server can be done via the standard <code>asServer()</code> mechanism, or it can be kept offline for ultra-fast in-memory testing:</p>
+<p>The example below shows how:</p>
+<ul>
+<li>Websockets can be dynamically routed</li>
+<li>Lens-based marshalling of Websocket message objects using Jackson. </li>
+<li><code>WsHandler</code> can be combined with an <code>HttpHandler</code> to make a <code>PolyHandler</code> - an application which can serve many protocols. Conversion of the <code>PolyHandler</code> to a supporting Server can be done via the standard <code>asServer()</code> mechanism, or it can be kept offline for ultra-fast in-memory testing:</li>
+</ul>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example.kt"></script>
 
 <p>Alternatively, you can check out the Websocket enabled <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> demo: <a href="https://github.com/daviddenton/http4k-demo-irc">IRC clone in 30 lines of Kotlin</a>.</p>
