@@ -414,8 +414,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#about" title="About" class="md-nav__link">
-    About
+  <a href="#http" title="HTTP" class="md-nav__link">
+    HTTP
   </a>
   
     <nav class="md-nav">
@@ -423,6 +423,26 @@
         
           <li class="md-nav__item">
   <a href="#code" title="Code " class="md-nav__link">
+    Code 
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#websocket" title="Websocket" class="md-nav__link">
+    Websocket
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code_1" title="Code " class="md-nav__link">
     Code 
   </a>
   
@@ -999,13 +1019,18 @@
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
 <p><strong>Apache:</strong> <code>compile group: "org.http4k", name: "http4k-client-apache", version: "3.2.2"</code></p>
 <p><strong>OkHttp:</strong> <code>compile group: "org.http4k", name: "http4k-client-okhttp", version: "3.2.2"</code></p>
-<h3 id="about">About</h3>
+<p><strong>Websocket:</strong> <code>compile group: "org.http4k", name: "http4k-client-websocket", version: "3.2.2"</code></p>
+<h3 id="http">HTTP</h3>
 <p>Supported HTTP client adapter APIs are wrapped to provide an <code>HttpHandler</code> interface in 1 LOC.</p>
 <p>Activate streaming mode by passing a <code>BodyMode</code> (default is non-streaming).</p>
 <p>These examples are for the Apache HTTP client, but the API is similar for the others:</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example.kt"></script></p>
-<p>Alternatively, all client adapter modules allow for custom configuration of the relevant Client configuration by</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_http.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_http.kt"></script></p>
+<p>Additionally, all HTTP client adapter modules allow for custom configuration of the relevant.</p>
+<h3 id="websocket">Websocket</h3>
+<p>http4k supplies both blocking and non-blocking Websocket clients. The former is perfect for integration testing purposes, and as it uses the same interface <code>WsClient</code> as the in-memory test client (<code>WsHandler.testWsClient()</code>) it is simple to write unit tests which can then be reused as system tests by virtue of swapping out the client.</p>
+<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_websocket.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_websocket.kt"></script></p>
                     
                     
                     
