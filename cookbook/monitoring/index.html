@@ -7,17 +7,17 @@
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
-    <meta itemprop="name" content="http4k Request Contexts">
-    <meta name="twitter:title" content="http4k Request Contexts">
-    <meta property="og:title" content="http4k Request Contexts" />
+    <meta itemprop="name" content="Monitoring http4k applications">
+    <meta name="twitter:title" content="Monitoring http4k applications">
+    <meta property="og:title" content="Monitoring http4k applications" />
     
     
-    <meta name="description" content="Recipes for using http4k with per-request context objects">
-    <meta property="og:description" content="Recipes for using http4k with per-request context objects" />
-    <meta name="twitter:description" content="Recipes for using http4k with per-request context objects">
+    <meta name="description" content="How to monitor http4k endpoints and applications">
+    <meta property="og:description" content="How to monitor http4k endpoints and applications" />
+    <meta name="twitter:description" content="How to monitor http4k endpoints and applications">
     
     
-    <link rel="canonical" href="https://http4k.org/cookbook/request_context/">
+    <link rel="canonical" href="https://http4k.org/cookbook/monitoring/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -57,7 +57,7 @@
     
     
     
-    <title>http4k Request Contexts</title>
+    <title>Monitoring http4k applications</title>
     
     
     
@@ -94,13 +94,13 @@
           "@context" : "http://schema.org",
           "@type" : "WebSite",
     
-          "name" : "http4k Request Contexts",
+          "name" : "Monitoring http4k applications",
     
     
-          "alternateName" : "Recipes for using http4k with per-request context objects",
+          "alternateName" : "How to monitor http4k endpoints and applications",
     
           "image": "https://www.http4k.org/img/logo_card_blue_on_white.png",
-          "url" : "https://http4k.org/cookbook/request_context/"
+          "url" : "https://http4k.org/cookbook/monitoring/"
         }
         </script>
 </head>
@@ -145,7 +145,7 @@
                 </span>
               
             
-            Typesafe RequestContexts
+            Monitoring http4k
           
         </span>
             </div>
@@ -693,63 +693,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Typesafe RequestContexts
-      </label>
-    
-    <a href="./" title="Typesafe RequestContexts" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../request_context/" title="Typesafe RequestContexts" class="md-nav__link">
       Typesafe RequestContexts
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
-    Gradle setup
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#string-based-keys" title="String-based keys " class="md-nav__link">
-    String-based keys 
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lens-based-keys" title="Lens-based keys " class="md-nav__link">
-    Lens-based keys 
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -829,11 +777,64 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../monitoring/" title="Monitoring http4k" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Monitoring http4k
+      </label>
+    
+    <a href="./" title="Monitoring http4k" class="md-nav__link md-nav__link--active">
       Monitoring http4k
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" title="Metrics " class="md-nav__link">
+    Metrics 
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" title="Logging " class="md-nav__link">
+    Logging 
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-tracing" title="Distributed tracing " class="md-nav__link">
+    Distributed tracing 
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debugging" title="Debugging " class="md-nav__link">
+    Debugging 
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -997,30 +998,27 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/request_context/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/monitoring/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>Typesafe RequestContexts</h1>
+                    <h1>Monitoring http4k</h1>
                     
-                    <p>A <code>RequestContext</code> makes it possible to attach objects to a request whilst it is being passed down through the layers of an application.</p>
-<p>The basic concept is that there is a global shared object which holds a bag of state (indexed by Request). This state can be modified in Filters and then 
-that state accessed inside other Filters or the terminating HttpHandler. There are 2 available choices for manipulating this data:</p>
-<ol>
-<li>Using simple Strings to represent the keys.</li>
-<li>Using <code>RequestContextKey</code>s and the Lens mechanism from the <code>http4k-core</code> module.</li>
-</ol>
-<p>Whilst the first method looks technically simpler, the use of simple Strings does not provide the type-safety of the second, which uses unique shared Key objects to guarantee non-clashing of keys and type-safety of the state.
-Regardless of which of the above mechanisms are used, an instance of the <code>ServerFilters.InitialiseRequestContext</code> Filter must wrap the HttpHandler(s) to activate
-the shared bag of state for each request, and to remove the state after the request is complete.</p>
-<h3 id="gradle-setup">Gradle setup</h3>
-<div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.2.3&quot;
-</pre></div>
+                    <p>Measuring performance of application estate is crucial in today's microservice world - it is crucial that dev-ops teams can monitor, react and scale dynamically to changes in the runtime environment. However, because of the plethora of monitoring tools on the market, and because http4k is a toolkit and not a complete "batteries included" framework, it provides a number of integration points to enable monitoring systems to be plugged in as required. Additionally, it is envisaged that users will probably want to provide their own implementations of the http4k <code>ServerConfig</code> classes (<code>Jetty</code>, <code>Undertow</code> etc..) so that tweaking and tuning to their exact requirements is accessible, instead of http4k attempting to provide some generic configuration API to achieve it.</p>
+<h3 id="metrics">Metrics <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p>If you're using Prometheus or Dropwizard for recording metrics, there are drop-in modules available to record stats such as latency and thread-usage for the various server-backends as well as a bunch of reporters to expose those stats to a monitoring system. Alternatively, it's very easy to use a standard <code>Filter</code> to report on stats:</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt"></script>
 
+<h3 id="logging">Logging <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_logging.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p>This is trivial to achieve by using a Filter:</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_logging.kt"></script>
 
-<h4 id="string-based-keys">String-based keys <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/string_key_example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/string_key_example.kt"></script></p>
-<h4 id="lens-based-keys">Lens-based keys <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/lens_key_example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/lens_key_example.kt"></script></p>
+<h3 id="distributed-tracing">Distributed tracing <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_tracing.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p>This allows a chain of application calls to be tied together and is generally done through the setting of HTTP headers on each call. http4k supports the <a href="https://zipkin.io/">OpenZipkin</a> standard for achieving this and provides both Server-side and Client-side <code>Filters</code> for this purpose. This example shows a chain of two proxies and an endpoint - run it to observe the changes to the tracing headers as the request flows through the system:</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_tracing.kt"></script>
+
+<h3 id="debugging">Debugging <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_debugging.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p>Easily wrap an <code>HttpHandler</code> in a debugging filter to check out what is going on under the covers:</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_debugging.kt"></script>
                     
                     
                     
@@ -1039,7 +1037,7 @@ the shared bag of state for each request, and to remove the state after the requ
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../using_templates/" title="Templating engines" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1048,19 +1046,19 @@ the shared bag of state for each request, and to remove the state after the requ
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Templating engines
+                Typesafe HTTP contracts
               </span>
             </div>
           </a>
         
         
-          <a href="../typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../record_and_replay/" title="Recording/replaying HTTP traffic" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Typesafe HTTP requests with lenses
+                Recording/replaying HTTP traffic
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

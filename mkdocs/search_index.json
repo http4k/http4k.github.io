@@ -801,6 +801,31 @@
             "title": "Code "
         }, 
         {
+            "location": "/cookbook/monitoring/", 
+            "text": "Measuring performance of application estate is crucial in today's microservice world - it is crucial that dev-ops teams can monitor, react and scale dynamically to changes in the runtime environment. However, because of the plethora of monitoring tools on the market, and because http4k is a toolkit and not a complete \"batteries included\" framework, it provides a number of integration points to enable monitoring systems to be plugged in as required. Additionally, it is envisaged that users will probably want to provide their own implementations of the http4k \nServerConfig\n classes (\nJetty\n, \nUndertow\n etc..) so that tweaking and tuning to their exact requirements is accessible, instead of http4k attempting to provide some generic configuration API to achieve it.\n\n\nMetrics \n\n\nIf you're using Prometheus or Dropwizard for recording metrics, there are drop-in modules available to record stats such as latency and thread-usage for the various server-backends as well as a bunch of reporters to expose those stats to a monitoring system. Alternatively, it's very easy to use a standard \nFilter\n to report on stats:\n\n\n\n\n\nLogging \n\n\nThis is trivial to achieve by using a Filter:\n\n\n\n\n\nDistributed tracing \n\n\nThis allows a chain of application calls to be tied together and is generally done through the setting of HTTP headers on each call. http4k supports the \nOpenZipkin\n standard for achieving this and provides both Server-side and Client-side \nFilters\n for this purpose. This example shows a chain of two proxies and an endpoint - run it to observe the changes to the tracing headers as the request flows through the system:\n\n\n\n\n\nDebugging \n\n\nEasily wrap an \nHttpHandler\n in a debugging filter to check out what is going on under the covers:", 
+            "title": "Monitoring http4k"
+        }, 
+        {
+            "location": "/cookbook/monitoring/#metrics", 
+            "text": "If you're using Prometheus or Dropwizard for recording metrics, there are drop-in modules available to record stats such as latency and thread-usage for the various server-backends as well as a bunch of reporters to expose those stats to a monitoring system. Alternatively, it's very easy to use a standard  Filter  to report on stats:", 
+            "title": "Metrics "
+        }, 
+        {
+            "location": "/cookbook/monitoring/#logging", 
+            "text": "This is trivial to achieve by using a Filter:", 
+            "title": "Logging "
+        }, 
+        {
+            "location": "/cookbook/monitoring/#distributed-tracing", 
+            "text": "This allows a chain of application calls to be tied together and is generally done through the setting of HTTP headers on each call. http4k supports the  OpenZipkin  standard for achieving this and provides both Server-side and Client-side  Filters  for this purpose. This example shows a chain of two proxies and an endpoint - run it to observe the changes to the tracing headers as the request flows through the system:", 
+            "title": "Distributed tracing "
+        }, 
+        {
+            "location": "/cookbook/monitoring/#debugging", 
+            "text": "Easily wrap an  HttpHandler  in a debugging filter to check out what is going on under the covers:", 
+            "title": "Debugging "
+        }, 
+        {
             "location": "/cookbook/record_and_replay/", 
             "text": "A set of classes to provide simple recording/replaying of HTTP traffic. This is perfect for testing purposes, or in short lived, low traffic environments where no proper caches are available.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.2.3\n\n\n\n\n\n\nCaching HTTP Traffic\n\n\nUsing \nFilters\n it's possible to record traffic and then return recorded content instead of making repeated calls. Note that the provided storage \nimplementations DO NOT have any facility for Cache Control or eviction, or respect any response headers around caching. Requests are indexed in a way optimised for retrieval.\n\n\nCode \n\n\n\n\n\nRecording Streams of HTTP Traffic\n\n\nUsing \nFilters\n it's possible to record a stream traffic and then replay recorded content instead. Requests are indexed in a way optimised for iteration.\n\n\nCode \n\n\n\n\n\nConcepts\n\n\nThe \norg.http4k.traffic\n package contains the interfaces which make up the core concepts for traffic capture and replay. These interfaces are:\n\n\n\n\nA \nSink\n consumes request/response pairs for storage. \n\n\nA \nSource\n provides lookup of pre-stored Response based on an HTTP Request.\n\n\nReplay\n instances provide streams of HTTP messages as they were received.\n\n\nA \nReadWriteCache\n combines \nSink\n and \nSource\n to provide cache-like storage.\n\n\nA \nReadWriteStream\n combines \nSink\n and \nReplay\n to provide a stream of traffic which can be replayed.\n\n\n\n\nThe API has been designed to be modular so API users can provide their own implementations (store in S3 etc..).", 
             "title": "Recording/replaying HTTP traffic"
