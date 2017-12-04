@@ -1028,7 +1028,7 @@
                     <h1 id="websockets-but-typesafe-and-testable-without-the-server">Websockets. But typesafe. And testable. Without the Server.</h1>
 <h5 id="daviddenton-december-2017"><a href="http://github.com/daviddenton">@daviddenton</a> / december 2017</h5>
 <p>Reaction to the last post introducing <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> was pretty good, and one of the most popular questions was: <strong>"But what about Websockets"</strong>?</p>
-<p>The answer to that question at the time was an emphatic <strong>"Not yet"</strong> - because they didn't fit the "Server as a Function" model, and the team hadn't worked out a way to deliver them in a simple, offline testable&ast; way. We were also worried that ignoring it might "turn out bad for us"&ast;&ast;.</p>
+<p>The answer to that question at the time was an emphatic <strong>"Not yet"</strong> - because they didn't fit the "Server as a Function" model, and the team hadn't worked out a way to deliver them in a simple, offline testable&ast; way. We were also worried that ignoring it might "turn out bad for us".</p>
 <p>Well, a month is a long time, and we've been beavering away, so now we're thrilled to release <strong>Websockets for <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a></strong>, which are:</p>
 <ul>
 <li><strong>Simple</strong>: using the same style of API as the rest of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a>, allowing the same dynamic path-based routing as is available for standard <code>HttpHandlers</code>.</li>
@@ -1061,8 +1061,7 @@
 <p>Websocket support is now available for the Jetty server backend in <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> <code>v3.2.3</code>. We plan to roll out support for other server-backends in due course. Have a play a let us know what you think... </p>
 <h5 id="footnotes">Footnotes</h5>
 <ul>
-<li>&ast; We had a bit of a search for "unit testing websockets", half through curiosity and half because we wanted to swipe other people's ideas for implementing it. But we came up with nothing - it seems like all the existing JVM HTTP libraries rely on running servers for testing websockets. We hope we're wrong - because the alternative makes us a little &lt;insert sadface emoji/&gt;. If we are, then please let us know! </li>
-<li>&ast;&ast; We're dubious about this @kod, but are willing to meet you back at the <a href="https://news.ycombinator.com/item?id=15694616">HackerNews</a> post in 25 years to find out how it went. Think of it a bit like that time we met Jarvis Cocker in the year <a href="https://www.youtube.com/watch?v=qJS3xnD7Mus">2000</a>. 😝</li>
+<li>&ast; We had a bit of a search for "unit testing websockets", half through curiosity and half because we wanted to swipe other people's ideas for implementing it. But we came up with nothing - it seems like all the existing JVM HTTP libraries rely on running servers for testing websockets. We hope we're wrong - because the alternative makes us a little &lt;insert sadface emoji/&gt;. If we are, then please let us know! 😝</li>
 </ul>
                     
                     
