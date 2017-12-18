@@ -1012,7 +1012,7 @@
 </ul>
 <h3 id="lenses-auto-marshalling">Lenses &amp; Auto-Marshalling</h3>
 <p><strong>Q. Where is the <code>Body.auto</code> method defined?</strong></p>
-<p><strong>A.</strong> <code>Body.auto</code> is an extension method which is declared on the parent singleton <code>object</code> for each of the message libraries that supports auto-marshalling - eg. <code>Jackson</code>, <code>Gson</code> and <code>Xml</code>. All of these objects are declared in the same package, so you need to add an import similar to:
+<p><strong>A.</strong> <code>Body.auto</code> is an extension method which is declared on the parent singleton <code>object</code> for each of the message libraries that supports auto-marshalling - eg. <code>Jackson</code>, <code>Gson</code>, <code>Moshi</code> and <code>Xml</code>. All of these objects are declared in the same package, so you need to add an import similar to:
 <code>import org.http4k.format.Jackson.auto</code></p>
 <p><strong>Q. Declared with <code>Body.auto&lt;List&lt;XXX&gt;&gt;().toLens()</code>, my auto-marshalled List doesn't extract properly!</strong></p>
 <p><strong>A.</strong> This is a Jackson-ism. Use <code>Body.auto&lt;Array&lt;MyIntWrapper&gt;&gt;().toLens()</code> instead. Yes, it's annoying but we haven't found a way to turn if off.</p>

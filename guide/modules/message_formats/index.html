@@ -1066,6 +1066,7 @@
 <p><strong>Argo:</strong>  <code>compile group: "org.http4k", name: "http4k-format-argo", version: "3.6.0"</code></p>
 <p><strong>Gson:</strong>  <code>compile group: "org.http4k", name: "http4k-format-gson", version: "3.6.0"</code></p>
 <p><strong>Jackson:</strong> <code>compile group: "org.http4k", name: "http4k-format-jackson", version: "3.6.0"</code></p>
+<p><strong>Moshi:</strong> <code>compile group: "org.http4k", name: "http4k-format-moshi", version: "3.6.0"</code></p>
 <p><strong>Xml:</strong> <code>compile group: "org.http4k", name: "http4k-format-xml", version: "3.6.0"</code></p>
 <h3 id="about">About</h3>
 <p>These modules add the ability to use JSON/XML as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of 
@@ -1075,7 +1076,7 @@ JSON/XML node objects can be written and read directly from HTTP messages:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/example.kt"></script>
 
 <h3 id="auto-marshalling-capabilities">Auto-marshalling capabilities</h3>
-<p>Some of the message libraries (eg. GSON, Jackson, XML) provide the mechanism to automatically marshall data objects to/from JSON and XML using reflection.</p>
+<p>Some of the message libraries (eg. GSON, Jackson, Moshi, XML) provide the mechanism to automatically marshall data objects to/from JSON and XML using reflection.</p>
 <p>We can use this facility in <strong>http4k</strong> to automatically marshall objects to/from HTTP message bodies using <strong>Lenses</strong>:</p>
 <h4 id="json">JSON <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/autoJson.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/autoJson.kt"></script>
