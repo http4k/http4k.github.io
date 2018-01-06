@@ -996,11 +996,11 @@
                     <h1>Server backend</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><strong>Jetty:</strong> <code>compile group: "org.http4k", name: "http4k-server-jetty", version: "3.8.0"</code></p>
-<p><strong>Netty:</strong> <code>compile group: "org.http4k", name: "http4k-server-netty", version: "3.8.0"</code></p>
-<p><strong>Undertow:</strong> <code>compile group: "org.http4k", name: "http4k-server-undertow", version: "3.8.0"</code></p>
-<p><strong>SunHttp (for development only):</strong> <code>compile group: "org.http4k", name: "http4k-core", version: "3.8.0"</code></p>
-<p><strong>Apache:</strong> <code>compile group: "org.http4k", name: "http4k-server-apache", version: "3.8.0"</code></p>
+<p><strong>Jetty:</strong> <code>compile group: "org.http4k", name: "http4k-server-jetty", version: "3.9.0"</code></p>
+<p><strong>Netty:</strong> <code>compile group: "org.http4k", name: "http4k-server-netty", version: "3.9.0"</code></p>
+<p><strong>Undertow:</strong> <code>compile group: "org.http4k", name: "http4k-server-undertow", version: "3.9.0"</code></p>
+<p><strong>SunHttp (for development only):</strong> <code>compile group: "org.http4k", name: "http4k-core", version: "3.9.0"</code></p>
+<p><strong>Apache:</strong> <code>compile group: "org.http4k", name: "http4k-server-apache", version: "3.9.0"</code></p>
 <h3 id="about">About</h3>
 <p>Server-backend modules provide a consistent API mount HttpHandlers into the specified container in 1 LOC, by simply passing a <code>ServerConfig</code> implementation (in this case <code>Jetty</code>):</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span> <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">().</span><span class="n">block</span><span class="p">()</span>
