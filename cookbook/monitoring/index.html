@@ -821,8 +821,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#metrics" title="Metrics " class="md-nav__link">
-    Metrics 
+  <a href="#metrics-micrometer" title="Metrics (Micrometer) " class="md-nav__link">
+    Metrics (Micrometer) 
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-other-apis" title="Metrics (other APIs) " class="md-nav__link">
+    Metrics (other APIs) 
   </a>
   
 </li>
@@ -1022,15 +1029,19 @@
                     
                     <h1>Monitoring http4k</h1>
                     
-                    <p>Measuring performance of application estate is crucial in today's microservice world - it is crucial that dev-ops enabled teams can monitor, react and scale dynamically to changes in the runtime environment. However, because of the plethora of monitoring tools on the market, and because <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is a toolkit and not a complete "batteries included" framework, it provides a number of integration points to enable monitoring systems to be plugged in as required. Additionally, it is envisaged that users will probably want to provide their own implementations of the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> <code>ServerConfig</code> classes (<code>Jetty</code>, <code>Undertow</code> etc..) so that tweaking and tuning to their exact requirements is accessible, instead of http4k attempting to provide some generic configuration API to achieve it.</p>
+                    <p>Measuring performance of application estate is crucial in today's microservice world - it is crucial that dev-ops enabled teams can monitor, react and scale dynamically to changes in the runtime environment. However, because of the plethora of monitoring tools on the market, and because <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is a toolkit and not a complete "batteries included" framework, it provides a number of integration points to enable monitoring systems to be plugged in as required. Additionally, it is envisaged that users will probably want to provide their own implementations of the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> <code>ServerConfig</code> classes (<code>Jetty</code>, <code>Undertow</code> etc..) so that tweaking and tuning to their exact requirements is accessible, instead of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> attempting to provide some generic configuration API to achieve it.</p>
 <h3 id="gradle-setup">Gradle setup</h3>
 <div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.11.1&quot;
     compile group: &quot;org.http4k&quot;, name: &quot;http4k-metrics-micrometer&quot;, version: &quot;3.11.1&quot;
 </pre></div>
 
 
-<h3 id="metrics">Metrics <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<p>http4k provides module support for monitoring application endpoints using the <a href="http://micrometer.io/"><strong>micrometer</strong></a> metrics abstraction library, which currently enables support for libraries such as Graphite, StatsD, Prometheus and Netflix Atlas. This also provides drop-in classes to record stats such as JVM performance, GC and thread usage. Alternatively, it's very easy to use a standard <code>Filter</code> to report on stats:</p>
+<h3 id="metrics-micrometer">Metrics (Micrometer) <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_micrometer.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides module support for monitoring application endpoints using the <a href="http://micrometer.io/"><strong>micrometer</strong></a> metrics abstraction library, which currently enables support for libraries such as Graphite, StatsD, Prometheus and Netflix Atlas. This also provides drop-in classes to record stats such as JVM performance, GC and thread usage.</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_micrometer.kt"></script>
+
+<h3 id="metrics-other-apis">Metrics (other APIs) <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p>Alternatively, it's very easy to use a standard <code>Filter</code> to report on stats:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt"></script>
 
 <h3 id="logging">Logging <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_logging.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
