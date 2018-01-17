@@ -468,6 +468,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../message_formats/" title="Message formats" class="md-nav__link">
       Message formats
     </a>
@@ -1029,16 +1041,17 @@
                     <h1>HTTP/Websocket client</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><strong>Apache:</strong> <code>compile group: "org.http4k", name: "http4k-client-apache", version: "3.10.0"</code></p>
-<p><strong>OkHttp:</strong> <code>compile group: "org.http4k", name: "http4k-client-okhttp", version: "3.10.0"</code></p>
-<p><strong>Websocket:</strong> <code>compile group: "org.http4k", name: "http4k-client-websocket", version: "3.10.0"</code></p>
+<p><strong>Apache (Sync):</strong> <code>compile group: "org.http4k", name: "http4k-client-apache", version: "3.11.0"</code></p>
+<p><strong>Apache (Async):</strong> <code>compile group: "org.http4k", name: "http4k-client-apache-async", version: "3.11.0"</code></p>
+<p><strong>OkHttp (Sync + Async):</strong> <code>compile group: "org.http4k", name: "http4k-client-okhttp", version: "3.11.0"</code></p>
+<p><strong>Websocket:</strong> <code>compile group: "org.http4k", name: "http4k-client-websocket", version: "3.11.0"</code></p>
 <h3 id="http">HTTP</h3>
 <p>Supported HTTP client adapter APIs are wrapped to provide an <code>HttpHandler</code> interface in 1 LOC.</p>
 <p>Activate streaming mode by passing a <code>BodyMode</code> (default is non-streaming).</p>
 <p>These examples are for the Apache HTTP client, but the API is similar for the others:</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_http.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
 <p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_http.kt"></script></p>
-<p>Additionally, all HTTP client adapter modules allow for custom configuration of the relevant.</p>
+<p>Additionally, all HTTP client adapter modules allow for custom configuration of the relevant underlying client. Async-supporting clients implement the <code>AsyncHttpClient</code> interface can be passed a callback.</p>
 <h3 id="websocket">Websocket</h3>
 <p>http4k supplies both blocking and non-blocking Websocket clients. The former is perfect for integration testing purposes, and as it uses the same interface <code>WsClient</code> as the in-memory test client (<code>WsHandler.testWsClient()</code>) it is simple to write unit tests which can then be reused as system tests by virtue of swapping out the client.</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_websocket.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
@@ -1076,13 +1089,13 @@
           </a>
         
         
-          <a href="../message_formats/" title="Message formats" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../metrics/" title="Metrics" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Message formats
+                Metrics
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

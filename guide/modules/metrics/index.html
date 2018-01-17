@@ -7,17 +7,17 @@
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
-    <meta itemprop="name" content="Testing http4k applications">
-    <meta name="twitter:title" content="Testing http4k applications">
-    <meta property="og:title" content="Testing http4k applications" />
+    <meta itemprop="name" content="http4k Metrics Modules">
+    <meta name="twitter:title" content="http4k Metrics Modules">
+    <meta property="og:title" content="http4k Metrics Modules" />
     
     
-    <meta name="description" content="How to test http4k endpoints and applications, and modules that support testing">
-    <meta property="og:description" content="How to test http4k endpoints and applications, and modules that support testing" />
-    <meta name="twitter:description" content="How to test http4k endpoints and applications, and modules that support testing">
+    <meta name="description" content="Feature overview of the http4k-metrics modules">
+    <meta property="og:description" content="Feature overview of the http4k-metrics modules" />
+    <meta name="twitter:description" content="Feature overview of the http4k-metrics modules">
     
     
-    <link rel="canonical" href="https://http4k.org/guide/testing/">
+    <link rel="canonical" href="https://http4k.org/guide/modules/metrics/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -57,16 +57,16 @@
     
     
     
-    <title>Testing http4k applications</title>
+    <title>http4k Metrics Modules</title>
     
     
     
-    <script src="../../assets/javascripts/modernizr-1df76c4e58.js"></script>
+    <script src="../../../assets/javascripts/modernizr-1df76c4e58.js"></script>
     
     
-    <link rel="stylesheet" href="../../assets/stylesheets/application-acc56dad49.css">
+    <link rel="stylesheet" href="../../../assets/stylesheets/application-acc56dad49.css">
     
-    <link rel="stylesheet" href="../../assets/stylesheets/application-8817cfa535.palette.css">
+    <link rel="stylesheet" href="../../../assets/stylesheets/application-8817cfa535.palette.css">
     
     
     
@@ -86,7 +86,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-    <link rel="stylesheet" href="../.././css/site.css">
+    <link rel="stylesheet" href="../../.././css/site.css">
     
     
     <script type="application/ld+json">
@@ -94,13 +94,13 @@
           "@context" : "http://schema.org",
           "@type" : "WebSite",
     
-          "name" : "Testing http4k applications",
+          "name" : "http4k Metrics Modules",
     
     
-          "alternateName" : "How to test http4k endpoints and applications, and modules that support testing",
+          "alternateName" : "Feature overview of the http4k-metrics modules",
     
           "image": "https://www.http4k.org/img/logo_card_blue_on_white.png",
-          "url" : "https://http4k.org/guide/testing/"
+          "url" : "https://http4k.org/guide/modules/metrics/"
         }
         </script>
 </head>
@@ -128,7 +128,7 @@
             <div class="md-flex__cell md-flex__cell--shrink">
                 
                 <a href="https://http4k.org" title="http4k" class="md-logo md-header-nav__button">
-                    <img src="../../img/logo_1100x200_white_on_blue_trans.png" height="24">
+                    <img src="../../../img/logo_1100x200_white_on_blue_trans.png" height="24">
                 </a>
                 
             </div>
@@ -144,8 +144,12 @@
                   Developer Guide
                 </span>
               
+                <span class="md-header-nav__parent">
+                  Modules
+                </span>
+              
             
-            Application Testing
+            Metrics
           
         </span>
             </div>
@@ -218,7 +222,7 @@
     <label class="md-nav__title md-nav__title--site" for="drawer">
         
         <i class="md-logo md-nav__button">
-            <img src="../../img/logo_1100x200_white_on_blue_trans.png">
+            <img src="../../../img/logo_1100x200_white_on_blue_trans.png">
         </i>
         
         http4k
@@ -254,7 +258,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../.." title="Introduction" class="md-nav__link">
+    <a href="../../.." title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -266,7 +270,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../rationale/" title="Rationale & Concepts" class="md-nav__link">
+    <a href="../../../rationale/" title="Rationale & Concepts" class="md-nav__link">
       Rationale & Concepts
     </a>
   </li>
@@ -278,7 +282,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../installation/" title="Installation" class="md-nav__link">
+    <a href="../../../installation/" title="Installation" class="md-nav__link">
       Installation
     </a>
   </li>
@@ -290,7 +294,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../quickstart/" title="Getting started" class="md-nav__link">
+    <a href="../../../quickstart/" title="Getting started" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -321,10 +325,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
     
     <label class="md-nav__link" for="nav-5-1">
       Modules
@@ -342,7 +348,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../modules/aws/" title="AWS" class="md-nav__link">
+    <a href="../aws/" title="AWS" class="md-nav__link">
       AWS
     </a>
   </li>
@@ -354,7 +360,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../modules/core/" title="Core" class="md-nav__link">
+    <a href="../core/" title="Core" class="md-nav__link">
       Core
     </a>
   </li>
@@ -366,7 +372,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../modules/hamkrest/" title="Hamkrest" class="md-nav__link">
+    <a href="../hamkrest/" title="Hamkrest" class="md-nav__link">
       Hamkrest
     </a>
   </li>
@@ -378,122 +384,9 @@
 
 
   <li class="md-nav__item">
-    <a href="../modules/clients/" title="HTTP/Websocket client" class="md-nav__link">
+    <a href="../clients/" title="HTTP/Websocket client" class="md-nav__link">
       HTTP/Websocket client
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/metrics/" title="Metrics" class="md-nav__link">
-      Metrics
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/message_formats/" title="Message formats" class="md-nav__link">
-      Message formats
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/multipart/" title="Multipart forms" class="md-nav__link">
-      Multipart forms
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/resilience/" title="Resilience" class="md-nav__link">
-      Resilience
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/servers/" title="Server backend" class="md-nav__link">
-      Server backend
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/serverless/" title="Serverless backend" class="md-nav__link">
-      Serverless backend
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/templating/" title="Templating" class="md-nav__link">
-      Templating
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/contracts/" title="Typesafe contracts" class="md-nav__link">
-      Typesafe contracts
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../modules/webdriver/" title="WebDriver" class="md-nav__link">
-      WebDriver
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
   </li>
 
         
@@ -510,11 +403,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="toc">
-        Application Testing
+        Metrics
       </label>
     
-    <a href="./" title="Application Testing" class="md-nav__link md-nav__link--active">
-      Application Testing
+    <a href="./" title="Metrics" class="md-nav__link md-nav__link--active">
+      Metrics
     </a>
     
       
@@ -526,50 +419,23 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#testing-modules" title="Testing modules" class="md-nav__link">
-    Testing modules
+  <a href="#installation-gradle" title="Installation (Gradle)" class="md-nav__link">
+    Installation (Gradle)
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-code-for-testing" title="Example code for testing" class="md-nav__link">
-    Example code for testing
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#testing-httphandlers-with-static-paths" title="Testing HttpHandlers with static paths " class="md-nav__link">
-    Testing HttpHandlers with static paths 
+  <a href="#about" title="About" class="md-nav__link">
+    About
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#testing-httphandlers-with-dynamic-paths" title="Testing HttpHandlers with dynamic paths " class="md-nav__link">
-    Testing HttpHandlers with dynamic paths 
+      
+        <li class="md-nav__item">
+  <a href="#micrometer" title="Micrometer " class="md-nav__link">
+    Micrometer 
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testing-filters" title="Testing Filters " class="md-nav__link">
-    Testing Filters 
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testing-websockets-with-offline-and-online-clients" title="Testing Websockets with offline and online clients " class="md-nav__link">
-    Testing Websockets with offline and online clients 
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -579,6 +445,119 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../message_formats/" title="Message formats" class="md-nav__link">
+      Message formats
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../multipart/" title="Multipart forms" class="md-nav__link">
+      Multipart forms
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../resilience/" title="Resilience" class="md-nav__link">
+      Resilience
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../servers/" title="Server backend" class="md-nav__link">
+      Server backend
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../serverless/" title="Serverless backend" class="md-nav__link">
+      Serverless backend
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../templating/" title="Templating" class="md-nav__link">
+      Templating
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../contracts/" title="Typesafe contracts" class="md-nav__link">
+      Typesafe contracts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../webdriver/" title="WebDriver" class="md-nav__link">
+      WebDriver
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../testing/" title="Application Testing" class="md-nav__link">
+      Application Testing
+    </a>
   </li>
 
         
@@ -607,7 +586,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../example/" title="Introduction" class="md-nav__link">
+    <a href="../../example/" title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -619,7 +598,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../example/_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
+    <a href="../../example/_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
       1. Building a walking skeleton
     </a>
   </li>
@@ -631,7 +610,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../example/_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
+    <a href="../../example/_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
       2. Adding an endpoint
     </a>
   </li>
@@ -643,7 +622,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../example/_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
+    <a href="../../example/_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
       3. Adding another endpoint
     </a>
   </li>
@@ -655,7 +634,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../example/_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
+    <a href="../../example/_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
       4. An external dependency
     </a>
   </li>
@@ -696,7 +675,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/server_as_a_function/" title="Server as a function" class="md-nav__link">
+    <a href="../../../cookbook/server_as_a_function/" title="Server as a function" class="md-nav__link">
       Server as a function
     </a>
   </li>
@@ -708,7 +687,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/client_as_a_function/" title="Client as a function" class="md-nav__link">
+    <a href="../../../cookbook/client_as_a_function/" title="Client as a function" class="md-nav__link">
       Client as a function
     </a>
   </li>
@@ -720,7 +699,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/container_integration/" title="Container integration" class="md-nav__link">
+    <a href="../../../cookbook/container_integration/" title="Container integration" class="md-nav__link">
       Container integration
     </a>
   </li>
@@ -732,7 +711,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/simple_routing/" title="Simple routing" class="md-nav__link">
+    <a href="../../../cookbook/simple_routing/" title="Simple routing" class="md-nav__link">
       Simple routing
     </a>
   </li>
@@ -744,7 +723,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/nestable_routes/" title="Nestable routes" class="md-nav__link">
+    <a href="../../../cookbook/nestable_routes/" title="Nestable routes" class="md-nav__link">
       Nestable routes
     </a>
   </li>
@@ -756,7 +735,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/using_json/" title="JSON messaging" class="md-nav__link">
+    <a href="../../../cookbook/using_json/" title="JSON messaging" class="md-nav__link">
       JSON messaging
     </a>
   </li>
@@ -768,7 +747,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/using_templates/" title="Templating engines" class="md-nav__link">
+    <a href="../../../cookbook/using_templates/" title="Templating engines" class="md-nav__link">
       Templating engines
     </a>
   </li>
@@ -780,7 +759,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/request_context/" title="Typesafe RequestContexts" class="md-nav__link">
+    <a href="../../../cookbook/request_context/" title="Typesafe RequestContexts" class="md-nav__link">
       Typesafe RequestContexts
     </a>
   </li>
@@ -792,7 +771,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
+    <a href="../../../cookbook/typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
       Typesafe HTTP requests with lenses
     </a>
   </li>
@@ -804,7 +783,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/html_forms/" title="HTML forms" class="md-nav__link">
+    <a href="../../../cookbook/html_forms/" title="HTML forms" class="md-nav__link">
       HTML forms
     </a>
   </li>
@@ -816,7 +795,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/multipart_forms/" title="Multipart forms" class="md-nav__link">
+    <a href="../../../cookbook/multipart_forms/" title="Multipart forms" class="md-nav__link">
       Multipart forms
     </a>
   </li>
@@ -828,7 +807,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
+    <a href="../../../cookbook/generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
       Generating data classes for messages
     </a>
   </li>
@@ -840,7 +819,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/websockets/" title="Websockets" class="md-nav__link">
+    <a href="../../../cookbook/websockets/" title="Websockets" class="md-nav__link">
       Websockets
     </a>
   </li>
@@ -852,7 +831,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
+    <a href="../../../cookbook/typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
       Typesafe HTTP contracts
     </a>
   </li>
@@ -864,7 +843,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/monitoring/" title="Monitoring http4k" class="md-nav__link">
+    <a href="../../../cookbook/monitoring/" title="Monitoring http4k" class="md-nav__link">
       Monitoring http4k
     </a>
   </li>
@@ -876,7 +855,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
+    <a href="../../../cookbook/record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
       Recording/replaying HTTP traffic
     </a>
   </li>
@@ -888,7 +867,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/test_driven_apps/" title="Test driven apps" class="md-nav__link">
+    <a href="../../../cookbook/test_driven_apps/" title="Test driven apps" class="md-nav__link">
       Test driven apps
     </a>
   </li>
@@ -905,7 +884,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../performance/" title="Performance" class="md-nav__link">
+    <a href="../../../performance/" title="Performance" class="md-nav__link">
       Performance
     </a>
   </li>
@@ -917,7 +896,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../in_action/" title="In action" class="md-nav__link">
+    <a href="../../../in_action/" title="In action" class="md-nav__link">
       In action
     </a>
   </li>
@@ -948,7 +927,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../blog/meet_http4k/" title="Meet http4k" class="md-nav__link">
+    <a href="../../../blog/meet_http4k/" title="Meet http4k" class="md-nav__link">
       Meet http4k
     </a>
   </li>
@@ -960,7 +939,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../blog/typesafe_websockets/" title="Typesafe Websockets" class="md-nav__link">
+    <a href="../../../blog/typesafe_websockets/" title="Typesafe Websockets" class="md-nav__link">
       Typesafe Websockets
     </a>
   </li>
@@ -977,7 +956,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+    <a href="../../../changelog/" title="Changelog" class="md-nav__link">
       Changelog
     </a>
   </li>
@@ -989,7 +968,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../contributing/" title="Contribute/Support http4k" class="md-nav__link">
+    <a href="../../../contributing/" title="Contribute/Support http4k" class="md-nav__link">
       Contribute/Support http4k
     </a>
   </li>
@@ -1001,7 +980,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../faq/" title="FAQ" class="md-nav__link">
+    <a href="../../../faq/" title="FAQ" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -1013,7 +992,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../support/" title="Help & Support" class="md-nav__link">
+    <a href="../../../support/" title="Help & Support" class="md-nav__link">
       Help & Support
     </a>
   </li>
@@ -1030,38 +1009,18 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/testing/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/modules/metrics/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>Application Testing</h1>
+                    <h1>Metrics</h1>
                     
-                    <p>The creators of <strong>http4k</strong> takes testing very seriously - so seriously that there really isn't that much to say here! 
-The API has been designed to make it as simple as possible to test both individual endpoints and entire applications in a consistent fashion, which is aided by remembering that:</p>
-<ol>
-<li>The input and output <code>Request/Response</code> objects are immutable.</li>
-<li><code>HttpHandlers</code> are just functions.</li>
-<li>An entire <strong>http4k</strong> application is <em>just</em> an <code>HttpHandler</code>.</li>
-</ol>
-<p>Because of the above, there really isn't much required in the way of "testing infrastructure" - no magic containers or test fixtures that you might find in other frameworks. 
-Testing is just matter of calling the correct function! Additionally, because the server and client HttpHandler interfaces are symmetrical - moving between in and out of container contexts 
-(or indeed even to another HTTP framework entirely) is just a matter of switching out the HttpHandler implementation from the constructed app (out of container) to an HTTP client (in-container).</p>
-<p>That said, possibly the most useful thing is to demonstrate the process that we have developed to test micro-services. A simple example of the development process can be found 
-<a href="../../guide/example">here</a>.</p>
-<h2 id="testing-modules">Testing modules</h2>
-<p>We have developed the following modules to help with testing:</p>
-<ul>
-<li><a href="../../guide/modules/hamkrest">http4k-testing-hamkrest</a>: a set of composable Hamkrest matchers for matching <strong>http4k</strong> message objects against.</li>
-<li><a href="../../guide/modules/webdriver">http4k-testing-webdriver</a>: an ultra-lightweight Selenium WebDriver implementation which can be used to test-drive <strong>http4k</strong> apps (ie. HttpHandlers).</li>
-</ul>
-<h2 id="example-code-for-testing">Example code for testing</h2>
-<h4 id="testing-httphandlers-with-static-paths">Testing HttpHandlers with static paths <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/StaticPathTest.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/StaticPathTest.kt"></script></p>
-<h4 id="testing-httphandlers-with-dynamic-paths">Testing HttpHandlers with dynamic paths <a href="https://github.com/http4k/http4k/blob/master/src/docsguide/testing/DynamicPathTest.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/DynamicPathTest.kt"></script></p>
-<h4 id="testing-filters">Testing Filters <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/FilterTest.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/FilterTest.kt"></script></p>
-<h4 id="testing-websockets-with-offline-and-online-clients">Testing Websockets with offline and online clients <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/TestingWebsockets.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/TestingWebsockets.kt"></script></p>
+                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+<p><code>compile group: "org.http4k", name: "http4k-metrics-micrometer", version: "3.11.0"</code></p>
+<h3 id="about">About</h3>
+<p>This module provides configurable Filters to provide metrics for http4k apps, plugging into the awesome <a href="http://micrometer.io/">Micrometer</a> library.</p>
+<h3 id="micrometer">Micrometer <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/metrics/example_micrometer.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p>Both Server and Client filters are available for recording request counts and latency, optionally overriding values for the metric names, descriptions and request identification.</p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_micrometer.kt"></script>
                     
                     
                     
@@ -1080,7 +1039,7 @@ Testing is just matter of calling the correct function! Additionally, because th
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../modules/webdriver/" title="WebDriver" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../clients/" title="HTTP/Websocket client" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1089,19 +1048,19 @@ Testing is just matter of calling the correct function! Additionally, because th
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                WebDriver
+                HTTP/Websocket client
               </span>
             </div>
           </a>
         
         
-          <a href="../example/" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../message_formats/" title="Message formats" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Introduction
+                Message formats
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -1135,10 +1094,10 @@ Testing is just matter of calling the correct function! Additionally, because th
     
 </div>
 
-<script src="../../assets/javascripts/application-b30566c560.js"></script>
+<script src="../../../assets/javascripts/application-b30566c560.js"></script>
 
 
-<script>app.initialize({url: {base: "../.."}})</script>
+<script>app.initialize({url: {base: "../../.."}})</script>
 
 
 
