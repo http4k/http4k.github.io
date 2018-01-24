@@ -1235,7 +1235,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 <h3 id="serving-static-assets">Serving static assets</h3>
 <p>For serving static assets, just bind a path to a Static block as below, using either a Classpath or HotReload based ResourceLoader instance. Typically, HotReload is used during development and the Classpath strategy is used to serve assets in production from an UberJar. This is usually based on a "devmode" flag when constructing your app":</p>
 <div class="codehilite"><pre><span></span><span class="n">routes</span><span class="p">(</span>
-    <span class="s">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;org.http4k.some.package.name&quot;</span><span class="p">))</span>
+    <span class="s">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;/org/http4k/some/package/name&quot;</span><span class="p">))</span>
     <span class="s">&quot;/hotreload&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">HotReload</span><span class="p">(</span><span class="s">&quot;path/to/static/dir/goes/here&quot;</span><span class="p">))</span>
 <span class="p">)</span>
 </pre></div>
