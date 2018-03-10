@@ -177,12 +177,12 @@
         }, 
         {
             "location": "/guide/modules/clients/", 
-            "text": "Installation (Gradle)\n\n\nApache (Sync):\n \ncompile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"3.19.0\"\n\n\nApache (Async):\n \ncompile group: \"org.http4k\", name: \"http4k-client-apache-async\", version: \"3.19.0\"\n\n\nJetty (Sync + Async):\n \ncompile group: \"org.http4k\", name: \"http4k-client-jetty\", version: \"3.19.0\"\n\n\nOkHttp (Sync + Async):\n \ncompile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"3.19.0\"\n\n\nWebsocket:\n \ncompile group: \"org.http4k\", name: \"http4k-client-websocket\", version: \"3.19.0\"\n\n\nHTTP\n\n\nSupported HTTP client adapter APIs are wrapped to provide an \nHttpHandler\n interface in 1 LOC.\n\n\nActivate streaming mode by passing a \nBodyMode\n (default is non-streaming).\n\n\nThese examples are for the Apache HTTP client, but the API is similar for the others:\n\n\nCode \n\n\n\n\nAdditionally, all HTTP client adapter modules allow for custom configuration of the relevant underlying client. Async-supporting clients implement the \nAsyncHttpClient\n interface can be passed a callback.\n\n\nWebsocket\n\n\nhttp4k supplies both blocking and non-blocking Websocket clients. The former is perfect for integration testing purposes, and as it uses the same interface \nWsClient\n as the in-memory test client (\nWsHandler.testWsClient()\n) it is simple to write unit tests which can then be reused as system tests by virtue of swapping out the client.\n\n\nCode", 
+            "text": "Installation (Gradle)\n\n\nJava (for development only):\n \ncompile group: \"org.http4k\", name: \"http4k-core\", version: \"3.19.0\"\n\n\nApache (Sync):\n \ncompile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"3.19.0\"\n\n\nApache (Async):\n \ncompile group: \"org.http4k\", name: \"http4k-client-apache-async\", version: \"3.19.0\"\n\n\nJetty (Sync + Async):\n \ncompile group: \"org.http4k\", name: \"http4k-client-jetty\", version: \"3.19.0\"\n\n\nOkHttp (Sync + Async):\n \ncompile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"3.19.0\"\n\n\nWebsocket:\n \ncompile group: \"org.http4k\", name: \"http4k-client-websocket\", version: \"3.19.0\"\n\n\nHTTP\n\n\nSupported HTTP client adapter APIs are wrapped to provide an \nHttpHandler\n interface in 1 LOC.\n\n\nActivate streaming mode by passing a \nBodyMode\n (default is non-streaming).\n\n\nThese examples are for the Apache HTTP client, but the API is similar for the others:\n\n\nCode \n\n\n\n\nAdditionally, all HTTP client adapter modules allow for custom configuration of the relevant underlying client. Async-supporting clients implement the \nAsyncHttpClient\n interface can be passed a callback.\n\n\nWebsocket\n\n\nhttp4k supplies both blocking and non-blocking Websocket clients. The former is perfect for integration testing purposes, and as it uses the same interface \nWsClient\n as the in-memory test client (\nWsHandler.testWsClient()\n) it is simple to write unit tests which can then be reused as system tests by virtue of swapping out the client.\n\n\nCode", 
             "title": "HTTP/Websocket client"
         }, 
         {
             "location": "/guide/modules/clients/#installation-gradle", 
-            "text": "Apache (Sync):   compile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"3.19.0\"  Apache (Async):   compile group: \"org.http4k\", name: \"http4k-client-apache-async\", version: \"3.19.0\"  Jetty (Sync + Async):   compile group: \"org.http4k\", name: \"http4k-client-jetty\", version: \"3.19.0\"  OkHttp (Sync + Async):   compile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"3.19.0\"  Websocket:   compile group: \"org.http4k\", name: \"http4k-client-websocket\", version: \"3.19.0\"", 
+            "text": "Java (for development only):   compile group: \"org.http4k\", name: \"http4k-core\", version: \"3.19.0\"  Apache (Sync):   compile group: \"org.http4k\", name: \"http4k-client-apache\", version: \"3.19.0\"  Apache (Async):   compile group: \"org.http4k\", name: \"http4k-client-apache-async\", version: \"3.19.0\"  Jetty (Sync + Async):   compile group: \"org.http4k\", name: \"http4k-client-jetty\", version: \"3.19.0\"  OkHttp (Sync + Async):   compile group: \"org.http4k\", name: \"http4k-client-okhttp\", version: \"3.19.0\"  Websocket:   compile group: \"org.http4k\", name: \"http4k-client-websocket\", version: \"3.19.0\"", 
             "title": "Installation (Gradle)"
         }, 
         {
@@ -572,12 +572,12 @@
         }, 
         {
             "location": "/cookbook/client_as_a_function/", 
-            "text": "This example demonstrates a client module (in this case the Apache Client). A client is just another HttpHandler.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.19.0\n\n    compile group: \norg.http4k\n, name: \nhttp4k-client-apache\n, version: \n3.19.0\n\n\n\n\n\n\nCode", 
+            "text": "This example demonstrates using http4k as a client, to consume HTTP clients. A client is just another HttpHandler.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.19.0\n\n\n\n\n\n\nCode", 
             "title": "Client as a function"
         }, 
         {
             "location": "/cookbook/client_as_a_function/#gradle-setup", 
-            "text": "compile group:  org.http4k , name:  http4k-core , version:  3.19.0 \n    compile group:  org.http4k , name:  http4k-client-apache , version:  3.19.0", 
+            "text": "compile group:  org.http4k , name:  http4k-core , version:  3.19.0", 
             "title": "Gradle setup"
         }, 
         {
