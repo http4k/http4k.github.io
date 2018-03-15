@@ -921,6 +921,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v3210" title="v3.21.0" class="md-nav__link">
+    v3.21.0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v3200" title="v3.20.0" class="md-nav__link">
     v3.20.0
   </a>
@@ -2097,6 +2104,11 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
+<h3 id="v3210">v3.21.0</h3>
+<ul>
+<li>Fix #107 - Killed the x-uri-template header and fixed the ReportHttpTransaction to have access to the <code>routingGroup</code>.</li>
+<li>Altered ordering of filters in <code>http4k-contract</code> so that the route is identified before pre-filters and security are applied. This allows knowledge of the path to be accessible at the time of application of those filters.</li>
+</ul>
 <h3 id="v3200">v3.20.0</h3>
 <ul>
 <li>Introduce JavaHttpClient to <code>http4k-core</code>. It provides a very basic http client without  any other 3rd party dependencies.</li>
@@ -2124,6 +2136,22 @@
 <ul>
 <li>Added a pre-security filter option to contract creation, so that you can explicitly specify behaviour to occur before security kicks in.</li>
 </ul>
+<p>=======</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Stashed changes</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <h3 id="v3160">v3.16.0</h3>
 <ul>
 <li>Convert <code>Security</code> (from sealed class) and <code>ApiKey</code> to be interfaces. This allows users to implement their own security models.</li>
