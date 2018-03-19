@@ -921,6 +921,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v3212" title="v3.21.2" class="md-nav__link">
+    v3.21.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v3211" title="v3.21.1" class="md-nav__link">
     v3.21.1
   </a>
@@ -2111,6 +2118,11 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
+<h3 id="v3212">v3.21.2</h3>
+<ul>
+<li>PR #110 - Websocket client timeouts are incorrectly translated as seconds instead of millis. HT @anorth</li>
+<li>Core <code>JavaHttpClient</code> does not support streaming due to limitations with <code>HttpURLConnection</code> </li>
+</ul>
 <h3 id="v3211">v3.21.1</h3>
 <ul>
 <li>Fix #109 - Jackson treats integer values inconsistently, leading to matching errors when using hamkrest.</li>
