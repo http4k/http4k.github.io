@@ -406,6 +406,26 @@
             "title": "Code "
         }, 
         {
+            "location": "/guide/modules/oauth/", 
+            "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-security-oauth\", version: \"3.21.2\"\n\n\nAbout\n\n\nSupport for using integrating with external OAuth2 providers for authentication purposes and to provide access to external APIs of entities such as Google, Soundcloud, Dropbox etc. \n\n\nSpecifically, http4k supports the popular \nOAuth2 Authorization Code Grant\n. This flow provides a callback mechanism that plays out like this:\n\n\n\n\nApp developer (you!) creates an application on the OAuth provider and receives a \nClient Id\n and a \nClient Secret\n. You also provide a \"callback\" URL to the provider which will be used later.\n\n\nWhen accessing a protected resource, your app checks for an \nAccess Token\n from the user (via cookie or similar)\n\n\nIf the user has no token, the app redirects the user browser back to the OAuth provider site, along with the \"state\" of the user - containing a generated \nCrossSiteRequestForgeryToken\n (CSRF - which is also stored by the app) and the original URI the user was trying to access.\n\n\nThe user logs in on the OAuth provider site, which generates a code that is returned as a query parameter in a redirect back to the registered callback URL in your app, along with the CSRF token.\n\n\nYour app checks the content of the CSRF token to determine that the redirect is genuine, then sends the received code back to the OAuth provider in exchange for a valid \nAccessToken\n. This completes the flow\n\n\nThe \nAccessToken\n can then be used to access various services from the OAuth provider APIs.\n\n\n\n\nThere is a single user-defined interface, \nOAuthPersistence\n, required to implement to enable this flow. This interface is required to provide the custom way in which your application will store and retrieve the \nCSRF\n and \nAccessToken\n for a request. A common way to do this is through Cookies, but the values should definitely be encrypted. http4k only provides an insecure version of this class that you can use for testing. In order to remain provider-agnostic, the AccessToken object also contains the entirety of the (typically JSON) token response from the provider, which may include other fields depending on the types of scope for which your application is authorised by the user.\n\n\nTo enable OAuth integration, construct a configured instance of \nOAuthProvider\n. This provides 3 things:\n1. A filter to protect application resources\n1. A callback HttpHandler for the OAuth provider to redirect the authticated user to\n1. A fully configured API client (which populated the Host on the URI) - this allows different\nimplementations of the provider to be used across environments.\n\n\nExample provider \n\n\nOut of the box, http4k provides implementations for several OAuth providers.\n\n\n\n\n\nSee the \ncookbook\n for a custom implementation.", 
+            "title": "OAuth"
+        }, 
+        {
+            "location": "/guide/modules/oauth/#installation-gradle", 
+            "text": "compile group: \"org.http4k\", name: \"http4k-security-oauth\", version: \"3.21.2\"", 
+            "title": "Installation (Gradle)"
+        }, 
+        {
+            "location": "/guide/modules/oauth/#about", 
+            "text": "Support for using integrating with external OAuth2 providers for authentication purposes and to provide access to external APIs of entities such as Google, Soundcloud, Dropbox etc.   Specifically, http4k supports the popular  OAuth2 Authorization Code Grant . This flow provides a callback mechanism that plays out like this:   App developer (you!) creates an application on the OAuth provider and receives a  Client Id  and a  Client Secret . You also provide a \"callback\" URL to the provider which will be used later.  When accessing a protected resource, your app checks for an  Access Token  from the user (via cookie or similar)  If the user has no token, the app redirects the user browser back to the OAuth provider site, along with the \"state\" of the user - containing a generated  CrossSiteRequestForgeryToken  (CSRF - which is also stored by the app) and the original URI the user was trying to access.  The user logs in on the OAuth provider site, which generates a code that is returned as a query parameter in a redirect back to the registered callback URL in your app, along with the CSRF token.  Your app checks the content of the CSRF token to determine that the redirect is genuine, then sends the received code back to the OAuth provider in exchange for a valid  AccessToken . This completes the flow  The  AccessToken  can then be used to access various services from the OAuth provider APIs.   There is a single user-defined interface,  OAuthPersistence , required to implement to enable this flow. This interface is required to provide the custom way in which your application will store and retrieve the  CSRF  and  AccessToken  for a request. A common way to do this is through Cookies, but the values should definitely be encrypted. http4k only provides an insecure version of this class that you can use for testing. In order to remain provider-agnostic, the AccessToken object also contains the entirety of the (typically JSON) token response from the provider, which may include other fields depending on the types of scope for which your application is authorised by the user.  To enable OAuth integration, construct a configured instance of  OAuthProvider . This provides 3 things:\n1. A filter to protect application resources\n1. A callback HttpHandler for the OAuth provider to redirect the authticated user to\n1. A fully configured API client (which populated the Host on the URI) - this allows different\nimplementations of the provider to be used across environments.", 
+            "title": "About"
+        }, 
+        {
+            "location": "/guide/modules/oauth/#example-provider", 
+            "text": "Out of the box, http4k provides implementations for several OAuth providers.   See the  cookbook  for a custom implementation.", 
+            "title": "Example provider "
+        }, 
+        {
             "location": "/guide/modules/webdriver/", 
             "text": "Installation (Gradle)\n\n\ncompile group: \"org.http4k\", name: \"http4k-testing-webdriver\", version: \"3.21.2\"\n\n\nAbout\n\n\nA basic Selenium WebDriver API implementation for \nhttp4k\n HttpHandlers, which runs completely out of container (no network) for ultra fast tests.\n\n\n\n\n\n\n\n\nFeature\n\n\nSupported\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\nNavigation\n\n\nyes\n\n\nsimple back/forward/refresh history\n\n\n\n\n\n\nCSS selectors\n\n\nyes\n\n\n\n\n\n\n\n\nLink navigation\n\n\nyes\n\n\n\n\n\n\n\n\nForm field entry and submission\n\n\nyes\n\n\n\n\n\n\n\n\nCookie storage\n\n\nyes\n\n\nmanual expiry management\n\n\n\n\n\n\nJavaScript\n\n\nno\n\n\n\n\n\n\n\n\nAlerts\n\n\nno\n\n\n\n\n\n\n\n\nScreenshots\n\n\nno\n\n\n\n\n\n\n\n\nFrames\n\n\nno\n\n\n\n\n\n\n\n\nMultiple windows\n\n\nno\n\n\n\n\n\n\n\n\n\n\nUse the API like any other WebDriver implementation, by simply passing your app HttpHandler to construct it:\n\n\nCode", 
             "title": "WebDriver"
@@ -817,6 +837,21 @@
         }, 
         {
             "location": "/cookbook/typesafe_http_contracts/#code", 
+            "text": "", 
+            "title": "Code "
+        }, 
+        {
+            "location": "/cookbook/custom_oauth/", 
+            "text": "It is very easy to configure http4k to integrate with any OAuth2 provider who supports the Authorisation Code Grant.\n\n\nGradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.21.2\n\n    compile group: \norg.http4k\n, name: \nhttp4k-security-oauth\n, version: \n3.21.2\n\n\n\n\n\n\nFor this example, simply reconfigure the \nOAuthProvider\n instance with the correct details, and provide custom logic for persisting and retrieving the CSRF and AccessToken.\n\n\nCode", 
+            "title": "Custom OAuth configuration"
+        }, 
+        {
+            "location": "/cookbook/custom_oauth/#gradle-setup", 
+            "text": "compile group:  org.http4k , name:  http4k-core , version:  3.21.2 \n    compile group:  org.http4k , name:  http4k-security-oauth , version:  3.21.2   For this example, simply reconfigure the  OAuthProvider  instance with the correct details, and provide custom logic for persisting and retrieving the CSRF and AccessToken.", 
+            "title": "Gradle setup"
+        }, 
+        {
+            "location": "/cookbook/custom_oauth/#code", 
             "text": "", 
             "title": "Code "
         }, 

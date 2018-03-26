@@ -7,17 +7,17 @@
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
-    <meta itemprop="name" content="http4k Websocket APIs">
-    <meta name="twitter:title" content="http4k Websocket APIs">
-    <meta property="og:title" content="http4k Websocket APIs" />
+    <meta itemprop="name" content="http4k Custom OAuth Provider">
+    <meta name="twitter:title" content="http4k Custom OAuth Provider">
+    <meta property="og:title" content="http4k Custom OAuth Provider" />
     
     
-    <meta name="description" content="Recipes for using http4k with websockets">
-    <meta property="og:description" content="Recipes for using http4k with websockets" />
-    <meta name="twitter:description" content="Recipes for using http4k with websockets">
+    <meta name="description" content="Recipe for using http4k with custom OAuth provider">
+    <meta property="og:description" content="Recipe for using http4k with custom OAuth provider" />
+    <meta name="twitter:description" content="Recipe for using http4k with custom OAuth provider">
     
     
-    <link rel="canonical" href="https://http4k.org/cookbook/websockets/">
+    <link rel="canonical" href="https://http4k.org/cookbook/custom_oauth/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -57,7 +57,7 @@
     
     
     
-    <title>http4k Websocket APIs</title>
+    <title>http4k Custom OAuth Provider</title>
     
     
     
@@ -94,13 +94,13 @@
           "@context" : "http://schema.org",
           "@type" : "WebSite",
     
-          "name" : "http4k Websocket APIs",
+          "name" : "http4k Custom OAuth Provider",
     
     
-          "alternateName" : "Recipes for using http4k with websockets",
+          "alternateName" : "Recipe for using http4k with custom OAuth provider",
     
           "image": "https://www.http4k.org/img/logo_card_blue_on_white.png",
-          "url" : "https://http4k.org/cookbook/websockets/"
+          "url" : "https://http4k.org/cookbook/custom_oauth/"
         }
         </script>
 </head>
@@ -145,7 +145,7 @@
                 </span>
               
             
-            Websockets
+            Custom OAuth configuration
           
         </span>
             </div>
@@ -777,64 +777,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Websockets
-      </label>
-    
-    <a href="./" title="Websockets" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../websockets/" title="Websockets" class="md-nav__link">
       Websockets
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
-    Gradle setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mixing-http-and-websocket-services" title="Mixing HTTP and Websocket services " class="md-nav__link">
-    Mixing HTTP and Websocket services 
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#automarshalling-websockets-messages" title="Automarshalling Websockets messages " class="md-nav__link">
-    Automarshalling Websockets messages 
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-websockets" title="Testing Websockets " class="md-nav__link">
-    Testing Websockets 
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -854,11 +801,50 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../custom_oauth/" title="Custom OAuth configuration" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Custom OAuth configuration
+      </label>
+    
+    <a href="./" title="Custom OAuth configuration" class="md-nav__link md-nav__link--active">
       Custom OAuth configuration
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
+    Gradle setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code " class="md-nav__link">
+    Code 
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -1034,35 +1020,21 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/websockets/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/custom_oauth/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>Websockets</h1>
+                    <h1>Custom OAuth configuration</h1>
                     
-                    <h3 id="gradle-setup">Gradle setup</h3>
+                    <p>It is very easy to configure http4k to integrate with any OAuth2 provider who supports the Authorisation Code Grant.</p>
+<h3 id="gradle-setup">Gradle setup</h3>
 <div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.21.2&quot;
-    compile group: &quot;org.http4k&quot;, name: &quot;http4k-server-jetty&quot;, version: &quot;3.21.2&quot;
-    compile group: &quot;org.http4k&quot;, name: &quot;http4k-client-websocket&quot;, version: &quot;3.21.2&quot;
-    compile group: &quot;org.http4k&quot;, name: &quot;http4k-format-jackson&quot;, version: &quot;3.21.2&quot;
+    compile group: &quot;org.http4k&quot;, name: &quot;http4k-security-oauth&quot;, version: &quot;3.21.2&quot;
 </pre></div>
 
 
-<p><strong>http4k</strong> provides Websocket support using a simple, consistent, typesafe, and testable API on supported server backends (see above). Websocket communication consists of 3 main concepts:</p>
-<ol>
-<li><code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsConsumer?</code>. This is responsible for matching an HTTP request to a websocket.</li>
-<li><code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.</li>
-<li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are immutable data classes.</li>
-</ol>
-<h3 id="mixing-http-and-websocket-services">Mixing HTTP and Websocket services <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<p>Both Websockets and Http handlers in <strong>http4k</strong> are routed using a similar path-based API. We combine them into a single <code>PolyHandler</code> which can handle both <code>http://</code> and <code>ws://</code>, and then convert to a Server as usual:
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"></script></p>
-<h3 id="automarshalling-websockets-messages">Automarshalling Websockets messages <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_automarshalling.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<p>Using the standard Lens API, we can auto-convert Websocket messages on and off the wire. This example uses the Jackson for the marshalling:
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_automarshalling.kt"></script></p>
-<h3 id="testing-websockets">Testing Websockets <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<p><strong>http4k</strong> provides Websockets that are both typesafe (via the Lens API), and testable. Both <code>WsHandlers</code> and <code>PolyHandlers</code> are convertible to a <code>WsClient</code> which provides a synchronous API for testing reactions to Websocket events in an offline environment.</p>
-<p>In the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"></script>
+<p>For this example, simply reconfigure the <code>OAuthProvider</code> instance with the correct details, and provide custom logic for persisting and retrieving the CSRF and AccessToken.</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_oauth/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_oauth/example.kt"></script></p>
                     
                     
                     
@@ -1081,7 +1053,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../generating_data_classes/" title="Generating data classes for messages" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1090,19 +1062,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Generating data classes for messages
+                Typesafe HTTP contracts
               </span>
             </div>
           </a>
         
         
-          <a href="../typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../monitoring/" title="Monitoring http4k" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Typesafe HTTP contracts
+                Monitoring http4k
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
