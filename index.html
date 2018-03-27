@@ -1088,6 +1088,7 @@ plugging together of services without HTTP container being required.</li>
 <li>Metrics gathering for performance analysis.</li>
 <li>Multipart form handling, including stream processing for uploaded files.</li>
 <li>Resilience features: Circuits, retrying, rate limiting, bulkheading - via Resilience4J integration.</li>
+<li>Security: Simple, pluggable support for OAuth Auth Code Grant flow and ready made configurations to integrate with popular OAuth providers.</li>
 <li>Testing: Selenium WebDriver implementation for lightning fast, browserless testing of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> apps</li>
 <li>Testing: Hamkrest Matchers for <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> objects.</li>
 </ul>
@@ -1180,6 +1181,16 @@ plugging together of services without HTTP container being required.</li>
 <li>Client filter to allow super-simple interaction with AWS services (via request signing)</li>
 </ul>
 </li>
+<li><a href="https://http4k.org/guide/modules/oauth">OAuth Security</a> <ul>
+<li>Implement OAuth Authorisation Code Grant flow with a single Interface</li>
+<li><strong>Pre-configured</strong> OAuth for following providers:<ul>
+<li><strong>Google</strong> </li>
+<li><strong>Dropbox</strong> </li>
+<li><strong>Soundcloud</strong></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="https://http4k.org/guide/modules/webdriver">WebDriver:</a> <ul>
 <li>Ultra-lightweight Selenium WebDriver implementation for <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a>  application.</li>
 </ul>
@@ -1193,9 +1204,9 @@ plugging together of services without HTTP container being required.</li>
 <p>This quick example is designed to convey the simplicity &amp; features of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point.</p>
 <p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
 <div class="codehilite"><pre><span></span><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.21.2&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.21.2&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.21.2&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.22.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.22.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.22.0&quot;</span>
 <span class="o">}</span>
 </pre></div>
 
@@ -1270,9 +1281,9 @@ plugging together of services without HTTP container being required.</li>
 <span class="c1">//    HTTP/1.1 200</span>
 <span class="c1">//    cache-control: private, must-revalidate</span>
 <span class="c1">//    content-length: 9</span>
-<span class="c1">//    date: Thu, 08 Jun 3.21.23:01:13 GMT</span>
+<span class="c1">//    date: Thu, 08 Jun 3.22.03:01:13 GMT</span>
 <span class="c1">//    expires: 0</span>
-<span class="c1">//    server: Jetty(9.3.16.v3.21.220)</span>
+<span class="c1">//    server: Jetty(9.3.16.v3.22.020)</span>
 <span class="c1">//</span>
 <span class="c1">//    hello Bob</span>
 <span class="p">}</span>
