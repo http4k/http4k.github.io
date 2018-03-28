@@ -952,20 +952,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#v3221" title="v3.22.1" class="md-nav__link">
-    v3.22.1
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#v3212" title="v3.21.2" class="md-nav__link">
-    v3.21.2
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#v3211" title="v3.21.1" class="md-nav__link">
     v3.21.1
   </a>
@@ -2158,17 +2144,9 @@
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
 <h3 id="v3222">v3.22.2</h3>
 <ul>
-<li>OAuth - Rename <code>AccessToken</code> to <code>AccessTokenContainer</code>, as this better reflects what the entity is.</li>
-<li>Fix groupId of artifacts which was mistakenly changed to http4k.</li>
-</ul>
-<h3 id="v3221">v3.22.1</h3>
-<ul>
 <li><code>http4k-security-oauth</code> module added - with support for OAuth2 Authorization Grant flow</li>
 <li>Replaced classes reliant on <code>javax.activation</code> package, which allows Java 9+ to not require any external dependencies. \o/</li>
 <li>Fix #112 - <code>ApacheClient</code> incorrectly sets headers on GET requests (this breaks F5 load balancers). H/T @simojenki</li>
-</ul>
-<h3 id="v3212">v3.21.2</h3>
-<ul>
 <li>PR #110 - Websocket client timeouts are incorrectly translated as seconds instead of millis. HT @anorth</li>
 <li>Core <code>JavaHttpClient</code> does not support streaming due to limitations with <code>HttpURLConnection</code> </li>
 </ul>
