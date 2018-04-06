@@ -945,8 +945,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v3224-uncut" title="v3.22.4 (uncut)" class="md-nav__link">
-    v3.22.4 (uncut)
+  <a href="#v3224" title="v3.22.4" class="md-nav__link">
+    v3.22.4
   </a>
   
 </li>
@@ -2156,9 +2156,10 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
-<h3 id="v3224-uncut">v3.22.4 (uncut)</h3>
+<h3 id="v3224">v3.22.4</h3>
 <ul>
 <li>Added singleton method for Json.array, since if you pass in a single JsonNode (Jackson), it accidentally iterates over the fields in the node instead of using the object as an entry in the array.</li>
+<li>Fix #115 - Only add content-length for methods that allow content in AwsAuth filter</li>
 </ul>
 <h3 id="v3223">v3.22.3</h3>
 <ul>
