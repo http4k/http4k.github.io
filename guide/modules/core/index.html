@@ -1154,7 +1154,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
     <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span> <span class="p">{</span>
         <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> 
             <span class="k">val</span> <span class="py">start</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span>
-            <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+            <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
             <span class="k">val</span> <span class="py">latency</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span> <span class="p">-</span> <span class="n">start</span>
             <span class="n">println</span><span class="p">(</span><span class="s">&quot;I took $latency ms&quot;</span><span class="p">)</span>
             <span class="n">response</span>
