@@ -2273,8 +2273,9 @@
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
 <h3 id="v3280">v3.28.0</h3>
 <ul>
+<li>Fix #131 - Uri's created with paths that don't contain leading slashes.</li>
 <li>Added etag parser filter. H/T @dgliosca for the PR</li>
-<li>Ensured that <code>disableDefaultTyping</code> is called in default Jackson implementation. This should be the default anyway, but has been added to ensure that we don't fall foul of <a href="https://github.com/FasterXML/jackson-databind/issues/1723">CVE-2017-7525</a> and to surface awareness of this issue.</li>
+<li>Fix #132 - Ensured that <code>disableDefaultTyping</code> is called in default Jackson implementation. This should be the default anyway, but has been added to ensure that we don't fall foul of <a href="https://github.com/FasterXML/jackson-databind/issues/1723">CVE-2017-7525</a> and to surface awareness of this issue.</li>
 </ul>
 <h3 id="v3270">v3.27.0</h3>
 <ul>
