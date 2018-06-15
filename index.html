@@ -1073,15 +1073,16 @@
 <a href="http://kotlinlang.org"><img alt="kotlin" src="https://img.shields.io/badge/kotlin-1.2-blue.svg"></a>
 <a href="https://codebeat.co/projects/github-com-http4k-http4k-master"><img alt="codebeat badge" src="https://codebeat.co/badges/5b369ed4-af27-46f4-ad9c-a307d900617e"></a>
 <a href="https://kotlin.link"><img alt="Awesome Kotlin Badge" src="https://kotlin.link/awesome-kotlin.svg"></a>
-<a href="https://gitter.im/http4k/http4k"><img alt="Gitter" src="https://img.shields.io/badge/gitter-join%20chat-1dce73.svg"></a>
 <br/>
 <a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/backers/badge.svg"></a>
 <a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/sponsors/badge.svg"></a>
 </span></p>
-<p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is an HTTP toolkit written in <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way.</p>
-<p>It consists of a core library <code>http4k-core</code> providing a base HTTP implementation + a number of abstractions for various functionalities (such as 
-servers, clients, templating, websockets etc) that are provided as optional add-on libraries.</p>
-<p>The principles of the toolkit are:</p>
+<p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is an lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server - note how i:</p>
+<p><code>kotlin
+ val app: HttpHandler = { request: Request -&gt; Response(OK).body(request.body) }
+ val server = app.asServer(SunHttp(8000)).start()</code></p>
+<p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
+<p>The principles of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> are:</p>
 <ul>
 <li><strong>Application as a Function:</strong> Based on the Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, all HTTP services can be composed 
 of 2 types of simple function:<ul>
