@@ -942,18 +942,48 @@
         }, 
         {
             "location": "/performance/", 
-            "text": "The \nhttp4k\n server-backend modules provide a very thin adapter layer over the raw APIs of the underlying servers, so \ngenerally performs at a very low overhead compared to the raw server.\n\n\nTech Empower Benchmarks\n\n\nWe have entered \nhttp4k\n into the prominent \nTech Empower Framework Benchmarks\n \nproject, which assesses frameworks over a series of realistic tests, including:\n\n\n\n\nJSON response processing\n\n\nRandom data-updates (database)\n\n\nRandom data reads (database)\n\n\nTemplate-rendering (HTML)\n\n\nPlain-text pipelining\n\n\n\n\nFor this benchmark, no customisation or performance tuning of the underlying servers was done - the default Server \nconstruction mechanic was used, as below:\n\n\nfun\n \nmain\n(\nargs\n:\n \nArray\nString\n)\n \n{\n\n    \nHttp4kBenchmarkServer\n.\nstart\n(\nNetty\n(\n9000\n))\n\n\n}\n\n\n\n\n\n\nCommand-line JVM options, however, were tuned for the test to take advantage of various JVM features.\n\n\nThe full implementation of the benchmark can be found \nhere\n.\n\n\nResults\n\n\nResults and analysis will be posted here when the next round (R15) of the benchmarks is published.", 
+            "text": "The \nhttp4k\n server-backend modules provide a very thin adapter layer over the raw APIs of the underlying servers, so \ngenerally performs at a very low overhead compared to the raw server.\n\n\nTech Empower Benchmarks\n\n\nWe have entered \nhttp4k\n into the prominent \nTech Empower Framework Benchmarks\n \nproject, which assesses frameworks over a series of realistic tests. \n\n\nFor this benchmark, no customisation or performance tuning of the underlying servers was done - the default application \nHttpHandler was used which is then plugged into each custom backend, as below:\n\n\nfun\n \nmain\n(\nargs\n:\n \nArray\nString\n)\n \n{\n\n    \nHttp4kBenchmarkServer\n.\nstart\n(\nUndertow\n(\n9000\n))\n\n\n}\n\n\n\n\n\n\nCommand-line JVM options, however, were tuned for the test to take advantage of various JVM features.\n\n\nThe full implementation of the benchmark can be found \nhere\n.\n\n\nResults - Round 16\n\n\nOverall, http4k did very well in this round of benchmarking, especially considering that the ethos of the library is one of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).\n\n\nThe big surprise was the high performance of the Apache server backend, which consistently outranked Undertow (which is the the most fully featured of all the supported backends and our default option). The SunHttp backend, which we entered for a baseline comparison, unfortunately didn't produce any results in this round.\n\n\nFor each of the sections below, the rankings are based only on JVM-based entries.\n\n\nDB query + HTML rendering: \nresults\n:\n\n\nTop rank: 11/82 - Apache backend\n\nDatabase driver used is PostgreSql backed by a Hikari pool.\nHandlebars templating engine is used for rendering.\n\n\nMultiple DB queries: \nresults\n:\n\n\nTop rank: 3/76 - Jetty backend\n\nDatabase driver used is PostgreSql backed by a Hikari pool.\n\n\nSingle DB query: \nresults\n:\n\n\nTop rank: 7/78 - Apache backend\n\nDatabase driver used is PostgreSql backed by a Hikari pool.\n\n\nRandom DB updates: \nresults\n:\n\n\nTop rank: 11/69 - Jetty backend\n\nDatabase driver used is PostgreSql backed by a Hikari pool.\n\n\nJSON Serialization: \nresults\n:\n\n\nTop rank: 23/77 - Apache backend\n\nThe standard Jackson module is used for JSON creation and marshalling.\n\n\nPlaintext pipelining: \nresults\n:\n\n\nTop rank: 23/73 - Apache backend", 
             "title": "Performance"
         }, 
         {
             "location": "/performance/#tech-empower-benchmarks", 
-            "text": "We have entered  http4k  into the prominent  Tech Empower Framework Benchmarks  \nproject, which assesses frameworks over a series of realistic tests, including:   JSON response processing  Random data-updates (database)  Random data reads (database)  Template-rendering (HTML)  Plain-text pipelining   For this benchmark, no customisation or performance tuning of the underlying servers was done - the default Server \nconstruction mechanic was used, as below:  fun   main ( args :   Array String )   { \n     Http4kBenchmarkServer . start ( Netty ( 9000 ))  }   Command-line JVM options, however, were tuned for the test to take advantage of various JVM features.  The full implementation of the benchmark can be found  here .", 
+            "text": "We have entered  http4k  into the prominent  Tech Empower Framework Benchmarks  \nproject, which assesses frameworks over a series of realistic tests.   For this benchmark, no customisation or performance tuning of the underlying servers was done - the default application \nHttpHandler was used which is then plugged into each custom backend, as below:  fun   main ( args :   Array String )   { \n     Http4kBenchmarkServer . start ( Undertow ( 9000 ))  }   Command-line JVM options, however, were tuned for the test to take advantage of various JVM features.  The full implementation of the benchmark can be found  here .", 
             "title": "Tech Empower Benchmarks"
         }, 
         {
-            "location": "/performance/#results", 
-            "text": "Results and analysis will be posted here when the next round (R15) of the benchmarks is published.", 
-            "title": "Results"
+            "location": "/performance/#results-round-16", 
+            "text": "Overall, http4k did very well in this round of benchmarking, especially considering that the ethos of the library is one of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).  The big surprise was the high performance of the Apache server backend, which consistently outranked Undertow (which is the the most fully featured of all the supported backends and our default option). The SunHttp backend, which we entered for a baseline comparison, unfortunately didn't produce any results in this round.  For each of the sections below, the rankings are based only on JVM-based entries.", 
+            "title": "Results - Round 16"
+        }, 
+        {
+            "location": "/performance/#db-query-html-rendering-results", 
+            "text": "Top rank: 11/82 - Apache backend \nDatabase driver used is PostgreSql backed by a Hikari pool.\nHandlebars templating engine is used for rendering.", 
+            "title": "DB query + HTML rendering: results:"
+        }, 
+        {
+            "location": "/performance/#multiple-db-queries-results", 
+            "text": "Top rank: 3/76 - Jetty backend \nDatabase driver used is PostgreSql backed by a Hikari pool.", 
+            "title": "Multiple DB queries: results:"
+        }, 
+        {
+            "location": "/performance/#single-db-query-results", 
+            "text": "Top rank: 7/78 - Apache backend \nDatabase driver used is PostgreSql backed by a Hikari pool.", 
+            "title": "Single DB query: results:"
+        }, 
+        {
+            "location": "/performance/#random-db-updates-results", 
+            "text": "Top rank: 11/69 - Jetty backend \nDatabase driver used is PostgreSql backed by a Hikari pool.", 
+            "title": "Random DB updates: results:"
+        }, 
+        {
+            "location": "/performance/#json-serialization-results", 
+            "text": "Top rank: 23/77 - Apache backend \nThe standard Jackson module is used for JSON creation and marshalling.", 
+            "title": "JSON Serialization: results:"
+        }, 
+        {
+            "location": "/performance/#plaintext-pipelining-results", 
+            "text": "Top rank: 23/73 - Apache backend", 
+            "title": "Plaintext pipelining: results:"
         }, 
         {
             "location": "/in_action/", 

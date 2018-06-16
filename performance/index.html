@@ -892,9 +892,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#results" title="Results" class="md-nav__link">
-    Results
+  <a href="#results-round-16" title="Results - Round 16" class="md-nav__link">
+    Results - Round 16
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#db-query-html-rendering-results" title="DB query + HTML rendering: results:" class="md-nav__link">
+    DB query + HTML rendering: results:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-db-queries-results" title="Multiple DB queries: results:" class="md-nav__link">
+    Multiple DB queries: results:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-db-query-results" title="Single DB query: results:" class="md-nav__link">
+    Single DB query: results:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-db-updates-results" title="Random DB updates: results:" class="md-nav__link">
+    Random DB updates: results:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-serialization-results" title="JSON Serialization: results:" class="md-nav__link">
+    JSON Serialization: results:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plaintext-pipelining-results" title="Plaintext pipelining: results:" class="md-nav__link">
+    Plaintext pipelining: results:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1047,26 +1095,39 @@
 generally performs at a very low overhead compared to the raw server.</p>
 <h3 id="tech-empower-benchmarks">Tech Empower Benchmarks</h3>
 <p>We have entered <strong>http4k</strong> into the prominent <a href="https://www.techempower.com/benchmarks/">Tech Empower Framework Benchmarks</a> 
-project, which assesses frameworks over a series of realistic tests, including:</p>
-<ul>
-<li>JSON response processing</li>
-<li>Random data-updates (database)</li>
-<li>Random data reads (database)</li>
-<li>Template-rendering (HTML)</li>
-<li>Plain-text pipelining</li>
-</ul>
-<p>For this benchmark, no customisation or performance tuning of the underlying servers was done - the default Server 
-construction mechanic was used, as below:</p>
+project, which assesses frameworks over a series of realistic tests. </p>
+<p>For this benchmark, no customisation or performance tuning of the underlying servers was done - the default application 
+HttpHandler was used which is then plugged into each custom backend, as below:</p>
 <div class="codehilite"><pre><span></span><span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">Array</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;)</span> <span class="p">{</span>
-    <span class="n">Http4kBenchmarkServer</span><span class="p">.</span><span class="n">start</span><span class="p">(</span><span class="n">Netty</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
+    <span class="n">Http4kBenchmarkServer</span><span class="p">.</span><span class="n">start</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <p>Command-line JVM options, however, were tuned for the test to take advantage of various JVM features.</p>
 <p>The full implementation of the benchmark can be found <a href="https://github.com/TechEmpower/FrameworkBenchmarks/tree/master/frameworks/Kotlin/http4k">here</a>.</p>
-<h3 id="results">Results</h3>
-<p>Results and analysis will be posted here when the next round (R15) of the benchmarks is published.</p>
+<h3 id="results-round-16">Results - Round 16</h3>
+<p>Overall, http4k did very well in this round of benchmarking, especially considering that the ethos of the library is one of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).</p>
+<p>The big surprise was the high performance of the Apache server backend, which consistently outranked Undertow (which is the the most fully featured of all the supported backends and our default option). The SunHttp backend, which we entered for a baseline comparison, unfortunately didn't produce any results in this round.</p>
+<p>For each of the sections below, the rankings are based only on JVM-based entries.</p>
+<h4 id="db-query-html-rendering-results">DB query + HTML rendering: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=fortune&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 11/82 - Apache backend</em>
+Database driver used is PostgreSql backed by a Hikari pool.
+Handlebars templating engine is used for rendering.</p>
+<h4 id="multiple-db-queries-results">Multiple DB queries: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=query&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 3/76 - Jetty backend</em>
+Database driver used is PostgreSql backed by a Hikari pool.</p>
+<h4 id="single-db-query-results">Single DB query: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=db&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 7/78 - Apache backend</em>
+Database driver used is PostgreSql backed by a Hikari pool.</p>
+<h4 id="random-db-updates-results">Random DB updates: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=update&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 11/69 - Jetty backend</em>
+Database driver used is PostgreSql backed by a Hikari pool.</p>
+<h4 id="json-serialization-results">JSON Serialization: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=json&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 23/77 - Apache backend</em>
+The standard Jackson module is used for JSON creation and marshalling.</p>
+<h4 id="plaintext-pipelining-results">Plaintext pipelining: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=plaintext&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 23/73 - Apache backend</em></p>
                     
                     
                     
