@@ -957,8 +957,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v3340-uncut" title="v3.34.0 (uncut)" class="md-nav__link">
-    v3.34.0 (uncut)
+  <a href="#v3350-uncut" title="v3.35.0 (uncut)" class="md-nav__link">
+    v3.35.0 (uncut)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v3340" title="v3.34.0" class="md-nav__link">
+    v3.34.0
   </a>
   
 </li>
@@ -2334,13 +2341,20 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
-<h3 id="v3340-uncut">v3.34.0 (uncut)</h3>
+<h3 id="v3350-uncut">v3.35.0 (uncut)</h3>
 <ul>
 <li>Added first cut of <code>http4-testing-chaos</code> module. Massive H/T to @IgorPerikov for the PR which drove this module's creation. API might change a bit as we experiment/expand it.</li>
 </ul>
+<h3 id="v3340">v3.34.0</h3>
+<ul>
+<li>Add default SamplingDescision param to ZipkinTraces - defaults to always sample.</li>
+<li>Fix #150 - StaticRoutingHandler filters being called twice.</li>
+<li>Fix #151 - POTENTIAL BREAK: Rework of Status objects to fix equality against the Status constant <code>vals</code> when a description has been overridden. This involves the following potential breaking change: The Status class is no longer a data class to tighten up encapsulation - user calls to copy() will have to be replaced.</li>
+</ul>
 <h3 id="v3332">v3.33.2</h3>
 <ul>
-<li>Add PERMANENT_REDIRECT and UNPROCESSABLE_ENTITY Status object</li>
+<li>Raise SO_BACKLOG in Apache and Netty server implementations.</li>
+<li>Add PERMANENT_REDIRECT and UNPROCESSABLE_ENTITY Status object.</li>
 </ul>
 <h3 id="v3331">v3.33.1</h3>
 <ul>
