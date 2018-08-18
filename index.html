@@ -1078,9 +1078,10 @@
 <a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/sponsors/badge.svg"></a>
 </span></p>
 <p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
-<p><code>kotlin
- val app: HttpHandler = { request: Request -&gt; Response(OK).body(request.body) }
- val server = app.asServer(SunHttp(8000)).start()</code></p>
+<p>```kotlin</p>
+<p>val app: HttpHandler = { request: Request -&gt; Response(OK).body(request.body) }
+ val server = app.asServer(SunHttp(8000)).start()
+ ```</p>
 <p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
 <p>The principles of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> are:</p>
 <ul>
