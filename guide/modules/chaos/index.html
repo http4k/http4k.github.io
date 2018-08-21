@@ -561,6 +561,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#built-in-apis" title="Built in APIs" class="md-nav__link">
+    Built in APIs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#code" title="Code " class="md-nav__link">
     Code 
   </a>
@@ -1107,10 +1114,115 @@
 <p>The http4k Chaos module provides the facility to dynamically inject failure modes into http4k applications, such as random HTTP failures, killing of processes, and extra latency injection. By modelling these modes, it is possible to plan for mitigation of particular scenarios on a wider scale, resulting either from failures within your system boundary, or those caused by dependent remote HTTP services.</p>
 <p>The <a href="http://principlesofchaos.org/">Principles of Chaos Engineering</a> approach was made prominent by Netflix open-sourcing the <a href="https://github.com/Netflix/SimianArmy">Simian Army</a> libraries. </p>
 <h4 id="api-concepts">API concepts</h4>
-<p>To understand the API, these domain-language names are important, all modelled as simple <code>typealiases</code>:
+<p>To understand the API, these domain-language names are important, all modelled as simple Kotlin <code>typealiases</code>:
 1. A <strong>Behaviour</strong> (<code>typealias Behaviour = Filter) applies the failure mode to the HTTP call. This could involve blocking a thread permanently, introducing extra latency into an HTTP service, or even causing a Stack Overflow or Killing the running process.
 1. A **Trigger** (</code>typealias Trigger = (req: Request) -&gt; Boolean<code>) is just a predicate which determines if an HTTP call should have an</code>Behaviour<code>applied to it.</code>Triggers<code>can be stateless, based on the request content, or stateful - deadlines or countdowns.
-1. A **Stage** (</code>typealias Stage = (req: Request) -&gt; Filter?<code>) provides the lifecycle for applying a behaviour, and applies until a</code>Trigger<code>indicates that the stage is complete.</code>Stages<code>can be chained with</code>then()<code>, or produced by combining a</code>Behaviour<code>and a</code>Trigger`.</p>
+1. A **Stage** (</code>typealias Stage = (req: Request) -&gt; Filter?<code>) provides the lifecycle for applying a behaviour, and applies until a</code>Trigger<code>indicates that the stage is complete.</code>Stages<code>can be chained with</code>then()<code>, or can be produced by combining a</code>Behaviour<code>and a</code>Trigger<code>using</code>appliedWhen()`.</p>
+<h4 id="built-in-apis">Built in APIs</h4>
+<hr />
+<table>
+<thead>
+<tr>
+<th>Behaviour function</th>
+<th>Effect</th>
+<th>as JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latency</td>
+<td>Adds random latency to a call between the min and max durations</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>ThrowException</td>
+<td>Throws an uncaught Exception with the supplied message</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>ReturnStatus</td>
+<td>Returns an HTTP response with the specified HTTP status code</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>NoBody</td>
+<td>Completes the call normally, but strips the body content from the response</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Forces an OOM exception</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Kill</td>
+<td>Kills the Java process with a 1 error code</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Overflow</td>
+<td>Generates a StackOverflow</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Block</td>
+<td>Permanently blocks the request thread</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>None</td>
+<td>Requests complete normally</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<table>
+<thead>
+<tr>
+<th>Trigger function</th>
+<th>Activation condition</th>
+<th>as JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deadline</td>
+<td>After an instant in time</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Delay</td>
+<td>After a specified period (since construction)</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Countdown</td>
+<td>For the first n requests only</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Request</td>
+<td>If the request meets the criteria set out in the specification. All but <code>method</code> are Regex patterns, and all are optional</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Once</td>
+<td>For the first request only</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>PercentageBased</td>
+<td>Applies to a certain (randomly decided) percentage of requests</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td>Always</td>
+<td>For all requests</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/chaos/example_chaos.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
 <p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/chaos/example_chaos.kt"></script></p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/chaos/example_chaos_controls_openapi.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
