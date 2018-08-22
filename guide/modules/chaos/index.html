@@ -550,12 +550,33 @@
     About
   </a>
   
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-concepts" title="API concepts" class="md-nav__link">
+    API concepts
+  </a>
+  
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#api-concepts" title="API concepts" class="md-nav__link">
-    API concepts
+  <a href="#behaviours-typealias-behaviour-filter" title="Behaviours - typealias Behaviour = Filter" class="md-nav__link">
+    Behaviours - typealias Behaviour = Filter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggers-typealias-trigger-req-request-boolean" title="Triggers typealias Trigger = (req: Request) -&gt; Boolean" class="md-nav__link">
+    Triggers typealias Trigger = (req: Request) -&gt; Boolean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stages-interface-stage-request-filter" title="Stages interface Stage: (Request) -&gt; Filter?" class="md-nav__link">
+    Stages interface Stage: (Request) -&gt; Filter?
   </a>
   
 </li>
@@ -1106,11 +1127,10 @@
 <h3 id="about">About</h3>
 <p>The http4k Chaos module provides the facility to dynamically inject failure modes into http4k applications, such as random HTTP failures, killing of processes, and extra latency injection. By modelling these modes, it is possible to plan for mitigation of particular scenarios on a wider scale, resulting either from failures within your system boundary, or those caused by dependent remote HTTP services.</p>
 <p>The <a href="http://principlesofchaos.org/">Principles of Chaos Engineering</a> approach was made prominent by Netflix open-sourcing the <a href="https://github.com/Netflix/SimianArmy">Simian Army</a> libraries. </p>
-<h4 id="api-concepts">API concepts</h4>
-<p>To understand the API, these domain-language names are important, all modelled as simple Kotlin <code>typealiases</code>:</p>
-<ul>
-<li>A <strong>Behaviour</strong> (`typealias Behaviour = Filter) applies the failure mode to the HTTP call. This could involve blocking a thread permanently, introducing extra latency into an HTTP service, or even causing a Stack Overflow or Killing the running process.</li>
-</ul>
+<h3 id="api-concepts">API concepts</h3>
+<p>To understand the API, these domain-language concepts are important, all modelled as simple Kotlin:</p>
+<h4 id="behaviours-typealias-behaviour-filter">Behaviours - <code>typealias Behaviour = Filter</code></h4>
+<p>A <strong>Behaviour</strong> applies the failure mode to the HTTP call. This could involve blocking a thread permanently, introducing extra latency into an HTTP service, or even causing a Stack Overflow or Killing the running process.</p>
 <hr />
 <table>
 <thead>
@@ -1168,9 +1188,8 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li>A <strong>Trigger</strong> (<code>typealias Trigger = (req: Request) -&gt; Boolean</code>) is just a predicate which determines if an HTTP call should have an <code>Behaviour</code> applied to it. <code>Triggers</code> can be stateless, based on the request content, or stateful - deadlines or countdowns.</li>
-</ul>
+<h4 id="triggers-typealias-trigger-req-request-boolean">Triggers <code>typealias Trigger = (req: Request) -&gt; Boolean</code></h4>
+<p>A <strong>Trigger</strong> is just a predicate which determines if an HTTP call should have an <code>Behaviour</code> applied to it. <code>Triggers</code> can be stateless, based on the request content, or stateful - deadlines or countdowns.</p>
 <hr />
 <table>
 <thead>
@@ -1218,9 +1237,8 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li>A <strong>Stage</strong> (<code>typealias Stage = (req: Request) -&gt; Filter?</code>) provides the lifecycle for applying a behaviour, and applies until a <code>Trigger</code> indicates that the stage is complete. <code>Stages</code> can be chained with <code>then()</code>, or can be produced by combining a <code>Behaviour</code> and a <code>Trigger</code> using <code>appliedWhen()</code>.</li>
-</ul>
+<h4 id="stages-interface-stage-request-filter">Stages <code>interface Stage: (Request) -&gt; Filter?</code></h4>
+<p>A <strong>Stage</strong> provides the lifecycle for applying a behaviour, and applies until a <code>Trigger</code> indicates that the stage is complete. <code>Stages</code> can be chained with <code>then()</code>, or can be produced by combining a <code>Behaviour</code> and a <code>Trigger</code> using <code>appliedWhen()</code>.</p>
 <hr />
 <table>
 <thead>
