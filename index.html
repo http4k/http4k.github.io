@@ -1090,10 +1090,11 @@
 <a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/sponsors/badge.svg"></a>
 </span></p>
 <p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
-<p>```kotlin</p>
-<p>val app: HttpHandler = { request: Request -&gt; Response(OK).body(request.body) }
- val server = app.asServer(SunHttp(8000)).start()
- ```</p>
+<div class="codehilite"><pre><span></span> <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
+ <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+
+
 <p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
 <p>The principles of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> are:</p>
 <ul>
@@ -1129,6 +1130,7 @@ plugging together of services without HTTP container being required.</li>
 <li>Security: Simple, pluggable support for OAuth Auth Code Grant flow and ready made configurations to integrate with popular OAuth providers.</li>
 <li>Testing: Selenium WebDriver implementation for lightning fast, browserless testing of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> apps</li>
 <li>Testing: Hamkrest Matchers for <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> objects.</li>
+<li>Testing: Chaos Injection mechanism, allowing simple, dynamic injection of failure modes into  <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> applications.</li>
 </ul>
 </li>
 </ul>
@@ -1236,6 +1238,10 @@ plugging together of services without HTTP container being required.</li>
 </li>
 <li><a href="https://http4k.org/guide/modules/hamkrest">Hamkrest:</a> <ul>
 <li>A set of Hamkrest matchers for testing <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a>  Request and Response messages.</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/chaos">Chaos:</a> <ul>
+<li>API for declaring and injecting failure modes into <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
 </ul>
 </li>
 </ul>
