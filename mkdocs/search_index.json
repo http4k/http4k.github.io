@@ -1012,42 +1012,42 @@
         }, 
         {
             "location": "/cookbook/nanoservices/", 
-            "text": "http4k is a small library with minimal dependencies, but what you can accomplish with just a single line of code is quite remarkable due to a combination of the available modules and the \nServer as a Function\n concept.\n\n\nThe main code of the following http4k applications (in the appropriately named function) all fit in a tweet (140 characters)... exports excluded ;)\n\n\nSimple Proxy \n\n\nRequires: \nhttp4k-core\n\nThis simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a \nProxyHost\n filter to do the protocol conversion.\n\n\n\nLatency Reporting Proxy \n\n\nRequires: \nhttp4k-core\n\nBuilding on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.\n\n\n\nWire-sniffing Proxy \n\n\nRequires: \nhttp4k-core\n\nApplying a \nDebuggingFilter\n to the HTTP calls in a proxy dumps the entire contents out to \nStdOut\n (or other stream).\n\n\n\nTraffic Recording Proxy \n Replayer \n\n\nRequires: \nhttp4k-core\n\nThis example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.\n\n\n\nStatic file Server \n\n\nRequires: \nhttp4k-core\n\nLonger than the Python \nSimpleHttpServer\n, but still pretty small!\n\n\n\nWebsocket Clock \n\n\nRequires: \nhttp4k-core\n, \nhttp4k-server-jetty\n\nLike Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.\n\n\n\nChaos Proxy (random latency edition) \n\n\nRequires: \nhttp4k-core\n, \nhttp4k-testing-chaos\n\nAs per the \nPrinciples of Chaos\n, this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an \nOpenApi\n documented set of RPC endpoints.", 
+            "text": "http4k is a small library with minimal dependencies, but what you can accomplish with just a single line of code is quite remarkable due to a combination of the available modules and the \nServer as a Function\n concept.\n\n\nThe main code of the following http4k applications (in the appropriately named function) all fit in a tweet (140 characters)... exports excluded ;)\n\n\nSimple Proxy \n\n\nRequires: \nhttp4k-core\n\n\nThis simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a \nProxyHost\n filter to do the protocol conversion.\n\n\n\nLatency Reporting Proxy \n\n\nRequires: \nhttp4k-core\n\n\nBuilding on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.\n\n\n\nWire-sniffing Proxy \n\n\nRequires: \nhttp4k-core\n\n\nApplying a \nDebuggingFilter\n to the HTTP calls in a proxy dumps the entire contents out to \nStdOut\n (or other stream).\n\n\n\nTraffic Recording Proxy \n Replayer \n\n\nRequires: \nhttp4k-core\n\n\nThis example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.\n\n\n\nStatic file Server \n\n\nRequires: \nhttp4k-core\n\n\nLonger than the Python \nSimpleHttpServer\n, but still pretty small!\n\n\n\nWebsocket Clock \n\n\nRequires: \nhttp4k-core\n, \nhttp4k-server-jetty\n\n\nLike Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.\n\n\n\nChaos Proxy (random latency edition) \n\n\nRequires: \nhttp4k-core\n, \nhttp4k-testing-chaos\n\n\nAs per the \nPrinciples of Chaos\n, this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an \nOpenApi\n documented set of RPC endpoints.", 
             "title": "Nanoservices"
         }, 
         {
             "location": "/cookbook/nanoservices/#simple-proxy", 
-            "text": "Requires:  http4k-core \nThis simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a  ProxyHost  filter to do the protocol conversion.", 
+            "text": "Requires:  http4k-core  This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a  ProxyHost  filter to do the protocol conversion.", 
             "title": "Simple Proxy "
         }, 
         {
             "location": "/cookbook/nanoservices/#latency-reporting-proxy", 
-            "text": "Requires:  http4k-core \nBuilding on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.", 
+            "text": "Requires:  http4k-core  Building on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.", 
             "title": "Latency Reporting Proxy "
         }, 
         {
             "location": "/cookbook/nanoservices/#wire-sniffing-proxy", 
-            "text": "Requires:  http4k-core \nApplying a  DebuggingFilter  to the HTTP calls in a proxy dumps the entire contents out to  StdOut  (or other stream).", 
+            "text": "Requires:  http4k-core  Applying a  DebuggingFilter  to the HTTP calls in a proxy dumps the entire contents out to  StdOut  (or other stream).", 
             "title": "Wire-sniffing Proxy "
         }, 
         {
             "location": "/cookbook/nanoservices/#traffic-recording-proxy-replayer", 
-            "text": "Requires:  http4k-core \nThis example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.", 
+            "text": "Requires:  http4k-core  This example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.", 
             "title": "Traffic Recording Proxy &amp; Replayer "
         }, 
         {
             "location": "/cookbook/nanoservices/#static-file-server", 
-            "text": "Requires:  http4k-core \nLonger than the Python  SimpleHttpServer , but still pretty small!", 
+            "text": "Requires:  http4k-core  Longer than the Python  SimpleHttpServer , but still pretty small!", 
             "title": "Static file Server "
         }, 
         {
             "location": "/cookbook/nanoservices/#websocket-clock", 
-            "text": "Requires:  http4k-core ,  http4k-server-jetty \nLike Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.", 
+            "text": "Requires:  http4k-core ,  http4k-server-jetty  Like Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.", 
             "title": "Websocket Clock "
         }, 
         {
             "location": "/cookbook/nanoservices/#chaos-proxy-random-latency-edition", 
-            "text": "Requires:  http4k-core ,  http4k-testing-chaos \nAs per the  Principles of Chaos , this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an  OpenApi  documented set of RPC endpoints.", 
+            "text": "Requires:  http4k-core ,  http4k-testing-chaos  As per the  Principles of Chaos , this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an  OpenApi  documented set of RPC endpoints.", 
             "title": "Chaos Proxy (random latency edition) "
         }, 
         {
