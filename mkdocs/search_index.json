@@ -872,13 +872,18 @@
         }, 
         {
             "location": "/cookbook/websockets/", 
-            "text": "Gradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.37.0\n\n    compile group: \norg.http4k\n, name: \nhttp4k-server-jetty\n, version: \n3.37.0\n\n    compile group: \norg.http4k\n, name: \nhttp4k-client-websocket\n, version: \n3.37.0\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-jackson\n, version: \n3.37.0\n\n\n\n\n\n\nhttp4k\n provides Websocket support using a simple, consistent, typesafe, and testable API on supported server backends (see above). Websocket communication consists of 3 main concepts:\n\n\n\n\nWsHandler\n - represented as a typealias: \nWsHandler =  (Request) -\n WsConsumer?\n. This is responsible for matching an HTTP request to a websocket.\n\n\nWsConsumer\n - represented as a typealias: \nWsConsumer = (WebSocket) -\n Unit\n. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.\n\n\nWsMessage\n - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the \nhttp4k\n HTTP message model, WsMessages are immutable data classes.\n\n\n\n\nMixing HTTP and Websocket services \n\n\nBoth Websockets and Http handlers in \nhttp4k\n are routed using a similar path-based API. We combine them into a single \nPolyHandler\n which can handle both \nhttp://\n and \nws://\n, and then convert to a Server as usual:\n\n\n\nAutomarshalling Websockets messages \n\n\nUsing the standard Lens API, we can auto-convert Websocket messages on and off the wire. This example uses the Jackson for the marshalling:\n\n\n\nTesting Websockets \n\n\nhttp4k\n provides Websockets that are both typesafe (via the Lens API), and testable. Both \nWsHandlers\n and \nPolyHandlers\n are convertible to a \nWsClient\n which provides a synchronous API for testing reactions to Websocket events in an offline environment.\n\n\nIn the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. \nhttp4k\n provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:", 
+            "text": "Gradle setup\n\n\n    compile group: \norg.http4k\n, name: \nhttp4k-core\n, version: \n3.37.0\n\n    compile group: \norg.http4k\n, name: \nhttp4k-server-jetty\n, version: \n3.37.0\n\n    compile group: \norg.http4k\n, name: \nhttp4k-client-websocket\n, version: \n3.37.0\n\n    compile group: \norg.http4k\n, name: \nhttp4k-format-jackson\n, version: \n3.37.0\n\n\n\n\n\n\nhttp4k\n provides Websocket support using a simple, consistent, typesafe, and testable API on supported server backends (see above). Websocket communication consists of 3 main concepts:\n\n\n\n\nWsHandler\n - represented as a typealias: \nWsHandler =  (Request) -\n WsConsumer?\n. This is responsible for matching an HTTP request to a websocket.\n\n\nWsConsumer\n - represented as a typealias: \nWsConsumer = (WebSocket) -\n Unit\n. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.\n\n\nWsMessage\n - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the \nhttp4k\n HTTP message model, WsMessages are immutable data classes.\n\n\n\n\nWebsocket as a Function\n\n\nThe simplest possible Websocket can be mounted as a \nWsConsumer\n function onto a server with:\n\n\n{\n \nws\n:\n \nWebsocket\n \n-\n \nws\n.\nsend\n(\nWsMessage\n(\nhello\n))\n \n}.\nasServer\n(\nJetty\n(\n9000\n)).\nstart\n()\n\n\n\n\n\n\nMixing HTTP and Websocket services \n\n\nBoth Websockets and Http handlers in \nhttp4k\n are routed using a similar path-based API. We combine them into a single \nPolyHandler\n which can handle both \nhttp://\n and \nws://\n, and then convert to a Server as usual:\n\n\n\nAutomarshalling Websockets messages \n\n\nUsing the standard Lens API, we can auto-convert Websocket messages on and off the wire. This example uses the Jackson for the marshalling:\n\n\n\nTesting Websockets \n\n\nhttp4k\n provides Websockets that are both typesafe (via the Lens API), and testable. Both \nWsHandlers\n and \nPolyHandlers\n are convertible to a \nWsClient\n which provides a synchronous API for testing reactions to Websocket events in an offline environment.\n\n\nIn the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. \nhttp4k\n provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:", 
             "title": "Websockets"
         }, 
         {
             "location": "/cookbook/websockets/#gradle-setup", 
             "text": "compile group:  org.http4k , name:  http4k-core , version:  3.37.0 \n    compile group:  org.http4k , name:  http4k-server-jetty , version:  3.37.0 \n    compile group:  org.http4k , name:  http4k-client-websocket , version:  3.37.0 \n    compile group:  org.http4k , name:  http4k-format-jackson , version:  3.37.0   http4k  provides Websocket support using a simple, consistent, typesafe, and testable API on supported server backends (see above). Websocket communication consists of 3 main concepts:   WsHandler  - represented as a typealias:  WsHandler =  (Request) -  WsConsumer? . This is responsible for matching an HTTP request to a websocket.  WsConsumer  - represented as a typealias:  WsConsumer = (WebSocket) -  Unit . This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.  WsMessage  - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the  http4k  HTTP message model, WsMessages are immutable data classes.", 
             "title": "Gradle setup"
+        }, 
+        {
+            "location": "/cookbook/websockets/#websocket-as-a-function", 
+            "text": "The simplest possible Websocket can be mounted as a  WsConsumer  function onto a server with:  {   ws :   Websocket   -   ws . send ( WsMessage ( hello ))   }. asServer ( Jetty ( 9000 )). start ()", 
+            "title": "Websocket as a Function"
         }, 
         {
             "location": "/cookbook/websockets/#mixing-http-and-websocket-services", 
@@ -1007,42 +1012,42 @@
         }, 
         {
             "location": "/cookbook/nanoservices/", 
-            "text": "http4k is a small library with minimal dependencies, but what you can accomplish with just a single line of code is quite remarkable due to a combination of the available modules and the \nServer as a Function\n concept. \n\n\nThe main code of the following http4k applications (in the appropriately named function) all fit in a tweet (140 characters)... exports excluded ;)\n\n\nSimple Proxy \n\n\nRequires: \nhttp4k-core\n\n\n\n\nLatency Reporting Proxy \n\n\nRequires: \nhttp4k-core\n\n\n\n\nTraffic Recording Proxy \n Replayer \n\n\nRequires: \nhttp4k-core\n\n\n\n\nStatic file Server \n\n\nRequires: \nhttp4k-core\n\n\n\n\nWire-sniffing Proxy \n\n\nRequires: \nhttp4k-core\n\n\n\n\nWebsocket Clock \n\n\nRequires: \nhttp4k-core\n, \nhttp4k-server-jetty\n\n\n\n\nChaos Proxy (random latency edition) \n\n\nRequires: \nhttp4k-core\n, \nhttp4k-testing-chaos", 
+            "text": "http4k is a small library with minimal dependencies, but what you can accomplish with just a single line of code is quite remarkable due to a combination of the available modules and the \nServer as a Function\n concept.\n\n\nThe main code of the following http4k applications (in the appropriately named function) all fit in a tweet (140 characters)... exports excluded ;)\n\n\nSimple Proxy \n\n\nRequires: \nhttp4k-core\n\nThis simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a \nProxyHost\n filter to do the protocol conversion.\n\n\n\nLatency Reporting Proxy \n\n\nRequires: \nhttp4k-core\n\nBuilding on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.\n\n\n\nWire-sniffing Proxy \n\n\nRequires: \nhttp4k-core\n\nApplying a \nDebuggingFilter\n to the HTTP calls in a proxy dumps the entire contents out to \nStdOut\n (or other stream).\n\n\n\nTraffic Recording Proxy \n Replayer \n\n\nRequires: \nhttp4k-core\n\nThis example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.\n\n\n\nStatic file Server \n\n\nRequires: \nhttp4k-core\n\nLonger than the Python \nSimpleHttpServer\n, but still pretty small!\n\n\n\nWebsocket Clock \n\n\nRequires: \nhttp4k-core\n, \nhttp4k-server-jetty\n\nLike Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.\n\n\n\nChaos Proxy (random latency edition) \n\n\nRequires: \nhttp4k-core\n, \nhttp4k-testing-chaos\n\nAs per the \nPrinciples of Chaos\n, this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an \nOpenApi\n documented set of RPC endpoints.", 
             "title": "Nanoservices"
         }, 
         {
             "location": "/cookbook/nanoservices/#simple-proxy", 
-            "text": "Requires:  http4k-core", 
+            "text": "Requires:  http4k-core \nThis simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a  ProxyHost  filter to do the protocol conversion.", 
             "title": "Simple Proxy "
         }, 
         {
             "location": "/cookbook/nanoservices/#latency-reporting-proxy", 
-            "text": "Requires:  http4k-core", 
+            "text": "Requires:  http4k-core \nBuilding on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.", 
             "title": "Latency Reporting Proxy "
         }, 
         {
+            "location": "/cookbook/nanoservices/#wire-sniffing-proxy", 
+            "text": "Requires:  http4k-core \nApplying a  DebuggingFilter  to the HTTP calls in a proxy dumps the entire contents out to  StdOut  (or other stream).", 
+            "title": "Wire-sniffing Proxy "
+        }, 
+        {
             "location": "/cookbook/nanoservices/#traffic-recording-proxy-replayer", 
-            "text": "Requires:  http4k-core", 
+            "text": "Requires:  http4k-core \nThis example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.", 
             "title": "Traffic Recording Proxy &amp; Replayer "
         }, 
         {
             "location": "/cookbook/nanoservices/#static-file-server", 
-            "text": "Requires:  http4k-core", 
+            "text": "Requires:  http4k-core \nLonger than the Python  SimpleHttpServer , but still pretty small!", 
             "title": "Static file Server "
         }, 
         {
-            "location": "/cookbook/nanoservices/#wire-sniffing-proxy", 
-            "text": "Requires:  http4k-core", 
-            "title": "Wire-sniffing Proxy "
-        }, 
-        {
             "location": "/cookbook/nanoservices/#websocket-clock", 
-            "text": "Requires:  http4k-core ,  http4k-server-jetty", 
+            "text": "Requires:  http4k-core ,  http4k-server-jetty \nLike Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.", 
             "title": "Websocket Clock "
         }, 
         {
             "location": "/cookbook/nanoservices/#chaos-proxy-random-latency-edition", 
-            "text": "Requires:  http4k-core ,  http4k-testing-chaos", 
+            "text": "Requires:  http4k-core ,  http4k-testing-chaos \nAs per the  Principles of Chaos , this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an  OpenApi  documented set of RPC endpoints.", 
             "title": "Chaos Proxy (random latency edition) "
         }, 
         {

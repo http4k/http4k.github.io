@@ -833,6 +833,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#websocket-as-a-function" title="Websocket as a Function" class="md-nav__link">
+    Websocket as a Function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mixing-http-and-websocket-services" title="Mixing HTTP and Websocket services " class="md-nav__link">
     Mixing HTTP and Websocket services 
   </a>
@@ -1101,6 +1108,12 @@
 <li><code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.</li>
 <li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are immutable data classes.</li>
 </ol>
+<h3 id="websocket-as-a-function">Websocket as a Function</h3>
+<p>The simplest possible Websocket can be mounted as a <code>WsConsumer</code> function onto a server with:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span> <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+
+
 <h3 id="mixing-http-and-websocket-services">Mixing HTTP and Websocket services <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
 <p>Both Websockets and Http handlers in <strong>http4k</strong> are routed using a similar path-based API. We combine them into a single <code>PolyHandler</code> which can handle both <code>http://</code> and <code>ws://</code>, and then convert to a Server as usual:
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"></script></p>
