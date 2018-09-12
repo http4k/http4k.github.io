@@ -7,17 +7,17 @@
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
-    <meta itemprop="name" content="http4k Routing API (Advanced)">
-    <meta name="twitter:title" content="http4k Routing API (Advanced)">
-    <meta property="og:title" content="http4k Routing API (Advanced)" />
+    <meta itemprop="name" content="http4k Authorising requests">
+    <meta name="twitter:title" content="http4k Authorising requests">
+    <meta property="og:title" content="http4k Authorising requests" />
     
     
-    <meta name="description" content="Recipes for using the http4k composable routing API, including serving static content">
-    <meta property="og:description" content="Recipes for using the http4k composable routing API, including serving static content" />
-    <meta name="twitter:description" content="Recipes for using the http4k composable routing API, including serving static content">
+    <meta name="description" content="Recipes for looking up and populating a user principal from a request">
+    <meta property="og:description" content="Recipes for looking up and populating a user principal from a request" />
+    <meta name="twitter:description" content="Recipes for looking up and populating a user principal from a request">
     
     
-    <link rel="canonical" href="https://www.http4k.org/cookbook/nestable_routes/">
+    <link rel="canonical" href="https://www.http4k.org/cookbook/principal_lookup/">
     
     
     <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
@@ -57,7 +57,7 @@
     
     
     
-    <title>http4k Routing API (Advanced)</title>
+    <title>http4k Authorising requests</title>
     
     
     
@@ -94,13 +94,13 @@
           "@context" : "http://schema.org",
           "@type" : "WebSite",
     
-          "name" : "http4k Routing API (Advanced)",
+          "name" : "http4k Authorising requests",
     
     
-          "alternateName" : "Recipes for using the http4k composable routing API, including serving static content",
+          "alternateName" : "Recipes for looking up and populating a user principal from a request",
     
           "image": "https://www.http4k.org/img/logo_card_blue_on_white.png",
-          "url" : "https://www.http4k.org/cookbook/nestable_routes/"
+          "url" : "https://www.http4k.org/cookbook/principal_lookup/"
         }
         </script>
 </head>
@@ -145,7 +145,7 @@
                 </span>
               
             
-            Nestable routes
+            Principal lookup
           
         </span>
             </div>
@@ -705,50 +705,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Nestable routes
-      </label>
-    
-    <a href="./" title="Nestable routes" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../nestable_routes/" title="Nestable routes" class="md-nav__link">
       Nestable routes
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
-    Gradle setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#code" title="Code " class="md-nav__link">
-    Code 
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -876,11 +837,50 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../principal_lookup/" title="Principal lookup" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Principal lookup
+      </label>
+    
+    <a href="./" title="Principal lookup" class="md-nav__link md-nav__link--active">
       Principal lookup
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
+    Gradle setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code " class="md-nav__link">
+    Code 
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -1080,28 +1080,20 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/nestable_routes/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/principal_lookup/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                     
                     
-                    <h1>Nestable routes</h1>
+                    <h1>Principal lookup</h1>
                     
-                    <p>This is a fairly comprehensive example of the core-routing logic available:</p>
-<ul>
-<li>Individual HTTP endpoints are represented as <code>HttpHandlers</code>.</li>
-<li>Binding an <code>HttpHandler</code> to a path and HTTP verb yields a <code>Route</code>.</li>
-<li><code>Routes</code> can be combined together into a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a<code>Router</code>.</li>
-<li>A <code>Router</code> is a selective request handler, which attempts to match a request. If it cannot, processing falls through to the next <code>Router</code> in the list.</li>
-<li>Routers can be combined together to form another <code>HttpHandler</code></li>
-<li>Usage of supplied core library <code>Filters</code></li>
-<li>Serving of static content using a <code>Classpath</code> resource loader</li>
-</ul>
-<h3 id="gradle-setup">Gradle setup</h3>
+                    <h3 id="gradle-setup">Gradle setup</h3>
 <div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.37.1&quot;
 </pre></div>
 
 
-<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nestable_routes/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nestable_routes/example.kt"></script>
+<p>When authorising requests, it is common to need to store some credentials or a user principal object to be accessible by a further Filter or the eventual HttpHandler.</p>
+<p>This can be easily achieved by combining the typesafe RequestContext functionality with one of the built-in authorisation Filters:</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/principal/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/principal/example.kt"></script></p>
                     
                     
                     
@@ -1120,7 +1112,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../simple_routing/" title="Simple routing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../custom_oauth/" title="Custom OAuth configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1129,19 +1121,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Simple routing
+                Custom OAuth configuration
               </span>
             </div>
           </a>
         
         
-          <a href="../using_json/" title="JSON messaging" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../monitoring/" title="Monitoring http4k" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                JSON messaging
+                Monitoring http4k
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
