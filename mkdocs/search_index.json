@@ -471,12 +471,12 @@
             "title": "Behaviours: typealias Behaviour = Filter"
         }, 
         {
-            "location": "/guide/modules/chaos/#triggers-typealias-trigger-req-request-boolean", 
+            "location": "/guide/modules/chaos/#triggers-typealias-trigger-req-request-gt-boolean", 
             "text": "A  Trigger  is just a predicate which determines if an HTTP call should have an  Behaviour  applied to it.  Triggers  can be stateless, based on the request content, or stateful - deadlines or countdowns.      Trigger function  Activation condition  as JSON      Deadline  After an instant in time  {\"type\":\"deadline\",\"endTime\":\"1970-01-01T00:00:00Z\"}    Delay  After a specified period (since construction)  {\"type\":\"delay\",\"period\":\"PT0.1S\"}    Countdown  For the first n requests only  {\"type\":\"countdown\",\"count\":\"1\"}    Request  If the request meets the criteria set out in the specification. All but  method  are Regex patterns, and all are optional  {\"type\":\"request\",\"method\":\"get\",\"path\":\".*bob\",\"queries\":{\"query\":\".*query\"},\"headers\":{\"header\":\".*header\"},\"body\":\".*body\"}    Once  For the first request only  {\"type\":\"once\"}    PercentageBased  Applies to a certain (randomly decided) percentage of requests  {\"type\":\"percentage\", \"percentage\":100}    Always  For all requests  {\"type\":\"always\"}", 
             "title": "Triggers: typealias Trigger = (req: Request) -&gt; Boolean"
         }, 
         {
-            "location": "/guide/modules/chaos/#stages-interface-stage-request-filter", 
+            "location": "/guide/modules/chaos/#stages-interface-stage-request-gt-filter", 
             "text": "A  Stage  provides the lifecycle for applying a behaviour, and applies until a  Trigger  indicates that the stage is complete.  Stages  can be chained with  then() , or can be produced by combining a  Behaviour  and a  Trigger  using  appliedWhen() .      Stage function  Lifecycle notes  as JSON      Wait  Does nothing while active  {\"type\":\"wait\",\"until\": insert trigger json }    Repeat  Loops through the stages and then repeats  {\"type\":\"repeat\",\"stages\":[ insert stage json elements ],\"until\": insert trigger json }    (Triggered)  Combines a Trigger and a Behaviour  {\"type\":\"trigger\",\"behaviour\":{\"type\":\"body\"},\"trigger\": insert trigger json ,\"until\": insert trigger json }}", 
             "title": "Stages: interface Stage: (Request) -&gt; Filter?"
         }, 
