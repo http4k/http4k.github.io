@@ -918,9 +918,36 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        In action
+      </label>
+    
     <a href="./" title="In action" class="md-nav__link md-nav__link--active">
       In action
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#kotlinconf-presentations-server-as-a-function-in-kotlin-______" title="KotlinConf presentations: Server as a Function. In Kotlin. ______" class="md-nav__link">
+    KotlinConf presentations: Server as a Function. In Kotlin. ______
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -1048,17 +1075,128 @@
                     
                     
                     <h1 id="rationale-design">Rationale &amp; design</h1>
-<p><a href="https://www.http4k.org/server_as_a_function_in_kotlin">Presentation about the development of http4k given at the Kotlin London meetup</a></p>
+<h3 id="kotlinconf-presentations-server-as-a-function-in-kotlin-______">KotlinConf presentations: Server as a Function. In Kotlin. <strong><em>_</em></strong><strong><em>_</em></strong>____</h3>
+<p><a href="https://speakerdeck.com/daviddenton/server-as-a-function-in-kotlin">Slides</a>
+<a href="http://bit.ly/serverasafunction">Video</a></p>
 <h1 id="see-http4k-in-action-in-these-example-projects">See http4k in action in these example projects:</h1>
-<ul>
-<li><a href="https://start.http4k.org">Super quick start "Hello World" Github/Travis/Heroku CD pipeline)</a></li>
-<li><a href="https://github.com/http4k/http4k-todo-backend">Todo backend (standard routing version)</a></li>
-<li><a href="https://github.com/http4k/http4k-contract-todo-backend">Todo backend (contract routing version)</a></li>
-<li><a href="https://github.com/daviddenton/http4k-demo-s3box">S3-backed Dropbox clone in &lt;100 lines of code</a></li>
-<li><a href="https://github.com/daviddenton/http4k-demo-irc">Simple websocket driven chat-server in 30 lines of code</a></li>
-<li><a href="https://github.com/http4k/http4k-contract-example-app">TDD'd example application</a></li>
-<li><a href="../guide/example">Stage-by-stage example of development process (London TDD style)</a></li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th align="center">Server</th>
+<th align="center">Templates</th>
+<th align="center">Testing</th>
+<th align="center">Auto-marshalling</th>
+<th align="center">Database</th>
+<th align="center">HttpClient</th>
+<th align="center">Websockets</th>
+<th align="center">AWS</th>
+<th align="center">CD pipeline</th>
+<th align="center">Serverless</th>
+<th align="center">Graal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://start.http4k.org">"Hello World"</a></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="https://github.com/http4k/http4k-todo-backend">Todo backend (standard routing version)</a></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="https://github.com/http4k/http4k-contract-todo-backend">Todo backend (contract routing version)</a></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="https://github.com/daviddenton/http4k-demo-irc">Simple websocket driven chat-server in 30 lines of Kotlin</a></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="https://github.com/daviddenton/http4kbox">Dropbox clone in 70 lines of Kotlin</a></td>
+<td align="center">✔</td>
+<td align="center">o</td>
+<td align="center">✔</td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✔</td>
+<td align="center">o</td>
+<td align="center">✔</td>
+<td align="center">o</td>
+</tr>
+<tr>
+<td><a href="https://github.com/http4k/http4k-contract-example-app">TDD'd example application</a></td>
+<td align="center">✔</td>
+<td align="center">o</td>
+<td align="center">✔</td>
+<td align="center">o</td>
+<td align="center"></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><a href="../guide/example">Stage-by-stage example of development process (London TDD style)</a></td>
+<td align="center">✔</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
                     
                     
                     
