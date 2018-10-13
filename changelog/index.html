@@ -2493,7 +2493,7 @@
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
 <h3 id="v3390">v3.39.0</h3>
 <ul>
-<li>(Possible breaking change): <code>Json</code> is now only generified by a single type parameter instead of 2. For most usages, this would have been identical anyway, but the upgrade of Argo has finally allowed the removal of this dead generic. Simply replace <code>Json&lt;Node, Node&gt;` with</code>Json<Node>`.</li>
+<li>(Possible breaking change): <code>Json</code> is now only generified by a single type parameter instead of 2. For most usages, this type would have been identical anyway, but the upgrade of Argo has finally allowed the removal of this dead generic. Simply replace <code>Json&lt;Node, Node&gt;</code> with <code>Json&lt;Node&gt;</code>.</li>
 <li>Added Offset datetime types to all JSON auto-marshalling libraries</li>
 <li>Build logic for versioning is now in Kotlin. H/T @jmfayard for the PR</li>
 <li>Upgrade Kotlin, and various other dependencies</li>
