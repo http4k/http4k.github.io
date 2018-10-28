@@ -2545,10 +2545,11 @@
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
 <h3 id="v3950-uncut">v3.95.0 (uncut)</h3>
 <ul>
-<li>Deprecation: Moved <code>Header.Common</code> fields to main <code>Header</code> object. Extension properties should go there now.</li>
 <li>(Unlikely break): Change <code>Http4kServer</code> interface to return <code>Unit</code> from <code>stop()</code>. This affects all server implementations.</li>
 <li>Added DSL function for working with JSON objects (scopes JSON as <code>this</code>). <code>fun &lt;T&gt; Json&lt;NODE&gt;.invoke(Json&lt;NODE&gt;.() -&gt; T)</code></li>
 <li>New module <code>http4k-cloudnative</code> contains classes to help run http4k services inside cloud-native environments, including K8S.</li>
+<li>Upgrade some dependencies</li>
+<li>Deprecation: Moved <code>Header.Common</code> fields to main <code>Header</code> object. Extension properties should go there now.</li>
 </ul>
 <h3 id="v3941">v3.94.1</h3>
 <ul>
