@@ -12,19 +12,19 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     
-    <meta itemprop="name" content="http4k Webdriver Module">
-    <meta name="twitter:title" content="http4k Webdriver Module">
-    <meta property="og:title" content="http4k Webdriver Module" />
+    <meta itemprop="name" content="http4k Cloud Native tooling">
+    <meta name="twitter:title" content="http4k Cloud Native tooling">
+    <meta property="og:title" content="http4k Cloud Native tooling" />
     
 
     
-    <meta name="description" content="Feature overview of the http4k-webdriver module">
-    <meta property="og:description" content="Feature overview of the http4k-webdriver module" />
-    <meta name="twitter:description" content="Feature overview of the http4k-webdriver module">
+    <meta name="description" content="Feature overview of the http4k-cloudnative module">
+    <meta property="og:description" content="Feature overview of the http4k-cloudnative module" />
+    <meta name="twitter:description" content="Feature overview of the http4k-cloudnative module">
     
 
     
-    <link rel="canonical" href="https://www.http4k.org/guide/modules/webdriver/">
+    <link rel="canonical" href="https://www.http4k.org/guide/modules/cloud_native/">
     
 
     
@@ -77,7 +77,7 @@
     
     
     
-    <title>http4k Webdriver Module</title>
+    <title>http4k Cloud Native tooling</title>
     
     
     
@@ -174,7 +174,7 @@
                         </span>
                     
                     
-                    WebDriver
+                    Cloud native
                     
                 </div>
             </div>
@@ -533,18 +533,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="../cloud_native/" title="Cloud native" class="md-nav__link">
-      Cloud native
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -554,11 +542,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        WebDriver
+        Cloud native
       </label>
     
-    <a href="./" title="WebDriver" class="md-nav__link md-nav__link--active">
-      WebDriver
+    <a href="./" title="Cloud native" class="md-nav__link md-nav__link--active">
+      Cloud native
     </a>
     
       
@@ -574,15 +562,29 @@
     Installation (Gradle)
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#about" title="About" class="md-nav__link">
-    About
-  </a>
-  
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-start" title="Quick start" class="md-nav__link">
+    Quick start
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observability" title="Observability" class="md-nav__link">
+    Observability
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#code" title="Code " class="md-nav__link">
@@ -604,6 +606,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../webdriver/" title="WebDriver" class="md-nav__link">
+      WebDriver
+    </a>
   </li>
 
         
@@ -1144,79 +1158,38 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/modules/webdriver/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/modules/cloud_native/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                     
                     
-                    <h1>WebDriver</h1>
+                    <h1>Cloud native</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><code>compile group: "org.http4k", name: "http4k-testing-webdriver", version: "3.95.0"</code></p>
-<h3 id="about">About</h3>
-<p>A basic Selenium WebDriver API implementation for <strong>http4k</strong> HttpHandlers, which runs completely out of container (no network) for ultra fast tests.</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Supported</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Navigation</td>
-<td>yes</td>
-<td>simple back/forward/refresh history</td>
-</tr>
-<tr>
-<td>CSS selectors</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td>Link navigation</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td>Form field entry and submission</td>
-<td>yes</td>
-<td></td>
-</tr>
-<tr>
-<td>Cookie storage</td>
-<td>yes</td>
-<td>manual expiry management</td>
-</tr>
-<tr>
-<td>JavaScript</td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td>Alerts</td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td>Screenshots</td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td>Frames</td>
-<td>no</td>
-<td></td>
-</tr>
-<tr>
-<td>Multiple windows</td>
-<td>no</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>Use the API like any other WebDriver implementation, by simply passing your app HttpHandler to construct it:</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/webdriver/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/webdriver/example.kt"></script>
+<p><strong>Java (for development only):</strong> <code>compile group: "org.http4k", name: "http4k-cloud-native", version: "3.95.0"</code></p>
+<p>http4k applications are naturally at home operating in distributed, Cloud Native environments. Whilst simple to create, this module 
+provides requisite tooling to get apps up and running with the minimum of effort to enable the following operational aspects:</p>
+<h4 id="quick-start">Quick start</h4>
+<p>Because http4k does not use reflection or annotation process for application startup, all of the supported Server-backends 
+start up and shutdown very quickly - this is crucial for cloud-based environments where an orchestration framework might move 
+instances around to redistribute load or avoid problematic server/rack/DCs.</p>
+<h4 id="configuration">Configuration</h4>
+<p>All application configuration should be injected via environmental variables. http4k provides an <code>Environment</code> object, along with 
+typesafe variable binding using the in-built Lenses mechanism. This typesafe API is consistent with the other usages of Lenses 
+throughout http4k, so should have a near-zero learning curve. Also provided are a set of extension methods for retrieving standard 
+environmental config for service ports from Kubernetes.</p>
+<h4 id="observability">Observability</h4>
+<p>Orchestration software such as Kubernetes and CloudFoundry regularly query a set of diagnostic endpoints to monitor the state of an 
+application. This module provides standardised <code>HttpHandler</code> implementations to model the following endpoints:</p>
+<ul>
+<li>Liveness - used to determine if the application is actually alive.</li>
+<li>Readiness - used to determine if the application is available to receive production traffic from the cloud Load Balancer. This 
+endpoint performs a series of diagnostic checks against it's dependencies (such as database connectivity) and collates the 
+results to report back to the orchestrator. http4k provides the <code>ReadinessCheck</code> interface which can be implementaed as required 
+and plugged into the endpoint.</li>
+</ul>
+<p>In Kubernetes, his set of endpoints is generally hosted on a second port to avoid the API clashes, so http4k provides the machinery to 
+easily start these services on a different port to the main application API via the <code>Http4kK8sServer</code> object.</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/cloud_native/example_k8s.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/cloud_native/example_k8s.kt"></script></p>
                     
                     
                     
@@ -1237,7 +1210,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../cloud_native/" title="Cloud native" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../oauth/" title="OAuth" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1246,19 +1219,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Cloud native
+                OAuth
               </span>
             </div>
           </a>
         
         
-          <a href="../chaos/" title="Chaos Testing" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../webdriver/" title="WebDriver" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Chaos Testing
+                WebDriver
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
