@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31021" tabindex="1" class="md-skip">
+<a href="../#v31030-uncut" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1034,6 +1034,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v31030-uncut" title="v3.103.0 (uncut)" class="md-nav__link">
+    v3.103.0 (uncut)
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v31021" title="v3.102.1" class="md-nav__link">
@@ -2618,6 +2625,12 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
+<h3 id="v31030-uncut">v3.103.0 (uncut)</h3>
+<ul>
+<li>Upgraded some dependencies, including Gradle to v5.0.</li>
+<li>Breaking: Resilience4j dependency upgrade causes a break when providing custom config. Simply insert the Config type generic to fix:
+e.g. <code>RetryConfig.custom()</code> -&gt; <code>RetryConfig.custom&lt;RetryConfig&gt;()</code></li>
+</ul>
 <h3 id="v31021">v3.102.1</h3>
 <ul>
 <li>Fix #197 -Swagger spec for form fields had incorrect description. </li>
@@ -2628,14 +2641,14 @@
 </ul>
 <h3 id="v31010">v3.101.0</h3>
 <ul>
-<li>upgrades to dependencies</li>
+<li>Upgrades to dependencies</li>
 <li>Improved Client-side HTTP status descriptions</li>
 <li>Lenses now support Durations out of the box</li>
 <li>Environments now support multi-value keys (comma separated)</li>
 </ul>
 <h3 id="v31000">v3.100.0</h3>
 <ul>
-<li>Make <code>Undertow</code> API more friendly</li>
+<li>Make <code>Undertow</code> API friendlier</li>
 <li>Fix to JsonReadinessCheckResultRenderer to actually implement the correct interface</li>
 </ul>
 <h3 id="v3990">v3.99.0</h3>
