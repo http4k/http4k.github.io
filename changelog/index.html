@@ -2627,13 +2627,14 @@
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
 <h3 id="v31030-uncut">v3.103.0 (uncut)</h3>
 <ul>
+<li>"Fix" #198 - Breaking change made in <code>http4k-contracts</code> to clarify/deconfuse API. Hid <code>body</code> parameter in contract route meta DSL - it is now <code>receiving()</code>.</li>
 <li>Upgraded some dependencies, including Gradle to v5.0.</li>
 <li>Breaking: Resilience4j dependency upgrade causes a break when providing custom config. Simply insert the Config type generic to fix:
 e.g. <code>RetryConfig.custom()</code> -&gt; <code>RetryConfig.custom&lt;RetryConfig&gt;()</code></li>
 </ul>
 <h3 id="v31021">v3.102.1</h3>
 <ul>
-<li>Fix #197 -Swagger spec for form fields had incorrect description. </li>
+<li>Fix #197 - Swagger spec for form fields had incorrect description. </li>
 </ul>
 <h3 id="v31020">v3.102.0</h3>
 <ul>
