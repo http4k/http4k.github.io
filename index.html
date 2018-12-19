@@ -1348,7 +1348,7 @@ plugging together of services without HTTP container being required.</li>
 <span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">Array</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;)</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// we can bind HttpHandlers (which are just functions from  Request -&gt; Response) to paths/methods to create a Route,</span>
     <span class="c1">// then combine many Routes together to make another HttpHandler</span>
     <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
