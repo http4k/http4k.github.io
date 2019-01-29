@@ -415,8 +415,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../clients/" title="HTTP/Websocket client" class="md-nav__link">
-      HTTP/Websocket client
+    <a href="../json/" title="JSON handling" class="md-nav__link">
+      JSON handling
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../clients/" title="HTTP/Websocket clients" class="md-nav__link">
+      HTTP/Websocket clients
     </a>
   </li>
 
@@ -429,18 +441,6 @@
   <li class="md-nav__item">
     <a href="../metrics/" title="Metrics" class="md-nav__link">
       Metrics
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../message_formats/" title="Message formats" class="md-nav__link">
-      Message formats
     </a>
   </li>
 
@@ -507,6 +507,26 @@
         <li class="md-nav__item">
   <a href="#about" title="About" class="md-nav__link">
     About
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code" title="Code " class="md-nav__link">
+    Code 
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customisation" title="Customisation" class="md-nav__link">
+    Customisation
   </a>
   
 </li>
@@ -590,6 +610,18 @@
   <li class="md-nav__item">
     <a href="../jsonrpc/" title="JSON RPC" class="md-nav__link">
       JSON RPC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../xml/" title="XML handling" class="md-nav__link">
+      XML handling
     </a>
   </li>
 
@@ -1156,12 +1188,14 @@
 <p><strong>Undertow:</strong> <code>compile group: "org.http4k", name: "http4k-server-undertow", version: "3.109.0"</code></p>
 <p><strong>SunHttp (for development only):</strong> <code>compile group: "org.http4k", name: "http4k-core", version: "3.109.0"</code></p>
 <h3 id="about">About</h3>
-<p>Server-backend modules provide a consistent API mount HttpHandlers into the specified container in 1 LOC, by simply passing a <code>ServerConfig</code> implementation (in this case <code>Jetty</code>):</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span> <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">().</span><span class="n">block</span><span class="p">()</span>
-</pre></div>
-
-
-<p>Alternatively, all server-backend modules allow for plugging <strong>http4k</strong> handlers into the relevant server API, which allows for custom Server configuration.</p>
+<p>Server-backend modules provide a consistent API to mount HttpHandlers into the specified container in 1 LOC, by 
+simply passing it to the relevant <code>ServerConfig</code> implementation (in this case <code>Jetty</code>):</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/servers/example_http.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/servers/example_http.kt"></script></p>
+<h3 id="customisation">Customisation</h3>
+<p>Each of the server backends implement an interface <code>ServerConfig</code>, which is written with sensible defaults for the server in questions, 
+but is also designed to be used as a starting point for tweaking to API user needs. To customize, simply use the relevant <code>ServerConfig</code> 
+class as a starting point and reimplement as required.</p>
                     
                     
                     
