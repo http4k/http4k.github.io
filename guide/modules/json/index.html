@@ -1229,14 +1229,14 @@
 <p>These modules add the ability to use JSON as a first-class citizen when reading from and to HTTP messages. Each implementation adds a set of 
 standard methods and extension methods for converting common types into native JSON/XML objects, including custom Lens methods for each library so that 
 JSON node objects can be written and read directly from HTTP messages:</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/example.kt"></script>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/example.kt"></script>
 
 <h3 id="auto-marshalling-capabilities">Auto-marshalling capabilities</h3>
 <p>Some of the message libraries (eg. GSON, Jackson, Moshi, XML) provide the mechanism to automatically marshall data objects to/from JSON and XML using reflection.</p>
 <p>We can use this facility in <strong>http4k</strong> to automatically marshall objects to/from HTTP message bodies using <strong>Lenses</strong>:</p>
-<h4 id="json">JSON <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/autoJson.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/autoJson.kt"></script>
+<h4 id="json">JSON <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/autoJson.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/autoJson.kt"></script>
 
 <p>There is a utility to generate Kotlin data class code for JSON documents <a href="http://http4k-data-class-gen.herokuapp.com">here</a> . These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
 <h4 id="faq-aka-gotchas-regarding-auto-marshalling-capabilities">FAQ (aka gotchas) regarding Auto-marshalling capabilities</h4>
@@ -1246,8 +1246,8 @@ JSON node objects can be written and read directly from HTTP messages:</p>
 <p>When handling raw JSON array messages, such as: <code>[123, 456, 567]</code>, there is a slight gotcha when auto-marshalling messages from JSON.</p>
 <p>This is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.</p>
 <p>As shown, a workaround to this is to use <code>Body.auto&lt;Array&lt;MyIntWrapper&gt;&gt;().toLens()</code> instead, and then compare using <code>Arrays.equal()</code></p>
-<p><a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/list_gotcha.kt"><img class="octocat" src="/img/octocat-32.png"/></a></p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/message_formats/list_gotcha.kt"></script>
+<p><a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/list_gotcha.kt"><img class="octocat" src="/img/octocat-32.png"/></a></p>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/list_gotcha.kt"></script>
                     
                     
                     
