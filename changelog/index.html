@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31121" tabindex="1" class="md-skip">
+<a href="../#v31122" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -678,18 +678,6 @@
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../api/" title="API docs" class="md-nav__link">
-      API docs
-    </a>
-  </li>
-
-        
       </ul>
     </nav>
   </li>
@@ -1058,6 +1046,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v31122" title="v3.112.2" class="md-nav__link">
+    v3.112.2
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v31121" title="v3.112.1" class="md-nav__link">
@@ -2740,6 +2735,11 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
+<h3 id="v31122">v3.112.2</h3>
+<ul>
+<li>Fix #212 - allow null values in HTTP contract definitions. This does mean we lose the type definition for 
+that field, but we don't blow up silently (which was the previous behaviour);</li>
+</ul>
 <h3 id="v31121">v3.112.1</h3>
 <ul>
 <li>Re-add <code>Path.nonEmptyString()</code> which was accidentally removed. </li>
