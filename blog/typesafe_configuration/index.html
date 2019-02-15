@@ -1119,22 +1119,9 @@ standard types:</p>
 operational domain type that can validate format and avoid confusion. A good example of this is the passing of temporal 
 values as integer values - timeouts can be interpreted incorrectly in the wrong unit (seconds instead of milliseconds). 
 Kotlin gives us a simple way to do this using data classes:</p>
-<div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">Port</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">init</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="p">&lt;</span> <span class="m">0</span> <span class="p">||</span> <span class="n">value</span> <span class="p">&gt;</span> <span class="m">65535</span><span class="p">)</span> <span class="k">throw</span> <span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Out of range Port: $value&#39;&quot;</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">port</span> <span class="p">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HTTP_PORT&quot;</span><span class="p">).</span><span class="n">toInt</span><span class="p">())</span>
-
-    <span class="k">val</span> <span class="py">handler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
-    <span class="n">handler</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="o">::</span><span class="n">SunHttp</span><span class="p">,</span> <span class="n">Port</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Obviously, the above is still not very safe - a failed coercion will still fail </p>
+<h5 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/intro.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h5>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/intro.kt"></script></p>
+<p>Obviously, the above is still not very safe - a failed coercion will still fail with an <code>IllegalArgumentException</code>. We can do better.</p>
 <h4 id="2-security">2. Security</h4>
 <p>Most apps will have both sensitive and non-sensitive values. Sensitive such as application secrets, DB passwords or API 
 keys should (as far as is reasonable) be handled in a way that avoid storing directly in memory in a readable format, 
@@ -1150,19 +1137,19 @@ which could be data-driven (ie. not known at compile-time).</li>
 are not.</li>
 </ul>
 <h4 id="4-multiplicity">4. Multiplicity</h4>
-<p>Most of these values may have one or multiple values and need to be converted safely from the injected string 
+<p>Configuration parameters may have one or many values and need to be converted safely from the injected string 
 representation into their internally represented types at application startup. Illegal or missing values should produce 
 a reasonable error and stop the app from starting.</p>
 <h4 id="5-overriding">5. Overriding</h4>
-<p>We probably also want to avoid defining all values for all possible environments - for example in test cases, so the ability 
+<p>We also want to avoid defining all values for all possible environments - for example in test cases, so the ability 
 to overlay configuration sets on top of each other is useful. Although it is against the rules of 12-factor, it is sometimes 
-convenient to source from a variety of locations:</p>
+convenient to source parameter values from a variety of locations when running applications in non-cloud environments:</p>
 <ul>
 <li>System Environment variables</li>
 <li>Properties files</li>
 <li>JAR resources</li>
 <li>Local files</li>
-<li>In-memory defined configurations</li>
+<li>Source code defined environmental configuration</li>
 </ul>
 <h3 id="introducing-http4k-environments">Introducing http4k Environments</h3>
                     
