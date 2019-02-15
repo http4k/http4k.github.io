@@ -12,9 +12,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     
-    <meta itemprop="name" content="http4k blog: Websockets. But typesafe. And testable. Without the Server.">
-    <meta name="twitter:title" content="http4k blog: Websockets. But typesafe. And testable. Without the Server.">
-    <meta property="og:title" content="http4k blog: Websockets. But typesafe. And testable. Without the Server." />
+    <meta itemprop="name" content="http4k blog: Add typesafe 12-factor configuration to your apps with Environments.">
+    <meta name="twitter:title" content="http4k blog: Add typesafe 12-factor configuration to your apps with Environments.">
+    <meta property="og:title" content="http4k blog: Add typesafe 12-factor configuration to your apps with Environments." />
     
 
     
@@ -24,7 +24,7 @@
     
 
     
-    <link rel="canonical" href="https://www.http4k.org/blog/typesafe_websockets/">
+    <link rel="canonical" href="https://www.http4k.org/blog/typesafe_configuration/">
     
 
     
@@ -77,7 +77,7 @@
     
     
     
-    <title>http4k blog: Websockets. But typesafe. And testable. Without the Server.</title>
+    <title>http4k blog: Add typesafe 12-factor configuration to your apps with Environments.</title>
     
     
     
@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../../#websockets-but-typesafe-and-testable-without-the-server" tabindex="1" class="md-skip">
+<a href="../../#add-typesafe-12-factor-configuration-to-your-apps-with-http4k-environments" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -165,12 +165,8 @@
                     
                     
                     
-                        <span class="md-header-nav__parent">
-                          Blog >
-                        </span>
                     
-                    
-                    Typesafe Websockets
+                    http4k blog: Add typesafe 12-factor configuration to your apps with Environments.
                     
                 </div>
             </div>
@@ -979,12 +975,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
     
     <label class="md-nav__link" for="nav-9">
       Blog
@@ -1012,90 +1006,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Typesafe Websockets
-      </label>
-    
-    <a href="./" title="Typesafe Websockets" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../typesafe_websockets/" title="Typesafe Websockets" class="md-nav__link">
       Typesafe Websockets
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#daviddenton" title="@daviddenton" class="md-nav__link">
-    @daviddenton
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#details-schmeetails" title="Details schmeetails..." class="md-nav__link">
-    Details schmeetails...
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#an-example-server" title="An example server " class="md-nav__link">
-    An example server 
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testability" title="Testability " class="md-nav__link">
-    Testability 
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fin" title="Fin" class="md-nav__link">
-    Fin
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#footnotes" title="Footnotes" class="md-nav__link">
-    Footnotes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -1175,47 +1090,30 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/blog/typesafe_websockets/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/blog/typesafe_configuration/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                     
                     
-                    <h1 id="websockets-but-typesafe-and-testable-without-the-server">Websockets. But typesafe. And testable. Without the Server.</h1>
+                    <h1 id="add-typesafe-12-factor-configuration-to-your-apps-with-http4k-environments">Add typesafe 12-factor configuration to your apps with http4k Environments.</h1>
 <h5 id="daviddenton"><a href="http://github.com/daviddenton">@daviddenton</a></h5>
-<p>Reaction to the last post introducing <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> was pretty good, and one of the most popular questions was: <strong>"But what about Websockets"</strong>?</p>
-<p>The answer to that question at the time was an emphatic <strong>"Not yet"</strong> - because they didn't fit the "Server as a Function" model, and the team hadn't worked out a way to deliver them in a simple, offline testable&ast; way.</p>
-<p>Well, a month is a long time, and we've been beavering away, so now we're thrilled to release <strong>Websockets for <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a></strong>, which are:</p>
+<p>One of the tenets of operating applications according to the principles of <a href="https://12factor.net/">12-factor</a> applications, and especially in containerised cloud-native apps, is 
+to inject all app configuration through the use of environmental variables. Additionally, when using more restrictive settings (such as utilising JVM security manager policies or 
+through the use of container images which don't provide an OS baseline) it may not be possible to read files from disk, which reinforces the approach.</p>
+<p>There are several particular relevant concerns that</p>
+<h4 id="1-type-coercion">1. Type coercion</h4>
+<p>Most applications will require a variety of configuration primitive types, which may or may not map to the Java/Kotlin standard types:</p>
 <ul>
-<li><strong>Simple</strong>: using the same style of API as the rest of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a>, allowing the same dynamic path-based routing as is available for standard <code>HttpHandlers</code>.</li>
-<li><strong>Typesafe</strong>: Marshall and unmarshall typed objects from Websocket Messages using the established Lens API.</li>
-<li><strong>Testable</strong>: This is something that is massively important to us - and just like standard HttpHandlers, <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> Websockets are completely testable in a synchronous online or offline environment. No. Server. Required.</li>
+<li>publicly known strings such as URLs, log levels, or AWS role names</li>
+<li>non-public strings such as application secrets, passwords or API-keys - we should avoid </li>
+<li>numeric values such as Ports or retry counts</li>
+<li>duration values for timeouts, backoff times</li>
+<li>booleans such as debug switch or feature flags</li>
 </ul>
-<h4 id="details-schmeetails">Details schmeetails...</h4>
-<p>Just as with HttpHandlers, the here are 2 basic function types which make up the core of the Websocket routing API:</p>
-<ul>
-<li>A <code>WsHandler</code> - represented as a typealias: <code>(Request) -&gt; WsConsumer?</code>. This is responsible for matching an incoming HTTP upgrade request to a websocket.</li>
-<li><code>WsConsumer</code> - represented as a typealias: <code>(WebSocket) -&gt; Unit</code>. This function is called on connection and allow the API user to react to events coming from the connected Websocket by attaching listeners.</li>
-</ul>
-<p>Additionally, <code>WsMessage</code> objects are used for actual communication - ie. a message which is sent or received on a Websocket. This message can take advantage of the typesafety accorded to other entities in <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> by using the Lens API. And just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are <strong>immutable data classes</strong>.</p>
-<h4 id="an-example-server">An example server <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p>The example below shows how:</p>
-<ul>
-<li>Websockets can be dynamically routed</li>
-<li>Lens-based marshalling of Websocket message objects using Jackson. </li>
-<li><code>WsHandler</code> can be combined with an <code>HttpHandler</code> to make a <code>PolyHandler</code> - an application which can serve many protocols. Conversion of the <code>PolyHandler</code> to a supporting Server can be done via the standard <code>asServer()</code> mechanism, or it can be kept offline for ultra-fast in-memory testing:</li>
-</ul>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example.kt"></script>
-
-<p>Alternatively, you can check out the Websocket enabled <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> demo: <a href="https://github.com/daviddenton/http4k-demo-irc">IRC clone in 30 lines of Kotlin</a>.</p>
-<h4 id="testability">Testability <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example_testing.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h4>
-<p>As well as API simplicity, the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> team are very passionate about testing, and it was very important that this could be done in an out-of-container fashion - ie. in memory and with no server being started. As such, it is possible to call <code>testWsClient()</code> on an <code>WsHandler</code> to provide a synchronous API for testing. Messages and other events can be "sent" to a connected websocket and responses will be received back in a completely predictable way from the application under test.</p>
-<p>In the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example_testing.kt"></script>
-
-<h4 id="fin">Fin</h4>
-<p>Websocket support is now available for the Jetty server backend in <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> <code>v3.2.0</code>. We plan to roll out support for other server-backends in due course. Have a play a let us know what you think... </p>
-<h5 id="footnotes">Footnotes</h5>
-<ul>
-<li>&ast; We had a bit of a search for "unit testing websockets", half through curiosity and half because we wanted to swipe other people's ideas for implementing it. But we came up with nothing - it seems like all the existing JVM HTTP libraries rely on running servers for testing websockets. We hope we're wrong - because the alternative makes us a little &lt;insert sadface emoji/&gt;. If we are, then please let us know! 😝</li>
-</ul>
+<p>Additionally, most of these values may have one or multiple values and need to be converted safely from the injected string value into their internally represented types at application startup.</p>
+<h4 id="optionality">Optionality</h4>
+<p>Depending on the parameter in question, there may be </p>
+<p>//TODO</p>
+<h4 id="overriding">Overriding</h4>
+<p>//TODO</p>
                     
                     
                     
@@ -1232,41 +1130,6 @@
     
     
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../meet_http4k/" title="Meet http4k" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Meet http4k
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="../../changelog/" title="Changelog" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Changelog
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
