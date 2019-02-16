@@ -1221,10 +1221,12 @@ using <code>EnviromentKey</code> Lenses, which are an extension of the <a href="
 objects.</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/post/typesafe.kt"></script>
 
-<ul>
-<li>secrets
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/post/secrets.kt"></script></li>
-</ul>
+<h5 id="handling-failure">Handling failure</h5>
+<p>When using the <a href="https://http4k.org">http4k</a> Environment to define config, missing or values which cannot be deserialised all now cause 
+a <code>LensFailure</code> to be thrown with a descriptive error message. As before, this results in the application failing to 
+start, but as the exception if both consistent and explicit, diagnosing the problem becomes much simpler.</p>
+<h3 id="_1"></h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/post/secrets.kt"></script></p>
                     
                     
                     
