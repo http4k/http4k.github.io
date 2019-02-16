@@ -1096,9 +1096,9 @@
                     <h1 id="add-typesafe-12-factor-configuration-to-http4k-apps-with-environments">Add typesafe 12-factor configuration to http4k apps with Environments.</h1>
 <h5 id="daviddenton"><a href="http://github.com/daviddenton">@daviddenton</a></h5>
 <h3 id="intro">Intro</h3>
-<p>This post covers the various concerns around configuring HTTP apps, and introduces the recommended method for safely 
-addressing these when deploying <a href="https://http4k.org">http4k</a> applications into cloud-native environments using the 
-Kotlin type system.</p>
+<p>This post covers the various concerns around configuring HTTP apps, and introduces the <a href="https://http4k.org">http4k</a> 
+approach for addressing these when deploying applications into cloud-native environments, which leverages the Kotlin type 
+system for maximum safely and code reuse.</p>
 <h3 id="concerns-when-configuring-applications">Concerns when configuring applications</h3>
 <p>One of the tenets of operating applications according to the principles of <a href="https://12factor.net/">12-factor</a>, 
 and especially in containerised cloud-native apps, is to inject all app configuration through the use of environmental 
@@ -1123,6 +1123,7 @@ which could be data-driven (ie. not known at compile-time).</li>
 <li><strong>Defaulted:</strong> These values can be supplied, but a fallback value (or chain of other config values) will be used if they 
 are not.</li>
 </ul>
+<p>Missing values should produce a reasonable error and stop the app from starting.</p>
 <h4 id="2-type-coercion">2. Type coercion</h4>
 <p>Most applications will require a variety of configuration primitive types, which may or may not map to the Java/Kotlin 
 standard types:</p>
@@ -1151,7 +1152,6 @@ that we wish to parse.</p>
 representation into their internally represented types at application startup. </p>
 <h5 id="code_3">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/multiplicity.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h5>
 <p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/multiplicity.kt"></script></p>
-<p>Illegal or missing values should produce a reasonable error and stop the app from starting.</p>
 <h4 id="4-security">4. Security</h4>
 <p>The configuration of a standard app will generally contain both sensitive and non-sensitive values. Sensitive such as 
 application secrets, DB passwords or API keys should (as far as is reasonable) be handled in a way that avoid storing 
