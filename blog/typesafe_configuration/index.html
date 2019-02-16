@@ -1192,7 +1192,7 @@ with the value injected into it.</li>
 </ol>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/post/lens_definition.kt"></script>
 
-<p>The creation of a Lens consists of 5 main concerns:</p>
+<p>The creation of a Lens consists of 4 main concerns:</p>
 <ol>
 <li><strong>targeting</strong> determines where the Lens expects to extract and inject the values from/to, which can consist of both 
 an overall target and a name within that target.</li>
@@ -1205,7 +1205,7 @@ This is done in code using the <code>map()</code> method defined on the Lens.</l
 <strong>multiplicity</strong>, provide any <strong>transformations</strong> with <code>map()</code>, and finally reify the specification into a Lens instance 
 by deciding it's optionality.</p>
 <p>It sounds involved, but it is consistent and the fluent API has been designed to make it simpler. By way of an example, 
-here we define a Lens which is <strong>targetted</strong> at the <strong>required</strong> querystring parameter "pageNumber", and which extracts 
+here we define a Lens which is <strong>targeted</strong> at the <strong>required</strong> querystring parameter "pageNumber", and which extracts 
 and injects values of custom type <code>Page</code>.</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_configuration/post/lens_example.kt"></script>
 
