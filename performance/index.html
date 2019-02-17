@@ -983,8 +983,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#results-round-16" title="Results - Round 16" class="md-nav__link">
-    Results - Round 16
+  <a href="#results-round-17" title="Results - Round 17" class="md-nav__link">
+    Results - Round 17
   </a>
   
     <nav class="md-nav">
@@ -1184,10 +1184,10 @@
                     
                     <h1>Performance</h1>
                     
-                    <p>The <strong>http4k</strong> server-backend modules provide a very thin adapter layer over the raw APIs of the underlying servers, so 
+                    <p>The <a href="https://http4k.org">http4k</a> server-backend modules provide a very thin adapter layer over the raw APIs of the underlying servers, so 
 generally performs at a very low overhead compared to the raw server.</p>
 <h3 id="tech-empower-benchmarks">Tech Empower Benchmarks</h3>
-<p>We have entered <strong>http4k</strong> into the prominent <a href="https://www.techempower.com/benchmarks/">Tech Empower Framework Benchmarks</a> 
+<p>We have entered <a href="https://http4k.org">http4k</a> into the prominent <a href="https://www.techempower.com/benchmarks/">Tech Empower Framework Benchmarks</a> 
 project, which assesses frameworks over a series of realistic tests. </p>
 <p>For this benchmark, no customisation or performance tuning of the underlying servers was done - the default application 
 HttpHandler was used which is then plugged into each custom backend, as below:</p>
@@ -1199,28 +1199,30 @@ HttpHandler was used which is then plugged into each custom backend, as below:</
 
 <p>Command-line JVM options, however, were tuned for the test to take advantage of various JVM features.</p>
 <p>The full implementation of the benchmark can be found <a href="https://github.com/TechEmpower/FrameworkBenchmarks/tree/master/frameworks/Kotlin/http4k">here</a>.</p>
-<h3 id="results-round-16">Results - Round 16</h3>
-<p>Overall, http4k did very well in this round of benchmarking, especially considering that the ethos of the library is one of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).</p>
-<p>The big surprise was the high performance of the Apache server backend, which consistently outranked Undertow (which is the the most fully featured of all the supported backends and our default option). The SunHttp backend, which we entered for a baseline comparison, unfortunately didn't produce any results in this round.</p>
-<p>For each of the sections below, the rankings are based only on JVM-based entries.</p>
-<h4 id="db-query-html-rendering-results">DB query + HTML rendering: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=fortune&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 11/82 - Apache backend</em></p>
+<h3 id="results-round-17">Results - Round 17</h3>
+<p>Overall, http4k did very well in this round of benchmarking, especially considering that the ethos of the library is one 
+of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).</p>
+<p>The big surprise was the high performance of the Apache server backend, which consistently outranked Undertow (which is 
+the the most fully featured of all the supported backends and our default option). The SunHttp backend, which we entered 
+for a baseline comparison, unfortunately didn't produce any results in this round.</p>
+<h4 id="db-query-html-rendering-results">DB query + HTML rendering: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=fortune&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 6/73 - Apache backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.
 Handlebars templating engine is used for rendering.</p>
-<h4 id="multiple-db-queries-results">Multiple DB queries: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=query&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 3/76 - Jetty backend</em></p>
+<h4 id="multiple-db-queries-results">Multiple DB queries: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=query&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 3/66 - Jetty backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="single-db-query-results">Single DB query: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=db&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 7/78 - Apache backend</em></p>
+<h4 id="single-db-query-results">Single DB query: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=db&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 8/68 - Apache backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="random-db-updates-results">Random DB updates: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=update&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 11/69 - Jetty backend</em></p>
+<h4 id="random-db-updates-results">Random DB updates: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=update&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 14/59 - Jetty backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="json-serialization-results">JSON Serialization: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=json&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 23/77 - Apache backend</em></p>
+<h4 id="json-serialization-results">JSON Serialization: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=json&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 20/69 - Apache backend</em></p>
 <p>The standard Jackson module is used for JSON creation and marshalling.</p>
-<h4 id="plaintext-pipelining-results">Plaintext pipelining: <a href="https://www.techempower.com/benchmarks/#section=data-r16&amp;hw=ph&amp;test=plaintext&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 23/73 - Apache backend</em></p>
+<h4 id="plaintext-pipelining-results">Plaintext pipelining: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=plaintext&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 23/66 - Apache backend</em></p>
                     
                     
                     
