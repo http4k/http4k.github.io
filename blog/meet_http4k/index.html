@@ -1338,7 +1338,7 @@ couple of Kotlin <a href="https://kotlinlang.org/docs/reference/extensions.html"
 
 <p>Filters are also trivial to test independently, because they are generally just stateless functions.</p>
 <h3 id="routing">Routing</h3>
-<p><a href="https://github.com/http4k/http4k">http4k</a>'s nestable routing looks a lot like every other Sinatra-style framework these 
+<p><a href="https://http4k.org">http4k</a>'s nestable routing looks a lot like every other Sinatra-style framework these 
 days, and allows for infinitely nesting <code>HttpHandlers</code> - this just exposes another <code>HttpHandler</code> so you can easily extract, 
 test and reuse sets of routes as easily as you could with one:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
@@ -1516,9 +1516,8 @@ vast majority of apps, this actually makes API integration harder unless you've 
 assuming that async clients are actually available for all your various remote dependencies. We found that this plainly 
 didn't matter for our use-cases so went for <em>Simple API™</em> instead... it's possible however that Kotlin co-routines will 
 allow us to revisit this decision.</li>
-<li><strong>(UPDATE) Websockets?</strong> Yep - simple, testable, and now available in v3.2.1! See the introductory [blog post] for details! </li>
+<li><strong>(UPDATE) Websockets?</strong> Yep - simple, testable, and now available in v3.2.1! See the introductory <a href="https://www.http4k.org/blog/typesafe_websockets/">blog post</a> for details! </li>
 </ul>
-<p><a href="https://www.http4k.org/blog/typesafe_websockets/">blog post</a></p>
                     
                     
                     
