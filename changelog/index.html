@@ -2751,8 +2751,11 @@
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
 <h3 id="v31130-uncut">v3.113.0 (uncut)</h3>
 <ul>
+<li>(Possible Break): Fix #215 - <code>LensFailure</code> does not always include target object. Only change to the API 
+is that <code>IN</code> generic in Lenses is now bounded by <code>IN : Any</code>. This fix is a actually internally consistent as 
+we could not always include the target otherwise (which is an <code>Any?</code>).</li>
 <li>Trim leading and trailing whitespace from extracted <code>EnvironmentKey</code> values.</li>
-<li>Secret is now only usable once.</li>
+<li>Secret value is now only usable once via the <code>use()</code> function.</li>
 </ul>
 <h3 id="v31130">v3.113.0</h3>
 <ul>
