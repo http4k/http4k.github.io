@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31190" tabindex="1" class="md-skip">
+<a href="../#v31200-uncut" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1046,6 +1046,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v31200-uncut" title="v3.120.0 (uncut)" class="md-nav__link">
+    v3.120.0 (uncut)
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v31190" title="v3.119.0" class="md-nav__link">
@@ -2791,6 +2798,14 @@
                     <h2 class="github">Changelog</h2>
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their rationale when appropriate:</p>
+<h3 id="v31200-uncut">v3.120.0 (uncut)</h3>
+<ul>
+<li>Deprecated <code>Body.view()</code> lens construction in favour of a <code>Body.viewModel()</code> call which removes the 
+implicitly called <code>toLens()</code>. This allows further mapping from one <code>ViewModel</code> type to another, 
+and brings the view lens construction into line with the rest of the extension functions on <code>Body</code>.</li>
+<li>Add auto-marshalling XML support to <code>http4k-format-jackson</code> module. Note that this is for 
+auto-marshalling of data-classes only and does not expose an XML DOM model.</li>
+</ul>
 <h3 id="v31190">v3.119.0</h3>
 <ul>
 <li>Add <code>UpstreamRequestFailed</code> exceptions and <code>HandleUpstreamRequestFailed</code> filters to 

@@ -12,15 +12,15 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     
-    <meta itemprop="name" content="http4k XML messaging Module">
-    <meta name="twitter:title" content="http4k XML messaging Module">
-    <meta property="og:title" content="http4k XML messaging Module" />
+    <meta itemprop="name" content="http4k XML messaging Modules">
+    <meta name="twitter:title" content="http4k XML messaging Modules">
+    <meta property="og:title" content="http4k XML messaging Modules" />
     
 
     
-    <meta name="description" content="Feature overview of the http4k-format-xml module, which includes a limited automarshalling capability">
-    <meta property="og:description" content="Feature overview of the http4k-format-xml module, which includes a limited automarshalling capability" />
-    <meta name="twitter:description" content="Feature overview of the http4k-format-xml module, which includes a limited automarshalling capability">
+    <meta name="description" content="Feature overview of the modules providing XML support, including an auto-marshalling capability">
+    <meta property="og:description" content="Feature overview of the modules providing XML support, including an auto-marshalling capability" />
+    <meta name="twitter:description" content="Feature overview of the modules providing XML support, including an auto-marshalling capability">
     
 
     
@@ -77,7 +77,7 @@
     
     
     
-    <title>http4k XML messaging Module</title>
+    <title>http4k XML messaging Modules</title>
     
     
     
@@ -593,12 +593,26 @@
     About
   </a>
   
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jacksonxml" title="JacksonXml" class="md-nav__link">
+    JacksonXml
+  </a>
+  
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#code" title="Code " class="md-nav__link">
-    Code 
+  <a href="#jacksonxml-code" title="JacksonXML Code " class="md-nav__link">
+    JacksonXML Code 
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml-code" title="XML Code " class="md-nav__link">
+    XML Code 
   </a>
   
 </li>
@@ -1162,14 +1176,36 @@
                     <h1>XML handling</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><code>compile group: "org.http4k", name: "http4k-format-xml", version: "3.119.0"</code></p>
+<p><code>compile group: "org.http4k", name: "http4k-format-xml", version: "3.119.0"</code>
+<code>compile group: "org.http4k", name: "http4k-format-jackson", version: "3.119.0"</code></p>
 <h3 id="about">About</h3>
-<p>This module adds the ability to use XML as a first-class citizen when reading from and to HTTP messages. It also adds an 
-automarshalling facility to read XML node objects directly into a custom type which matches the schema:</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"><img class="octocat"/></a></h4>
+<p>These modules provide auto-marshalling functionality to convert XML into arbitrary data classes. The 2 differ slightly in 
+their behaviour:</p>
+<h3 id="jacksonxml">JacksonXml</h3>
+<ul>
+<li>Provides bi-directional conversion</li>
+<li>Does NOT expose an XML DOM node model</li>
+<li>Generates a wrapper element to represent the parent node</li>
+<li>Correctly handles repeating child-elements</li>
+<li>Provides extension point to map custom types using BiDiMapping registration</li>
+</ul>
+<h4 id="jacksonxml-code">JacksonXML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/jacksonAutoXml.kt"><img class="octocat"/></a></h4>
+<ul>
+<li>Provides extraction conversion only</li>
+<li>Exposes an XML DOM node model as a first-class citizen - so can read directly from a string into a DOM model</li>
+<li>Does not generate a wrapper element to represent the parent node</li>
+<li>Has trouble with repeating child-elements, depending on zero, one or many elements in the XML. This is due to the underlying 
+library used for the implementation.</li>
+<li>Only handles objects with primitive JDK types</li>
+</ul>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/jacksonAutoXml.kt"></script>
+
+<h4 id="xml-code">XML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"><img class="octocat"/></a></h4>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"></script>
 
-<p>There is a utility to generate data class code from XML input <a href="http://http4k-data-class-gen.herokuapp.com">here</a> . These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
+<!--
+There is a utility to generate data class code from XML input [here](http://http4k-data-class-gen.herokuapp.com) . These data classes are compatible with using the `Body.auto<T>()` functionality. 
+-->
                     
                     
                     
