@@ -1179,23 +1179,21 @@
 <p><code>compile group: "org.http4k", name: "http4k-format-xml", version: "3.120.0"</code>
 <code>compile group: "org.http4k", name: "http4k-format-jackson", version: "3.120.0"</code></p>
 <h3 id="about">About</h3>
-<p>These modules provide auto-marshalling functionality to convert XML into arbitrary data classes. The 2 differ slightly in 
-their behaviour:</p>
+<p>These modules provide auto-marshalling functionality to convert XML into arbitrary data classes. The 2 differ slightly in their behaviour, due to the underlying libraries used for implementation:</p>
 <h3 id="jacksonxml">JacksonXml</h3>
 <ul>
 <li>Provides bi-directional conversion</li>
 <li>Does NOT expose an XML DOM node model</li>
-<li>Generates a wrapper element to represent the parent node</li>
-<li>Correctly handles repeating child-elements</li>
-<li>Provides extension point to map custom types using BiDiMapping registration</li>
+<li>Generally requires <code>Jackson</code> field annotations to manipulate output format</li>
+<li>Provides extension point to map custom types using BiDiMapping registration (so supports all Java and 
+Http4k primitives such as <code>Uri</code>)</li>
 </ul>
 <h4 id="jacksonxml-code">JacksonXML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/jacksonAutoXml.kt"><img class="octocat"/></a></h4>
 <ul>
 <li>Provides extraction conversion only</li>
 <li>Exposes an XML DOM node model as a first-class citizen - so can read directly from a string into a DOM model</li>
 <li>Does not generate a wrapper element to represent the parent node</li>
-<li>Has trouble with repeating child-elements, depending on zero, one or many elements in the XML. This is due to the underlying 
-library used for the implementation.</li>
+<li>Has trouble with repeating child-elements, depending on zero, one or many elements in the XML. This is due to the underlying library implementation</li>
 <li>Only handles objects with primitive JDK types</li>
 </ul>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/jacksonAutoXml.kt"></script>
