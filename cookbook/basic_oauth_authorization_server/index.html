@@ -12,19 +12,19 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     
-    <meta itemprop="name" content="http4k Authorising requests">
-    <meta name="twitter:title" content="http4k Authorising requests">
-    <meta property="og:title" content="http4k Authorising requests" />
+    <meta itemprop="name" content="http4k Custom OAuth Authorization Server">
+    <meta name="twitter:title" content="http4k Custom OAuth Authorization Server">
+    <meta property="og:title" content="http4k Custom OAuth Authorization Server" />
     
 
     
-    <meta name="description" content="Recipes for looking up and populating a user principal from a request">
-    <meta property="og:description" content="Recipes for looking up and populating a user principal from a request" />
-    <meta name="twitter:description" content="Recipes for looking up and populating a user principal from a request">
+    <meta name="description" content="Recipe for using http4k to create an authorization server that provides an *authorization code* access flow">
+    <meta property="og:description" content="Recipe for using http4k to create an authorization server that provides an *authorization code* access flow" />
+    <meta name="twitter:description" content="Recipe for using http4k to create an authorization server that provides an *authorization code* access flow">
     
 
     
-    <link rel="canonical" href="https://www.http4k.org/cookbook/principal_lookup/">
+    <link rel="canonical" href="https://www.http4k.org/cookbook/basic_oauth_authorization_server/">
     
 
     
@@ -77,7 +77,7 @@
     
     
     
-    <title>http4k Authorising requests</title>
+    <title>http4k Custom OAuth Authorization Server</title>
     
     
     
@@ -170,7 +170,7 @@
                         </span>
                     
                     
-                    Principal lookup
+                    Basic OAuth Server configuration
                     
                 </div>
             </div>
@@ -892,18 +892,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="../basic_oauth_authorization_server/" title="Basic OAuth Server configuration" class="md-nav__link">
-      Basic OAuth Server configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -913,11 +901,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Principal lookup
+        Basic OAuth Server configuration
       </label>
     
-    <a href="./" title="Principal lookup" class="md-nav__link md-nav__link--active">
-      Principal lookup
+    <a href="./" title="Basic OAuth Server configuration" class="md-nav__link md-nav__link--active">
+      Basic OAuth Server configuration
     </a>
     
       
@@ -950,6 +938,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../principal_lookup/" title="Principal lookup" class="md-nav__link">
+      Principal lookup
+    </a>
   </li>
 
         
@@ -1149,20 +1149,20 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/principal_lookup/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/basic_oauth_authorization_server/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                     
                     
-                    <h1>Principal lookup</h1>
+                    <h1>Basic OAuth Server configuration</h1>
                     
                     <h3 id="gradle-setup">Gradle setup</h3>
-<div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.122.0&quot;
+<div class="codehilite"><pre><span></span>    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.112.2&quot;
+    compile group: &quot;org.http4k&quot;, name: &quot;http4k-security-oauth&quot;, version: &quot;3.112.2&quot;
 </pre></div>
 
 
-<p>When authorising requests, it is common to need to store some credentials or a user principal object to be accessible by a further Filter or the eventual HttpHandler.</p>
-<p>This can be easily achieved by combining the typesafe RequestContext functionality with one of the built-in authorisation Filters:</p>
-<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/principal_lookup/example.kt"><img class="octocat"/></a></h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/principal_lookup/example.kt"></script></p>
+<p>For this example, you need to configure <code>OAuthServer</code> instance with the correct implementations of your login pages, generation of authentication codes and access tokens.</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_oauth_authorization_server/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_oauth_authorization_server/example.kt"></script></p>
                     
                     
                     
@@ -1183,7 +1183,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../basic_oauth_authorization_server/" title="Basic OAuth Server configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../custom_oauth_provider/" title="Custom OAuth Provider configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1192,19 +1192,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Basic OAuth Server configuration
+                Custom OAuth Provider configuration
               </span>
             </div>
           </a>
         
         
-          <a href="../monitoring/" title="Monitoring http4k" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../principal_lookup/" title="Principal lookup" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Monitoring http4k
+                Principal lookup
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
