@@ -647,6 +647,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#implementing-custom-junit-extensions" title="Implementing custom JUnit Extensions" class="md-nav__link">
+    Implementing custom JUnit Extensions
+  </a>
+  
+</li>
+      
       
       
       
@@ -1215,14 +1222,49 @@
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
 <p><code>compile group: "org.http4k", name: "http4k-testing-approval", version: "3.125.0"</code></p>
 <h3 id="about">About</h3>
-<p>JUnit 5 extensions for <a href="http://approvaltests.com/">Approval testing</a> of <a href="https://http4k.org">http4k</a> Request and Response messages.</p>
-<h3 id="standard-approval-tests">Standard Approval tests</h3>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example.kt"><img class="octocat"/></a></h4>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example.kt"></script>
+<p><a href="http://approvaltests.com/">Approval testing</a> is a form of testing which allows the expected output of 
+a test to be specified in a non-code but still source-controlled format, such as a text file. This is a powerful alternative to traditional assertion-based tests for a number of reasons:</p>
+<ol>
+<li>It is often inconvenient and/or error prone to attempt to write assertions to cover the entirety of 
+test output - examples of this include JSON, HTML or XML documents.</li>
+<li>Output may not always be in a format that can be created easily in a test.</li>
+<li>In case of a mismatch, output can be more efficiently diagnosed by the human eye.</li>
+<li>The output of a test may change significantly in a short period (this is especially true for HTML 
+content), but we also want to tightly control the contract.</li>
+</ol>
+<p>The general idea for implementing this style of testing in <a href="https://http4k.org">http4k</a> is based on the excellent 
+<a href="https://github.com/dmcg/okey-doke">okeydoke</a> library, and is centered around the idea of comparing 
+the output of an HTTP operation - this is generally the <code>Response</code> content, but it can also be the 
+<code>Request</code> if we are interested in testing construction of request content. </p>
+<p>For each test-case, a named <code>&lt;test name&gt;.approved</code> file is committed (under the <code>src/test/resources</code> 
+folder), against which the test output can be compared by an <code>Approver</code> object injected into the test 
+method. In case of a mismatch, an equivalent <code>&lt;test name&gt;.actual</code> file is written. This file can then 
+be verified and if ok, renamed to become the approved file. To make this operation easier in the IDE, we
+recommend the usage of the 
+<a href="https://plugins.jetbrains.com/plugin/9424-okey-doke-support">IntelliJ OkeyDoke plugin</a> which adds a 
+mouse and keyboard shortcut to rename the file. </p>
+<p>The <code>http4k-testing-approval</code> module implements this functionality as a JUnit5 extension that 
+will inject the <code>Approver</code> automatically into test methods.</p>
+<h2 id="standard-approval-tests">Standard Approval tests</h2>
+<p>By using the <code>ApprovalTest</code> extension, an instance of an <code>Approver</code> is injected into each test.</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_standard.kt"><img class="octocat"/></a></h4>
+<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_standard.kt"></script>
 
-<h3 id="json-specific-approval-tests">JSON specific Approval tests</h3>
+<h2 id="json-specific-approval-tests">JSON specific Approval tests</h2>
+<p>Because so many APIs are based around JSON messaging, the module also provides <code>JsonApprovalTest</code> that 
+will:
+1. Check for the presence of the <code>application/json</code> on the <code>HttpMessage</code> under test and fail if it is not 
+valid.
+1. Validate that the <code>HttpMessage</code> actually contains valid JSON.
+1. Format and compare the approval output as pretty-printed JSON. Note that by default the <a href="https://http4k.org">http4k</a> 
+JSON modules use compact-printed JSON to conserve message space.</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_json.kt"><img class="octocat"/></a></h4>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_json.kt"></script>
+
+<h2 id="implementing-custom-junit-extensions">Implementing custom JUnit Extensions</h2>
+<p>As with the rest of <a href="https://http4k.org">http4k</a>, a base implementation, <code>BaseApprovalTest</code> of the Junit5 Extension is 
+provided, allowing API users to implement custom approval schemes or non-FS based approaches for 
+storing the approval files.</p>
                     
                     
                     
