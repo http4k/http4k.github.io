@@ -628,8 +628,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#json-specific-approval-tests" title="JSON specific Approval tests" class="md-nav__link">
-    JSON specific Approval tests
+  <a href="#content-type-specific-approval-tests" title="Content-type specific Approval tests" class="md-nav__link">
+    Content-type specific Approval tests
   </a>
   
     <nav class="md-nav">
@@ -1250,14 +1250,16 @@ will inject the <code>Approver</code> automatically into test methods.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_standard.kt"><img class="octocat"/></a></h4>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_standard.kt"></script>
 
-<h2 id="json-specific-approval-tests">JSON specific Approval tests</h2>
-<p>Because so many APIs are based around JSON messaging, the module also provides <code>JsonApprovalTest</code> that 
-will:
-1. Check for the presence of the <code>application/json</code> on the <code>HttpMessage</code> under test and fail if it is not 
-valid.
+<h2 id="content-type-specific-approval-tests">Content-type specific Approval tests</h2>
+<p>Because so many APIs are based around messages with a particular content type, the 
+module also provides Junit 5 extensions that will:
+1. Check for the presence of the a partocular <code>content-type</code> on the <code>HttpMessage</code> under test and fail if it is not valid.
 1. Validate that the <code>HttpMessage</code> actually contains valid JSON.
-1. Format and compare the approval output as pretty-printed JSON. Note that by default the <a href="https://http4k.org">http4k</a> 
-JSON modules use compact-printed JSON to conserve message space.</p>
+1. Format and compare the approval output as pretty-printed version. Note that by default the <a href="https://http4k.org">http4k</a> format modules use compact printing to conserve message space.</p>
+<p>The module also provides the following built-in extensions:
+- <code>HtmlApprovalTest</code>
+- <code>JsonApprovalTest</code>
+- <code>XmlApprovalTest</code></p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_json.kt"><img class="octocat"/></a></h4>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_json.kt"></script>
 
