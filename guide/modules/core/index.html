@@ -1248,7 +1248,7 @@
                     <h1>Core</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><code>compile group: "org.http4k", name: "http4k-core", version: "3.124.0"</code></p>
+<p><code>compile group: "org.http4k", name: "http4k-core", version: "3.125.0"</code></p>
 <h3 id="about">About</h3>
 <p>Apart from Kotlin StdLib, the core module has ZERO dependencies and provides the following:</p>
 <ul>
@@ -1263,7 +1263,7 @@
 <li>APIs to <strong>record and replay</strong> HTTP traffic to disk or memory</li>
 </ul>
 <h4 id="httphandlers">HttpHandlers</h4>
-<p>In <strong>http4k</strong>, an HTTP service is just a typealias of a simple function:</p>
+<p>In [[http4k]], an HTTP service is just a typealias of a simple function:</p>
 <div class="codehilite"><pre><span></span><span class="n">typealias</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Response</span>
 </pre></div>
 
@@ -1282,7 +1282,7 @@ need to launch a real HTTP container to exercise it:</p>
 
 <p>To mount the <code>HttpHandler</code> in a container, the can simply be converted to a Servlet by calling <code>handler.asServlet()</code></p>
 <h3 id="filters">Filters</h3>
-<p>Filters add extra processing to either the Request or Response. In <strong>http4k</strong>, they are modelled as:</p>
+<p>Filters add extra processing to either the Request or Response. In <a href="https://http4k.org">http4k</a>, they are modelled as:</p>
 <div class="codehilite"><pre><span></span><span class="k">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">HttpHandler</span>
 </pre></div>
 
@@ -1317,7 +1317,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 </ul>
 <p>Check out the <code>org.http4k.filter</code> package for the exact list.</p>
 <h3 id="routers-nestable-path-based-routing">Routers - Nestable, path-based Routing</h3>
-<p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and <strong>http4k</strong> will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
+<p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and <a href="https://http4k.org">http4k</a> will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
 <div class="codehilite"><pre><span></span><span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
         <span class="s">&quot;/{name:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.path(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
@@ -1331,7 +1331,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <h3 id="typesafe-parameter-destructuringconstruction-of-http-messages-with-lenses">Typesafe parameter destructuring/construction of HTTP messages with Lenses</h3>
 <p>Getting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. 
 For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a>. </p>
-<p>A Lens is a bi-directional entity which can be used to either <strong>get</strong> or <strong>set</strong> a particular value from/onto an HTTP message. <strong>http4k</strong> provides a DSL 
+<p>A Lens is a bi-directional entity which can be used to either <strong>get</strong> or <strong>set</strong> a particular value from/onto an HTTP message. <a href="https://http4k.org">http4k</a> provides a DSL 
 to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional). </p>
 <p>To utilise a lens, first you have to declare it with the form <code>&lt;Location&gt;.&lt;configuration and mapping operations&gt;.&lt;terminator&gt;</code>.</p>
 <p>There is one "location" type for each part of the message, each with config/mapping operations which are specific to that location:</p>
@@ -1411,7 +1411,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 <ol>
 <li><code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsConsumer?</code>. This is responsible for matching an HTTP request to a websocket.</li>
 <li><code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.</li>
-<li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are immutable data classes.</li>
+<li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k">http4k</a> HTTP message model, WsMessages are immutable data classes.</li>
 </ol>
 <p>The routing aspect of Websockets is done using a very similar API to the standard HTTP routing for HTTP messages and dynamic parts of the upgrade request are available when constructing a websocket instance:</p>
 <div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
@@ -1463,7 +1463,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 
 
 <h3 id="request-and-response-tostring">Request and Response toString()</h3>
-<p>The HttpMessages used by <strong>http4k</strong> toString in the HTTP wire format, which it simple to capture and replay HTTP message streams later in a similar way to tools like <a href="http://www.mbtest.org/">Mountebank</a>.</p>
+<p>The HttpMessages used by <a href="https://http4k.org">http4k</a> toString in the HTTP wire format, which it simple to capture and replay HTTP message streams later in a similar way to tools like <a href="http://www.mbtest.org/">Mountebank</a>.</p>
 <h3 id="curl-format">CURL format</h3>
 <p>Creates <code>curl</code> command for a given request - this is useful to include in audit logs so exact requests can be replayed if required:</p>
 <div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">curl</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span> <span class="n">to</span> <span class="s">&quot;bar&quot;</span><span class="p">).</span><span class="n">toBody</span><span class="p">()).</span><span class="n">toCurl</span><span class="p">()</span>

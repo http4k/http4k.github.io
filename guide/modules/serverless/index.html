@@ -1193,11 +1193,11 @@
                     <h1>Serverless backend</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><code>compile group: "org.http4k", name: "http4k-serverless-lambda", version: "3.124.0"</code></p>
+<p><code>compile group: "org.http4k", name: "http4k-serverless-lambda", version: "3.125.0"</code></p>
 <h3 id="about">About</h3>
 <p>These modules provide integration with Serverless deployment environments, such as AWS Lambda. </p>
 <h4 id="aws-lambda-integration">AWS Lambda integration</h4>
-<p>Since <a href="https://http4k.org"><strong>http4k</strong></a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library. This has the added bonus that you can test your applications in a local environment and then simply deploy them to AWS Lambda via S3 upload.</p>
+<p>Since <a href="https://http4k.org">http4k</a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library. This has the added bonus that you can test your applications in a local environment and then simply deploy them to AWS Lambda via S3 upload.</p>
 <p>In order to achieve this, only a single interface <code>AppLoader</code> needs to be implemented.</p>
 <p>This is far from a complete guide, but configuring AWS Lambda and the API Gateway involves several stages:</p>
 <ol>

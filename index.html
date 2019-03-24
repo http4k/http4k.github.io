@@ -1194,14 +1194,14 @@
 <a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/backers/badge.svg"></a>
 <a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/sponsors/badge.svg"></a>
 </span></p>
-<p>[<strong>http4k</strong>] is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. [<strong>http4k</strong>] applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
+<p><a href="https://http4k.org">http4k</a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://http4k.org">http4k</a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
 <div class="codehilite"><pre><span></span> <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
  <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 
 
-<p>[<strong>http4k</strong>] consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
-<p>The principles of [<strong>http4k</strong>] are:</p>
+<p><a href="https://http4k.org">http4k</a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
+<p>The principles of <a href="https://http4k.org">http4k</a> are:</p>
 <ul>
 <li><strong>Application as a Function:</strong> Based on the Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, all HTTP services can be composed 
 of 2 types of simple function:<ul>
@@ -1234,10 +1234,10 @@ plugging together of services without HTTP container being required.</li>
 <li>Resilience features: Circuits, retrying, rate limiting, bulkheading - via Resilience4J integration.</li>
 <li>Security: Simple, pluggable support for OAuth Auth Code Grant flow and ready made configurations to integrate with popular OAuth providers.</li>
 <li>Cloud-native tooling: support for 12-factor-based style apps.</li>
-<li>Testing: JUnit 5 Approval Test extensions for [<strong>http4k</strong>] messages.</li>
-<li>Testing: Hamkrest Matchers for [<strong>http4k</strong>] objects.</li>
-<li>Testing: Selenium WebDriver implementation for lightning fast, browserless testing of [<strong>http4k</strong>] apps</li>
-<li>Testing: Chaos Injection mechanism, allowing simple, dynamic injection of failure modes into  [<strong>http4k</strong>] applications.</li>
+<li>Testing: JUnit 5 Approval Test extensions for <a href="https://http4k.org">http4k</a> messages.</li>
+<li>Testing: Hamkrest Matchers for <a href="https://http4k.org">http4k</a> objects.</li>
+<li>Testing: Selenium WebDriver implementation for lightning fast, browserless testing of <a href="https://http4k.org">http4k</a> apps</li>
+<li>Testing: Chaos Injection mechanism, allowing simple, dynamic injection of failure modes into  <a href="https://http4k.org">http4k</a> applications.</li>
 </ul>
 </li>
 </ul>
@@ -1281,7 +1281,7 @@ plugging together of services without HTTP container being required.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/serverless">Serverless:</a><ul>
-<li>Implement a single Factory method, then upload your [**http4k] applications to AWS Lambda to be called from API Gateway. </li>
+<li>Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to AWS Lambda to be called from API Gateway. </li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/contracts">Contracts:</a> <ul>
@@ -1342,33 +1342,33 @@ plugging together of services without HTTP container being required.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/cloud_native">Cloud Native:</a><ul>
-<li>Tooling to support operating [**http4k] applications in orchestrated cloud environments such as Kubernetes and CloudFoundry. 12-factor configuration, dual-port servers and health checks such as liveness and readiness checking. </li>
+<li>Tooling to support operating <a href="https://http4k.org">http4k</a> applications in orchestrated cloud environments such as Kubernetes and CloudFoundry. 12-factor configuration, dual-port servers and health checks such as liveness and readiness checking. </li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/webdriver">WebDriver:</a> <ul>
-<li>Ultra-lightweight Selenium WebDriver implementation for [<strong>http4k</strong>] application.</li>
+<li>Ultra-lightweight Selenium WebDriver implementation for <a href="https://http4k.org">http4k</a> application.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/hamkrest">Hamkrest:</a> <ul>
-<li>A set of Hamkrest matchers for testing [<strong>http4k</strong>] Request and Response messages.</li>
+<li>A set of Hamkrest matchers for testing <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/approvaltests">Approval Testing:</a> <ul>
-<li>JUnit 5 extensions for <a href="http://approvaltests.com/">Approval testing</a> of [<strong>http4k</strong>] Request and Response messages.</li>
+<li>JUnit 5 extensions for <a href="http://approvaltests.com/">Approval testing</a> of <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/chaos">Chaos:</a> <ul>
-<li>API for declaring and injecting failure modes into [<strong>http4k</strong>] applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
+<li>API for declaring and injecting failure modes into <a href="https://http4k.org">http4k</a> applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
 </ul>
 </li>
 </ul>
 <h2 id="example">Example</h2>
-<p>This quick example is designed to convey the simplicity &amp; features of [<strong>http4k</strong>] . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point.</p>
+<p>This quick example is designed to convey the simplicity &amp; features of <a href="https://http4k.org">http4k</a> . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point.</p>
 <p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
 <div class="codehilite"><pre><span></span><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.124.0&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.124.0&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.124.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.125.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.125.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.125.0&quot;</span>
 <span class="o">}</span>
 </pre></div>
 
@@ -1462,7 +1462,7 @@ plugging together of services without HTTP container being required.</li>
 <p>This project exists thanks to all the people who <a href="https://www.http4k.org/contributing/">contribute</a>.
 <a href="https://github.com/http4k/http4k/graphs/contributors"><img src="https://opencollective.com/http4k/contributors.svg?width=890" /></a></p>
 <h2 id="backers-sponsors">Backers &amp; Sponsors</h2>
-<p>If you use [**http4k] in your project or enterprise and would like to support ongoing development, please consider becoming a backer or a sponsor. Sponsor logos will show up here with a link to your website.</p>
+<p>If you use <a href="https://http4k.org">http4k</a> in your project or enterprise and would like to support ongoing development, please consider becoming a backer or a sponsor. Sponsor logos will show up here with a link to your website.</p>
 <p><a href="https://opencollective.com/http4k/sponsor/1/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/http4k/sponsor/2/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/2/avatar.svg"></a>
 <a href="https://opencollective.com/http4k/sponsor/3/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/3/avatar.svg"></a>
