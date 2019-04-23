@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31380-uncut" tabindex="1" class="md-skip">
+<a href="../#v31380" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1072,8 +1072,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v31380-uncut" title="v3.138.0 (uncut)" class="md-nav__link">
-    v3.138.0 (uncut)
+  <a href="#v31380" title="v3.138.0" class="md-nav__link">
+    v3.138.0
   </a>
   
 </li>
@@ -2956,9 +2956,11 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their 
 rationale when appropriate:</p>
-<h3 id="v31380-uncut">v3.138.0 (uncut)</h3>
+<h3 id="v31380">v3.138.0</h3>
 <ul>
-<li>Tweaks to Security model for <code>http4k-contracts</code>. <code>ApiKeySecurity</code> is now a proper class, and added <code>BasicAuthSecurity</code>.</li>
+<li>Tweaks to Security model for <code>http4k-contracts</code>. (Renamed) <code>ApiKeySecurity</code> is now a proper class, and added <code>BasicAuthSecurity</code>. You can now also override the security model on a per-route basis.</li>
+<li>Added ability to set the <code>Security</code> on each individual contract route. This overrides any <code>Security</code> 
+set on a contract-level basis.</li>
 </ul>
 <h3 id="v31371">v3.137.1</h3>
 <ul>
