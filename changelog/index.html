@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31400" tabindex="1" class="md-skip">
+<a href="../#v31410" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1070,6 +1070,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v31410" title="v3.141.0" class="md-nav__link">
+    v3.141.0
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v31400" title="v3.140.0" class="md-nav__link">
@@ -2975,8 +2982,12 @@
                     
                     <h2 class="github">Changelog</h2>
 
-<p>This list is not currently intended to be all-encompassing - it will document major and breaking API changes with their 
-rationale when appropriate:</p>
+<p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
+changes with their rationale when appropriate:</p>
+<h3 id="v31410">v3.141.0</h3>
+<ul>
+<li>[http4k-core] - Fix #233 - MemoryBody blows up with "java.nio.ReadOnlyBufferException"</li>
+</ul>
 <h3 id="v31400">v3.140.0</h3>
 <ul>
 <li>[all] Update dependencies (including Kotlin bump to 1.3.31)</li>
@@ -2984,37 +2995,36 @@ rationale when appropriate:</p>
 </ul>
 <h3 id="v31390">v3.139.0</h3>
 <ul>
-<li>Allow access token generation to explicitly reject an authorization code already used. H/T @andymoody </li>
+<li>[http4k-security-oauth] Allow access token generation to explicitly reject an authorization code already used. H/T @andymoody </li>
 </ul>
 <h3 id="v31381">v3.138.1</h3>
 <ul>
-<li>Amend error responses from access token generation. H/T @andymoody</li>
+<li>[http4k-security-oauth] Amend error responses from access token generation. H/T @andymoody</li>
 </ul>
 <h3 id="v31380">v3.138.0</h3>
 <ul>
-<li>Tweaks to Security model for <code>http4k-contracts</code>. (Renamed) <code>ApiKeySecurity</code> is now a proper class, and added <code>BasicAuthSecurity</code>. You can now also override the security model on a per-route basis.</li>
-<li>Added ability to set the <code>Security</code> on each individual contract route. This overrides any <code>Security</code> 
+<li>[http4k-contracts] Tweaks to Security model for <code>http4k-contracts</code>. (Renamed) <code>ApiKeySecurity</code> is now a proper class, and added <code>BasicAuthSecurity</code>. You can now also override the security model on a per-route basis.</li>
+<li>[http4k-contracts] Added ability to set the <code>Security</code> on each individual contract route. This overrides any <code>Security</code> 
 set on a contract-level basis.</li>
 </ul>
 <h3 id="v31371">v3.137.1</h3>
 <ul>
-<li>Allow invocation of serverless functions locally. H/T @Charlyzzz</li>
-<li>Fix #226 - ResourceLoadingHandler not close stream</li>
+<li>[http4k-serverless] Allow invocation of serverless functions locally. H/T @Charlyzzz</li>
+<li>[http4k-core] Fix #226 - ResourceLoadingHandler not close stream</li>
 </ul>
 <h3 id="v31370">v3.137.0</h3>
 <ul>
-<li>Rename AuthRequestPersistence to AuthRequestTracking</li>
+<li>[http4k-security-oauth] Rename AuthRequestPersistence to AuthRequestTracking</li>
 </ul>
 <h3 id="v31360">v3.136.0</h3>
 <ul>
-<li>Allow the http request to be referenced when generating OAuth authorization codes. H/T @andymoody</li>
+<li>[http4k-security-oauth] Allow the http request to be referenced when generating OAuth authorization codes. H/T @andymoody</li>
 </ul>
 <h3 id="v31350">v3.135.0</h3>
 <ul>
-<li>Change <code>mime.types</code> location so it doesn't conflic with other libraries. H/T @benusher and @dgliosca</li>
-<li>Added <code>SnipRequestBody</code> behaviour to <code>http4k-testing-chaos</code> module.</li>
-<li>(Small) Breaking Fixed location of some extension files to be relevant to the particular package that they are referencing. This 
-will require reimporting the new location into your source if you were using the imports.</li>
+<li>[http4k-core] Change <code>mime.types</code> location so it doesn't conflic with other libraries. H/T @benusher and @dgliosca</li>
+<li>[http4k-testing-chaos] Added <code>SnipRequestBody</code> behaviour.</li>
+<li>[http4k-core]  (Small) Breaking Fixed location of some extension files to be relevant to the particular package that they are referencing. This will require reimporting the new location into your source if you were using the imports.</li>
 </ul>
 <h3 id="v31340">v3.134.0</h3>
 <ul>
