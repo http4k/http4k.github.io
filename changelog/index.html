@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31410" tabindex="1" class="md-skip">
+<a href="../#v31420-uncut" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1070,6 +1070,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v31420-uncut" title="v3.142.0 (uncut)" class="md-nav__link">
+    v3.142.0 (uncut)
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v31410" title="v3.141.0" class="md-nav__link">
@@ -2984,6 +2991,13 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
+<h3 id="v31420-uncut">v3.142.0 (uncut)</h3>
+<ul>
+<li>[http4k-contract] Both OpenApi v2 and v3 are now supported, including automatic schema generation. Some classes for 
+OpenApi2 have moved to a new package. See module docs for details. Optionally include <code>http4k-format-jackson</code> to get 
+JSON schema models based on JVM objects.</li>
+<li>[http4k-format-jackson] Added reflective JSON schema creator, to be used for generating named models from JVM objects.  </li>
+</ul>
 <h3 id="v31410">v3.141.0</h3>
 <ul>
 <li>[http4k-core] - Fix #233 - MemoryBody blows up with "java.nio.ReadOnlyBufferException"</li>
@@ -3047,7 +3061,7 @@ allows for more fine grained custom control of which Responses are acceptable.</
 </ul>
 <h3 id="v31310">v3.131.0</h3>
 <ul>
-<li>[http4k-core]  (Possible) Break: Made lense implementations <code>Query, Header etc</code> clear previous values by default instead of 
+<li>[http4k-core] (Possible) Break: Made lense implementations <code>Query, Header etc</code> clear previous values by default instead of 
 appending. This leads to a more consistent behaviour. In order to be able to set multiple values on an object 
 using a lense, use the <code>multi</code> form instead - eg. <code>Header.required("foo")</code> -&gt; <code>Header.multi.required("foo")</code>. We 
 envisage the impact of this change is limited as it's only Queries that generally can have multiple possible 
