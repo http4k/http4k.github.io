@@ -1249,7 +1249,7 @@ anonymous JSON schema definition names that are then listed in the <code>schema<
 the names of the definitions are generated based on the Kotlin class instances provided to the Contract Route DSL. Note that 
 an overloaded OpenApi function automatically provides the default Jackson instance, so we can remove it from the renderer creation:</li>
 </ol>
-<div class="codehilite"><pre><span></span>    <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;1.2&quot;</span><span class="p">,</span> <span class="s">&quot;module description&quot;</span><span class="p">))</span>
+<div class="codehilite"><pre><span></span>    <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;1.2&quot;</span><span class="p">,</span> <span class="s">&quot;module description&quot;</span><span class="p">),</span> <span class="n">Jackson</span><span class="p">)</span>
 </pre></div>
 
 
@@ -1257,20 +1257,21 @@ an overloaded OpenApi function automatically provides the default Jackson instan
 <div class="codehilite"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;components&quot;</span><span class="p">:{</span>
       <span class="nt">&quot;schemas&quot;</span><span class="p">:{</span>
-         <span class="nt">&quot;urn:jsonschema:urn:jsonschema:org:example:AnObject&quot;</span><span class="p">:{</span>
-            <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;urn:jsonschema:org:example:AnObject&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;properties&quot;</span><span class="p">:{</span>
-               <span class="nt">&quot;aString&quot;</span><span class="p">:{</span>
-                  <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                  <span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-                  <span class="nt">&quot;enum&quot;</span><span class="p">:[</span>
-                     <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
-                     <span class="s2">&quot;bing&quot;</span>
-                  <span class="p">]</span>
-               <span class="p">}</span>
-            <span class="p">}</span>
-         <span class="p">}</span>
+          <span class="nt">&quot;ArbObject&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;example&quot;</span><span class="p">:</span> <span class="s2">&quot;http://foowang&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span>
+              <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;example&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;http://foowang&quot;</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span>
+              <span class="s2">&quot;uri&quot;</span>
+            <span class="p">]</span>
+          <span class="p">}</span>
       <span class="p">}</span>
    <span class="p">}</span>
 <span class="p">}</span>
