@@ -1200,7 +1200,7 @@
 
 <h3 id="about">About</h3>
 <p>The <code>http4k-contract</code> module adds a much more sophisticated routing mechanism to that available in <code>http4k-core</code>. It adds the facility 
-to declare server-side <code>ContractRoutes</code> in a completely typesafe way, leveraging the Lens functionality from the core. These <code>ContractRoutes</code> are combined into <code>Contracts</code>, which have the following features:</p>
+to declare server-side <code>Routes</code> in a completely typesafe way, leveraging the Lens functionality from the core. These <code>Routes</code> are combined into <code>Contracts</code>, which have the following features:</p>
 <ul>
 <li><strong>Auto-validating</strong> - the <code>Route</code> contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a <code>HTTP 400 (BAD_REQUEST)</code> response.     </li>
 <li><strong>Self-describing:</strong> - a generated endpoint is provided which describes all of the <code>Routes</code> in that module. Implementations include <a href="http://swagger.io/">OpenApi v2 &amp; v3/Swagger</a> documentation, including generation of [JSON schema]. These documents can then be used to generate HTTP client and server code in various languages using the <a href="https://openapi-generator.tech/">OpenAPI generator</a>.
