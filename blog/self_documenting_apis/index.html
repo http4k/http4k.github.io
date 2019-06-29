@@ -1153,9 +1153,11 @@ As you can see, the result of the <code>contract {...}</code> block is just a st
 <p>And here's a test for that route - it's marginly more complex than a standard <a href="https://http4k.org">http4k</a> route test due to the need to wrap the route in a <code>contract {}</code> block, but is still ultra simple. Here, we're leveraging <code>http4k-testing-hamkrest</code> to supply Matchers for testing the response message:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/self_documenting_apis/basic_route_test.kt"></script>
 
-<h3 id="adding-the-route-metadata">Adding the route metadata</h3>
-<p>The metadata for the route forms the rest of the documented contract. The DSL for specifying this consists of a <code>meta [}</code> block containing a mixture of purely informational/organisational fields and those which should form part of the contract. For the latter case, we can further use the <a href="https://http4k.org">http4k</a> lens API to accept and define other parameters from the <code>Query</code>, <code>Header</code> or <code>Body</code> parts of the request. Once added to the contract, these items will also be validated for form before the contract HttpHandler is invoked, this eliminating the need for any custom validation code to be written.</p>
+<h3 id="adding-metadata-to-the-route-contract">Adding metadata to the route contract</h3>
+<p>The metadata for the route forms the rest of the documented contract. The DSL for specifying this consists of a <code>meta [}</code> block containing a mixture of purely informational/organisational fields and those which should form part of the contract. For the latter case, we can further use the <a href="https://http4k.org">http4k</a> lens API to accept and define other parameters from the <code>Query</code>, <code>Header</code> or <code>Body</code> parts of the request. Once added to the contract, these items will also be validated for form and presence before the contract HttpHandler is invoked, thus eliminating the need for any custom validation code to be written.</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/self_documenting_apis/metadata_route.kt"></script>
+
+<p>As expected, if we look at the OpenAPI UI <a href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Fblog%2Fself_documenting_apis%2Fmetadata_contract.json">here</a>, the greetings endpoint UI has now been embellished with more data.</p>
                     
                     
                     
