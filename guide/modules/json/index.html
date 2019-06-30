@@ -472,26 +472,6 @@
     FAQ (aka gotchas) regarding Auto-marshalling capabilities
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#uppercase-json-key-names" title="Uppercase JSON key names" class="md-nav__link">
-    Uppercase JSON key names
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#json-arrays" title="JSON arrays" class="md-nav__link">
-    JSON arrays
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -1255,14 +1235,18 @@ to/from JSON and XML using reflection.</p>
 <p>There is a utility to generate Kotlin data class code for JSON documents <a href="http://http4k-data-class-gen.herokuapp.com">here</a>. 
 These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
 <h4 id="faq-aka-gotchas-regarding-auto-marshalling-capabilities">FAQ (aka gotchas) regarding Auto-marshalling capabilities</h4>
-<h5 id="uppercase-json-key-names">Uppercase JSON key names</h5>
-<p>The Jackson version of the automarshalling does NOT work for objects with uppercase key names - this is a known issue 
-with the Jackson library and we are unable to fix it. Either use the GSON alternative, or annotate your Data class fields 
-with <code>JsonAlias</code> annotations to work around this.</p>
-<h5 id="json-arrays">JSON arrays</h5>
-<p>When handling raw JSON array messages, such as: <code>[123, 456, 567]</code>, there is a slight gotcha when auto-marshalling messages 
-from JSON.</p>
-<p>This is demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT 
+<p><strong>Q. Where is the <code>Body.auto</code> method defined?</strong></p>
+<p><strong>A.</strong> <code>Body.auto</code> is an extension method which is declared on the parent singleton <code>object</code> for each of the message libraries that supports auto-marshalling - eg. <code>Jackson</code>, <code>Gson</code>, <code>Moshi</code> and <code>Xml</code>. All of these objects are declared in the same package, so you need to add an import similar to:
+<code>import org.http4k.format.Jackson.auto</code></p>
+<p><strong>Q. Using Jackson, the Data class auto-marshalling is not working correctly when my JSON fields start with capital letters</strong></p>
+<p><strong>A.</strong> Because of the way in which the Jackson library works, uppercase field names are NOT supported. Either switch out to use <code>http4k-format-gson</code> (which has the same API), or annotate your Data class with <code>@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)</code> or the fields with <code>@JsonAlias</code> or to get it work correctly.</p>
+<p><strong>Q. Using Jackson, Boolean properties with names starting with "is" do not marshall properly</strong></p>
+<p><strong>A.</strong> This is due to the way in which the Jackson <code>ObjectMapper</code> is configured. Annotation of the fields in question should help, or using <code>ObjectMapper.disable(MapperFeature.AUTO_DETECT_IS_GETTERS)</code></p>
+<p><strong>Q. Using Gson, the data class auto-marshalling does not fail when a null is populated in a Kotlin non-nullable field</strong></p>
+<p><strong>A.</strong> This happens because <a href="https://http4k.org">http4k</a> uses straight GSON demarshalling, of JVM objects with no-Kotlin library in the mix. The nullability generally gets checked at compile-type and the lack of a Kotlin sanity check library exposes this flaw. No current fix - apart from to use the Jackson demarshalling instead!</p>
+<p><strong>Q. Declared with <code>Body.auto&lt;List&lt;XXX&gt;&gt;().toLens()</code>, my auto-marshalled List doesn't extract properly!</strong></p>
+<p><strong>A.</strong> This occurs in Jackson and Moshi when serialising bare lists to/from JSON and is to do with the underlying library being lazy in deserialising objects (using LinkedHashTreeMap) ()). Use <code>Body.auto&lt;Array&lt;MyIntWrapper&gt;&gt;().toLens()</code> instead. Yes, it's annoying but we haven't found a way to turn if off.</p>
+<p>This can be demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT 
 the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.</p>
 <p>As shown, a workaround to this is to use <code>Body.auto&lt;Array&lt;MyIntWrapper&gt;&gt;().toLens()</code> instead, and then compare using 
 <code>Arrays.equal()</code></p>
