@@ -26,7 +26,7 @@
             "in": "query",
             "name": "drink",
             "required": false,
-            "description": "your favourite beverage"
+            "description": "Your favourite beverage"
           },
           {
             "schema": {
@@ -35,7 +35,7 @@
             "in": "path",
             "name": "name",
             "required": true,
-            "description": null
+            "description": "Your name"
           },
           {
             "schema": {
@@ -44,7 +44,7 @@
             "in": "path",
             "name": "age",
             "required": true,
-            "description": null
+            "description": "Your age"
           }
         ],
         "responses": {
@@ -76,7 +76,7 @@
             "in": "path",
             "name": "name",
             "required": true,
-            "description": null
+            "description": "The name to search for in the tree"
           }
         ],
         "responses": {
@@ -85,32 +85,17 @@
             "content": {
               "application/json": {
                 "example": {
-                  "name": "Bob",
+                  "name": "Donald",
                   "age": {
-                    "value": 85
+                    "value": 52
                   },
                   "children": [
                     {
-                      "name": "Anita",
+                      "name": "Don Jr",
                       "age": {
-                        "value": 55
+                        "value": 21
                       },
                       "children": []
-                    },
-                    {
-                      "name": "Donald",
-                      "age": {
-                        "value": 52
-                      },
-                      "children": [
-                        {
-                          "name": "Don Jr",
-                          "age": {
-                            "value": 21
-                          },
-                          "children": []
-                        }
-                      ]
                     }
                   ]
                 },
@@ -140,7 +125,7 @@
       "Person": {
         "properties": {
           "name": {
-            "example": "Don Jr",
+            "example": "Donald",
             "type": "string"
           },
           "age": {
@@ -149,18 +134,38 @@
           },
           "children": {
             "items": {
-              "oneOf": []
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Person"
+                }
+              ]
             },
-            "example": [],
+            "example": [
+              {
+                "name": "Don Jr",
+                "age": {
+                  "value": 21
+                },
+                "children": []
+              }
+            ],
             "type": "array"
           }
         },
         "example": {
-          "name": "Don Jr",
+          "name": "Donald",
           "age": {
-            "value": 21
+            "value": 52
           },
-          "children": []
+          "children": [
+            {
+              "name": "Don Jr",
+              "age": {
+                "value": 21
+              },
+              "children": []
+            }
+          ]
         },
         "type": "object",
         "required": [
@@ -172,12 +177,12 @@
       "Age": {
         "properties": {
           "value": {
-            "example": 21,
+            "example": 52,
             "type": "number"
           }
         },
         "example": {
-          "value": 21
+          "value": 52
         },
         "type": "object",
         "required": [
