@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31650" tabindex="1" class="md-skip">
+<a href="../#v31660" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1070,6 +1070,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v31660" title="v3.166.0" class="md-nav__link">
+    v3.166.0
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v31650" title="v3.165.0" class="md-nav__link">
@@ -3201,13 +3208,16 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
+<h3 id="v31660">v3.166.0</h3>
+<ul>
+<li>[http4k-core] Added <code>singlePageApp()</code> routing handler, which matches both static content or falls back to the root path index file</li>
+</ul>
 <h3 id="v31650">v3.165.0</h3>
 <ul>
 <li>[http4k-contract] Fix invalid OpenApi2 when root and base path match. H/T @rgladwell</li>
 <li>[http4k-contract] <code>ContractRoute</code> is now an <code>HttpHandler</code>, so no need to wrap contract routes in a <code>contract {}</code> to test them. H/T @rgladwell for the inspiration.</li>
 <li>[http4k-contract] Support Host/baseUri values in OpenApi2. H/T @rgladwell</li>
 <li>[http4k-contract] Optionally add description route to route list H/T @rgladwell</li>
-<li>[http4k-core] Added <code>singlePageApp {}</code> routing handler, which matches both static content or falls back to an index file</li>
 </ul>
 <h3 id="v31640">v3.164.0</h3>
 <ul>
