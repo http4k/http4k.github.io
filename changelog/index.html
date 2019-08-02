@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31700" tabindex="1" class="md-skip">
+<a href="../#v31710" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1070,6 +1070,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v31710" title="v3.171.0" class="md-nav__link">
+    v3.171.0
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v31700" title="v3.170.0" class="md-nav__link">
@@ -3243,10 +3250,13 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
+<h3 id="v31710">v3.171.0</h3>
+<ul>
+<li>[http4k-core] [Break (mitigation)] Replaced default resource loader location for <code>singlePageApp()</code> to <code>/public</code> instead of root - this is for safety of NOT serving the root of the classpath by default.</li>
+</ul>
 <h3 id="v31700">v3.170.0</h3>
 <ul>
-<li>[http4k-core] Add a warning when <code>static()</code> is used with no package path, thus exposing the 
-contents of the classpath remotely.</li>
+<li>[http4k-core] Add a warning when <code>static()</code> is used with no package path, thus exposing the contents of the classpath remotely.</li>
 </ul>
 <h3 id="v31690">v3.169.0</h3>
 <ul>
