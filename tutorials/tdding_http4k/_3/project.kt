@@ -1,4 +1,4 @@
-package guide.example._3_adding_the_second_endpoint
+package tutorials.tdding_http4k._3
 
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET

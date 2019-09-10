@@ -165,8 +165,12 @@
                     
                     
                     
+                        <span class="md-header-nav__parent">
+                          Tutorials >
+                        </span>
                     
-                    Tutorial: Writing self-documenting http4k APIs with OpenApi
+                    
+                    Documenting apps with OpenApi
                     
                 </div>
             </div>
@@ -606,21 +610,28 @@
   </li>
 
         
-          
-          
-          
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
 
 
-  <li class="md-nav__item md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
     
-    <label class="md-nav__link" for="nav-5-3">
-      Worked TDD Example
+    <label class="md-nav__link" for="nav-6">
+      Tutorials
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-5-3">
-        Worked TDD Example
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Tutorials
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -631,8 +642,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../guide/example/" title="Introduction" class="md-nav__link">
-      Introduction
+    <a href="../tdding_http4k/" title="TDDing http4k" class="md-nav__link">
+      TDDing http4k
     </a>
   </li>
 
@@ -641,52 +652,91 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../guide/example/_1_building_a_walking_skeleton/" title="1. Building a walking skeleton" class="md-nav__link">
-      1. Building a walking skeleton
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Documenting apps with OpenApi
+      </label>
+    
+    <a href="./" title="Documenting apps with OpenApi" class="md-nav__link md-nav__link--active">
+      Documenting apps with OpenApi
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../guide/example/_2_adding_the_first_endpoint/" title="2. Adding an endpoint" class="md-nav__link">
-      2. Adding an endpoint
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../guide/example/_3_adding_the_second_endpoint/" title="3. Adding another endpoint" class="md-nav__link">
-      3. Adding another endpoint
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../guide/example/_4_adding_an_external_dependency/" title="4. An external dependency" class="md-nav__link">
-      4. An external dependency
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about-openapi" title="About OpenApi" class="md-nav__link">
+    About OpenApi
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typesafe-http-contracts-with-http4k-contract" title="Typesafe HTTP contracts with http4k-contract" class="md-nav__link">
+    Typesafe HTTP contracts with http4k-contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-your-first-endpoint" title="1. Your first endpoint" class="md-nav__link">
+    1. Your first endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-defining-an-http-contract" title="2. Defining an HTTP contract" class="md-nav__link">
+    2. Defining an HTTP contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-auto-validating-incoming-http-messages" title="3. Auto-validating incoming HTTP messages" class="md-nav__link">
+    3. Auto-validating incoming HTTP messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-modelling-http-body-messages" title="4. Modelling HTTP body messages" class="md-nav__link">
+    4. Modelling HTTP body messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wrapping-up" title="Wrapping up..." class="md-nav__link">
+    Wrapping up...
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -702,13 +752,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
     
-    <label class="md-nav__link" for="nav-6">
+    <label class="md-nav__link" for="nav-7">
       Cookbook
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
+      <label class="md-nav__title" for="nav-7">
         Cookbook
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1002,13 +1052,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
     
-    <label class="md-nav__link" for="nav-9">
+    <label class="md-nav__link" for="nav-10">
       Blog
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-9">
+      <label class="md-nav__title" for="nav-10">
         Blog
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1161,7 +1211,7 @@ In http4k, the extended contract metadata is kept close to the endpoint code and
 <p>Metadata for endpoints can be supplied via inserting a <code>meta {}</code> DSL block, which contains a mixture of 2 main types of property: </p>
 <ol>
 <li><strong>Informational</strong> properties - such as <code>summary</code>, <code>description</code> and <code>tags</code> simply improve the experience of the user of the UI.</li>
-<li><strong>Contractual</strong> properties define parameters using the http4k lens API (in the same way as we used for the path) for the <code>Query</code>, <code>Header</code> or <code>Body</code> parts of the request. Once added to the contract, these items will also be auto-validated for form and presence before the contract HttpHandler is invoked, thus eliminating the need for any custom validation code to be written. We can then use the same Lenses to confidently extract those values inside our HttpHandler code.</li>
+<li><strong>Contractual</strong> properties define parameters using the http4k lens API (in the same way as we used for the path) for the <code>Query</code>, <code>Header</code> or <code>Body</code> parts of the request. Once added to the contract, these items will also be auto-validated for form and presence before the contract HttpHandler is invoked, thus eliminating the need for any custom validation code to be written. We can then use the same lenses to confidently extract those values inside our HttpHandler code.</li>
 </ol>
 <p>Let's demonstrate by writing a slightly different version of the same endpoint, but move <code>age</code> to be a required query parameter, and also add the option to override the <code>drink</code> we offer:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/self_documenting_apis_with_openapi/3_route.kt"></script>
@@ -1174,12 +1224,12 @@ In http4k, the extended contract metadata is kept close to the endpoint code and
 <p>We can see the updated OpenApi UI <strong><a target="_blank" href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fself_documenting_apis_with_openapi%2F3_openapi.json">here</a></strong>. Note that because request parameters are validated before sending, we cannot replicate the above invalid request in the UI.</p>
 <h3 id="4-modelling-http-body-messages">4. Modelling HTTP body messages</h3>
 <p>The most exciting part http4k supporting OpenApi3 is the ability to represent HTTP messages in <strong><a href="https://json-schema.org/">JSON Schema</a></strong> form in the documentation. This facility is what unlocks the true cross-language support and takes the usefulness of the OpenApi UI to another level, for both exploratory and support functions. Request and response messages can both be specified in the <code>meta {}</code> block using overloads of the <code>receiving()</code> and <code>returning()</code> functions. By using these functions, we can supply an example object to the DSL - this is what drives the generation of the JSON Schema and, more importantly, ensures that the documentation cannot go stale as it is driven by code.</p>
-<p>Lets add another route to the mix which returns a body object modelled with a Kotlin Data class and once again using http4k lenses. This time the lens is created with the <code>Body.auto&lt;&gt;().toLens()</code> which provides the typed injection and extraction functions. Notice here that for injection we are using the more fluent API  <code>with()</code> and <code>of()</code> extension functions, as opposed to the standard lens injection function<code>(X, HttpMessage) -&gt; HttpMessage</code>:</p>
+<p>Lets add another route to the mix which returns a body object modelled with a Kotlin Data class and once again using http4k lenses. This time the lens is created with <code>Body.auto&lt;&gt;().toLens()</code> which provides the typed injection and extraction functions. Notice here that for injection we are using the more fluent API  <code>with()</code> and <code>of()</code> extension functions, as opposed to the standard lens injection function<code>(X, HttpMessage) -&gt; HttpMessage</code>:</p>
 <script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/self_documenting_apis_with_openapi/4_route.kt"></script>
 
 <p>Taking a final look at the OpenApi UI <strong><a target="_blank" href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fself_documenting_apis_with_openapi%2F4_openapi.json">here</a></strong> shows that not just has the UI been updated with the new route, but that example entries for the expected response are now displayed, as well as JSON Schema entries for the <code>Person</code> and <code>Age</code> classes in the <code>Schemas</code> section at the bottom.</p>
-<h3 id="further-reading">Further reading...</h3>
-<p>And that's it. Once we have the final specification document available, users of our API can use various <strong><a href="https://openapi-generator.tech">OpenApi Generators</a></strong> to generate HTTP clients in various languages for interacting with it, or to generate fake services that provide our API in their own environments (and thus enabling more simple end-to-end testing). The "Fake HTTP services" technique also enables the creation of Consumer-Driven-Contract style tests, and opens up possibilities for all kinds of interesting Chaos/failure-mode testing (you can even use the <code>http4k-testing-chaos</code> module to help with this 😉).</p>
+<h3 id="wrapping-up">Wrapping up...</h3>
+<p>Once we have the final specification document available, users of our API can use the various <strong><a href="https://openapi-generator.tech">OpenApi Generators</a></strong> to generate HTTP clients in various languages for interacting with it, or to generate fake services that provide our API in their own environments (and thus enabling more simple end-to-end testing). The "Fake HTTP services" technique also enables the creation of Consumer-Driven-Contract style tests, and opens up possibilities for all kinds of interesting Chaos/failure-mode testing (you can even use the <code>http4k-testing-chaos</code> module to help with this 😉).</p>
 <p>The full source for this tutorial can be found <strong><a href="https://github.com/http4k/http4k/tree/master/src/docs/tutorials/self_documenting_apis_with_openapi/">here</a></strong>, or for a sense of how this all looks in when mixed into a complete http4k project, check out the <strong><a href="https://github.com/http4k/http4k-by-example">http4k-by-example</a></strong> repo, which contains an entire TDD'd project showcasing a multitude of http4k features and testing styles.</p>
                     
                     
@@ -1197,6 +1247,41 @@ In http4k, the extended contract metadata is kept close to the endpoint code and
     
     
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../tdding_http4k/" title="TDDing http4k" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                TDDing http4k
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../cookbook/server_as_a_function/" title="Server as a function" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Server as a function
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
