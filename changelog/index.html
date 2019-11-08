@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v31940" tabindex="1" class="md-skip">
+<a href="../#v31950" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1070,6 +1070,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v31950" title="v3.195.0" class="md-nav__link">
+    v3.195.0
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v31940" title="v3.194.0" class="md-nav__link">
@@ -3389,6 +3396,11 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
+<h3 id="v31950">v3.195.0</h3>
+<ul>
+<li>[http4k-security-oauth] - Tweak to handle Content-Type comparisons (with and without directive). H/T @jippeholwerda for the PR</li>
+<li>[http4k-multipart] - [Breaking] Added support for setting custom headers in Multipart form fields and files. This has removed the <code>String</code> as the default field type (it is now <code>MultipartFormField</code>. Calls to create lenses using <code>MultipartFormField</code> will now require <code>MultipartFormField.string()</code> instead.</li>
+</ul>
 <h3 id="v31940">v3.194.0</h3>
 <ul>
 <li>[http4k-contract] Useful tweaks to the contracts API</li>
