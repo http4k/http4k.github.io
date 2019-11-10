@@ -1148,8 +1148,8 @@
 </pre></div>
 
 
-<p>In order to leverage modern log aggregation platforms, we should move away from logging arbitrary strings into the standard out of our applications, and move towards <a href="https://www.thoughtworks.com/radar/techniques/structured-logging">Structured Logging</a> instead, which allows us to treat logs as data which can be mined to give us better observability of our systems. This also encourages the move for developers to think about which events happening in your apps are actually important and what data is appropriate to be attached to each one.</p>
-<p>[http4k] supports Structured Logging using a simple yet powerful concept - an <code>Event</code> is simply a marker interface that can be attached to any class, which we then send to an instance of <code>Events</code> (a "sink" for sending <code>Event</code> instances to. As with the <code>HttpHandler</code>, <code>Events</code> is just a typealias of <code>(Event) -&gt; Unit</code>, and similarly to the <code>HttpHandler</code>, an Event can be transformed or decorated with metadata using an <code>EventFilter</code> (modelled as <code>(Events) -&gt; Events</code>)).</p>
+<p>In order to leverage modern log aggregation platforms, we should move away from logging arbitrary strings into the StdOut of our applications, and move towards <a href="https://www.thoughtworks.com/radar/techniques/structured-logging">Structured Logging</a> instead, which allows us to treat logs as data which can be mined to give us better observability of our systems. This also encourages the move for developers to think about which events happening in your apps are actually important and what data is appropriate to be attached to each one.</p>
+<p>[http4k] supports Structured Logging using a simple yet powerful concept - an <code>Event</code> is simply a marker interface that can be attached to any class, which we then send to an instance of <code>Events</code> (a "sink" for sending <code>Event</code> instances to). As with the <code>HttpHandler</code>, <code>Events</code> is just a typealias of <code>(Event) -&gt; Unit</code>, and similarly to the <code>HttpHandler</code>, an Event can be transformed or decorated with metadata using an <code>EventFilter</code> (modelled as <code>(Events) -&gt; Events</code>)).</p>
 <p>Support for leveraging auto "object to JSON" transformational capabilities is included for the libraries that have it (eg. Jackson and GSON). This allows custom <code>Json</code> instances to be used (for instance) to avoid PII information being spat out to log aggregation platforms where they could be masked using the configuration of the JSON renderer.</p>
 <p>Attaching metadata to an <code>Event</code> results in (compactified) JSON similar to this:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
@@ -1172,8 +1172,8 @@
 </pre></div>
 
 
-<p>Since this is "next level logging", there is no need to bring in a custom logging library such as SL4J, although they would be very simple to integrate if required by implementing a custom <code>Events</code> instance.</p>
-<p>The example below shows a simple application that outputs structured logs to standard out which can be analysed by an aggregator, along with the attachment of extra <code>Event</code> metadata via a custom <code>EventFilter</code>.</p>
+<p>In harmony with the ethos of [http4k] there is no need to bring in a custom logging library such as SL4J, although they would be very simple to integrate if required by implementing a custom <code>Events</code> instance.</p>
+<p>The example below shows a simple application that outputs structured logs to StdOut which can be analysed by an aggregator, along with the attachment of extra <code>Event</code> metadata via a custom <code>EventFilter</code>.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/structured_logging_with_events/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
 <p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/structured_logging_with_events/example.kt"></script></p>
                     
