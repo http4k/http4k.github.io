@@ -12,19 +12,19 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     
-    <meta itemprop="name" content="http4k tutorials: Add typesafe 12-factor configuration to http4k apps with Environments.">
-    <meta name="twitter:title" content="http4k tutorials: Add typesafe 12-factor configuration to http4k apps with Environments.">
-    <meta property="og:title" content="http4k tutorials: Add typesafe 12-factor configuration to http4k apps with Environments." />
+    <meta itemprop="name" content="http4k Structured Logging with Events">
+    <meta name="twitter:title" content="http4k Structured Logging with Events">
+    <meta property="og:title" content="http4k Structured Logging with Events" />
     
 
     
-    <meta name="description" content="An overview of how to configure http4k applications using the http4k-cloudnative module">
-    <meta property="og:description" content="An overview of how to configure http4k applications using the http4k-cloudnative module" />
-    <meta name="twitter:description" content="An overview of how to configure http4k applications using the http4k-cloudnative module">
+    <meta name="description" content="Recipe for using http4k Events to send structured logs to external log sinks">
+    <meta property="og:description" content="Recipe for using http4k Events to send structured logs to external log sinks" />
+    <meta name="twitter:description" content="Recipe for using http4k Events to send structured logs to external log sinks">
     
 
     
-    <link rel="canonical" href="https://www.http4k.org/tutorials/typesafe_configuration/">
+    <link rel="canonical" href="https://www.http4k.org/cookbook/structured_logging_with_events/">
     
 
     
@@ -77,7 +77,7 @@
     
     
     
-    <title>http4k tutorials: Add typesafe 12-factor configuration to http4k apps with Environments.</title>
+    <title>http4k Structured Logging with Events</title>
     
     
     
@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../../#add-typesafe-12-factor-configuration-to-http4k-apps-with-environments" tabindex="1" class="md-skip">
+<a href="../../#gradle-setup" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -165,8 +165,12 @@
                     
                     
                     
+                        <span class="md-header-nav__parent">
+                          Cookbook >
+                        </span>
                     
-                    http4k tutorials: Add typesafe 12-factor configuration to http4k apps with Environments.
+                    
+                    Structured Logging with Events
                     
                 </div>
             </div>
@@ -636,7 +640,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../tdding_http4k/" title="TDDing http4k" class="md-nav__link">
+    <a href="../../tutorials/tdding_http4k/" title="TDDing http4k" class="md-nav__link">
       TDDing http4k
     </a>
   </li>
@@ -648,7 +652,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../documenting_apis_with_openapi/" title="Documenting http4k apps with OpenApi3" class="md-nav__link">
+    <a href="../../tutorials/documenting_apis_with_openapi/" title="Documenting http4k apps with OpenApi3" class="md-nav__link">
       Documenting http4k apps with OpenApi3
     </a>
   </li>
@@ -663,10 +667,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
     
     <label class="md-nav__link" for="nav-7">
       Cookbook
@@ -684,7 +690,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/server_as_a_function/" title="Server as a function" class="md-nav__link">
+    <a href="../server_as_a_function/" title="Server as a function" class="md-nav__link">
       Server as a function
     </a>
   </li>
@@ -696,7 +702,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/client_as_a_function/" title="Client as a function" class="md-nav__link">
+    <a href="../client_as_a_function/" title="Client as a function" class="md-nav__link">
       Client as a function
     </a>
   </li>
@@ -708,7 +714,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/container_integration/" title="Container integration" class="md-nav__link">
+    <a href="../container_integration/" title="Container integration" class="md-nav__link">
       Container integration
     </a>
   </li>
@@ -720,7 +726,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/simple_routing/" title="Simple routing" class="md-nav__link">
+    <a href="../simple_routing/" title="Simple routing" class="md-nav__link">
       Simple routing
     </a>
   </li>
@@ -732,7 +738,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/nestable_routes/" title="Nestable routes" class="md-nav__link">
+    <a href="../nestable_routes/" title="Nestable routes" class="md-nav__link">
       Nestable routes
     </a>
   </li>
@@ -744,7 +750,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/using_json/" title="JSON messaging" class="md-nav__link">
+    <a href="../using_json/" title="JSON messaging" class="md-nav__link">
       JSON messaging
     </a>
   </li>
@@ -756,7 +762,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/using_templates/" title="Templating engines" class="md-nav__link">
+    <a href="../using_templates/" title="Templating engines" class="md-nav__link">
       Templating engines
     </a>
   </li>
@@ -768,7 +774,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/request_context/" title="Typesafe RequestContexts" class="md-nav__link">
+    <a href="../request_context/" title="Typesafe RequestContexts" class="md-nav__link">
       Typesafe RequestContexts
     </a>
   </li>
@@ -780,7 +786,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
+    <a href="../typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
       Typesafe HTTP requests with lenses
     </a>
   </li>
@@ -792,7 +798,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/html_forms/" title="HTML forms" class="md-nav__link">
+    <a href="../html_forms/" title="HTML forms" class="md-nav__link">
       HTML forms
     </a>
   </li>
@@ -804,7 +810,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/multipart_forms/" title="Multipart forms" class="md-nav__link">
+    <a href="../multipart_forms/" title="Multipart forms" class="md-nav__link">
       Multipart forms
     </a>
   </li>
@@ -816,7 +822,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
+    <a href="../generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
       Generating data classes for messages
     </a>
   </li>
@@ -828,7 +834,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/websockets/" title="Websockets" class="md-nav__link">
+    <a href="../websockets/" title="Websockets" class="md-nav__link">
       Websockets
     </a>
   </li>
@@ -840,7 +846,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
+    <a href="../typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
       Typesafe HTTP contracts
     </a>
   </li>
@@ -850,11 +856,52 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../cookbook/structured_logging_with_events/" title="Structured Logging with Events" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Structured Logging with Events
+      </label>
+    
+    <a href="./" title="Structured Logging with Events" class="md-nav__link md-nav__link--active">
       Structured Logging with Events
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gradle-setup" title="Gradle setup" class="md-nav__link">
+    Gradle setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" title="Code " class="md-nav__link">
+    Code 
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -864,7 +911,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/basic_oauth_authorization_server/" title="Basic OAuth Server configuration" class="md-nav__link">
+    <a href="../basic_oauth_authorization_server/" title="Basic OAuth Server configuration" class="md-nav__link">
       Basic OAuth Server configuration
     </a>
   </li>
@@ -876,7 +923,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/custom_oauth_provider/" title="Custom OAuth Provider configuration" class="md-nav__link">
+    <a href="../custom_oauth_provider/" title="Custom OAuth Provider configuration" class="md-nav__link">
       Custom OAuth Provider configuration
     </a>
   </li>
@@ -888,7 +935,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/principal_lookup/" title="Principal lookup" class="md-nav__link">
+    <a href="../principal_lookup/" title="Principal lookup" class="md-nav__link">
       Principal lookup
     </a>
   </li>
@@ -900,7 +947,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/monitoring/" title="Monitoring http4k" class="md-nav__link">
+    <a href="../monitoring/" title="Monitoring http4k" class="md-nav__link">
       Monitoring http4k
     </a>
   </li>
@@ -912,7 +959,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
+    <a href="../record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
       Recording/replaying HTTP traffic
     </a>
   </li>
@@ -924,7 +971,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/test_driven_apps/" title="Test driven apps" class="md-nav__link">
+    <a href="../test_driven_apps/" title="Test driven apps" class="md-nav__link">
       Test driven apps
     </a>
   </li>
@@ -936,7 +983,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cookbook/nanoservices/" title="Nanoservices" class="md-nav__link">
+    <a href="../nanoservices/" title="Nanoservices" class="md-nav__link">
       Nanoservices
     </a>
   </li>
@@ -1090,154 +1137,45 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/tutorials/typesafe_configuration/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/structured_logging_with_events/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                     
                     
-                    <h1 id="add-typesafe-12-factor-configuration-to-http4k-apps-with-environments">Add typesafe 12-factor configuration to http4k apps with Environments.</h1>
-<h2 id="intro">Intro</h2>
-<p>This post covers the various concerns around configuring HTTP apps, and introduces the <a href="https://http4k.org">http4k</a> 
-approach for addressing these when deploying applications into cloud-native environments, which leverages the Kotlin type 
-system for maximum safely and code reuse.</p>
-<h2 id="concerns-when-configuring-applications">Concerns when configuring applications</h2>
-<p>One of the tenets of operating applications according to the principles of <a href="https://12factor.net/">12factor</a>, 
-and especially in containerised cloud-native apps, is to inject all app configuration through the use of environmental 
-variables. Additionally, when using more restrictive settings (such as utilising JVM security manager policies or through 
-the use of container images which don't provide an OS baseline) it may not be possible to read files (such as YAML, JSON 
-etc) from disk, which reinforces this approach.</p>
-<p>There are several particular relevant concerns that we need to address, but overall the effect that we are looking for is 
-that any misconfiguration of the application will result in it failing to startup. For this reason we want to reify all 
-values to check them as soon as possible in the application bootstrap phase.</p>
-<h4 id="1-optionality">1. Optionality</h4>
-<p>Kotlin's type system guards us against missing values being injected - for instance the following code will throw a 
-<code>IllegalStateException</code> due to a typo in the parameter name:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/missing.kt"></script>
+                    <h1>Structured Logging with Events</h1>
+                    
+                    <h3 id="gradle-setup">Gradle setup</h3>
+<div class="codehilite"><pre><span></span>    <span class="n">compile</span> <span class="k">group</span><span class="p">:</span> <span class="ss">&quot;org.http4k&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="ss">&quot;http4k-core&quot;</span><span class="p">,</span> <span class="k">version</span><span class="p">:</span> <span class="ss">&quot;3.195.1&quot;</span>
+    <span class="n">compile</span> <span class="k">group</span><span class="p">:</span> <span class="ss">&quot;org.http4k&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="ss">&quot;http4k-format-jackson&quot;</span><span class="p">,</span> <span class="k">version</span><span class="p">:</span> <span class="ss">&quot;3.195.1&quot;</span>
+</pre></div>
 
-<p>However not all configuration values will be required. We can define that there are 3 distinct modes of optionality 
-available for each parameter:</p>
-<ul>
-<li><strong>Required:</strong> These values must be injected for each environment, with no default value defined. Most configurations such 
-as hostnames should always use this form to maximise operational safety.</li>
-<li><strong>Optional:</strong> These values can be supplied, but there is no default value. This category fits well with dynamic properties 
-which could be data-driven (ie. not known at compile-time).</li>
-<li><strong>Defaulted:</strong> These values can be supplied, but a fallback value (or chain of other config values) will be used if they 
-are not.</li>
-</ul>
-<p>Missing values should produce a reasonable error and stop the app from starting.</p>
-<h4 id="2-type-coercion">2. Type coercion</h4>
-<p>Most applications will require a variety of configuration primitive types, which may or may not map to the Java/Kotlin 
-standard types, including:</p>
-<ul>
-<li><strong>strings</strong> such as service URLs, log levels, or AWS role names</li>
-<li><strong>numeric</strong> values such as ports or retry counts</li>
-<li><strong>booleans</strong> such as debug switch or feature flags</li>
-<li><strong>duration</strong> values for timeouts, backoff times</li>
-</ul>
-<p>But handling these raw types alone is not enough to guarantee safety - it is best to marshall the values into a 
-suitable operational/domain type that can validate the input and avoid confusion. Kotlin gives us a simple way to do this 
-using <code>require</code> as a guard:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/validation.kt"></script>
 
-<p>Additionally to the above, it is important to represent those values in a form that cannot be misinterpreted. A good 
-example of this is the passing of temporal values as integers - timeouts defined this way could be easily be 
-parsed into the wrong time unit (seconds instead of milliseconds). Using a higher level primitive such as <code>Duration</code> 
-will help us here:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/typesafe.kt"></script>
+<p>In order to leverage modern log aggregation platforms, we should move away from logging arbitrary strings into the standard out of our applications, and move towards <a href="https://www.thoughtworks.com/radar/techniques/structured-logging">Structured Logging</a> instead, which allows us to treat logs as data which can be mined to give us better observability of our systems. This also encourages the move for developers to think about which events happening in your apps are actually important and what data is appropriate to be attached to each one.</p>
+<p>[http4k] supports Structured Logging using a simple yet powerful concept - an <code>Event</code> is simply a marker interface that can be attached to any class, which we then send to an instance of <code>Events</code> (a "sink" for sending <code>Event</code> instances to. As with the <code>HttpHandler</code>, <code>Events</code> is just a typealias of <code>(Event) -&gt; Unit</code>, and similarly to the <code>HttpHandler</code>, an Event can be transformed or decorated with metadata using an <code>EventFilter</code> (modelled as <code>(Events) -&gt; Events</code>)).</p>
+<p>Support for leveraging auto "object to JSON" transformational capabilities is included for the libraries that have it (eg. Jackson and GSON). This allows custom <code>Json</code> instances to be used (for instance) to avoid PII information being spat out to log aggregation platforms where they could be masked using the configuration of the JSON renderer.</p>
+<p>Attaching metadata to an <code>Event</code> results in (compactified) JSON similar to this:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/path1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">16</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T17:32:27.297448Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;traces&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;traceId&quot;</span><span class="p">:</span> <span class="s2">&quot;e35304c95b704c7d&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;spanId&quot;</span><span class="p">:</span> <span class="s2">&quot;0e46f7b3cb5bcf2e&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;parentSpanId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nt">&quot;samplingDecision&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;requestCount&quot;</span><span class="p">:</span> <span class="mi">1234</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
-<p>Obviously, the above is still not very safe - and what's more, a coercion could now fail with one of 3 different 
-exceptions depending on if the value was missing (<code>IllegalStateException</code>), unparsable (<code>DateTimeParseException</code>) or 
-invalid (<code>IllegalArgumentException</code>). The conversion code from <code>String -&gt; Duration</code> must also be repeated (or extracted) 
-for each value that we wish to parse.</p>
-<h4 id="3-multiplicity">3. Multiplicity</h4>
-<p>Configuration parameters may have one or many values and need to be converted safely from the injected string 
-representation (usually comma-separated) and into their internally represented types at application startup: </p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/multiplicity.kt"></script>
 
-<p>Once again, the splitting code will need to be repeated for each config value, or extracted to a library function.</p>
-<h4 id="4-security">4. Security</h4>
-<p>The configuration of a standard app will generally contain both sensitive and non-sensitive values. Sensitive such as 
-application secrets, DB passwords or API keys should be handled in a way that avoid storing directly in memory in a 
-readable format or long lived fashion, where they may be inadvertently inspected or outputted into a log file.</p>
-<p>Dangling code situations such as in the code below are common, and are asking for trouble...</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/secrets.kt"></script>
-
-<h4 id="5-configuration-context-overriding">5. Configuration Context &amp; Overriding</h4>
-<p>We also want to avoid defining all values for all possible scenarios - for example in test cases, so the ability 
-to overlay configuration sets on top of each other is useful. Although it is against the rules of 12-factor, it is sometimes 
-convenient to source parameter values from a variety of contexts when running applications in non-cloud environments:</p>
-<ul>
-<li>System Environment variables</li>
-<li>Properties files</li>
-<li>JAR resources</li>
-<li>Local files</li>
-<li>Source code defined environmental configuration</li>
-</ul>
-<p>Implementing this kind of fallback logic manually, you'd end up with code like the below: 
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/overriding.kt"></script></p>
-<h2 id="the-http4k-approach">The http4k approach...</h2>
-<p>There are <a href="https://github.com/ufoscout/properlty">already</a> <a href="https://github.com/config4k/config4k">many</a> <a href="https://github.com/uchuhimo/konf">options</a> <a href="https://github.com/jdiazcano/cfg4k">for</a> <a href="https://github.com/daviddenton/configur8">configurational</a> 
-<a href="https://github.com/mariomac/kaconf">libraries</a> written in Kotlin, but <a href="https://http4k.org">http4k</a> also provides an option in the <code>http4k-cloudnative</code> add-on module 
-which leverages the power of the Lens system already built into the core library to provide a consistent experience to 
-API users. In case you're new to Lenses, here's a recap...</p>
-<h3 id="lenses-a-recap">Lenses - a recap</h3>
-<p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
-although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
-contexts.</p>
-<p>A Lens is an stateless object responsible for either the one-way (or Bidirectional) transformation of</p>
-<p>It defines type parameters representing input <code>IN</code> and output <code>OUT</code> types and implements 
-one (for a <code>Lens</code>) or both (for a <code>BiDiLens</code>) of the following interfaces:</p>
-<ol>
-<li><strong>LensExtractor</strong> - takes a value of type <code>IN</code> and extracts a value of type <code>OUT</code></li>
-<li><strong>LensInjector</strong> - takes a value of type <code>IN</code> and a value of type <code>OUT</code> and returns a modified value of type <code>IN</code> 
-with the value injected into it.</li>
-</ol>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/lens_definition.kt"></script>
-
-<p>The creation of a Lens consists of 4 main concerns:</p>
-<ol>
-<li><strong>targeting</strong> determines where the Lens expects to extract and inject the values from/to, which can consist of both 
-an overall target and a name within that target.</li>
-<li><strong>multiplicity</strong> handling which defines how many of a particular value we are attempting to handle.</li>
-<li>the <strong>transformation</strong> chain of function composition which forms a specification for converting one type to another. 
-This is done in code using the <code>map()</code> method defined on the Lens.</li>
-<li>the <strong>optionality</strong> of a Lens denotes the behaviour if/when a value cannot be found in the target.</li>
-</ol>
-<p>To define a Lens instance through the <a href="https://http4k.org">http4k</a> Lens API, we take an initial <strong>target</strong> specification, decide it's 
-<strong>multiplicity</strong>, provide any <strong>transformations</strong> with <code>map()</code>, and finally reify the specification into a Lens instance 
-by deciding it's optionality.</p>
-<p>It sounds involved, but it is consistent and the fluent API has been designed to make it simpler. By way of an example, 
-here we define a bi-directional Lens for custom type <code>Page</code>, extracted from a querystring value and defaulting to Page 1.</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/lens_example.kt"></script>
-
-<p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
-although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
-contexts.</p>
-<h2 id="http4k-environments">http4k Environments</h2>
-<p>in <a href="https://http4k.org">http4k</a>, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
-<code>Map</code>, in that it can be composed with other <code>Environment</code> objects to provide a consolidated view of all of it's 
-component values. </p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/overriding.kt"></script>
-
-<p>If you're using any of the other Kotlin-based configuration libraries, the above should look pretty familiar. The 
-difference starts to become apparent when attempting to retrieve values from the <code>Environment</code> instance. This is done 
-using <code>EnviromentKey</code> Lenses, which are an extension of the <a href="https://http4k.org">http4k</a> Lens system that specifically targets <code>Environment</code> 
-objects. </p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/typesafe.kt"></script>
-
-<h5 id="handling-failure">Handling failure</h5>
-<p>When using the <a href="https://http4k.org">http4k</a> Environment to define config, missing or values which cannot be deserialised all now cause 
-a <code>LensFailure</code> to be thrown with a descriptive error message. As before, this results in the application failing to 
-start, but as the exception if both consistent and explicit, diagnosing the problem becomes much simpler.</p>
-<h4 id="single-shot-secrets">Single-shot Secrets</h4>
-<p>In order to avoid the accidental exposure of sensitive information such as passwords into the application runtime, a new 
-type <code>Secret</code> has been introduced, which tries as much as possible to avoid exposing it's internal value as a readable 
-<code>String</code>. The <code>Secret</code> class is designed to only have the string version of it's value read once, and only within a 
-specific <code>use()</code> block, after which the underlying value is internally overwritten and further attempts to read it throw 
-an <code>IllegalStateException</code>. </p>
-<p>The typical use-case for this block is to set-up a SQL <code>Datasource</code> or to create a <code>Filter</code> which adds authentication to 
-all outbound requests, as in the example below:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/secrets.kt"></script>
-
-<p>As with other supported primitives, <code>Secret</code> is available by default in all supported Lens Locations.</p>
+<p>Since this is "next level logging", there is no need to bring in a custom logging library such as SL4J, although they would be very simple to integrate if required by implementing a custom <code>Events</code> instance.</p>
+<p>The example below shows a simple application that outputs structured logs to standard out which can be analysed by an aggregator, along with the attachment of extra <code>Event</code> metadata via a custom <code>EventFilter</code>.</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/structured_logging_with_events/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
+<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/structured_logging_with_events/example.kt"></script></p>
                     
                     
                     
@@ -1254,6 +1192,41 @@ all outbound requests, as in the example below:</p>
     
     
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Typesafe HTTP contracts
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../basic_oauth_authorization_server/" title="Basic OAuth Server configuration" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Basic OAuth Server configuration
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
