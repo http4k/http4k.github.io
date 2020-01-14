@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v32100" tabindex="1" class="md-skip">
+<a href="../#v32110" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1082,6 +1082,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v32110" title="v3.211.0" class="md-nav__link">
+    v3.211.0
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v32100" title="v3.210.0" class="md-nav__link">
@@ -3527,6 +3534,11 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
+<h3 id="v32110">v3.211.0</h3>
+<ul>
+<li>[http4-security-oauth] [Break] OIDC callback urls using the ResponseType 'code id_token' will now have the parameters returned as a fragment not a query as per 3.3.2.5 of the OpenID Connect Core 1.0 spec H/T @tom</li>
+<li>[http4-security-oauth] [Break] Initial support of nonce in OIDC requests H/T @tom</li>
+</ul>
 <h3 id="v32100">v3.210.0</h3>
 <ul>
 <li>[http4-core] Support for GZipping response streams. H/T @jshiell</li>
