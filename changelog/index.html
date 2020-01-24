@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v32220" tabindex="1" class="md-skip">
+<a href="../#v32230" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1082,6 +1082,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v32230" title="v3.223.0" class="md-nav__link">
+    v3.223.0
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v32220" title="v3.222.0" class="md-nav__link">
@@ -3611,13 +3618,18 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
+<h3 id="v32230">v3.223.0</h3>
+<ul>
+<li>[http4k-security-oauth] Adding <code>expiry</code> to <code>RequestObject</code>. H/T @tom</li>
+<li>[http4k-security-oauth] Fixing issue where unknown fields cause extracting <code>RequestObject</code> from a jwt, fails due to unknown fields. H/T @tom</li>
+</ul>
 <h3 id="v32220">v3.222.0</h3>
 <ul>
 <li>[http4k-security-oauth] [Breaking] Error responses in the authorise endpoint now take into account values from the <code>request</code> parameter, this will require a validator for that jwt be implemented. H/T @tom</li>
 <li>[http4k-security-oauth] [Breaking] State is now its own type, and not just a string, so it can be validated. H/T @tom</li>
 <li>[http4k-security-oauth] [Breaking] <code>redirectUri</code> on <code>AuthRequest</code> is now nullable as it might come on a request jwt, this is validated to be always be present downstream. H/T @tom</li>
 <li>[http4k-security-oauth] Allow parsing of request jwt. H/T @tom</li>
-<li>[http4k-security-oauth] Adding request <code>RequestObject</code> to <code>AuthRequest</code>. H/T @tom</li>
+<li>[http4k-security-oauth] Adding <code>RequestObject</code> to <code>AuthRequest</code>. H/T @tom</li>
 <li>[http4k-security-oauth] Adding <code>AuthRequestWithRequestAuthRequestExtractor</code> that will extract the request from the jwt, assuming the validator is implemented which can be used instead of just using <code>AuthRequestFromQueryParameters</code> if support for parsing a request jwt is required. H/T @tom</li>
 </ul>
 <h3 id="v32210">v3.221.0</h3>
