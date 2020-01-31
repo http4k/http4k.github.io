@@ -20,7 +20,6 @@ import org.http4k.server.SunHttp
 import org.http4k.server.asServer
 import org.http4k.servirtium.Github
 import org.http4k.servirtium.InteractionOptions
-import org.http4k.servirtium.InteractionStorage
 import org.http4k.servirtium.InteractionStorage.Companion.Disk
 import org.http4k.servirtium.ServirtiumServer
 import org.junit.jupiter.api.AfterEach
@@ -29,7 +28,7 @@ import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInfo
 import java.io.File
-import java.nio.file.Path
+import java.nio.file.Paths
 
 /**
  * This is our producing app
@@ -154,9 +153,9 @@ class GitHubReplayingWordCounterTest : WordCounterContract {
     @BeforeEach
     fun start(info: TestInfo) {
         servirtium = ServirtiumServer.Replay("WordCounter." + info.displayName.removeSuffix("()"),
-            InteractionStorage.Github("http4k", "http4k",
+            Github("http4k", "http4k",
                 Credentials("<github user>", "<personal access token>"),
-                Path.of("src/test/resources/cookbook/service_virtualisation")
+                Paths.get("src/test/resources/cookbook/service_virtualisation")
             ),
             object : InteractionOptions {
                 override fun modify(request: Request) = request
