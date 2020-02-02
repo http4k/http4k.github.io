@@ -1292,6 +1292,7 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>Jackson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
 <li><strong>Gson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
 <li><strong>Moshi</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
+<li><strong>KotlinX Serialization</strong> - official Kotlin JSON API. </li>
 <li><strong>Argo</strong> - lightweight Java JSON API with zero dependencies.            </li>
 </ul>
 </li>
@@ -1351,14 +1352,18 @@ plugging together of services without HTTP container being required.</li>
 <li>API for declaring and injecting failure modes into <a href="https://http4k.org">http4k</a> applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
 </ul>
 </li>
+<li><a href="https://http4k.org/guide/modules/servicevirtualisation">Service Virtualisation:</a> <ul>
+<li>Record and replay versioned HTTP contracts to/from <code>Servirtium</code> Markdown format. Includes Servirtium MiTM server and simple JUnit extensions.</li>
+</ul>
+</li>
 </ul>
 <h2 id="example">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/readme/example.kt"><img class="octocat" src="https://www.http4k.org/img/octocat-32.png"/></a></h2>
 <p>This quick example is designed to convey the simplicity &amp; features of <a href="https://http4k.org">http4k</a> . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point and demonstrates how to serve and consume HTTP services with dynamic routing.</p>
 <p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
 <div class="codehilite"><pre><span></span><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.231.0&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.231.0&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.231.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.232.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.232.0&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.232.0&quot;</span>
 <span class="o">}</span>
 </pre></div>
 
