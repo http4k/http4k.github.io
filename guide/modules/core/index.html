@@ -1271,32 +1271,32 @@
 </ul>
 <h4 id="httphandlers">HttpHandlers</h4>
 <p>In <a href="https://http4k.org">http4k</a>, an HTTP service is just a typealias of a simple function:</p>
-<div class="codehilite"><pre><span></span><span class="n">typealias</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Response</span>
-</pre></div>
+<div class="codehilite"><pre><span></span><code><span class="n">typealias</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Response</span>
+</code></pre></div>
 
 
 <p>First described in this Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, this abstraction allows us lots of 
 flexibility in a language like Kotlin, since the conceptual barrier to service construction is reduced to effectively nil. Here is the simplest example - note that we don't need any special infrastructure to create an <code>HttpHandler</code>, neither do we 
 need to launch a real HTTP container to exercise it:</p>
-<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">handler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.query(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">handler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.query(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
 <span class="k">val</span> <span class="py">get</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
 <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">handler</span><span class="p">(</span><span class="k">get</span><span class="p">)</span>
 
 <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
 <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>To mount the <code>HttpHandler</code> in a container, the can simply be converted to a Servlet by calling <code>handler.asServlet()</code></p>
 <h3 id="filters">Filters</h3>
 <p>Filters add extra processing to either the Request or Response. In <a href="https://http4k.org">http4k</a>, they are modelled as:</p>
-<div class="codehilite"><pre><span></span><span class="k">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">HttpHandler</span>
-</pre></div>
+<div class="codehilite"><pre><span></span><code><span class="k">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">HttpHandler</span>
+</code></pre></div>
 
 
 <p>Filters are designed to simply compose together (using <code>then()</code>) , creating reusable stacks of behaviour which can then be applied to any <code>HttpHandler</code>. 
 For example, to add Basic Auth and latency reporting to a service:</p>
-<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">handler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">handler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 
 <span class="k">val</span> <span class="py">myFilter</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span>
     <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span> <span class="p">{</span>
@@ -1310,7 +1310,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <span class="p">}</span>
 <span class="k">val</span> <span class="py">latencyAndBasicAuth</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">BasicAuth</span><span class="p">(</span><span class="s">&quot;my realm&quot;</span><span class="p">,</span> <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">).</span><span class="n">then</span><span class="p">(</span><span class="n">myFilter</span><span class="p">)</span>
 <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">latencyAndBasicAuth</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The <code>http4k-core</code> module comes with a set of handy Filters for application to both Server and Client <code>HttpHandlers</code>, covering common things like:</p>
@@ -1325,13 +1325,13 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <p>Check out the <code>org.http4k.filter</code> package for the exact list.</p>
 <h3 id="routers-nestable-path-based-routing">Routers - Nestable, path-based Routing</h3>
 <p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and <a href="https://http4k.org">http4k</a> will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
-<div class="codehilite"><pre><span></span><span class="n">routes</span><span class="p">(</span>
+<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
         <span class="s">&quot;/{name:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.path(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">),</span>
     <span class="s">&quot;/fail&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Note that the <code>http4k-contract</code> module contains a more typesafe implementation of routing functionality, with runtime-generated live documentation in OpenApi/Swagger format.</p>
@@ -1406,20 +1406,20 @@ to configure these lenses to target particular parts of the message, whilst at t
 
 <h3 id="serving-static-assets">Serving static assets</h3>
 <p>For serving static assets, just bind a path to a Static block as below, using either a Classpath or Directory (Hot reloading) based ResourceLoader instance (find these on the <code>ResourceLoader</code> companion object). Typically, Directory is used during development and the Classpath strategy is used to serve assets in production from an UberJar. This is usually based on a "devmode" flag when constructing your app". <strong>Note</strong> that you should avoid setting the Classpath value to the root because otherwise it will serve anything from your classpath (including Java class files!)!:</p>
-<div class="codehilite"><pre><span></span><span class="n">routes</span><span class="p">(</span>
+<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;/org/http4k/some/package/name&quot;</span><span class="p">)),</span>
     <span class="s">&quot;/hotreload&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Directory</span><span class="p">(</span><span class="s">&quot;path/to/static/dir/goes/here&quot;</span><span class="p">))</span>
 <span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3 id="single-page-apps">Single Page Apps</h3>
 <p>These can be easily activated as below, and default to serving from <code>/public</code> package:</p>
-<div class="codehilite"><pre><span></span><span class="n">routes</span><span class="p">(</span>
+<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/api&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;some api content&quot;</span><span class="p">)</span> <span class="p">},</span>
     <span class="n">singlePageApp</span><span class="p">()</span>
 <span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3 id="typesafe-websockets">Typesafe Websockets.</h3>
@@ -1430,7 +1430,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 <li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k">http4k</a> HTTP message model, WsMessages are immutable data classes.</li>
 </ol>
 <p>The routing aspect of Websockets is done using a very similar API to the standard HTTP routing for HTTP messages and dynamic parts of the upgrade request are available when constructing a websocket instance:</p>
-<div class="codehilite"><pre><span></span><span class="k">data</span> <span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="k">data</span> <span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
 
 <span class="k">val</span> <span class="py">body</span> <span class="p">=</span> <span class="n">WsMessage</span><span class="p">.</span><span class="n">string</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Wrapper</span><span class="p">,</span> <span class="n">Wrapper</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
 
@@ -1451,11 +1451,11 @@ to configure these lenses to target particular parts of the message, whilst at t
         <span class="p">}</span>
     <span class="p">)</span>
 <span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>A <code>WsHandler</code> can be combined with an <code>HttpHandler</code> into a <code>PolyHandler</code> and then mounted into a supported backend server using <code>asServer()</code>:</p>
-<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">PolyHandler</span><span class="p">(</span>
+<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">PolyHandler</span><span class="p">(</span>
     <span class="n">routes</span><span class="p">(</span>
         <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">),</span>
@@ -1465,26 +1465,26 @@ to configure these lenses to target particular parts of the message, whilst at t
     <span class="p">)</span>
 <span class="p">)</span>
 <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Alternatively, the <code>WsHandler</code> can be also converted to a synchronous <code>WsClient</code> - this allows testing to be done completely offline, which allows for super-fast tests:</p>
-<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;ws://localhost:9000/hello/bob&quot;</span><span class="p">))</span><span class="o">!!</span>
+<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;ws://localhost:9000/hello/bob&quot;</span><span class="p">))</span><span class="o">!!</span>
 
 <span class="n">client</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">))</span>
 <span class="n">client</span><span class="p">.</span><span class="n">close</span><span class="p">(</span><span class="n">Status</span><span class="p">(</span><span class="m">200</span><span class="p">,</span> <span class="s">&quot;bob&quot;</span><span class="p">))</span>
 
 <span class="n">client</span><span class="p">.</span><span class="n">received</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3 id="request-and-response-tostring">Request and Response toString()</h3>
 <p>The HttpMessages used by <a href="https://http4k.org">http4k</a> toString in the HTTP wire format, which it simple to capture and replay HTTP message streams later in a similar way to tools like <a href="http://www.mbtest.org/">Mountebank</a>.</p>
 <h3 id="curl-format">CURL format</h3>
 <p>Creates <code>curl</code> command for a given request - this is useful to include in audit logs so exact requests can be replayed if required:</p>
-<div class="codehilite"><pre><span></span><span class="k">val</span> <span class="py">curl</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span> <span class="n">to</span> <span class="s">&quot;bar&quot;</span><span class="p">).</span><span class="n">toBody</span><span class="p">()).</span><span class="n">toCurl</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">curl</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span> <span class="n">to</span> <span class="s">&quot;bar&quot;</span><span class="p">).</span><span class="n">toBody</span><span class="p">()).</span><span class="n">toCurl</span><span class="p">()</span>
 <span class="c1">// curl -X POST --data &quot;foo=bar&quot; &quot;http://httpbin.org/post&quot;</span>
-</pre></div>
+</code></pre></div>
                     
                     
                     

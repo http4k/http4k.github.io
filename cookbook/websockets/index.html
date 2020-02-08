@@ -1188,11 +1188,11 @@
                     <h1>Websockets</h1>
                     
                     <h3 id="gradle-setup">Gradle setup</h3>
-<div class="codehilite"><pre><span></span><span class="err">    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.233.0&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="err">    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.233.0&quot;</span>
 <span class="err">    compile group: &quot;org.http4k&quot;, name: &quot;http4k-server-jetty&quot;, version: &quot;3.233.0&quot;</span>
 <span class="err">    compile group: &quot;org.http4k&quot;, name: &quot;http4k-client-websocket&quot;, version: &quot;3.233.0&quot;</span>
 <span class="err">    compile group: &quot;org.http4k&quot;, name: &quot;http4k-format-jackson&quot;, version: &quot;3.233.0&quot;</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><strong>http4k</strong> provides Websocket support using a simple, consistent, typesafe, and testable API on supported server backends (see above). Websocket communication consists of 3 main concepts:</p>
@@ -1203,8 +1203,8 @@
 </ol>
 <h3 id="websocket-as-a-function">Websocket as a Function</h3>
 <p>The simplest possible Websocket can be mounted as a <code>WsConsumer</code> function onto a server with:</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span> <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
-</pre></div>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span> <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div>
 
 
 <h3 id="mixing-http-and-websocket-services">Mixing HTTP and Websocket services <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"><img class="octocat"/></a></h3>

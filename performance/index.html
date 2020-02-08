@@ -1222,10 +1222,10 @@ generally performs at a very low overhead compared to the raw server.</p>
 project, which assesses frameworks over a series of realistic tests. </p>
 <p>For this benchmark, no customisation or performance tuning of the underlying servers was done - the default application 
 HttpHandler was used which is then plugged into each custom backend, as below:</p>
-<div class="codehilite"><pre><span></span><span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Http4kBenchmarkServer</span><span class="p">.</span><span class="n">start</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Command-line JVM options, however, were tuned for the test to take advantage of various JVM features.</p>
