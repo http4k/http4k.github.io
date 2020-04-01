@@ -3779,6 +3779,7 @@ changes with their rationale when appropriate:</p>
 <ul>
 <li>[all] Upgrade some dependency versions.</li>
 <li>[http4k-testing-servirtium] Improve error diagnostics. H/T @vchekan for the PR.</li>
+<li>[all] [Unlikely Break] Change <code>Router</code> to return <code>RouterMatch</code> instead of nullable <code>HttpHandler</code>. This allows us to support <code>METHOD_NOT_ALLOWED</code> (405) if we match a path but not a verb instead of just <code>NOT_FOUND</code> (404). This should break custom ro H/T @jshiell for the PR.</li>
 </ul>
 <h3 id="v32410">v3.241.0</h3>
 <ul>
