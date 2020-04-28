@@ -1191,20 +1191,20 @@
 
 
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/generating_data_classes/example.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.generating_data_classes</span>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">generating_data_classes</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.GenerateDataClasses</span>
-<span class="k">import</span> <span class="nn">org.http4k.format.Jackson</span>
+<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.GenerateDataClasses</span>
+<span class="kn">import</span> <span class="nn">org.http4k.format.Jackson</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://api.icndb.com/jokes/random/3&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://api.icndb.com/jokes/random/3&quot;</span><span class="p">)</span>
 
-    <span class="n">GenerateDataClasses</span><span class="p">(</span><span class="n">Jackson</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="k">out</span><span class="p">).</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()).</span><span class="n">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">GenerateDataClasses</span><span class="p">(</span><span class="n">Jackson</span><span class="p">,</span> <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="p">)</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
                     

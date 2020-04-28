@@ -1173,18 +1173,18 @@
 
 
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/client_as_a_function/example.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.client_as_a_function</span>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">client_as_a_function</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://xkcd.com/info.0.json&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;https://xkcd.com/info.0.json&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">JavaHttpClient</span><span class="p">()</span>
+    <span class="n">val</span> <span class="n">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">JavaHttpClient</span><span class="p">()</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
 <span class="p">}</span>

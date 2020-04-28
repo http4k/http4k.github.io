@@ -1174,38 +1174,38 @@
 
 
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/using_templates/example.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.using_templates</span>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">using_templates</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_HTML</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.HandlebarsTemplates</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.ViewModel</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.viewModel</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_HTML</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="kn">import</span> <span class="nn">org.http4k.template.HandlebarsTemplates</span>
+<span class="kn">import</span> <span class="nn">org.http4k.template.ViewModel</span>
+<span class="kn">import</span> <span class="nn">org.http4k.template.viewModel</span>
 
-<span class="c1">// this view has the default template path of: cookbook/using_templates/Person.hbs, although that is overridable by</span>
-<span class="c1">// setting the template property from ViewModel</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
+<span class="o">//</span> <span class="n">this</span> <span class="n">view</span> <span class="n">has</span> <span class="n">the</span> <span class="n">default</span> <span class="n">template</span> <span class="n">path</span> <span class="n">of</span><span class="p">:</span> <span class="n">cookbook</span><span class="o">/</span><span class="n">using_templates</span><span class="o">/</span><span class="n">Person</span><span class="o">.</span><span class="n">hbs</span><span class="p">,</span> <span class="n">although</span> <span class="n">that</span> <span class="ow">is</span> <span class="n">overridable</span> <span class="n">by</span>
+<span class="o">//</span> <span class="n">setting</span> <span class="n">the</span> <span class="n">template</span> <span class="nb">property</span> <span class="kn">from</span> <span class="nn">ViewModel</span>
+<span class="n">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">val</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">val</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">renderer</span> <span class="p">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="n">HotReload</span><span class="p">(</span><span class="s">&quot;src/docs&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">renderer</span> <span class="o">=</span> <span class="n">HandlebarsTemplates</span><span class="p">()</span><span class="o">.</span><span class="n">HotReload</span><span class="p">(</span><span class="s2">&quot;src/docs&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">view</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">TEXT_HTML</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="n">val</span> <span class="n">view</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">TEXT_HTML</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">viewModel</span> <span class="p">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">)</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">))</span>
-        <span class="c1">// OR:</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">view</span> <span class="n">of</span> <span class="n">viewModel</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">val</span> <span class="n">viewModel</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">))</span>
+        <span class="o">//</span> <span class="n">OR</span><span class="p">:</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">view</span> <span class="n">of</span> <span class="n">viewModel</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/someUrl&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></div>
                     

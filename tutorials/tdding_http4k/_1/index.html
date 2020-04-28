@@ -1129,43 +1129,43 @@ documentation, and checking in a high-level way that the business endpoints are 
 <li>The service can be pinged over HTTP to prove that is still alive.</li>
 </ul>
 <h2 id="tests">Tests:</h2>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.tdding_http4k._1</span>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">tutorials</span><span class="o">.</span><span class="n">tdding_http4k</span><span class="o">.</span><span class="n">_1</span>
 
 
-<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
-<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="kn">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
 
 <span class="k">class</span> <span class="nc">EndToEndTest</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+    <span class="n">private</span> <span class="n">val</span> <span class="n">client</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+    <span class="n">private</span> <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">@BeforeEach</span>
-    <span class="k">fun</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="nd">@BeforeEach</span>
+    <span class="n">fun</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="n">@AfterEach</span>
-    <span class="k">fun</span> <span class="nf">teardown</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="nd">@AfterEach</span>
+    <span class="n">fun</span> <span class="n">teardown</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="n">@Test</span>
-    <span class="k">fun</span> <span class="nf">`responds to ping`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:${server.port()}/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+    <span class="nd">@Test</span>
+    <span class="n">fun</span> <span class="sb">`responds to ping`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://localhost:${server.port()}/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h2 id="production">Production:</h2>
-<p>```kotlin
+<p>```
 package tutorials.tdding_http4k._1</p>
 <p>import org.http4k.core.Request
 import org.http4k.core.Response

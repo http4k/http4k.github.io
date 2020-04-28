@@ -1252,34 +1252,34 @@
 </table>
 <p>Use the API like any other WebDriver implementation, by simply passing your app HttpHandler to construct it:</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/webdriver/example.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.webdriver</span>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">webdriver</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.webdriver.Http4kWebDriver</span>
-<span class="k">import</span> <span class="nn">org.openqa.selenium.By</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="kn">import</span> <span class="nn">org.http4k.webdriver.Http4kWebDriver</span>
+<span class="kn">import</span> <span class="nn">org.openqa.selenium.By</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span>
-            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;&lt;html&gt;&lt;title&gt;hello&lt;/title&gt;&lt;/html&gt;&quot;</span><span class="p">)</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">val</span> <span class="n">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s2">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span>
+            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;&lt;html&gt;&lt;title&gt;hello&lt;/title&gt;&lt;/html&gt;&quot;</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">driver</span> <span class="p">=</span> <span class="n">Http4kWebDriver</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">driver</span> <span class="o">=</span> <span class="n">Http4kWebDriver</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
-    <span class="n">driver</span><span class="p">.</span><span class="n">navigate</span><span class="p">().</span><span class="n">to</span><span class="p">(</span><span class="s">&quot;http://localhost:10000/hello&quot;</span><span class="p">)</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">navigate</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;http://localhost:10000/hello&quot;</span><span class="p">)</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">findElement</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="n">tagName</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">findElement</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">tagName</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)))</span>
 
-<span class="c1">// prints:</span>
-<span class="c1">//</span>
-<span class="c1">// hello</span>
-<span class="c1">// JSoupWebElement(element=&lt;title&gt;hello&lt;/title&gt;)</span>
+<span class="o">//</span> <span class="n">prints</span><span class="p">:</span>
+<span class="o">//</span>
+<span class="o">//</span> <span class="n">hello</span>
+<span class="o">//</span> <span class="n">JSoupWebElement</span><span class="p">(</span><span class="n">element</span><span class="o">=&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="n">hello</span><span class="o">&lt;/</span><span class="n">title</span><span class="o">&gt;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
                     

@@ -603,26 +603,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#xml" title="Xml" class="md-nav__link">
-    Xml
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#xml-code" title="XML Code " class="md-nav__link">
-    XML Code 
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
       
       
       
@@ -1232,36 +1212,41 @@
 <li>Has trouble with repeating child-elements, depending on zero, one or many elements in the XML. This is due to the underlying library implementation</li>
 <li>Only handles objects with primitive JDK types</li>
 </ul>
-<p>```kotlin
-package guide.modules.xml</p>
-<p>import org.http4k.core.Body
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
-import org.http4k.core.with
-import org.http4k.format.JacksonXml.auto</p>
-<p>data class JacksonWrapper(val message: JacksonMsg?)</p>
-<p>data class JacksonMsg(val subject: String?, val from: String?, val to: String?, val content: String?)</p>
-<p>fun main() {
-    // We can use the auto method here from the JacksonXML message format object. Note that the
-    // auto() method is an extension function which needs to be manually imported (IntelliJ won't pick it up automatically).
-    val messageLens = Body.auto<JacksonWrapper>().toLens()</p>
-<div class="codehilite"><pre><span></span><code>// extract the body from the message - this also works with Response
-val wrapper = JacksonWrapper(JacksonMsg(&quot;subject&quot;, &quot;from&quot;, &quot;to&quot;, &quot;content&quot;))
-val message = &quot;&quot;&quot;<span class="nt">&lt;jacksonWrapper&gt;&lt;message</span> <span class="na">subject=</span><span class="s">&quot;hi&quot;</span><span class="nt">&gt;&lt;from&gt;</span>david@http4k.org<span class="nt">&lt;/from&gt;&lt;to&gt;</span>ivan@http4k.org<span class="nt">&lt;/to&gt;</span>hello world<span class="nt">&lt;/message&gt;&lt;/jacksonWrapper&gt;</span>&quot;&quot;&quot;
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">xml</span>
 
-println(messageLens(Request(GET, &quot;/&quot;).body(message)))
+<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="kn">import</span> <span class="nn">org.http4k.format.JacksonXml.auto</span>
 
-// inject a converted object-as-XML-string into a request
-println(Request(GET, &quot;&quot;).with(messageLens.of(wrapper)).bodyString())
+<span class="n">data</span> <span class="k">class</span> <span class="nc">JacksonWrapper</span><span class="p">(</span><span class="n">val</span> <span class="n">message</span><span class="p">:</span> <span class="n">JacksonMsg</span><span class="err">?</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="k">class</span> <span class="nc">JacksonMsg</span><span class="p">(</span><span class="n">val</span> <span class="n">subject</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">from</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">to</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">content</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">)</span>
+
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">We</span> <span class="n">can</span> <span class="n">use</span> <span class="n">the</span> <span class="n">auto</span> <span class="n">method</span> <span class="n">here</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">JacksonXML</span> <span class="nn">message</span> <span class="nn">format</span> <span class="nn">object.</span> <span class="nn">Note</span> <span class="nn">that</span> <span class="nn">the</span>
+    <span class="o">//</span> <span class="n">auto</span><span class="p">()</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">extension</span> <span class="n">function</span> <span class="n">which</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">manually</span> <span class="n">imported</span> <span class="p">(</span><span class="n">IntelliJ</span> <span class="n">won</span><span class="s1">&#39;t pick it up automatically).</span>
+    <span class="n">val</span> <span class="n">messageLens</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">auto</span><span class="o">&lt;</span><span class="n">JacksonWrapper</span><span class="o">&gt;</span><span class="p">()</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+
+    <span class="o">//</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">body</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">message</span> <span class="o">-</span> <span class="n">this</span> <span class="n">also</span> <span class="n">works</span> <span class="k">with</span> <span class="n">Response</span>
+    <span class="n">val</span> <span class="n">wrapper</span> <span class="o">=</span> <span class="n">JacksonWrapper</span><span class="p">(</span><span class="n">JacksonMsg</span><span class="p">(</span><span class="s2">&quot;subject&quot;</span><span class="p">,</span> <span class="s2">&quot;from&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">))</span>
+    <span class="n">val</span> <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;jacksonWrapper&gt;&lt;message subject=&quot;hi&quot;&gt;&lt;from&gt;david@http4k.org&lt;/from&gt;&lt;to&gt;ivan@http4k.org&lt;/to&gt;hello world&lt;/message&gt;&lt;/jacksonWrapper&gt;&quot;&quot;&quot;</span>
+
+    <span class="n">println</span><span class="p">(</span><span class="n">messageLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">message</span><span class="p">)))</span>
+
+    <span class="o">//</span> <span class="n">inject</span> <span class="n">a</span> <span class="n">converted</span> <span class="nb">object</span><span class="o">-</span><span class="k">as</span><span class="o">-</span><span class="n">XML</span><span class="o">-</span><span class="n">string</span> <span class="n">into</span> <span class="n">a</span> <span class="n">request</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">messageLens</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">wrapper</span><span class="p">))</span><span class="o">.</span><span class="n">bodyString</span><span class="p">())</span>
+<span class="p">}</span><span class="sb">``</span><span class="err">`</span>
+
+<span class="c1">### Xml</span>
+<span class="n">As</span> <span class="n">above</span><span class="p">,</span> <span class="n">we</span> <span class="n">recommend</span> <span class="n">using</span> <span class="sb">`http4k-format-jackson-xml`</span> <span class="k">as</span> <span class="n">it</span> <span class="n">has</span> <span class="n">more</span> <span class="n">predictable</span> <span class="ow">and</span> <span class="n">consistent</span> <span class="n">behaviour</span><span class="o">.</span>
+
+<span class="c1">#### XML Code [&lt;img class=&quot;octocat&quot;/&gt;](https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt)</span>
 </code></pre></div>
 
 
-<p>}```</p>
-<h3 id="xml">Xml</h3>
-<p>As above, we recommend using <code>http4k-format-jackson-xml</code> as it has more predictable and consistent behaviour.</p>
-<h4 id="xml-code">XML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"><img class="octocat"/></a></h4>
-<p>```kotlin
-package guide.modules.xml</p>
+<p>package guide.modules.xml</p>
 <p>import org.http4k.core.Body
 import org.http4k.core.Method.GET
 import org.http4k.core.Request

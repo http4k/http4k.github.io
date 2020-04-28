@@ -1217,54 +1217,54 @@
 </ol>
 <p>We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the <code>AppLoader</code> is created and a sneak peak at launching the app locally:</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/example_lambda.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless</span>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">serverless</span>
 
-<span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent</span>
-<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
-<span class="k">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
-<span class="k">import</span> <span class="nn">org.http4k.serverless.BootstrapAppLoader</span>
-<span class="k">import</span> <span class="nn">org.http4k.serverless.lambda.LambdaFunction</span>
+<span class="kn">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent</span>
+<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.BootstrapAppLoader</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.lambda.LambdaFunction</span>
 
-<span class="c1">// This AppLoader is responsible for building our HttpHandler which is supplied to AWS</span>
-<span class="c1">// It is the only actual piece of code that needs to be written.</span>
-<span class="k">object</span> <span class="nc">TweetEchoLambda</span> <span class="p">:</span> <span class="n">AppLoader</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">Map</span><span class="p">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">&gt;):</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">20</span><span class="p">))</span>
+<span class="o">//</span> <span class="n">This</span> <span class="n">AppLoader</span> <span class="ow">is</span> <span class="n">responsible</span> <span class="k">for</span> <span class="n">building</span> <span class="n">our</span> <span class="n">HttpHandler</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">supplied</span> <span class="n">to</span> <span class="n">AWS</span>
+<span class="o">//</span> <span class="n">It</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">only</span> <span class="n">actual</span> <span class="n">piece</span> <span class="n">of</span> <span class="n">code</span> <span class="n">that</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">written</span><span class="o">.</span>
+<span class="nb">object</span> <span class="n">TweetEchoLambda</span> <span class="p">:</span> <span class="n">AppLoader</span> <span class="p">{</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">invoke</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">bodyString</span><span class="p">()</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// Launching your Lambda Function locally - by simply providing the operating ENVIRONMENT map as would</span>
-    <span class="c1">// be configured on AWS.</span>
-    <span class="k">fun</span> <span class="nf">runLambdaLocally</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">TweetEchoLambda</span><span class="p">(</span><span class="n">mapOf</span><span class="p">())</span>
-        <span class="k">val</span> <span class="py">localLambda</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="o">//</span> <span class="n">Launching</span> <span class="n">your</span> <span class="n">Lambda</span> <span class="n">Function</span> <span class="n">locally</span> <span class="o">-</span> <span class="n">by</span> <span class="n">simply</span> <span class="n">providing</span> <span class="n">the</span> <span class="n">operating</span> <span class="n">ENVIRONMENT</span> <span class="nb">map</span> <span class="k">as</span> <span class="n">would</span>
+    <span class="o">//</span> <span class="n">be</span> <span class="n">configured</span> <span class="n">on</span> <span class="n">AWS</span><span class="o">.</span>
+    <span class="n">fun</span> <span class="n">runLambdaLocally</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">val</span> <span class="n">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">TweetEchoLambda</span><span class="p">(</span><span class="n">mapOf</span><span class="p">())</span>
+        <span class="n">val</span> <span class="n">localLambda</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-        <span class="n">println</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span><span class="p">)))</span>
-        <span class="n">localLambda</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://localhost:8000/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span><span class="p">)))</span>
+        <span class="n">localLambda</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="c1">// the following code is purely here for demonstration purposes, to explain exactly what is happening at AWS.</span>
-    <span class="k">fun</span> <span class="nf">runLambdaAsAwsWould</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">lambda</span> <span class="p">=</span> <span class="n">LambdaFunction</span><span class="p">(</span><span class="n">mapOf</span><span class="p">(</span><span class="n">BootstrapAppLoader</span><span class="p">.</span><span class="n">HTTP4K_BOOTSTRAP_CLASS</span> <span class="n">to</span> <span class="n">TweetEchoLambda</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">.</span><span class="n">name</span><span class="p">))</span>
-        <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">lambda</span><span class="p">.</span><span class="n">handle</span><span class="p">(</span><span class="n">APIGatewayProxyRequestEvent</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
-            <span class="n">path</span> <span class="p">=</span> <span class="s">&quot;/&quot;</span>
-            <span class="n">body</span> <span class="p">=</span> <span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span>
-            <span class="n">httpMethod</span> <span class="p">=</span> <span class="s">&quot;GET&quot;</span>
-            <span class="n">headers</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">()</span>
-            <span class="n">queryStringParameters</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">()</span>
+    <span class="o">//</span> <span class="n">the</span> <span class="n">following</span> <span class="n">code</span> <span class="ow">is</span> <span class="n">purely</span> <span class="n">here</span> <span class="k">for</span> <span class="n">demonstration</span> <span class="n">purposes</span><span class="p">,</span> <span class="n">to</span> <span class="n">explain</span> <span class="n">exactly</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">happening</span> <span class="n">at</span> <span class="n">AWS</span><span class="o">.</span>
+    <span class="n">fun</span> <span class="n">runLambdaAsAwsWould</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">val</span> <span class="k">lambda</span> <span class="o">=</span> <span class="n">LambdaFunction</span><span class="p">(</span><span class="n">mapOf</span><span class="p">(</span><span class="n">BootstrapAppLoader</span><span class="o">.</span><span class="n">HTTP4K_BOOTSTRAP_CLASS</span> <span class="n">to</span> <span class="n">TweetEchoLambda</span><span class="p">::</span><span class="n">class</span><span class="o">.</span><span class="n">java</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">val</span> <span class="n">response</span> <span class="o">=</span> <span class="k">lambda</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="n">APIGatewayProxyRequestEvent</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span> <span class="p">{</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span>
+            <span class="n">httpMethod</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="n">mapOf</span><span class="p">()</span>
+            <span class="n">queryStringParameters</span> <span class="o">=</span> <span class="n">mapOf</span><span class="p">()</span>
         <span class="p">})</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">statusCode</span><span class="p">)</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">)</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">statusCode</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="n">runLambdaLocally</span><span class="p">()</span>

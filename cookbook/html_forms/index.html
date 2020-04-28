@@ -1184,82 +1184,82 @@
 
 
 <h3 id="standard-non-typesafe-api">Standard (non-typesafe) API <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/html_forms/example_standard.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.html_forms</span>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">html_forms</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.body.form</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.getFirst</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.toParametersMap</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Assertions.assertEquals</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Assertions.assertNull</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.body.form</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.getFirst</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.toParametersMap</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Assertions.assertEquals</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Assertions.assertNull</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">form</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;rita&quot;</span><span class="p">).</span><span class="n">form</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span> <span class="s">&quot;55&quot;</span><span class="p">)</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">val</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">form</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;rita&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">form</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;55&quot;</span><span class="p">)</span>
 
-    <span class="c1">// reparses body every invocation</span>
-    <span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;rita&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">))</span>
-    <span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;55&quot;</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">))</span>
-    <span class="n">assertNull</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">(</span><span class="s">&quot;height&quot;</span><span class="p">))</span>
+    <span class="o">//</span> <span class="n">reparses</span> <span class="n">body</span> <span class="n">every</span> <span class="n">invocation</span>
+    <span class="n">assertEquals</span><span class="p">(</span><span class="s2">&quot;rita&quot;</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">))</span>
+    <span class="n">assertEquals</span><span class="p">(</span><span class="s2">&quot;55&quot;</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">))</span>
+    <span class="n">assertNull</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">))</span>
 
-    <span class="c1">// toParametersMap() gives form as map</span>
-    <span class="k">val</span> <span class="py">parameters</span><span class="p">:</span> <span class="n">Map</span><span class="p">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">String</span><span class="p">?&gt;&gt;</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">form</span><span class="p">().</span><span class="n">toParametersMap</span><span class="p">()</span>
-    <span class="n">assertEquals</span><span class="p">(</span><span class="s">&quot;rita&quot;</span><span class="p">,</span> <span class="n">parameters</span><span class="p">.</span><span class="n">getFirst</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">))</span>
-    <span class="n">assertEquals</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;55&quot;</span><span class="p">),</span> <span class="n">parameters</span><span class="p">[</span><span class="s">&quot;age&quot;</span><span class="p">])</span>
-    <span class="n">assertNull</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s">&quot;height&quot;</span><span class="p">])</span>
+    <span class="o">//</span> <span class="n">toParametersMap</span><span class="p">()</span> <span class="n">gives</span> <span class="n">form</span> <span class="k">as</span> <span class="nb">map</span>
+    <span class="n">val</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="err">?</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">()</span><span class="o">.</span><span class="n">toParametersMap</span><span class="p">()</span>
+    <span class="n">assertEquals</span><span class="p">(</span><span class="s2">&quot;rita&quot;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">getFirst</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">))</span>
+    <span class="n">assertEquals</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s2">&quot;55&quot;</span><span class="p">),</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">])</span>
+    <span class="n">assertNull</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">])</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h3 id="lens-typesafe-validating-api">Lens (typesafe, validating) API <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/html_forms/example_lens.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.html_forms</span>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">html_forms</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.FormField</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Header</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.LensFailure</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Validator</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.WebForm</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.webForm</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.FormField</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Header</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.LensFailure</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Validator</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.WebForm</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.webForm</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Name</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="n">data</span> <span class="k">class</span> <span class="nc">Name</span><span class="p">(</span><span class="n">val</span> <span class="n">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// define fields using the standard lens syntax</span>
-    <span class="k">val</span> <span class="py">ageField</span> <span class="p">=</span> <span class="n">FormField</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">nameField</span> <span class="p">=</span> <span class="n">FormField</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Name</span><span class="p">,</span> <span class="n">Name</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+    <span class="o">//</span> <span class="n">define</span> <span class="n">fields</span> <span class="n">using</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">lens</span> <span class="n">syntax</span>
+    <span class="n">val</span> <span class="n">ageField</span> <span class="o">=</span> <span class="n">FormField</span><span class="o">.</span><span class="n">int</span><span class="p">()</span><span class="o">.</span><span class="n">required</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">nameField</span> <span class="o">=</span> <span class="n">FormField</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">Name</span><span class="p">,</span> <span class="n">Name</span><span class="p">::</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 
-    <span class="c1">// add fields to a form definition, along with a validator</span>
-    <span class="k">val</span> <span class="py">strictFormBody</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">webForm</span><span class="p">(</span><span class="n">Validator</span><span class="p">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">ageField</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">feedbackFormBody</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">webForm</span><span class="p">(</span><span class="n">Validator</span><span class="p">.</span><span class="n">Feedback</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">ageField</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="o">//</span> <span class="n">add</span> <span class="n">fields</span> <span class="n">to</span> <span class="n">a</span> <span class="n">form</span> <span class="n">definition</span><span class="p">,</span> <span class="n">along</span> <span class="k">with</span> <span class="n">a</span> <span class="n">validator</span>
+    <span class="n">val</span> <span class="n">strictFormBody</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">webForm</span><span class="p">(</span><span class="n">Validator</span><span class="o">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">ageField</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="n">val</span> <span class="n">feedbackFormBody</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">webForm</span><span class="p">(</span><span class="n">Validator</span><span class="o">.</span><span class="n">Feedback</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">ageField</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">invalidRequest</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">Header</span><span class="p">.</span><span class="n">CONTENT_TYPE</span> <span class="n">of</span> <span class="n">ContentType</span><span class="p">.</span><span class="n">APPLICATION_FORM_URLENCODED</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">invalidRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">Header</span><span class="o">.</span><span class="n">CONTENT_TYPE</span> <span class="n">of</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">APPLICATION_FORM_URLENCODED</span><span class="p">)</span>
 
-    <span class="c1">// the &quot;strict&quot; form rejects (throws a LensFailure) because &quot;age&quot; is required</span>
+    <span class="o">//</span> <span class="n">the</span> <span class="s2">&quot;strict&quot;</span> <span class="n">form</span> <span class="n">rejects</span> <span class="p">(</span><span class="n">throws</span> <span class="n">a</span> <span class="n">LensFailure</span><span class="p">)</span> <span class="n">because</span> <span class="s2">&quot;age&quot;</span> <span class="ow">is</span> <span class="n">required</span>
     <span class="k">try</span> <span class="p">{</span>
         <span class="n">strictFormBody</span><span class="p">(</span><span class="n">invalidRequest</span><span class="p">)</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="n">LensFailure</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">message</span><span class="p">)</span>
+    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="n">LensFailure</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="c1">// the &quot;feedback&quot; form doesn&#39;t throw, but collects errors to be reported later</span>
-    <span class="k">val</span> <span class="py">invalidForm</span> <span class="p">=</span> <span class="n">feedbackFormBody</span><span class="p">(</span><span class="n">invalidRequest</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">invalidForm</span><span class="p">.</span><span class="n">errors</span><span class="p">)</span>
+    <span class="o">//</span> <span class="n">the</span> <span class="s2">&quot;feedback&quot;</span> <span class="n">form</span> <span class="n">doesn</span><span class="s1">&#39;t throw, but collects errors to be reported later</span>
+    <span class="n">val</span> <span class="n">invalidForm</span> <span class="o">=</span> <span class="n">feedbackFormBody</span><span class="p">(</span><span class="n">invalidRequest</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">invalidForm</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
 
-    <span class="c1">// creating valid form using &quot;with()&quot; and setting it onto the request</span>
-    <span class="k">val</span> <span class="py">webForm</span> <span class="p">=</span> <span class="n">WebForm</span><span class="p">().</span><span class="n">with</span><span class="p">(</span><span class="n">ageField</span> <span class="n">of</span> <span class="m">55</span><span class="p">,</span> <span class="n">nameField</span> <span class="n">of</span> <span class="n">Name</span><span class="p">(</span><span class="s">&quot;rita&quot;</span><span class="p">))</span>
-    <span class="k">val</span> <span class="py">validRequest</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">webForm</span><span class="p">)</span>
+    <span class="o">//</span> <span class="n">creating</span> <span class="n">valid</span> <span class="n">form</span> <span class="n">using</span> <span class="s2">&quot;with()&quot;</span> <span class="ow">and</span> <span class="n">setting</span> <span class="n">it</span> <span class="n">onto</span> <span class="n">the</span> <span class="n">request</span>
+    <span class="n">val</span> <span class="n">webForm</span> <span class="o">=</span> <span class="n">WebForm</span><span class="p">()</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">ageField</span> <span class="n">of</span> <span class="mi">55</span><span class="p">,</span> <span class="n">nameField</span> <span class="n">of</span> <span class="n">Name</span><span class="p">(</span><span class="s2">&quot;rita&quot;</span><span class="p">))</span>
+    <span class="n">val</span> <span class="n">validRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">webForm</span><span class="p">)</span>
 
-    <span class="c1">// to extract the contents, we first extract the form and then extract the fields from it using the lenses</span>
-    <span class="k">val</span> <span class="py">validForm</span> <span class="p">=</span> <span class="n">strictFormBody</span><span class="p">(</span><span class="n">validRequest</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">age</span> <span class="p">=</span> <span class="n">ageField</span><span class="p">(</span><span class="n">validForm</span><span class="p">)</span>
+    <span class="o">//</span> <span class="n">to</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">contents</span><span class="p">,</span> <span class="n">we</span> <span class="n">first</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">form</span> <span class="ow">and</span> <span class="n">then</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">fields</span> <span class="kn">from</span> <span class="nn">it</span> <span class="nn">using</span> <span class="nn">the</span> <span class="nn">lenses</span>
+    <span class="n">val</span> <span class="n">validForm</span> <span class="o">=</span> <span class="n">strictFormBody</span><span class="p">(</span><span class="n">validRequest</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">age</span> <span class="o">=</span> <span class="n">ageField</span><span class="p">(</span><span class="n">validForm</span><span class="p">)</span>
     <span class="n">println</span><span class="p">(</span><span class="n">age</span><span class="p">)</span>
 
 <span class="p">}</span>
