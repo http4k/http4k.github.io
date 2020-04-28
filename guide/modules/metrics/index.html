@@ -1185,47 +1185,47 @@
 <p>This module provides configurable Filters to provide metrics for http4k apps, plugging into the awesome <a href="http://micrometer.io/">Micrometer</a> library.</p>
 <h3 id="micrometer">Micrometer <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/metrics/example_micrometer.kt"><img class="octocat"/></a></h3>
 <p>Both Server and Client filters are available for recording request counts and latency, optionally overriding values for the metric names, descriptions and request identification.</p>
-<p>```
-package guide.modules.metrics</p>
-<p>import io.micrometer.core.instrument.simple.SimpleMeterRegistry
-import org.http4k.client.ApacheClient
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.core.then
-import org.http4k.filter.MetricFilters
-import org.http4k.routing.bind
-import org.http4k.routing.routes</p>
-<p>fun main() {</p>
-<div class="codehilite"><pre><span></span><code>// this is a micrometer registry used mostly for testing - substitute the correct implementation.
-val registry = SimpleMeterRegistry()
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">metrics</span>
 
-val server = routes(&quot;/metrics&quot; bind GET to { Response(OK) })
+<span class="kn">import</span> <span class="nn">io.micrometer.core.instrument.simple.SimpleMeterRegistry</span>
+<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.MetricFilters</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
 
-// apply filters to a server...
-val app = MetricFilters.Server.RequestCounter(registry)
-    .then(MetricFilters.Server.RequestTimer(registry))
-    .then(server)
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-// ... or to a client
-val client =
-    MetricFilters.Client.RequestCounter(registry)
-        .then(MetricFilters.Client.RequestTimer(registry))
-        .then(ApacheClient())
+    <span class="o">//</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">micrometer</span> <span class="n">registry</span> <span class="n">used</span> <span class="n">mostly</span> <span class="k">for</span> <span class="n">testing</span> <span class="o">-</span> <span class="n">substitute</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">implementation</span><span class="o">.</span>
+    <span class="n">val</span> <span class="n">registry</span> <span class="o">=</span> <span class="n">SimpleMeterRegistry</span><span class="p">()</span>
 
-// make some calls
-(0..10).forEach {
-    app(Request(GET, &quot;/metrics&quot;))
-    client(Request(GET, &quot;https://http4k.org&quot;))
-}
+    <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="s2">&quot;/metrics&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
 
-// see some results
-registry.forEachMeter { println(&quot;<span class="cp">${</span><span class="n">it</span><span class="o">.</span><span class="n">id</span><span class="cp">}</span> <span class="cp">${</span><span class="n">it</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span><span class="o">.</span><span class="n">joinToString</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;) }
+    <span class="o">//</span> <span class="nb">apply</span> <span class="n">filters</span> <span class="n">to</span> <span class="n">a</span> <span class="n">server</span><span class="o">...</span>
+    <span class="n">val</span> <span class="n">app</span> <span class="o">=</span> <span class="n">MetricFilters</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+
+    <span class="o">//</span> <span class="o">...</span> <span class="ow">or</span> <span class="n">to</span> <span class="n">a</span> <span class="n">client</span>
+    <span class="n">val</span> <span class="n">client</span> <span class="o">=</span>
+        <span class="n">MetricFilters</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+
+    <span class="o">//</span> <span class="n">make</span> <span class="n">some</span> <span class="n">calls</span>
+    <span class="p">(</span><span class="mf">0.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">forEach</span> <span class="p">{</span>
+        <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/metrics&quot;</span><span class="p">))</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;https://http4k.org&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+
+    <span class="o">//</span> <span class="n">see</span> <span class="n">some</span> <span class="n">results</span>
+    <span class="n">registry</span><span class="o">.</span><span class="n">forEachMeter</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s2">&quot;${it.id} ${it.measure().joinToString(&quot;</span><span class="p">,</span><span class="s2">&quot;)}&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
-
-
-<p>}```</p>
                     
                     
                     

@@ -721,6 +721,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#3-auto-validating-incoming-http-messages" title="3. Auto-validating incoming HTTP messages" class="md-nav__link">
+    3. Auto-validating incoming HTTP messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-modelling-http-body-messages" title="4. Modelling HTTP body messages" class="md-nav__link">
+    4. Modelling HTTP body messages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#wrapping-up" title="Wrapping up..." class="md-nav__link">
     Wrapping up...
   </a>
@@ -1237,24 +1251,28 @@
     <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;Hello $name, would you like some $beverage?&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="n">val</span> <span class="n">basicRoute</span><span class="p">:</span> <span class="n">ContractRoute</span> <span class="o">=</span> <span class="s2">&quot;/greet&quot;</span> <span class="o">/</span> <span class="n">Path</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Path</span><span class="o">.</span><span class="n">int</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">Age</span><span class="p">)</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span> <span class="n">bindContract</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">::</span><span class="n">basicHandler</span><span class="sb">``</span><span class="err">`</span>
-
-<span class="n">And</span> <span class="n">here</span><span class="s1">&#39;s a unit test for that endpoint - the good news is that it&#39;</span><span class="n">s</span> <span class="n">no</span> <span class="n">more</span> <span class="nb">complex</span> <span class="n">than</span> <span class="n">a</span> <span class="n">standard</span> <span class="n">http4k</span> <span class="n">unit</span> <span class="n">test</span> <span class="n">because</span> <span class="sb">`ContractRoute`</span> <span class="ow">is</span> <span class="n">also</span> <span class="n">an</span> <span class="sb">`HttpHandler`</span> <span class="n">so</span> <span class="n">can</span> <span class="n">just</span> <span class="n">be</span> <span class="n">invoked</span> <span class="k">as</span> <span class="n">a</span> <span class="n">function</span><span class="o">.</span> <span class="n">Here</span><span class="p">,</span> <span class="n">we</span><span class="s1">&#39;re also leveraging the `http4k-testing-hamkrest` module to supply **[Hamkrest]** Matchers for validating the response message:</span>
+<span class="n">val</span> <span class="n">basicRoute</span><span class="p">:</span> <span class="n">ContractRoute</span> <span class="o">=</span> <span class="s2">&quot;/greet&quot;</span> <span class="o">/</span> <span class="n">Path</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">Path</span><span class="o">.</span><span class="n">int</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">Age</span><span class="p">)</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span> <span class="n">bindContract</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">::</span><span class="n">basicHandler</span>
 </code></pre></div>
 
 
-<p>package tutorials.documenting_apis_with_openapi</p>
-<p>import com.natpryce.hamkrest.assertion.assertThat
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
-import org.http4k.hamkrest.hasBody
-import org.junit.jupiter.api.Test</p>
-<p>class BasicGreetingRouteTest {
-    @Test
-    fun <code>greets an adult</code>() {
-        assertThat(basicRoute(Request(GET, "/greet/Bob/21")), hasBody("Hello Bob, would you like some beer?"))
-    }
-}```</p>
+<p>And here's a unit test for that endpoint - the good news is that it's no more complex than a standard http4k unit test because <code>ContractRoute</code> is also an <code>HttpHandler</code> so can just be invoked as a function. Here, we're also leveraging the <code>http4k-testing-hamkrest</code> module to supply <strong><a href="https://github.com/npryce/hamkrest">Hamkrest</a></strong> Matchers for validating the response message:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">tutorials</span><span class="o">.</span><span class="n">documenting_apis_with_openapi</span>
+
+<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+<span class="k">class</span> <span class="nc">BasicGreetingRouteTest</span> <span class="p">{</span>
+    <span class="nd">@Test</span>
+    <span class="n">fun</span> <span class="sb">`greets an adult`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">basicRoute</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/greet/Bob/21&quot;</span><span class="p">)),</span> <span class="n">hasBody</span><span class="p">(</span><span class="s2">&quot;Hello Bob, would you like some beer?&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h3 id="2-defining-an-http-contract">2. Defining an HTTP contract</h3>
 <p>Now that we've got our endpoint, we want to be able to actually serve it with the <strong><a href="https://www.openapis.org/">OpenApi</a></strong> documentation. For contract-based routing, we use the <code>contract {}</code> routing DSL which allows us to specify a richer set of details about the API definition, but exposes exactly the same API semantics as the standard <code>routes()</code> block - it is also an <code>HttpHandler</code> and can therefore be composed together to form standard route-matching trees.</p>
 <p>For rendering the API documentation, we configure an <code>OpenApi</code> object, supplying a standard http4k JSON adapter instance - the recommended one to use is <code>Jackson</code> from the <code>http4k-format-jackson</code> module, so we'll need to import that module into our project as well.</p>
@@ -1280,142 +1298,139 @@ import org.junit.jupiter.api.Test</p>
     <span class="p">}</span>
 
     <span class="n">http</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="mi">9000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-<span class="p">}</span><span class="sb">``</span><span class="err">`</span>
-
-<span class="n">Now</span> <span class="n">we</span><span class="s1">&#39;ve got a complete contract, we can simply start the server and browse to `http://localhost:9000/api/swagger.json` to see the basic API spec in the OpenApi UI (or see the online version **&lt;a target=&quot;_blank&quot; href=&quot;https://www.http4k.org/openapi3/?url=https%3A</span><span class="si">%2F%2F</span><span class="s1">raw.githubusercontent.com</span><span class="si">%2F</span><span class="s1">http4k</span><span class="si">%2F</span><span class="s1">http4k</span><span class="si">%2F</span><span class="s1">master</span><span class="si">%2F</span><span class="s1">src</span><span class="si">%2F</span><span class="s1">docs</span><span class="si">%2F</span><span class="s1">tutorials</span><span class="si">%2F</span><span class="s1">documenting_apis_with_openapi</span><span class="si">%2F</span><span class="s1">2_openapi.json&quot;&gt;here&lt;/a&gt;**) to see how the endpoint contract looks and how the process of supplying credentials is done through the UI by clicking `Authorize`. </span>
-
-<span class="n">This</span> <span class="n">covers</span> <span class="n">the</span> <span class="n">very</span> <span class="n">basics</span> <span class="n">of</span> <span class="n">generating</span> <span class="n">API</span> <span class="n">docs</span><span class="p">,</span> <span class="n">but</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">still</span> <span class="n">a</span> <span class="n">lot</span> <span class="n">more</span> <span class="n">http4k</span> <span class="n">can</span> <span class="n">do</span> <span class="k">for</span> <span class="n">us</span><span class="o">...</span>
-
-<span class="c1">### 3. Auto-validating incoming HTTP messages</span>
-<span class="n">For</span> <span class="n">a</span> <span class="n">better</span> <span class="n">standard</span> <span class="n">of</span> <span class="n">API</span> <span class="n">docs</span><span class="p">,</span> <span class="n">we</span> <span class="n">should</span> <span class="n">add</span> <span class="n">more</span> <span class="n">details</span> <span class="n">to</span> <span class="n">the</span> <span class="n">endpoint</span> <span class="n">definition</span><span class="o">.</span> <span class="n">The</span> <span class="n">OpenAPI</span> <span class="n">spec</span> <span class="n">allows</span> <span class="n">us</span> <span class="n">to</span> <span class="n">add</span> <span class="n">this</span> <span class="n">detail</span><span class="p">,</span> <span class="n">but</span> <span class="n">this</span> <span class="n">normally</span> <span class="n">comes</span> <span class="k">with</span> <span class="n">a</span> <span class="n">maintenance</span> <span class="n">cost</span> <span class="o">-</span> <span class="n">especially</span> <span class="n">when</span> <span class="n">the</span> <span class="n">documentation</span> <span class="ow">is</span> <span class="n">static</span> <span class="ow">or</span> <span class="n">disparate</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">location</span> <span class="nn">of</span> <span class="nn">the</span> <span class="nn">actual</span> <span class="nn">code</span> <span class="nn">serving</span> <span class="nn">requests</span><span class="p">,</span> <span class="ow">and</span> <span class="n">we</span> <span class="n">want</span> <span class="n">to</span> <span class="n">minimise</span> <span class="n">the</span> <span class="n">risk</span> <span class="n">of</span> <span class="n">stale</span> <span class="n">documentation</span><span class="o">.</span>
-<span class="n">In</span> <span class="n">http4k</span><span class="p">,</span> <span class="n">the</span> <span class="n">extended</span> <span class="n">contract</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="n">kept</span> <span class="n">close</span> <span class="n">to</span> <span class="n">the</span> <span class="n">endpoint</span> <span class="n">code</span> <span class="ow">and</span> <span class="n">mostly</span> <span class="nb">type</span><span class="o">-</span><span class="n">checked</span> <span class="n">by</span> <span class="n">the</span> <span class="n">compiler</span><span class="p">,</span> <span class="n">so</span> <span class="n">this</span> <span class="n">threat</span> <span class="ow">is</span> <span class="n">minimised</span> <span class="k">as</span> <span class="n">far</span> <span class="k">as</span> <span class="n">practical</span><span class="o">.</span> 
-
-<span class="n">Metadata</span> <span class="k">for</span> <span class="n">endpoints</span> <span class="n">can</span> <span class="n">be</span> <span class="n">supplied</span> <span class="n">via</span> <span class="n">inserting</span> <span class="n">a</span> <span class="sb">`meta {}`</span> <span class="n">DSL</span> <span class="n">block</span><span class="p">,</span> <span class="n">which</span> <span class="n">contains</span> <span class="n">a</span> <span class="n">mixture</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">main</span> <span class="n">types</span> <span class="n">of</span> <span class="nb">property</span><span class="p">:</span> 
-
-<span class="mf">1.</span> <span class="o">**</span><span class="n">Informational</span><span class="o">**</span> <span class="n">properties</span> <span class="o">-</span> <span class="n">such</span> <span class="k">as</span> <span class="sb">`summary`</span><span class="p">,</span> <span class="sb">`description`</span> <span class="ow">and</span> <span class="sb">`tags`</span> <span class="n">simply</span> <span class="n">improve</span> <span class="n">the</span> <span class="n">experience</span> <span class="n">of</span> <span class="n">the</span> <span class="n">user</span> <span class="n">of</span> <span class="n">the</span> <span class="n">UI</span><span class="o">.</span>
-<span class="mf">1.</span> <span class="o">**</span><span class="n">Contractual</span><span class="o">**</span> <span class="n">properties</span> <span class="n">define</span> <span class="n">parameters</span> <span class="n">using</span> <span class="n">the</span> <span class="o">**</span><span class="p">[</span><span class="n">http4k</span> <span class="n">Lens</span> <span class="n">API</span><span class="p">]</span><span class="o">**</span> <span class="p">(</span><span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">way</span> <span class="k">as</span> <span class="n">we</span> <span class="n">used</span> <span class="k">for</span> <span class="n">the</span> <span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="sb">`Query`</span><span class="p">,</span> <span class="sb">`Header`</span> <span class="ow">or</span> <span class="sb">`Body`</span> <span class="n">parts</span> <span class="n">of</span> <span class="n">the</span> <span class="n">request</span><span class="o">.</span> <span class="n">Once</span> <span class="n">added</span> <span class="n">to</span> <span class="n">the</span> <span class="n">contract</span><span class="p">,</span> <span class="n">these</span> <span class="n">items</span> <span class="n">will</span> <span class="n">also</span> <span class="n">be</span> <span class="n">auto</span><span class="o">-</span><span class="n">validated</span> <span class="k">for</span> <span class="n">form</span> <span class="ow">and</span> <span class="n">presence</span> <span class="n">before</span> <span class="n">the</span> <span class="n">contract</span> <span class="n">HttpHandler</span> <span class="ow">is</span> <span class="n">invoked</span><span class="p">,</span> <span class="n">thus</span> <span class="n">eliminating</span> <span class="n">the</span> <span class="n">need</span> <span class="k">for</span> <span class="nb">any</span> <span class="n">custom</span> <span class="n">validation</span> <span class="n">code</span> <span class="n">to</span> <span class="n">be</span> <span class="n">written</span><span class="o">.</span> <span class="n">We</span> <span class="n">can</span> <span class="n">then</span> <span class="n">use</span> <span class="n">the</span> <span class="n">same</span> <span class="n">lenses</span> <span class="n">to</span> <span class="n">confidently</span> <span class="n">extract</span> <span class="n">those</span> <span class="n">values</span> <span class="n">inside</span> <span class="n">our</span> <span class="n">HttpHandler</span> <span class="n">code</span><span class="o">.</span>
-
-<span class="n">Let</span><span class="s1">&#39;s demonstrate by writing a slightly different version of the same endpoint, but move `age` to be a required query parameter, and also add the option to override the `drink` we offer:</span>
+<span class="p">}</span>
 </code></pre></div>
 
 
-<p>package tutorials.documenting_apis_with_openapi</p>
-<p>import org.http4k.contract.ContractRoute
-import org.http4k.contract.Tag
-import org.http4k.contract.div
-import org.http4k.contract.meta
-import org.http4k.core.ContentType.Companion.TEXT_PLAIN
-import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.lens.Path
-import org.http4k.lens.Query
-import org.http4k.lens.int</p>
-<p>data class Drink(val name: String) {
-    init {
-        require(name.isNotEmpty())
-    }
-}</p>
-<p>fun Greetings(): ContractRoute {
-    val age = Query.int().map(::Age).required("age", "Your age")
-    val favouriteDrink = Query.map(::Drink).optional("drink", "Your favourite beverage")</p>
-<div class="codehilite"><pre><span></span><code>fun handler(name: String): HttpHandler = { req: Request -&gt;
-    val drinkToOffer: Drink? = favouriteDrink(req)
-    val beverage: String = drinkToOffer?.name ?: if (age(req).value &gt;= 18) &quot;beer&quot; else &quot;lemonade&quot;
-    Response(OK).body(&quot;Hello $name, would you like some $beverage?&quot;)
-}
+<p>Now we've got a complete contract, we can simply start the server and browse to <code>http://localhost:9000/api/swagger.json</code> to see the basic API spec in the OpenApi UI (or see the online version <strong><a target="_blank" href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fdocumenting_apis_with_openapi%2F2_openapi.json">here</a></strong>) to see how the endpoint contract looks and how the process of supplying credentials is done through the UI by clicking <code>Authorize</code>. </p>
+<p>This covers the very basics of generating API docs, but there is still a lot more http4k can do for us...</p>
+<h3 id="3-auto-validating-incoming-http-messages">3. Auto-validating incoming HTTP messages</h3>
+<p>For a better standard of API docs, we should add more details to the endpoint definition. The OpenAPI spec allows us to add this detail, but this normally comes with a maintenance cost - especially when the documentation is static or disparate from the location of the actual code serving requests, and we want to minimise the risk of stale documentation.
+In http4k, the extended contract metadata is kept close to the endpoint code and mostly type-checked by the compiler, so this threat is minimised as far as practical. </p>
+<p>Metadata for endpoints can be supplied via inserting a <code>meta {}</code> DSL block, which contains a mixture of 2 main types of property: </p>
+<ol>
+<li><strong>Informational</strong> properties - such as <code>summary</code>, <code>description</code> and <code>tags</code> simply improve the experience of the user of the UI.</li>
+<li><strong>Contractual</strong> properties define parameters using the <strong><a href="https://www.http4k.org/guide/modules/core/#typesafe-parameter-destructuringconstruction-of-http-messages-with-lenses">http4k Lens API</a></strong> (in the same way as we used for the path) for the <code>Query</code>, <code>Header</code> or <code>Body</code> parts of the request. Once added to the contract, these items will also be auto-validated for form and presence before the contract HttpHandler is invoked, thus eliminating the need for any custom validation code to be written. We can then use the same lenses to confidently extract those values inside our HttpHandler code.</li>
+</ol>
+<p>Let's demonstrate by writing a slightly different version of the same endpoint, but move <code>age</code> to be a required query parameter, and also add the option to override the <code>drink</code> we offer:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">tutorials</span><span class="o">.</span><span class="n">documenting_apis_with_openapi</span>
 
-return &quot;/greet&quot; / Path.of(&quot;name&quot;, &quot;Your name&quot;) meta {
-    summary = &quot;Send greetings&quot;
-    description = &quot;Greets the stupid human by offering them a beverage suitable for their age&quot;
-    tags += Tag(&quot;query&quot;)
-    queries += favouriteDrink
-    queries += age
-    produces += TEXT_PLAIN
-    returning(OK to &quot;A successful offer of a drink to the lowly meatbag.&quot;)
-} bindContract GET to ::handler
+<span class="kn">import</span> <span class="nn">org.http4k.contract.ContractRoute</span>
+<span class="kn">import</span> <span class="nn">org.http4k.contract.Tag</span>
+<span class="kn">import</span> <span class="nn">org.http4k.contract.div</span>
+<span class="kn">import</span> <span class="nn">org.http4k.contract.meta</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_PLAIN</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Path</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.int</span>
+
+<span class="n">data</span> <span class="k">class</span> <span class="nc">Drink</span><span class="p">(</span><span class="n">val</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="p">{</span>
+        <span class="n">require</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">isNotEmpty</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">fun</span> <span class="n">Greetings</span><span class="p">():</span> <span class="n">ContractRoute</span> <span class="p">{</span>
+    <span class="n">val</span> <span class="n">age</span> <span class="o">=</span> <span class="n">Query</span><span class="o">.</span><span class="n">int</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">Age</span><span class="p">)</span><span class="o">.</span><span class="n">required</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;Your age&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">favouriteDrink</span> <span class="o">=</span> <span class="n">Query</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">Drink</span><span class="p">)</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span><span class="s2">&quot;drink&quot;</span><span class="p">,</span> <span class="s2">&quot;Your favourite beverage&quot;</span><span class="p">)</span>
+
+    <span class="n">fun</span> <span class="n">handler</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+        <span class="n">val</span> <span class="n">drinkToOffer</span><span class="p">:</span> <span class="n">Drink</span><span class="err">?</span> <span class="o">=</span> <span class="n">favouriteDrink</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+        <span class="n">val</span> <span class="n">beverage</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="n">drinkToOffer</span><span class="err">?</span><span class="o">.</span><span class="n">name</span> <span class="err">?</span><span class="p">:</span> <span class="k">if</span> <span class="p">(</span><span class="n">age</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">)</span> <span class="s2">&quot;beer&quot;</span> <span class="k">else</span> <span class="s2">&quot;lemonade&quot;</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;Hello $name, would you like some $beverage?&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="s2">&quot;/greet&quot;</span> <span class="o">/</span> <span class="n">Path</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;Your name&quot;</span><span class="p">)</span> <span class="n">meta</span> <span class="p">{</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="s2">&quot;Send greetings&quot;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Greets the stupid human by offering them a beverage suitable for their age&quot;</span>
+        <span class="n">tags</span> <span class="o">+=</span> <span class="n">Tag</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">)</span>
+        <span class="n">queries</span> <span class="o">+=</span> <span class="n">favouriteDrink</span>
+        <span class="n">queries</span> <span class="o">+=</span> <span class="n">age</span>
+        <span class="n">produces</span> <span class="o">+=</span> <span class="n">TEXT_PLAIN</span>
+        <span class="n">returning</span><span class="p">(</span><span class="n">OK</span> <span class="n">to</span> <span class="s2">&quot;A successful offer of a drink to the lowly meatbag.&quot;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="n">bindContract</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">::</span><span class="n">handler</span>
+<span class="p">}</span>
 </code></pre></div>
 
 
-<p>}</p>
-<div class="codehilite"><pre><span></span><code><span class="k">If</span> <span class="n">we</span> <span class="k">then</span> <span class="k">add</span> <span class="n">the</span> <span class="ss">`Greetings`</span> <span class="n">endpoint</span> <span class="k">to</span> <span class="n">the</span> <span class="n">contract</span> <span class="k">and</span> <span class="n">make</span> <span class="n">a</span> <span class="k">call</span> <span class="n">omitting</span> <span class="ss">`age`</span><span class="p">...</span>
+<p>If we then add the <code>Greetings</code> endpoint to the contract and make a call omitting <code>age</code>...</p>
+<p><code>http://localhost:9000/greet/Bob?drink=cola</code></p>
+<p>... the contract validation will fail and a HTTP Bad Request (400) returned to the client with a JSON body describing the error:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">HTTP</span><span class="o">/</span><span class="nt">1</span><span class="p">.</span><span class="nc">1</span> <span class="nt">400</span> <span class="nt">Bad</span> <span class="nt">Request</span>
+<span class="nt">content-type</span><span class="o">:</span> <span class="nt">application</span><span class="o">/</span><span class="nt">json</span><span class="o">;</span> <span class="nt">charset</span><span class="o">=</span><span class="nt">utf-8</span>
 
-<span class="ss">```http://localhost:9000/greet/Bob?drink=cola```</span>
-
-<span class="p">...</span> <span class="n">the</span> <span class="n">contract</span> <span class="n">validation</span> <span class="n">will</span> <span class="n">fail</span> <span class="k">and</span> <span class="n">a</span> <span class="n">HTTP</span> <span class="n">Bad</span> <span class="nf">Request</span> <span class="p">(</span><span class="mi">400</span><span class="p">)</span> <span class="n">returned</span> <span class="k">to</span> <span class="n">the</span> <span class="n">client</span> <span class="k">with</span> <span class="n">a</span> <span class="n">JSON</span> <span class="n">body</span> <span class="n">describing</span> <span class="n">the</span> <span class="n">error</span><span class="p">:</span>
+<span class="p">{</span>
+  <span class="err">&quot;message&quot;:</span> <span class="err">&quot;Missing/invalid</span> <span class="err">parameters&quot;,</span>
+  <span class="err">&quot;params&quot;:</span> <span class="cp">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;datatype&quot;</span><span class="p">:</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Missing&quot;</span>
+    <span class="p">}</span>
+  <span class="cp">]</span>
+<span class="p">}</span>
 </code></pre></div>
 
 
-<p>HTTP/1.1 400 Bad Request
-content-type: application/json; charset=utf-8</p>
-<p>{
-  "message": "Missing/invalid parameters",
-  "params": [
-    {
-      "name": "age",
-      "type": "query",
-      "datatype": "integer",
-      "required": true,
-      "reason": "Missing"
-    }
-  ]
-}</p>
-<div class="codehilite"><pre><span></span><code><span class="n">We</span> <span class="n">can</span> <span class="n">see</span> <span class="n">the</span> <span class="n">updated</span> <span class="n">OpenApi</span> <span class="n">UI</span> <span class="o">**&lt;</span><span class="n">a</span> <span class="n">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fdocumenting_apis_with_openapi%2F3_openapi.json&quot;</span><span class="o">&gt;</span><span class="n">here</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;**</span><span class="p">.</span> <span class="n">Note</span> <span class="n">that</span> <span class="n">because</span> <span class="n">request</span> <span class="n">parameters</span> <span class="n">are</span> <span class="n">validated</span> <span class="n">before</span> <span class="n">sending</span><span class="p">,</span> <span class="n">we</span> <span class="n">cannot</span> <span class="n">replicate</span> <span class="n">the</span> <span class="n">above</span> <span class="n">invalid</span> <span class="n">request</span> <span class="k">in</span> <span class="n">the</span> <span class="n">UI</span><span class="p">.</span>
+<p>We can see the updated OpenApi UI <strong><a target="_blank" href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fdocumenting_apis_with_openapi%2F3_openapi.json">here</a></strong>. Note that because request parameters are validated before sending, we cannot replicate the above invalid request in the UI.</p>
+<h3 id="4-modelling-http-body-messages">4. Modelling HTTP body messages</h3>
+<p>The most exciting part http4k supporting OpenApi3 is the ability to represent HTTP messages in <strong><a href="https://json-schema.org/">JSON Schema</a></strong> form in the documentation. This facility is what unlocks the true cross-language support and takes the usefulness of the OpenApi UI to another level, for both exploratory and support functions. Request and response messages can both be specified in the <code>meta {}</code> block using overloads of the <code>receiving()</code> and <code>returning()</code> functions. By using these functions, we can supply an example object to the DSL - this is what drives the generation of the JSON Schema and, more importantly, ensures that the documentation cannot go stale as it is driven by code.</p>
+<p>Lets add another route to the mix which returns a JSON body object modelled with a Kotlin Data class and once again using the <strong><a href="https://www.http4k.org/guide/modules/core/#typesafe-parameter-destructuringconstruction-of-http-messages-with-lenses">http4k Lens API</a></strong>. Here, the lens not only provides the validating (de)serialisation mechanism, but also activates the <code>Content-Type</code> header injection and parsing behaviour - this will ensure that all incoming and outgoing messages have the correct headers. </p>
+<p>For JSON bodies, the lens is created with <code>Body.auto&lt;&gt;().toLens()</code> (<code>auto()</code> is an extension function imported from <code>Jackson</code>) which provides the typed injection and extraction functions. Notice here that for injection we are using the more fluent API  <code>with()</code> and <code>of()</code> extension functions, as opposed to the standard lens injection function<code>(X, HttpMessage) -&gt; HttpMessage</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">tutorials</span><span class="o">.</span><span class="n">documenting_apis_with_openapi</span>
 
-<span class="cp">### 4. Modelling HTTP body messages</span>
-<span class="n">The</span> <span class="n">most</span> <span class="n">exciting</span> <span class="n">part</span> <span class="n">http4k</span> <span class="n">supporting</span> <span class="n">OpenApi3</span> <span class="n">is</span> <span class="n">the</span> <span class="n">ability</span> <span class="n">to</span> <span class="n">represent</span> <span class="n">HTTP</span> <span class="n">messages</span> <span class="k">in</span> <span class="o">**</span><span class="p">[</span><span class="n">JSON</span> <span class="n">Schema</span><span class="p">]</span><span class="o">**</span> <span class="n">form</span> <span class="k">in</span> <span class="n">the</span> <span class="n">documentation</span><span class="p">.</span> <span class="n">This</span> <span class="n">facility</span> <span class="n">is</span> <span class="n">what</span> <span class="n">unlocks</span> <span class="n">the</span> <span class="nb">true</span> <span class="n">cross</span><span class="o">-</span><span class="n">language</span> <span class="n">support</span> <span class="n">and</span> <span class="n">takes</span> <span class="n">the</span> <span class="n">usefulness</span> <span class="n">of</span> <span class="n">the</span> <span class="n">OpenApi</span> <span class="n">UI</span> <span class="n">to</span> <span class="n">another</span> <span class="n">level</span><span class="p">,</span> <span class="k">for</span> <span class="n">both</span> <span class="n">exploratory</span> <span class="n">and</span> <span class="n">support</span> <span class="n">functions</span><span class="p">.</span> <span class="n">Request</span> <span class="n">and</span> <span class="n">response</span> <span class="n">messages</span> <span class="n">can</span> <span class="n">both</span> <span class="n">be</span> <span class="n">specified</span> <span class="k">in</span> <span class="n">the</span> <span class="err">`</span><span class="n">meta</span> <span class="p">{}</span><span class="err">`</span> <span class="n">block</span> <span class="n">using</span> <span class="n">overloads</span> <span class="n">of</span> <span class="n">the</span> <span class="err">`</span><span class="n">receiving</span><span class="p">()</span><span class="err">`</span> <span class="n">and</span> <span class="err">`</span><span class="n">returning</span><span class="p">()</span><span class="err">`</span> <span class="n">functions</span><span class="p">.</span> <span class="n">By</span> <span class="n">using</span> <span class="n">these</span> <span class="n">functions</span><span class="p">,</span> <span class="n">we</span> <span class="n">can</span> <span class="n">supply</span> <span class="n">an</span> <span class="n">example</span> <span class="n">object</span> <span class="n">to</span> <span class="n">the</span> <span class="n">DSL</span> <span class="o">-</span> <span class="n">this</span> <span class="n">is</span> <span class="n">what</span> <span class="n">drives</span> <span class="n">the</span> <span class="n">generation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">JSON</span> <span class="n">Schema</span> <span class="n">and</span><span class="p">,</span> <span class="n">more</span> <span class="n">importantly</span><span class="p">,</span> <span class="n">ensures</span> <span class="n">that</span> <span class="n">the</span> <span class="n">documentation</span> <span class="n">cannot</span> <span class="n">go</span> <span class="n">stale</span> <span class="n">as</span> <span class="n">it</span> <span class="n">is</span> <span class="n">driven</span> <span class="n">by</span> <span class="n">code</span><span class="p">.</span>
+<span class="kn">import</span> <span class="nn">org.http4k.contract.ContractRoute</span>
+<span class="kn">import</span> <span class="nn">org.http4k.contract.Tag</span>
+<span class="kn">import</span> <span class="nn">org.http4k.contract.div</span>
+<span class="kn">import</span> <span class="nn">org.http4k.contract.meta</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.NOT_FOUND</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="kn">import</span> <span class="nn">org.http4k.format.Jackson.auto</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Path</span>
 
-<span class="n">Lets</span> <span class="n">add</span> <span class="n">another</span> <span class="n">route</span> <span class="n">to</span> <span class="n">the</span> <span class="n">mix</span> <span class="n">which</span> <span class="n">returns</span> <span class="n">a</span> <span class="n">JSON</span> <span class="n">body</span> <span class="n">object</span> <span class="n">modelled</span> <span class="n">with</span> <span class="n">a</span> <span class="n">Kotlin</span> <span class="n">Data</span> <span class="k">class</span> <span class="n">and</span> <span class="n">once</span> <span class="n">again</span> <span class="n">using</span> <span class="n">the</span> <span class="o">**</span><span class="p">[</span><span class="n">http4k</span> <span class="n">Lens</span> <span class="n">API</span><span class="p">]</span><span class="o">**</span><span class="p">.</span> <span class="n">Here</span><span class="p">,</span> <span class="n">the</span> <span class="n">lens</span> <span class="n">not</span> <span class="n">only</span> <span class="n">provides</span> <span class="n">the</span> <span class="n">validating</span> <span class="p">(</span><span class="n">de</span><span class="p">)</span><span class="n">serialisation</span> <span class="n">mechanism</span><span class="p">,</span> <span class="n">but</span> <span class="n">also</span> <span class="n">activates</span> <span class="n">the</span> <span class="err">`</span><span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="err">`</span> <span class="n">header</span> <span class="n">injection</span> <span class="n">and</span> <span class="n">parsing</span> <span class="n">behaviour</span> <span class="o">-</span> <span class="n">this</span> <span class="n">will</span> <span class="n">ensure</span> <span class="n">that</span> <span class="n">all</span> <span class="n">incoming</span> <span class="n">and</span> <span class="n">outgoing</span> <span class="n">messages</span> <span class="n">have</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">headers</span><span class="p">.</span> 
+<span class="n">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">val</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">val</span> <span class="n">age</span><span class="p">:</span> <span class="n">Age</span><span class="p">,</span> <span class="n">val</span> <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">emptyList</span><span class="p">())</span>
 
-<span class="n">For</span> <span class="n">JSON</span> <span class="n">bodies</span><span class="p">,</span> <span class="n">the</span> <span class="n">lens</span> <span class="n">is</span> <span class="n">created</span> <span class="n">with</span> <span class="err">`</span><span class="n">Body</span><span class="p">.</span><span class="k">auto</span><span class="o">&lt;&gt;</span><span class="p">().</span><span class="n">toLens</span><span class="p">()</span><span class="err">`</span> <span class="p">(</span><span class="err">`</span><span class="k">auto</span><span class="p">()</span><span class="err">`</span> <span class="n">is</span> <span class="n">an</span> <span class="n">extension</span> <span class="n">function</span> <span class="n">imported</span> <span class="n">from</span> <span class="err">`</span><span class="n">Jackson</span><span class="err">`</span><span class="p">)</span> <span class="n">which</span> <span class="n">provides</span> <span class="n">the</span> <span class="n">typed</span> <span class="n">injection</span> <span class="n">and</span> <span class="n">extraction</span> <span class="n">functions</span><span class="p">.</span> <span class="n">Notice</span> <span class="n">here</span> <span class="n">that</span> <span class="k">for</span> <span class="n">injection</span> <span class="n">we</span> <span class="n">are</span> <span class="n">using</span> <span class="n">the</span> <span class="n">more</span> <span class="n">fluent</span> <span class="n">API</span>  <span class="err">`</span><span class="n">with</span><span class="p">()</span><span class="err">`</span> <span class="n">and</span> <span class="err">`</span><span class="n">of</span><span class="p">()</span><span class="err">`</span> <span class="n">extension</span> <span class="n">functions</span><span class="p">,</span> <span class="n">as</span> <span class="n">opposed</span> <span class="n">to</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">lens</span> <span class="n">injection</span> <span class="n">function</span><span class="err">`</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">HttpMessage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpMessage</span><span class="err">`</span><span class="o">:</span>
+<span class="n">fun</span> <span class="n">Family</span><span class="p">():</span> <span class="n">ContractRoute</span> <span class="p">{</span>
+
+    <span class="n">val</span> <span class="n">familyData</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">85</span><span class="p">),</span> <span class="n">listOf</span><span class="p">(</span>
+        <span class="n">Person</span><span class="p">(</span><span class="s2">&quot;Anita&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">55</span><span class="p">)),</span>
+        <span class="n">Person</span><span class="p">(</span><span class="s2">&quot;Donald&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">52</span><span class="p">),</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Person</span><span class="p">(</span><span class="s2">&quot;Don Jr&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">21</span><span class="p">))))</span>
+    <span class="p">))</span>
+
+    <span class="n">val</span> <span class="n">responseLens</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">auto</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">(</span><span class="s2">&quot;The matched family tree&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+
+    <span class="n">fun</span> <span class="n">handler</span><span class="p">(</span><span class="n">queryName</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">fun</span> <span class="n">Person</span><span class="o">.</span><span class="n">search</span><span class="p">():</span> <span class="n">Person</span><span class="err">?</span> <span class="o">=</span> <span class="n">when</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">queryName</span> <span class="o">-&gt;</span> <span class="n">this</span>
+            <span class="k">else</span> <span class="o">-&gt;</span> <span class="n">children</span><span class="o">.</span><span class="n">firstOrNull</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">search</span><span class="p">()</span> <span class="o">!=</span> <span class="n">null</span> <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">familyData</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="err">?</span><span class="o">.</span><span class="n">let</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">responseLens</span> <span class="n">of</span> <span class="n">it</span><span class="p">)</span> <span class="p">}</span> <span class="err">?</span><span class="p">:</span> <span class="n">Response</span><span class="p">(</span><span class="n">NOT_FOUND</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="s2">&quot;/search&quot;</span> <span class="o">/</span> <span class="n">Path</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;The name to search for in the tree&quot;</span><span class="p">)</span> <span class="n">meta</span> <span class="p">{</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="s2">&quot;Search family tree&quot;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Given a name, returns a sub family tree starting with that person&quot;</span>
+        <span class="n">tags</span> <span class="o">+=</span> <span class="n">Tag</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">)</span>
+        <span class="n">returning</span><span class="p">(</span><span class="n">OK</span><span class="p">,</span> <span class="n">responseLens</span> <span class="n">to</span> <span class="n">Person</span><span class="p">(</span><span class="s2">&quot;Donald&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">52</span><span class="p">),</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Person</span><span class="p">(</span><span class="s2">&quot;Don Jr&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">21</span><span class="p">)))),</span> <span class="s2">&quot;Cut down family tree&quot;</span><span class="p">)</span>
+        <span class="n">returning</span><span class="p">(</span><span class="n">NOT_FOUND</span> <span class="n">to</span> <span class="s2">&quot;That person does not exist the family&quot;</span><span class="p">)</span>
+    <span class="p">}</span> <span class="n">bindContract</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">::</span><span class="n">handler</span>
+<span class="p">}</span>
 </code></pre></div>
 
 
-<p>package tutorials.documenting_apis_with_openapi</p>
-<p>import org.http4k.contract.ContractRoute
-import org.http4k.contract.Tag
-import org.http4k.contract.div
-import org.http4k.contract.meta
-import org.http4k.core.Body
-import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.NOT_FOUND
-import org.http4k.core.Status.Companion.OK
-import org.http4k.core.with
-import org.http4k.format.Jackson.auto
-import org.http4k.lens.Path</p>
-<p>data class Person(val name: String, val age: Age, val children: List<Person> = emptyList())</p>
-<p>fun Family(): ContractRoute {</p>
-<div class="codehilite"><pre><span></span><code><span class="n">val</span> <span class="n">familyData</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="ss">&quot;Bob&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">85</span><span class="p">),</span> <span class="n">listOf</span><span class="p">(</span>
-    <span class="n">Person</span><span class="p">(</span><span class="ss">&quot;Anita&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">55</span><span class="p">)),</span>
-    <span class="n">Person</span><span class="p">(</span><span class="ss">&quot;Donald&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">52</span><span class="p">),</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Person</span><span class="p">(</span><span class="ss">&quot;Don Jr&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">21</span><span class="p">))))</span>
-<span class="p">))</span>
-
-<span class="n">val</span> <span class="n">responseLens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">(</span><span class="ss">&quot;The matched family tree&quot;</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
-
-<span class="n">fun</span> <span class="k">handler</span><span class="p">(</span><span class="n">queryName</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="err">{</span>
-    <span class="n">fun</span> <span class="n">Person</span><span class="p">.</span><span class="k">search</span><span class="p">():</span> <span class="n">Person</span><span class="o">?</span> <span class="o">=</span> <span class="k">when</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="err">{</span>
-        <span class="n">queryName</span> <span class="o">-&gt;</span> <span class="n">this</span>
-        <span class="k">else</span> <span class="o">-&gt;</span> <span class="n">children</span><span class="p">.</span><span class="n">firstOrNull</span> <span class="err">{</span> <span class="n">it</span><span class="p">.</span><span class="k">search</span><span class="p">()</span> <span class="o">!=</span> <span class="k">null</span> <span class="err">}</span>
-    <span class="err">}</span>
-
-    <span class="n">familyData</span><span class="p">.</span><span class="k">search</span><span class="p">()</span><span class="o">?</span><span class="p">.</span><span class="n">let</span> <span class="err">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="k">with</span><span class="p">(</span><span class="n">responseLens</span> <span class="k">of</span> <span class="n">it</span><span class="p">)</span> <span class="err">}</span> <span class="o">?</span><span class="p">:</span> <span class="n">Response</span><span class="p">(</span><span class="n">NOT_FOUND</span><span class="p">)</span>
-<span class="err">}</span>
-
-<span class="k">return</span> <span class="ss">&quot;/search&quot;</span> <span class="o">/</span> <span class="n">Path</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="ss">&quot;name&quot;</span><span class="p">,</span> <span class="ss">&quot;The name to search for in the tree&quot;</span><span class="p">)</span> <span class="n">meta</span> <span class="err">{</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="ss">&quot;Search family tree&quot;</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="ss">&quot;Given a name, returns a sub family tree starting with that person&quot;</span>
-    <span class="n">tags</span> <span class="o">+=</span> <span class="n">Tag</span><span class="p">(</span><span class="ss">&quot;query&quot;</span><span class="p">)</span>
-    <span class="n">returning</span><span class="p">(</span><span class="n">OK</span><span class="p">,</span> <span class="n">responseLens</span> <span class="k">to</span> <span class="n">Person</span><span class="p">(</span><span class="ss">&quot;Donald&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">52</span><span class="p">),</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Person</span><span class="p">(</span><span class="ss">&quot;Don Jr&quot;</span><span class="p">,</span> <span class="n">Age</span><span class="p">(</span><span class="mi">21</span><span class="p">)))),</span> <span class="ss">&quot;Cut down family tree&quot;</span><span class="p">)</span>
-    <span class="n">returning</span><span class="p">(</span><span class="n">NOT_FOUND</span> <span class="k">to</span> <span class="ss">&quot;That person does not exist the family&quot;</span><span class="p">)</span>
-<span class="err">}</span> <span class="n">bindContract</span> <span class="k">GET</span> <span class="k">to</span> <span class="p">::</span><span class="k">handler</span>
-</code></pre></div>
-
-
-<p>}```</p>
 <p>Taking a final look at the OpenApi UI <strong><a target="_blank" href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fdocumenting_apis_with_openapi%2F4_openapi.json">here</a></strong> shows that not just has the UI been updated with the new route, but that example entries for the expected response are now displayed, as well as JSON Schema entries for the <code>Person</code> and <code>Age</code> classes in the <code>Schemas</code> section at the bottom.</p>
 <h3 id="wrapping-up">Wrapping up...</h3>
 <p>Once we have the final specification document available, users of our API can use the various <strong><a href="https://openapi-generator.tech">OpenApi Generators</a></strong> to generate HTTP clients in various languages for interacting with it, or to generate fake services that provide our API in their own environments (and thus enabling more simple end-to-end testing). The "Fake HTTP services" technique also enables the creation of Consumer-Driven-Contract style tests, and opens up possibilities for all kinds of interesting Chaos/failure-mode testing (you can even use the <code>http4k-testing-chaos</code> module to help with this 😉).</p>

@@ -1200,61 +1200,65 @@
 implementations of the provider to be used across environments.</p>
 <h3 id="example-provider">Example provider <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/oauth/example_provider_oauth.kt"><img class="octocat"/></a></h3>
 <p>Out of the box, http4k provides implementations for several OAuth providers.</p>
-<p>```
-package guide.modules.oauth</p>
-<p>import org.http4k.client.ApacheClient
-import org.http4k.core.Credentials
-import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.core.Uri
-import org.http4k.core.then
-import org.http4k.filter.ServerFilters
-import org.http4k.routing.bind
-import org.http4k.routing.routes
-import org.http4k.security.InsecureCookieBasedOAuthPersistence
-import org.http4k.security.OAuthProvider
-import org.http4k.security.google
-import org.http4k.server.SunHttp
-import org.http4k.server.asServer</p>
-<p>fun main() {</p>
-<div class="codehilite"><pre><span></span><code>// set these before running this example
-val googleClientId = System.getenv(&quot;CLIENT_ID&quot;)
-val googleClientSecret = System.getenv(&quot;CLIENT_SECRET&quot;)
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">oauth</span>
 
-val port = 9000
+<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Credentials</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.InsecureCookieBasedOAuthPersistence</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.OAuthProvider</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.google</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-// the callback uri which is configured in our OAuth provider
-val callbackUri = Uri.of(&quot;http://localhost:$port/callback&quot;)
 
-// this is a test implementation of the OAuthPersistence interface, which should be
-// implemented by application developers
-val oAuthPersistence = InsecureCookieBasedOAuthPersistence(&quot;Google&quot;)
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-// pre-defined configuration exist for common OAuth providers
-val oauthProvider = OAuthProvider.google(
-    ApacheClient(),
-    Credentials(googleClientId, googleClientSecret),
-    callbackUri,
-    oAuthPersistence
-)
+    <span class="o">//</span> <span class="nb">set</span> <span class="n">these</span> <span class="n">before</span> <span class="n">running</span> <span class="n">this</span> <span class="n">example</span>
+    <span class="n">val</span> <span class="n">googleClientId</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CLIENT_ID&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">googleClientSecret</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CLIENT_SECRET&quot;</span><span class="p">)</span>
 
-// the 2 main points here are the callback handler and the authFilter, which protects the root resource
-val app: HttpHandler =
-    routes(
-        callbackUri.path bind GET to oauthProvider.callback,
-        &quot;/&quot; bind GET to oauthProvider.authFilter.then { Response(OK).body(&quot;hello!&quot;) }
-    )
+    <span class="n">val</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">9000</span>
 
-ServerFilters.CatchAll()
-    .then(app)
-    .asServer(SunHttp(port)).start().block()
+    <span class="o">//</span> <span class="n">the</span> <span class="n">callback</span> <span class="n">uri</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">configured</span> <span class="ow">in</span> <span class="n">our</span> <span class="n">OAuth</span> <span class="n">provider</span>
+    <span class="n">val</span> <span class="n">callbackUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;http://localhost:$port/callback&quot;</span><span class="p">)</span>
+
+    <span class="o">//</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">test</span> <span class="n">implementation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">OAuthPersistence</span> <span class="n">interface</span><span class="p">,</span> <span class="n">which</span> <span class="n">should</span> <span class="n">be</span>
+    <span class="o">//</span> <span class="n">implemented</span> <span class="n">by</span> <span class="n">application</span> <span class="n">developers</span>
+    <span class="n">val</span> <span class="n">oAuthPersistence</span> <span class="o">=</span> <span class="n">InsecureCookieBasedOAuthPersistence</span><span class="p">(</span><span class="s2">&quot;Google&quot;</span><span class="p">)</span>
+
+    <span class="o">//</span> <span class="n">pre</span><span class="o">-</span><span class="n">defined</span> <span class="n">configuration</span> <span class="n">exist</span> <span class="k">for</span> <span class="n">common</span> <span class="n">OAuth</span> <span class="n">providers</span>
+    <span class="n">val</span> <span class="n">oauthProvider</span> <span class="o">=</span> <span class="n">OAuthProvider</span><span class="o">.</span><span class="n">google</span><span class="p">(</span>
+        <span class="n">ApacheClient</span><span class="p">(),</span>
+        <span class="n">Credentials</span><span class="p">(</span><span class="n">googleClientId</span><span class="p">,</span> <span class="n">googleClientSecret</span><span class="p">),</span>
+        <span class="n">callbackUri</span><span class="p">,</span>
+        <span class="n">oAuthPersistence</span>
+    <span class="p">)</span>
+
+    <span class="o">//</span> <span class="n">the</span> <span class="mi">2</span> <span class="n">main</span> <span class="n">points</span> <span class="n">here</span> <span class="n">are</span> <span class="n">the</span> <span class="n">callback</span> <span class="n">handler</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">authFilter</span><span class="p">,</span> <span class="n">which</span> <span class="n">protects</span> <span class="n">the</span> <span class="n">root</span> <span class="n">resource</span>
+    <span class="n">val</span> <span class="n">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span>
+        <span class="n">routes</span><span class="p">(</span>
+            <span class="n">callbackUri</span><span class="o">.</span><span class="n">path</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="o">.</span><span class="n">callback</span><span class="p">,</span>
+            <span class="s2">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="o">.</span><span class="n">authFilter</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="n">ServerFilters</span><span class="o">.</span><span class="n">CatchAll</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span><span class="o">.</span><span class="n">block</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="o">//</span> <span class="n">browse</span> <span class="n">to</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">9000</span> <span class="o">-</span> <span class="n">you</span><span class="s1">&#39;ll be redirected to google for authentication</span>
 </code></pre></div>
 
 
-<p>}</p>
-<p>// browse to: http://localhost:9000 - you'll be redirected to google for authentication```</p>
 <p>See the <a href="/cookbook/custom_oauth_provider/">cookbook</a> for a custom implementation.</p>
                     
                     

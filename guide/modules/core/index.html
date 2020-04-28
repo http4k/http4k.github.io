@@ -475,6 +475,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#serving-static-assets" title="Serving static assets" class="md-nav__link">
+    Serving static assets
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#single-page-apps" title="Single Page Apps" class="md-nav__link">
     Single Page Apps
   </a>
@@ -1456,14 +1463,15 @@ to configure these lenses to target particular parts of the message, whilst at t
     <span class="n">pathLocalDate</span> <span class="n">of</span> <span class="n">LocalDate</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
     <span class="n">requiredQuery</span> <span class="n">of</span> <span class="s2">&quot;myAmazingString&quot;</span><span class="p">,</span>
     <span class="n">optionalHeader</span> <span class="n">of</span> <span class="mi">123</span>
-<span class="p">)</span><span class="sb">``</span><span class="err">`</span>
+<span class="p">)</span>
+</code></pre></div>
 
-<span class="c1">### Serving static assets</span>
-<span class="n">For</span> <span class="n">serving</span> <span class="n">static</span> <span class="n">assets</span><span class="p">,</span> <span class="n">just</span> <span class="n">bind</span> <span class="n">a</span> <span class="n">path</span> <span class="n">to</span> <span class="n">a</span> <span class="n">Static</span> <span class="n">block</span> <span class="k">as</span> <span class="n">below</span><span class="p">,</span> <span class="n">using</span> <span class="n">either</span> <span class="n">a</span> <span class="n">Classpath</span> <span class="ow">or</span> <span class="n">Directory</span> <span class="p">(</span><span class="n">Hot</span> <span class="n">reloading</span><span class="p">)</span> <span class="n">based</span> <span class="n">ResourceLoader</span> <span class="n">instance</span> <span class="p">(</span><span class="n">find</span> <span class="n">these</span> <span class="n">on</span> <span class="n">the</span> <span class="sb">`ResourceLoader`</span> <span class="n">companion</span> <span class="nb">object</span><span class="p">)</span><span class="o">.</span> <span class="n">Typically</span><span class="p">,</span> <span class="n">Directory</span> <span class="ow">is</span> <span class="n">used</span> <span class="n">during</span> <span class="n">development</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">Classpath</span> <span class="n">strategy</span> <span class="ow">is</span> <span class="n">used</span> <span class="n">to</span> <span class="n">serve</span> <span class="n">assets</span> <span class="ow">in</span> <span class="n">production</span> <span class="kn">from</span> <span class="nn">an</span> <span class="nn">UberJar.</span> <span class="nn">This</span> <span class="nn">is</span> <span class="nn">usually</span> <span class="nn">based</span> <span class="nn">on</span> <span class="nn">a</span> <span class="s2">&quot;devmode&quot;</span> <span class="n">flag</span> <span class="n">when</span> <span class="n">constructing</span> <span class="n">your</span> <span class="n">app</span><span class="s2">&quot;. **Note** that you should avoid setting the Classpath value to the root because otherwise it will serve anything from your classpath (including Java class files!)!:</span>
-<span class="sb">``</span><span class="err">`</span><span class="n">kotlin</span>
-<span class="n">routes</span><span class="p">(</span>
-    <span class="s2">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s2">&quot;/org/http4k/some/package/name&quot;</span><span class="p">)),</span>
-    <span class="s2">&quot;/hotreload&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Directory</span><span class="p">(</span><span class="s2">&quot;path/to/static/dir/goes/here&quot;</span><span class="p">))</span>
+
+<h3 id="serving-static-assets">Serving static assets</h3>
+<p>For serving static assets, just bind a path to a Static block as below, using either a Classpath or Directory (Hot reloading) based ResourceLoader instance (find these on the <code>ResourceLoader</code> companion object). Typically, Directory is used during development and the Classpath strategy is used to serve assets in production from an UberJar. This is usually based on a "devmode" flag when constructing your app". <strong>Note</strong> that you should avoid setting the Classpath value to the root because otherwise it will serve anything from your classpath (including Java class files!)!:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;/org/http4k/some/package/name&quot;</span><span class="p">)),</span>
+    <span class="s">&quot;/hotreload&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Directory</span><span class="p">(</span><span class="s">&quot;path/to/static/dir/goes/here&quot;</span><span class="p">))</span>
 <span class="p">)</span>
 </code></pre></div>
 

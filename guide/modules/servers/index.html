@@ -1203,16 +1203,20 @@
 <p>Server-backend modules provide a consistent API to mount HttpHandlers into the specified container in 1 LOC, by 
 simply passing it to the relevant <code>ServerConfig</code> implementation (in this case <code>Jetty</code>):</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/servers/example_http.kt"><img class="octocat"/></a></h4>
-<p>```
-package guide.modules.servers</p>
-<p>import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.server.Jetty
-import org.http4k.server.asServer</p>
-<p>fun main() {
-    { request: Request -&gt; Response(OK).body("Hello World") }.asServer(Jetty(8000)).start()
-}```</p>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">servers</span>
+
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h3 id="customisation">Customisation</h3>
 <p>Each of the server backends implement an interface <code>ServerConfig</code>, which is written with sensible defaults for the server in questions, 
 but is also designed to be used as a starting point for tweaking to API user needs. To customize, simply use the relevant <code>ServerConfig</code> 

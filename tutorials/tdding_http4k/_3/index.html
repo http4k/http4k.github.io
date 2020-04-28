@@ -1206,47 +1206,48 @@
     <span class="n">fun</span> <span class="sb">`bad request when some values are not numbers`</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/multiply?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">))</span>
     <span class="p">}</span>
-<span class="p">}</span><span class="sb">``</span><span class="err">`</span>
-
-<span class="c1">## Production:</span>
+<span class="p">}</span>
 </code></pre></div>
 
 
-<p>package tutorials.tdding_http4k._3</p>
-<p>import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.core.then
-import org.http4k.filter.ServerFilters.CatchLensFailure
-import org.http4k.lens.Query
-import org.http4k.lens.int
-import org.http4k.routing.bind
-import org.http4k.routing.routes
-import org.http4k.server.Http4kServer
-import org.http4k.server.Jetty
-import org.http4k.server.asServer</p>
-<p>fun MyMathServer(port: Int): Http4kServer = MyMathsApp().asServer(Jetty(port))</p>
-<p>fun MyMathsApp(): HttpHandler = CatchLensFailure.then(
-    routes(
-        "/ping" bind GET to { _: Request -&gt; Response(OK) },
-        "/add" bind GET to calculate { it.sum() },
-        "/multiply" bind GET to calculate { it.fold(1) { memo, next -&gt; memo * next } }
-    )
-)</p>
-<p>private fun calculate(fn: (List<Int>) -&gt; Int): (Request) -&gt; Response {
-    val values = Query.int().multi.defaulted("value", listOf())</p>
-<div class="codehilite"><pre><span></span><code><span class="err">return { request: Request -&gt;</span>
-<span class="err">    val valuesToCalc = values(request)</span>
-<span class="err">    val answer = if (valuesToCalc.isEmpty()) 0 else fn(valuesToCalc)</span>
-<span class="err">    Response(OK).body(answer.toString())</span>
-<span class="err">}</span>
+<h2 id="production">Production:</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">tutorials</span><span class="o">.</span><span class="n">tdding_http4k</span><span class="o">.</span><span class="n">_3</span>
+
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="n">fun</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="n">MyMathsApp</span><span class="p">()</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+
+<span class="n">fun</span> <span class="n">MyMathsApp</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">CatchLensFailure</span><span class="o">.</span><span class="n">then</span><span class="p">(</span>
+    <span class="n">routes</span><span class="p">(</span>
+        <span class="s2">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
+        <span class="s2">&quot;/add&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">calculate</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="p">},</span>
+        <span class="s2">&quot;/multiply&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">calculate</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">fold</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="n">memo</span><span class="p">,</span> <span class="nb">next</span> <span class="o">-&gt;</span> <span class="n">memo</span> <span class="o">*</span> <span class="nb">next</span> <span class="p">}</span> <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">private</span> <span class="n">fun</span> <span class="n">calculate</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Int</span><span class="p">):</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span> <span class="p">{</span>
+    <span class="n">val</span> <span class="n">values</span> <span class="o">=</span> <span class="n">Query</span><span class="o">.</span><span class="n">int</span><span class="p">()</span><span class="o">.</span><span class="n">multi</span><span class="o">.</span><span class="n">defaulted</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">listOf</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+        <span class="n">val</span> <span class="n">valuesToCalc</span> <span class="o">=</span> <span class="n">values</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">val</span> <span class="n">answer</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">valuesToCalc</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">())</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">fn</span><span class="p">(</span><span class="n">valuesToCalc</span><span class="p">)</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">answer</span><span class="o">.</span><span class="n">toString</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
-
-
-<p>}
-```</p>
                     
                     
                     

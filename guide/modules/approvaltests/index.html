@@ -1309,58 +1309,61 @@ module also provides Junit 5 extensions that will:</p>
 <li><code>XmlApprovalTest</code></li>
 </ul>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_json.kt"><img class="octocat"/></a></h4>
-<p>```
-package guide.modules.approvaltests</p>
-<p>import com.natpryce.hamkrest.and
-import com.natpryce.hamkrest.assertion.assertThat
-import org.http4k.core.ContentType.Companion.APPLICATION_JSON
-import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.core.with
-import org.http4k.hamkrest.hasStatus
-import org.http4k.lens.Header.CONTENT_TYPE
-import org.http4k.testing.Approver
-import org.http4k.testing.JsonApprovalTest
-import org.http4k.testing.assertApproved
-import org.http4k.testing.hasApprovedContent
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith</p>
-<p>@ExtendWith(JsonApprovalTest::class)
-class ExampleJsonApprovalTest {</p>
-<div class="codehilite"><pre><span></span><code>private val app: HttpHandler = {
-    Response(OK)
-        .with(CONTENT_TYPE of APPLICATION_JSON)
-        .body(&quot;&quot;&quot;{&quot;message&quot;:&quot;value&quot;}&quot;&quot;&quot;)
-}
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">approvaltests</span>
 
-@Test
-fun `check response content`(approver: Approver) {
-    approver.assertApproved(app(Request(GET, &quot;/url&quot;)))
-}
+<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType.Companion.APPLICATION_JSON</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Header.CONTENT_TYPE</span>
+<span class="kn">import</span> <span class="nn">org.http4k.testing.Approver</span>
+<span class="kn">import</span> <span class="nn">org.http4k.testing.JsonApprovalTest</span>
+<span class="kn">import</span> <span class="nn">org.http4k.testing.assertApproved</span>
+<span class="kn">import</span> <span class="nn">org.http4k.testing.hasApprovedContent</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.extension.ExtendWith</span>
 
-@Test
-fun `check response content with expected status`(approver: Approver) {
-    approver.assertApproved(app(Request(GET, &quot;/url&quot;)), OK)
-}
+<span class="nd">@ExtendWith</span><span class="p">(</span><span class="n">JsonApprovalTest</span><span class="p">::</span><span class="n">class</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ExampleJsonApprovalTest</span> <span class="p">{</span>
 
-@Test
-fun `check request content`(approver: Approver) {
-    approver.assertApproved(
-        Request(GET, &quot;/url&quot;).with(CONTENT_TYPE of APPLICATION_JSON).body(&quot;&quot;&quot;{&quot;message&quot;:&quot;value&quot;}&quot;&quot;&quot;)
-    )
-}
+    <span class="n">private</span> <span class="n">val</span> <span class="n">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+            <span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">CONTENT_TYPE</span> <span class="n">of</span> <span class="n">APPLICATION_JSON</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;{&quot;message&quot;:&quot;value&quot;}&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
 
-@Test
-fun `combine approval with hamkrest matcher`(approver: Approver) {
-    assertThat(app(Request(GET, &quot;/url&quot;)), hasStatus(OK).and(approver.hasApprovedContent()))
-}
+    <span class="nd">@Test</span>
+    <span class="n">fun</span> <span class="sb">`check response content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">approver</span><span class="o">.</span><span class="n">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/url&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="n">fun</span> <span class="sb">`check response content with expected status`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">approver</span><span class="o">.</span><span class="n">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/url&quot;</span><span class="p">)),</span> <span class="n">OK</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="n">fun</span> <span class="sb">`check request content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">approver</span><span class="o">.</span><span class="n">assertApproved</span><span class="p">(</span>
+            <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/url&quot;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">CONTENT_TYPE</span> <span class="n">of</span> <span class="n">APPLICATION_JSON</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;{&quot;message&quot;:&quot;value&quot;}&quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="n">fun</span> <span class="sb">`combine approval with hamkrest matcher`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/url&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="ow">and</span><span class="p">(</span><span class="n">approver</span><span class="o">.</span><span class="n">hasApprovedContent</span><span class="p">()))</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
 </code></pre></div>
 
 
-<p>}```</p>
 <h2 id="implementing-custom-junit-extensions">Implementing custom JUnit Extensions</h2>
 <p>As with the rest of <a href="https://http4k.org">http4k</a>, a base implementation, <code>BaseApprovalTest</code> of the Junit5 Extension is 
 provided, allowing API users to implement custom approval schemes or non-FS based approaches for 

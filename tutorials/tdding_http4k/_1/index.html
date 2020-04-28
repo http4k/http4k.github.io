@@ -1165,15 +1165,17 @@ documentation, and checking in a high-level way that the business endpoints are 
 
 
 <h2 id="production">Production:</h2>
-<p>```
-package tutorials.tdding_http4k._1</p>
-<p>import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.server.Http4kServer
-import org.http4k.server.Jetty
-import org.http4k.server.asServer</p>
-<p>fun MyMathServer(port: Int): Http4kServer = { _: Request -&gt; Response(OK) }.asServer(Jetty(port))```</p>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">tutorials</span><span class="o">.</span><span class="n">tdding_http4k</span><span class="o">.</span><span class="n">_1</span>
+
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="n">fun</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+</code></pre></div>
                     
                     
                     
