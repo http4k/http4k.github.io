@@ -1199,7 +1199,56 @@
 <p>In harmony with the ethos of <strong>http4k</strong> there is no need to bring in a custom logging library such as SL4J, although they would be very simple to integrate if required by implementing a custom <code>Events</code> instance.</p>
 <p>The example below shows a simple application that outputs structured logs to StdOut which can be analysed by an aggregator, along with the attachment of extra <code>Event</code> metadata via a custom <code>EventFilter</code>.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/structured_logging_with_events/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/structured_logging_with_events/example.kt"></script></p>
+<p>```kotlin
+package cookbook.structured_logging_with_events</p>
+<p>import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.core.Uri
+import org.http4k.core.then
+import org.http4k.events.AutoJsonEvents
+import org.http4k.events.Event
+import org.http4k.events.EventFilter
+import org.http4k.events.EventFilters
+import org.http4k.events.plus
+import org.http4k.events.then
+import org.http4k.filter.ResponseFilters
+import org.http4k.format.Jackson</p>
+<p>fun main() {
+    // Stack filters for Events in the same way as HttpHandlers to transform or add metadata to the Events.
+    // We use AutoJsonEvents (here with Jackson) to handle the final serialisation process.
+    val events =
+        EventFilters.AddTimestamp()
+            .then(EventFilters.AddZipkinTraces())
+            .then(AddRequestCount())
+            .then(AutoJsonEvents(Jackson))</p>
+<div class="codehilite"><pre><span></span><code>val app: HttpHandler = { _: Request -&gt; Response(OK).body(&quot;hello&quot;) }
+
+val appWithEvents =
+    ResponseFilters.ReportHttpTransaction {
+        // to &quot;emit&quot; an event, just invoke() the Events!
+        events(IncomingHttpRequest(it.request.uri, it.response.status.code, it.duration.toMillis()))
+    }.then(app)
+
+appWithEvents(Request(GET, &quot;/path1&quot;))
+appWithEvents(Request(GET, &quot;/path2&quot;))
+</code></pre></div>
+
+
+<p>}</p>
+<p>// this is our custom event which will be printed in a structured way
+data class IncomingHttpRequest(val uri: Uri, val status: Int, val duration: Long) : Event</p>
+<p>// here is a new EventFilter that adds custom metadata to the emitted events
+fun AddRequestCount(): EventFilter {
+    var requestCount = 0
+    return EventFilter { next -&gt;
+        {
+            next(it + ("requestCount" to requestCount++))
+        }
+    }
+}```</p>
                     
                     
                     

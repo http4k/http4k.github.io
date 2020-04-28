@@ -1176,7 +1176,31 @@
 
 
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/container_integration/example.kt"><img class="octocat"/></a></h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/container_integration/example.kt"></script></p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.container_integration</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.query(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">jettyServer</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
+
+    <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+
+    <span class="n">jettyServer</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
                     
                     
                     

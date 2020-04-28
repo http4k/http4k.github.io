@@ -1174,7 +1174,32 @@
 
 
 <p>The following creates a simple endpoint, binds it to a Jetty server then starts, queries, and stops it.</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/quickstart/example.kt"></script>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">quickstart</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.query(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">jettyServer</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
+
+    <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+
+    <span class="n">jettyServer</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <h2 id="single-line-cd-bootstrap">Single-line CD Bootstrap</h2>
 <p>Run the single command in the readme of <a href="https://github.com/http4k/http4k-bootstrap">this repo</a> to create a HelloWorld <strong>http4k</strong> app with a full CD pipeline using Github -&gt; TravisCI -&gt; Heroku.</p>

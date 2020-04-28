@@ -1222,13 +1222,151 @@ Testing is just matter of calling the correct function! Additionally, because th
 </ul>
 <h2 id="example-code-for-testing">Example code for testing</h2>
 <h4 id="testing-httphandlers-with-static-paths">Testing HttpHandlers with static paths <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/StaticPathTest.kt"><img class="octocat"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/StaticPathTest.kt"></script></p>
+<p>```kotlin
+package guide.testing</p>
+<p>import com.natpryce.hamkrest.and
+import com.natpryce.hamkrest.assertion.assertThat</p>
+<p>import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.hamkrest.hasBody
+import org.http4k.hamkrest.hasStatus
+import org.junit.jupiter.api.Test</p>
+<p>val EchoBody: HttpHandler = { r -&gt; Response(OK).body(r.bodyString()) }</p>
+<p>class StaticPathTest {
+    @Test
+    fun <code>echoes body from request</code>() {</p>
+<div class="codehilite"><pre><span></span><code>    Request(GET, &quot;/anything&quot;).body(&quot;my data is large&quot;)
+    val response: Response = EchoBody(Request(GET, &quot;/anything&quot;).body(&quot;my data is large&quot;))
+
+    assertThat(response, hasStatus(OK).and(hasBody(&quot;my data is large&quot;)))
+}
+</code></pre></div>
+
+
+<p>}```</p>
 <h4 id="testing-httphandlers-with-dynamic-paths">Testing HttpHandlers with dynamic paths <a href="https://github.com/http4k/http4k/blob/master/src/docsguide/testing/DynamicPathTest.kt"><img class="octocat"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/DynamicPathTest.kt"></script></p>
+<p>```kotlin
+package guide.testing</p>
+<p>import com.natpryce.hamkrest.and
+import com.natpryce.hamkrest.assertion.assertThat
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.hamkrest.hasBody
+import org.http4k.hamkrest.hasStatus
+import org.http4k.routing.RoutingHttpHandler
+import org.http4k.routing.bind
+import org.http4k.routing.path
+import org.http4k.routing.routes
+import org.junit.jupiter.api.Test</p>
+<p>val EchoPath = "/echo/{message}" bind GET to { r -&gt; Response(OK).body(r.path("message") ?: "nothing!") }</p>
+<p>class DynamicPathTest {</p>
+<div class="codehilite"><pre><span></span><code>@Test
+fun `echoes body from path`() {
+    val route: RoutingHttpHandler = routes(EchoPath)
+    val response: Response = route(Request(GET, &quot;/echo/my+great+message&quot;))
+    assertThat(response, hasStatus(OK).and(hasBody(&quot;my great message&quot;)))
+}
+</code></pre></div>
+
+
+<p>}```</p>
 <h4 id="testing-filters">Testing Filters <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/FilterTest.kt"><img class="octocat"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/FilterTest.kt"></script></p>
+<p>```kotlin
+package guide.testing</p>
+<p>import com.natpryce.hamkrest.and
+import com.natpryce.hamkrest.assertion.assertThat</p>
+<p>import org.http4k.core.Filter
+import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.core.then
+import org.http4k.hamkrest.hasHeader
+import org.http4k.hamkrest.hasStatus
+import org.junit.jupiter.api.Test</p>
+<p>val AddLatency = Filter { next -&gt;
+    {
+        next(it).header("x-extra-header", "some value")
+    }
+}</p>
+<p>class FilterTest {
+    @Test
+    fun <code>adds a special header</code>() {
+        val handler: HttpHandler = AddLatency.then { Response(OK) }
+        val response: Response = handler(Request(GET, "/echo/my+great+message"))
+        assertThat(response, hasStatus(OK).and(hasHeader("x-extra-header", "some value")))
+    }
+}```</p>
 <h4 id="testing-websockets-with-offline-and-online-clients">Testing Websockets with offline and online clients <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/TestingWebsockets.kt"><img class="octocat"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/TestingWebsockets.kt"></script></p>
+<p>```kotlin
+package guide.testing</p>
+<p>import com.natpryce.hamkrest.assertion.assertThat
+import com.natpryce.hamkrest.equalTo</p>
+<p>import org.http4k.client.WebsocketClient
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.Uri
+import org.http4k.lens.Path
+import org.http4k.routing.bind
+import org.http4k.routing.websockets
+import org.http4k.server.Jetty
+import org.http4k.server.asServer
+import org.http4k.testing.testWsClient
+import org.http4k.websocket.Websocket
+import org.http4k.websocket.WsClient
+import org.http4k.websocket.WsHandler
+import org.http4k.websocket.WsMessage
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test</p>
+<p>val namePath = Path.of("name")</p>
+<p>// here is our websocket app - it uses dynamic path binding and lenses
+val testApp: WsHandler = websockets(
+    "/{name}" bind { ws: Websocket -&gt;
+        val name = namePath(ws.upgradeRequest)
+        ws.send(WsMessage("hello $name"))
+    }
+)</p>
+<p>// this is the abstract contract that defines the behaviour to be tested
+abstract class WebsocketContract {
+    // subclasses only have to supply a blocking WsClient
+    abstract fun client(): WsClient</p>
+<div class="codehilite"><pre><span></span><code><span class="err">@Test</span>
+<span class="err">fun `echoes back connected name`() {</span>
+<span class="err">    assertThat(client().received().take(1).toList(), equalTo(listOf(WsMessage(&quot;hello bob&quot;))))</span>
+<span class="err">}</span>
+</code></pre></div>
+
+
+<p>}</p>
+<p>// a unit test version of the contract - it connects to the websocket in memory with no network
+class WebsocketUnitTest : WebsocketContract() {
+    override fun client() = cookbook.websockets.testApp.testWsClient(Request(GET, "/bob"))!!
+}</p>
+<p>// a integration test version of the contract - it starts a server and connects to the websocket over the network
+class WebsocketServerTest : WebsocketContract() {
+    override fun client() = WebsocketClient.blocking(Uri.of("ws://localhost:8000/bob"))</p>
+<div class="codehilite"><pre><span></span><code><span class="n">private</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cookbook</span><span class="p">.</span><span class="n">websockets</span><span class="p">.</span><span class="n">testApp</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="w"></span>
+
+<span class="nv">@BeforeEach</span><span class="w"></span>
+<span class="n">fun</span><span class="w"> </span><span class="k">before</span><span class="p">()</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="k">start</span><span class="p">()</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+
+<span class="nv">@AfterEach</span><span class="w"></span>
+<span class="n">fun</span><span class="w"> </span><span class="k">after</span><span class="p">()</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>}```</p>
                     
                     
                     

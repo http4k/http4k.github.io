@@ -1203,7 +1203,16 @@
 <p>Server-backend modules provide a consistent API to mount HttpHandlers into the specified container in 1 LOC, by 
 simply passing it to the relevant <code>ServerConfig</code> implementation (in this case <code>Jetty</code>):</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/servers/example_http.kt"><img class="octocat"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/servers/example_http.kt"></script></p>
+<p>```kotlin
+package guide.modules.servers</p>
+<p>import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.server.Jetty
+import org.http4k.server.asServer</p>
+<p>fun main() {
+    { request: Request -&gt; Response(OK).body("Hello World") }.asServer(Jetty(8000)).start()
+}```</p>
 <h3 id="customisation">Customisation</h3>
 <p>Each of the server backends implement an interface <code>ServerConfig</code>, which is written with sensible defaults for the server in questions, 
 but is also designed to be used as a starting point for tweaking to API user needs. To customize, simply use the relevant <code>ServerConfig</code> 

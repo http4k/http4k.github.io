@@ -1134,119 +1134,252 @@ values to check them as soon as possible in the application bootstrap phase.</p>
 <h4 id="1-optionality">1. Optionality</h4>
 <p>Kotlin's type system guards us against missing values being injected - for instance the following code will throw a 
 <code>IllegalStateException</code> due to a typo in the parameter name:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/missing.kt"></script>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
 
-<p>However not all configuration values will be required. We can define that there are 3 distinct modes of optionality 
-available for each parameter:</p>
-<ul>
-<li><strong>Required:</strong> These values must be injected for each environment, with no default value defined. Most configurations such 
-as hostnames should always use this form to maximise operational safety.</li>
-<li><strong>Optional:</strong> These values can be supplied, but there is no default value. This category fits well with dynamic properties 
-which could be data-driven (ie. not known at compile-time).</li>
-<li><strong>Defaulted:</strong> These values can be supplied, but a fallback value (or chain of other config values) will be used if they 
-are not.</li>
-</ul>
-<p>Missing values should produce a reasonable error and stop the app from starting.</p>
-<h4 id="2-type-coercion">2. Type coercion</h4>
-<p>Most applications will require a variety of configuration primitive types, which may or may not map to the Java/Kotlin 
-standard types, including:</p>
-<ul>
-<li><strong>strings</strong> such as service URLs, log levels, or AWS role names</li>
-<li><strong>numeric</strong> values such as ports or retry counts</li>
-<li><strong>booleans</strong> such as debug switch or feature flags</li>
-<li><strong>duration</strong> values for timeouts, backoff times</li>
-</ul>
-<p>But handling these raw types alone is not enough to guarantee safety - it is best to marshall the values into a 
-suitable operational/domain type that can validate the input and avoid confusion. Kotlin gives us a simple way to do this 
-using <code>require</code> as a guard:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/validation.kt"></script>
+<span class="c1">// export ANTIDISESTABLISHMENTARIANISM=opposition to the disestablishment of the Church of England</span>
 
-<p>Additionally to the above, it is important to represent those values in a form that cannot be misinterpreted. A good 
-example of this is the passing of temporal values as integers - timeouts defined this way could be easily be 
-parsed into the wrong time unit (seconds instead of milliseconds). Using a higher level primitive such as <code>Duration</code> 
-will help us here:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/typesafe.kt"></script>
+<span class="k">val</span> <span class="py">definition</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;ANTIDISESTABLISHMENTARIAMISM&quot;</span><span class="p">)</span><span class="err">```</span>
 
-<p>Obviously, the above is still not very safe - and what's more, a coercion could now fail with one of 3 different 
-exceptions depending on if the value was missing (<code>IllegalStateException</code>), unparsable (<code>DateTimeParseException</code>) or 
-invalid (<code>IllegalArgumentException</code>). The conversion code from <code>String -&gt; Duration</code> must also be repeated (or extracted) 
-for each value that we wish to parse.</p>
-<h4 id="3-multiplicity">3. Multiplicity</h4>
-<p>Configuration parameters may have one or many values and need to be converted safely from the injected string 
-representation (usually comma-separated) and into their internally represented types at application startup: </p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/multiplicity.kt"></script>
+<span class="n">However</span> <span class="n">not</span> <span class="n">all</span> <span class="n">configuration</span> <span class="n">values</span> <span class="n">will</span> <span class="n">be</span> <span class="n">required</span><span class="p">.</span> <span class="n">We</span> <span class="n">can</span> <span class="n">define</span> <span class="n">that</span> <span class="n">there</span> <span class="n">are</span> <span class="m">3</span> <span class="n">distinct</span> <span class="n">modes</span> <span class="n">of</span> <span class="n">optionality</span> 
+<span class="n">available</span> <span class="k">for</span> <span class="n">each</span> <span class="n">parameter</span><span class="p">:</span>
 
-<p>Once again, the splitting code will need to be repeated for each config value, or extracted to a library function.</p>
-<h4 id="4-security">4. Security</h4>
-<p>The configuration of a standard app will generally contain both sensitive and non-sensitive values. Sensitive such as 
-application secrets, DB passwords or API keys should be handled in a way that avoid storing directly in memory in a 
-readable format or long lived fashion, where they may be inadvertently inspected or outputted into a log file.</p>
-<p>Dangling code situations such as in the code below are common, and are asking for trouble...</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/secrets.kt"></script>
+<span class="p">-</span> <span class="p">**</span><span class="n">Required</span><span class="p">:**</span> <span class="n">These</span> <span class="n">values</span> <span class="n">must</span> <span class="n">be</span> <span class="n">injected</span> <span class="k">for</span> <span class="n">each</span> <span class="n">environment</span><span class="p">,</span> <span class="n">with</span> <span class="n">no</span> <span class="n">default</span> <span class="n">value</span> <span class="n">defined</span><span class="p">.</span> <span class="n">Most</span> <span class="n">configurations</span> <span class="n">such</span> 
+<span class="k">as</span> <span class="n">hostnames</span> <span class="n">should</span> <span class="n">always</span> <span class="n">use</span> <span class="k">this</span> <span class="n">form</span> <span class="n">to</span> <span class="n">maximise</span> <span class="n">operational</span> <span class="n">safety</span><span class="p">.</span>
+<span class="p">-</span> <span class="p">**</span><span class="n">Optional</span><span class="p">:**</span> <span class="n">These</span> <span class="n">values</span> <span class="n">can</span> <span class="n">be</span> <span class="n">supplied</span><span class="p">,</span> <span class="n">but</span> <span class="n">there</span> <span class="k">is</span> <span class="n">no</span> <span class="n">default</span> <span class="n">value</span><span class="p">.</span> <span class="n">This</span> <span class="n">category</span> <span class="n">fits</span> <span class="n">well</span> <span class="n">with</span> <span class="k">dynamic</span> <span class="n">properties</span> 
+<span class="n">which</span> <span class="n">could</span> <span class="n">be</span> <span class="k">data</span><span class="p">-</span><span class="n">driven</span> <span class="p">(</span><span class="n">ie</span><span class="p">.</span> <span class="n">not</span> <span class="n">known</span> <span class="n">at</span> <span class="n">compile</span><span class="p">-</span><span class="n">time</span><span class="p">).</span>
+<span class="p">-</span> <span class="p">**</span><span class="n">Defaulted</span><span class="p">:**</span> <span class="n">These</span> <span class="n">values</span> <span class="n">can</span> <span class="n">be</span> <span class="n">supplied</span><span class="p">,</span> <span class="n">but</span> <span class="n">a</span> <span class="n">fallback</span> <span class="n">value</span> <span class="p">(</span><span class="n">or</span> <span class="n">chain</span> <span class="n">of</span> <span class="n">other</span> <span class="n">config</span> <span class="n">values</span><span class="p">)</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span> <span class="k">if</span> <span class="n">they</span> 
+<span class="n">are</span> <span class="n">not</span><span class="p">.</span>
 
-<h4 id="5-configuration-context-overriding">5. Configuration Context &amp; Overriding</h4>
-<p>We also want to avoid defining all values for all possible scenarios - for example in test cases, so the ability 
-to overlay configuration sets on top of each other is useful. Although it is against the rules of 12-factor, it is sometimes 
-convenient to source parameter values from a variety of contexts when running applications in non-cloud environments:</p>
-<ul>
-<li>System Environment variables</li>
-<li>Properties files</li>
-<li>JAR resources</li>
-<li>Local files</li>
-<li>Source code defined environmental configuration</li>
-</ul>
-<p>Implementing this kind of fallback logic manually, you'd end up with code like the below: 
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/pre/overriding.kt"></script></p>
-<h2 id="the-http4k-approach">The http4k approach...</h2>
-<p>There are <a href="https://github.com/ufoscout/properlty">already</a> <a href="https://github.com/config4k/config4k">many</a> <a href="https://github.com/uchuhimo/konf">options</a> <a href="https://github.com/jdiazcano/cfg4k">for</a> <a href="https://github.com/daviddenton/configur8">configurational</a> 
-<a href="https://github.com/mariomac/kaconf">libraries</a> written in Kotlin, but <a href="https://http4k.org">http4k</a> also provides an option in the <code>http4k-cloudnative</code> add-on module 
-which leverages the power of the Lens system already built into the core library to provide a consistent experience to 
-API users. In case you're new to Lenses, here's a recap...</p>
-<h3 id="lenses-a-recap">Lenses - a recap</h3>
-<p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
-although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
-contexts.</p>
-<p>A Lens is an stateless object responsible for either the one-way (or Bidirectional) transformation of</p>
-<p>It defines type parameters representing input <code>IN</code> and output <code>OUT</code> types and implements 
-one (for a <code>Lens</code>) or both (for a <code>BiDiLens</code>) of the following interfaces:</p>
-<ol>
-<li><strong>LensExtractor</strong> - takes a value of type <code>IN</code> and extracts a value of type <code>OUT</code></li>
-<li><strong>LensInjector</strong> - takes a value of type <code>IN</code> and a value of type <code>OUT</code> and returns a modified value of type <code>IN</code> 
-with the value injected into it.</li>
-</ol>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/lens_definition.kt"></script>
+<span class="n">Missing</span> <span class="n">values</span> <span class="n">should</span> <span class="n">produce</span> <span class="n">a</span> <span class="n">reasonable</span> <span class="n">error</span> <span class="n">and</span> <span class="n">stop</span> <span class="n">the</span> <span class="n">app</span> <span class="n">from</span> <span class="n">starting</span><span class="p">.</span>
 
-<p>The creation of a Lens consists of 4 main concerns:</p>
-<ol>
-<li><strong>targeting</strong> determines where the Lens expects to extract and inject the values from/to, which can consist of both 
-an overall target and a name within that target.</li>
-<li><strong>multiplicity</strong> handling which defines how many of a particular value we are attempting to handle.</li>
-<li>the <strong>transformation</strong> chain of function composition which forms a specification for converting one type to another. 
-This is done in code using the <code>map()</code> method defined on the Lens.</li>
-<li>the <strong>optionality</strong> of a Lens denotes the behaviour if/when a value cannot be found in the target.</li>
-</ol>
-<p>To define a Lens instance through the <a href="https://http4k.org">http4k</a> Lens API, we take an initial <strong>target</strong> specification, decide it's 
-<strong>multiplicity</strong>, provide any <strong>transformations</strong> with <code>map()</code>, and finally reify the specification into a Lens instance 
-by deciding it's optionality.</p>
-<p>It sounds involved, but it is consistent and the fluent API has been designed to make it simpler. By way of an example, 
-here we define a bi-directional Lens for custom type <code>Page</code>, extracted from a querystring value and defaulting to Page 1.</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/lens_example.kt"></script>
+<span class="err">####</span> <span class="m">2.</span> <span class="n">Type</span> <span class="n">coercion</span>
+<span class="n">Most</span> <span class="n">applications</span> <span class="n">will</span> <span class="n">require</span> <span class="n">a</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">configuration</span> <span class="n">primitive</span> <span class="n">types</span><span class="p">,</span> <span class="n">which</span> <span class="n">may</span> <span class="n">or</span> <span class="n">may</span> <span class="n">not</span> <span class="n">map</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Java</span><span class="p">/</span><span class="n">Kotlin</span> 
+<span class="n">standard</span> <span class="n">types</span><span class="p">,</span> <span class="n">including</span><span class="p">:</span>
 
-<p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
-although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
-contexts.</p>
-<h2 id="http4k-environments">http4k Environments</h2>
-<p>in <a href="https://http4k.org">http4k</a>, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
-<code>Map</code>, in that it can be composed with other <code>Environment</code> objects to provide a consolidated view of all of it's 
-component values. </p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/overriding.kt"></script>
+<span class="p">-</span> <span class="p">**</span><span class="n">strings</span><span class="p">**</span> <span class="n">such</span> <span class="k">as</span> <span class="n">service</span> <span class="n">URLs</span><span class="p">,</span> <span class="n">log</span> <span class="n">levels</span><span class="p">,</span> <span class="n">or</span> <span class="n">AWS</span> <span class="n">role</span> <span class="n">names</span>
+<span class="p">-</span> <span class="p">**</span><span class="n">numeric</span><span class="p">**</span> <span class="n">values</span> <span class="n">such</span> <span class="k">as</span> <span class="n">ports</span> <span class="n">or</span> <span class="n">retry</span> <span class="n">counts</span>
+<span class="p">-</span> <span class="p">**</span><span class="n">booleans</span><span class="p">**</span> <span class="n">such</span> <span class="k">as</span> <span class="n">debug</span> <span class="n">switch</span> <span class="n">or</span> <span class="n">feature</span> <span class="n">flags</span>
+<span class="p">-</span> <span class="p">**</span><span class="n">duration</span><span class="p">**</span> <span class="n">values</span> <span class="k">for</span> <span class="n">timeouts</span><span class="p">,</span> <span class="n">backoff</span> <span class="n">times</span>
+
+<span class="n">But</span> <span class="n">handling</span> <span class="n">these</span> <span class="n">raw</span> <span class="n">types</span> <span class="n">alone</span> <span class="k">is</span> <span class="n">not</span> <span class="n">enough</span> <span class="n">to</span> <span class="n">guarantee</span> <span class="n">safety</span> <span class="p">-</span> <span class="n">it</span> <span class="k">is</span> <span class="n">best</span> <span class="n">to</span> <span class="n">marshall</span> <span class="n">the</span> <span class="n">values</span> <span class="n">into</span> <span class="n">a</span> 
+<span class="n">suitable</span> <span class="n">operational</span><span class="p">/</span><span class="n">domain</span> <span class="n">type</span> <span class="n">that</span> <span class="n">can</span> <span class="n">validate</span> <span class="n">the</span> <span class="n">input</span> <span class="n">and</span> <span class="n">avoid</span> <span class="n">confusion</span><span class="p">.</span> <span class="n">Kotlin</span> <span class="n">gives</span> <span class="n">us</span> <span class="n">a</span> <span class="n">simple</span> <span class="n">way</span> <span class="n">to</span> <span class="k">do</span> <span class="k">this</span> 
+<span class="n">using</span> <span class="n">`require`</span> <span class="k">as</span> <span class="n">a</span> <span class="n">guard</span><span class="p">:</span>
+
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+
+<span class="k">class</span> <span class="nc">Port</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="p">{</span>
+        <span class="n">require</span><span class="p">((</span><span class="m">1.</span><span class="p">.</span><span class="m">65535</span><span class="p">).</span><span class="n">contains</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="p">{</span> <span class="s">&quot;Out of range Port: &#39;$value&#39;&quot;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// export PORT=8000</span>
+<span class="k">val</span> <span class="py">port</span> <span class="p">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;PORT&quot;</span><span class="p">).</span><span class="n">toInt</span><span class="p">())</span><span class="err">```</span>
+
+<span class="n">Additionally</span> <span class="n">to</span> <span class="n">the</span> <span class="n">above</span><span class="p">,</span> <span class="n">it</span> <span class="k">is</span> <span class="n">important</span> <span class="n">to</span> <span class="n">represent</span> <span class="n">those</span> <span class="n">values</span> <span class="k">in</span> <span class="n">a</span> <span class="n">form</span> <span class="n">that</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">misinterpreted</span><span class="p">.</span> <span class="n">A</span> <span class="n">good</span> 
+<span class="n">example</span> <span class="n">of</span> <span class="k">this</span> <span class="k">is</span> <span class="n">the</span> <span class="n">passing</span> <span class="n">of</span> <span class="n">temporal</span> <span class="n">values</span> <span class="k">as</span> <span class="n">integers</span> <span class="p">-</span> <span class="n">timeouts</span> <span class="n">defined</span> <span class="k">this</span> <span class="n">way</span> <span class="n">could</span> <span class="n">be</span> <span class="n">easily</span> <span class="n">be</span> 
+<span class="n">parsed</span> <span class="n">into</span> <span class="n">the</span> <span class="n">wrong</span> <span class="n">time</span> <span class="n">unit</span> <span class="p">(</span><span class="n">seconds</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">milliseconds</span><span class="p">).</span> <span class="n">Using</span> <span class="n">a</span> <span class="n">higher</span> <span class="n">level</span> <span class="n">primitive</span> <span class="n">such</span> <span class="k">as</span> <span class="n">`Duration`</span> 
+<span class="n">will</span> <span class="n">help</span> <span class="n">us</span> <span class="n">here</span><span class="p">:</span>
+
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+
+<span class="k">import</span> <span class="nn">java.time.Duration</span>
+
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Timeout</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Duration</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="p">{</span>
+        <span class="n">require</span><span class="p">(!</span><span class="n">value</span><span class="p">.</span><span class="n">isNegative</span><span class="p">)</span> <span class="p">{</span> <span class="s">&quot;Cannot have negative timeout&quot;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// export TIMEOUT=PT30S</span>
+<span class="k">val</span> <span class="py">timeout</span> <span class="p">=</span> <span class="n">Timeout</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;TIMEOUT&quot;</span><span class="p">)))</span><span class="err">```</span>
+
+<span class="n">Obviously</span><span class="p">,</span> <span class="n">the</span> <span class="n">above</span> <span class="k">is</span> <span class="n">still</span> <span class="n">not</span> <span class="n">very</span> <span class="n">safe</span> <span class="p">-</span> <span class="n">and</span> <span class="n">what</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">more</span><span class="p">,</span> <span class="n">a</span> <span class="n">coercion</span> <span class="n">could</span> <span class="n">now</span> <span class="n">fail</span> <span class="n">with</span> <span class="n">one</span> <span class="n">of</span> <span class="m">3</span> <span class="n">different</span> 
+<span class="n">exceptions</span> <span class="n">depending</span> <span class="n">on</span> <span class="k">if</span> <span class="n">the</span> <span class="n">value</span> <span class="n">was</span> <span class="n">missing</span> <span class="p">(</span><span class="n">`IllegalStateException`</span><span class="p">),</span> <span class="n">unparsable</span> <span class="p">(</span><span class="n">`DateTimeParseException`</span><span class="p">)</span> <span class="n">or</span> 
+<span class="n">invalid</span> <span class="p">(</span><span class="n">`IllegalArgumentException`</span><span class="p">).</span> <span class="n">The</span> <span class="n">conversion</span> <span class="n">code</span> <span class="n">from</span> <span class="err">`</span><span class="n">String</span> <span class="p">-&gt;</span> <span class="n">Duration</span><span class="err">`</span> <span class="n">must</span> <span class="n">also</span> <span class="n">be</span> <span class="n">repeated</span> <span class="p">(</span><span class="n">or</span> <span class="n">extracted</span><span class="p">)</span> 
+<span class="k">for</span> <span class="n">each</span> <span class="n">value</span> <span class="n">that</span> <span class="n">we</span> <span class="n">wish</span> <span class="n">to</span> <span class="n">parse</span><span class="p">.</span>
+
+<span class="err">####</span> <span class="m">3.</span> <span class="n">Multiplicity</span>
+<span class="n">Configuration</span> <span class="n">parameters</span> <span class="n">may</span> <span class="n">have</span> <span class="n">one</span> <span class="n">or</span> <span class="n">many</span> <span class="n">values</span> <span class="n">and</span> <span class="n">need</span> <span class="n">to</span> <span class="n">be</span> <span class="n">converted</span> <span class="n">safely</span> <span class="n">from</span> <span class="n">the</span> <span class="n">injected</span> <span class="n">string</span> 
+<span class="n">representation</span> <span class="p">(</span><span class="n">usually</span> <span class="n">comma</span><span class="p">-</span><span class="n">separated</span><span class="p">)</span> <span class="n">and</span> <span class="n">into</span> <span class="n">their</span> <span class="n">internally</span> <span class="n">represented</span> <span class="n">types</span> <span class="n">at</span> <span class="n">application</span> <span class="n">startup</span><span class="p">:</span> 
+
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+
+<span class="k">class</span> <span class="nc">Host</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+
+<span class="c1">// export HOSTNAMES=eu-west1.aws.com,eu-west2.aws.com,eu-west3.aws.com</span>
+
+<span class="k">val</span> <span class="py">hosts</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOSTNAMES&quot;</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">).</span><span class="n">map</span> <span class="p">{</span> <span class="n">Host</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">trim</span><span class="p">())</span> <span class="p">}</span><span class="err">```</span>
+
+<span class="n">Once</span> <span class="n">again</span><span class="p">,</span> <span class="n">the</span> <span class="n">splitting</span> <span class="n">code</span> <span class="n">will</span> <span class="n">need</span> <span class="n">to</span> <span class="n">be</span> <span class="n">repeated</span> <span class="k">for</span> <span class="n">each</span> <span class="n">config</span> <span class="n">value</span><span class="p">,</span> <span class="n">or</span> <span class="n">extracted</span> <span class="n">to</span> <span class="n">a</span> <span class="n">library</span> <span class="n">function</span><span class="p">.</span>
+
+<span class="err">####</span> <span class="m">4.</span> <span class="n">Security</span>
+<span class="n">The</span> <span class="n">configuration</span> <span class="n">of</span> <span class="n">a</span> <span class="n">standard</span> <span class="n">app</span> <span class="n">will</span> <span class="n">generally</span> <span class="n">contain</span> <span class="n">both</span> <span class="n">sensitive</span> <span class="n">and</span> <span class="n">non</span><span class="p">-</span><span class="n">sensitive</span> <span class="n">values</span><span class="p">.</span> <span class="n">Sensitive</span> <span class="n">such</span> <span class="k">as</span> 
+<span class="n">application</span> <span class="n">secrets</span><span class="p">,</span> <span class="n">DB</span> <span class="n">passwords</span> <span class="n">or</span> <span class="n">API</span> <span class="n">keys</span> <span class="n">should</span> <span class="n">be</span> <span class="n">handled</span> <span class="k">in</span> <span class="n">a</span> <span class="n">way</span> <span class="n">that</span> <span class="n">avoid</span> <span class="n">storing</span> <span class="n">directly</span> <span class="k">in</span> <span class="n">memory</span> <span class="k">in</span> <span class="n">a</span> 
+<span class="n">readable</span> <span class="n">format</span> <span class="n">or</span> <span class="n">long</span> <span class="n">lived</span> <span class="n">fashion</span><span class="p">,</span> <span class="k">where</span> <span class="n">they</span> <span class="n">may</span> <span class="n">be</span> <span class="n">inadvertently</span> <span class="n">inspected</span> <span class="n">or</span> <span class="n">outputted</span> <span class="n">into</span> <span class="n">a</span> <span class="n">log</span> <span class="n">file</span><span class="p">.</span>
+
+<span class="n">Dangling</span> <span class="n">code</span> <span class="n">situations</span> <span class="n">such</span> <span class="k">as</span> <span class="k">in</span> <span class="n">the</span> <span class="n">code</span> <span class="n">below</span> <span class="n">are</span> <span class="n">common</span><span class="p">,</span> <span class="n">and</span> <span class="n">are</span> <span class="n">asking</span> <span class="k">for</span> <span class="n">trouble</span><span class="p">...</span>
+
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">java.nio.ByteBuffer</span>
+
+<span class="k">val</span> <span class="py">s3</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">readFile</span><span class="p">(</span><span class="n">secretKey</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">bucketKey</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">ByteBuffer</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">s3</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://mybucket.s3.amazonaws.com/$bucketKey&quot;</span><span class="p">)).</span><span class="n">body</span><span class="p">.</span><span class="n">payload</span>
+<span class="p">}</span>
+
+<span class="c1">// export AWS_SECRET_KEY=someSuperSecretValueThatOpsReallyDoNotWantYouToKnow</span>
+
+<span class="k">val</span> <span class="py">file</span> <span class="p">=</span> <span class="n">readFile</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;AWS_SECRET_KEY&quot;</span><span class="p">),</span> <span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span><span class="err">```</span>
+
+<span class="err">####</span> <span class="m">5.</span> <span class="n">Configuration</span> <span class="n">Context</span> <span class="p">&amp;</span> <span class="n">Overriding</span>
+<span class="n">We</span> <span class="n">also</span> <span class="n">want</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">defining</span> <span class="n">all</span> <span class="n">values</span> <span class="k">for</span> <span class="n">all</span> <span class="n">possible</span> <span class="n">scenarios</span> <span class="p">-</span> <span class="k">for</span> <span class="n">example</span> <span class="k">in</span> <span class="n">test</span> <span class="n">cases</span><span class="p">,</span> <span class="n">so</span> <span class="n">the</span> <span class="n">ability</span> 
+<span class="n">to</span> <span class="n">overlay</span> <span class="n">configuration</span> <span class="n">sets</span> <span class="n">on</span> <span class="n">top</span> <span class="n">of</span> <span class="n">each</span> <span class="n">other</span> <span class="k">is</span> <span class="n">useful</span><span class="p">.</span> <span class="n">Although</span> <span class="n">it</span> <span class="k">is</span> <span class="n">against</span> <span class="n">the</span> <span class="n">rules</span> <span class="n">of</span> <span class="m">12</span><span class="p">-</span><span class="n">factor</span><span class="p">,</span> <span class="n">it</span> <span class="k">is</span> <span class="n">sometimes</span> 
+<span class="n">convenient</span> <span class="n">to</span> <span class="n">source</span> <span class="n">parameter</span> <span class="n">values</span> <span class="n">from</span> <span class="n">a</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">contexts</span> <span class="k">when</span> <span class="n">running</span> <span class="n">applications</span> <span class="k">in</span> <span class="n">non</span><span class="p">-</span><span class="n">cloud</span> <span class="n">environments</span><span class="p">:</span>
+
+<span class="p">-</span> <span class="n">System</span> <span class="n">Environment</span> <span class="n">variables</span>
+<span class="p">-</span> <span class="n">Properties</span> <span class="n">files</span>
+<span class="p">-</span> <span class="n">JAR</span> <span class="n">resources</span>
+<span class="p">-</span> <span class="n">Local</span> <span class="n">files</span>
+<span class="p">-</span> <span class="n">Source</span> <span class="n">code</span> <span class="n">defined</span> <span class="n">environmental</span> <span class="n">configuration</span>
+
+<span class="n">Implementing</span> <span class="k">this</span> <span class="n">kind</span> <span class="n">of</span> <span class="n">fallback</span> <span class="n">logic</span> <span class="n">manually</span><span class="p">,</span> <span class="n">you</span><span class="err">&#39;</span><span class="n">d</span> <span class="n">end</span> <span class="n">up</span> <span class="n">with</span> <span class="n">code</span> <span class="n">like</span> <span class="n">the</span> <span class="n">below</span><span class="p">:</span> 
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+
+<span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;DEFAULT_USER&quot;</span><span class="err">```</span>
+
+<span class="err">##</span> <span class="n">The</span> <span class="n">http4k</span> <span class="n">approach</span><span class="p">...</span>
+<span class="n">There</span> <span class="n">are</span> <span class="p">[</span><span class="n">already</span><span class="p">][</span><span class="n">properlty</span><span class="p">]</span> <span class="p">[</span><span class="n">many</span><span class="p">][</span><span class="n">config4k</span><span class="p">]</span> <span class="p">[</span><span class="n">options</span><span class="p">][</span><span class="n">konf</span><span class="p">]</span> <span class="p">[</span><span class="k">for</span><span class="p">][</span><span class="n">cfg4k</span><span class="p">]</span> <span class="p">[</span><span class="n">configurational</span><span class="p">][</span><span class="n">configur8</span><span class="p">]</span> 
+<span class="na">[libraries]</span><span class="p">[</span><span class="n">kaconf</span><span class="p">]</span> <span class="n">written</span> <span class="k">in</span> <span class="n">Kotlin</span><span class="p">,</span> <span class="n">but</span> <span class="p">[</span><span class="n">http4k</span><span class="p">]</span> <span class="n">also</span> <span class="n">provides</span> <span class="n">an</span> <span class="n">option</span> <span class="k">in</span> <span class="n">the</span> <span class="n">`http4k-cloudnative`</span> <span class="n">add</span><span class="p">-</span><span class="n">on</span> <span class="n">module</span> 
+<span class="n">which</span> <span class="n">leverages</span> <span class="n">the</span> <span class="n">power</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Lens</span> <span class="n">system</span> <span class="n">already</span> <span class="n">built</span> <span class="n">into</span> <span class="n">the</span> <span class="n">core</span> <span class="n">library</span> <span class="n">to</span> <span class="n">provide</span> <span class="n">a</span> <span class="n">consistent</span> <span class="n">experience</span> <span class="n">to</span> 
+<span class="n">API</span> <span class="n">users</span><span class="p">.</span> <span class="n">In</span> <span class="n">case</span> <span class="n">you</span><span class="err">&#39;</span><span class="n">re</span> <span class="n">new</span> <span class="n">to</span> <span class="n">Lenses</span><span class="p">,</span> <span class="n">here</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">a</span> <span class="n">recap</span><span class="p">...</span>
+
+<span class="err">###</span> <span class="n">Lenses</span> <span class="p">-</span> <span class="n">a</span> <span class="n">recap</span>
+<span class="n">In</span> <span class="p">[</span><span class="n">http4k</span><span class="p">],</span> <span class="n">Lenses</span> <span class="n">are</span> <span class="n">typically</span> <span class="n">used</span> <span class="n">to</span> <span class="n">provide</span> <span class="n">typesafe</span> <span class="n">conversion</span> <span class="n">of</span> <span class="n">typed</span> <span class="n">values</span> <span class="n">into</span> <span class="n">and</span> <span class="k">out</span> <span class="n">of</span> <span class="n">HTTP</span> <span class="n">messages</span><span class="p">,</span> 
+<span class="n">although</span> <span class="k">this</span> <span class="n">concept</span> <span class="n">has</span> <span class="n">been</span> <span class="n">extended</span> <span class="n">within</span> <span class="n">the</span> <span class="p">[</span><span class="n">http4k</span><span class="p">]</span> <span class="n">ecosystem</span> <span class="n">to</span> <span class="n">support</span> <span class="n">that</span> <span class="n">of</span> <span class="n">a</span> <span class="n">form</span> <span class="n">handling</span> <span class="n">and</span> <span class="n">request</span> 
+<span class="n">contexts</span><span class="p">.</span>
+
+<span class="n">A</span> <span class="n">Lens</span> <span class="k">is</span> <span class="n">an</span> <span class="n">stateless</span> <span class="k">object</span> <span class="nc">responsible</span> <span class="k">for</span> <span class="n">either</span> <span class="n">the</span> <span class="n">one</span><span class="p">-</span><span class="n">way</span> <span class="p">(</span><span class="n">or</span> <span class="n">Bidirectional</span><span class="p">)</span> <span class="n">transformation</span> <span class="n">of</span>
+
+<span class="n">It</span> <span class="n">defines</span> <span class="n">type</span> <span class="n">parameters</span> <span class="n">representing</span> <span class="n">input</span> <span class="n">`IN`</span> <span class="n">and</span> <span class="n">output</span> <span class="n">`OUT`</span> <span class="n">types</span> <span class="n">and</span> <span class="n">implements</span> 
+<span class="n">one</span> <span class="p">(</span><span class="k">for</span> <span class="n">a</span> <span class="n">`Lens`</span><span class="p">)</span> <span class="n">or</span> <span class="n">both</span> <span class="p">(</span><span class="k">for</span> <span class="n">a</span> <span class="n">`BiDiLens`</span><span class="p">)</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">interfaces</span><span class="p">:</span>
+
+<span class="m">1.</span> <span class="p">**</span><span class="n">LensExtractor</span><span class="p">**</span> <span class="p">-</span> <span class="n">takes</span> <span class="n">a</span> <span class="n">value</span> <span class="n">of</span> <span class="n">type</span> <span class="n">`IN`</span> <span class="n">and</span> <span class="n">extracts</span> <span class="n">a</span> <span class="n">value</span> <span class="n">of</span> <span class="n">type</span> <span class="n">`OUT`</span>
+<span class="m">2.</span> <span class="p">**</span><span class="n">LensInjector</span><span class="p">**</span> <span class="p">-</span> <span class="n">takes</span> <span class="n">a</span> <span class="n">value</span> <span class="n">of</span> <span class="n">type</span> <span class="n">`IN`</span> <span class="n">and</span> <span class="n">a</span> <span class="n">value</span> <span class="n">of</span> <span class="n">type</span> <span class="n">`OUT`</span> <span class="n">and</span> <span class="n">returns</span> <span class="n">a</span> <span class="n">modified</span> <span class="n">value</span> <span class="n">of</span> <span class="n">type</span> <span class="n">`IN`</span> 
+<span class="n">with</span> <span class="n">the</span> <span class="n">value</span> <span class="n">injected</span> <span class="n">into</span> <span class="n">it</span><span class="p">.</span>
+
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
+
+<span class="k">interface</span> <span class="nc">LensExtractor</span><span class="p">&lt;</span><span class="k">in</span> <span class="n">IN</span><span class="p">,</span> <span class="k">out</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">:</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">OUT</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">operator</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">IN</span><span class="p">):</span> <span class="n">OUT</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="nc">LensInjector</span><span class="p">&lt;</span><span class="k">in</span> <span class="n">IN</span><span class="p">,</span> <span class="k">in</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">{</span>
+    <span class="k">operator</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="n">R</span> <span class="p">:</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">IN</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">R</span><span class="p">):</span> <span class="n">R</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="nc">Lens</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">LensExtractor</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;</span>
+
+<span class="k">interface</span> <span class="nc">BiDiLens</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">Lens</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;,</span> <span class="n">LensInjector</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;</span><span class="err">```</span>
+
+<span class="n">The</span> <span class="n">creation</span> <span class="n">of</span> <span class="n">a</span> <span class="n">Lens</span> <span class="n">consists</span> <span class="n">of</span> <span class="m">4</span> <span class="n">main</span> <span class="n">concerns</span><span class="p">:</span>
+
+<span class="m">1.</span> <span class="p">**</span><span class="n">targeting</span><span class="p">**</span> <span class="n">determines</span> <span class="k">where</span> <span class="n">the</span> <span class="n">Lens</span> <span class="n">expects</span> <span class="n">to</span> <span class="n">extract</span> <span class="n">and</span> <span class="n">inject</span> <span class="n">the</span> <span class="n">values</span> <span class="n">from</span><span class="p">/</span><span class="n">to</span><span class="p">,</span> <span class="n">which</span> <span class="n">can</span> <span class="n">consist</span> <span class="n">of</span> <span class="n">both</span> 
+<span class="n">an</span> <span class="n">overall</span> <span class="n">target</span> <span class="n">and</span> <span class="n">a</span> <span class="n">name</span> <span class="n">within</span> <span class="n">that</span> <span class="n">target</span><span class="p">.</span>
+<span class="m">2.</span> <span class="p">**</span><span class="n">multiplicity</span><span class="p">**</span> <span class="n">handling</span> <span class="n">which</span> <span class="n">defines</span> <span class="n">how</span> <span class="n">many</span> <span class="n">of</span> <span class="n">a</span> <span class="n">particular</span> <span class="n">value</span> <span class="n">we</span> <span class="n">are</span> <span class="n">attempting</span> <span class="n">to</span> <span class="n">handle</span><span class="p">.</span>
+<span class="m">3.</span> <span class="n">the</span> <span class="p">**</span><span class="n">transformation</span><span class="p">**</span> <span class="n">chain</span> <span class="n">of</span> <span class="n">function</span> <span class="n">composition</span> <span class="n">which</span> <span class="n">forms</span> <span class="n">a</span> <span class="n">specification</span> <span class="k">for</span> <span class="n">converting</span> <span class="n">one</span> <span class="n">type</span> <span class="n">to</span> <span class="n">another</span><span class="p">.</span> 
+<span class="n">This</span> <span class="k">is</span> <span class="n">done</span> <span class="k">in</span> <span class="n">code</span> <span class="n">using</span> <span class="n">the</span> <span class="err">`</span><span class="n">map</span><span class="p">()</span><span class="err">`</span> <span class="n">method</span> <span class="n">defined</span> <span class="n">on</span> <span class="n">the</span> <span class="n">Lens</span><span class="p">.</span>
+<span class="m">4.</span> <span class="n">the</span> <span class="p">**</span><span class="n">optionality</span><span class="p">**</span> <span class="n">of</span> <span class="n">a</span> <span class="n">Lens</span> <span class="n">denotes</span> <span class="n">the</span> <span class="n">behaviour</span> <span class="k">if</span><span class="p">/</span><span class="k">when</span> <span class="n">a</span> <span class="n">value</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">found</span> <span class="k">in</span> <span class="n">the</span> <span class="n">target</span><span class="p">.</span>
+
+<span class="n">To</span> <span class="n">define</span> <span class="n">a</span> <span class="n">Lens</span> <span class="n">instance</span> <span class="n">through</span> <span class="n">the</span> <span class="p">[</span><span class="n">http4k</span><span class="p">]</span> <span class="n">Lens</span> <span class="n">API</span><span class="p">,</span> <span class="n">we</span> <span class="n">take</span> <span class="n">an</span> <span class="n">initial</span> <span class="p">**</span><span class="n">target</span><span class="p">**</span> <span class="n">specification</span><span class="p">,</span> <span class="n">decide</span> <span class="n">it</span><span class="err">&#39;</span><span class="n">s</span> 
+<span class="p">**</span><span class="n">multiplicity</span><span class="p">**,</span> <span class="n">provide</span> <span class="n">any</span> <span class="p">**</span><span class="n">transformations</span><span class="p">**</span> <span class="n">with</span> <span class="err">`</span><span class="n">map</span><span class="p">()</span><span class="err">`</span><span class="p">,</span> <span class="n">and</span> <span class="k">finally</span> <span class="n">reify</span> <span class="n">the</span> <span class="n">specification</span> <span class="n">into</span> <span class="n">a</span> <span class="n">Lens</span> <span class="n">instance</span> 
+<span class="k">by</span> <span class="n">deciding</span> <span class="n">it</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">optionality</span><span class="p">.</span>
+
+<span class="n">It</span> <span class="n">sounds</span> <span class="n">involved</span><span class="p">,</span> <span class="n">but</span> <span class="n">it</span> <span class="k">is</span> <span class="n">consistent</span> <span class="n">and</span> <span class="n">the</span> <span class="n">fluent</span> <span class="n">API</span> <span class="n">has</span> <span class="n">been</span> <span class="n">designed</span> <span class="n">to</span> <span class="n">make</span> <span class="n">it</span> <span class="n">simpler</span><span class="p">.</span> <span class="n">By</span> <span class="n">way</span> <span class="n">of</span> <span class="n">an</span> <span class="n">example</span><span class="p">,</span> 
+<span class="n">here</span> <span class="n">we</span> <span class="n">define</span> <span class="n">a</span> <span class="n">bi</span><span class="p">-</span><span class="n">directional</span> <span class="n">Lens</span> <span class="k">for</span> <span class="n">custom</span> <span class="n">type</span> <span class="n">`Page`</span><span class="p">,</span> <span class="n">extracted</span> <span class="n">from</span> <span class="n">a</span> <span class="n">querystring</span> <span class="n">value</span> <span class="n">and</span> <span class="n">defaulting</span> <span class="n">to</span> <span class="n">Page</span> <span class="m">1.</span>
+
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.BiDiLens</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Page</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="p">{</span>
+        <span class="n">require</span><span class="p">(</span><span class="n">value</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="s">&quot;Page number must be positive&quot;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">val</span> <span class="py">lens</span><span class="p">:</span> <span class="n">BiDiLens</span><span class="p">&lt;</span><span class="n">Request</span><span class="p">,</span> <span class="n">Page</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Page</span><span class="p">,</span> <span class="n">Page</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">defaulted</span><span class="p">(</span><span class="s">&quot;pageNumber&quot;</span><span class="p">,</span> <span class="n">Page</span><span class="p">(</span><span class="m">1</span><span class="p">))</span>
+
+<span class="k">val</span> <span class="py">pageNumber</span><span class="p">:</span> <span class="n">Page</span> <span class="p">=</span> <span class="n">lens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://abc/search?pageNumber=55&quot;</span><span class="p">))</span>
+
+<span class="k">val</span> <span class="py">updatedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">lens</span><span class="p">(</span><span class="n">pageNumber</span><span class="p">,</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://abc/search&quot;</span><span class="p">))</span><span class="err">```</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="n">http4k</span><span class="p">],</span> <span class="n">Lenses</span> <span class="n">are</span> <span class="n">typically</span> <span class="n">used</span> <span class="n">to</span> <span class="n">provide</span> <span class="n">typesafe</span> <span class="n">conversion</span> <span class="n">of</span> <span class="n">typed</span> <span class="n">values</span> <span class="n">into</span> <span class="n">and</span> <span class="k">out</span> <span class="n">of</span> <span class="n">HTTP</span> <span class="n">messages</span><span class="p">,</span> 
+<span class="n">although</span> <span class="k">this</span> <span class="n">concept</span> <span class="n">has</span> <span class="n">been</span> <span class="n">extended</span> <span class="n">within</span> <span class="n">the</span> <span class="p">[</span><span class="n">http4k</span><span class="p">]</span> <span class="n">ecosystem</span> <span class="n">to</span> <span class="n">support</span> <span class="n">that</span> <span class="n">of</span> <span class="n">a</span> <span class="n">form</span> <span class="n">handling</span> <span class="n">and</span> <span class="n">request</span> 
+<span class="n">contexts</span><span class="p">.</span>
+
+<span class="err">##</span> <span class="n">http4k</span> <span class="n">Environments</span>
+<span class="k">in</span> <span class="p">[</span><span class="n">http4k</span><span class="p">],</span> <span class="n">an</span> <span class="n">`Environment`</span> <span class="k">object</span> <span class="nc">is</span> <span class="n">a</span> <span class="n">context</span> <span class="n">which</span> <span class="n">holds</span> <span class="n">configuration</span> <span class="n">values</span><span class="p">.</span> <span class="n">It</span> <span class="n">effectively</span> <span class="n">behaves</span> <span class="n">like</span> <span class="n">a</span> 
+<span class="n">`Map`</span><span class="p">,</span> <span class="k">in</span> <span class="n">that</span> <span class="n">it</span> <span class="n">can</span> <span class="n">be</span> <span class="n">composed</span> <span class="n">with</span> <span class="n">other</span> <span class="n">`Environment`</span> <span class="n">objects</span> <span class="n">to</span> <span class="n">provide</span> <span class="n">a</span> <span class="n">consolidated</span> <span class="n">view</span> <span class="n">of</span> <span class="n">all</span> <span class="n">of</span> <span class="n">it</span><span class="err">&#39;</span><span class="n">s</span> 
+<span class="n">component</span> <span class="n">values</span><span class="p">.</span> 
+
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
+<span class="k">import</span> <span class="nn">java.io.File</span>
+
+<span class="k">val</span> <span class="py">systemEnv</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">ENV</span>
+<span class="k">val</span> <span class="py">jvmFlags</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">JVM_PROPERTIES</span>
+<span class="k">val</span> <span class="py">jar</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">fromResource</span><span class="p">(</span><span class="s">&quot;jar.properties&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">filesystem</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">from</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;fs.properties&quot;</span><span class="p">))</span>
+<span class="k">val</span> <span class="py">codeBased</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;key1&quot;</span> <span class="n">to</span> <span class="s">&quot;value1&quot;</span><span class="p">,</span> <span class="s">&quot;key2&quot;</span> <span class="n">to</span> <span class="s">&quot;value2&quot;</span><span class="p">)</span>
+
+<span class="k">val</span> <span class="py">consolidated</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">jvmFlags</span> <span class="n">overrides</span> <span class="n">systemEnv</span> <span class="n">overrides</span> <span class="n">codeBased</span> <span class="n">overrides</span> <span class="n">filesystem</span> <span class="n">overrides</span> <span class="n">jar</span>
+</code></pre></div>
+
 
 <p>If you're using any of the other Kotlin-based configuration libraries, the above should look pretty familiar. The 
 difference starts to become apparent when attempting to retrieve values from the <code>Environment</code> instance. This is done 
 using <code>EnviromentKey</code> Lenses, which are an extension of the <a href="https://http4k.org">http4k</a> Lens system that specifically targets <code>Environment</code> 
 objects. </p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/typesafe.kt"></script>
-
+<p>```kotlin
+package tutorials.typesafe_configuration.post</p>
+<p>import org.http4k.cloudnative.env.Environment
+import org.http4k.cloudnative.env.EnvironmentKey
+import org.http4k.lens.Lens
+import org.http4k.lens.duration
+import org.http4k.lens.int
+import java.time.Duration</p>
+<p>data class Timeout(val value: Duration)
+data class Port(val value: Int)
+data class Host(val value: String)</p>
+<p>// export TIMEOUT=PT30S
+// export PORT=8080
+// export HOSTNAMES=eu-west1.aws.com,eu-west2.aws.com,eu-west3.aws.com</p>
+<p>val env = Environment.ENV</p>
+<p>val portLens: Lens<Environment, Port> = EnvironmentKey.int().map(::Port).defaulted("PORT", Port(9000))
+val timeoutLens: Lens<Environment, Timeout?> = EnvironmentKey.duration().map(::Timeout).optional("TIMEOUT")
+val hostsLens: Lens<Environment, List\<Host>> = EnvironmentKey.map(::Host).multi.required("HOSTNAMES")</p>
+<p>val timeout: Timeout? = timeoutLens(env)
+val port: Port = portLens(env)
+val hosts: List<Host> = hostsLens(env)```</p>
 <h5 id="handling-failure">Handling failure</h5>
 <p>When using the <a href="https://http4k.org">http4k</a> Environment to define config, missing or values which cannot be deserialised all now cause 
 a <code>LensFailure</code> to be thrown with a descriptive error message. As before, this results in the application failing to 
@@ -1259,8 +1392,23 @@ specific <code>use()</code> block, after which the underlying value is internall
 an <code>IllegalStateException</code>. </p>
 <p>The typical use-case for this block is to set-up a SQL <code>Datasource</code> or to create a <code>Filter</code> which adds authentication to 
 all outbound requests, as in the example below:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/typesafe_configuration/post/secrets.kt"></script>
-
+<p>```kotlin
+package tutorials.typesafe_configuration.post</p>
+<p>import org.http4k.client.OkHttp
+import org.http4k.cloudnative.env.Environment
+import org.http4k.cloudnative.env.EnvironmentKey
+import org.http4k.cloudnative.env.Secret
+import org.http4k.core.Filter
+import org.http4k.core.HttpHandler
+import org.http4k.core.then
+import org.http4k.filter.ServerFilters
+import org.http4k.lens.Lens
+import org.http4k.lens.secret</p>
+<p>// export USER_PASSWORD=12345
+val accessToken: Lens<Environment, Secret> = EnvironmentKey.secret().required("USER_PASSWORD")</p>
+<p>val secret: Secret = accessToken(Environment.ENV)</p>
+<p>val authFilter: Filter = secret.use { value: String -&gt; ServerFilters.BearerAuth(value) }</p>
+<p>val authedHttp: HttpHandler = authFilter.then(OkHttp())```</p>
 <p>As with other supported primitives, <code>Secret</code> is available by default in all supported Lens Locations.</p>
                     
                     

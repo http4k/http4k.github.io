@@ -967,13 +967,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#metrics-other-apis" title="Metrics (other APIs) " class="md-nav__link">
-    Metrics (other APIs) 
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#logging" title="Logging " class="md-nav__link">
     Logging 
   </a>
@@ -1203,23 +1196,218 @@
 
 <h3 id="metrics-micrometer">Metrics (Micrometer) <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_micrometer.kt"><img class="octocat"/></a></h3>
 <p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides module support for monitoring application endpoints using the <a href="http://micrometer.io/"><strong>micrometer</strong></a> metrics abstraction library, which currently enables support for libraries such as Graphite, StatsD, Prometheus and Netflix Atlas. This also provides drop-in classes to record stats such as JVM performance, GC and thread usage.</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_micrometer.kt"></script>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
 
-<h3 id="metrics-other-apis">Metrics (other APIs) <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt"><img class="octocat"/></a></h3>
-<p>Alternatively, it's very easy to use a standard <code>Filter</code> to report on stats:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt"></script>
+<span class="k">import</span> <span class="nn">io.micrometer.core.instrument.simple.SimpleMeterRegistry</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.MetricFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// this is a micrometer registry used mostly for testing - substitute the correct implementation.</span>
+    <span class="k">val</span> <span class="py">registry</span> <span class="p">=</span> <span class="n">SimpleMeterRegistry</span><span class="p">()</span>
+
+    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
+
+    <span class="c1">// apply filters to a server...</span>
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">MetricFilters</span><span class="p">.</span><span class="n">Server</span><span class="p">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="p">.</span><span class="n">Server</span><span class="p">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+
+    <span class="c1">// ... or to a client</span>
+    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span>
+        <span class="n">MetricFilters</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+
+    <span class="c1">// make some calls</span>
+    <span class="p">(</span><span class="m">0.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span>
+        <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/metrics/$it&quot;</span><span class="p">))</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://http4k.org&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+
+    <span class="c1">// see some results</span>
+    <span class="n">registry</span><span class="p">.</span><span class="n">forEachMeter</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;${it.id} ${it.measure().joinToString(&quot;</span><span class="p">,</span><span class="s">&quot;)}&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span><span class="err">```</span>
+
+<span class="err">###</span> <span class="n">Metrics</span> <span class="p">(</span><span class="n">other</span> <span class="n">APIs</span><span class="p">)</span> <span class="p">[&lt;</span><span class="n">img</span> <span class="k">class</span><span class="p">=</span><span class="s">&quot;octocat&quot;</span><span class="p">/&gt;](</span><span class="n">https</span><span class="p">:</span><span class="c1">//github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt)</span>
+
+<span class="n">Alternatively</span><span class="p">,</span> <span class="n">it</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">very</span> <span class="n">easy</span> <span class="n">to</span> <span class="n">use</span> <span class="n">a</span> <span class="n">standard</span> <span class="n">`Filter`</span> <span class="n">to</span> <span class="n">report</span> <span class="n">on</span> <span class="n">stats</span><span class="p">:</span>
+
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpTransaction</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.HttpTransactionLabeller</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">java.time.Duration</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;foo/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
+
+    <span class="k">fun</span> <span class="nf">metricConsumer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">Duration</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;$name ${time.toMillis()}ms&quot;</span><span class="p">)</span>
+
+    <span class="c1">// this is a general use filter for reporting on http transactions</span>
+    <span class="k">val</span> <span class="py">standardFilter</span> <span class="p">=</span> <span class="n">ResponseFilters</span><span class="p">.</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">HttpTransaction</span> <span class="p">-&gt;</span>
+        <span class="n">metricConsumer</span><span class="p">(</span><span class="s">&quot;txLabels are: ${tx.labels}&quot;</span><span class="p">,</span> <span class="n">tx</span><span class="p">.</span><span class="n">duration</span><span class="p">)</span>
+        <span class="n">metricConsumer</span><span class="p">(</span><span class="s">&quot;uri is: ${tx.request.uri}&quot;</span><span class="p">,</span> <span class="n">tx</span><span class="p">.</span><span class="n">duration</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">addCustomLabels</span><span class="p">:</span> <span class="n">HttpTransactionLabeller</span> <span class="p">=</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">HttpTransaction</span> <span class="p">-&gt;</span> <span class="n">tx</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="s">&quot;status&quot;</span><span class="p">,</span> <span class="n">tx</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">code</span><span class="p">.</span><span class="n">toString</span><span class="p">())</span> <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">withCustomLabels</span> <span class="p">=</span> <span class="n">ResponseFilters</span><span class="p">.</span><span class="n">ReportHttpTransaction</span><span class="p">(</span>
+        <span class="n">transactionLabeller</span> <span class="p">=</span> <span class="n">addCustomLabels</span><span class="p">)</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">HttpTransaction</span> <span class="p">-&gt;</span>
+        <span class="c1">// send metrics to some custom system here...</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;custom txLabels are: ${tx.labels} ${tx.duration}&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// this filter provides an anonymous identifier of the route</span>
+    <span class="k">val</span> <span class="py">identifiedRouteFilter</span> <span class="p">=</span> <span class="n">ResponseFilters</span><span class="p">.</span><span class="n">ReportRouteLatency</span> <span class="p">{</span> <span class="n">requestGroup</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="n">Duration</span> <span class="p">-&gt;</span>
+        <span class="n">metricConsumer</span><span class="p">(</span><span class="s">&quot;requestGroup is: &quot;</span> <span class="p">+</span> <span class="n">requestGroup</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">monitoredApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">standardFilter</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">withCustomLabels</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">identifiedRouteFilter</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+    <span class="n">monitoredApp</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/foo/bob&quot;</span><span class="p">))</span>
+
+<span class="c1">//    prints...</span>
+<span class="c1">//    requestGroup is: GET.foo_{name}.2xx.200 7ms</span>
+<span class="c1">//    custom txLabels are: {routingGroup=foo/{name}, status=200} PT0.05S</span>
+<span class="c1">//        txLabels are: {routingGroup=foo/{name}} 51ms</span>
+<span class="c1">//    uri is: /foo/bob 51ms</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <h3 id="logging">Logging <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_logging.kt"><img class="octocat"/></a></h3>
 <p>This is trivial to achieve by using a Filter:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_logging.kt"></script>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpTransaction</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">java.time.Clock</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
+
+    <span class="k">fun</span> <span class="nf">logger</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;${Clock.systemUTC().instant()} $message&quot;</span><span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">audit</span> <span class="p">=</span> <span class="n">ResponseFilters</span><span class="p">.</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">HttpTransaction</span> <span class="p">-&gt;</span>
+        <span class="n">logger</span><span class="p">(</span><span class="s">&quot;my call to ${tx.request.uri} returned ${tx.response.status} and took ${tx.duration.toMillis()}&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">monitoredApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">audit</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+    <span class="n">monitoredApp</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/foo&quot;</span><span class="p">))</span>
+
+<span class="c1">//    prints...</span>
+<span class="c1">//    2017-12-04T08:38:27.499Z my call to /foo returned 200 OK and took 5</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <h3 id="distributed-tracing">Distributed tracing <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_tracing.kt"><img class="octocat"/></a></h3>
 <p>This allows a chain of application calls to be tied together and is generally done through the setting of HTTP headers on each call. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> supports the <a href="https://zipkin.io/">OpenZipkin</a> standard for achieving this and provides both Server-side and Client-side <code>Filters</code> for this purpose. This example shows a chain of two proxies and an endpoint - run it to observe the changes to the tracing headers as the request flows through the system:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_tracing.kt"></script>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpMessage</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">fun</span> <span class="nc">HttpMessage</span><span class="p">.</span><span class="nf">logHeader</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="s">&quot;\n\t\t$name=${header(name)}&quot;</span>
+    <span class="k">fun</span> <span class="nc">HttpMessage</span><span class="p">.</span><span class="nf">traces</span><span class="p">()</span> <span class="p">=</span> <span class="n">logHeader</span><span class="p">(</span><span class="s">&quot;x-b3-traceid&quot;</span><span class="p">)</span> <span class="p">+</span> <span class="n">logHeader</span><span class="p">(</span><span class="s">&quot;x-b3-spanid&quot;</span><span class="p">)</span> <span class="p">+</span> <span class="n">logHeader</span><span class="p">(</span><span class="s">&quot;x-b3-parentspanid&quot;</span><span class="p">)</span>
+
+    <span class="k">fun</span> <span class="nf">audit</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">ResponseFilters</span><span class="p">.</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">tx</span> <span class="p">-&gt;</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;$name: ${tx.request.uri}\n\trequest:${tx.request.traces()}\n\tresponse:${tx.response.traces()}&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// a simple proxy to another app</span>
+    <span class="k">fun</span> <span class="nf">proxy</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="p">{</span>
+        <span class="k">val</span> <span class="py">proxyClient</span> <span class="p">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="n">RequestTracing</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:$port&quot;</span><span class="p">)))</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">audit</span><span class="p">(</span><span class="s">&quot;$name-client&quot;</span><span class="p">))</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">RequestTracing</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">audit</span><span class="p">(</span><span class="s">&quot;$name-server&quot;</span><span class="p">)).</span><span class="n">then</span> <span class="p">{</span> <span class="n">proxyClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="n">it</span><span class="p">.</span><span class="n">uri</span><span class="p">))</span> <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// provides a simple ping</span>
+    <span class="k">fun</span> <span class="nf">ping</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">RequestTracing</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">audit</span><span class="p">(</span><span class="s">&quot;ping-server&quot;</span><span class="p">)).</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;pong&quot;</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">proxy1</span> <span class="p">=</span> <span class="n">proxy</span><span class="p">(</span><span class="s">&quot;proxy1&quot;</span><span class="p">,</span> <span class="m">8001</span><span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">proxy2</span> <span class="p">=</span> <span class="n">proxy</span><span class="p">(</span><span class="s">&quot;proxy2&quot;</span><span class="p">,</span> <span class="m">8002</span><span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8001</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">server3</span> <span class="p">=</span> <span class="n">ping</span><span class="p">().</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8002</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="n">audit</span><span class="p">(</span><span class="s">&quot;client&quot;</span><span class="p">).</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/ping&quot;</span><span class="p">))</span>
+
+    <span class="n">proxy1</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">proxy2</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server3</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+
 
 <h3 id="debugging">Debugging <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_debugging.kt"><img class="octocat"/></a></h3>
 <p>Easily wrap an <code>HttpHandler</code> in a debugging filter to check out what is going on under the covers:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_debugging.kt"></script>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.DebuggingFilters</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello there you look nice today&quot;</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">debuggedApp</span> <span class="p">=</span> <span class="n">DebuggingFilters</span><span class="p">.</span><span class="n">PrintRequestAndResponse</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+    <span class="n">debuggedApp</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/foobar&quot;</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Accepted&quot;</span><span class="p">,</span> <span class="s">&quot;my-great-content/type&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
                     
                     
                     

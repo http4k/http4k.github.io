@@ -1191,7 +1191,22 @@
 
 
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/generating_data_classes/example.kt"><img class="octocat"/></a></h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/generating_data_classes/example.kt"></script></p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.generating_data_classes</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.GenerateDataClasses</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.Jackson</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://api.icndb.com/jokes/random/3&quot;</span><span class="p">)</span>
+
+    <span class="n">GenerateDataClasses</span><span class="p">(</span><span class="n">Jackson</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="k">out</span><span class="p">).</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()).</span><span class="n">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
                     
                     
                     

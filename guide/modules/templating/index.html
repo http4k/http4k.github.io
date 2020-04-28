@@ -1201,7 +1201,51 @@
 </ul>
 <p>The examples below are for Handlebars, but the others have the same APIs:</p>
 <h4 id="code">Code  <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/templating/example.kt"><img class="octocat"/></a></h4>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/templating/example.kt"></script></p>
+<p>```kotlin
+package guide.modules.templating</p>
+<p>import org.http4k.core.Body
+import org.http4k.core.ContentType.Companion.TEXT_HTML
+import org.http4k.core.HttpHandler
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.core.with
+import org.http4k.template.HandlebarsTemplates
+import org.http4k.template.ViewModel
+import org.http4k.template.viewModel
+import java.io.File</p>
+<p>data class Person(val name: String, val age: Int) : ViewModel</p>
+<p>fun main() {</p>
+<div class="codehilite"><pre><span></span><code>// first, create a Renderer - this can be a Caching instance or a HotReload for development
+val renderer = HandlebarsTemplates().HotReload(&quot;src/test/resources&quot;)
+
+// first example uses a renderer to create a string
+val app: HttpHandler = {
+    val viewModel = Person(&quot;Bob&quot;, 45)
+    val renderedView = renderer(viewModel)
+    Response(OK).body(renderedView)
+}
+println(app(Request(GET, &quot;/someUrl&quot;)))
+
+// the lens example uses the Body.viewModel to also set the content type, and avoid using Strings
+val viewLens = Body.viewModel(renderer, TEXT_HTML).toLens()
+
+val appUsingLens: HttpHandler = {
+    Response(OK).with(viewLens of Person(&quot;Bob&quot;, 45))
+}
+
+println(appUsingLens(Request(GET, &quot;/someUrl&quot;)))
+
+// overwrite the content - this will prove the hot reload works!
+File(&quot;src/test/resources/guide/modules/templating/Person.hbs&quot;).writer()
+    .use { it.write(&quot;{{name}} is not {{age}} years old&quot;) }
+
+println(appUsingLens(Request(GET, &quot;/someUrl&quot;)))
+</code></pre></div>
+
+
+<p>}```</p>
                     
                     
                     

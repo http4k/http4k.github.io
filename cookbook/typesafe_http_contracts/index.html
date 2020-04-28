@@ -1182,7 +1182,116 @@
 
 <p>Note: although we use Argo here as our JSON API, you could also switch in any of the <code>http4k-format-xxx</code> JSON modules. </p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_contracts/example.kt"><img class="octocat"/></a></h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_contracts/example.kt"></script></p>
+<p>```kotlin
+package cookbook.typesafe_http_contracts</p>
+<p>import org.http4k.contract.bind
+import org.http4k.contract.contract
+import org.http4k.contract.div
+import org.http4k.contract.meta
+import org.http4k.contract.openapi.ApiInfo
+import org.http4k.contract.openapi.v3.OpenApi3
+import org.http4k.contract.security.ApiKeySecurity
+import org.http4k.core.Body
+import org.http4k.core.ContentType.Companion.TEXT_PLAIN
+import org.http4k.core.Filter
+import org.http4k.core.HttpHandler
+import org.http4k.core.HttpTransaction
+import org.http4k.core.Method.GET
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.core.then
+import org.http4k.core.with
+import org.http4k.filter.CachingFilters.Response.NoCache
+import org.http4k.filter.CorsPolicy
+import org.http4k.filter.ResponseFilters
+import org.http4k.filter.ServerFilters
+import org.http4k.format.Argo
+import org.http4k.format.Jackson
+import org.http4k.lens.Path
+import org.http4k.lens.Query
+import org.http4k.lens.int
+import org.http4k.lens.string
+import org.http4k.routing.ResourceLoader.Companion.Classpath
+import org.http4k.routing.bind
+import org.http4k.routing.routes
+import org.http4k.routing.static
+import org.http4k.server.Jetty
+import org.http4k.server.asServer
+import java.time.Clock</p>
+<p>fun main() {</p>
+<div class="codehilite"><pre><span></span><code>fun add(value1: Int, value2: Int): HttpHandler = {
+    Response(OK).with(
+        Body.string(TEXT_PLAIN).toLens() of (value1 + value2).toString()
+    )
+}
+
+val ageQuery = Query.int().required(&quot;age&quot;)
+fun echo(name: String): HttpHandler = {
+    Response(OK).with(
+        Body.string(TEXT_PLAIN).toLens() of &quot;hello $name you are ${ageQuery(it)}&quot;
+    )
+}
+
+val filter: Filter = ResponseFilters.ReportHttpTransaction(Clock.systemUTC()) { tx: HttpTransaction -&gt;
+    println(tx.labels.toString() + &quot; took &quot; + tx.duration)
+}
+
+val mySecurity = ApiKeySecurity(Query.int().required(&quot;apiKey&quot;), { it == 42 })
+
+val contract = contract {
+    renderer = OpenApi3(ApiInfo(&quot;my great api&quot;, &quot;v1.0&quot;), Argo)
+    descriptionPath = &quot;/docs/swagger.json&quot;
+    security = mySecurity
+
+    routes += &quot;/ping&quot; meta {
+        summary = &quot;add&quot;
+        description = &quot;Adds 2 numbers together&quot;
+        returning(OK to &quot;The result&quot;)
+    } bindContract GET to { Response(OK).body(&quot;pong&quot;) }
+
+    routes += &quot;/add&quot; / Path.int().of(&quot;value1&quot;) / Path.int().of(&quot;value2&quot;) meta {
+        summary = &quot;add&quot;
+        description = &quot;Adds 2 numbers together&quot;
+        returning(OK to &quot;The result&quot;)
+    } bindContract GET to ::add
+
+    // note here that the trailing parameter can be ignored - it would simply be the value &quot;divide&quot;.
+    routes += Path.int().of(&quot;value1&quot;) / Path.int().of(&quot;value2&quot;) / &quot;divide&quot; meta {
+        summary = &quot;divide&quot;
+        description = &quot;Divides 2 numbers&quot;
+        returning(OK to &quot;The result&quot;)
+    } bindContract GET to { first, second, _ -&gt; { Response(OK).body((first / second).toString()) } }
+
+    routes += &quot;/echo&quot; / Path.of(&quot;name&quot;) meta {
+        summary = &quot;echo&quot;
+        queries += ageQuery
+    } bindContract GET to ::echo
+}
+
+val handler = routes(
+    &quot;/context&quot; bind filter.then(contract),
+    &quot;/static&quot; bind NoCache().then(static(Classpath(&quot;cookbook/nestable_routes&quot;))),
+    &quot;/&quot; bind contract {
+        renderer = OpenApi3(ApiInfo(&quot;my great super api&quot;, &quot;v1.0&quot;), Jackson)
+        routes += &quot;/echo&quot; / Path.of(&quot;name&quot;) meta {
+            summary = &quot;echo&quot;
+            queries += ageQuery
+        } bindContract GET to ::echo
+    }
+)
+
+ServerFilters.Cors(CorsPolicy.UnsafeGlobalPermissive).then(handler).asServer(Jetty(8000)).start()
+</code></pre></div>
+
+
+<p>}</p>
+<p>// Ping!                    curl -v "http://localhost:8000/context/ping?apiKey=42"
+// Adding 2 numbers:        curl -v "http://localhost:8000/context/add/123/564?apiKey=42"
+// Echo (fail):             curl -v "http://localhost:8000/context/echo/myName?age=notANumber&amp;apiKey=42"
+// API Key enforcement:     curl -v "http://localhost:8000/context/add/123/564?apiKey=444"
+// Static content:          curl -v "http://localhost:8000/static/someStaticFile.txt"
+// OpenApi/Swagger documentation:   curl -v "http://localhost:8000/context/docs/swagger.json"
+// Echo endpoint (at root): curl -v "http://localhost:8000/echo/hello?age=123"```</p>
                     
                     
                     

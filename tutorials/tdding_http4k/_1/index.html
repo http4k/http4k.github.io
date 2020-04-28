@@ -1129,9 +1129,51 @@ documentation, and checking in a high-level way that the business endpoints are 
 <li>The service can be pinged over HTTP to prove that is still alive.</li>
 </ul>
 <h2 id="tests">Tests:</h2>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/tdding_http4k/_1/tests.kt"></script></p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.tdding_http4k._1</span>
+
+
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+<span class="k">class</span> <span class="nc">EndToEndTest</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+
+    <span class="n">@BeforeEach</span>
+    <span class="k">fun</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">@AfterEach</span>
+    <span class="k">fun</span> <span class="nf">teardown</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`responds to ping`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:${server.port()}/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h2 id="production">Production:</h2>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/tutorials/tdding_http4k/_1/project.kt"></script></p>
+<p>```kotlin
+package tutorials.tdding_http4k._1</p>
+<p>import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.server.Http4kServer
+import org.http4k.server.Jetty
+import org.http4k.server.asServer</p>
+<p>fun MyMathServer(port: Int): Http4kServer = { _: Request -&gt; Response(OK) }.asServer(Jetty(port))```</p>
                     
                     
                     

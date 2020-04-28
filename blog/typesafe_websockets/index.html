@@ -1226,14 +1226,121 @@
 <li>Lens-based marshalling of Websocket message objects using Jackson. </li>
 <li><code>WsHandler</code> can be combined with an <code>HttpHandler</code> to make a <code>PolyHandler</code> - an application which can serve many protocols. Conversion of the <code>PolyHandler</code> to a supporting Server can be done via the standard <code>asServer()</code> mechanism, or it can be kept offline for ultra-fast in-memory testing:</li>
 </ul>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example.kt"></script>
+<p>```kotlin
+package blog.typesafe_websockets</p>
+<p>import org.http4k.core.HttpHandler
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.format.Jackson.auto
+import org.http4k.lens.Path
+import org.http4k.routing.bind
+import org.http4k.routing.websockets
+import org.http4k.server.Jetty
+import org.http4k.server.asServer
+import org.http4k.websocket.PolyHandler
+import org.http4k.websocket.Websocket
+import org.http4k.websocket.WsHandler
+import org.http4k.websocket.WsMessage</p>
+<p>// in json, this looks like: {"value": 123, "currency: "EUR" }
+data class Money(val value: Int, val currency: String)</p>
+<p>fun main() {</p>
+<div class="codehilite"><pre><span></span><code>// we use the Lens API to convert between the WsMessage and the Money instance, and to
+// dynamically bind the &quot;name&quot; from the path
+val moneyLens = WsMessage.auto<span class="nt">&lt;Money&gt;</span>().toLens()
+val nameLens = Path.of(&quot;name&quot;)
 
+// the routing API is virtually identical to the standard http4k http routing API.
+// on connection, the bound WsConsumer is called with the Websocket instance
+val ws: WsHandler = websockets(
+    &quot;/hello&quot; bind websockets(
+        &quot;/{name}&quot; bind { ws: Websocket -&gt;
+            val name = nameLens(ws.upgradeRequest)
+            ws.onMessage {
+                val received = moneyLens(it)
+                ws.send(moneyLens(received))
+            }
+            ws.onClose { println(&quot;closed&quot;) }
+            ws.send(WsMessage(&quot;hello $name&quot;))
+        }
+    )
+)
+
+val http: HttpHandler = { _: Request -&gt; Response(OK).body(&quot;hiya world&quot;) }
+
+// the poly-handler can serve both http and ws protocols.
+PolyHandler(http, ws).asServer(Jetty(9000)).start().block()
+</code></pre></div>
+
+
+<p>}```</p>
 <p>Alternatively, you can check out the Websocket enabled <a href="https://http4k.org">http4k</a> demo: <a href="https://github.com/daviddenton/http4k-demo-irc">IRC clone in 30 lines of Kotlin</a>.</p>
 <h4 id="testability">Testability <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example_testing.kt"><img class="octocat"/></a></h4>
 <p>As well as API simplicity, the <a href="https://http4k.org">http4k</a> team are very passionate about testing, and it was very important that this could be done in an out-of-container fashion - ie. in memory and with no server being started. As such, it is possible to call <code>testWsClient()</code> on an <code>WsHandler</code> to provide a synchronous API for testing. Messages and other events can be "sent" to a connected websocket and responses will be received back in a completely predictable way from the application under test.</p>
 <p>In the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. <a href="https://http4k.org">http4k</a> provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example_testing.kt"></script>
+<p>```kotlin
+package blog.typesafe_websockets</p>
+<p>import com.natpryce.hamkrest.assertion.assertThat
+import com.natpryce.hamkrest.equalTo
+import org.http4k.client.WebsocketClient
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.Uri
+import org.http4k.lens.Path
+import org.http4k.routing.bind
+import org.http4k.routing.websockets
+import org.http4k.server.Jetty
+import org.http4k.server.asServer
+import org.http4k.testing.testWsClient
+import org.http4k.websocket.Websocket
+import org.http4k.websocket.WsClient
+import org.http4k.websocket.WsHandler
+import org.http4k.websocket.WsMessage
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test</p>
+<p>val namePath = Path.of("name")</p>
+<p>// here is our websocket app - it uses dynamic path binding and lenses
+val testApp: WsHandler = websockets(
+    "/{name}" bind { ws: Websocket -&gt;
+        val name = namePath(ws.upgradeRequest)
+        ws.send(WsMessage("hello $name"))
+    }
+)</p>
+<p>// this is the abstract contract that defines the behaviour to be tested
+abstract class WebsocketContract {
+    // subclasses only have to supply a blocking WsClient
+    abstract fun client(): WsClient</p>
+<div class="codehilite"><pre><span></span><code><span class="err">@Test</span>
+<span class="err">fun `echoes back connected name`() {</span>
+<span class="err">    assertThat(client().received().take(1).toList(), equalTo(listOf(WsMessage(&quot;hello bob&quot;))))</span>
+<span class="err">}</span>
+</code></pre></div>
 
+
+<p>}</p>
+<p>// a unit test version of the contract - it connects to the websocket in memory with no network
+class WebsocketUnitTest : WebsocketContract() {
+    override fun client() = cookbook.websockets.testApp.testWsClient(Request(GET, "/bob"))!!
+}</p>
+<p>// a integration test version of the contract - it starts a server and connects to the websocket over the network
+class WebsocketServerTest : WebsocketContract() {
+    override fun client() = WebsocketClient.blocking(Uri.of("ws://localhost:8000/bob"))</p>
+<div class="codehilite"><pre><span></span><code><span class="n">private</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cookbook</span><span class="p">.</span><span class="n">websockets</span><span class="p">.</span><span class="n">testApp</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="w"></span>
+
+<span class="nv">@BeforeEach</span><span class="w"></span>
+<span class="n">fun</span><span class="w"> </span><span class="k">before</span><span class="p">()</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="k">start</span><span class="p">()</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+
+<span class="nv">@AfterEach</span><span class="w"></span>
+<span class="n">fun</span><span class="w"> </span><span class="k">after</span><span class="p">()</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>}```</p>
 <h4 id="fin">Fin</h4>
 <p>Websocket support is now available for the Jetty server backend in <a href="https://http4k.org">http4k</a> <code>v3.2.0</code>. We plan to roll out support for other server-backends in due course. Have a play a let us know what you think... </p>
 <h5 id="footnotes">Footnotes</h5>

@@ -1232,13 +1232,56 @@
 <li>Has trouble with repeating child-elements, depending on zero, one or many elements in the XML. This is due to the underlying library implementation</li>
 <li>Only handles objects with primitive JDK types</li>
 </ul>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/jacksonAutoXml.kt"></script>
+<p>```kotlin
+package guide.modules.xml</p>
+<p>import org.http4k.core.Body
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.with
+import org.http4k.format.JacksonXml.auto</p>
+<p>data class JacksonWrapper(val message: JacksonMsg?)</p>
+<p>data class JacksonMsg(val subject: String?, val from: String?, val to: String?, val content: String?)</p>
+<p>fun main() {
+    // We can use the auto method here from the JacksonXML message format object. Note that the
+    // auto() method is an extension function which needs to be manually imported (IntelliJ won't pick it up automatically).
+    val messageLens = Body.auto<JacksonWrapper>().toLens()</p>
+<div class="codehilite"><pre><span></span><code>// extract the body from the message - this also works with Response
+val wrapper = JacksonWrapper(JacksonMsg(&quot;subject&quot;, &quot;from&quot;, &quot;to&quot;, &quot;content&quot;))
+val message = &quot;&quot;&quot;<span class="nt">&lt;jacksonWrapper&gt;&lt;message</span> <span class="na">subject=</span><span class="s">&quot;hi&quot;</span><span class="nt">&gt;&lt;from&gt;</span>david@http4k.org<span class="nt">&lt;/from&gt;&lt;to&gt;</span>ivan@http4k.org<span class="nt">&lt;/to&gt;</span>hello world<span class="nt">&lt;/message&gt;&lt;/jacksonWrapper&gt;</span>&quot;&quot;&quot;
 
+println(messageLens(Request(GET, &quot;/&quot;).body(message)))
+
+// inject a converted object-as-XML-string into a request
+println(Request(GET, &quot;&quot;).with(messageLens.of(wrapper)).bodyString())
+</code></pre></div>
+
+
+<p>}```</p>
 <h3 id="xml">Xml</h3>
 <p>As above, we recommend using <code>http4k-format-jackson-xml</code> as it has more predictable and consistent behaviour.</p>
 <h4 id="xml-code">XML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"><img class="octocat"/></a></h4>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"></script>
+<p>```kotlin
+package guide.modules.xml</p>
+<p>import org.http4k.core.Body
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.format.Xml.auto</p>
+<p>data class XmlWrapper(val mesApacheClientStreamingContractessage: MessageXml?)</p>
+<p>data class MessageXml(val subject: String?, val from: String?, val to: String?, val content: String?)</p>
+<p>fun main() {
+    // We can use the auto method here from the Xml message format object. Note that the
+    // auto() method is an extension function which needs to be manually imported (IntelliJ won't pick it up automatically).
+    // Also, this lense is ONLY one way - to extract values from a message
+    val messageLens = Body.auto<XmlWrapper>().toLens()</p>
+<div class="codehilite"><pre><span></span><code>// extract the body from the message - this also works with Response
+val message = &quot;&quot;&quot;<span class="nt">&lt;message</span> <span class="na">subject=</span><span class="s">&quot;hi&quot;</span><span class="nt">&gt;&lt;from&gt;</span>david@http4k.org<span class="nt">&lt;/from&gt;&lt;to&gt;</span>ivan@http4k.org<span class="nt">&lt;/to&gt;</span>hello world<span class="nt">&lt;/message&gt;</span>&quot;&quot;&quot;
+val requestWithEmail = Request(GET, &quot;/&quot;).body(message)
 
+println(messageLens(requestWithEmail))
+</code></pre></div>
+
+
+<p>}```</p>
 <!--
 There is a utility to generate data class code from XML input [here](http://http4k-data-class-gen.herokuapp.com) . These data classes are compatible with using the `Body.auto<T>()` functionality. 
 -->

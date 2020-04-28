@@ -1175,7 +1175,88 @@
 
 <p>For this example, simply reconfigure the <code>OAuthProvider</code> instance with the correct details, and provide custom logic for persisting and retrieving the CSRF and AccessToken.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_oauth_provider/example.kt"><img class="octocat"/></a></h3>
-<p><script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_oauth_provider/example.kt"></script></p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.custom_oauth_provider</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.AccessToken</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.CrossSiteRequestForgeryToken</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.OAuthPersistence</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProvider</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProviderConfig</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.openid.Nonce</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="c1">// this example shows how to configure a custom provider for the OAuth2 Auth Code Grant flow</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">port</span> <span class="p">=</span> <span class="m">9000</span>
+
+    <span class="c1">// the callback uri which is configured in our OAuth provider</span>
+    <span class="k">val</span> <span class="py">callbackUri</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:$port/callback&quot;</span><span class="p">)</span>
+
+    <span class="c1">// custom OAuth2 provider configuration</span>
+    <span class="k">val</span> <span class="py">oauthProvider</span> <span class="p">=</span> <span class="n">OAuthProvider</span><span class="p">(</span>
+        <span class="n">OAuthProviderConfig</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;https://auth.chatroulette.com&quot;</span><span class="p">),</span>
+            <span class="s">&quot;/oauth2/auth&quot;</span><span class="p">,</span> <span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span>
+            <span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;username&quot;</span><span class="p">,</span> <span class="s">&quot;somepassword&quot;</span><span class="p">),</span>
+            <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;https://api.chatroulette.com&quot;</span><span class="p">)),</span>
+        <span class="n">ApacheClient</span><span class="p">(),</span>
+        <span class="n">callbackUri</span><span class="p">,</span>
+        <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;emailScope&quot;</span><span class="p">,</span> <span class="s">&quot;nameScope&quot;</span><span class="p">,</span> <span class="s">&quot;familyScope&quot;</span><span class="p">),</span>
+        <span class="n">CustomOAuthPersistence</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span>
+        <span class="n">routes</span><span class="p">(</span>
+            <span class="n">callbackUri</span><span class="p">.</span><span class="n">path</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="n">callback</span><span class="p">,</span>
+            <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="n">authFilter</span><span class="p">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchAll</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">)).</span><span class="n">start</span><span class="p">().</span><span class="n">block</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// this interface allows us to provide custom logic for storing and verifying the CSRF and AccessTokens.</span>
+<span class="c1">// to be maximally secure, never let the end-user see the access token!</span>
+<span class="k">class</span> <span class="nc">CustomOAuthPersistence</span> <span class="p">:</span> <span class="n">OAuthPersistence</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="py">nonce</span><span class="p">:</span> <span class="n">Nonce</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="k">var</span> <span class="py">csrf</span><span class="p">:</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="k">var</span> <span class="py">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveCsrf</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">?</span> <span class="p">=</span> <span class="n">csrf</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignCsrf</span><span class="p">(</span><span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">csrf</span><span class="p">:</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">csrf</span> <span class="p">=</span> <span class="n">csrf</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;assignCsrf&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignNonce</span><span class="p">(</span><span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">nonce</span><span class="p">:</span> <span class="n">Nonce</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">nonce</span> <span class="p">=</span> <span class="n">nonce</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;assignNonce&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveNonce</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">Nonce</span><span class="p">?</span> <span class="p">=</span> <span class="n">nonce</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">AccessToken</span><span class="p">?</span> <span class="p">=</span> <span class="n">accessToken</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">accessToken</span> <span class="p">=</span> <span class="n">accessToken</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;assignToken&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
                     
                     
                     

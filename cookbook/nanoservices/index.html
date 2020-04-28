@@ -1030,13 +1030,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#chaos-proxy-random-latency-edition" title="Chaos Proxy (random latency edition) " class="md-nav__link">
-    Chaos Proxy (random latency edition) 
-  </a>
-  
-</li>
-      
       
       
       
@@ -1205,32 +1198,248 @@
 <p>The main code of the following http4k applications (in the appropriately named function) all fit in a tweet (140 characters)... exports excluded ;)</p>
 <h3 id="simple-proxy">Simple Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
-<p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a <code>ProxyHost</code> filter to do the protocol conversion.
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/simple_proxy.kt"></script></p>
+<p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyHost</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyProtocolMode.Https</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
+
+<span class="k">fun</span> <span class="nf">`simple proxy`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+
+    <span class="n">`simple proxy`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h3 id="latency-reporting-proxy">Latency Reporting Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/latency_reporting_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
-<p>Building on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/latency_reporting_proxy.kt"></script></p>
+<p>Building on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyHost</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyProtocolMode.Https</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters.ReportRouteLatency</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
+
+<span class="k">fun</span> <span class="nf">`latency reporting proxy`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ReportRouteLatency</span> <span class="p">{</span> <span class="n">req</span><span class="p">,</span> <span class="n">ms</span> <span class="p">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;$req took $ms&quot;</span><span class="p">)</span> <span class="p">})</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+
+    <span class="n">`latency reporting proxy`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+        <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h3 id="wire-sniffing-proxy">Wire-sniffing Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/wire_sniffing_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
-<p>Applying a <code>DebuggingFilter</code> to the HTTP calls in a proxy dumps the entire contents out to <code>StdOut</code> (or other stream).
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/wire_sniffing_proxy.kt"></script></p>
+<p>Applying a <code>DebuggingFilter</code> to the HTTP calls in a proxy dumps the entire contents out to <code>StdOut</code> (or other stream).</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.DebuggingFilters.PrintRequestAndResponse</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyHost</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyProtocolMode.Https</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
+
+<span class="k">fun</span> <span class="nf">`wire sniffing proxy`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">PrintRequestAndResponse</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+
+    <span class="n">`wire sniffing proxy`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+        <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/http4k&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h3 id="traffic-recording-proxy-replayer">Traffic Recording Proxy &amp; Replayer <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/record_and_replay_http_traffic_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
-<p>This example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/record_and_replay_http_traffic_proxy.kt"></script></p>
+<p>This example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyHost</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyProtocolMode.Https</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.TrafficFilters.RecordTo</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.traffic.ReadWriteStream.Companion.Disk</span>
+<span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
+
+<span class="k">fun</span> <span class="nf">`recording traffic to disk proxy`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">RecordTo</span><span class="p">(</span><span class="n">Disk</span><span class="p">(</span><span class="s">&quot;store&quot;</span><span class="p">)))</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">`replay previously recorded traffic from a disk store`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="n">JavaHttpClient</span><span class="p">().</span><span class="n">let</span> <span class="p">{</span> <span class="n">client</span> <span class="p">-&gt;</span>
+        <span class="n">Disk</span><span class="p">(</span><span class="s">&quot;store&quot;</span><span class="p">).</span><span class="n">requests</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">forEach</span> <span class="p">{</span>
+                <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+                <span class="n">client</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+
+    <span class="n">`recording traffic to disk proxy`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+        <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">))</span>
+        <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/http4k&quot;</span><span class="p">))</span>
+        <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/http4k/http4k&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+
+    <span class="n">`replay previously recorded traffic from a disk store`</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h3 id="static-file-server">Static file Server <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/static_file_server.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
-<p>Longer than the Python <code>SimpleHttpServer</code>, but still pretty small!
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/static_file_server.kt"></script></p>
+<p>Longer than the Python <code>SimpleHttpServer</code>, but still pretty small!</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.ResourceLoader.Companion.Directory</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.static</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="k">fun</span> <span class="nf">`static file server`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="n">static</span><span class="p">(</span><span class="n">Directory</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">`static file server`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+        <span class="c1">// by default, static servers will only serve known file types, or those registered on construction</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/version.json&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 <h3 id="websocket-clock">Websocket Clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/websocket_clock.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
-<p>Like Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/websocket_clock.kt"></script></p>
-<h3 id="chaos-proxy-random-latency-edition">Chaos Proxy (random latency edition) <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/chaos_proxy.kt"><img class="octocat"/></a></h3>
-<p>Requires: <code>http4k-core</code>, <code>http4k-testing-chaos</code></p>
-<p>As per the <a href="https://principlesofchaos.org/">Principles of Chaos</a>, this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an <code>OpenApi</code> documented set of RPC endpoints.
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/chaos_proxy.kt"></script></p>
+<p>Like Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span> <span class="nn">java.time.Instant</span>
+
+<span class="k">fun</span> <span class="nf">`ticking websocket clock`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">Instant</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">toString</span><span class="p">()))</span>
+            <span class="n">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">`ticking websocket clock`</span><span class="p">()</span>
+    <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">)).</span><span class="n">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span><span class="err">```</span>
+
+<span class="err">###</span> <span class="n">Chaos</span> <span class="n">Proxy</span> <span class="p">(</span><span class="n">random</span> <span class="n">latency</span> <span class="n">edition</span><span class="p">)</span> <span class="p">[&lt;</span><span class="n">img</span> <span class="k">class</span><span class="p">=</span><span class="s">&quot;octocat&quot;</span><span class="p">/&gt;](</span><span class="n">https</span><span class="p">:</span><span class="c1">//github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/chaos_proxy.kt)</span>
+<span class="n">Requires</span><span class="p">:</span> <span class="n">`http4k-core`</span><span class="p">,</span> <span class="n">`http4k-testing-chaos`</span>
+
+<span class="n">As</span> <span class="n">per</span> <span class="n">the</span> <span class="p">[</span><span class="n">Principles</span> <span class="n">of</span> <span class="n">Chaos</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="c1">//principlesofchaos.org/), this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an `OpenApi` documented set of RPC endpoints.</span>
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosBehaviours.Latency</span>
+<span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosEngine</span>
+<span class="k">import</span> <span class="nn">org.http4k.chaos.withChaosApi</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyHost</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyProtocolMode.Https</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
+
+<span class="k">fun</span> <span class="err">`</span><span class="nf">latency</span> <span class="n">injection</span> <span class="n">proxy</span> <span class="p">(</span><span class="n">between</span> <span class="m">100</span><span class="n">ms</span><span class="p">-</span><span class="m">500</span><span class="n">ms</span><span class="p">)</span><span class="err">`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">withChaosApi</span><span class="p">(</span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">Latency</span><span class="p">()).</span><span class="n">enable</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
+    <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+
+    <span class="err">`</span><span class="n">latency</span> <span class="n">injection</span> <span class="n">proxy</span> <span class="p">(</span><span class="n">between</span> <span class="m">100</span><span class="n">ms</span><span class="p">-</span><span class="m">500</span><span class="n">ms</span><span class="p">)</span><span class="err">`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/chaos/activate&quot;</span><span class="p">)))</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">)).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;X-http4k-chaos&quot;</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
                     
                     
                     

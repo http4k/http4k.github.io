@@ -475,13 +475,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#serving-static-assets" title="Serving static assets" class="md-nav__link">
-    Serving static assets
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#single-page-apps" title="Single Page Apps" class="md-nav__link">
     Single Page Apps
   </a>
@@ -1402,11 +1395,73 @@ to configure these lenses to target particular parts of the message, whilst at t
 <li>Setting a value: use <code>&lt;lens&gt;.inject(&lt;value&gt;, &lt;target&gt;)</code>, or the more concise invoke form: <code>&lt;lens&gt;(&lt;value&gt;, &lt;target&gt;)</code></li>
 </ul>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/core/example.kt"><img class="octocat"/></a></h4>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/core/example.kt"></script>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.core</span>
 
-<h3 id="serving-static-assets">Serving static assets</h3>
-<p>For serving static assets, just bind a path to a Static block as below, using either a Classpath or Directory (Hot reloading) based ResourceLoader instance (find these on the <code>ResourceLoader</code> companion object). Typically, Directory is used during development and the Classpath strategy is used to serve assets in production from an UberJar. This is usually based on a "devmode" flag when constructing your app". <strong>Note</strong> that you should avoid setting the Classpath value to the root because otherwise it will serve anything from your classpath (including Java class files!)!:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Header</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Path</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.localDate</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.nonEmptyString</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.string</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.RoutingHttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">java.time.LocalDate</span>
+
+<span class="k">val</span> <span class="py">pathLocalDate</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">localDate</span><span class="p">().</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">requiredQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;myQueryName&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">nonEmptyQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">nonEmptyString</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;myNonEmptyQuery&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">optionalHeader</span> <span class="p">=</span> <span class="n">Header</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;Content-Length&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">responseBody</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">string</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
+
+<span class="c1">// Most of the useful common JDK types are covered. However, if we want to use our own types, we can just use `map()`</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">CustomType</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+
+<span class="k">val</span> <span class="py">requiredCustomQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">CustomType</span><span class="p">,</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">value</span> <span class="p">}).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;myCustomType&quot;</span><span class="p">)</span>
+
+<span class="c1">//To use the Lens, simply `invoke() or extract()` it using an HTTP message to extract the value, or alternatively `invoke() or inject()` it with the value if we are modifying (via copy) the message:</span>
+<span class="k">val</span> <span class="py">handler</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/hello/{date:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
+        <span class="k">val</span> <span class="py">pathDate</span><span class="p">:</span> <span class="n">LocalDate</span> <span class="p">=</span> <span class="n">pathLocalDate</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="c1">// SAME AS:</span>
+        <span class="c1">// val pathDate: LocalDate = pathLocalDate.extract(request)</span>
+
+        <span class="k">val</span> <span class="py">customType</span><span class="p">:</span> <span class="n">CustomType</span> <span class="p">=</span> <span class="n">requiredCustomQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">val</span> <span class="py">anIntHeader</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">optionalHeader</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">val</span> <span class="py">baseResponse</span> <span class="p">=</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+        <span class="k">val</span> <span class="py">responseWithHeader</span> <span class="p">=</span> <span class="n">optionalHeader</span><span class="p">(</span><span class="n">anIntHeader</span><span class="p">,</span> <span class="n">baseResponse</span><span class="p">)</span>
+        <span class="c1">// SAME AS:</span>
+        <span class="c1">// val responseWithHeader = optionalHeader.inject(anIntHeader, baseResponse)</span>
+
+        <span class="n">responseBody</span><span class="p">(</span><span class="s">&quot;you sent $pathDate and $customType&quot;</span><span class="p">,</span> <span class="n">responseWithHeader</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1">//With the addition of the `CatchLensFailure` filter, no other validation is required when using Lenses, as http4k will handle invalid requests by returning a BAD_REQUEST (400) response.</span>
+<span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/hello/2000-01-01?myCustomType=someValue&quot;</span><span class="p">))</span>
+
+<span class="c1">//More conveniently for construction of HTTP messages, multiple lenses can be used at once to modify a message, which is useful for properly building both requests and responses in a typesafe way without resorting to string values (especially in URLs which should never be constructed using String concatenation):</span>
+<span class="k">val</span> <span class="py">modifiedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://google.com/{pathLocalDate}&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span>
+    <span class="n">pathLocalDate</span> <span class="n">of</span> <span class="n">LocalDate</span><span class="p">.</span><span class="n">now</span><span class="p">(),</span>
+    <span class="n">requiredQuery</span> <span class="n">of</span> <span class="s">&quot;myAmazingString&quot;</span><span class="p">,</span>
+    <span class="n">optionalHeader</span> <span class="n">of</span> <span class="m">123</span>
+<span class="p">)</span><span class="err">```</span>
+
+<span class="err">###</span> <span class="n">Serving</span> <span class="n">static</span> <span class="n">assets</span>
+<span class="n">For</span> <span class="n">serving</span> <span class="n">static</span> <span class="n">assets</span><span class="p">,</span> <span class="n">just</span> <span class="n">bind</span> <span class="n">a</span> <span class="n">path</span> <span class="n">to</span> <span class="n">a</span> <span class="n">Static</span> <span class="n">block</span> <span class="k">as</span> <span class="n">below</span><span class="p">,</span> <span class="n">using</span> <span class="n">either</span> <span class="n">a</span> <span class="n">Classpath</span> <span class="n">or</span> <span class="n">Directory</span> <span class="p">(</span><span class="n">Hot</span> <span class="n">reloading</span><span class="p">)</span> <span class="n">based</span> <span class="n">ResourceLoader</span> <span class="n">instance</span> <span class="p">(</span><span class="n">find</span> <span class="n">these</span> <span class="n">on</span> <span class="n">the</span> <span class="n">`ResourceLoader`</span> <span class="k">companion</span> <span class="k">object</span><span class="p">).</span> <span class="n">Typically</span><span class="p">,</span> <span class="n">Directory</span> <span class="k">is</span> <span class="n">used</span> <span class="n">during</span> <span class="n">development</span> <span class="n">and</span> <span class="n">the</span> <span class="n">Classpath</span> <span class="n">strategy</span> <span class="k">is</span> <span class="n">used</span> <span class="n">to</span> <span class="n">serve</span> <span class="n">assets</span> <span class="k">in</span> <span class="n">production</span> <span class="n">from</span> <span class="n">an</span> <span class="n">UberJar</span><span class="p">.</span> <span class="n">This</span> <span class="k">is</span> <span class="n">usually</span> <span class="n">based</span> <span class="n">on</span> <span class="n">a</span> <span class="s">&quot;devmode&quot;</span> <span class="n">flag</span> <span class="k">when</span> <span class="n">constructing</span> <span class="n">your</span> <span class="n">app</span><span class="s">&quot;. **Note** that you should avoid setting the Classpath value to the root because otherwise it will serve anything from your classpath (including Java class files!)!:</span>
+<span class="err">```</span><span class="n">kotlin</span>
+<span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;/org/http4k/some/package/name&quot;</span><span class="p">)),</span>
     <span class="s">&quot;/hotreload&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Directory</span><span class="p">(</span><span class="s">&quot;path/to/static/dir/goes/here&quot;</span><span class="p">))</span>
 <span class="p">)</span>

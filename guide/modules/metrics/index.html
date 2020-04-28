@@ -1185,7 +1185,47 @@
 <p>This module provides configurable Filters to provide metrics for http4k apps, plugging into the awesome <a href="http://micrometer.io/">Micrometer</a> library.</p>
 <h3 id="micrometer">Micrometer <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/metrics/example_micrometer.kt"><img class="octocat"/></a></h3>
 <p>Both Server and Client filters are available for recording request counts and latency, optionally overriding values for the metric names, descriptions and request identification.</p>
-<script src="https://gist-it.appspot.com/https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/metrics/example_micrometer.kt"></script>
+<p>```kotlin
+package guide.modules.metrics</p>
+<p>import io.micrometer.core.instrument.simple.SimpleMeterRegistry
+import org.http4k.client.ApacheClient
+import org.http4k.core.Method.GET
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.core.then
+import org.http4k.filter.MetricFilters
+import org.http4k.routing.bind
+import org.http4k.routing.routes</p>
+<p>fun main() {</p>
+<div class="codehilite"><pre><span></span><code>// this is a micrometer registry used mostly for testing - substitute the correct implementation.
+val registry = SimpleMeterRegistry()
+
+val server = routes(&quot;/metrics&quot; bind GET to { Response(OK) })
+
+// apply filters to a server...
+val app = MetricFilters.Server.RequestCounter(registry)
+    .then(MetricFilters.Server.RequestTimer(registry))
+    .then(server)
+
+// ... or to a client
+val client =
+    MetricFilters.Client.RequestCounter(registry)
+        .then(MetricFilters.Client.RequestTimer(registry))
+        .then(ApacheClient())
+
+// make some calls
+(0..10).forEach {
+    app(Request(GET, &quot;/metrics&quot;))
+    client(Request(GET, &quot;https://http4k.org&quot;))
+}
+
+// see some results
+registry.forEachMeter { println(&quot;<span class="cp">${</span><span class="n">it</span><span class="o">.</span><span class="n">id</span><span class="cp">}</span> <span class="cp">${</span><span class="n">it</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span><span class="o">.</span><span class="n">joinToString</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="cp">}</span>&quot;) }
+</code></pre></div>
+
+
+<p>}```</p>
                     
                     
                     
