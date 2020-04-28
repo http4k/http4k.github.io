@@ -1209,81 +1209,83 @@
 
 <h3 id="mixing-http-and-websocket-services">Mixing HTTP and Websocket services <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"><img class="octocat"/></a></h3>
 <p>Both Websockets and Http handlers in <strong>http4k</strong> are routed using a similar path-based API. We combine them into a single <code>PolyHandler</code> which can handle both <code>http://</code> and <code>ws://</code>, and then convert to a Server as usual:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.websockets</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">websockets</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Path</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.websockets</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
-<span class="k">import</span> <span class="nn">org.http4k.websocket.PolyHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
-<span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Path</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.websockets</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="kn">import</span> <span class="nn">org.http4k.websocket.PolyHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
+<span class="kn">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">namePath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">val</span> <span class="n">namePath</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">ws</span> <span class="p">=</span> <span class="n">websockets</span><span class="p">(</span>
-        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-            <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="n">upgradeRequest</span><span class="p">)</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello $name&quot;</span><span class="p">))</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-                <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;$name is responding&quot;</span><span class="p">))</span>
+    <span class="n">val</span> <span class="n">ws</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
+        <span class="s2">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+            <span class="n">val</span> <span class="n">name</span> <span class="o">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">upgradeRequest</span><span class="p">)</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s2">&quot;hello $name&quot;</span><span class="p">))</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">onMessage</span> <span class="p">{</span>
+                <span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s2">&quot;$name is responding&quot;</span><span class="p">))</span>
             <span class="p">}</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">onClose</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;$name is closing&quot;</span><span class="p">)</span> <span class="p">}</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">onClose</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s2">&quot;$name is closing&quot;</span><span class="p">)</span> <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">)</span>
-    <span class="k">val</span> <span class="py">http</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hiya world&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">val</span> <span class="n">http</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;hiya world&quot;</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="n">PolyHandler</span><span class="p">(</span><span class="n">http</span><span class="p">,</span> <span class="n">ws</span><span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">PolyHandler</span><span class="p">(</span><span class="n">http</span><span class="p">,</span> <span class="n">ws</span><span class="p">)</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="mi">9000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h3 id="automarshalling-websockets-messages">Automarshalling Websockets messages <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_automarshalling.kt"><img class="octocat"/></a></h3>
 <p>Using the standard Lens API, we can auto-convert Websocket messages on and off the wire. This example uses the Jackson for the marshalling:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.websockets</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">websockets</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span> <span class="nn">org.http4k.format.Jackson.auto</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.websockets</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
-<span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
-<span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="kn">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="kn">import</span> <span class="nn">org.http4k.format.Jackson.auto</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.websockets</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="kn">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
+<span class="kn">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+<span class="n">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">val</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">val</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// a lens that will marshall the Person object on and off the wire</span>
-    <span class="k">val</span> <span class="py">personLens</span> <span class="p">=</span> <span class="n">WsMessage</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="o">//</span> <span class="n">a</span> <span class="n">lens</span> <span class="n">that</span> <span class="n">will</span> <span class="n">marshall</span> <span class="n">the</span> <span class="n">Person</span> <span class="nb">object</span> <span class="n">on</span> <span class="ow">and</span> <span class="n">off</span> <span class="n">the</span> <span class="n">wire</span>
+    <span class="n">val</span> <span class="n">personLens</span> <span class="o">=</span> <span class="n">WsMessage</span><span class="o">.</span><span class="n">auto</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">()</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">websockets</span><span class="p">(</span>
-        <span class="s">&quot;/ageMe&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-                <span class="k">val</span> <span class="py">person</span> <span class="p">=</span> <span class="n">personLens</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
-                <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">personLens</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">age</span> <span class="p">=</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="p">+</span> <span class="m">10</span><span class="p">)))</span>
-                <span class="n">ws</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
+        <span class="s2">&quot;/ageMe&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">onMessage</span> <span class="p">{</span>
+                <span class="n">val</span> <span class="n">person</span> <span class="o">=</span> <span class="n">personLens</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+                <span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">personLens</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">age</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="n">age</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)))</span>
+                <span class="n">ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="p">}</span>
         <span class="p">}</span>
-    <span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/ageMe&quot;</span><span class="p">))</span>
+    <span class="n">val</span> <span class="n">client</span> <span class="o">=</span> <span class="n">WebsocketClient</span><span class="o">.</span><span class="n">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;ws://localhost:8000/ageMe&quot;</span><span class="p">))</span>
 
-    <span class="c1">// send a message in &quot;native form&quot; - we could also use the Lens here to auto-marshall</span>
-    <span class="n">client</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{ &quot;name&quot;:&quot;bob&quot;, &quot;age&quot;: 25 }&quot;&quot;&quot;</span><span class="p">))</span>
+    <span class="o">//</span> <span class="n">send</span> <span class="n">a</span> <span class="n">message</span> <span class="ow">in</span> <span class="s2">&quot;native form&quot;</span> <span class="o">-</span> <span class="n">we</span> <span class="n">could</span> <span class="n">also</span> <span class="n">use</span> <span class="n">the</span> <span class="n">Lens</span> <span class="n">here</span> <span class="n">to</span> <span class="n">auto</span><span class="o">-</span><span class="n">marshall</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;{ &quot;name&quot;:&quot;bob&quot;, &quot;age&quot;: 25 }&quot;&quot;&quot;</span><span class="p">))</span>
 
-    <span class="c1">// read all of the messages from the socket until it is closed (by the server).</span>
-    <span class="c1">// we expect to get one message back before the stream is closed.</span>
-    <span class="n">client</span><span class="p">.</span><span class="n">received</span><span class="p">().</span><span class="n">toList</span><span class="p">().</span><span class="n">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
+    <span class="o">//</span> <span class="n">read</span> <span class="nb">all</span> <span class="n">of</span> <span class="n">the</span> <span class="n">messages</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">socket</span> <span class="nn">until</span> <span class="nn">it</span> <span class="nn">is</span> <span class="nn">closed</span> <span class="p">(</span><span class="n">by</span> <span class="n">the</span> <span class="n">server</span><span class="p">)</span><span class="o">.</span>
+    <span class="o">//</span> <span class="n">we</span> <span class="n">expect</span> <span class="n">to</span> <span class="n">get</span> <span class="n">one</span> <span class="n">message</span> <span class="n">back</span> <span class="n">before</span> <span class="n">the</span> <span class="n">stream</span> <span class="ow">is</span> <span class="n">closed</span><span class="o">.</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">received</span><span class="p">()</span><span class="o">.</span><span class="n">toList</span><span class="p">()</span><span class="o">.</span><span class="n">forEach</span><span class="p">(::</span><span class="n">println</span><span class="p">)</span>
 
-    <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1291,7 +1293,8 @@
 <h3 id="testing-websockets">Testing Websockets <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_testing.kt"><img class="octocat"/></a></h3>
 <p><strong>http4k</strong> provides Websockets that are both typesafe (via the Lens API), and testable. Both <code>WsHandlers</code> and <code>PolyHandlers</code> are convertible to a <code>WsClient</code> which provides a synchronous API for testing reactions to Websocket events in an offline environment.</p>
 <p>In the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:</p>
-<p>```kotlin
+<p>```
+kotlin
 package cookbook.websockets</p>
 <p>import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo

@@ -1206,156 +1206,160 @@
 <p>This module provides configurable Filters to provide CircuitBreaking, RateLimiting, Retrying and Bulkheading, by integrating with the awesome <a href="http://resilience4j.github.io/resilience4j/">Resilience4J</a> library.</p>
 <h3 id="circuit-breaking">Circuit Breaking <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_circuit.kt"><img class="octocat"/></a></h3>
 <p>A Circuit Filter detects failures and then Opens for a set period to allow the underlying system to recover.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">resilience</span>
 
-<span class="k">import</span> <span class="nn">io.github.resilience4j.circuitbreaker.CircuitBreaker</span>
-<span class="k">import</span> <span class="nn">io.github.resilience4j.circuitbreaker.CircuitBreakerConfig</span>
-<span class="k">import</span> <span class="nn">io.github.resilience4j.circuitbreaker.CircuitBreakerConfig.SlidingWindowType.COUNT_BASED</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ResilienceFilters</span>
-<span class="k">import</span> <span class="nn">java.time.Duration</span>
-<span class="k">import</span> <span class="nn">java.util.ArrayDeque</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.circuitbreaker.CircuitBreaker</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.circuitbreaker.CircuitBreakerConfig</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.circuitbreaker.CircuitBreakerConfig.SlidingWindowType.COUNT_BASED</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.ResilienceFilters</span>
+<span class="kn">import</span> <span class="nn">java.time.Duration</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayDeque</span>
 
-<span class="c1">// Circuit state transition: CLOSED (ok) -&gt; OPEN (dead) -&gt; HALF_OPEN (test) -&gt; CLOSED (ok)</span>
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="o">//</span> <span class="n">Circuit</span> <span class="n">state</span> <span class="n">transition</span><span class="p">:</span> <span class="n">CLOSED</span> <span class="p">(</span><span class="n">ok</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPEN</span> <span class="p">(</span><span class="n">dead</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HALF_OPEN</span> <span class="p">(</span><span class="n">test</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CLOSED</span> <span class="p">(</span><span class="n">ok</span><span class="p">)</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// these example responses are queued up to trigger the circuit state changes</span>
-    <span class="k">val</span> <span class="py">responses</span> <span class="p">=</span> <span class="n">ArrayDeque</span><span class="p">&lt;</span><span class="n">Response</span><span class="p">&gt;()</span>
-    <span class="n">responses</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">))</span>
-    <span class="n">responses</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
-    <span class="n">responses</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+    <span class="o">//</span> <span class="n">these</span> <span class="n">example</span> <span class="n">responses</span> <span class="n">are</span> <span class="n">queued</span> <span class="n">up</span> <span class="n">to</span> <span class="n">trigger</span> <span class="n">the</span> <span class="n">circuit</span> <span class="n">state</span> <span class="n">changes</span>
+    <span class="n">val</span> <span class="n">responses</span> <span class="o">=</span> <span class="n">ArrayDeque</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">()</span>
+    <span class="n">responses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">))</span>
+    <span class="n">responses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+    <span class="n">responses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
 
-    <span class="c1">// configure the circuit breaker filter here</span>
-    <span class="k">val</span> <span class="py">circuitBreaker</span> <span class="p">=</span> <span class="n">CircuitBreaker</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;circuit&quot;</span><span class="p">,</span>
-        <span class="n">CircuitBreakerConfig</span><span class="p">.</span><span class="n">custom</span><span class="p">()</span>
-            <span class="p">.</span><span class="n">slidingWindow</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">COUNT_BASED</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">permittedNumberOfCallsInHalfOpenState</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">waitDurationInOpenState</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="n">ofSeconds</span><span class="p">(</span><span class="m">1</span><span class="p">))</span>
-            <span class="p">.</span><span class="n">build</span><span class="p">()</span>
+    <span class="o">//</span> <span class="n">configure</span> <span class="n">the</span> <span class="n">circuit</span> <span class="n">breaker</span> <span class="nb">filter</span> <span class="n">here</span>
+    <span class="n">val</span> <span class="n">circuitBreaker</span> <span class="o">=</span> <span class="n">CircuitBreaker</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span>
+        <span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="n">custom</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">slidingWindow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">COUNT_BASED</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">permittedNumberOfCallsInHalfOpenState</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">waitDurationInOpenState</span><span class="p">(</span><span class="n">Duration</span><span class="o">.</span><span class="n">ofSeconds</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">build</span><span class="p">()</span>
     <span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">circuited</span> <span class="p">=</span> <span class="n">ResilienceFilters</span><span class="p">.</span><span class="n">CircuitBreak</span><span class="p">(</span><span class="n">circuitBreaker</span><span class="p">,</span>
-        <span class="n">isError</span> <span class="p">=</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Response</span> <span class="p">-&gt;</span> <span class="p">!</span><span class="n">r</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">successful</span> <span class="p">}</span> <span class="c1">// this defaults to &gt;= 500</span>
-    <span class="p">).</span><span class="n">then</span> <span class="p">{</span> <span class="n">responses</span><span class="p">.</span><span class="n">removeFirst</span><span class="p">()</span> <span class="p">}</span>
+    <span class="n">val</span> <span class="n">circuited</span> <span class="o">=</span> <span class="n">ResilienceFilters</span><span class="o">.</span><span class="n">CircuitBreak</span><span class="p">(</span><span class="n">circuitBreaker</span><span class="p">,</span>
+        <span class="n">isError</span> <span class="o">=</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Response</span> <span class="o">-&gt;</span> <span class="err">!</span><span class="n">r</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">successful</span> <span class="p">}</span> <span class="o">//</span> <span class="n">this</span> <span class="n">defaults</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mi">500</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">responses</span><span class="o">.</span><span class="n">removeFirst</span><span class="p">()</span> <span class="p">}</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Result: &quot;</span> <span class="p">+</span> <span class="n">circuited</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span> <span class="p">+</span> <span class="s">&quot; Circuit is: &quot;</span> <span class="p">+</span> <span class="n">circuitBreaker</span><span class="p">.</span><span class="n">state</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Result: &quot;</span> <span class="p">+</span> <span class="n">circuited</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span> <span class="p">+</span> <span class="s">&quot; Circuit is: &quot;</span> <span class="p">+</span> <span class="n">circuitBreaker</span><span class="p">.</span><span class="n">state</span><span class="p">)</span>
-    <span class="n">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="m">1100</span><span class="p">)</span> <span class="c1">// wait for reset</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Result: &quot;</span> <span class="p">+</span> <span class="n">circuited</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span> <span class="p">+</span> <span class="s">&quot; Circuit is: &quot;</span> <span class="p">+</span> <span class="n">circuitBreaker</span><span class="p">.</span><span class="n">state</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Result: &quot;</span> <span class="p">+</span> <span class="n">circuited</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span> <span class="p">+</span> <span class="s">&quot; Circuit is: &quot;</span> <span class="p">+</span> <span class="n">circuitBreaker</span><span class="p">.</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="s2">&quot;Result: &quot;</span> <span class="o">+</span> <span class="n">circuited</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">status</span> <span class="o">+</span> <span class="s2">&quot; Circuit is: &quot;</span> <span class="o">+</span> <span class="n">circuitBreaker</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="s2">&quot;Result: &quot;</span> <span class="o">+</span> <span class="n">circuited</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">status</span> <span class="o">+</span> <span class="s2">&quot; Circuit is: &quot;</span> <span class="o">+</span> <span class="n">circuitBreaker</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1100</span><span class="p">)</span> <span class="o">//</span> <span class="n">wait</span> <span class="k">for</span> <span class="n">reset</span>
+    <span class="n">println</span><span class="p">(</span><span class="s2">&quot;Result: &quot;</span> <span class="o">+</span> <span class="n">circuited</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">status</span> <span class="o">+</span> <span class="s2">&quot; Circuit is: &quot;</span> <span class="o">+</span> <span class="n">circuitBreaker</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="s2">&quot;Result: &quot;</span> <span class="o">+</span> <span class="n">circuited</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">status</span> <span class="o">+</span> <span class="s2">&quot; Circuit is: &quot;</span> <span class="o">+</span> <span class="n">circuitBreaker</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h3 id="rate-limiting">Rate Limiting <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_ratelimiter.kt"><img class="octocat"/></a></h3>
 <p>A RateLimit Filter monitors the number of requests over a set window.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">resilience</span>
 
-<span class="k">import</span> <span class="nn">io.github.resilience4j.ratelimiter.RateLimiter</span>
-<span class="k">import</span> <span class="nn">io.github.resilience4j.ratelimiter.RateLimiterConfig</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ResilienceFilters</span>
-<span class="k">import</span> <span class="nn">java.time.Duration</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.ratelimiter.RateLimiter</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.ratelimiter.RateLimiterConfig</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.ResilienceFilters</span>
+<span class="kn">import</span> <span class="nn">java.time.Duration</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// configure the rate limiter filter here</span>
-    <span class="k">val</span> <span class="py">config</span> <span class="p">=</span> <span class="n">RateLimiterConfig</span><span class="p">.</span><span class="n">custom</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">limitRefreshPeriod</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="n">ofSeconds</span><span class="p">(</span><span class="m">1</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">limitForPeriod</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">timeoutDuration</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="n">ofMillis</span><span class="p">(</span><span class="m">10</span><span class="p">)).</span><span class="n">build</span><span class="p">()</span>
+    <span class="o">//</span> <span class="n">configure</span> <span class="n">the</span> <span class="n">rate</span> <span class="n">limiter</span> <span class="nb">filter</span> <span class="n">here</span>
+    <span class="n">val</span> <span class="n">config</span> <span class="o">=</span> <span class="n">RateLimiterConfig</span><span class="o">.</span><span class="n">custom</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">limitRefreshPeriod</span><span class="p">(</span><span class="n">Duration</span><span class="o">.</span><span class="n">ofSeconds</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">limitForPeriod</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">timeoutDuration</span><span class="p">(</span><span class="n">Duration</span><span class="o">.</span><span class="n">ofMillis</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 
-    <span class="c1">// set up the responses to sleep for a bit</span>
-    <span class="k">val</span> <span class="py">rateLimits</span> <span class="p">=</span> <span class="n">ResilienceFilters</span><span class="p">.</span><span class="n">RateLimit</span><span class="p">(</span><span class="n">RateLimiter</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;ratelimiter&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">)).</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">//</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">the</span> <span class="n">responses</span> <span class="n">to</span> <span class="n">sleep</span> <span class="k">for</span> <span class="n">a</span> <span class="n">bit</span>
+    <span class="n">val</span> <span class="n">rateLimits</span> <span class="o">=</span> <span class="n">ResilienceFilters</span><span class="o">.</span><span class="n">RateLimit</span><span class="p">(</span><span class="n">RateLimiter</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;ratelimiter&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">))</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">rateLimits</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">rateLimits</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">rateLimits</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">rateLimits</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h3 id="retrying">Retrying <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_retrying.kt"><img class="octocat"/></a></h3>
 <p>A Retrying Filter retries requests if a failure is generated.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">resilience</span>
 
-<span class="k">import</span> <span class="nn">io.github.resilience4j.retry.Retry</span>
-<span class="k">import</span> <span class="nn">io.github.resilience4j.retry.RetryConfig</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ResilienceFilters</span>
-<span class="k">import</span> <span class="nn">java.util.ArrayDeque</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.retry.Retry</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.retry.RetryConfig</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.ResilienceFilters</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayDeque</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// configure the retry filter here, with max attempts and backoff</span>
-    <span class="k">val</span> <span class="py">retry</span> <span class="p">=</span> <span class="n">Retry</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;retrying&quot;</span><span class="p">,</span> <span class="n">RetryConfig</span><span class="p">.</span><span class="n">custom</span><span class="p">&lt;</span><span class="n">RetryConfig</span><span class="p">&gt;()</span>
-        <span class="p">.</span><span class="n">maxAttempts</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">intervalFunction</span> <span class="p">{</span> <span class="n">attempt</span><span class="p">:</span> <span class="n">Int</span> <span class="p">-&gt;</span> <span class="p">(</span><span class="n">attempt</span> <span class="p">*</span> <span class="m">2</span><span class="p">).</span><span class="n">toLong</span><span class="p">()</span> <span class="p">}</span>
-        <span class="p">.</span><span class="n">build</span><span class="p">())</span>
+    <span class="o">//</span> <span class="n">configure</span> <span class="n">the</span> <span class="n">retry</span> <span class="nb">filter</span> <span class="n">here</span><span class="p">,</span> <span class="k">with</span> <span class="nb">max</span> <span class="n">attempts</span> <span class="ow">and</span> <span class="n">backoff</span>
+    <span class="n">val</span> <span class="n">retry</span> <span class="o">=</span> <span class="n">Retry</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;retrying&quot;</span><span class="p">,</span> <span class="n">RetryConfig</span><span class="o">.</span><span class="n">custom</span><span class="o">&lt;</span><span class="n">RetryConfig</span><span class="o">&gt;</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">maxAttempts</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">intervalFunction</span> <span class="p">{</span> <span class="n">attempt</span><span class="p">:</span> <span class="n">Int</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">attempt</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">toLong</span><span class="p">()</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">build</span><span class="p">())</span>
 
-    <span class="c1">// queued up responses</span>
-    <span class="k">val</span> <span class="py">responses</span> <span class="p">=</span> <span class="n">ArrayDeque</span><span class="p">&lt;</span><span class="n">Response</span><span class="p">&gt;()</span>
-    <span class="n">responses</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">))</span>
-    <span class="n">responses</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+    <span class="o">//</span> <span class="n">queued</span> <span class="n">up</span> <span class="n">responses</span>
+    <span class="n">val</span> <span class="n">responses</span> <span class="o">=</span> <span class="n">ArrayDeque</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">()</span>
+    <span class="n">responses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">))</span>
+    <span class="n">responses</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
 
-    <span class="k">val</span> <span class="py">retrying</span> <span class="p">=</span> <span class="n">ResilienceFilters</span><span class="p">.</span><span class="n">RetryFailures</span><span class="p">(</span><span class="n">retry</span><span class="p">,</span>
-        <span class="n">isError</span> <span class="p">=</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Response</span> <span class="p">-&gt;</span> <span class="p">!</span><span class="n">r</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">successful</span> <span class="p">}</span>
-    <span class="p">).</span><span class="n">then</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">responses</span><span class="p">.</span><span class="n">removeFirst</span><span class="p">()</span>
-        <span class="n">println</span><span class="p">(</span><span class="s">&quot;trying request, will return &quot;</span> <span class="p">+</span> <span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">retrying</span> <span class="o">=</span> <span class="n">ResilienceFilters</span><span class="o">.</span><span class="n">RetryFailures</span><span class="p">(</span><span class="n">retry</span><span class="p">,</span>
+        <span class="n">isError</span> <span class="o">=</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Response</span> <span class="o">-&gt;</span> <span class="err">!</span><span class="n">r</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">successful</span> <span class="p">}</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span>
+        <span class="n">val</span> <span class="n">response</span> <span class="o">=</span> <span class="n">responses</span><span class="o">.</span><span class="n">removeFirst</span><span class="p">()</span>
+        <span class="n">println</span><span class="p">(</span><span class="s2">&quot;trying request, will return &quot;</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
         <span class="n">response</span>
     <span class="p">}</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">retrying</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">retrying</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h3 id="bulkheading">Bulkheading <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_bulkheading.kt"><img class="octocat"/></a></h3>
 <p>A Bulkhead Filter limits the amount of parallel calls that can be executed.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">resilience</span>
 
-<span class="k">import</span> <span class="nn">io.github.resilience4j.bulkhead.Bulkhead</span>
-<span class="k">import</span> <span class="nn">io.github.resilience4j.bulkhead.BulkheadConfig</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ResilienceFilters</span>
-<span class="k">import</span> <span class="nn">java.time.Duration</span>
-<span class="k">import</span> <span class="nn">kotlin.concurrent.thread</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.bulkhead.Bulkhead</span>
+<span class="kn">import</span> <span class="nn">io.github.resilience4j.bulkhead.BulkheadConfig</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.ResilienceFilters</span>
+<span class="kn">import</span> <span class="nn">java.time.Duration</span>
+<span class="kn">import</span> <span class="nn">kotlin.concurrent.thread</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="c1">// configure the Bulkhead filter here</span>
-    <span class="k">val</span> <span class="py">config</span> <span class="p">=</span> <span class="n">BulkheadConfig</span><span class="p">.</span><span class="n">custom</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">maxConcurrentCalls</span><span class="p">(</span><span class="m">5</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">maxWaitDuration</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="n">ofMillis</span><span class="p">(</span><span class="m">1000</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">build</span><span class="p">()</span>
+    <span class="o">//</span> <span class="n">configure</span> <span class="n">the</span> <span class="n">Bulkhead</span> <span class="nb">filter</span> <span class="n">here</span>
+    <span class="n">val</span> <span class="n">config</span> <span class="o">=</span> <span class="n">BulkheadConfig</span><span class="o">.</span><span class="n">custom</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">maxConcurrentCalls</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">maxWaitDuration</span><span class="p">(</span><span class="n">Duration</span><span class="o">.</span><span class="n">ofMillis</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">build</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">bulkheading</span> <span class="p">=</span> <span class="n">ResilienceFilters</span><span class="p">.</span><span class="n">Bulkheading</span><span class="p">(</span><span class="n">Bulkhead</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;bulkhead&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">)).</span><span class="n">then</span> <span class="p">{</span>
-        <span class="n">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">bulkheading</span> <span class="o">=</span> <span class="n">ResilienceFilters</span><span class="o">.</span><span class="n">Bulkheading</span><span class="p">(</span><span class="n">Bulkhead</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;bulkhead&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">))</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
         <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="c1">// throw a bunch of requests at the filter - only 5 should pass</span>
-    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">throw</span> <span class="n">a</span> <span class="n">bunch</span> <span class="n">of</span> <span class="n">requests</span> <span class="n">at</span> <span class="n">the</span> <span class="nb">filter</span> <span class="o">-</span> <span class="n">only</span> <span class="mi">5</span> <span class="n">should</span> <span class="k">pass</span>
+    <span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">forEach</span> <span class="p">{</span>
         <span class="n">thread</span> <span class="p">{</span>
-            <span class="n">println</span><span class="p">(</span><span class="n">bulkheading</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
+            <span class="n">println</span><span class="p">(</span><span class="n">bulkheading</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>

@@ -1175,85 +1175,86 @@
 
 <p>For this example, simply reconfigure the <code>OAuthProvider</code> instance with the correct details, and provide custom logic for persisting and retrieving the CSRF and AccessToken.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_oauth_provider/example.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.custom_oauth_provider</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">custom_oauth_provider</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.AccessToken</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.CrossSiteRequestForgeryToken</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.OAuthPersistence</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProvider</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProviderConfig</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.openid.Nonce</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Credentials</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.AccessToken</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.CrossSiteRequestForgeryToken</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.OAuthPersistence</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.OAuthProvider</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.OAuthProviderConfig</span>
+<span class="kn">import</span> <span class="nn">org.http4k.security.openid.Nonce</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="c1">// this example shows how to configure a custom provider for the OAuth2 Auth Code Grant flow</span>
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">port</span> <span class="p">=</span> <span class="m">9000</span>
+<span class="o">//</span> <span class="n">this</span> <span class="n">example</span> <span class="n">shows</span> <span class="n">how</span> <span class="n">to</span> <span class="n">configure</span> <span class="n">a</span> <span class="n">custom</span> <span class="n">provider</span> <span class="k">for</span> <span class="n">the</span> <span class="n">OAuth2</span> <span class="n">Auth</span> <span class="n">Code</span> <span class="n">Grant</span> <span class="n">flow</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">val</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">9000</span>
 
-    <span class="c1">// the callback uri which is configured in our OAuth provider</span>
-    <span class="k">val</span> <span class="py">callbackUri</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:$port/callback&quot;</span><span class="p">)</span>
+    <span class="o">//</span> <span class="n">the</span> <span class="n">callback</span> <span class="n">uri</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">configured</span> <span class="ow">in</span> <span class="n">our</span> <span class="n">OAuth</span> <span class="n">provider</span>
+    <span class="n">val</span> <span class="n">callbackUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;http://localhost:$port/callback&quot;</span><span class="p">)</span>
 
-    <span class="c1">// custom OAuth2 provider configuration</span>
-    <span class="k">val</span> <span class="py">oauthProvider</span> <span class="p">=</span> <span class="n">OAuthProvider</span><span class="p">(</span>
-        <span class="n">OAuthProviderConfig</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;https://auth.chatroulette.com&quot;</span><span class="p">),</span>
-            <span class="s">&quot;/oauth2/auth&quot;</span><span class="p">,</span> <span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span>
-            <span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;username&quot;</span><span class="p">,</span> <span class="s">&quot;somepassword&quot;</span><span class="p">),</span>
-            <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;https://api.chatroulette.com&quot;</span><span class="p">)),</span>
+    <span class="o">//</span> <span class="n">custom</span> <span class="n">OAuth2</span> <span class="n">provider</span> <span class="n">configuration</span>
+    <span class="n">val</span> <span class="n">oauthProvider</span> <span class="o">=</span> <span class="n">OAuthProvider</span><span class="p">(</span>
+        <span class="n">OAuthProviderConfig</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;https://auth.chatroulette.com&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;/oauth2/auth&quot;</span><span class="p">,</span> <span class="s2">&quot;/oauth2/token&quot;</span><span class="p">,</span>
+            <span class="n">Credentials</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="s2">&quot;somepassword&quot;</span><span class="p">),</span>
+            <span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;https://api.chatroulette.com&quot;</span><span class="p">)),</span>
         <span class="n">ApacheClient</span><span class="p">(),</span>
         <span class="n">callbackUri</span><span class="p">,</span>
-        <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;emailScope&quot;</span><span class="p">,</span> <span class="s">&quot;nameScope&quot;</span><span class="p">,</span> <span class="s">&quot;familyScope&quot;</span><span class="p">),</span>
+        <span class="n">listOf</span><span class="p">(</span><span class="s2">&quot;emailScope&quot;</span><span class="p">,</span> <span class="s2">&quot;nameScope&quot;</span><span class="p">,</span> <span class="s2">&quot;familyScope&quot;</span><span class="p">),</span>
         <span class="n">CustomOAuthPersistence</span><span class="p">()</span>
     <span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span>
+    <span class="n">val</span> <span class="n">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span>
         <span class="n">routes</span><span class="p">(</span>
-            <span class="n">callbackUri</span><span class="p">.</span><span class="n">path</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="n">callback</span><span class="p">,</span>
-            <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="n">authFilter</span><span class="p">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}</span>
+            <span class="n">callbackUri</span><span class="o">.</span><span class="n">path</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="o">.</span><span class="n">callback</span><span class="p">,</span>
+            <span class="s2">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="o">.</span><span class="n">authFilter</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}</span>
         <span class="p">)</span>
 
-    <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchAll</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">)).</span><span class="n">start</span><span class="p">().</span><span class="n">block</span><span class="p">()</span>
+    <span class="n">ServerFilters</span><span class="o">.</span><span class="n">CatchAll</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span><span class="o">.</span><span class="n">block</span><span class="p">()</span>
 <span class="p">}</span>
 
-<span class="c1">// this interface allows us to provide custom logic for storing and verifying the CSRF and AccessTokens.</span>
-<span class="c1">// to be maximally secure, never let the end-user see the access token!</span>
+<span class="o">//</span> <span class="n">this</span> <span class="n">interface</span> <span class="n">allows</span> <span class="n">us</span> <span class="n">to</span> <span class="n">provide</span> <span class="n">custom</span> <span class="n">logic</span> <span class="k">for</span> <span class="n">storing</span> <span class="ow">and</span> <span class="n">verifying</span> <span class="n">the</span> <span class="n">CSRF</span> <span class="ow">and</span> <span class="n">AccessTokens</span><span class="o">.</span>
+<span class="o">//</span> <span class="n">to</span> <span class="n">be</span> <span class="n">maximally</span> <span class="n">secure</span><span class="p">,</span> <span class="n">never</span> <span class="n">let</span> <span class="n">the</span> <span class="n">end</span><span class="o">-</span><span class="n">user</span> <span class="n">see</span> <span class="n">the</span> <span class="n">access</span> <span class="n">token</span><span class="err">!</span>
 <span class="k">class</span> <span class="nc">CustomOAuthPersistence</span> <span class="p">:</span> <span class="n">OAuthPersistence</span> <span class="p">{</span>
-    <span class="k">var</span> <span class="py">nonce</span><span class="p">:</span> <span class="n">Nonce</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
-    <span class="k">var</span> <span class="py">csrf</span><span class="p">:</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
-    <span class="k">var</span> <span class="py">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="n">var</span> <span class="n">nonce</span><span class="p">:</span> <span class="n">Nonce</span><span class="err">?</span> <span class="o">=</span> <span class="n">null</span>
+    <span class="n">var</span> <span class="n">csrf</span><span class="p">:</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="err">?</span> <span class="o">=</span> <span class="n">null</span>
+    <span class="n">var</span> <span class="n">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="err">?</span> <span class="o">=</span> <span class="n">null</span>
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveCsrf</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">?</span> <span class="p">=</span> <span class="n">csrf</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">retrieveCsrf</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="err">?</span> <span class="o">=</span> <span class="n">csrf</span>
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignCsrf</span><span class="p">(</span><span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">csrf</span><span class="p">:</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="n">csrf</span> <span class="p">=</span> <span class="n">csrf</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;assignCsrf&quot;</span><span class="p">)</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">assignCsrf</span><span class="p">(</span><span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">csrf</span><span class="p">:</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
+        <span class="n">this</span><span class="o">.</span><span class="n">csrf</span> <span class="o">=</span> <span class="n">csrf</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="s2">&quot;action&quot;</span><span class="p">,</span> <span class="s2">&quot;assignCsrf&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignNonce</span><span class="p">(</span><span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">nonce</span><span class="p">:</span> <span class="n">Nonce</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="n">nonce</span> <span class="p">=</span> <span class="n">nonce</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;assignNonce&quot;</span><span class="p">)</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">assignNonce</span><span class="p">(</span><span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">nonce</span><span class="p">:</span> <span class="n">Nonce</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
+        <span class="n">this</span><span class="o">.</span><span class="n">nonce</span> <span class="o">=</span> <span class="n">nonce</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="s2">&quot;action&quot;</span><span class="p">,</span> <span class="s2">&quot;assignNonce&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveNonce</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">Nonce</span><span class="p">?</span> <span class="p">=</span> <span class="n">nonce</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">retrieveNonce</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">Nonce</span><span class="err">?</span> <span class="o">=</span> <span class="n">nonce</span>
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">AccessToken</span><span class="p">?</span> <span class="p">=</span> <span class="n">accessToken</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">retrieveToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">AccessToken</span><span class="err">?</span> <span class="o">=</span> <span class="n">accessToken</span>
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="n">accessToken</span> <span class="p">=</span> <span class="n">accessToken</span>
-        <span class="k">return</span> <span class="n">redirect</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;assignToken&quot;</span><span class="p">)</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">assignToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
+        <span class="n">this</span><span class="o">.</span><span class="n">accessToken</span> <span class="o">=</span> <span class="n">accessToken</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="s2">&quot;action&quot;</span><span class="p">,</span> <span class="s2">&quot;assignToken&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>

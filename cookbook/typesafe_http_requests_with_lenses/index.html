@@ -1188,57 +1188,58 @@
 
 <h3 id="standard-exception-based-approach">Standard (exception based) approach <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example.kt"><img class="octocat"/></a></h3>
 <p>Errors in extracting Lenses are propagated as exceptions which are caught and handled by the <code>CatchLensFailure</code> Filter.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.typesafe_http_requests_with_lenses</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">typesafe_http_requests_with_lenses</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_PLAIN</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Header</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.string</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_PLAIN</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Header</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.string</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">data</span> <span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+    <span class="n">data</span> <span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">val</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">nameHeader</span> <span class="p">=</span> <span class="n">Header</span><span class="p">.</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">ageQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">childrenBody</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="n">map</span><span class="p">({</span> <span class="n">it</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">).</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Child</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">name</span> <span class="p">}.</span><span class="n">joinToString</span><span class="p">()</span> <span class="p">}).</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="n">val</span> <span class="n">nameHeader</span> <span class="o">=</span> <span class="n">Header</span><span class="o">.</span><span class="n">required</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">ageQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="o">.</span><span class="n">int</span><span class="p">()</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">childrenBody</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">({</span> <span class="n">it</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">Child</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">name</span> <span class="p">}</span><span class="o">.</span><span class="n">joinToString</span><span class="p">()</span> <span class="p">})</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">endpoint</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
+    <span class="n">val</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
 
-        <span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="n">nameHeader</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-        <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">ageQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-        <span class="k">val</span> <span class="py">children</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Child</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">childrenBody</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">val</span> <span class="n">name</span><span class="p">:</span> <span class="n">String</span> <span class="o">=</span> <span class="n">nameHeader</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">val</span> <span class="n">age</span><span class="p">:</span> <span class="n">Int</span><span class="err">?</span> <span class="o">=</span> <span class="n">ageQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">val</span> <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Child</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">childrenBody</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
-        <span class="k">val</span> <span class="py">msg</span> <span class="p">=</span> <span class="s">&quot;$name is ${age ?: &quot;</span><span class="n">unknown</span><span class="s">&quot;} years old and has &quot;</span> <span class="p">+</span>
-            <span class="s">&quot;${children.size} children (${children.map { it.name }.joinToString()})&quot;</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">with</span><span class="p">(</span>
-            <span class="n">Body</span><span class="p">.</span><span class="n">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">msg</span>
+        <span class="n">val</span> <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;$name is ${age ?: &quot;</span><span class="n">unknown</span><span class="s2">&quot;} years old and has &quot;</span> <span class="o">+</span>
+            <span class="s2">&quot;${children.size} children (${children.map { it.name }.joinToString()})&quot;</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span>
+            <span class="n">Body</span><span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">msg</span>
         <span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="o">.</span><span class="n">CatchLensFailure</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">goodRequest</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span>
-        <span class="n">nameHeader</span> <span class="n">of</span> <span class="s">&quot;Jane Doe&quot;</span><span class="p">,</span>
-        <span class="n">ageQuery</span> <span class="n">of</span> <span class="m">25</span><span class="p">,</span>
-        <span class="n">childrenBody</span> <span class="n">of</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Child</span><span class="p">(</span><span class="s">&quot;Rita&quot;</span><span class="p">),</span> <span class="n">Child</span><span class="p">(</span><span class="s">&quot;Sue&quot;</span><span class="p">)))</span>
+    <span class="n">val</span> <span class="n">goodRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span>
+        <span class="n">nameHeader</span> <span class="n">of</span> <span class="s2">&quot;Jane Doe&quot;</span><span class="p">,</span>
+        <span class="n">ageQuery</span> <span class="n">of</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="n">childrenBody</span> <span class="n">of</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Child</span><span class="p">(</span><span class="s2">&quot;Rita&quot;</span><span class="p">),</span> <span class="n">Child</span><span class="p">(</span><span class="s2">&quot;Sue&quot;</span><span class="p">)))</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Request:&quot;</span><span class="p">,</span> <span class="n">goodRequest</span><span class="p">,</span> <span class="n">app</span><span class="p">(</span><span class="n">goodRequest</span><span class="p">)).</span><span class="n">joinToString</span><span class="p">(</span><span class="s">&quot;\n&quot;</span><span class="p">))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Request:&quot;</span><span class="p">,</span> <span class="n">goodRequest</span><span class="p">,</span> <span class="n">app</span><span class="p">(</span><span class="n">goodRequest</span><span class="p">))</span><span class="o">.</span><span class="n">joinToString</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
 
-    <span class="k">val</span> <span class="py">badRequest</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">nameHeader</span> <span class="n">of</span> <span class="s">&quot;Jane Doe&quot;</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span> <span class="s">&quot;some illegal age!&quot;</span><span class="p">)</span>
+    <span class="n">val</span> <span class="n">badRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://localhost:9000&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">nameHeader</span> <span class="n">of</span> <span class="s2">&quot;Jane Doe&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;some illegal age!&quot;</span><span class="p">)</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Request:&quot;</span><span class="p">,</span> <span class="n">badRequest</span><span class="p">,</span> <span class="n">app</span><span class="p">(</span><span class="n">badRequest</span><span class="p">)).</span><span class="n">joinToString</span><span class="p">(</span><span class="s">&quot;\n&quot;</span><span class="p">))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Request:&quot;</span><span class="p">,</span> <span class="n">badRequest</span><span class="p">,</span> <span class="n">app</span><span class="p">(</span><span class="n">badRequest</span><span class="p">))</span><span class="o">.</span><span class="n">joinToString</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1249,43 +1250,44 @@ don't have a single representation to use without shackling ourselves to another
 <p>Additionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases.</p>
 <p>Below is an example which uses a custom Result ADT - this will work for all extraction Lenses that you define:</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example_custom_result_adt.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.typesafe_http_requests_with_lenses</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">typesafe_http_requests_with_lenses</span>
 
-<span class="k">import</span> <span class="nn">com.fasterxml.jackson.databind.JsonNode</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.format.Jackson.json</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.LensExtractor</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.LensFailure</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.JsonNode</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.format.Jackson.json</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.LensExtractor</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.LensFailure</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="kn">import</span> <span class="nn">org.http4k.lens.int</span>
 
-<span class="c1">// This is our custom Result/Either ADT, although it could be anything, like a Result4k Result (which has map() etc)</span>
-<span class="k">sealed</span> <span class="k">class</span> <span class="nc">Result</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span><span class="p">&gt;</span>
+<span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">our</span> <span class="n">custom</span> <span class="n">Result</span><span class="o">/</span><span class="n">Either</span> <span class="n">ADT</span><span class="p">,</span> <span class="n">although</span> <span class="n">it</span> <span class="n">could</span> <span class="n">be</span> <span class="n">anything</span><span class="p">,</span> <span class="n">like</span> <span class="n">a</span> <span class="n">Result4k</span> <span class="n">Result</span> <span class="p">(</span><span class="n">which</span> <span class="n">has</span> <span class="nb">map</span><span class="p">()</span> <span class="n">etc</span><span class="p">)</span>
+<span class="n">sealed</span> <span class="k">class</span> <span class="nc">Result</span><span class="o">&lt;</span><span class="n">out</span> <span class="n">T</span><span class="o">&gt;</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Succeeded</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span><span class="p">&gt;(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;()</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Failed</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span><span class="p">&gt;(</span><span class="k">val</span> <span class="py">e</span><span class="p">:</span> <span class="n">Exception</span><span class="p">)</span> <span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;()</span>
+<span class="n">data</span> <span class="k">class</span> <span class="nc">Succeeded</span><span class="o">&lt;</span><span class="n">out</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">val</span> <span class="n">value</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">:</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="n">data</span> <span class="k">class</span> <span class="nc">Failed</span><span class="o">&lt;</span><span class="n">out</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">val</span> <span class="n">e</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">)</span> <span class="p">:</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span>
 
 
-<span class="c1">// This simple extension method can be used to convert all Lenses to return our custom Result type instead of the standard exception</span>
-<span class="k">fun</span> <span class="p">&lt;</span><span class="n">IN</span>, <span class="n">OUT</span><span class="p">&gt;</span> <span class="nf">LensExtractor</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;.</span><span class="n">toResult</span><span class="p">():</span> <span class="n">LensExtractor</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">OUT</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="k">object</span> <span class="p">:</span> <span class="nc">LensExtractor</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">OUT</span><span class="p">&gt;&gt;</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">IN</span><span class="p">):</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">OUT</span><span class="p">&gt;</span> <span class="p">=</span> <span class="k">try</span> <span class="p">{</span>
-        <span class="n">Succeeded</span><span class="p">(</span><span class="k">this</span><span class="n">@toResult</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">))</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="n">LensFailure</span><span class="p">)</span> <span class="p">{</span>
+<span class="o">//</span> <span class="n">This</span> <span class="n">simple</span> <span class="n">extension</span> <span class="n">method</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span> <span class="n">convert</span> <span class="nb">all</span> <span class="n">Lenses</span> <span class="n">to</span> <span class="k">return</span> <span class="n">our</span> <span class="n">custom</span> <span class="n">Result</span> <span class="nb">type</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">exception</span>
+<span class="n">fun</span> <span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="o">&gt;</span> <span class="n">LensExtractor</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="o">&gt;.</span><span class="n">toResult</span><span class="p">():</span> <span class="n">LensExtractor</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">OUT</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="nb">object</span> <span class="p">:</span> <span class="n">LensExtractor</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">OUT</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">IN</span><span class="p">):</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">OUT</span><span class="o">&gt;</span> <span class="o">=</span> <span class="k">try</span> <span class="p">{</span>
+        <span class="n">Succeeded</span><span class="p">(</span><span class="n">this</span><span class="nd">@toResult.invoke</span><span class="p">(</span><span class="n">target</span><span class="p">))</span>
+    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="n">LensFailure</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">Failed</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="c1">// examples of using the above extension function</span>
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="o">//</span> <span class="n">examples</span> <span class="n">of</span> <span class="n">using</span> <span class="n">the</span> <span class="n">above</span> <span class="n">extension</span> <span class="n">function</span>
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">queryResultLens</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="n">toResult</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">intResult</span><span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">Int</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">queryResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/?foo=123&quot;</span><span class="p">))</span>
+    <span class="n">val</span> <span class="n">queryResultLens</span> <span class="o">=</span> <span class="n">Query</span><span class="o">.</span><span class="n">int</span><span class="p">()</span><span class="o">.</span><span class="n">required</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">toResult</span><span class="p">()</span>
+    <span class="n">val</span> <span class="n">intResult</span><span class="p">:</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Int</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">queryResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/?foo=123&quot;</span><span class="p">))</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">intResult</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">jsonResultLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">json</span><span class="p">().</span><span class="n">toLens</span><span class="p">().</span><span class="n">toResult</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">jsonResult</span><span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">JsonNode</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">jsonResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/foo&quot;</span><span class="p">))</span>
+    <span class="n">val</span> <span class="n">jsonResultLens</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span><span class="o">.</span><span class="n">toResult</span><span class="p">()</span>
+    <span class="n">val</span> <span class="n">jsonResult</span><span class="p">:</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">JsonNode</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">jsonResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/foo&quot;</span><span class="p">))</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">jsonResult</span><span class="p">)</span>
 

@@ -663,22 +663,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#testing-httphandlers-with-dynamic-paths" title="Testing HttpHandlers with dynamic paths " class="md-nav__link">
-    Testing HttpHandlers with dynamic paths 
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#testing-filters" title="Testing Filters " class="md-nav__link">
     Testing Filters 
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testing-websockets-with-offline-and-online-clients" title="Testing Websockets with offline and online clients " class="md-nav__link">
-    Testing Websockets with offline and online clients 
   </a>
   
 </li>
@@ -1222,33 +1208,39 @@ Testing is just matter of calling the correct function! Additionally, because th
 </ul>
 <h2 id="example-code-for-testing">Example code for testing</h2>
 <h4 id="testing-httphandlers-with-static-paths">Testing HttpHandlers with static paths <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/StaticPathTest.kt"><img class="octocat"/></a></h4>
-<p>```kotlin
-package guide.testing</p>
-<p>import com.natpryce.hamkrest.and
-import com.natpryce.hamkrest.assertion.assertThat</p>
-<p>import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.hamkrest.hasBody
-import org.http4k.hamkrest.hasStatus
-import org.junit.jupiter.api.Test</p>
-<p>val EchoBody: HttpHandler = { r -&gt; Response(OK).body(r.bodyString()) }</p>
-<p>class StaticPathTest {
-    @Test
-    fun <code>echoes body from request</code>() {</p>
-<div class="codehilite"><pre><span></span><code>    Request(GET, &quot;/anything&quot;).body(&quot;my data is large&quot;)
-    val response: Response = EchoBody(Request(GET, &quot;/anything&quot;).body(&quot;my data is large&quot;))
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">testing</span>
 
-    assertThat(response, hasStatus(OK).and(hasBody(&quot;my data is large&quot;)))
-}
+<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+<span class="n">val</span> <span class="n">EchoBody</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">r</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">bodyString</span><span class="p">())</span> <span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">StaticPathTest</span> <span class="p">{</span>
+    <span class="nd">@Test</span>
+    <span class="n">fun</span> <span class="sb">`echoes body from request`</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/anything&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;my data is large&quot;</span><span class="p">)</span>
+        <span class="n">val</span> <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">EchoBody</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/anything&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;my data is large&quot;</span><span class="p">))</span>
+
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="ow">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="s2">&quot;my data is large&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="sb">``</span><span class="err">`</span>
+
+<span class="c1">#### Testing HttpHandlers with dynamic paths [&lt;img class=&quot;octocat&quot;/&gt;](https://github.com/http4k/http4k/blob/master/src/docsguide/testing/DynamicPathTest.kt)</span>
 </code></pre></div>
 
 
-<p>}```</p>
-<h4 id="testing-httphandlers-with-dynamic-paths">Testing HttpHandlers with dynamic paths <a href="https://github.com/http4k/http4k/blob/master/src/docsguide/testing/DynamicPathTest.kt"><img class="octocat"/></a></h4>
-<p>```kotlin
+<p>kotlin
 package guide.testing</p>
 <p>import com.natpryce.hamkrest.and
 import com.natpryce.hamkrest.assertion.assertThat
@@ -1276,35 +1268,43 @@ fun `echoes body from path`() {
 
 <p>}```</p>
 <h4 id="testing-filters">Testing Filters <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/FilterTest.kt"><img class="octocat"/></a></h4>
-<p>```kotlin
-package guide.testing</p>
-<p>import com.natpryce.hamkrest.and
-import com.natpryce.hamkrest.assertion.assertThat</p>
-<p>import org.http4k.core.Filter
-import org.http4k.core.HttpHandler
-import org.http4k.core.Method.GET
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status.Companion.OK
-import org.http4k.core.then
-import org.http4k.hamkrest.hasHeader
-import org.http4k.hamkrest.hasStatus
-import org.junit.jupiter.api.Test</p>
-<p>val AddLatency = Filter { next -&gt;
-    {
-        next(it).header("x-extra-header", "some value")
-    }
-}</p>
-<p>class FilterTest {
-    @Test
-    fun <code>adds a special header</code>() {
-        val handler: HttpHandler = AddLatency.then { Response(OK) }
-        val response: Response = handler(Request(GET, "/echo/my+great+message"))
-        assertThat(response, hasStatus(OK).and(hasHeader("x-extra-header", "some value")))
-    }
-}```</p>
-<h4 id="testing-websockets-with-offline-and-online-clients">Testing Websockets with offline and online clients <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/TestingWebsockets.kt"><img class="octocat"/></a></h4>
-<p>```kotlin
+<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
+<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">testing</span>
+
+<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+
+<span class="kn">import</span> <span class="nn">org.http4k.core.Filter</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasHeader</span>
+<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+<span class="n">val</span> <span class="n">AddLatency</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="nb">next</span> <span class="o">-&gt;</span>
+    <span class="p">{</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="s2">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s2">&quot;some value&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">FilterTest</span> <span class="p">{</span>
+    <span class="nd">@Test</span>
+    <span class="n">fun</span> <span class="sb">`adds a special header`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">val</span> <span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">AddLatency</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+        <span class="n">val</span> <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="ow">and</span><span class="p">(</span><span class="n">hasHeader</span><span class="p">(</span><span class="s2">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s2">&quot;some value&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="sb">``</span><span class="err">`</span>
+
+<span class="c1">#### Testing Websockets with offline and online clients [&lt;img class=&quot;octocat&quot;/&gt;](https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/TestingWebsockets.kt)</span>
+</code></pre></div>
+
+
+<p>kotlin
 package guide.testing</p>
 <p>import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo</p>
