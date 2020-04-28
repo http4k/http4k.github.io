@@ -1174,32 +1174,31 @@
 <p>When authorising requests, it is common to need to store some credentials or a user principal object to be accessible by a further Filter or the eventual HttpHandler.</p>
 <p>This can be easily achieved by combining the typesafe RequestContext functionality with one of the built-in authorisation Filters:</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/principal_lookup/example.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">principal_lookup</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.principal_lookup</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.core.Credentials</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.RequestContexts</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters.BearerAuth</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters.InitialiseRequestContext</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.RequestContextKey</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.RequestContexts</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.BearerAuth</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.InitialiseRequestContext</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.RequestContextKey</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="n">val</span> <span class="n">contexts</span> <span class="o">=</span> <span class="n">RequestContexts</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">contexts</span> <span class="p">=</span> <span class="n">RequestContexts</span><span class="p">()</span>
 
-    <span class="n">val</span> <span class="n">credentials</span> <span class="o">=</span> <span class="n">RequestContextKey</span><span class="o">.</span><span class="n">required</span><span class="o">&lt;</span><span class="n">Credentials</span><span class="o">&gt;</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">credentials</span> <span class="p">=</span> <span class="n">RequestContextKey</span><span class="p">.</span><span class="n">required</span><span class="p">&lt;</span><span class="n">Credentials</span><span class="p">&gt;(</span><span class="n">contexts</span><span class="p">)</span>
 
-    <span class="n">val</span> <span class="n">app</span> <span class="o">=</span> <span class="n">InitialiseRequestContext</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">BearerAuth</span><span class="p">(</span><span class="n">credentials</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="s2">&quot;42&quot;</span><span class="p">)</span> <span class="n">Credentials</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;pass&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">null</span> <span class="p">})</span>
-        <span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">credentials</span><span class="p">(</span><span class="n">it</span><span class="p">)</span><span class="o">.</span><span class="n">toString</span><span class="p">())</span> <span class="p">}</span>
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">InitialiseRequestContext</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">BearerAuth</span><span class="p">(</span><span class="n">credentials</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="p">==</span> <span class="s">&quot;42&quot;</span><span class="p">)</span> <span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="s">&quot;pass&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="k">null</span> <span class="p">})</span>
+        <span class="p">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">credentials</span><span class="p">(</span><span class="n">it</span><span class="p">).</span><span class="n">toString</span><span class="p">())</span> <span class="p">}</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="s2">&quot;Authorization&quot;</span><span class="p">,</span> <span class="s2">&quot;Bearer 41&quot;</span><span class="p">)))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="s2">&quot;Authorization&quot;</span><span class="p">,</span> <span class="s2">&quot;Bearer 42&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Authorization&quot;</span><span class="p">,</span> <span class="s">&quot;Bearer 41&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Authorization&quot;</span><span class="p">,</span> <span class="s">&quot;Bearer 42&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></div>
                     

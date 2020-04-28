@@ -1190,56 +1190,55 @@
 <p>You can declare your own custom marshaller by reimplementing the Json instance and adding mappings for your own types - either uni or bi-directional.</p>
 <p>This ability to render custom types through different JSON marshallers allows API users to provide different "views" for different purposes - for example we may wish to hide the values of some fields in the output, as below:</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_json_marshallers/example.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">custom_json_marshallers</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.custom_json_marshallers</span>
 
-<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.databind.DeserializationFeature</span>
-<span class="kn">import</span> <span class="nn">com.fasterxml.jackson.module.kotlin.KotlinModule</span>
-<span class="o">//</span> <span class="n">this</span> <span class="kn">import</span> <span class="nn">is</span> <span class="nn">important</span> <span class="nn">so</span> <span class="nn">you</span> <span class="nn">don</span><span class="s1">&#39;t pick up the standard auto method!</span>
-<span class="kn">import</span> <span class="nn">cookbook.custom_json_marshallers.MyJackson.auto</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="kn">import</span> <span class="nn">org.http4k.format.ConfigurableJackson</span>
-<span class="kn">import</span> <span class="nn">org.http4k.format.asConfigurable</span>
-<span class="kn">import</span> <span class="nn">org.http4k.format.text</span>
-<span class="kn">import</span> <span class="nn">org.http4k.format.withStandardMappings</span>
+<span class="k">import</span> <span class="nn">com.fasterxml.jackson.databind.DeserializationFeature</span>
+<span class="k">import</span> <span class="nn">com.fasterxml.jackson.module.kotlin.KotlinModule</span>
+<span class="c1">// this import is important so you don&#39;t pick up the standard auto method!</span>
+<span class="k">import</span> <span class="nn">cookbook.custom_json_marshallers.MyJackson.auto</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.ConfigurableJackson</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.asConfigurable</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.text</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.withStandardMappings</span>
 
-<span class="nb">object</span> <span class="n">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span><span class="n">KotlinModule</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">asConfigurable</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">withStandardMappings</span><span class="p">()</span>
-    <span class="o">//</span> <span class="n">declare</span> <span class="n">custom</span> <span class="n">mapping</span> <span class="k">for</span> <span class="n">our</span> <span class="n">own</span> <span class="n">types</span> <span class="o">-</span> <span class="n">this</span> <span class="n">one</span> <span class="n">represents</span> <span class="n">our</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">a</span> <span class="n">simple</span> <span class="n">String</span>
-    <span class="o">.</span><span class="n">text</span><span class="p">(::</span><span class="n">PublicType</span><span class="p">,</span> <span class="n">PublicType</span><span class="p">::</span><span class="n">value</span><span class="p">)</span>
-    <span class="o">//</span> <span class="o">...</span> <span class="ow">and</span> <span class="n">this</span> <span class="n">one</span> <span class="n">shows</span> <span class="n">a</span> <span class="n">masked</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">deserialised</span> <span class="p">(</span><span class="k">as</span> <span class="n">the</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="n">only</span> <span class="n">one</span> <span class="n">way</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">SecretType</span><span class="p">::</span><span class="n">toString</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">done</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">deactivateDefaultTyping</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">DeserializationFeature</span><span class="o">.</span><span class="n">FAIL_ON_UNKNOWN_PROPERTIES</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span>
+<span class="k">object</span> <span class="nc">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span><span class="n">KotlinModule</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">asConfigurable</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">withStandardMappings</span><span class="p">()</span>
+    <span class="c1">// declare custom mapping for our own types - this one represents our type as a simple String</span>
+    <span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="o">::</span><span class="n">PublicType</span><span class="p">,</span> <span class="n">PublicType</span><span class="o">::</span><span class="n">value</span><span class="p">)</span>
+    <span class="c1">// ... and this one shows a masked value and cannot be deserialised (as the mapping is only one way)</span>
+    <span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="n">SecretType</span><span class="o">::</span><span class="n">toString</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">done</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">deactivateDefaultTyping</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">configure</span><span class="p">(</span><span class="n">DeserializationFeature</span><span class="p">.</span><span class="n">FAIL_ON_UNKNOWN_PROPERTIES</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="n">data</span> <span class="k">class</span> <span class="nc">PublicType</span><span class="p">(</span><span class="n">val</span> <span class="n">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
-<span class="n">data</span> <span class="k">class</span> <span class="nc">SecretType</span><span class="p">(</span><span class="n">val</span> <span class="n">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">override</span> <span class="n">fun</span> <span class="n">toString</span><span class="p">():</span> <span class="n">String</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s2">&quot;****&quot;</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">PublicType</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">SecretType</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">toString</span><span class="p">():</span> <span class="n">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;****&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="n">data</span> <span class="k">class</span> <span class="nc">MyType</span><span class="p">(</span><span class="n">val</span> <span class="n">public</span><span class="p">:</span> <span class="n">PublicType</span><span class="p">,</span> <span class="n">val</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">SecretType</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">MyType</span><span class="p">(</span><span class="k">val</span> <span class="py">public</span><span class="p">:</span> <span class="n">PublicType</span><span class="p">,</span> <span class="k">val</span> <span class="py">hidden</span><span class="p">:</span> <span class="n">SecretType</span><span class="p">)</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">println</span><span class="p">(</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">Body</span><span class="o">.</span><span class="n">auto</span><span class="o">&lt;</span><span class="n">MyType</span><span class="o">&gt;</span><span class="p">()</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">MyType</span><span class="p">(</span><span class="n">PublicType</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">),</span> <span class="n">SecretType</span><span class="p">(</span><span class="s2">&quot;secret&quot;</span><span class="p">)))</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">MyType</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">MyType</span><span class="p">(</span><span class="n">PublicType</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">),</span> <span class="n">SecretType</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">)))</span>
     <span class="p">)</span>
 
-    <span class="o">/**</span> <span class="n">Prints</span><span class="p">:</span>
+    <span class="cm">/** Prints:</span>
 
-    <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="n">OK</span>
-    <span class="n">content</span><span class="o">-</span><span class="nb">type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span><span class="p">;</span> <span class="n">charset</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
+<span class="cm">    HTTP/1.1 200 OK</span>
+<span class="cm">    content-type: application/json; charset=utf-8</span>
 
-    <span class="p">{</span><span class="s2">&quot;public&quot;</span><span class="p">:</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span><span class="s2">&quot;hidden&quot;</span><span class="p">:</span><span class="s2">&quot;****&quot;</span><span class="p">}</span>
+<span class="cm">    {&quot;public&quot;:&quot;hello&quot;,&quot;hidden&quot;:&quot;****&quot;}</span>
 
-     <span class="o">*/</span>
+<span class="cm">     */</span>
 <span class="p">}</span>
 </code></pre></div>
                     

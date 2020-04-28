@@ -1199,239 +1199,235 @@
 
 
 <h3 id="standard-non-typesafe-api">Standard (non-typesafe) API <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/multipart_forms/example_standard.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">multipart_forms</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.multipart_forms</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.MultipartFormBody</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartFormField</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartFormFile</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.MultipartFormBody</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartFormField</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartFormFile</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="o">//</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">body</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">request</span> <span class="nn">and</span> <span class="nn">then</span> <span class="nn">the</span> <span class="nn">fields</span><span class="o">/</span><span class="n">files</span> <span class="kn">from</span> <span class="nn">it</span>
-    <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
-        <span class="n">val</span> <span class="n">receivedForm</span> <span class="o">=</span> <span class="n">MultipartFormBody</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">receivedForm</span><span class="o">.</span><span class="n">fieldValues</span><span class="p">(</span><span class="s2">&quot;field&quot;</span><span class="p">))</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">receivedForm</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;field2&quot;</span><span class="p">))</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">receivedForm</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">))</span>
+    <span class="c1">// extract the body from the request and then the fields/files from it</span>
+    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
+        <span class="k">val</span> <span class="py">receivedForm</span> <span class="p">=</span> <span class="n">MultipartFormBody</span><span class="p">.</span><span class="n">from</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">receivedForm</span><span class="p">.</span><span class="n">fieldValues</span><span class="p">(</span><span class="s">&quot;field&quot;</span><span class="p">))</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">receivedForm</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s">&quot;field2&quot;</span><span class="p">))</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">receivedForm</span><span class="p">.</span><span class="n">files</span><span class="p">(</span><span class="s">&quot;file&quot;</span><span class="p">))</span>
 
         <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
-    <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="o">//</span> <span class="n">add</span> <span class="n">fields</span> <span class="ow">and</span> <span class="n">files</span> <span class="n">to</span> <span class="n">the</span> <span class="n">multipart</span> <span class="n">form</span> <span class="n">body</span>
-    <span class="n">val</span> <span class="n">body</span> <span class="o">=</span> <span class="n">MultipartFormBody</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">plus</span><span class="p">(</span><span class="s2">&quot;field&quot;</span> <span class="n">to</span> <span class="s2">&quot;my-value&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">plus</span><span class="p">(</span><span class="s2">&quot;field2&quot;</span> <span class="n">to</span> <span class="n">MultipartFormField</span><span class="p">(</span><span class="s2">&quot;my-value2&quot;</span><span class="p">,</span> <span class="n">listOf</span><span class="p">(</span><span class="s2">&quot;my-header&quot;</span> <span class="n">to</span> <span class="s2">&quot;my-value&quot;</span><span class="p">)))</span>
-        <span class="o">.</span><span class="n">plus</span><span class="p">(</span><span class="s2">&quot;file&quot;</span> <span class="n">to</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s2">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s2">&quot;somebinarycontent&quot;</span><span class="o">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
+    <span class="c1">// add fields and files to the multipart form body</span>
+    <span class="k">val</span> <span class="py">body</span> <span class="p">=</span> <span class="n">MultipartFormBody</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">plus</span><span class="p">(</span><span class="s">&quot;field&quot;</span> <span class="n">to</span> <span class="s">&quot;my-value&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">plus</span><span class="p">(</span><span class="s">&quot;field2&quot;</span> <span class="n">to</span> <span class="n">MultipartFormField</span><span class="p">(</span><span class="s">&quot;my-value2&quot;</span><span class="p">,</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;my-header&quot;</span> <span class="n">to</span> <span class="s">&quot;my-value&quot;</span><span class="p">)))</span>
+        <span class="p">.</span><span class="n">plus</span><span class="p">(</span><span class="s">&quot;file&quot;</span> <span class="n">to</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="p">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s">&quot;somebinarycontent&quot;</span><span class="p">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
 
-    <span class="o">//</span> <span class="n">we</span> <span class="n">need</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">both</span> <span class="n">the</span> <span class="n">body</span> <span class="n">AND</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">content</span> <span class="nb">type</span> <span class="n">header</span> <span class="n">on</span> <span class="n">the</span> <span class="n">the</span> <span class="n">request</span>
-    <span class="n">val</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s2">&quot;http://localhost:8000&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="s2">&quot;content-type&quot;</span><span class="p">,</span> <span class="s2">&quot;multipart/form-data; boundary=${body.boundary}&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+    <span class="c1">// we need to set both the body AND the correct content type header on the the request</span>
+    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;content-type&quot;</span><span class="p">,</span> <span class="s">&quot;multipart/form-data; boundary=${body.boundary}&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">body</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()(</span><span class="n">request</span><span class="p">))</span>
 
-    <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h3 id="lens-typesafe-validating-api-reads-all-contents-onto-diskmemory">Lens (typesafe, validating) API - reads ALL contents onto disk/memory <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/multipart_forms/example_lens.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">multipart_forms</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.multipart_forms</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartForm</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartFormField</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartFormFile</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.Validator</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.multipartForm</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartForm</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartFormField</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartFormFile</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Validator</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.multipartForm</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="n">data</span> <span class="k">class</span> <span class="nc">Name</span><span class="p">(</span><span class="n">val</span> <span class="n">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Name</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">define</span> <span class="n">fields</span> <span class="n">using</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">lens</span> <span class="n">syntax</span>
-    <span class="n">val</span> <span class="n">nameField</span> <span class="o">=</span> <span class="n">MultipartFormField</span><span class="o">.</span><span class="n">string</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">Name</span><span class="p">,</span> <span class="n">Name</span><span class="p">::</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">required</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
-    <span class="n">val</span> <span class="n">imageFile</span> <span class="o">=</span> <span class="n">MultipartFormFile</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// define fields using the standard lens syntax</span>
+    <span class="k">val</span> <span class="py">nameField</span> <span class="p">=</span> <span class="n">MultipartFormField</span><span class="p">.</span><span class="n">string</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Name</span><span class="p">,</span> <span class="n">Name</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">imageFile</span> <span class="p">=</span> <span class="n">MultipartFormFile</span><span class="p">.</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">)</span>
 
-    <span class="o">//</span> <span class="n">add</span> <span class="n">fields</span> <span class="n">to</span> <span class="n">a</span> <span class="n">form</span> <span class="n">definition</span><span class="p">,</span> <span class="n">along</span> <span class="k">with</span> <span class="n">a</span> <span class="n">validator</span>
-    <span class="n">val</span> <span class="n">strictFormBody</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">multipartForm</span><span class="p">(</span><span class="n">Validator</span><span class="o">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">imageFile</span><span class="p">,</span> <span class="n">diskThreshold</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="c1">// add fields to a form definition, along with a validator</span>
+    <span class="k">val</span> <span class="py">strictFormBody</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">multipartForm</span><span class="p">(</span><span class="n">Validator</span><span class="p">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">imageFile</span><span class="p">,</span> <span class="n">diskThreshold</span> <span class="p">=</span> <span class="m">5</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="o">.</span><span class="n">CatchAll</span><span class="p">()</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchAll</span><span class="p">().</span><span class="n">then</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
 
-        <span class="o">//</span> <span class="n">to</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">contents</span><span class="p">,</span> <span class="n">we</span> <span class="n">first</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">form</span> <span class="ow">and</span> <span class="n">then</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">fields</span> <span class="kn">from</span> <span class="nn">it</span> <span class="nn">using</span> <span class="nn">the</span> <span class="nn">lenses</span>
-        <span class="o">//</span> <span class="n">NOTE</span><span class="p">:</span> <span class="n">we</span> <span class="n">are</span> <span class="s2">&quot;using&quot;</span> <span class="n">the</span> <span class="n">form</span> <span class="n">body</span> <span class="n">here</span> <span class="n">because</span> <span class="n">we</span> <span class="n">want</span> <span class="n">to</span> <span class="n">close</span> <span class="n">the</span> <span class="n">underlying</span> <span class="nb">file</span> <span class="n">streams</span>
-        <span class="n">strictFormBody</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">use</span> <span class="p">{</span>
+        <span class="c1">// to extract the contents, we first extract the form and then extract the fields from it using the lenses</span>
+        <span class="c1">// NOTE: we are &quot;using&quot; the form body here because we want to close the underlying file streams</span>
+        <span class="n">strictFormBody</span><span class="p">(</span><span class="n">r</span><span class="p">).</span><span class="n">use</span> <span class="p">{</span>
             <span class="n">println</span><span class="p">(</span><span class="n">nameField</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
             <span class="n">println</span><span class="p">(</span><span class="n">imageFile</span><span class="p">(</span><span class="n">it</span><span class="p">))</span>
         <span class="p">}</span>
 
         <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
-    <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="o">//</span> <span class="n">creating</span> <span class="n">valid</span> <span class="n">form</span> <span class="n">using</span> <span class="s2">&quot;with()&quot;</span> <span class="ow">and</span> <span class="n">setting</span> <span class="n">it</span> <span class="n">onto</span> <span class="n">the</span> <span class="n">request</span><span class="o">.</span> <span class="n">The</span> <span class="n">content</span> <span class="nb">type</span> <span class="ow">and</span> <span class="n">boundary</span> <span class="n">are</span>
-    <span class="o">//</span> <span class="n">taken</span> <span class="n">care</span> <span class="n">of</span> <span class="n">automatically</span>
-    <span class="n">val</span> <span class="n">multipartform</span> <span class="o">=</span> <span class="n">MultipartForm</span><span class="p">()</span><span class="o">.</span><span class="k">with</span><span class="p">(</span>
-        <span class="n">nameField</span> <span class="n">of</span> <span class="n">Name</span><span class="p">(</span><span class="s2">&quot;rita&quot;</span><span class="p">),</span>
-        <span class="n">imageFile</span> <span class="n">of</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s2">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s2">&quot;somebinarycontent&quot;</span><span class="o">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
-    <span class="n">val</span> <span class="n">validRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s2">&quot;http://localhost:8000&quot;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">multipartform</span><span class="p">)</span>
+    <span class="c1">// creating valid form using &quot;with()&quot; and setting it onto the request. The content type and boundary are</span>
+    <span class="c1">// taken care of automatically</span>
+    <span class="k">val</span> <span class="py">multipartform</span> <span class="p">=</span> <span class="n">MultipartForm</span><span class="p">().</span><span class="n">with</span><span class="p">(</span>
+        <span class="n">nameField</span> <span class="n">of</span> <span class="n">Name</span><span class="p">(</span><span class="s">&quot;rita&quot;</span><span class="p">),</span>
+        <span class="n">imageFile</span> <span class="n">of</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="p">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s">&quot;somebinarycontent&quot;</span><span class="p">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
+    <span class="k">val</span> <span class="py">validRequest</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">multipartform</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()(</span><span class="n">validRequest</span><span class="p">))</span>
 
-    <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h3 id="streaming-iterate-over-multiparts">Streaming - iterate over Multiparts <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/multipart_forms/example_streaming.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">multipart_forms</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.multipart_forms</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.MultipartEntity</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.multipartIterator</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartForm</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartFormField</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartFormFile</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.Validator</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.multipartForm</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.MultipartEntity</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.multipartIterator</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartForm</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartFormField</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartFormFile</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Validator</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.multipartForm</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="o">.</span><span class="n">CatchAll</span><span class="p">()</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchAll</span><span class="p">().</span><span class="n">then</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
 
-        <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">are</span> <span class="n">iterating</span> <span class="n">over</span> <span class="n">the</span> <span class="n">multiparts</span> <span class="k">as</span> <span class="n">we</span> <span class="n">read</span> <span class="n">them</span> <span class="n">out</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">input</span>
-        <span class="n">val</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">multipartIterator</span><span class="p">()</span><span class="o">.</span><span class="n">asSequence</span><span class="p">()</span><span class="o">.</span><span class="n">fold</span><span class="p">(</span><span class="n">emptyList</span><span class="o">&lt;</span><span class="n">MultipartEntity</span><span class="o">.</span><span class="n">Field</span><span class="o">&gt;</span><span class="p">())</span> <span class="p">{</span> <span class="n">memo</span><span class="p">,</span> <span class="nb">next</span> <span class="o">-&gt;</span>
-            <span class="n">when</span> <span class="p">(</span><span class="nb">next</span><span class="p">)</span> <span class="p">{</span>
-                <span class="ow">is</span> <span class="n">MultipartEntity</span><span class="o">.</span><span class="n">File</span> <span class="o">-&gt;</span> <span class="p">{</span>
-                    <span class="o">//</span> <span class="n">do</span> <span class="n">something</span> <span class="k">with</span> <span class="n">the</span> <span class="nb">file</span> <span class="n">right</span> <span class="n">here</span><span class="o">...</span> <span class="n">like</span> <span class="n">stream</span> <span class="n">it</span> <span class="n">to</span> <span class="n">another</span> <span class="n">server</span>
+        <span class="c1">// here we are iterating over the multiparts as we read them out of the input</span>
+        <span class="k">val</span> <span class="py">fields</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">multipartIterator</span><span class="p">().</span><span class="n">asSequence</span><span class="p">().</span><span class="n">fold</span><span class="p">(</span><span class="n">emptyList</span><span class="p">&lt;</span><span class="n">MultipartEntity</span><span class="p">.</span><span class="n">Field</span><span class="p">&gt;())</span> <span class="p">{</span> <span class="n">memo</span><span class="p">,</span> <span class="n">next</span> <span class="p">-&gt;</span>
+            <span class="k">when</span> <span class="p">(</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">is</span> <span class="n">MultipartEntity</span><span class="p">.</span><span class="n">File</span> <span class="p">-&gt;</span> <span class="p">{</span>
+                    <span class="c1">// do something with the file right here... like stream it to another server</span>
                     <span class="n">memo</span>
                 <span class="p">}</span>
-                <span class="ow">is</span> <span class="n">MultipartEntity</span><span class="o">.</span><span class="n">Field</span> <span class="o">-&gt;</span> <span class="n">memo</span><span class="o">.</span><span class="n">plus</span><span class="p">(</span><span class="nb">next</span><span class="p">)</span>
+                <span class="k">is</span> <span class="n">MultipartEntity</span><span class="p">.</span><span class="n">Field</span> <span class="p">-&gt;</span> <span class="n">memo</span><span class="p">.</span><span class="n">plus</span><span class="p">(</span><span class="n">next</span><span class="p">)</span>
             <span class="p">}</span>
         <span class="p">}</span>
 
         <span class="n">println</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
 
         <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
-    <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()(</span><span class="n">buildMultipartRequest</span><span class="p">()))</span>
 
-    <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
 <span class="p">}</span>
 
-<span class="n">private</span> <span class="n">fun</span> <span class="n">buildMultipartRequest</span><span class="p">():</span> <span class="n">Request</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">define</span> <span class="n">fields</span> <span class="n">using</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">lens</span> <span class="n">syntax</span>
-    <span class="n">val</span> <span class="n">nameField</span> <span class="o">=</span> <span class="n">MultipartFormField</span><span class="o">.</span><span class="n">string</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">Name</span><span class="p">,</span> <span class="n">Name</span><span class="p">::</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">required</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
-    <span class="n">val</span> <span class="n">imageFile</span> <span class="o">=</span> <span class="n">MultipartFormFile</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
+<span class="k">private</span> <span class="k">fun</span> <span class="nf">buildMultipartRequest</span><span class="p">():</span> <span class="n">Request</span> <span class="p">{</span>
+    <span class="c1">// define fields using the standard lens syntax</span>
+    <span class="k">val</span> <span class="py">nameField</span> <span class="p">=</span> <span class="n">MultipartFormField</span><span class="p">.</span><span class="n">string</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Name</span><span class="p">,</span> <span class="n">Name</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">imageFile</span> <span class="p">=</span> <span class="n">MultipartFormFile</span><span class="p">.</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">)</span>
 
-    <span class="o">//</span> <span class="n">add</span> <span class="n">fields</span> <span class="n">to</span> <span class="n">a</span> <span class="n">form</span> <span class="n">definition</span><span class="p">,</span> <span class="n">along</span> <span class="k">with</span> <span class="n">a</span> <span class="n">validator</span>
-    <span class="n">val</span> <span class="n">strictFormBody</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">multipartForm</span><span class="p">(</span><span class="n">Validator</span><span class="o">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">imageFile</span><span class="p">,</span> <span class="n">diskThreshold</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="c1">// add fields to a form definition, along with a validator</span>
+    <span class="k">val</span> <span class="py">strictFormBody</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">multipartForm</span><span class="p">(</span><span class="n">Validator</span><span class="p">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">imageFile</span><span class="p">,</span> <span class="n">diskThreshold</span> <span class="p">=</span> <span class="m">5</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="n">val</span> <span class="n">multipartform</span> <span class="o">=</span> <span class="n">MultipartForm</span><span class="p">()</span><span class="o">.</span><span class="k">with</span><span class="p">(</span>
-        <span class="n">nameField</span> <span class="n">of</span> <span class="n">Name</span><span class="p">(</span><span class="s2">&quot;rita&quot;</span><span class="p">),</span>
-        <span class="n">imageFile</span> <span class="n">of</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s2">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s2">&quot;somebinarycontent&quot;</span><span class="o">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
-    <span class="n">val</span> <span class="n">validRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s2">&quot;http://localhost:8000&quot;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">multipartform</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">multipartform</span> <span class="p">=</span> <span class="n">MultipartForm</span><span class="p">().</span><span class="n">with</span><span class="p">(</span>
+        <span class="n">nameField</span> <span class="n">of</span> <span class="n">Name</span><span class="p">(</span><span class="s">&quot;rita&quot;</span><span class="p">),</span>
+        <span class="n">imageFile</span> <span class="n">of</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="p">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s">&quot;somebinarycontent&quot;</span><span class="p">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
+    <span class="k">val</span> <span class="py">validRequest</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">multipartform</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">validRequest</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h3 id="processing-files-with-a-filter-and-convert-to-standard-form">Processing Files with a Filter and convert to standard form <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/multipart_forms/example_processing.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">multipart_forms</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.multipart_forms</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.MultipartEntity</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ProcessFiles</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.FormField</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartForm</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartFormField</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.MultipartFormFile</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.Validator</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.multipartForm</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.webForm</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.MultipartEntity</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ProcessFiles</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.FormField</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartForm</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartFormField</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.MultipartFormFile</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Validator</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.multipartForm</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.webForm</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="n">data</span> <span class="k">class</span> <span class="nc">AName</span><span class="p">(</span><span class="n">val</span> <span class="n">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">AName</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="o">.</span><span class="n">ProcessFiles</span> <span class="p">{</span> <span class="n">multipartFile</span><span class="p">:</span> <span class="n">MultipartEntity</span><span class="o">.</span><span class="n">File</span> <span class="o">-&gt;</span>
-        <span class="o">//</span> <span class="n">do</span> <span class="n">something</span> <span class="k">with</span> <span class="n">the</span> <span class="nb">file</span> <span class="n">right</span> <span class="n">here</span><span class="o">...</span> <span class="n">like</span> <span class="n">stream</span> <span class="n">it</span> <span class="n">to</span> <span class="n">another</span> <span class="n">server</span> <span class="ow">and</span> <span class="k">return</span> <span class="n">the</span> <span class="n">reference</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="n">multipartFile</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">readBytes</span><span class="p">()))</span>
-        <span class="n">multipartFile</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">filename</span>
+    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">ProcessFiles</span> <span class="p">{</span> <span class="n">multipartFile</span><span class="p">:</span> <span class="n">MultipartEntity</span><span class="p">.</span><span class="n">File</span> <span class="p">-&gt;</span>
+        <span class="c1">// do something with the file right here... like stream it to another server and return the reference</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="n">multipartFile</span><span class="p">.</span><span class="n">file</span><span class="p">.</span><span class="n">content</span><span class="p">.</span><span class="n">readBytes</span><span class="p">()))</span>
+        <span class="n">multipartFile</span><span class="p">.</span><span class="n">file</span><span class="p">.</span><span class="n">filename</span>
     <span class="p">}</span>
-        <span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
-            <span class="o">//</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">web</span><span class="o">-</span><span class="n">form</span> <span class="n">definition</span> <span class="o">-</span> <span class="n">it</span> <span class="n">it</span> <span class="n">DIFFERENT</span> <span class="n">to</span> <span class="n">the</span> <span class="n">multipart</span> <span class="n">form</span> <span class="n">definition</span><span class="p">,</span>
-            <span class="o">//</span> <span class="n">because</span> <span class="n">the</span> <span class="n">fields</span> <span class="ow">and</span> <span class="n">content</span><span class="o">-</span><span class="nb">type</span> <span class="n">have</span> <span class="n">been</span> <span class="n">replaced</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">ProcessFiles</span> <span class="nb">filter</span>
-            <span class="n">val</span> <span class="n">nameField</span> <span class="o">=</span> <span class="n">FormField</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">AName</span><span class="p">,</span> <span class="n">AName</span><span class="p">::</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">required</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
-            <span class="n">val</span> <span class="n">imageFile</span> <span class="o">=</span> <span class="n">FormField</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
-            <span class="n">val</span> <span class="n">body</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">webForm</span><span class="p">(</span><span class="n">Validator</span><span class="o">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">imageFile</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
+            <span class="c1">// this is the web-form definition - it it DIFFERENT to the multipart form definition,</span>
+            <span class="c1">// because the fields and content-type have been replaced in the ProcessFiles filter</span>
+            <span class="k">val</span> <span class="py">nameField</span> <span class="p">=</span> <span class="n">FormField</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">AName</span><span class="p">,</span> <span class="n">AName</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+            <span class="k">val</span> <span class="py">imageFile</span> <span class="p">=</span> <span class="n">FormField</span><span class="p">.</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">)</span>
+            <span class="k">val</span> <span class="py">body</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">webForm</span><span class="p">(</span><span class="n">Validator</span><span class="p">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">imageFile</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
 
             <span class="n">println</span><span class="p">(</span><span class="n">body</span><span class="p">(</span><span class="n">req</span><span class="p">))</span>
 
             <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
-        <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()(</span><span class="n">buildValidMultipartRequest</span><span class="p">()))</span>
 
-    <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
 <span class="p">}</span>
 
-<span class="n">private</span> <span class="n">fun</span> <span class="n">buildValidMultipartRequest</span><span class="p">():</span> <span class="n">Request</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">define</span> <span class="n">fields</span> <span class="n">using</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">lens</span> <span class="n">syntax</span>
-    <span class="n">val</span> <span class="n">nameField</span> <span class="o">=</span> <span class="n">MultipartFormField</span><span class="o">.</span><span class="n">string</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(::</span><span class="n">AName</span><span class="p">,</span> <span class="n">AName</span><span class="p">::</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">required</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
-    <span class="n">val</span> <span class="n">imageFile</span> <span class="o">=</span> <span class="n">MultipartFormFile</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
+<span class="k">private</span> <span class="k">fun</span> <span class="nf">buildValidMultipartRequest</span><span class="p">():</span> <span class="n">Request</span> <span class="p">{</span>
+    <span class="c1">// define fields using the standard lens syntax</span>
+    <span class="k">val</span> <span class="py">nameField</span> <span class="p">=</span> <span class="n">MultipartFormField</span><span class="p">.</span><span class="n">string</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">AName</span><span class="p">,</span> <span class="n">AName</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">imageFile</span> <span class="p">=</span> <span class="n">MultipartFormFile</span><span class="p">.</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">)</span>
 
-    <span class="o">//</span> <span class="n">add</span> <span class="n">fields</span> <span class="n">to</span> <span class="n">a</span> <span class="n">form</span> <span class="n">definition</span><span class="p">,</span> <span class="n">along</span> <span class="k">with</span> <span class="n">a</span> <span class="n">validator</span>
-    <span class="n">val</span> <span class="n">strictFormBody</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">multipartForm</span><span class="p">(</span><span class="n">Validator</span><span class="o">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">imageFile</span><span class="p">,</span> <span class="n">diskThreshold</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="c1">// add fields to a form definition, along with a validator</span>
+    <span class="k">val</span> <span class="py">strictFormBody</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">multipartForm</span><span class="p">(</span><span class="n">Validator</span><span class="p">.</span><span class="n">Strict</span><span class="p">,</span> <span class="n">nameField</span><span class="p">,</span> <span class="n">imageFile</span><span class="p">,</span> <span class="n">diskThreshold</span> <span class="p">=</span> <span class="m">5</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="n">val</span> <span class="n">multipartform</span> <span class="o">=</span> <span class="n">MultipartForm</span><span class="p">()</span><span class="o">.</span><span class="k">with</span><span class="p">(</span>
-        <span class="n">nameField</span> <span class="n">of</span> <span class="n">AName</span><span class="p">(</span><span class="s2">&quot;rita&quot;</span><span class="p">),</span>
-        <span class="n">imageFile</span> <span class="n">of</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s2">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="o">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s2">&quot;somebinarycontent&quot;</span><span class="o">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
-    <span class="k">return</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s2">&quot;http://localhost:8000&quot;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">multipartform</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">multipartform</span> <span class="p">=</span> <span class="n">MultipartForm</span><span class="p">().</span><span class="n">with</span><span class="p">(</span>
+        <span class="n">nameField</span> <span class="n">of</span> <span class="n">AName</span><span class="p">(</span><span class="s">&quot;rita&quot;</span><span class="p">),</span>
+        <span class="n">imageFile</span> <span class="n">of</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="p">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s">&quot;somebinarycontent&quot;</span><span class="p">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
+    <span class="k">return</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">multipartform</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
                     

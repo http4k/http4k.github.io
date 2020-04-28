@@ -1183,48 +1183,47 @@
 
 
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nestable_routes/example.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">nestable_routes</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nestable_routes</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.DELETE</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.DebuggingFilters.PrintRequestAndResponse</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.ResourceLoader.Companion.Classpath</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.path</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.singlePageApp</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.static</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.DELETE</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.DebuggingFilters.PrintRequestAndResponse</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.ResourceLoader.Companion.Classpath</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.singlePageApp</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.static</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">val</span> <span class="n">routesWithFilter</span> <span class="o">=</span>
-        <span class="n">PrintRequestAndResponse</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">routesWithFilter</span> <span class="p">=</span>
+        <span class="n">PrintRequestAndResponse</span><span class="p">().</span><span class="n">then</span><span class="p">(</span>
             <span class="n">routes</span><span class="p">(</span>
-                <span class="s2">&quot;/get/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="err">!!</span><span class="p">)</span> <span class="p">},</span>
-                <span class="s2">&quot;/post/{name}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+                <span class="s">&quot;/get/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span><span class="o">!!</span><span class="p">)</span> <span class="p">},</span>
+                <span class="s">&quot;/post/{name}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
             <span class="p">)</span>
         <span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">routesWithFilter</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/get/value&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">routesWithFilter</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/get/value&quot;</span><span class="p">)))</span>
 
-    <span class="n">val</span> <span class="n">staticWithFilter</span> <span class="o">=</span> <span class="n">PrintRequestAndResponse</span><span class="p">()</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s2">&quot;cookbook/nestable_routes&quot;</span><span class="p">)))</span>
-    <span class="n">val</span> <span class="n">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s2">&quot;/bob&quot;</span> <span class="n">bind</span> <span class="n">routesWithFilter</span><span class="p">,</span>
-        <span class="s2">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">staticWithFilter</span><span class="p">,</span>
-        <span class="s2">&quot;/rita&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
-            <span class="s2">&quot;/delete/{name}&quot;</span> <span class="n">bind</span> <span class="n">DELETE</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
-            <span class="s2">&quot;/post/{name}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">val</span> <span class="py">staticWithFilter</span> <span class="p">=</span> <span class="n">PrintRequestAndResponse</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;cookbook/nestable_routes&quot;</span><span class="p">)))</span>
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/bob&quot;</span> <span class="n">bind</span> <span class="n">routesWithFilter</span><span class="p">,</span>
+        <span class="s">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">staticWithFilter</span><span class="p">,</span>
+        <span class="s">&quot;/rita&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
+            <span class="s">&quot;/delete/{name}&quot;</span> <span class="n">bind</span> <span class="n">DELETE</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
+            <span class="s">&quot;/post/{name}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
         <span class="p">),</span>
-        <span class="n">singlePageApp</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s2">&quot;cookbook/nestable_routes&quot;</span><span class="p">))</span>
+        <span class="n">singlePageApp</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;cookbook/nestable_routes&quot;</span><span class="p">))</span>
     <span class="p">)</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/bob/get/value&quot;</span><span class="p">)))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/static/someStaticFile.txt&quot;</span><span class="p">)))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/someSpaResource&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/bob/get/value&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/static/someStaticFile.txt&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someSpaResource&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></div>
                     

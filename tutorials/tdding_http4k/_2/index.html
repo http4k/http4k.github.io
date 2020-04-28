@@ -1127,99 +1127,97 @@ also been converted to reusable extension methods on Response.</p>
 <li>Implement an "add" service, which will sum a number of integer values.</li>
 </ul>
 <h2 id="tests">Tests:</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">tutorials</span><span class="o">.</span><span class="n">tdding_http4k</span><span class="o">.</span><span class="n">_2</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.tdding_http4k._2</span>
 
-<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
-<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
-<span class="kn">import</span> <span class="nn">org.http4k.client.OkHttp</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
-<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
-<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
-<span class="kn">import</span> <span class="nn">tutorials.tdding_http4k._2.Matchers.answerShouldBe</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+<span class="k">import</span> <span class="nn">tutorials.tdding_http4k._2.Matchers.answerShouldBe</span>
 
-<span class="nb">object</span> <span class="n">Matchers</span> <span class="p">{</span>
-    <span class="n">fun</span> <span class="n">Response</span><span class="o">.</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="n">expected</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="ow">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="n">expected</span><span class="o">.</span><span class="n">toString</span><span class="p">())))</span>
+<span class="k">object</span> <span class="nc">Matchers</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nc">Response</span><span class="p">.</span><span class="nf">answerShouldBe</span><span class="p">(</span><span class="n">expected</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="n">expected</span><span class="p">.</span><span class="n">toString</span><span class="p">())))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">class</span> <span class="nc">EndToEndTest</span> <span class="p">{</span>
-    <span class="n">private</span> <span class="n">val</span> <span class="n">client</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
-    <span class="n">private</span> <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
 
-    <span class="nd">@BeforeEach</span>
-    <span class="n">fun</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">@BeforeEach</span>
+    <span class="k">fun</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="nd">@AfterEach</span>
-    <span class="n">fun</span> <span class="n">teardown</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">@AfterEach</span>
+    <span class="k">fun</span> <span class="nf">teardown</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="nd">@Test</span>
-    <span class="n">fun</span> <span class="sb">`all endpoints are mounted correctly`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://localhost:${server.port()}/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
-        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://localhost:${server.port()}/add?value=1&amp;value=2&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`all endpoints are mounted correctly`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:${server.port()}/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:${server.port()}/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">class</span> <span class="nc">AddFunctionalTest</span> <span class="p">{</span>
-    <span class="n">private</span> <span class="n">val</span> <span class="n">client</span> <span class="o">=</span> <span class="n">MyMathsApp</span><span class="p">()</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">MyMathsApp</span><span class="p">()</span>
 
-    <span class="nd">@Test</span>
-    <span class="n">fun</span> <span class="sb">`adds values together`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/add?value=1&amp;value=2&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`adds values together`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="nd">@Test</span>
-    <span class="n">fun</span> <span class="sb">`answer is zero when no values`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/add&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`answer is zero when no values`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="nd">@Test</span>
-    <span class="n">fun</span> <span class="sb">`bad request when some values are not numbers`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/add?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">))</span>
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
 <h2 id="production">Production:</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">tutorials</span><span class="o">.</span><span class="n">tdding_http4k</span><span class="o">.</span><span class="n">_2</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.tdding_http4k._2</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.Query</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.int</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="n">fun</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="n">MyMathsApp</span><span class="p">()</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+<span class="k">fun</span> <span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">=</span> <span class="n">MyMathsApp</span><span class="p">().</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
 
-<span class="n">fun</span> <span class="n">MyMathsApp</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">CatchLensFailure</span><span class="o">.</span><span class="n">then</span><span class="p">(</span>
+<span class="k">fun</span> <span class="nf">MyMathsApp</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">CatchLensFailure</span><span class="p">.</span><span class="n">then</span><span class="p">(</span>
     <span class="n">routes</span><span class="p">(</span>
-        <span class="s2">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
-        <span class="s2">&quot;/add&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
-            <span class="n">val</span> <span class="n">valuesToAdd</span> <span class="o">=</span> <span class="n">Query</span><span class="o">.</span><span class="n">int</span><span class="p">()</span><span class="o">.</span><span class="n">multi</span><span class="o">.</span><span class="n">defaulted</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">listOf</span><span class="p">())(</span><span class="n">request</span><span class="p">)</span>
-            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">valuesToAdd</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">())</span>
+        <span class="s">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
+        <span class="s">&quot;/add&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
+            <span class="k">val</span> <span class="py">valuesToAdd</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">multi</span><span class="p">.</span><span class="n">defaulted</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span> <span class="n">listOf</span><span class="p">())(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">valuesToAdd</span><span class="p">.</span><span class="n">sum</span><span class="p">().</span><span class="n">toString</span><span class="p">())</span>
         <span class="p">}</span>
     <span class="p">)</span>
 <span class="p">)</span>

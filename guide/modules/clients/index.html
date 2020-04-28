@@ -1217,56 +1217,55 @@
 <p>Activate streaming mode by passing a <code>BodyMode</code> (default is non-streaming).</p>
 <p>These examples are for the Apache HTTP client, but the API is similar for the others:</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_http.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">clients</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.clients</span>
 
-<span class="kn">import</span> <span class="nn">org.apache.http.client.config.CookieSpecs</span>
-<span class="kn">import</span> <span class="nn">org.apache.http.client.config.RequestConfig</span>
-<span class="kn">import</span> <span class="nn">org.apache.http.impl.client.HttpClients</span>
-<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheAsyncClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.BodyMode</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">kotlin.concurrent.thread</span>
+<span class="k">import</span> <span class="nn">org.apache.http.client.config.CookieSpecs</span>
+<span class="k">import</span> <span class="nn">org.apache.http.client.config.RequestConfig</span>
+<span class="k">import</span> <span class="nn">org.apache.http.impl.client.HttpClients</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheAsyncClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.BodyMode</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">kotlin.concurrent.thread</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="o">//</span> <span class="n">standard</span> <span class="n">client</span>
-    <span class="n">val</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
-    <span class="n">val</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://httpbin.org/get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">)</span>
-    <span class="n">val</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="s2">&quot;SYNC&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">bodyString</span><span class="p">())</span>
+    <span class="c1">// standard client</span>
+    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/get&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;location&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;SYNC&quot;</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span>
 
-    <span class="o">//</span> <span class="n">streaming</span> <span class="n">client</span>
-    <span class="n">val</span> <span class="n">streamingClient</span> <span class="o">=</span> <span class="n">ApacheClient</span><span class="p">(</span><span class="n">responseBodyMode</span> <span class="o">=</span> <span class="n">BodyMode</span><span class="o">.</span><span class="n">Stream</span><span class="p">)</span>
-    <span class="n">val</span> <span class="n">streamingRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://httpbin.org/stream/100&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="s2">&quot;STREAM&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">streamingClient</span><span class="p">(</span><span class="n">streamingRequest</span><span class="p">)</span><span class="o">.</span><span class="n">bodyString</span><span class="p">())</span>
+    <span class="c1">// streaming client</span>
+    <span class="k">val</span> <span class="py">streamingClient</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">(</span><span class="n">responseBodyMode</span> <span class="p">=</span> <span class="n">BodyMode</span><span class="p">.</span><span class="n">Stream</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">streamingRequest</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/stream/100&quot;</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;STREAM&quot;</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">streamingClient</span><span class="p">(</span><span class="n">streamingRequest</span><span class="p">).</span><span class="n">bodyString</span><span class="p">())</span>
 
-    <span class="o">//</span> <span class="n">async</span> <span class="n">supporting</span> <span class="n">clients</span> <span class="n">can</span> <span class="n">be</span> <span class="n">passed</span> <span class="n">a</span> <span class="n">callback</span><span class="o">...</span>
-    <span class="n">val</span> <span class="n">asyncClient</span> <span class="o">=</span> <span class="n">ApacheAsyncClient</span><span class="p">()</span>
-    <span class="n">asyncClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;http://httpbin.org/stream/5&quot;</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">println</span><span class="p">(</span><span class="s2">&quot;ASYNC&quot;</span><span class="p">)</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">bodyString</span><span class="p">())</span>
+    <span class="c1">// async supporting clients can be passed a callback...</span>
+    <span class="k">val</span> <span class="py">asyncClient</span> <span class="p">=</span> <span class="n">ApacheAsyncClient</span><span class="p">()</span>
+    <span class="n">asyncClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/stream/5&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;ASYNC&quot;</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span>
     <span class="p">}</span>
 
-    <span class="o">//</span> <span class="o">...</span> <span class="n">but</span> <span class="n">must</span> <span class="n">be</span> <span class="n">closed</span>
+    <span class="c1">// ... but must be closed</span>
     <span class="n">thread</span> <span class="p">{</span>
-        <span class="n">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-        <span class="n">asyncClient</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="m">500</span><span class="p">)</span>
+        <span class="n">asyncClient</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="o">//</span> <span class="n">custom</span> <span class="n">configured</span> <span class="n">client</span>
-    <span class="n">val</span> <span class="n">customClient</span> <span class="o">=</span> <span class="n">ApacheClient</span><span class="p">(</span>
-        <span class="n">client</span> <span class="o">=</span>
-        <span class="n">HttpClients</span><span class="o">.</span><span class="n">custom</span><span class="p">()</span><span class="o">.</span><span class="n">setDefaultRequestConfig</span><span class="p">(</span><span class="n">RequestConfig</span><span class="o">.</span><span class="n">custom</span><span class="p">()</span>
-            <span class="o">.</span><span class="n">setRedirectsEnabled</span><span class="p">(</span><span class="n">false</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">setCookieSpec</span><span class="p">(</span><span class="n">CookieSpecs</span><span class="o">.</span><span class="n">IGNORE_COOKIES</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">build</span><span class="p">())</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+    <span class="c1">// custom configured client</span>
+    <span class="k">val</span> <span class="py">customClient</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">(</span>
+        <span class="n">client</span> <span class="p">=</span>
+        <span class="n">HttpClients</span><span class="p">.</span><span class="n">custom</span><span class="p">().</span><span class="n">setDefaultRequestConfig</span><span class="p">(</span><span class="n">RequestConfig</span><span class="p">.</span><span class="n">custom</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">setRedirectsEnabled</span><span class="p">(</span><span class="k">false</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">setCookieSpec</span><span class="p">(</span><span class="n">CookieSpecs</span><span class="p">.</span><span class="n">IGNORE_COOKIES</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">build</span><span class="p">()).</span><span class="n">build</span><span class="p">()</span>
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1276,58 +1275,57 @@
 <h3 id="websocket">Websocket</h3>
 <p>http4k supplies both blocking and non-blocking Websocket clients. The former is perfect for integration testing purposes, and as it uses the same interface <code>WsClient</code> as the in-memory test client (<code>WsHandler.testWsClient()</code>) it is simple to write unit tests which can then be reused as system tests by virtue of swapping out the client.</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_websocket.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">clients</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.clients</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.websockets</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
-<span class="kn">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
-<span class="kn">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.websockets</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="o">//</span> <span class="n">a</span> <span class="n">standard</span> <span class="n">websocket</span> <span class="n">app</span>
-    <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
-        <span class="s2">&quot;/bob&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
-            <span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s2">&quot;bob&quot;</span><span class="p">))</span>
-            <span class="n">ws</span><span class="o">.</span><span class="n">onMessage</span> <span class="p">{</span>
-                <span class="n">println</span><span class="p">(</span><span class="s2">&quot;server received: &quot;</span> <span class="o">+</span> <span class="n">it</span><span class="p">)</span>
-                <span class="n">ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+    <span class="c1">// a standard websocket app</span>
+    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">websockets</span><span class="p">(</span>
+        <span class="s">&quot;/bob&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
+            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;bob&quot;</span><span class="p">))</span>
+            <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
+                <span class="n">println</span><span class="p">(</span><span class="s">&quot;server received: &quot;</span> <span class="p">+</span> <span class="n">it</span><span class="p">)</span>
+                <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
             <span class="p">}</span>
         <span class="p">}</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="o">//</span> <span class="n">blocking</span> <span class="n">client</span> <span class="o">-</span> <span class="n">connection</span> <span class="ow">is</span> <span class="n">done</span> <span class="n">on</span> <span class="n">construction</span>
-    <span class="n">val</span> <span class="n">blockingClient</span> <span class="o">=</span> <span class="n">WebsocketClient</span><span class="o">.</span><span class="n">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
-    <span class="n">blockingClient</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s2">&quot;server sent on connection&quot;</span><span class="p">))</span>
-    <span class="n">blockingClient</span><span class="o">.</span><span class="n">received</span><span class="p">()</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">forEach</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s2">&quot;blocking client received: &quot;</span> <span class="o">+</span> <span class="n">it</span><span class="p">)</span> <span class="p">}</span>
-    <span class="n">blockingClient</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1">// blocking client - connection is done on construction</span>
+    <span class="k">val</span> <span class="py">blockingClient</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
+    <span class="n">blockingClient</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;server sent on connection&quot;</span><span class="p">))</span>
+    <span class="n">blockingClient</span><span class="p">.</span><span class="n">received</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;blocking client received: &quot;</span> <span class="p">+</span> <span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">blockingClient</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 
-    <span class="o">//</span> <span class="n">non</span><span class="o">-</span><span class="n">blocking</span> <span class="n">client</span> <span class="o">-</span> <span class="n">exposes</span> <span class="n">a</span> <span class="n">Websocket</span> <span class="n">interface</span> <span class="k">for</span> <span class="n">attaching</span> <span class="n">listeners</span><span class="p">,</span>
-    <span class="o">//</span> <span class="ow">and</span> <span class="n">connection</span> <span class="ow">is</span> <span class="n">done</span> <span class="n">on</span> <span class="n">construction</span><span class="p">,</span> <span class="n">but</span> <span class="n">doesn</span><span class="s1">&#39;t block - the (optional) handler</span>
-    <span class="o">//</span> <span class="n">passed</span> <span class="n">to</span> <span class="n">the</span> <span class="n">construction</span> <span class="ow">is</span> <span class="n">called</span> <span class="n">on</span> <span class="n">connection</span><span class="o">.</span>
-    <span class="n">val</span> <span class="n">nonBlockingClient</span> <span class="o">=</span> <span class="n">WebsocketClient</span><span class="o">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">it</span><span class="o">.</span><span class="n">run</span> <span class="p">{</span>
-            <span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s2">&quot;client sent on connection&quot;</span><span class="p">))</span>
+    <span class="c1">// non-blocking client - exposes a Websocket interface for attaching listeners,</span>
+    <span class="c1">// and connection is done on construction, but doesn&#39;t block - the (optional) handler</span>
+    <span class="c1">// passed to the construction is called on connection.</span>
+    <span class="k">val</span> <span class="py">nonBlockingClient</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">it</span><span class="p">.</span><span class="n">run</span> <span class="p">{</span>
+            <span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;client sent on connection&quot;</span><span class="p">))</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="n">nonBlockingClient</span><span class="o">.</span><span class="n">onMessage</span> <span class="p">{</span>
-        <span class="n">println</span><span class="p">(</span><span class="s2">&quot;non-blocking client received:&quot;</span> <span class="o">+</span> <span class="n">it</span><span class="p">)</span>
+    <span class="n">nonBlockingClient</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;non-blocking client received:&quot;</span> <span class="p">+</span> <span class="n">it</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="n">nonBlockingClient</span><span class="o">.</span><span class="n">onClose</span> <span class="p">{</span>
-        <span class="n">println</span><span class="p">(</span><span class="s2">&quot;non-blocking client closing&quot;</span><span class="p">)</span>
+    <span class="n">nonBlockingClient</span><span class="p">.</span><span class="n">onClose</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;non-blocking client closing&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 
 
-    <span class="n">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
 
-    <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
                     

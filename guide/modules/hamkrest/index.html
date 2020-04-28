@@ -1190,44 +1190,43 @@
 <h3 id="about">About</h3>
 <p>A set of Hamkrest matchers for use when testing <a href="https://http4k.org">http4k</a> apps.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/hamkrest/example.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="n">kotlin</span>
-<span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">hamkrest</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.hamkrest</span>
 
-<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
-<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
-<span class="kn">import</span> <span class="nn">com.natpryce.hamkrest.equalTo</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.ContentType</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
-<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasHeader</span>
-<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasQuery</span>
-<span class="kn">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
-<span class="kn">import</span> <span class="nn">org.http4k.lens.string</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.equalTo</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasHeader</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasQuery</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.string</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="n">val</span> <span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s2">&quot;/?a=b&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;http4k is cool&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">header</span><span class="p">(</span><span class="s2">&quot;my header&quot;</span><span class="p">,</span> <span class="s2">&quot;a value&quot;</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/?a=b&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;my header&quot;</span><span class="p">,</span> <span class="s">&quot;a value&quot;</span><span class="p">)</span>
 
-    <span class="o">//</span> <span class="n">status</span>
+    <span class="c1">// status</span>
     <span class="n">assertThat</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
 
-    <span class="o">//</span> <span class="n">query</span>
-    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasQuery</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">))</span>
+    <span class="c1">// query</span>
+    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasQuery</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">))</span>
 
-    <span class="o">//</span> <span class="n">header</span>
-    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasHeader</span><span class="p">(</span><span class="s2">&quot;my header&quot;</span><span class="p">,</span> <span class="s2">&quot;a value&quot;</span><span class="p">))</span>
+    <span class="c1">// header</span>
+    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasHeader</span><span class="p">(</span><span class="s">&quot;my header&quot;</span><span class="p">,</span> <span class="s">&quot;a value&quot;</span><span class="p">))</span>
 
-    <span class="o">//</span> <span class="n">body</span>
-    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasBody</span><span class="p">(</span><span class="n">equalTo</span><span class="p">(</span><span class="s2">&quot;http4k is cool&quot;</span><span class="p">)))</span>
-    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasBody</span><span class="p">(</span><span class="s2">&quot;http4k is cool&quot;</span><span class="p">))</span>
-    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasBody</span><span class="p">(</span><span class="n">Body</span><span class="o">.</span><span class="n">string</span><span class="p">(</span><span class="n">ContentType</span><span class="o">.</span><span class="n">TEXT_HTML</span><span class="p">)</span><span class="o">.</span><span class="n">toLens</span><span class="p">(),</span> <span class="n">equalTo</span><span class="p">(</span><span class="s2">&quot;http4k is cool&quot;</span><span class="p">)))</span>
+    <span class="c1">// body</span>
+    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasBody</span><span class="p">(</span><span class="n">equalTo</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">)))</span>
+    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasBody</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">))</span>
+    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasBody</span><span class="p">(</span><span class="n">Body</span><span class="p">.</span><span class="n">string</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="n">TEXT_HTML</span><span class="p">).</span><span class="n">toLens</span><span class="p">(),</span> <span class="n">equalTo</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">)))</span>
 
-    <span class="o">//</span> <span class="n">composite</span>
-    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasBody</span><span class="p">(</span><span class="n">equalTo</span><span class="p">(</span><span class="s2">&quot;http4k is cool&quot;</span><span class="p">))</span><span class="o">.</span><span class="ow">and</span><span class="p">(</span><span class="n">hasQuery</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">)))</span>
+    <span class="c1">// composite</span>
+    <span class="n">assertThat</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">hasBody</span><span class="p">(</span><span class="n">equalTo</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">)).</span><span class="n">and</span><span class="p">(</span><span class="n">hasQuery</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></div>
                     
