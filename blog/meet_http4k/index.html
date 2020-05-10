@@ -1339,7 +1339,7 @@ extra infrastructure - just call the function, it's as easy as:</p>
 
 
 <p>To plug it into a different Server-backend, just depend on the relevant module (Jetty, Undertow, Netty, Apache (httpcore), 
-Ktor CIO, and SunHttp are available) and change the call to <code>asServer()</code>.</p>
+Ktor CIO, Ktor Netty, and SunHttp are available) and change the call to <code>asServer()</code>.</p>
 <h3 id="function-2-filter">Function 2: Filter</h3>
 <p><code>Filters</code> provides pre and post Request processing and are simply:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">HttpHandler</span>
