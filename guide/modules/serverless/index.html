@@ -526,6 +526,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#google-cloud-functions-integration" title="Google Cloud Functions integration" class="md-nav__link">
+    Google Cloud Functions integration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code_1" title="Code " class="md-nav__link">
+    Code 
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1193,9 +1207,10 @@
                     <h1>Serverless backend</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><code>compile group: "org.http4k", name: "http4k-serverless-lambda", version: "3.248.0"</code></p>
+<p>AWS Lambda: <code>compile group: "org.http4k", name: "http4k-serverless-lambda", version: "3.248.0"</code></p>
+<p>GCP Cloud Functions: <code>compile group: "org.http4k", name: "http4k-serverless-gcp", version: "3.248.0"</code></p>
 <h3 id="about">About</h3>
-<p>These modules provide integration with Serverless deployment environments, such as AWS Lambda. </p>
+<p>These modules provide integration with Serverless deployment environments, such as AWS Lambda or Google Cloud Functions. </p>
 <h4 id="aws-lambda-integration">AWS Lambda integration</h4>
 <p>Since <a href="https://http4k.org">http4k</a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library. This has the added bonus that you can test your applications in a local environment and then simply deploy them to AWS Lambda via S3 upload.</p>
 <p>In order to achieve this, only a single interface <code>AppLoader</code> needs to be implemented.</p>
@@ -1272,6 +1287,71 @@
 
 <span class="p">}</span>
 </code></pre></div>
+
+
+<h4 id="google-cloud-functions-integration">Google Cloud Functions integration</h4>
+<p>Google Cloud Functions are triggered in the cloud by calling an entry point class which implements their <code>HttpFunction</code> interface.
+We have provided an adapter <code>Http4kGCFAdapter</code> which adapts their interface to Http4k handler.</p>
+<p>You can compose filters and handlers as usual and pass them to the constructor of the <code>Http4kGCFAdapter</code> and make your entry point class extend from it.
+Here is an example:</p>
+<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/example_gcf.kt"><img class="octocat"/></a></h4>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">serverless</span>
+
+<span class="kn">import</span> <span class="nn">org.http4k.core.</span><span class="o">*</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.gcp.Http4kGCFAdapter</span>
+
+<span class="n">val</span> <span class="n">routes</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
+    <span class="s2">&quot;/success&quot;</span> <span class="n">bind</span> <span class="n">Method</span><span class="o">.</span><span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;works!&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s2">&quot;/fail&quot;</span> <span class="n">bind</span> <span class="n">Method</span><span class="o">.</span><span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">val</span> <span class="n">timer</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="nb">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">-&gt;</span>
+    <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+        <span class="n">val</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="p">()</span>
+        <span class="n">val</span> <span class="n">response</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">val</span> <span class="n">latency</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+        <span class="n">println</span><span class="p">(</span><span class="s2">&quot;I took $latency ms&quot;</span><span class="p">)</span>
+        <span class="n">response</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">FunctionsExampleEntryClass</span> <span class="p">:</span> <span class="n">Http4kGCFAdapter</span><span class="p">(</span><span class="n">timer</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">routes</span><span class="p">))</span>
+</code></pre></div>
+
+
+<p>If you are using gradle, gcloud can't deploy the function directly from the project, you must build the fat jar first.
+Applying this plugin <a href="https://imperceptiblethoughts.com/shadow/">shadow jar</a> will provide you with appropriate gradle task to build the fat jar.</p>
+<p>After building, and having your jar as the only file in the <code>libs/</code> folder you can deploy the function from the parent folder with : </p>
+<p><code>gcloud functions deploy example-function --runtime=java11 --entry-point=guide.modules.serverless.FunctionsExampleEntryClass --trigger-http --source=libs/</code></p>
+<p>If you wan't to invoke functions locally you can do it with this gradle setup and passing a <code>-PrunFunction.target</code> parameter to the build task : </p>
+<div class="codehilite"><pre><span></span><code><span class="n">configurations</span> <span class="o">{</span>
+    <span class="n">invoker</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">invoker</span> <span class="s1">&#39;com.google.cloud.functions.invoker:java-function-invoker:1.0.0-alpha-2-rc5&#39;</span>
+<span class="o">}</span>
+
+<span class="n">tasks</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="s2">&quot;runFunction&quot;</span><span class="o">,</span> <span class="n">JavaExec</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">main</span> <span class="o">=</span> <span class="s1">&#39;com.google.cloud.functions.invoker.runner.Invoker&#39;</span>
+    <span class="n">classpath</span><span class="o">(</span><span class="n">configurations</span><span class="o">.</span><span class="na">invoker</span><span class="o">)</span>
+    <span class="n">inputs</span><span class="o">.</span><span class="na">files</span><span class="o">(</span><span class="n">configurations</span><span class="o">.</span><span class="na">runtimeClasspath</span><span class="o">,</span> <span class="n">sourceSets</span><span class="o">.</span><span class="na">main</span><span class="o">.</span><span class="na">output</span><span class="o">)</span>
+    <span class="n">args</span><span class="o">(</span>
+            <span class="s1">&#39;--target&#39;</span><span class="o">,</span> <span class="n">project</span><span class="o">.</span><span class="na">findProperty</span><span class="o">(</span><span class="s1">&#39;runFunction.target&#39;</span><span class="o">),</span>
+            <span class="s1">&#39;--port&#39;</span><span class="o">,</span> <span class="n">project</span><span class="o">.</span><span class="na">findProperty</span><span class="o">(</span><span class="s1">&#39;runFunction.port&#39;</span><span class="o">)</span> <span class="o">?:</span> <span class="mi">8080</span>
+    <span class="o">)</span>
+    <span class="n">doFirst</span> <span class="o">{</span>
+        <span class="n">args</span><span class="o">(</span><span class="s1">&#39;--classpath&#39;</span><span class="o">,</span> <span class="n">files</span><span class="o">(</span><span class="n">configurations</span><span class="o">.</span><span class="na">runtimeClasspath</span><span class="o">,</span> <span class="n">sourceSets</span><span class="o">.</span><span class="na">main</span><span class="o">.</span><span class="na">output</span><span class="o">).</span><span class="na">asPath</span><span class="o">)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>If you are using Maven, you do not have to build the fat JAR and can deploy the function from the project folder.
+Simple example on how to setup <code>pom.xml</code> to run functions locally and deploy Maven project to the cloud is shown <a href="https://cloud.google.com/functions/docs/first-java">here</a></p>
                     
                     
                     
