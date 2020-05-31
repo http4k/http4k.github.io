@@ -1291,8 +1291,8 @@
 
 <h4 id="google-cloud-functions-integration">Google Cloud Functions integration</h4>
 <p>Google Cloud Functions are triggered in the cloud by calling an entry point class which implements their <code>HttpFunction</code> interface.
-We have provided an adapter <code>Http4kGCFAdapter</code> which adapts their interface to Http4k handler.</p>
-<p>You can compose filters and handlers as usual and pass them to the constructor of the <code>Http4kGCFAdapter</code> and make your entry point class extend from it.
+We have provided a <code>GoogleCloudFunction</code> class which adapts their interface to Http4k handler.</p>
+<p>You can compose filters and handlers as usual and pass them to the constructor of the <code>GoogleCloudFunction</code> and make your entry point class extend from it.
 Here is an example:</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/example_gcf.kt"><img class="octocat"/></a></h4>
 <div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">serverless</span>
