@@ -1208,7 +1208,7 @@
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
 <p>AWS Lambda: <code>compile group: "org.http4k", name: "http4k-serverless-lambda", version: "3.248.0"</code></p>
-<p>GCP Cloud Functions: <code>compile group: "org.http4k", name: "http4k-serverless-gcp", version: "3.248.0"</code></p>
+<p>Google Cloud Functions: <code>compile group: "org.http4k", name: "http4k-serverless-gcf", version: "3.248.0"</code></p>
 <h3 id="about">About</h3>
 <p>These modules provide integration with Serverless deployment environments, such as AWS Lambda or Google Cloud Functions. </p>
 <h4 id="aws-lambda-integration">AWS Lambda integration</h4>
@@ -1297,12 +1297,17 @@ Here is an example:</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/example_gcf.kt"><img class="octocat"/></a></h4>
 <div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">serverless</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.core.</span><span class="o">*</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Filter</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Method</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
 <span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
 <span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="kn">import</span> <span class="nn">org.http4k.serverless.gcp.Http4kGCFAdapter</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.gcf.GoogleCloudFunction</span>
 
 <span class="n">val</span> <span class="n">routes</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
     <span class="s2">&quot;/success&quot;</span> <span class="n">bind</span> <span class="n">Method</span><span class="o">.</span><span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;works!&quot;</span><span class="p">)</span> <span class="p">},</span>
@@ -1318,7 +1323,7 @@ Here is an example:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">class</span> <span class="nc">FunctionsExampleEntryClass</span> <span class="p">:</span> <span class="n">Http4kGCFAdapter</span><span class="p">(</span><span class="n">timer</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">routes</span><span class="p">))</span>
+<span class="k">class</span> <span class="nc">FunctionsExampleEntryClass</span> <span class="p">:</span> <span class="n">GoogleCloudFunction</span><span class="p">(</span><span class="n">timer</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">routes</span><span class="p">))</span>
 </code></pre></div>
 
 
