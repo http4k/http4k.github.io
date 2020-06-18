@@ -1505,7 +1505,7 @@ Simple example on how to setup <code>pom.xml</code> to run functions locally and
 
 
 <p>Locally, you can then just call the function with <code>curl</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">curl -k https://localhost:31001/api/v1/web/guest/default/myFunctionName</span>
+<div class="codehilite"><pre><span></span><code><span class="err">curl -k `wsk -i action get test --url | tail -1`</span>
 </code></pre></div>
                     
                     
