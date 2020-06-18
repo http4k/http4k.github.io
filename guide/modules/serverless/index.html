@@ -1209,6 +1209,7 @@
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
 <p>AWS Lambda: <code>compile group: "org.http4k", name: "http4k-serverless-lambda", version: "3.250.0"</code></p>
 <p>Google Cloud Functions: <code>compile group: "org.http4k", name: "http4k-serverless-gcf", version: "3.250.0"</code></p>
+<p>OpenWhisk: <code>compile group: "org.http4k", name: "http4k-serverless-openwhisk", version: "3.250.0"</code></p>
 <h3 id="about">About</h3>
 <p>These modules provide integration with Serverless deployment environments, such as AWS Lambda or Google Cloud Functions by implementing a single interface. </p>
 <h4 id="aws-lambda-integration">AWS Lambda integration</h4>
@@ -1225,7 +1226,7 @@
 <p>Create and configure the Lambda function, and at the same time:</p>
 <ol>
 <li>Upload the standard Zip file to S3.</li>
-<li>Set the function execution to call the main http4k entry point: <code>org.http4k.serverless.lambda.LambdaFunction::handle</code></li>
+<li>Set the function execution to call the main http4k entry point: <code>org.http4k.serverless.LambdaFunction::handle</code></li>
 <li>Set an environment variable for the Lambda <code>HTTP4K_BOOTSTRAP_CLASS</code> to the class of your <code>AppLoader</code> class.</li>
 </ol>
 </li>
@@ -1245,7 +1246,7 @@
 <span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="kn">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
 <span class="kn">import</span> <span class="nn">org.http4k.serverless.BootstrapAppLoader</span>
-<span class="kn">import</span> <span class="nn">org.http4k.serverless.lambda.LambdaFunction</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.LambdaFunction</span>
 
 <span class="o">//</span> <span class="n">This</span> <span class="n">AppLoader</span> <span class="ow">is</span> <span class="n">responsible</span> <span class="k">for</span> <span class="n">building</span> <span class="n">our</span> <span class="n">HttpHandler</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">supplied</span> <span class="n">to</span> <span class="n">AWS</span>
 <span class="o">//</span> <span class="n">It</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">only</span> <span class="n">actual</span> <span class="n">piece</span> <span class="n">of</span> <span class="n">code</span> <span class="n">that</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">written</span><span class="o">.</span>
@@ -1256,7 +1257,6 @@
 <span class="p">}</span>
 
 <span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-
     <span class="o">//</span> <span class="n">Launching</span> <span class="n">your</span> <span class="n">Lambda</span> <span class="n">Function</span> <span class="n">locally</span> <span class="o">-</span> <span class="n">by</span> <span class="n">simply</span> <span class="n">providing</span> <span class="n">the</span> <span class="n">operating</span> <span class="n">ENVIRONMENT</span> <span class="nb">map</span> <span class="k">as</span> <span class="n">would</span>
     <span class="o">//</span> <span class="n">be</span> <span class="n">configured</span> <span class="n">on</span> <span class="n">AWS</span><span class="o">.</span>
     <span class="n">fun</span> <span class="n">runLambdaLocally</span><span class="p">()</span> <span class="p">{</span>
@@ -1310,8 +1310,8 @@ Here is an example:</p>
 <span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="kn">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
 <span class="kn">import</span> <span class="nn">org.http4k.serverless.FakeGCFRequest</span>
-<span class="kn">import</span> <span class="nn">org.http4k.serverless.FakeHGCFResponse</span>
-<span class="kn">import</span> <span class="nn">org.http4k.serverless.gcf.GoogleCloudFunction</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.FakeGCFResponse</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.GoogleCloudFunction</span>
 
 <span class="o">//</span> <span class="n">This</span> <span class="n">AppLoader</span> <span class="ow">is</span> <span class="n">responsible</span> <span class="k">for</span> <span class="n">building</span> <span class="n">our</span> <span class="n">HttpHandler</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">supplied</span> <span class="n">to</span> <span class="n">GCF</span>
 <span class="o">//</span> <span class="n">Along</span> <span class="k">with</span> <span class="n">the</span> <span class="n">extension</span> <span class="k">class</span> <span class="nc">below</span><span class="p">,</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">only</span> <span class="n">actual</span> <span class="n">piece</span> <span class="n">of</span> <span class="n">code</span> <span class="n">that</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">written</span><span class="o">.</span>
@@ -1335,7 +1335,7 @@ Here is an example:</p>
             <span class="p">)</span>
 <span class="p">}</span>
 
-<span class="o">//</span> <span class="n">This</span> <span class="k">class</span> <span class="nc">is</span> <span class="n">required</span> <span class="n">to</span> <span class="n">ensure</span> <span class="n">that</span> <span class="n">your</span>
+<span class="o">//</span> <span class="n">This</span> <span class="k">class</span> <span class="nc">is</span> <span class="n">the</span> <span class="n">entry</span><span class="o">-</span><span class="n">point</span> <span class="k">for</span> <span class="n">the</span> <span class="n">function</span> <span class="n">call</span> <span class="o">-</span> <span class="n">configure</span> <span class="n">it</span> <span class="n">when</span> <span class="n">deploying</span>
 <span class="k">class</span> <span class="nc">FunctionsExampleEntryClass</span> <span class="p">:</span> <span class="n">GoogleCloudFunction</span><span class="p">(</span><span class="n">TweetEchoLambda</span><span class="p">)</span>
 
 <span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
@@ -1356,7 +1356,7 @@ Here is an example:</p>
     <span class="n">fun</span> <span class="n">runFunctionAsGCFWould</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span><span class="s2">&quot;RUNNING AS GCF:&quot;</span><span class="p">)</span>
 
-        <span class="n">val</span> <span class="n">response</span> <span class="o">=</span> <span class="n">FakeHGCFResponse</span><span class="p">()</span>
+        <span class="n">val</span> <span class="n">response</span> <span class="o">=</span> <span class="n">FakeGCFResponse</span><span class="p">()</span>
         <span class="n">FunctionsExampleEntryClass</span><span class="p">()</span><span class="o">.</span><span class="n">service</span><span class="p">(</span><span class="n">FakeGCFRequest</span>
         <span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s2">&quot;http://localhost:8000/echo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span><span class="p">)),</span> <span class="n">response</span><span class="p">)</span>
         <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
