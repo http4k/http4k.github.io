@@ -12,19 +12,19 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     
-    <meta itemprop="name" content="http4k Server Modules">
-    <meta name="twitter:title" content="http4k Server Modules">
-    <meta property="og:title" content="http4k Server Modules" />
+    <meta itemprop="name" content="http4k Customised Server implementations">
+    <meta name="twitter:title" content="http4k Customised Server implementations">
+    <meta property="og:title" content="http4k Customised Server implementations" />
     
 
     
-    <meta name="description" content="Feature overview of the http4k-server modules, covering Server backends">
-    <meta property="og:description" content="Feature overview of the http4k-server modules, covering Server backends" />
-    <meta name="twitter:description" content="Feature overview of the http4k-server modules, covering Server backends">
+    <meta name="description" content="How to use write custom servers backends">
+    <meta property="og:description" content="How to use write custom servers backends" />
+    <meta name="twitter:description" content="How to use write custom servers backends">
     
 
     
-    <link rel="canonical" href="https://www.http4k.org/guide/modules/servers/">
+    <link rel="canonical" href="https://www.http4k.org/cookbook/customised_servers/">
     
 
     
@@ -77,13 +77,13 @@
     
     
     
-    <title>http4k Server Modules</title>
+    <title>http4k Customised Server implementations</title>
     
     
     
-    <link rel="stylesheet" href="../../../assets/stylesheets/application.451f80e5.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
     
-    <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.22915126.css">
+    <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
     
     
     
@@ -92,7 +92,7 @@
     
     
     
-    <script src="../../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
     
@@ -101,9 +101,9 @@
     <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
     
     
-    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
     
-    <link rel="stylesheet" href="../../../css/site.css">
+    <link rel="stylesheet" href="../../css/site.css">
     
     
 </head>
@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../../../#installation-gradle" tabindex="1" class="md-skip">
+<a href="../../#how-to-write-a-custom-server-implmentation" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -153,7 +153,7 @@
                 <a href="https://www.http4k.org/" title="http4k"
                    class="md-header-nav__button md-logo">
                     
-                    <img src="../../../img/logo_1100x200_white_on_blue_trans.png" height="24">
+                    <img src="../../img/logo_1100x200_white_on_blue_trans.png" height="24">
                     
                 </a>
             </div>
@@ -165,16 +165,8 @@
                     
                     
                     
-                        <span class="md-header-nav__parent">
-                          Developer Guide >
-                        </span>
                     
-                        <span class="md-header-nav__parent">
-                          Modules >
-                        </span>
-                    
-                    
-                    Server backend
+                    http4k Customised Server implementations
                     
                 </div>
             </div>
@@ -253,7 +245,7 @@
   <label class="md-nav__title md-nav__title--site" for="__drawer">
     <a href="https://www.http4k.org/" title="http4k" class="md-nav__button md-logo">
       
-        <img src="../../../img/logo_1100x200_white_on_blue_trans.png" width="48" height="48">
+        <img src="../../img/logo_1100x200_white_on_blue_trans.png" width="48" height="48">
       
     </a>
     http4k
@@ -289,7 +281,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../.." title="Introduction" class="md-nav__link">
+    <a href="../.." title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -301,7 +293,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../rationale/" title="Rationale & Concepts" class="md-nav__link">
+    <a href="../../rationale/" title="Rationale & Concepts" class="md-nav__link">
       Rationale & Concepts
     </a>
   </li>
@@ -313,7 +305,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../installation/" title="Installation" class="md-nav__link">
+    <a href="../../installation/" title="Installation" class="md-nav__link">
       Installation
     </a>
   </li>
@@ -325,7 +317,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../quickstart/" title="Getting started" class="md-nav__link">
+    <a href="../../quickstart/" title="Getting started" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -335,12 +327,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
     <label class="md-nav__link" for="nav-5">
       Developer Guide
@@ -356,12 +346,10 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
     
     <label class="md-nav__link" for="nav-5-1">
       Modules
@@ -379,7 +367,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../aws/" title="AWS" class="md-nav__link">
+    <a href="../../guide/modules/aws/" title="AWS" class="md-nav__link">
       AWS
     </a>
   </li>
@@ -391,7 +379,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../core/" title="Core" class="md-nav__link">
+    <a href="../../guide/modules/core/" title="Core" class="md-nav__link">
       Core
     </a>
   </li>
@@ -403,7 +391,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../json/" title="JSON handling" class="md-nav__link">
+    <a href="../../guide/modules/json/" title="JSON handling" class="md-nav__link">
       JSON handling
     </a>
   </li>
@@ -415,7 +403,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../clients/" title="HTTP & Websocket clients" class="md-nav__link">
+    <a href="../../guide/modules/clients/" title="HTTP & Websocket clients" class="md-nav__link">
       HTTP & Websocket clients
     </a>
   </li>
@@ -427,7 +415,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../metrics/" title="Metrics" class="md-nav__link">
+    <a href="../../guide/modules/metrics/" title="Metrics" class="md-nav__link">
       Metrics
     </a>
   </li>
@@ -439,7 +427,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../multipart/" title="Multipart forms" class="md-nav__link">
+    <a href="../../guide/modules/multipart/" title="Multipart forms" class="md-nav__link">
       Multipart forms
     </a>
   </li>
@@ -451,7 +439,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../resilience/" title="Resilience" class="md-nav__link">
+    <a href="../../guide/modules/resilience/" title="Resilience" class="md-nav__link">
       Resilience
     </a>
   </li>
@@ -461,72 +449,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Server backend
-      </label>
-    
-    <a href="./" title="Server backend" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../guide/modules/servers/" title="Server backend" class="md-nav__link">
       Server backend
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installation-gradle" title="Installation (Gradle)" class="md-nav__link">
-    Installation (Gradle)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#about" title="About" class="md-nav__link">
-    About
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#code" title="Code " class="md-nav__link">
-    Code 
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#customisation" title="Customisation" class="md-nav__link">
-    Customisation
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -536,7 +463,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../serverless/" title="Serverless backend" class="md-nav__link">
+    <a href="../../guide/modules/serverless/" title="Serverless backend" class="md-nav__link">
       Serverless backend
     </a>
   </li>
@@ -548,7 +475,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../templating/" title="Templating" class="md-nav__link">
+    <a href="../../guide/modules/templating/" title="Templating" class="md-nav__link">
       Templating
     </a>
   </li>
@@ -560,7 +487,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../contracts/" title="Typesafe contracts (OpenAPI3)" class="md-nav__link">
+    <a href="../../guide/modules/contracts/" title="Typesafe contracts (OpenAPI3)" class="md-nav__link">
       Typesafe contracts (OpenAPI3)
     </a>
   </li>
@@ -572,7 +499,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../oauth/" title="OAuth" class="md-nav__link">
+    <a href="../../guide/modules/oauth/" title="OAuth" class="md-nav__link">
       OAuth
     </a>
   </li>
@@ -584,7 +511,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../cloud_native/" title="Cloud native Configuration" class="md-nav__link">
+    <a href="../../guide/modules/cloud_native/" title="Cloud native Configuration" class="md-nav__link">
       Cloud native Configuration
     </a>
   </li>
@@ -596,7 +523,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../jsonrpc/" title="JSON RPC" class="md-nav__link">
+    <a href="../../guide/modules/jsonrpc/" title="JSON RPC" class="md-nav__link">
       JSON RPC
     </a>
   </li>
@@ -608,7 +535,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../xml/" title="XML handling" class="md-nav__link">
+    <a href="../../guide/modules/xml/" title="XML handling" class="md-nav__link">
       XML handling
     </a>
   </li>
@@ -620,7 +547,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../hamkrest/" title="Hamkrest" class="md-nav__link">
+    <a href="../../guide/modules/hamkrest/" title="Hamkrest" class="md-nav__link">
       Hamkrest
     </a>
   </li>
@@ -632,7 +559,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../approvaltests/" title="Approval Testing" class="md-nav__link">
+    <a href="../../guide/modules/approvaltests/" title="Approval Testing" class="md-nav__link">
       Approval Testing
     </a>
   </li>
@@ -644,7 +571,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../webdriver/" title="WebDriver" class="md-nav__link">
+    <a href="../../guide/modules/webdriver/" title="WebDriver" class="md-nav__link">
       WebDriver
     </a>
   </li>
@@ -656,7 +583,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../chaos/" title="Chaos Testing" class="md-nav__link">
+    <a href="../../guide/modules/chaos/" title="Chaos Testing" class="md-nav__link">
       Chaos Testing
     </a>
   </li>
@@ -668,7 +595,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../servicevirtualisation/" title="Service Virtualisaion" class="md-nav__link">
+    <a href="../../guide/modules/servicevirtualisation/" title="Service Virtualisaion" class="md-nav__link">
       Service Virtualisaion
     </a>
   </li>
@@ -685,7 +612,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../testing/" title="Application Testing" class="md-nav__link">
+    <a href="../../guide/testing/" title="Application Testing" class="md-nav__link">
       Application Testing
     </a>
   </li>
@@ -721,7 +648,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../tutorials/tdding_http4k/" title="TDDing http4k" class="md-nav__link">
+    <a href="../../tutorials/tdding_http4k/" title="TDDing http4k" class="md-nav__link">
       TDDing http4k
     </a>
   </li>
@@ -733,7 +660,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../tutorials/documenting_apis_with_openapi/" title="Documenting http4k apps with OpenApi3" class="md-nav__link">
+    <a href="../../tutorials/documenting_apis_with_openapi/" title="Documenting http4k apps with OpenApi3" class="md-nav__link">
       Documenting http4k apps with OpenApi3
     </a>
   </li>
@@ -769,7 +696,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/server_as_a_function/" title="Server as a function" class="md-nav__link">
+    <a href="../server_as_a_function/" title="Server as a function" class="md-nav__link">
       Server as a function
     </a>
   </li>
@@ -781,7 +708,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/client_as_a_function/" title="Client as a function" class="md-nav__link">
+    <a href="../client_as_a_function/" title="Client as a function" class="md-nav__link">
       Client as a function
     </a>
   </li>
@@ -793,7 +720,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/container_integration/" title="Container integration" class="md-nav__link">
+    <a href="../container_integration/" title="Container integration" class="md-nav__link">
       Container integration
     </a>
   </li>
@@ -805,7 +732,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/simple_routing/" title="Simple routing" class="md-nav__link">
+    <a href="../simple_routing/" title="Simple routing" class="md-nav__link">
       Simple routing
     </a>
   </li>
@@ -817,7 +744,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/service_virtualisation/" title="Service Virtualisation with Servirtium" class="md-nav__link">
+    <a href="../service_virtualisation/" title="Service Virtualisation with Servirtium" class="md-nav__link">
       Service Virtualisation with Servirtium
     </a>
   </li>
@@ -829,7 +756,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/nestable_routes/" title="Nestable routes" class="md-nav__link">
+    <a href="../nestable_routes/" title="Nestable routes" class="md-nav__link">
       Nestable routes
     </a>
   </li>
@@ -841,7 +768,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/using_templates/" title="Templating engines" class="md-nav__link">
+    <a href="../using_templates/" title="Templating engines" class="md-nav__link">
       Templating engines
     </a>
   </li>
@@ -853,7 +780,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/request_context/" title="Typesafe RequestContexts" class="md-nav__link">
+    <a href="../request_context/" title="Typesafe RequestContexts" class="md-nav__link">
       Typesafe RequestContexts
     </a>
   </li>
@@ -865,7 +792,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
+    <a href="../typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
       Typesafe HTTP requests with lenses
     </a>
   </li>
@@ -877,7 +804,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/custom_json_marshallers/" title="Custom JSON marshallers" class="md-nav__link">
+    <a href="../custom_json_marshallers/" title="Custom JSON marshallers" class="md-nav__link">
       Custom JSON marshallers
     </a>
   </li>
@@ -889,7 +816,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/html_forms/" title="HTML forms" class="md-nav__link">
+    <a href="../html_forms/" title="HTML forms" class="md-nav__link">
       HTML forms
     </a>
   </li>
@@ -901,7 +828,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/multipart_forms/" title="Multipart forms" class="md-nav__link">
+    <a href="../multipart_forms/" title="Multipart forms" class="md-nav__link">
       Multipart forms
     </a>
   </li>
@@ -913,7 +840,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
+    <a href="../generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
       Generating data classes for messages
     </a>
   </li>
@@ -925,7 +852,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/websockets/" title="Websockets" class="md-nav__link">
+    <a href="../websockets/" title="Websockets" class="md-nav__link">
       Websockets
     </a>
   </li>
@@ -937,7 +864,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
+    <a href="../typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
       Typesafe HTTP contracts
     </a>
   </li>
@@ -949,7 +876,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/structured_logging_with_events/" title="Structured Logging with Events" class="md-nav__link">
+    <a href="../structured_logging_with_events/" title="Structured Logging with Events" class="md-nav__link">
       Structured Logging with Events
     </a>
   </li>
@@ -961,7 +888,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/basic_oauth_authorization_server/" title="Basic OAuth Server configuration" class="md-nav__link">
+    <a href="../basic_oauth_authorization_server/" title="Basic OAuth Server configuration" class="md-nav__link">
       Basic OAuth Server configuration
     </a>
   </li>
@@ -973,7 +900,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/custom_oauth_provider/" title="Custom OAuth Provider configuration" class="md-nav__link">
+    <a href="../custom_oauth_provider/" title="Custom OAuth Provider configuration" class="md-nav__link">
       Custom OAuth Provider configuration
     </a>
   </li>
@@ -985,7 +912,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/principal_lookup/" title="Principal lookup" class="md-nav__link">
+    <a href="../principal_lookup/" title="Principal lookup" class="md-nav__link">
       Principal lookup
     </a>
   </li>
@@ -997,7 +924,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/monitoring/" title="Monitoring http4k" class="md-nav__link">
+    <a href="../monitoring/" title="Monitoring http4k" class="md-nav__link">
       Monitoring http4k
     </a>
   </li>
@@ -1009,7 +936,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
+    <a href="../record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
       Recording/replaying HTTP traffic
     </a>
   </li>
@@ -1021,7 +948,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/test_driven_apps/" title="Test driven apps" class="md-nav__link">
+    <a href="../test_driven_apps/" title="Test driven apps" class="md-nav__link">
       Test driven apps
     </a>
   </li>
@@ -1033,7 +960,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cookbook/nanoservices/" title="Nanoservices" class="md-nav__link">
+    <a href="../nanoservices/" title="Nanoservices" class="md-nav__link">
       Nanoservices
     </a>
   </li>
@@ -1050,7 +977,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../performance/" title="Performance" class="md-nav__link">
+    <a href="../../performance/" title="Performance" class="md-nav__link">
       Performance
     </a>
   </li>
@@ -1062,7 +989,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../in_action/" title="In action" class="md-nav__link">
+    <a href="../../in_action/" title="In action" class="md-nav__link">
       In action
     </a>
   </li>
@@ -1093,7 +1020,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../blog/meet_http4k/" title="Meet http4k" class="md-nav__link">
+    <a href="../../blog/meet_http4k/" title="Meet http4k" class="md-nav__link">
       Meet http4k
     </a>
   </li>
@@ -1105,7 +1032,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../blog/typesafe_websockets/" title="Typesafe Websockets" class="md-nav__link">
+    <a href="../../blog/typesafe_websockets/" title="Typesafe Websockets" class="md-nav__link">
       Typesafe Websockets
     </a>
   </li>
@@ -1122,7 +1049,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../support/" title="Getting Support" class="md-nav__link">
+    <a href="../../support/" title="Getting Support" class="md-nav__link">
       Getting Support
     </a>
   </li>
@@ -1134,7 +1061,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../contributing/" title="Contribute/Support http4k" class="md-nav__link">
+    <a href="../../contributing/" title="Contribute/Support http4k" class="md-nav__link">
       Contribute/Support http4k
     </a>
   </li>
@@ -1146,7 +1073,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../api/" title="API docs" class="md-nav__link">
+    <a href="../../api/" title="API docs" class="md-nav__link">
       API docs
     </a>
   </li>
@@ -1158,7 +1085,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../changelog/" title="Changelog" class="md-nav__link">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
       Changelog
     </a>
   </li>
@@ -1170,7 +1097,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../faq/" title="FAQ" class="md-nav__link">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -1187,42 +1114,81 @@
                 <article class="md-content__inner md-typeset">
                     
                     
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/guide/modules/servers/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/cookbook/customised_servers/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                     
                     
-                    <h1>Server backend</h1>
+                    <h1>http4k Customised Server implementations</h1>
                     
-                    <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><strong>Apache:</strong> <code>compile group: "org.http4k", name: "http4k-server-apache", version: "3.251.0"</code></p>
-<p><strong>Jetty:</strong> <code>compile group: "org.http4k", name: "http4k-server-jetty", version: "3.251.0"</code></p>
-<p><strong>Ktor CIO:</strong> <code>compile group: "org.http4k", name: "http4k-server-ktorcio", version: "3.251.0"</code></p>
-<p><strong>Ktor Netty:</strong> <code>compile group: "org.http4k", name: "http4k-server-ktornetty", version: "3.251.0"</code></p>
-<p><strong>Netty:</strong> <code>compile group: "org.http4k", name: "http4k-server-netty", version: "3.251.0"</code></p>
-<p><strong>Ratpack:</strong> <code>compile group: "org.http4k", name: "http4k-server-ratpack", version: "3.251.0"</code></p>
-<p><strong>Undertow:</strong> <code>compile group: "org.http4k", name: "http4k-server-undertow", version: "3.251.0"</code></p>
-<p><strong>SunHttp (for development only):</strong> <code>compile group: "org.http4k", name: "http4k-core", version: "3.251.0"</code></p>
-<h3 id="about">About</h3>
-<p>Server-backend modules provide a consistent API to mount HttpHandlers into the specified container in 1 LOC, by 
-simply passing it to the relevant <code>ServerConfig</code> implementation (in this case <code>Jetty</code>):</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/servers/example_http.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">servers</span>
-
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
-
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="mi">8000</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-<span class="p">}</span>
+                    <h3 id="how-to-write-a-custom-server-implmentation">How to write a custom server implmentation</h3>
+<p>Whilst the http4k server modules ship with a sensibly configured standard server-backend setup, a lot of projects will require specialised implementations of the underlying server backend. http4k makes this easy with the <code>ServerConfig</code> interface.</p>
+<h3 id="gradle-setup">Gradle setup</h3>
+<div class="codehilite"><pre><span></span><code><span class="err">    compile group: &quot;org.http4k&quot;, name: &quot;http4k-core&quot;, version: &quot;3.251.0&quot;</span>
+<span class="err">    compile group: &quot;org.http4k&quot;, name: &quot;http4k-server-jetty&quot;, version: &quot;3.251.0&quot;</span>
 </code></pre></div>
 
 
-<h3 id="customisation">Customisation</h3>
-<p>Each of the server backends implement an interface <code>ServerConfig</code>, which is written with sensible defaults for the server in questions, 
-but is also designed to be used as a starting point for tweaking to API user needs. To customize, simply use the relevant <code>ServerConfig</code> 
-class as a starting point and reimplement as required. See the Cookbook for an example of this in use.</p>
+<p>The example below shows a customised Jetty setup which enables HTTPS traffic by reimplementing the <code>ServerConfig</code> interface. The idea is that this single class will encapsulate the usage of the Server platform API behind the http4k abstraction and provide a simple way to reuse it across different applications.</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/customised_servers/example.kt"><img class="octocat"/></a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">customised_servers</span>
+
+<span class="kn">import</span> <span class="nn">org.eclipse.jetty.server.HttpConfiguration</span>
+<span class="kn">import</span> <span class="nn">org.eclipse.jetty.server.HttpConnectionFactory</span>
+<span class="kn">import</span> <span class="nn">org.eclipse.jetty.server.SecureRequestCustomizer</span>
+<span class="kn">import</span> <span class="nn">org.eclipse.jetty.server.Server</span>
+<span class="kn">import</span> <span class="nn">org.eclipse.jetty.server.ServerConnector</span>
+<span class="kn">import</span> <span class="nn">org.eclipse.jetty.server.SslConnectionFactory</span>
+<span class="kn">import</span> <span class="nn">org.eclipse.jetty.util.ssl.SslContextFactory</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.Status</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.ServerConfig</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="kn">import</span> <span class="nn">org.http4k.server.toJettyHandler</span>
+
+<span class="k">class</span> <span class="nc">SecureJetty</span><span class="p">(</span>
+    <span class="n">private</span> <span class="n">val</span> <span class="n">sslPort</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
+    <span class="n">private</span> <span class="n">val</span> <span class="n">localKeyStorePath</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+    <span class="n">private</span> <span class="n">val</span> <span class="n">localKeystorePassword</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+    <span class="n">private</span> <span class="n">val</span> <span class="n">locakKeyManagerPassword</span><span class="p">:</span> <span class="n">String</span>
+
+<span class="p">)</span> <span class="p">:</span> <span class="n">ServerConfig</span> <span class="p">{</span>
+    <span class="n">override</span> <span class="n">fun</span> <span class="n">toServer</span><span class="p">(</span><span class="n">httpHandler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">{</span>
+        <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span> <span class="p">{</span>
+            <span class="n">val</span> <span class="n">https</span> <span class="o">=</span> <span class="n">HttpConfiguration</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span> <span class="p">{</span>
+                <span class="n">addCustomizer</span><span class="p">(</span><span class="n">SecureRequestCustomizer</span><span class="p">())</span>
+            <span class="p">}</span>
+
+            <span class="n">val</span> <span class="n">sslContextFactory</span> <span class="o">=</span> <span class="n">SslContextFactory</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span> <span class="p">{</span>
+                <span class="n">this</span><span class="o">.</span><span class="n">keyStorePath</span> <span class="o">=</span> <span class="n">localKeyStorePath</span>
+                <span class="n">setKeyStorePassword</span><span class="p">(</span><span class="n">localKeystorePassword</span><span class="p">)</span>
+                <span class="n">setKeyManagerPassword</span><span class="p">(</span><span class="n">locakKeyManagerPassword</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="n">connectors</span> <span class="o">=</span> <span class="n">arrayOf</span><span class="p">(</span>
+                <span class="n">ServerConnector</span><span class="p">(</span><span class="n">server</span><span class="p">,</span>
+                    <span class="n">SslConnectionFactory</span><span class="p">(</span><span class="n">sslContextFactory</span><span class="p">,</span> <span class="s2">&quot;http/1.1&quot;</span><span class="p">),</span>
+                    <span class="n">HttpConnectionFactory</span><span class="p">(</span><span class="n">https</span><span class="p">))</span><span class="o">.</span><span class="n">apply</span> <span class="p">{</span> <span class="n">port</span> <span class="o">=</span> <span class="n">sslPort</span> <span class="p">}</span>
+            <span class="p">)</span>
+
+            <span class="n">insertHandler</span><span class="p">(</span><span class="n">httpHandler</span><span class="o">.</span><span class="n">toJettyHandler</span><span class="p">())</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nb">object</span> <span class="p">:</span> <span class="n">Http4kServer</span> <span class="p">{</span>
+            <span class="n">override</span> <span class="n">fun</span> <span class="n">start</span><span class="p">():</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="nb">apply</span> <span class="p">{</span> <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="p">}</span>
+
+            <span class="n">override</span> <span class="n">fun</span> <span class="n">stop</span><span class="p">():</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="nb">apply</span> <span class="p">{</span> <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span> <span class="p">}</span>
+
+            <span class="n">override</span> <span class="n">fun</span> <span class="n">port</span><span class="p">():</span> <span class="n">Int</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">sslPort</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">sslPort</span> <span class="k">else</span> <span class="n">server</span><span class="o">.</span><span class="n">uri</span><span class="o">.</span><span class="n">port</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="o">.</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SecureJetty</span><span class="p">(</span><span class="mi">9000</span><span class="p">,</span> <span class="s2">&quot;keystore.jks&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
                     
                     
                     
@@ -1239,41 +1205,6 @@ class as a starting point and reimplement as required. See the Cookbook for an e
     
     
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../resilience/" title="Resilience" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Resilience
-              </span>
-            </div>
-          </a>
-        
-        
-          <a href="../serverless/" title="Serverless backend" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Serverless backend
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1298,9 +1229,9 @@ class as a starting point and reimplement as required. See the Cookbook for an e
     
 </div>
 
-      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
 
-<script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+<script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
 
 
 
