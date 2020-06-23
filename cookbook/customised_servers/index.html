@@ -1142,6 +1142,9 @@
 <span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="kn">import</span> <span class="nn">org.http4k.core.Status</span>
+<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.DebuggingFilters</span>
+<span class="kn">import</span> <span class="nn">org.http4k.filter.DebuggingFilters.PrintRequestAndResponse</span>
 <span class="kn">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
 <span class="kn">import</span> <span class="nn">org.http4k.server.ServerConfig</span>
 <span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
@@ -1186,7 +1189,8 @@
 <span class="p">}</span>
 
 <span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="o">.</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SecureJetty</span><span class="p">(</span><span class="mi">9000</span><span class="p">,</span> <span class="s2">&quot;keystore.jks&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">))</span>
+    <span class="n">PrintRequestAndResponse</span><span class="p">()</span><span class="o">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="o">.</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;hello from secure jetty!&quot;</span><span class="p">)</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SecureJetty</span><span class="p">(</span><span class="mi">9000</span><span class="p">,</span> <span class="s2">&quot;keystore.jks&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
                     
