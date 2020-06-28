@@ -1416,7 +1416,7 @@ Applying this plugin <a href="https://imperceptiblethoughts.com/shadow/">shadow 
 Simple example on how to setup <code>pom.xml</code> to run functions locally and deploy Maven project to the cloud is shown <a href="https://cloud.google.com/functions/docs/first-java">here</a></p>
 <h4 id="apache-openwhisk-integration">Apache OpenWhisk integration</h4>
 <p>OpenWhisk has a Java runtime which is triggered by calling an entry point class which contains a static <code>main()</code> function receiving a GSON <code>JsonObject</code>.</p>
-<p>In order to achieve this in <a href="https://http4k.org">http4k</a>, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple class needs to be written which uses the <code>OpenWhiskFunction</code> wrapper.</p>
+<p>In order to achieve this in <a href="https://http4k.org">http4k</a>, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple class needs to be written which uses the <code>OpenWhiskFunction</code> wrapper. Because of the OpenWhisk runtime usage of the library, a <code>compileOnly</code> dependency also needs to be added on <a href="https://mvnrepository.com/artifact/com.google.code.gson/gson">GSON</a> to ensure that your function can build correctly.</p>
 <h4 id="code_2">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/openwhisk/example.kt"><img class="octocat"/></a></h4>
 <div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">serverless</span><span class="o">.</span><span class="n">openwhisk</span>
 
