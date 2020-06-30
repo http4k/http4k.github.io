@@ -1435,7 +1435,7 @@ Simple example on how to setup <code>pom.xml</code> to run functions locally and
 <span class="kn">import</span> <span class="nn">org.http4k.server.SunHttp</span>
 <span class="kn">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="kn">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
-<span class="kn">import</span> <span class="nn">org.http4k.serverless.FakeOpenWhiskRequest</span>
+<span class="kn">import</span> <span class="nn">org.http4k.serverless.FakeOpenWhiskRawRequest</span>
 <span class="kn">import</span> <span class="nn">org.http4k.serverless.OpenWhiskFunction</span>
 
 <span class="o">//</span> <span class="n">This</span> <span class="n">AppLoader</span> <span class="ow">is</span> <span class="n">responsible</span> <span class="k">for</span> <span class="n">building</span> <span class="n">our</span> <span class="n">HttpHandler</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">supplied</span> <span class="n">to</span> <span class="n">OpenWhisk</span>
@@ -1484,8 +1484,8 @@ Simple example on how to setup <code>pom.xml</code> to run functions locally and
     <span class="n">fun</span> <span class="n">runFunctionAsOpenWhiskWould</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span><span class="s2">&quot;RUNNING AS OpenWhisk:&quot;</span><span class="p">)</span>
 
-        <span class="n">val</span> <span class="n">fakeOpenWhiskRequest</span> <span class="o">=</span> <span class="n">FakeOpenWhiskRequest</span><span class="p">(</span>
-            <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/echo&quot;</span><span class="p">,</span> <span class="n">emptyMap</span><span class="p">(),</span> <span class="n">emptyMap</span><span class="p">(),</span>
+        <span class="n">val</span> <span class="n">fakeOpenWhiskRequest</span> <span class="o">=</span> <span class="n">FakeOpenWhiskRawRequest</span><span class="p">(</span>
+            <span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;/echo&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">emptyMap</span><span class="p">(),</span>
             <span class="s2">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span>
         <span class="p">)</span>
 
