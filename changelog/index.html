@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="../#v32520-uncut" tabindex="1" class="md-skip">
+<a href="../#v32520" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1108,8 +1108,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v32520-uncut" title="v3.252.0 (uncut)" class="md-nav__link">
-    v3.252.0 (uncut)
+  <a href="#v32520" title="v3.252.0" class="md-nav__link">
+    v3.252.0
   </a>
   
 </li>
@@ -3852,12 +3852,12 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v32520-uncut">v3.252.0 (uncut)</h3>
+<h3 id="v32520">v3.252.0</h3>
 <ul>
 <li>[http4k-client-apache, http4k-client-apache-async] [Breaking] Updated to Apache HTTP Client 5.X.X. H/T to @jshiell. Note that the underlying Apache API has changed in the v5 release. This should only break if you have customised the underlying <code>CloseableHttpClient</code> that is passed to the constructor of the http4k client. If you have, we have you covered with....</li>
 <li>[http4k-client-apache4, http4k-client-apache4-async] New modules to maintain previous integration with Apache HTTP Client 4.X.X. Intended to reduce the impact on projects that are not ready to move to v5 yet. In these compatibility modules, renamed <code>ApacheClient</code> -&gt; <code>Apache4Client</code> - which is the only change that will be required in end user code.</li>
-<li>[http4k-serverless-openwhisk] Fixes to support binary content types and overcome issues with the request/response format of the OW java runtime.</li>
-<li>[http4k-core] Added some Filters for base64 encoding and decoding responses (needed by OpenWhisk).</li>
+<li>[http4k-serverless-openwhisk] Fixes to support binary content types and overcome issues with the request/response format of the OW Java runtime.</li>
+<li>[http4k-core] Added some Filters for base64 encoding and decoding responses.</li>
 <li>[all] Upgrade some dependency versions.</li>
 </ul>
 <h3 id="v32510">v3.251.0</h3>
