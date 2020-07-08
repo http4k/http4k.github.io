@@ -1253,15 +1253,35 @@
                     <h1>Server backend</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><strong>Apache v5:</strong> <code>compile group: "org.http4k", name: "http4k-server-apache", version: "3.252.0"</code></p>
-<p><strong>Apache v4:</strong> <code>compile group: "org.http4k", name: "http4k-server-apache4", version: "3.252.0"</code></p>
-<p><strong>Jetty:</strong> <code>compile group: "org.http4k", name: "http4k-server-jetty", version: "3.252.0"</code></p>
-<p><strong>Ktor CIO:</strong> <code>compile group: "org.http4k", name: "http4k-server-ktorcio", version: "3.252.0"</code></p>
-<p><strong>Ktor Netty:</strong> <code>compile group: "org.http4k", name: "http4k-server-ktornetty", version: "3.252.0"</code></p>
-<p><strong>Netty:</strong> <code>compile group: "org.http4k", name: "http4k-server-netty", version: "3.252.0"</code></p>
-<p><strong>Ratpack:</strong> <code>compile group: "org.http4k", name: "http4k-server-ratpack", version: "3.252.0"</code></p>
-<p><strong>Undertow:</strong> <code>compile group: "org.http4k", name: "http4k-server-undertow", version: "3.252.0"</code></p>
-<p><strong>SunHttp (for development only):</strong> <code>compile group: "org.http4k", name: "http4k-core", version: "3.252.0"</code></p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Apache v5: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-apache&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Apache v4: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-apache4&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Jetty: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Ktor CIO: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-ktorcio&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Ktor Netty: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-ktornetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Netty: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-netty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Ratpack: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-ratpack&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Undertow: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-undertow&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// SunHttp (for development only): </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+</code></pre></div>
+
+
 <h3 id="about">About</h3>
 <p>Server-backend modules provide a consistent API to mount HttpHandlers into the specified container in 1 LOC, by 
 simply passing it to the relevant <code>ServerConfig</code> implementation (in this case <code>Jetty</code>):</p>

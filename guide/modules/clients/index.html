@@ -1266,14 +1266,32 @@
                     <h1>HTTP & Websocket clients</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<p><strong>Java (for development only):</strong> <code>compile group: "org.http4k", name: "http4k-core", version: "3.252.0"</code></p>
-<p><strong>Apache v5 (Sync):</strong> <code>compile group: "org.http4k", name: "http4k-client-apache", version: "3.252.0"</code></p>
-<p><strong>Apache v4 (Sync):</strong> <code>compile group: "org.http4k", name: "http4k-client-apache4", version: "3.252.0"</code></p>
-<p><strong>Apache v5 (Async):</strong> <code>compile group: "org.http4k", name: "http4k-client-apache-async", version: "3.252.0"</code></p>
-<p><strong>Apache v4 (Async):</strong> <code>compile group: "org.http4k", name: "http4k-client-apache4-async", version: "3.252.0"</code></p>
-<p><strong>Jetty (Sync + Async):</strong> <code>compile group: "org.http4k", name: "http4k-client-jetty", version: "3.252.0"</code></p>
-<p><strong>OkHttp (Sync + Async):</strong> <code>compile group: "org.http4k", name: "http4k-client-okhttp", version: "3.252.0"</code></p>
-<p><strong>Websocket:</strong> <code>compile group: "org.http4k", name: "http4k-client-websocket", version: "3.252.0"</code></p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Java (for development only):</span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Apache v5 (Sync): </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-apache&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Apache v4 (Sync): </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-apache4&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Apache v5 (Async): </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-apache-async&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Apache v4 (Async): </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-apache4-async&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Jetty (Sync + Async): </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// OkHttp (Sync + Async): </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+
+<span class="c1">// Websocket: </span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-websocket&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.252.0&quot;</span>
+</code></pre></div>
+
+
 <h3 id="http">HTTP</h3>
 <p>Supported HTTP client adapter APIs are wrapped to provide an <code>HttpHandler</code> interface in 1 LOC.</p>
 <p>Activate streaming mode by passing a <code>BodyMode</code> (default is non-streaming).</p>
