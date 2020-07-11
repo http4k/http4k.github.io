@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="#v32530-uncut" tabindex="1" class="md-skip">
+<a href="#v32530" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1168,8 +1168,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v32530-uncut" title="v3.253.0 (uncut)" class="md-nav__link">
-    v3.253.0 (uncut)
+  <a href="#v32530" title="v3.253.0" class="md-nav__link">
+    v3.253.0
   </a>
   
 </li>
@@ -3919,11 +3919,12 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v32530-uncut">v3.253.0 (uncut)</h3>
+<h3 id="v32530">v3.253.0</h3>
 <ul>
 <li>[http4k-core] Replaced implementation of <code>JavaHttpClient</code> with one from Java standard library. Should you not yet have access to the Java 11 SDK, we renamed the old implementation to <code>Java8HttpClient</code>. Note that some headers that are added by default by the old Java8 implementation will no longer be added.</li>
 <li>[http4k-core] [Breaking] Change <code>Body.binary()</code> lens to use an InputStream instead of a raw <code>Body</code>. To fix, just provide the InputStream by calling <code>Body.stream()</code> or similar.</li>
 <li>[http4k-client-websocket] [Unlikely break] Allow API users to pass in their own <code>Draft</code> object for custom protocols. If broken, simple fix is to just use named arguments in the construction call to the client.</li>
+<li>[all] Upgrade some dependency versions.</li>
 </ul>
 <h3 id="v32520">v3.252.0</h3>
 <ul>
