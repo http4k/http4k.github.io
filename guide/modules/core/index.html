@@ -1371,7 +1371,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
             <span class="n">response</span>
     <span class="p">}</span>
 <span class="p">}</span>
-<span class="k">val</span> <span class="py">latencyAndBasicAuth</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">BasicAuth</span><span class="p">(</span><span class="s">&quot;my realm&quot;</span><span class="p">,</span> <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">).</span><span class="n">then</span><span class="p">(</span><span class="n">myFilter</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">latencyAndBasicAuth</span><span class="p">:</span> <span class="n">Filter</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">BasicAuth</span><span class="p">(</span><span class="s">&quot;my realm&quot;</span><span class="p">,</span> <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">).</span><span class="n">then</span><span class="p">(</span><span class="n">myFilter</span><span class="p">)</span>
 <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">latencyAndBasicAuth</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
 </code></pre></div>
 
