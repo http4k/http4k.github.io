@@ -141,7 +141,7 @@
 <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
 <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
 
-<a href="#v32550-uncut" tabindex="1" class="md-skip">
+<a href="#v32550" tabindex="1" class="md-skip">
     Skip to content
 </a>
 
@@ -1168,8 +1168,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v32550-uncut" title="v3.255.0 (uncut)" class="md-nav__link">
-    v3.255.0 (uncut)
+  <a href="#v32550" title="v3.255.0" class="md-nav__link">
+    v3.255.0
   </a>
   
 </li>
@@ -3933,11 +3933,13 @@
 
 <p>This list is not currently intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v32550-uncut">v3.255.0 (uncut)</h3>
+<h3 id="v32550">v3.255.0</h3>
 <ul>
+<li>[all] Upgrade some dependency versions.</li>
 <li>[all] [Breaking (if you're not using it right!)] - Fixed up Maven dependencies so that they are not exporting compileOnly libraries into POMs.</li>
 <li>[http4k-security-oauth] Remove "user" from default list of GitHub scopes as it gives you write access to the profile. New default is empty (just public data).</li>
 <li>[http4k-core] Improve defaults of SunHttp server. H/T @nlochschmidt for the PR.</li>
+<li>[http4k-contract] Add description to OpenApi schema fields using Jackson annotations. H/T @env0der for the PR.</li>
 </ul>
 <h3 id="v32540">v3.254.0</h3>
 <ul>
