@@ -863,54 +863,54 @@
 <p>In harmony with the ethos of <strong>http4k</strong> there is no need to bring in a custom logging library such as SL4J, although they would be very simple to integrate if required by implementing a custom <code>Events</code> instance.</p>
 <p>The example below shows a simple application that outputs structured logs to StdOut which can be analysed by an aggregator, along with the attachment of extra <code>Event</code> metadata via a custom <code>EventFilter</code>.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/structured_logging_with_events/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">structured_logging_with_events</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.structured_logging_with_events</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.events.AutoJsonEvents</span>
-<span class="kn">import</span> <span class="nn">org.http4k.events.Event</span>
-<span class="kn">import</span> <span class="nn">org.http4k.events.EventFilter</span>
-<span class="kn">import</span> <span class="nn">org.http4k.events.EventFilters</span>
-<span class="kn">import</span> <span class="nn">org.http4k.events.plus</span>
-<span class="kn">import</span> <span class="nn">org.http4k.events.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ResponseFilters</span>
-<span class="kn">import</span> <span class="nn">org.http4k.format.Jackson</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.AutoJsonEvents</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.Event</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.EventFilter</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.EventFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.plus</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.Jackson</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">Stack</span> <span class="n">filters</span> <span class="k">for</span> <span class="n">Events</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">way</span> <span class="k">as</span> <span class="n">HttpHandlers</span> <span class="n">to</span> <span class="n">transform</span> <span class="ow">or</span> <span class="n">add</span> <span class="n">metadata</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Events</span><span class="o">.</span>
-    <span class="o">//</span> <span class="n">We</span> <span class="n">use</span> <span class="n">AutoJsonEvents</span> <span class="p">(</span><span class="n">here</span> <span class="k">with</span> <span class="n">Jackson</span><span class="p">)</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">the</span> <span class="n">final</span> <span class="n">serialisation</span> <span class="n">process</span><span class="o">.</span>
-    <span class="n">val</span> <span class="n">events</span> <span class="o">=</span>
-        <span class="n">EventFilters</span><span class="o">.</span><span class="n">AddTimestamp</span><span class="p">()</span>
-            <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="o">.</span><span class="n">AddZipkinTraces</span><span class="p">())</span>
-            <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">AddRequestCount</span><span class="p">())</span>
-            <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">AutoJsonEvents</span><span class="p">(</span><span class="n">Jackson</span><span class="p">))</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Stack filters for Events in the same way as HttpHandlers to transform or add metadata to the Events.</span>
+    <span class="c1">// We use AutoJsonEvents (here with Jackson) to handle the final serialisation process.</span>
+    <span class="k">val</span> <span class="py">events</span> <span class="p">=</span>
+        <span class="n">EventFilters</span><span class="p">.</span><span class="n">AddTimestamp</span><span class="p">()</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="n">AddZipkinTraces</span><span class="p">())</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">AddRequestCount</span><span class="p">())</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">AutoJsonEvents</span><span class="p">(</span><span class="n">Jackson</span><span class="p">))</span>
 
-    <span class="n">val</span> <span class="n">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="n">val</span> <span class="n">appWithEvents</span> <span class="o">=</span>
-        <span class="n">ResponseFilters</span><span class="o">.</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span>
-            <span class="o">//</span> <span class="n">to</span> <span class="s2">&quot;emit&quot;</span> <span class="n">an</span> <span class="n">event</span><span class="p">,</span> <span class="n">just</span> <span class="n">invoke</span><span class="p">()</span> <span class="n">the</span> <span class="n">Events</span><span class="err">!</span>
-            <span class="n">events</span><span class="p">(</span><span class="n">IncomingHttpRequest</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span> <span class="n">it</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">it</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">toMillis</span><span class="p">()))</span>
-        <span class="p">}</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">appWithEvents</span> <span class="p">=</span>
+        <span class="n">ResponseFilters</span><span class="p">.</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span>
+            <span class="c1">// to &quot;emit&quot; an event, just invoke() the Events!</span>
+            <span class="n">events</span><span class="p">(</span><span class="n">IncomingHttpRequest</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">uri</span><span class="p">,</span> <span class="n">it</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">code</span><span class="p">,</span> <span class="n">it</span><span class="p">.</span><span class="n">duration</span><span class="p">.</span><span class="n">toMillis</span><span class="p">()))</span>
+        <span class="p">}.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
-    <span class="n">appWithEvents</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/path1&quot;</span><span class="p">))</span>
-    <span class="n">appWithEvents</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/path2&quot;</span><span class="p">))</span>
+    <span class="n">appWithEvents</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/path1&quot;</span><span class="p">))</span>
+    <span class="n">appWithEvents</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/path2&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 
-<span class="o">//</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">our</span> <span class="n">custom</span> <span class="n">event</span> <span class="n">which</span> <span class="n">will</span> <span class="n">be</span> <span class="n">printed</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">structured</span> <span class="n">way</span>
-<span class="n">data</span> <span class="k">class</span> <span class="nc">IncomingHttpRequest</span><span class="p">(</span><span class="n">val</span> <span class="n">uri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">,</span> <span class="n">val</span> <span class="n">status</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">val</span> <span class="n">duration</span><span class="p">:</span> <span class="n">Long</span><span class="p">)</span> <span class="p">:</span> <span class="n">Event</span>
+<span class="c1">// this is our custom event which will be printed in a structured way</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">IncomingHttpRequest</span><span class="p">(</span><span class="k">val</span> <span class="py">uri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">,</span> <span class="k">val</span> <span class="py">status</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">val</span> <span class="py">duration</span><span class="p">:</span> <span class="n">Long</span><span class="p">)</span> <span class="p">:</span> <span class="n">Event</span>
 
-<span class="o">//</span> <span class="n">here</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">new</span> <span class="n">EventFilter</span> <span class="n">that</span> <span class="n">adds</span> <span class="n">custom</span> <span class="n">metadata</span> <span class="n">to</span> <span class="n">the</span> <span class="n">emitted</span> <span class="n">events</span>
-<span class="n">fun</span> <span class="n">AddRequestCount</span><span class="p">():</span> <span class="n">EventFilter</span> <span class="p">{</span>
-    <span class="n">var</span> <span class="n">requestCount</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">return</span> <span class="n">EventFilter</span> <span class="p">{</span> <span class="nb">next</span> <span class="o">-&gt;</span>
+<span class="c1">// here is a new EventFilter that adds custom metadata to the emitted events</span>
+<span class="k">fun</span> <span class="nf">AddRequestCount</span><span class="p">():</span> <span class="n">EventFilter</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="py">requestCount</span> <span class="p">=</span> <span class="m">0</span>
+    <span class="k">return</span> <span class="n">EventFilter</span> <span class="p">{</span> <span class="n">next</span> <span class="p">-&gt;</span>
         <span class="p">{</span>
-            <span class="nb">next</span><span class="p">(</span><span class="n">it</span> <span class="o">+</span> <span class="p">(</span><span class="s2">&quot;requestCount&quot;</span> <span class="n">to</span> <span class="n">requestCount</span><span class="o">++</span><span class="p">))</span>
+            <span class="n">next</span><span class="p">(</span><span class="n">it</span> <span class="p">+</span> <span class="p">(</span><span class="s">&quot;requestCount&quot;</span> <span class="n">to</span> <span class="n">requestCount</span><span class="p">++))</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>

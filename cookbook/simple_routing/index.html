@@ -837,28 +837,28 @@
 
 
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/simple_routing/example.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">cookbook</span><span class="o">.</span><span class="n">simple_routing</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.simple_routing</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.DELETE</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.DELETE</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="n">val</span> <span class="n">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s2">&quot;bob&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
-        <span class="s2">&quot;rita&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;you POST rita&quot;</span><span class="p">)</span> <span class="p">},</span>
-        <span class="s2">&quot;sue&quot;</span> <span class="n">bind</span> <span class="n">DELETE</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;you DELETE sue&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;bob&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
+        <span class="s">&quot;rita&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you POST rita&quot;</span><span class="p">)</span> <span class="p">},</span>
+        <span class="s">&quot;sue&quot;</span> <span class="n">bind</span> <span class="n">DELETE</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you DELETE sue&quot;</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">)</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/bob&quot;</span><span class="p">)))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s2">&quot;/bob&quot;</span><span class="p">)))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">DELETE</span><span class="p">,</span> <span class="s2">&quot;/sue&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/bob&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/bob&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">DELETE</span><span class="p">,</span> <span class="s">&quot;/sue&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></div>
                     

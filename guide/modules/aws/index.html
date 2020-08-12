@@ -839,56 +839,56 @@
 <p>This module provides super-simple AWS request signing functionality for talking to AWS services. Once configured with the correct keys, the various AWS services are actually really simple to integrate with they're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.</p>
 <p>http4k provides a <code>Filter</code> which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">aws</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.aws</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.aws.AwsCredentialScope</span>
-<span class="kn">import</span> <span class="nn">org.http4k.aws.AwsCredentials</span>
-<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.PUT</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.AwsAuth</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
-<span class="kn">import</span> <span class="nn">java.util.UUID</span>
+<span class="k">import</span> <span class="nn">org.http4k.aws.AwsCredentialScope</span>
+<span class="k">import</span> <span class="nn">org.http4k.aws.AwsCredentials</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.PUT</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.AwsAuth</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span> <span class="nn">java.util.UUID</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="n">val</span> <span class="n">region</span> <span class="o">=</span> <span class="s2">&quot;us-east-1&quot;</span>
-    <span class="n">val</span> <span class="n">service</span> <span class="o">=</span> <span class="s2">&quot;s3&quot;</span>
-    <span class="n">val</span> <span class="n">accessKey</span> <span class="o">=</span> <span class="s2">&quot;myGreatAwsAccessKey&quot;</span>
-    <span class="n">val</span> <span class="n">secretKey</span> <span class="o">=</span> <span class="s2">&quot;myGreatAwsSecretKey&quot;</span>
+    <span class="k">val</span> <span class="py">region</span> <span class="p">=</span> <span class="s">&quot;us-east-1&quot;</span>
+    <span class="k">val</span> <span class="py">service</span> <span class="p">=</span> <span class="s">&quot;s3&quot;</span>
+    <span class="k">val</span> <span class="py">accessKey</span> <span class="p">=</span> <span class="s">&quot;myGreatAwsAccessKey&quot;</span>
+    <span class="k">val</span> <span class="py">secretKey</span> <span class="p">=</span> <span class="s">&quot;myGreatAwsSecretKey&quot;</span>
 
-    <span class="n">val</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientFilters</span><span class="o">.</span><span class="n">AwsAuth</span><span class="p">(</span>
+    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="n">AwsAuth</span><span class="p">(</span>
         <span class="n">AwsCredentialScope</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">service</span><span class="p">),</span>
         <span class="n">AwsCredentials</span><span class="p">(</span><span class="n">accessKey</span><span class="p">,</span> <span class="n">secretKey</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
-    <span class="o">//</span> <span class="n">create</span> <span class="n">a</span> <span class="n">bucket</span>
-    <span class="n">val</span> <span class="n">bucketName</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="n">randomUUID</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
-    <span class="n">val</span> <span class="n">bucketUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;https://$bucketName.s3.amazonaws.com/&quot;</span><span class="p">)</span>
+    <span class="c1">// create a bucket</span>
+    <span class="k">val</span> <span class="py">bucketName</span> <span class="p">=</span> <span class="n">UUID</span><span class="p">.</span><span class="n">randomUUID</span><span class="p">().</span><span class="n">toString</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">bucketUri</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;https://$bucketName.s3.amazonaws.com/&quot;</span><span class="p">)</span>
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">PUT</span><span class="p">,</span> <span class="n">bucketUri</span><span class="p">)))</span>
 
-    <span class="o">//</span> <span class="n">get</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">buckets</span> <span class="k">with</span> <span class="n">the</span> <span class="n">new</span> <span class="n">bucket</span> <span class="ow">in</span> <span class="n">it</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;https://s3.amazonaws.com/&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">bodyString</span><span class="p">())</span>
+    <span class="c1">// get list of buckets with the new bucket in it</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;https://s3.amazonaws.com/&quot;</span><span class="p">))).</span><span class="n">bodyString</span><span class="p">())</span>
 
-    <span class="o">//</span> <span class="n">create</span> <span class="n">a</span> <span class="n">key</span> <span class="n">into</span> <span class="n">the</span> <span class="n">bucket</span>
-    <span class="n">val</span> <span class="n">key</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="n">randomUUID</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+    <span class="c1">// create a key into the bucket</span>
+    <span class="k">val</span> <span class="py">key</span> <span class="p">=</span> <span class="n">UUID</span><span class="p">.</span><span class="n">randomUUID</span><span class="p">().</span><span class="n">toString</span><span class="p">()</span>
 
-    <span class="n">val</span> <span class="n">keyUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s2">&quot;https://$bucketName.s3.amazonaws.com/$key&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">PUT</span><span class="p">,</span> <span class="n">keyUri</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="s2">&quot;some amazing content that I want stored on S3&quot;</span><span class="p">)))</span>
+    <span class="k">val</span> <span class="py">keyUri</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;https://$bucketName.s3.amazonaws.com/$key&quot;</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">PUT</span><span class="p">,</span> <span class="n">keyUri</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;some amazing content that I want stored on S3&quot;</span><span class="p">)))</span>
 
-    <span class="o">//</span> <span class="n">get</span> <span class="n">the</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">bucket</span>
+    <span class="c1">// get the keys in the bucket</span>
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="n">bucketUri</span><span class="p">)))</span>
 
-    <span class="o">//</span> <span class="n">get</span> <span class="n">the</span> <span class="n">contents</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">bucket</span>
+    <span class="c1">// get the contents of the key in the bucket</span>
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="n">keyUri</span><span class="p">)))</span>
 
-    <span class="o">//</span> <span class="n">delete</span> <span class="n">the</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">bucket</span>
+    <span class="c1">// delete the key in the bucket</span>
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="n">keyUri</span><span class="p">)))</span>
 
-    <span class="o">//</span> <span class="n">delete</span> <span class="n">the</span> <span class="n">bucket</span>
+    <span class="c1">// delete the bucket</span>
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="n">bucketUri</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></div>

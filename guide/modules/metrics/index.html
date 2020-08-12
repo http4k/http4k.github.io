@@ -839,45 +839,45 @@
 <p>This module provides configurable Filters to provide metrics for http4k apps, plugging into the awesome <a href="http://micrometer.io/">Micrometer</a> library.</p>
 <h3 id="micrometer">Micrometer <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/metrics/example_micrometer.kt"><img class="octocat"/></a></h3>
 <p>Both Server and Client filters are available for recording request counts and latency, optionally overriding values for the metric names, descriptions and request identification.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">metrics</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.metrics</span>
 
-<span class="kn">import</span> <span class="nn">io.micrometer.core.instrument.simple.SimpleMeterRegistry</span>
-<span class="kn">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="kn">import</span> <span class="nn">org.http4k.filter.MetricFilters</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="kn">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">io.micrometer.core.instrument.simple.SimpleMeterRegistry</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.MetricFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="o">//</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">micrometer</span> <span class="n">registry</span> <span class="n">used</span> <span class="n">mostly</span> <span class="k">for</span> <span class="n">testing</span> <span class="o">-</span> <span class="n">substitute</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">implementation</span><span class="o">.</span>
-    <span class="n">val</span> <span class="n">registry</span> <span class="o">=</span> <span class="n">SimpleMeterRegistry</span><span class="p">()</span>
+    <span class="c1">// this is a micrometer registry used mostly for testing - substitute the correct implementation.</span>
+    <span class="k">val</span> <span class="py">registry</span> <span class="p">=</span> <span class="n">SimpleMeterRegistry</span><span class="p">()</span>
 
-    <span class="n">val</span> <span class="n">server</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="s2">&quot;/metrics&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
+    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
 
-    <span class="o">//</span> <span class="nb">apply</span> <span class="n">filters</span> <span class="n">to</span> <span class="n">a</span> <span class="n">server</span><span class="o">...</span>
-    <span class="n">val</span> <span class="n">app</span> <span class="o">=</span> <span class="n">MetricFilters</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+    <span class="c1">// apply filters to a server...</span>
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">MetricFilters</span><span class="p">.</span><span class="n">Server</span><span class="p">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="p">.</span><span class="n">Server</span><span class="p">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 
-    <span class="o">//</span> <span class="o">...</span> <span class="ow">or</span> <span class="n">to</span> <span class="n">a</span> <span class="n">client</span>
-    <span class="n">val</span> <span class="n">client</span> <span class="o">=</span>
-        <span class="n">MetricFilters</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
-            <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+    <span class="c1">// ... or to a client</span>
+    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span>
+        <span class="n">MetricFilters</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
-    <span class="o">//</span> <span class="n">make</span> <span class="n">some</span> <span class="n">calls</span>
-    <span class="p">(</span><span class="mf">0.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">forEach</span> <span class="p">{</span>
-        <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/metrics&quot;</span><span class="p">))</span>
-        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;https://http4k.org&quot;</span><span class="p">))</span>
+    <span class="c1">// make some calls</span>
+    <span class="p">(</span><span class="m">0.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span>
+        <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/metrics&quot;</span><span class="p">))</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://http4k.org&quot;</span><span class="p">))</span>
     <span class="p">}</span>
 
-    <span class="o">//</span> <span class="n">see</span> <span class="n">some</span> <span class="n">results</span>
-    <span class="n">registry</span><span class="o">.</span><span class="n">forEachMeter</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s2">&quot;${it.id} ${it.measure().joinToString(&quot;</span><span class="p">,</span><span class="s2">&quot;)}&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="c1">// see some results</span>
+    <span class="n">registry</span><span class="p">.</span><span class="n">forEachMeter</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;${it.id} ${it.measure().joinToString(&quot;</span><span class="p">,</span><span class="s">&quot;)}&quot;</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
                     

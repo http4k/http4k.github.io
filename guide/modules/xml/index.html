@@ -856,31 +856,31 @@
 <li>Has trouble with repeating child-elements, depending on zero, one or many elements in the XML. This is due to the underlying library implementation</li>
 <li>Only handles objects with primitive JDK types</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">xml</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.xml</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="kn">import</span> <span class="nn">org.http4k.format.JacksonXml.auto</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.JacksonXml.auto</span>
 
-<span class="n">data</span> <span class="k">class</span> <span class="nc">JacksonWrapper</span><span class="p">(</span><span class="n">val</span> <span class="n">message</span><span class="p">:</span> <span class="n">JacksonMsg</span><span class="err">?</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">JacksonWrapper</span><span class="p">(</span><span class="k">val</span> <span class="py">message</span><span class="p">:</span> <span class="n">JacksonMsg</span><span class="p">?)</span>
 
-<span class="n">data</span> <span class="k">class</span> <span class="nc">JacksonMsg</span><span class="p">(</span><span class="n">val</span> <span class="n">subject</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">from</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">to</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">content</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">JacksonMsg</span><span class="p">(</span><span class="k">val</span> <span class="py">subject</span><span class="p">:</span> <span class="n">String</span><span class="p">?,</span> <span class="k">val</span> <span class="py">from</span><span class="p">:</span> <span class="n">String</span><span class="p">?,</span> <span class="k">val</span> <span class="py">to</span><span class="p">:</span> <span class="n">String</span><span class="p">?,</span> <span class="k">val</span> <span class="py">content</span><span class="p">:</span> <span class="n">String</span><span class="p">?)</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">We</span> <span class="n">can</span> <span class="n">use</span> <span class="n">the</span> <span class="n">auto</span> <span class="n">method</span> <span class="n">here</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">JacksonXML</span> <span class="nn">message</span> <span class="nn">format</span> <span class="nn">object.</span> <span class="nn">Note</span> <span class="nn">that</span> <span class="nn">the</span>
-    <span class="o">//</span> <span class="n">auto</span><span class="p">()</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">extension</span> <span class="n">function</span> <span class="n">which</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">manually</span> <span class="n">imported</span> <span class="p">(</span><span class="n">IntelliJ</span> <span class="n">won</span><span class="s1">&#39;t pick it up automatically).</span>
-    <span class="n">val</span> <span class="n">messageLens</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">auto</span><span class="o">&lt;</span><span class="n">JacksonWrapper</span><span class="o">&gt;</span><span class="p">()</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// We can use the auto method here from the JacksonXML message format object. Note that the</span>
+    <span class="c1">// auto() method is an extension function which needs to be manually imported (IntelliJ won&#39;t pick it up automatically).</span>
+    <span class="k">val</span> <span class="py">messageLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">JacksonWrapper</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="o">//</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">body</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">message</span> <span class="o">-</span> <span class="n">this</span> <span class="n">also</span> <span class="n">works</span> <span class="k">with</span> <span class="n">Response</span>
-    <span class="n">val</span> <span class="n">wrapper</span> <span class="o">=</span> <span class="n">JacksonWrapper</span><span class="p">(</span><span class="n">JacksonMsg</span><span class="p">(</span><span class="s2">&quot;subject&quot;</span><span class="p">,</span> <span class="s2">&quot;from&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">))</span>
-    <span class="n">val</span> <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;jacksonWrapper&gt;&lt;message subject=&quot;hi&quot;&gt;&lt;from&gt;david@http4k.org&lt;/from&gt;&lt;to&gt;ivan@http4k.org&lt;/to&gt;hello world&lt;/message&gt;&lt;/jacksonWrapper&gt;&quot;&quot;&quot;</span>
+    <span class="c1">// extract the body from the message - this also works with Response</span>
+    <span class="k">val</span> <span class="py">wrapper</span> <span class="p">=</span> <span class="n">JacksonWrapper</span><span class="p">(</span><span class="n">JacksonMsg</span><span class="p">(</span><span class="s">&quot;subject&quot;</span><span class="p">,</span> <span class="s">&quot;from&quot;</span><span class="p">,</span> <span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;content&quot;</span><span class="p">))</span>
+    <span class="k">val</span> <span class="py">message</span> <span class="p">=</span> <span class="s">&quot;&quot;&quot;&lt;jacksonWrapper&gt;&lt;message subject=&quot;hi&quot;&gt;&lt;from&gt;david@http4k.org&lt;/from&gt;&lt;to&gt;ivan@http4k.org&lt;/to&gt;hello world&lt;/message&gt;&lt;/jacksonWrapper&gt;&quot;&quot;&quot;</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">messageLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">message</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">messageLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">message</span><span class="p">)))</span>
 
-    <span class="o">//</span> <span class="n">inject</span> <span class="n">a</span> <span class="n">converted</span> <span class="nb">object</span><span class="o">-</span><span class="k">as</span><span class="o">-</span><span class="n">XML</span><span class="o">-</span><span class="n">string</span> <span class="n">into</span> <span class="n">a</span> <span class="n">request</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="p">(</span><span class="n">messageLens</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">wrapper</span><span class="p">))</span><span class="o">.</span><span class="n">bodyString</span><span class="p">())</span>
+    <span class="c1">// inject a converted object-as-XML-string into a request</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">messageLens</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="n">wrapper</span><span class="p">)).</span><span class="n">bodyString</span><span class="p">())</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -888,26 +888,26 @@
 <h3 id="xml">Xml</h3>
 <p>As above, we recommend using <code>http4k-format-jackson-xml</code> as it has more predictable and consistent behaviour.</p>
 <h4 id="xml-code">XML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">guide</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">xml</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.xml</span>
 
-<span class="kn">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="kn">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="kn">import</span> <span class="nn">org.http4k.format.Xml.auto</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.Xml.auto</span>
 
-<span class="n">data</span> <span class="k">class</span> <span class="nc">XmlWrapper</span><span class="p">(</span><span class="n">val</span> <span class="n">mesApacheClientStreamingContractessage</span><span class="p">:</span> <span class="n">MessageXml</span><span class="err">?</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">XmlWrapper</span><span class="p">(</span><span class="k">val</span> <span class="py">mesApacheClientStreamingContractessage</span><span class="p">:</span> <span class="n">MessageXml</span><span class="p">?)</span>
 
-<span class="n">data</span> <span class="k">class</span> <span class="nc">MessageXml</span><span class="p">(</span><span class="n">val</span> <span class="n">subject</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">from</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">to</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">,</span> <span class="n">val</span> <span class="n">content</span><span class="p">:</span> <span class="n">String</span><span class="err">?</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">MessageXml</span><span class="p">(</span><span class="k">val</span> <span class="py">subject</span><span class="p">:</span> <span class="n">String</span><span class="p">?,</span> <span class="k">val</span> <span class="py">from</span><span class="p">:</span> <span class="n">String</span><span class="p">?,</span> <span class="k">val</span> <span class="py">to</span><span class="p">:</span> <span class="n">String</span><span class="p">?,</span> <span class="k">val</span> <span class="py">content</span><span class="p">:</span> <span class="n">String</span><span class="p">?)</span>
 
-<span class="n">fun</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">We</span> <span class="n">can</span> <span class="n">use</span> <span class="n">the</span> <span class="n">auto</span> <span class="n">method</span> <span class="n">here</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">Xml</span> <span class="nn">message</span> <span class="nn">format</span> <span class="nn">object.</span> <span class="nn">Note</span> <span class="nn">that</span> <span class="nn">the</span>
-    <span class="o">//</span> <span class="n">auto</span><span class="p">()</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">extension</span> <span class="n">function</span> <span class="n">which</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">manually</span> <span class="n">imported</span> <span class="p">(</span><span class="n">IntelliJ</span> <span class="n">won</span><span class="s1">&#39;t pick it up automatically).</span>
-    <span class="o">//</span> <span class="n">Also</span><span class="p">,</span> <span class="n">this</span> <span class="n">lense</span> <span class="ow">is</span> <span class="n">ONLY</span> <span class="n">one</span> <span class="n">way</span> <span class="o">-</span> <span class="n">to</span> <span class="n">extract</span> <span class="n">values</span> <span class="kn">from</span> <span class="nn">a</span> <span class="nn">message</span>
-    <span class="n">val</span> <span class="n">messageLens</span> <span class="o">=</span> <span class="n">Body</span><span class="o">.</span><span class="n">auto</span><span class="o">&lt;</span><span class="n">XmlWrapper</span><span class="o">&gt;</span><span class="p">()</span><span class="o">.</span><span class="n">toLens</span><span class="p">()</span>
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// We can use the auto method here from the Xml message format object. Note that the</span>
+    <span class="c1">// auto() method is an extension function which needs to be manually imported (IntelliJ won&#39;t pick it up automatically).</span>
+    <span class="c1">// Also, this lense is ONLY one way - to extract values from a message</span>
+    <span class="k">val</span> <span class="py">messageLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">XmlWrapper</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span>
 
-    <span class="o">//</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">body</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">message</span> <span class="o">-</span> <span class="n">this</span> <span class="n">also</span> <span class="n">works</span> <span class="k">with</span> <span class="n">Response</span>
-    <span class="n">val</span> <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&lt;message subject=&quot;hi&quot;&gt;&lt;from&gt;david@http4k.org&lt;/from&gt;&lt;to&gt;ivan@http4k.org&lt;/to&gt;hello world&lt;/message&gt;&quot;&quot;&quot;</span>
-    <span class="n">val</span> <span class="n">requestWithEmail</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="c1">// extract the body from the message - this also works with Response</span>
+    <span class="k">val</span> <span class="py">message</span> <span class="p">=</span> <span class="s">&quot;&quot;&quot;&lt;message subject=&quot;hi&quot;&gt;&lt;from&gt;david@http4k.org&lt;/from&gt;&lt;to&gt;ivan@http4k.org&lt;/to&gt;hello world&lt;/message&gt;&quot;&quot;&quot;</span>
+    <span class="k">val</span> <span class="py">requestWithEmail</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">messageLens</span><span class="p">(</span><span class="n">requestWithEmail</span><span class="p">))</span>
 <span class="p">}</span>
