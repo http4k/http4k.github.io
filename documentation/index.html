@@ -1,0 +1,1145 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="http4k - a functional Kotlin HTTP toolkit">
+<meta name="twitter:title" content="http4k - a functional Kotlin HTTP toolkit">
+<meta property="og:title" content="http4k - a functional Kotlin HTTP toolkit" />
+
+
+
+<meta name="description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way.">
+<meta property="og:description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way." />
+<meta name="twitter:description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way.">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/documentation/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>Introduction - http4k</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#3f51b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../css/site.css">
+    
+    
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/"><div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div></a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link active"
+               href="./"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../rationale/"
+               title="Rationale & Concepts">Rationale & Concepts</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../installation/"
+               title="Installation">Installation</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../quickstart/"
+               title="Getting started">Getting started</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Developer Guide</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Modules</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/metrics/"
+           title="Metrics">Metrics</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/resilience/"
+           title="Resilience">Resilience</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/cloud_native/"
+           title="Cloud native Configuration">Cloud native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/modules/servicevirtualisation/"
+           title="Service Virtualisaion">Service Virtualisaion</a>
+    
+
+            
+        </div>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../guide/testing/"
+           title="Application Testing">Application Testing</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Tutorials</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../tutorials/tdding_http4k/"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../tutorials/documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Cookbook</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/"
+           title="How to use this guide">How to use this guide</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/server_as_a_function/"
+           title="Server as a function">Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/client_as_a_function/"
+           title="Client as a function">Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/container_integration/"
+           title="Container integration">Container integration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/simple_routing/"
+           title="Simple routing">Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/service_virtualisation/"
+           title="Service Virtualisation with Servirtium">Service Virtualisation with Servirtium</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/nestable_routes/"
+           title="Nestable routes">Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/using_templates/"
+           title="Templating engines">Templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/request_context/"
+           title="Typesafe RequestContexts">Typesafe RequestContexts</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/typesafe_http_requests_with_lenses/"
+           title="Typesafe HTTP requests with lenses">Typesafe HTTP requests with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/custom_json_marshallers/"
+           title="Custom JSON marshallers">Custom JSON marshallers</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/html_forms/"
+           title="HTML forms">HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/multipart_forms/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/generating_data_classes/"
+           title="Generating data classes for messages">Generating data classes for messages</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/websockets/"
+           title="Websockets">Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/typesafe_http_contracts/"
+           title="Typesafe HTTP contracts">Typesafe HTTP contracts</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/structured_logging_with_events/"
+           title="Structured Logging with Events">Structured Logging with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/basic_oauth_authorization_server/"
+           title="Basic OAuth Server configuration">Basic OAuth Server configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/custom_oauth_provider/"
+           title="Custom OAuth Provider configuration">Custom OAuth Provider configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/customised_servers/"
+           title="Custom Server (SSL)">Custom Server (SSL)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/principal_lookup/"
+           title="Principal lookup">Principal lookup</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/monitoring/"
+           title="Monitoring http4k">Monitoring http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/record_and_replay/"
+           title="Recording/replaying HTTP traffic">Recording/replaying HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/test_driven_apps/"
+           title="Test driven apps">Test driven apps</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cookbook/nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../in_action/"
+               title="In action">In action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../blog/meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../blog/typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../support/"
+               title="Getting Support">Getting Support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../contributing/"
+               title="Contribute/Support http4k">Contribute/Support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../api/"
+               title="API docs">API docs</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+    </ul>
+</div>
+        <main class="col">
+            <div class="container">
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1>Introduction</h1>
+                    
+                    <p><span class="github">
+<a href="https://http4k.org"><img src="https://www.http4k.org/img/logo_1100x200_blue_on_white.png"/></a></p>
+<p><a href="https://bintray.com/http4k/maven/http4k-core/_latestVersion"><img alt="Download" src="https://api.bintray.com/packages/http4k/maven/http4k-core/images/download.svg"></a>
+<a href="https://travis-ci.org/http4k/http4k"><img alt="build status" src="https://travis-ci.org/http4k/http4k.svg?branch=master"/></a>
+<a href="https://coveralls.io/github/http4k/http4k?branch=master"><img alt="coverage" src="https://coveralls.io/repos/http4k/http4k/badge.svg?branch=master"></a>
+<a href="http//www.apache.org/licenses/LICENSE-2.0"><img alt="GitHub license" src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat"></a>
+<a href="http://kotlinlang.org"><img alt="kotlin" src="https://img.shields.io/badge/kotlin-1.3-blue.svg"></a>
+<a href="https://codebeat.co/projects/github-com-http4k-http4k-master"><img alt="codebeat badge" src="https://codebeat.co/badges/5b369ed4-af27-46f4-ad9c-a307d900617e"></a>
+<a href="https://kotlin.link"><img alt="Awesome Kotlin Badge" src="https://kotlin.link/awesome-kotlin.svg"></a>
+<br/>
+<a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/backers/badge.svg"></a>
+<a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/sponsors/badge.svg"></a>
+</span></p>
+<p><a href="https://http4k.org">http4k</a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://http4k.org">http4k</a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
+<div class="codehilite"><pre><span></span><code> <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
+ <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p><a href="https://http4k.org">http4k</a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
+<p>The principles of <a href="https://http4k.org">http4k</a> are:</p>
+<ul>
+<li><strong>Application as a Function:</strong> Based on the Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, all HTTP services can be composed 
+of 2 types of simple function:<ul>
+<li><em>HttpHandler:</em> <code>(Request) -&gt; Response</code> - provides a remote call for processing a Request. </li>
+<li><em>Filter:</em> <code>(HttpHandler) -&gt; HttpHandler</code> - adds Request/Response pre/post processing. These filters are composed to make stacks of reusable behaviour that can 
+then be applied to an <code>HttpHandler</code>.</li>
+</ul>
+</li>
+<li><strong>Immutability:</strong> All entities in the library are immutable unless their function explicitly disallows this.</li>
+<li><strong>Symmetric:</strong> The <code>HttpHandler</code> interface is identical for both HTTP services and clients. This allows for simple offline testability of applications, as well as 
+plugging together of services without HTTP container being required.</li>
+<li><strong>Dependency-lite:</strong> Apart the from Kotlin StdLib, <code>http4k-core</code> module has ZERO dependencies and weighs in at ~700kb. Add-on modules only have dependencies required for specific implementation.</li>
+<li><strong>Testability</strong> Built by <strong>TDD</strong> enthusiasts, so supports <strong>super-easy</strong> mechanisms for both In and Out of Container testing of:<ul>
+<li>individual endpoints</li>
+<li>applications</li>
+<li>websockets</li>
+<li>full suites of microservices</li>
+</ul>
+</li>
+</ul>
+<h2 id="module-feature-overview">Module feature overview</h2>
+<ul>
+<li><a href="https://http4k.org/guide/modules/core">Core:</a> <ul>
+<li>Base HTTP handler and <strong>immutable HTTP message</strong> objects, cookie handling. </li>
+<li>Commonly used HTTP functionalities provided as reusable Filters (caching, debugging, <strong>Zipkin request tracing</strong>)</li>
+<li><strong>Path-based routing</strong>, including nestable contexts</li>
+<li><strong>Typesafe HTTP message construction/desconstruction and Request Contexts</strong> using Lenses</li>
+<li><strong>Static file-serving</strong> capability with <strong>Caching and Hot-Reload</strong> </li>
+<li><strong>Single Page Application</strong> support with <strong>Caching and Hot-Reload</strong> </li>
+<li>Servlet implementation to allow <strong>plugin to any Servlet container</strong></li>
+<li>Launch applications in <strong>1LOC</strong> with an embedded <strong>SunHttp</strong> server backend (recommended for development use only)</li>
+<li><strong>Path-based websockets</strong> including typesafe message marshalling using Lenses, which are <strong>testable without a running container</strong></li>
+<li>APIs to <strong>record and replay</strong> HTTP traffic to disk or memory</li>
+<li>Core <strong>abstraction APIs</strong> implemented by the other modules </li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/clients">Client:</a> <ul>
+<li><strong>1LOC</strong> client adapters <ul>
+<li><strong>Apache</strong> sync + async HTTP</li>
+<li><strong>Jetty</strong> HTTP (supports sync and async HTTP)</li>
+<li><strong>OkHttp</strong> HTTP (supports sync and async HTTP)</li>
+<li><strong>Java</strong> (bundled with <code>http4k-core</code>)</li>
+</ul>
+</li>
+<li><strong>1LOC</strong> WebSocket client, with blocking and non-blocking modes</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/servers">Server:</a><ul>
+<li><strong>1LOC</strong> server backend spinup for:<ul>
+<li><strong>Jetty</strong> (including websocket support)</li>
+<li><strong>Undertow</strong></li>
+<li><strong>Apache</strong> (from httpcore)</li>
+<li><strong>Netty</strong></li>
+<li><strong>Ktor CIO</strong></li>
+<li><strong>SunHttp</strong> (bundled with <code>http4k-core</code>)</li>
+</ul>
+</li>
+<li>API design allows for plugging into configurable instances of each</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/serverless">Serverless:</a><ul>
+<li>AWS: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to AWS Lambda to be called from API Gateway. </li>
+<li>Google Cloud Functions: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Google Cloud Functions with <code>GCloud</code>. </li>
+<li>Apache OpenWhisk: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Google Cloud Functions with <code>GCloud</code>. </li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/contracts">Contracts:</a> <ul>
+<li>Define <strong>Typesafe</strong> HTTP contracts, with required and optional path/query/header/bodies</li>
+<li><strong>Typesafe</strong> path matching</li>
+<li><strong>Auto-validation</strong> of incoming requests == <strong>zero boilerplate validation code</strong></li>
+<li>Self-documenting for all routes - eg. Built in support for live <strong>OpenApi v2 and v3</strong> description endpoints including <strong>JSON Schema</strong> model breakdown. </li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/templating">Templating:</a> <ul>
+<li><strong>Pluggable</strong> templating system support for:<ul>
+<li><strong>Dust</strong> </li>
+<li><strong>Freemarker</strong></li>
+<li><strong>Handlebars</strong> </li>
+<li><strong>Pebble</strong></li>
+<li><strong>Thymeleaf</strong></li>
+<li><strong>Jade4j</strong></li>
+</ul>
+</li>
+<li>Caching and <strong>Hot-Reload</strong> template support</li>
+</ul>
+</li>
+<li><strong>Message formats:</strong> <ul>
+<li>Consistent API provides first class support for marshalling formats to/from HTTP messages for:<ul>
+<li><strong><a href="https://www.http4k.org/guide/modules/json/">JSON</a></strong> - with support for: <ul>
+<li><strong>Jackson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
+<li><strong>Gson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
+<li><strong>Moshi</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
+<li><strong>KotlinX Serialization</strong> - official Kotlin JSON API. </li>
+<li><strong>Argo</strong> - lightweight Java JSON API with zero dependencies.            </li>
+</ul>
+</li>
+<li><strong><a href="https://www.http4k.org/guide/modules/xml/">XML</a></strong> - includes support for:<ul>
+<li><strong>Jackson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong></li>
+<li><strong>Xml</strong> - includes support for <strong>one way automatic marshalling of Data classes</strong></li>
+</ul>
+</li>
+<li><strong><a href="https://www.http4k.org/guide/modules/yaml/">YAML</a></strong> - includes support for:<ul>
+<li><strong>Jackson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/resilience">Resilience:</a> <ul>
+<li>Support for Circuits, Retrying, Rate-Limiting, Bulkheading via Resilience4J integration.</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/metrics">Metrics:</a> <ul>
+<li>Support for plugging http4k apps into micrometer</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/multipart">Multipart:</a> <ul>
+<li>Support for Multipart HTML forms, including Lens extensions for type-safe marshalling of fields.</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/aws">AWS:</a> <ul>
+<li>Client filter to allow super-simple interaction with AWS services (via request signing)</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/oauth">OAuth Security</a> <ul>
+<li>Implement OAuth Authorisation Code Grant flow with a single Interface</li>
+<li><strong>Pre-configured</strong> OAuth for following providers:<ul>
+<li><strong>Auth0</strong> </li>
+<li><strong>Dropbox</strong> </li>
+<li><strong>Google</strong> </li>
+<li><strong>Soundcloud</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/cloud_native">Cloud Native:</a><ul>
+<li>Tooling to support operating <a href="https://http4k.org">http4k</a> applications in orchestrated cloud environments such as Kubernetes and CloudFoundry. 12-factor configuration, dual-port servers and health checks such as liveness and readiness checking. </li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/webdriver">WebDriver:</a> <ul>
+<li>Ultra-lightweight Selenium WebDriver implementation for <a href="https://http4k.org">http4k</a> application.</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/hamkrest">Hamkrest:</a> <ul>
+<li>A set of Hamkrest matchers for testing <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/approvaltests">Approval Testing:</a> <ul>
+<li>JUnit 5 extensions for <a href="http://approvaltests.com/">Approval testing</a> of <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/chaos">Chaos:</a> <ul>
+<li>API for declaring and injecting failure modes into <a href="https://http4k.org">http4k</a> applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
+</ul>
+</li>
+<li><a href="https://http4k.org/guide/modules/servicevirtualisation">Service Virtualisation:</a> <ul>
+<li>Record and replay versioned HTTP contracts to/from <code>Servirtium</code> Markdown format. Includes Servirtium MiTM server and simple JUnit extensions.</li>
+</ul>
+</li>
+</ul>
+<h2 id="example">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/readme/example.kt"><img class="octocat" src="https://www.http4k.org/img/octocat-32.png"/></a></h2>
+<p>This quick example is designed to convey the simplicity &amp; features of <a href="https://http4k.org">http4k</a> . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point and demonstrates how to serve and consume HTTP services with dynamic routing.</p>
+<p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.CachingFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// we can bind HttpHandlers (which are just functions from  Request -&gt; Response) to paths/methods to create a Route,</span>
+    <span class="c1">// then combine many Routes together to make another HttpHandler</span>
+    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;pong!&quot;</span><span class="p">)</span> <span class="p">},</span>
+        <span class="s">&quot;/greet/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
+            <span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">?</span> <span class="p">=</span> <span class="n">req</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello ${name ?: &quot;</span><span class="n">anon</span><span class="p">!</span><span class="s">&quot;}&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="c1">// call the handler in-memory without spinning up a server</span>
+    <span class="k">val</span> <span class="py">inMemoryResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/greet/Bob&quot;</span><span class="p">))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">inMemoryResponse</span><span class="p">)</span>
+
+<span class="c1">// Produces:</span>
+<span class="c1">//    HTTP/1.1 200 OK</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+<span class="c1">//    hello Bob</span>
+
+    <span class="c1">// this is a Filter - it performs pre/post processing on a request or response</span>
+    <span class="k">val</span> <span class="py">timingFilter</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span>
+        <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span>
+        <span class="p">{</span>
+            <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
+            <span class="k">val</span> <span class="py">start</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span>
+            <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="k">val</span> <span class="py">latency</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span> <span class="p">-</span> <span class="n">start</span>
+            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Request to ${request.uri} took ${latency}ms&quot;</span><span class="p">)</span>
+            <span class="n">response</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// we can &quot;stack&quot; filters to create reusable units, and then apply them to an HttpHandler</span>
+    <span class="k">val</span> <span class="py">compositeFilter</span> <span class="p">=</span> <span class="n">CachingFilters</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">NoCache</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">timingFilter</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">filteredApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">compositeFilter</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+    <span class="c1">// only 1 LOC to mount an app and start it in a container</span>
+    <span class="n">filteredApp</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="c1">// HTTP clients are also HttpHandlers!</span>
+    <span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+
+    <span class="k">val</span> <span class="py">networkResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000/greet/Bob&quot;</span><span class="p">))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">networkResponse</span><span class="p">)</span>
+
+<span class="c1">// Produces:</span>
+<span class="c1">//    Request to /api/greet/Bob took 1ms</span>
+<span class="c1">//    HTTP/1.1 200</span>
+<span class="c1">//    cache-control: private, must-revalidate</span>
+<span class="c1">//    content-length: 9</span>
+<span class="c1">//    date: Thu, 08 Jun 2017 13:01:13 GMT</span>
+<span class="c1">//    expires: 0</span>
+<span class="c1">//    server: Jetty(9.3.16.v20170120)</span>
+<span class="c1">//</span>
+<span class="c1">//    hello Bob</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+<ul>
+<li><a href="https://twitter.com/DanielBodart">Dan Bodart</a>'s <a href="https://github.com/bodar/utterlyidle">utterlyidle</a></li>
+<li><a href="https://twitter.com/ivanrmoore">Ivan Moore</a> for pairing on "BarelyMagical", a 50-line wrapper around utterlyidle to allow "Server as a Function"</li>
+</ul>
+<p><span class="github"></p>
+<h2 id="contributors">Contributors</h2>
+<p>This project exists thanks to all the people who <a href="https://www.http4k.org/contributing/">contribute</a>.
+<a href="https://github.com/http4k/http4k/graphs/contributors"><img src="https://opencollective.com/http4k/contributors.svg?width=890" /></a></p>
+<h2 id="backers-sponsors">Backers &amp; Sponsors</h2>
+<p>If you use <a href="https://http4k.org">http4k</a> in your project or enterprise and would like to support ongoing development, please consider becoming a backer or a sponsor. Sponsor logos will show up here with a link to your website.</p>
+<p><a href="https://opencollective.com/http4k/sponsor/2/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/http4k/sponsor/3/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/http4k/sponsor/4/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/http4k/sponsor/5/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/http4k/sponsor/6/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/http4k/sponsor/7/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/http4k/sponsor/8/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/http4k/sponsor/9/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/9/avatar.svg"></a>
+<a href="https://opencollective.com/http4k/sponsor/0/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/0/avatar.svg"></a></p>
+<p></span></p>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+
+      <script src="../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+<script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+
+
+</body>
+</html>

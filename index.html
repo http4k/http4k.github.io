@@ -1,1608 +1,313 @@
-
-
-
-
 <!DOCTYPE html>
-<html lang="en" class="no-js">
-<head>
-    
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
     <meta charset="utf-8">
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    
-    <meta itemprop="name" content="http4k - a functional Kotlin HTTP toolkit">
-    <meta name="twitter:title" content="http4k - a functional Kotlin HTTP toolkit">
-    <meta property="og:title" content="http4k - a functional Kotlin HTTP toolkit" />
-    
 
-    
-    <meta name="description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way.">
-    <meta property="og:description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way." />
-    <meta name="twitter:description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way.">
-    
+<meta itemprop="name" content="http4k - a functional Kotlin HTTP toolkit">
+<meta name="twitter:title" content="http4k - a functional Kotlin HTTP toolkit">
+<meta property="og:title" content="http4k - a functional Kotlin HTTP toolkit" />
 
-    
-    <link rel="canonical" href="https://www.http4k.org/">
-    
 
-    
-    <meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
-    <meta name="twitter:creator" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
-    
 
-    
-    <meta name="lang:clipboard.copy" content="Copy to clipboard">
-    
-    <meta name="lang:clipboard.copied" content="Copied to clipboard">
-    
-    <meta name="lang:search.language" content="en">
-    
-    <meta name="lang:search.pipeline.stopwords" content="True">
-    
-    <meta name="lang:search.pipeline.trimmer" content="True">
-    
-    <meta name="lang:search.result.none" content="No matching documents">
-    
-    <meta name="lang:search.result.one" content="1 matching document">
-    
-    <meta name="lang:search.result.other" content="# matching documents">
-    
-    <meta name="lang:search.tokenizer" content="[\s\-]+">
-    
-    <!-- ****** faviconit.com favicons ****** -->
-    <link rel="shortcut icon" href="/img/favicon.ico">
-    <link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
-    <link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
-    <link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
-    <link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
-    <link rel="apple-touch-icon" href="/img/favicon-57.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
-    <meta name="msapplication-TileColor" content="#FFFFFF">
-    <meta name="msapplication-TileImage" content="/img/favicon-144.png">
-    <meta name="msapplication-config" content="/img/browserconfig.xml">
-    <!-- ****** faviconit.com favicons ****** -->
-    <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
-    
-    
-    
+<meta name="description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way.">
+<meta property="og:description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way." />
+<meta name="twitter:description" content="http4k is an HTTP toolkit written in Kotlin that enables the serving and consuming of HTTP services in a functional and consistent way.">
+
+
+
+
+
+<meta name="author" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), IvanSanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
     <title>http4k</title>
-    
-    
-    
-    <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
-    
-    <link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
-    
-    
-    
-    
-    <meta name="theme-color" content="#3f51b5">
-    
-    
-    
-    <script src="assets/javascripts/modernizr.1aa3b519.js"></script>
-    
-    
-    
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
-    <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
-    
-    
-    <link rel="stylesheet" href="assets/fonts/material-icons.css">
-    
-    <link rel="stylesheet" href="css/site.css">
-    
-    
-</head>
-
-
-
-<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
-
-<svg class="md-svg">
-    <defs>
-        
-        
-        <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
-    viewBox="0 0 416 448" id="__github">
-  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
-        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
-        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
-        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
-        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
-        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
-        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
-        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
-        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
-        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
-        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
-        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
-        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
-        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
-        99.5z" />
-</svg>
-        
-    </defs>
-</svg>
-<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-<input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-
-<a href="#module-feature-overview" tabindex="1" class="md-skip">
-    Skip to content
-</a>
-
-
-<header class="md-header" data-md-component="header">
-    <nav class="md-header-nav md-grid">
-        <div class="md-flex">
-            <div class="md-flex__cell md-flex__cell--shrink">
-                <a href="https://www.http4k.org/" title="http4k"
-                   class="md-header-nav__button md-logo">
-                    
-                    <img src="img/logo_1100x200_white_on_blue_trans.png" height="24">
-                    
-                </a>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-                <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch">
-                <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-                    
-                    
-                    
-                    
-                    Introduction
-                    
-                </div>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-                
-                
-                <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-                
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
-      </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
-          <div class="md-search-result__meta">
-            Type to start searching
+  </head>
+  <body>
+    <!-- header-->
+    <header class="landing">
+      <div class="overlay"></div>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container"><a class="navbar-brand" href="#"> <img src="/img/logo.png" width="185" alt="logo"/></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="navbar-icon"></div>
+            <div class="navbar-icon"></div>
+            <div class="navbar-icon"></div>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto align-items-center">
+              <li class="nav-item active"><a class="nav-link" href="/documentation/">Documentation</a></li>
+              <li class="nav-item"><a class="nav-link" href="/changelog">Changelog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/support">Support</a></li>
+                <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+              <li class="nav-item"><a class="nav-link btn btn-outline-light" href="https://github.com/http4k/http4k">Source</a></li>
+            </ul>
           </div>
-          <ol class="md-search-result__list"></ol>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-                
-                
-            </div>
-            
-            <div class="md-flex__cell md-flex__cell--shrink">
-                <div class="md-header-nav__source">
-                    
-
-
-  
-
-
-  <a href="https://github.com/http4k/http4k/" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
-    </div>
-  </a>
-
-                </div>
-            </div>
-            
-        </div>
-    </nav>
-</header>
-
-<div class="md-container">
-    
-    
-    
-    
-    <main class="md-main">
-        <div class="md-main__inner md-grid" data-md-component="container">
-            
-            
-            <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
-                <div class="md-sidebar__scrollwrap">
-                    <div class="md-sidebar__inner">
-                        <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://www.http4k.org/" title="http4k" class="md-nav__button md-logo">
-      
-        <img src="img/logo_1100x200_white_on_blue_trans.png" width="48" height="48">
-      
-    </a>
-    http4k
-  </label>
-  
-    <div class="md-nav__source">
-      
-
-
-  
-
-
-  <a href="https://github.com/http4k/http4k/" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#__github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
-    </div>
-  </a>
-
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Introduction
-      </label>
-    
-    <a href="." title="Introduction" class="md-nav__link md-nav__link--active">
-      Introduction
-    </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#module-feature-overview" title="Module feature overview" class="md-nav__link">
-    Module feature overview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example" title="Example " class="md-nav__link">
-    Example 
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#acknowledgments" title="Acknowledgments" class="md-nav__link">
-    Acknowledgments
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contributors" title="Contributors" class="md-nav__link">
-    Contributors
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#backers-sponsors" title="Backers &amp; Sponsors" class="md-nav__link">
-    Backers &amp; Sponsors
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="rationale/" title="Rationale & Concepts" class="md-nav__link">
-      Rationale & Concepts
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="installation/" title="Installation" class="md-nav__link">
-      Installation
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="quickstart/" title="Getting started" class="md-nav__link">
-      Getting started
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
-    
-    <label class="md-nav__link" for="nav-5">
-      Developer Guide
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
-        Developer Guide
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
-    
-    <label class="md-nav__link" for="nav-5-1">
-      Modules
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
-      <label class="md-nav__title" for="nav-5-1">
-        Modules
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/" title="Overview" class="md-nav__link">
-      Overview
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/aws/" title="AWS" class="md-nav__link">
-      AWS
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/core/" title="Core" class="md-nav__link">
-      Core
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/json/" title="JSON handling" class="md-nav__link">
-      JSON handling
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/clients/" title="HTTP & Websocket clients" class="md-nav__link">
-      HTTP & Websocket clients
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/metrics/" title="Metrics" class="md-nav__link">
-      Metrics
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/multipart/" title="Multipart forms" class="md-nav__link">
-      Multipart forms
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/resilience/" title="Resilience" class="md-nav__link">
-      Resilience
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/servers/" title="Server backend" class="md-nav__link">
-      Server backend
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/serverless/" title="Serverless backend" class="md-nav__link">
-      Serverless backend
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/templating/" title="Templating" class="md-nav__link">
-      Templating
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/contracts/" title="Typesafe contracts (OpenAPI3)" class="md-nav__link">
-      Typesafe contracts (OpenAPI3)
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/oauth/" title="OAuth" class="md-nav__link">
-      OAuth
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/cloud_native/" title="Cloud native Configuration" class="md-nav__link">
-      Cloud native Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/jsonrpc/" title="JSON RPC" class="md-nav__link">
-      JSON RPC
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/xml/" title="XML handling" class="md-nav__link">
-      XML handling
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/yaml/" title="YAML handling" class="md-nav__link">
-      YAML handling
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/hamkrest/" title="Hamkrest" class="md-nav__link">
-      Hamkrest
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/approvaltests/" title="Approval Testing" class="md-nav__link">
-      Approval Testing
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/webdriver/" title="WebDriver" class="md-nav__link">
-      WebDriver
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/chaos/" title="Chaos Testing" class="md-nav__link">
-      Chaos Testing
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/modules/servicevirtualisation/" title="Service Virtualisaion" class="md-nav__link">
-      Service Virtualisaion
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="guide/testing/" title="Application Testing" class="md-nav__link">
-      Application Testing
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
-    
-    <label class="md-nav__link" for="nav-6">
-      Tutorials
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
-        Tutorials
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="tutorials/tdding_http4k/" title="TDDing http4k" class="md-nav__link">
-      TDDing http4k
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="tutorials/documenting_apis_with_openapi/" title="Documenting http4k apps with OpenApi3" class="md-nav__link">
-      Documenting http4k apps with OpenApi3
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
-    
-    <label class="md-nav__link" for="nav-7">
-      Cookbook
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-7">
-        Cookbook
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/" title="How to use this guide" class="md-nav__link">
-      How to use this guide
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/server_as_a_function/" title="Server as a function" class="md-nav__link">
-      Server as a function
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/client_as_a_function/" title="Client as a function" class="md-nav__link">
-      Client as a function
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/container_integration/" title="Container integration" class="md-nav__link">
-      Container integration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/simple_routing/" title="Simple routing" class="md-nav__link">
-      Simple routing
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/service_virtualisation/" title="Service Virtualisation with Servirtium" class="md-nav__link">
-      Service Virtualisation with Servirtium
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/nestable_routes/" title="Nestable routes" class="md-nav__link">
-      Nestable routes
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/using_templates/" title="Templating engines" class="md-nav__link">
-      Templating engines
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/request_context/" title="Typesafe RequestContexts" class="md-nav__link">
-      Typesafe RequestContexts
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/typesafe_http_requests_with_lenses/" title="Typesafe HTTP requests with lenses" class="md-nav__link">
-      Typesafe HTTP requests with lenses
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/custom_json_marshallers/" title="Custom JSON marshallers" class="md-nav__link">
-      Custom JSON marshallers
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/html_forms/" title="HTML forms" class="md-nav__link">
-      HTML forms
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/multipart_forms/" title="Multipart forms" class="md-nav__link">
-      Multipart forms
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/generating_data_classes/" title="Generating data classes for messages" class="md-nav__link">
-      Generating data classes for messages
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/websockets/" title="Websockets" class="md-nav__link">
-      Websockets
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/typesafe_http_contracts/" title="Typesafe HTTP contracts" class="md-nav__link">
-      Typesafe HTTP contracts
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/structured_logging_with_events/" title="Structured Logging with Events" class="md-nav__link">
-      Structured Logging with Events
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/basic_oauth_authorization_server/" title="Basic OAuth Server configuration" class="md-nav__link">
-      Basic OAuth Server configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/custom_oauth_provider/" title="Custom OAuth Provider configuration" class="md-nav__link">
-      Custom OAuth Provider configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/customised_servers/" title="Custom Server (SSL)" class="md-nav__link">
-      Custom Server (SSL)
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/principal_lookup/" title="Principal lookup" class="md-nav__link">
-      Principal lookup
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/monitoring/" title="Monitoring http4k" class="md-nav__link">
-      Monitoring http4k
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/record_and_replay/" title="Recording/replaying HTTP traffic" class="md-nav__link">
-      Recording/replaying HTTP traffic
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/test_driven_apps/" title="Test driven apps" class="md-nav__link">
-      Test driven apps
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="cookbook/nanoservices/" title="Nanoservices" class="md-nav__link">
-      Nanoservices
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="performance/" title="Performance" class="md-nav__link">
-      Performance
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="in_action/" title="In action" class="md-nav__link">
-      In action
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
-    
-    <label class="md-nav__link" for="nav-10">
-      Blog
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-10">
-        Blog
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="blog/meet_http4k/" title="Meet http4k" class="md-nav__link">
-      Meet http4k
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="blog/typesafe_websockets/" title="Typesafe Websockets" class="md-nav__link">
-      Typesafe Websockets
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="support/" title="Getting Support" class="md-nav__link">
-      Getting Support
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="contributing/" title="Contribute/Support http4k" class="md-nav__link">
-      Contribute/Support http4k
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="code-of-conduct/" title="Code of Conduct" class="md-nav__link">
-      Code of Conduct
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="api/" title="API docs" class="md-nav__link">
-      API docs
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="changelog/" title="Changelog" class="md-nav__link">
-      Changelog
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="faq/" title="FAQ" class="md-nav__link">
-      FAQ
-    </a>
-  </li>
-
-    
-  </ul>
-</nav>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="md-content">
-                <article class="md-content__inner md-typeset">
-                    
-                    
-                    <a href="https://github.com/http4k/http4k/edit/master/src/docs/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
-                    
-                    
-                    <h1>Introduction</h1>
-                    
-                    <p><span class="github">
-<a href="https://http4k.org"><img src="https://www.http4k.org/img/logo_1100x200_blue_on_white.png"/></a></p>
-<p><a href="https://bintray.com/http4k/maven/http4k-core/_latestVersion"><img alt="Download" src="https://api.bintray.com/packages/http4k/maven/http4k-core/images/download.svg"></a>
-<a href="https://travis-ci.org/http4k/http4k"><img alt="build status" src="https://travis-ci.org/http4k/http4k.svg?branch=master"/></a>
-<a href="https://coveralls.io/github/http4k/http4k?branch=master"><img alt="coverage" src="https://coveralls.io/repos/http4k/http4k/badge.svg?branch=master"></a>
-<a href="http//www.apache.org/licenses/LICENSE-2.0"><img alt="GitHub license" src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat"></a>
-<a href="http://kotlinlang.org"><img alt="kotlin" src="https://img.shields.io/badge/kotlin-1.3-blue.svg"></a>
-<a href="https://codebeat.co/projects/github-com-http4k-http4k-master"><img alt="codebeat badge" src="https://codebeat.co/badges/5b369ed4-af27-46f4-ad9c-a307d900617e"></a>
-<a href="https://kotlin.link"><img alt="Awesome Kotlin Badge" src="https://kotlin.link/awesome-kotlin.svg"></a>
-<br/>
-<a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/backers/badge.svg"></a>
-<a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/sponsors/badge.svg"></a>
-</span></p>
-<p><a href="https://http4k.org">http4k</a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://http4k.org">http4k</a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
-<div class="codehilite"><pre><span></span><code> <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
- <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
-</code></pre></div>
-
-
-<p><a href="https://http4k.org">http4k</a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
-<p>The principles of <a href="https://http4k.org">http4k</a> are:</p>
-<ul>
-<li><strong>Application as a Function:</strong> Based on the Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, all HTTP services can be composed 
-of 2 types of simple function:<ul>
-<li><em>HttpHandler:</em> <code>(Request) -&gt; Response</code> - provides a remote call for processing a Request. </li>
-<li><em>Filter:</em> <code>(HttpHandler) -&gt; HttpHandler</code> - adds Request/Response pre/post processing. These filters are composed to make stacks of reusable behaviour that can 
-then be applied to an <code>HttpHandler</code>.</li>
-</ul>
-</li>
-<li><strong>Immutability:</strong> All entities in the library are immutable unless their function explicitly disallows this.</li>
-<li><strong>Symmetric:</strong> The <code>HttpHandler</code> interface is identical for both HTTP services and clients. This allows for simple offline testability of applications, as well as 
-plugging together of services without HTTP container being required.</li>
-<li><strong>Dependency-lite:</strong> Apart the from Kotlin StdLib, <code>http4k-core</code> module has ZERO dependencies and weighs in at ~700kb. Add-on modules only have dependencies required for specific implementation.</li>
-<li><strong>Testability</strong> Built by <strong>TDD</strong> enthusiasts, so supports <strong>super-easy</strong> mechanisms for both In and Out of Container testing of:<ul>
-<li>individual endpoints</li>
-<li>applications</li>
-<li>websockets</li>
-<li>full suites of microservices</li>
-</ul>
-</li>
-</ul>
-<h2 id="module-feature-overview">Module feature overview</h2>
-<ul>
-<li><a href="https://http4k.org/guide/modules/core">Core:</a> <ul>
-<li>Base HTTP handler and <strong>immutable HTTP message</strong> objects, cookie handling. </li>
-<li>Commonly used HTTP functionalities provided as reusable Filters (caching, debugging, <strong>Zipkin request tracing</strong>)</li>
-<li><strong>Path-based routing</strong>, including nestable contexts</li>
-<li><strong>Typesafe HTTP message construction/desconstruction and Request Contexts</strong> using Lenses</li>
-<li><strong>Static file-serving</strong> capability with <strong>Caching and Hot-Reload</strong> </li>
-<li><strong>Single Page Application</strong> support with <strong>Caching and Hot-Reload</strong> </li>
-<li>Servlet implementation to allow <strong>plugin to any Servlet container</strong></li>
-<li>Launch applications in <strong>1LOC</strong> with an embedded <strong>SunHttp</strong> server backend (recommended for development use only)</li>
-<li><strong>Path-based websockets</strong> including typesafe message marshalling using Lenses, which are <strong>testable without a running container</strong></li>
-<li>APIs to <strong>record and replay</strong> HTTP traffic to disk or memory</li>
-<li>Core <strong>abstraction APIs</strong> implemented by the other modules </li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/clients">Client:</a> <ul>
-<li><strong>1LOC</strong> client adapters <ul>
-<li><strong>Apache</strong> sync + async HTTP</li>
-<li><strong>Jetty</strong> HTTP (supports sync and async HTTP)</li>
-<li><strong>OkHttp</strong> HTTP (supports sync and async HTTP)</li>
-<li><strong>Java</strong> (bundled with <code>http4k-core</code>)</li>
-</ul>
-</li>
-<li><strong>1LOC</strong> WebSocket client, with blocking and non-blocking modes</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/servers">Server:</a><ul>
-<li><strong>1LOC</strong> server backend spinup for:<ul>
-<li><strong>Jetty</strong> (including websocket support)</li>
-<li><strong>Undertow</strong></li>
-<li><strong>Apache</strong> (from httpcore)</li>
-<li><strong>Netty</strong></li>
-<li><strong>Ktor CIO</strong></li>
-<li><strong>SunHttp</strong> (bundled with <code>http4k-core</code>)</li>
-</ul>
-</li>
-<li>API design allows for plugging into configurable instances of each</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/serverless">Serverless:</a><ul>
-<li>AWS: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to AWS Lambda to be called from API Gateway. </li>
-<li>Google Cloud Functions: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Google Cloud Functions with <code>GCloud</code>. </li>
-<li>Apache OpenWhisk: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Google Cloud Functions with <code>GCloud</code>. </li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/contracts">Contracts:</a> <ul>
-<li>Define <strong>Typesafe</strong> HTTP contracts, with required and optional path/query/header/bodies</li>
-<li><strong>Typesafe</strong> path matching</li>
-<li><strong>Auto-validation</strong> of incoming requests == <strong>zero boilerplate validation code</strong></li>
-<li>Self-documenting for all routes - eg. Built in support for live <strong>OpenApi v2 and v3</strong> description endpoints including <strong>JSON Schema</strong> model breakdown. </li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/templating">Templating:</a> <ul>
-<li><strong>Pluggable</strong> templating system support for:<ul>
-<li><strong>Dust</strong> </li>
-<li><strong>Freemarker</strong></li>
-<li><strong>Handlebars</strong> </li>
-<li><strong>Pebble</strong></li>
-<li><strong>Thymeleaf</strong></li>
-<li><strong>Jade4j</strong></li>
-</ul>
-</li>
-<li>Caching and <strong>Hot-Reload</strong> template support</li>
-</ul>
-</li>
-<li><strong>Message formats:</strong> <ul>
-<li>Consistent API provides first class support for marshalling formats to/from HTTP messages for:<ul>
-<li><strong><a href="https://www.http4k.org/guide/modules/json/">JSON</a></strong> - with support for: <ul>
-<li><strong>Jackson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
-<li><strong>Gson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
-<li><strong>Moshi</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
-<li><strong>KotlinX Serialization</strong> - official Kotlin JSON API. </li>
-<li><strong>Argo</strong> - lightweight Java JSON API with zero dependencies.            </li>
-</ul>
-</li>
-<li><strong><a href="https://www.http4k.org/guide/modules/xml/">XML</a></strong> - includes support for:<ul>
-<li><strong>Jackson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong></li>
-<li><strong>Xml</strong> - includes support for <strong>one way automatic marshalling of Data classes</strong></li>
-</ul>
-</li>
-<li><strong><a href="https://www.http4k.org/guide/modules/yaml/">YAML</a></strong> - includes support for:<ul>
-<li><strong>Jackson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/resilience">Resilience:</a> <ul>
-<li>Support for Circuits, Retrying, Rate-Limiting, Bulkheading via Resilience4J integration.</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/metrics">Metrics:</a> <ul>
-<li>Support for plugging http4k apps into micrometer</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/multipart">Multipart:</a> <ul>
-<li>Support for Multipart HTML forms, including Lens extensions for type-safe marshalling of fields.</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/aws">AWS:</a> <ul>
-<li>Client filter to allow super-simple interaction with AWS services (via request signing)</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/oauth">OAuth Security</a> <ul>
-<li>Implement OAuth Authorisation Code Grant flow with a single Interface</li>
-<li><strong>Pre-configured</strong> OAuth for following providers:<ul>
-<li><strong>Auth0</strong> </li>
-<li><strong>Dropbox</strong> </li>
-<li><strong>Google</strong> </li>
-<li><strong>Soundcloud</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/cloud_native">Cloud Native:</a><ul>
-<li>Tooling to support operating <a href="https://http4k.org">http4k</a> applications in orchestrated cloud environments such as Kubernetes and CloudFoundry. 12-factor configuration, dual-port servers and health checks such as liveness and readiness checking. </li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/webdriver">WebDriver:</a> <ul>
-<li>Ultra-lightweight Selenium WebDriver implementation for <a href="https://http4k.org">http4k</a> application.</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/hamkrest">Hamkrest:</a> <ul>
-<li>A set of Hamkrest matchers for testing <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/approvaltests">Approval Testing:</a> <ul>
-<li>JUnit 5 extensions for <a href="http://approvaltests.com/">Approval testing</a> of <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/chaos">Chaos:</a> <ul>
-<li>API for declaring and injecting failure modes into <a href="https://http4k.org">http4k</a> applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
-</ul>
-</li>
-<li><a href="https://http4k.org/guide/modules/servicevirtualisation">Service Virtualisation:</a> <ul>
-<li>Record and replay versioned HTTP contracts to/from <code>Servirtium</code> Markdown format. Includes Servirtium MiTM server and simple JUnit extensions.</li>
-</ul>
-</li>
-</ul>
-<h2 id="example">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/readme/example.kt"><img class="octocat" src="https://www.http4k.org/img/octocat-32.png"/></a></h2>
-<p>This quick example is designed to convey the simplicity &amp; features of <a href="https://http4k.org">http4k</a> . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point and demonstrates how to serve and consume HTTP services with dynamic routing.</p>
-<p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
-    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
-<span class="o">}</span>
-</code></pre></div>
-
-
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook</span>
-
-<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.CachingFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
-
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// we can bind HttpHandlers (which are just functions from  Request -&gt; Response) to paths/methods to create a Route,</span>
-    <span class="c1">// then combine many Routes together to make another HttpHandler</span>
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;pong!&quot;</span><span class="p">)</span> <span class="p">},</span>
-        <span class="s">&quot;/greet/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
-            <span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">?</span> <span class="p">=</span> <span class="n">req</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
-            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello ${name ?: &quot;</span><span class="n">anon</span><span class="p">!</span><span class="s">&quot;}&quot;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
-
-    <span class="c1">// call the handler in-memory without spinning up a server</span>
-    <span class="k">val</span> <span class="py">inMemoryResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/greet/Bob&quot;</span><span class="p">))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">inMemoryResponse</span><span class="p">)</span>
-
-<span class="c1">// Produces:</span>
-<span class="c1">//    HTTP/1.1 200 OK</span>
-<span class="c1">//</span>
-<span class="c1">//</span>
-<span class="c1">//    hello Bob</span>
-
-    <span class="c1">// this is a Filter - it performs pre/post processing on a request or response</span>
-    <span class="k">val</span> <span class="py">timingFilter</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span>
-        <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span>
-        <span class="p">{</span>
-            <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
-            <span class="k">val</span> <span class="py">start</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span>
-            <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-            <span class="k">val</span> <span class="py">latency</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span> <span class="p">-</span> <span class="n">start</span>
-            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Request to ${request.uri} took ${latency}ms&quot;</span><span class="p">)</span>
-            <span class="n">response</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="c1">// we can &quot;stack&quot; filters to create reusable units, and then apply them to an HttpHandler</span>
-    <span class="k">val</span> <span class="py">compositeFilter</span> <span class="p">=</span> <span class="n">CachingFilters</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">NoCache</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">timingFilter</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">filteredApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">compositeFilter</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
-
-    <span class="c1">// only 1 LOC to mount an app and start it in a container</span>
-    <span class="n">filteredApp</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
-
-    <span class="c1">// HTTP clients are also HttpHandlers!</span>
-    <span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
-
-    <span class="k">val</span> <span class="py">networkResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000/greet/Bob&quot;</span><span class="p">))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">networkResponse</span><span class="p">)</span>
-
-<span class="c1">// Produces:</span>
-<span class="c1">//    Request to /api/greet/Bob took 1ms</span>
-<span class="c1">//    HTTP/1.1 200</span>
-<span class="c1">//    cache-control: private, must-revalidate</span>
-<span class="c1">//    content-length: 9</span>
-<span class="c1">//    date: Thu, 08 Jun 2017 13:01:13 GMT</span>
-<span class="c1">//    expires: 0</span>
-<span class="c1">//    server: Jetty(9.3.16.v20170120)</span>
-<span class="c1">//</span>
-<span class="c1">//    hello Bob</span>
-<span class="p">}</span>
-</code></pre></div>
-
-
-<h2 id="acknowledgments">Acknowledgments</h2>
-<ul>
-<li><a href="https://twitter.com/DanielBodart">Dan Bodart</a>'s <a href="https://github.com/bodar/utterlyidle">utterlyidle</a></li>
-<li><a href="https://twitter.com/ivanrmoore">Ivan Moore</a> for pairing on "BarelyMagical", a 50-line wrapper around utterlyidle to allow "Server as a Function"</li>
-</ul>
-<p><span class="github"></p>
-<h2 id="contributors">Contributors</h2>
-<p>This project exists thanks to all the people who <a href="https://www.http4k.org/contributing/">contribute</a>.
-<a href="https://github.com/http4k/http4k/graphs/contributors"><img src="https://opencollective.com/http4k/contributors.svg?width=890" /></a></p>
-<h2 id="backers-sponsors">Backers &amp; Sponsors</h2>
-<p>If you use <a href="https://http4k.org">http4k</a> in your project or enterprise and would like to support ongoing development, please consider becoming a backer or a sponsor. Sponsor logos will show up here with a link to your website.</p>
-<p><a href="https://opencollective.com/http4k/sponsor/2/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/http4k/sponsor/3/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/http4k/sponsor/4/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/http4k/sponsor/5/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/http4k/sponsor/6/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/http4k/sponsor/7/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/http4k/sponsor/8/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/http4k/sponsor/9/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/9/avatar.svg"></a>
-<a href="https://opencollective.com/http4k/sponsor/0/website" target="_blank"><img src="https://opencollective.com/http4k/sponsor/0/avatar.svg"></a></p>
-<p></span></p>
-                    
-                    
-                    
-                    
-                    
-                    
-
-
-                    
-                </article>
-            </div>
-        </div>
-    </main>
-    
-    
-<footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-        
-          <a href="rationale/" title="Rationale & Concepts" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Rationale & Concepts
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
       </nav>
-    </div>
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2020 - David Denton (@daviddenton), IvanSanchez (@s4nchez)
+      <div class="container h-80">
+        <div class="row align-items-center h-100">
+          <div class="col-md-7 col-lg-5 col-xl-4">
+            <h2 class="header mb-4">The Functional toolkit for Kotlin HTTP applications</h2>
+            <p class="mb-5">http4k provides a simple and uniform way to serve and consume HTTP services.</p>
+              <a class="btn btn-warning" href="/quickstart">Quick Start</a>
           </div>
-        
-        powered by
-        <a href="https://www.mkdocs.org">MkDocs</a>
-        and
-        <a href="https://squidfunk.github.io/mkdocs-material/">
-          Material for MkDocs</a>
-      </div>
-      
-        
-      
+        </div>
+      </div><img class="mt-5  img-fluid d-lg-none" src="/img/pipes-hero.png"/>
+    </header>
+    <!-- features-->
+    <div class="developers-custom">
+        <div class="container-fluid">
+            <h2>HTTP as a Function</h2>
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <img class="img-fluid" src="/img/server.png" alt="Creating a server with http4k"/>
+                    <p>An http4k server is just a regular function that gets invoked with a Request and returns a Response.
+                        </br></br>
+                        In a single line of code you can switch your server between Java (built-in), Apache, Jetty, Netty, Undertow, Ktor, or Ratpack.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img class="img-fluid" src="/img/client.png" alt="Creating a client with http4k"/>
+                    <p>An http4k client is just a regular function that you invoke with a Request and receives a Response.
+                        </br></br>
+                        In a single line of code you can switch your client implementation between Java (built-in), Apache, Jetty, and OkHttp.
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </div>
-  </div>
-</footer>
-    
-</div>
-
-      <script src="assets/javascripts/application.583bbe55.js"></script>
-
-<script>app.initialize({version:"1.1.2",url:{base:"."}})</script>
-
-
-
-
-<script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
-
-
-</body>
+    <div class="features">
+      <div class="container">
+        <h2>Highlights</h2>
+        <div class="row">
+          <div class="col-md-6 col-lg-3">
+            <div class="card-custom"><img src="/img/footprint.svg" alt="footprint"/>
+              <h4>Tiny <br/> footprint</h4>
+              <div class="dash blue-color"> </div>
+              <p>The core library has no dependencies and it’s all you need to create fully-functional applications. </br></br>
+                  http4k APIs take advantage of Kotlin features and are powered by Functional Programming techniques.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card-custom"><img src="/img/extendable.svg" alt="extendable"/>
+              <h4>Highly <br/> extendable</h4>
+              <div class="dash purple-color"></div>
+              <p>
+                Supports many Server, Serverless and HTTP Client technologies behind simple, consistent interfaces. </br></br>
+                http4k provides 30+ pre-built integrations for developers to choose from including Operability, JSON, and OpenAPI support.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card-custom"><img src="/img/testability.svg" alt="testability"/>
+              <h4>First class<br/> testability</h4>
+              <div class="dash secondary-color"> </div>
+              <p>
+                Create lightning fast, rock solid test suites for individual endpoints, applications or multi-service systems, all running fully in-memory. </br></br>
+                  http4k embraces advanced testing approaches such as Approval, Chaos and Service Virtualization.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card-custom"><img src="/img/supportive.svg" alt="supportive"/>
+              <h4>Battle-tested <br/> in the wild</h4>
+              <div class="dash green-color"> </div>
+              <p>http4k takes advantage of technologies that have millions of hours of production runtime. </br></br>
+                  The toolkit has been used to build high volume applications in Banking, Publishing & Government projects.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="our-document">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6 text-center">
+            <h2>Learn by example</h2>
+            <p class="lead">The docs are based on real, runnable examples that you can just use to get started.</p>
+            <a class="btn btn-primary" href="/cookbook">See cookbook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="api">
+            <div class="row align-items-center">
+              <div class="col-lg-5 col-xl-4">
+                <h2>More than 30 integrations</h2>
+                <p>http4k integrates with many tools and libraries for building Cloud-Native applications.</p>
+                <a class="btn btn-primary" href="/guide/modules/">Check it out</a>
+              </div>
+              <div class="col-lg-7 offset-xl-1 col-lg-7 offset-xl-1">
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/amazon.svg" alt="amazon"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/dust.svg" alt="dust"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/thymeleaf.svg" alt="thymeleaf"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/amazon-lambda.svg" alt="amazon-lambda"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/monkey.svg" alt="monkey"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/jetty.svg" alt="jetty"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/open-api.svg" alt="open-api"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/apache.svg" alt="apache"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/okhttp3.svg" alt="okhttp3"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/git.svg" alt="git"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/handlebars.svg" alt="handlebars"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/undertow.svg" alt="undertow"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/gson.svg" alt="gson"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/sun-microsystems.svg" alt="sun-microsystems"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/xml.svg" alt="xml"/></div>
+                  <div class="col-6 col-md-4 col-lg-3 text-center"><img class="img-fluid" src="/img/netty.svg" alt="netty"/></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- community-->
+    <div class="community">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-md-6 col-lg-5">
+            <h2>We love <br/> our community</h2>
+            <p>Many of the features of http4k have been added by its amazing contributors. New versions for features and fixes are released quickly and without fuss. </br></br>
+                http4k had been designed to make it easy to contribute or get help when you need it.</p>
+              <a class="btn btn-primary" href="/contributing">Contribute</a>
+          </div>
+          <div class="col-md-6 col-lg-5 p-md-0">
+            <!-- Our Contribuitors-->
+            <div class="contribuitors">
+              <h4>Some of our contributors</h4>
+              <div class="row justify-content-between align-content-center no-gutters">
+                  <img src="https://opencollective.com/http4k/contributors.svg?width=380&limit=49&button=false" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- support-->
+    <div class="support">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card-shadow">
+              <div class="row">
+                <div class="col-auto"><img src="/img/support.svg" alt="support"/></div>
+                <div class="col p-0">
+                  <h3>Getting Support</h3>
+                  <p>Sometimes everybody needs a little help. http4k provides several way to seek assistance, both through the community Slack channels and through bespoke support services.</p>
+                  <div class="see-more"><a href="/support">See more ››</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card-shadow">
+              <div class="row">
+                <div class="col-auto"><img src="/img/faq.svg" alt="faq"/></div>
+                <div class="col p-0">
+                  <h3>http4k in the wild</h3>
+                  <p>If you're looking for more complete examples http4k applications, look here. There are also a collection of public talks covering various aspects of the toolkit.</p>
+                  <div class="see-more"><a href="/in_action/">See more ››</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="pumb">
+            <!-- pumb image--><img class="img-fluid" src="/img/pumb.svg" alt="pumb"/>
+        </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="row align-items-baseline">
+          <div class="col-md-6 col-lg-3"><a class="p-0" href="#"><img class="logo-footer" src="/img/logo.svg" alt="logo"/></a>
+            <p>Copyright © 2020 - <br>David Denton <br><a href="https://github.com/daviddenton">@daviddenton</a>
+              <br>Ivan Sanchez <br><a href="https://github.com/s4nchez">@s4nchez</a>
+            </p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h4>Developers</h4>
+            <a href="/quickstart">Quick Start</a>
+            <a href="/documentation">Documentation</a>
+            <a href="/faq">F.A.Q</a>
+            <a href="https://github.com/http4k/http4k/blob/master/LICENSE">Licensing</a>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h4>Community</h4>
+            <a href="https://github.com/http4k/http4k">GitHub</a>
+            <a href="https://kotlinlang.slack.com/archives/C5AL3AKUY">Slack</a>
+            <a href="https://twitter.com/http4k">Twitter</a>
+            <a href="#">Code of Conduct</a>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h4>Company</h4>
+            <a href="/rationale">About Us</a>
+            <a href="/support">Support</a>
+            <a href="mailto:contact@http4k.org">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/index-min.js"></script>
+  </body>
 </html>
