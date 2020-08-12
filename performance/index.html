@@ -845,30 +845,29 @@ HttpHandler was used which is then plugged into each custom backend, as below:</
 
 <p>Command-line JVM options, however, were tuned for the test to take advantage of various JVM features.</p>
 <p>The full implementation of the benchmark can be found <a href="https://github.com/TechEmpower/FrameworkBenchmarks/tree/master/frameworks/Kotlin/http4k">here</a>.</p>
-<h3 id="results-round-17">Results - Round 17</h3>
-<p>Overall, http4k did very well in this round of benchmarking, especially considering that the ethos of the library is one 
-of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).</p>
-<p>The big surprise was the high performance of the Apache server backend, which consistently outranked Undertow (which is 
-the the most fully featured of all the supported backends and our default option). The SunHttp backend, which we entered 
-for a baseline comparison, unfortunately didn't produce any results in this round.</p>
-<h4 id="db-query-html-rendering-results">DB query + HTML rendering: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=fortune&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 6/73 - Apache backend</em></p>
+<h3 id="results-round-19">Results - Round 19</h3>
+<p>Overall, http4k did very well in this round of benchmarking, placing 19/104 - especially considering that the ethos of the library is one of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).</p>
+<p>The big surprise was the high performance of the Apache server backend, which consistently outranked Undertow (which is the most fully featured of all the supported backends and our default option). </p>
+<h4 id="overall-ranking-a-results">Overall ranking (a: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=composite">results</a>:</h4>
+<p>*Top rank: 9/29</p>
+<h4 id="db-query-html-rendering-results">DB query + HTML rendering: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=fortune&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 9/111 - Apache backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.
-Handlebars templating engine is used for rendering.</p>
-<h4 id="multiple-db-queries-results">Multiple DB queries: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=query&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 3/66 - Jetty backend</em></p>
+Handlebars templating engine used for rendering.</p>
+<h4 id="multiple-db-queries-results">Multiple DB queries: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=query&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 10/105 - Undertow backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="single-db-query-results">Single DB query: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=db&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 8/68 - Apache backend</em></p>
+<h4 id="single-db-query-results">Single DB query: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=db&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 22/111 - Apache backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="random-db-updates-results">Random DB updates: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=update&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 14/59 - Jetty backend</em></p>
+<h4 id="random-db-updates-results">Random DB updates: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=update&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 23/93 - Undertow backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="json-serialization-results">JSON Serialization: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=json&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 20/69 - Apache backend</em></p>
-<p>The standard Jackson module is used for JSON creation and marshalling.</p>
-<h4 id="plaintext-pipelining-results">Plaintext pipelining: <a href="https://www.techempower.com/benchmarks/#section=data-r17&amp;hw=ph&amp;test=plaintext&amp;l=fjd30b">results</a>:</h4>
-<p><em>Top rank: 23/66 - Apache backend</em></p>
+<h4 id="json-serialization-results">JSON Serialization: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=json&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 35/110 - Apache backend</em></p>
+<p>The standard Jackson module used for JSON creation and marshalling.</p>
+<h4 id="plaintext-pipelining-results">Plaintext pipelining: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=plaintext&amp;l=fjd30b">results</a>:</h4>
+<p><em>Top rank: 55/113 - Apache backend</em></p>
 <h3 id="recommendations">Recommendations</h3>
 <p>Benchmark your own app's performance trying different engines if performance is critical.  The Tech Empower benchmarks attempt to simulate simple real-world scenarios, but they can behave drastically different than your app.  One other consideration is test time; some engines start up much faster than others.</p>
                     
