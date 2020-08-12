@@ -830,23 +830,65 @@
                     
                     <h1>Installation</h1>
                     
-                    <p>All <strong>http4k</strong> libraries are available on Maven Central and JCenter and are released under a single version. For the core module, add the following to your Gradle file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">compile</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
+                    <hr/>
+
+<h2 id="http4k-jars">http4k JARs</h2>
+<p>All <strong>http4k</strong> libraries are available on Maven Central and JCenter and are released under a single platform version. The most convenient way to use <strong>http4k</strong> on most projects is to install the <strong>Platform BOM</strong> (Bill-of-Materials) module and then just add extra module dependencies as you need them. </p>
+<p>To do this for the simplest project using only the <strong>core</strong> module, just add the following to your Gradle file dependencies block:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nf">platform</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-bom:3.256.1&quot;</span><span class="o">)</span>
+<span class="n">implementation</span> <span class="s2">&quot;org.http4k:http4k-core&quot;</span>
 </code></pre></div>
 
 
-<ul class="statusLink">
-    <li><a href="https://bintray.com/http4k/maven/http4k-core/_latestVersion"><img alt="Download" src="https://api.bintray.com/packages/http4k/maven/http4k-core/img/download.svg"/></a></li>
-    <li><a href="https://travis-ci.org/http4k/http4k"><img alt="build status" src="https://travis-ci.org/http4k/http4k.svg?branch=master"/></a></li>
-    <li><a href="https://coveralls.io/github/http4k/http4k?branch=master"><img alt="coverage" src="https://coveralls.io/repos/http4k/http4k/badge.svg?branch=master"/></a></li>
-    <li><a href="http//www.apache.org/licenses/LICENSE-2.0"><img alt="GitHub license" src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat"/></a></li>
-    <li><a href="http://kotlinlang.org"><img alt="kotlin" src="https://img.shields.io/badge/kotlin-1.2-blue.svg"/></a></li>
-    <li><a href="https://codebeat.co/projects/github-com-http4k-http4k-master"><img alt="codebeat badge" src="https://codebeat.co/badges/5b369ed4-af27-46f4-ad9c-a307d900617e"/></a></li>
-    <li><a href="https://kotlin.link"><img alt="Awesome Kotlin Badge" src="https://kotlin.link/awesome-kotlin.svg"/></a></li>
-    <li><a href="https://gitter.im/http4k/http4k"><img alt="Gitter" src="https://img.shields.io/badge/gitter-join%20chat-1dce73.svg"/></a></li>
-    <li><a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/backers/badge.svg"></a></li>
-    <li><a href="https://opencollective.com/http4k"><img alt="build status" src="https://opencollective.com/http4k/sponsors/badge.svg"></a></li>
+<hr/>
+
+<h2 id="http4k-toolbox-cli">http4k Toolbox CLI</h2>
+<p>We have developed a collection of useful tools for Developers working with the <strong>http4k</strong> toolset to turbo-charge
+development. These include:</p>
+<ul>
+<li>A <strong>Project Wizard</strong> that generates entire bootstrap Server and Serverless project source folders - including 
+fully working starter code, build tooling, extra modules and packaging options.</li>
+<li>From <strong>OpenAPI v2 &amp; V3</strong> specification JSON/YAML, generate an entire working <strong>http4k</strong> Server, Client and Model objects (generated from JSON Schema).</li>
+<li><strong>Generate Kotlin Data Class</strong> definitions from an inputted JSON, YAML, or XML document.</li>
 </ul>
+<h3 id="install-with-sdkman">Install with <a href="https://sdkman.io/">SDKman!</a></h3>
+<p>SDKMan! provides package management for Unix-based systems.</p>
+<p>To install <a href="https://sdkman.io/">SDKman!</a>, just paste the following into your terminal:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">curl -s https://get.sdkman.io | bash</span>
+</code></pre></div>
+
+
+<p>After installation, bootstrap SDKMan! by opening a new terminal:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">source &quot;$HOME/.sdkman/bin/sdkman-init.sh&quot;</span>
+</code></pre></div>
+
+
+<p>To install the latest http4k Toolbox binary:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">sdk install http4k</span>
+</code></pre></div>
+
+
+<p>... then test it with:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">http4k --version</span>
+</code></pre></div>
+
+
+<h3 id="install-with-brew">Install with <a href="https://brew.sh/">Brew</a></h3>
+<p>Brew is the "missing package manager for MacOS.</p>
+<p>To install <a href="https://brew.sh/">Brew</a>, just paste the following into your terminal:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">/bin/bash -c &quot;$(curl -fsSL</span>
+<span class="err">    https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;</span>
+</code></pre></div>
+
+
+<p>To install the latest http4k Toolbox binary:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">brew tap http4k/tap &amp;&amp; brew install http4k</span>
+</code></pre></div>
+
+
+<p>... then test it with:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">http4k --version</span>
+</code></pre></div>
                     
                 </div>
             </div>
