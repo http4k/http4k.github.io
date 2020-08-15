@@ -832,13 +832,13 @@
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
 <div class="codehilite"><pre><span></span><code><span class="c1">// AWS Lambda: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-lambda&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
+<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-lambda&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.257.0&quot;</span>
 
 <span class="c1">// Google Cloud Functions: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-gcf&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
+<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-gcf&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.257.0&quot;</span>
 
 <span class="c1">// Apache OpenWhisk: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-openwhisk&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.256.1&quot;</span>
+<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-openwhisk&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.257.0&quot;</span>
 </code></pre></div>
 
 
@@ -846,7 +846,7 @@
 <p>These modules provide integration with Serverless deployment environments, such as AWS Lambda or Google Cloud Functions by implementing a single interface. </p>
 <h4 id="aws-lambda-integration">AWS Lambda integration</h4>
 <p>Since <a href="https://http4k.org">http4k</a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library. This has the added bonus that you can test your applications in a local environment and then simply deploy them to AWS Lambda via S3 upload.</p>
-<p>In order to achieve this, only a single interface <code>AppLoader</code> needs to be implemented.</p>
+<p>In order to achieve this, only a single interface <code>AppLoader</code> needs to be implemented and a simple extension of <code>LambdaFunction</code> supplied.</p>
 <p>This is far from a complete guide, but configuring AWS Lambda and the API Gateway involves several stages:</p>
 <ol>
 <li>Users, Roles and Policies for the API Gateway and Lambda.</li>
@@ -858,35 +858,36 @@
 <p>Create and configure the Lambda function, and at the same time:</p>
 <ol>
 <li>Upload the standard Zip file to S3.</li>
-<li>Set the function execution to call the main http4k entry point: <code>org.http4k.serverless.LambdaFunction::handle</code></li>
-<li>Set an environment variable for the Lambda <code>HTTP4K_BOOTSTRAP_CLASS</code> to the class of your <code>AppLoader</code> class.</li>
+<li>Set the function execution to call the main http4k entry point: <code>guide.modules.serverless.lambda.FunctionsExampleEntryClass::handle</code></li>
 </ol>
 </li>
 </ol>
-<p>We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the <code>AppLoader</code> is created and a sneak peak at launching the app locally:</p>
+<p>We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the <code>AppLoader</code> is created and how to launch the app locally:</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/lambda/example.kt"><img class="octocat"/></a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.lambda</span>
 
 <span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
-<span class="k">import</span> <span class="nn">org.http4k.serverless.BootstrapAppLoader</span>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.LambdaFunction</span>
 
 <span class="c1">// This AppLoader is responsible for building our HttpHandler which is supplied to AWS</span>
 <span class="c1">// It is the only actual piece of code that needs to be written.</span>
 <span class="k">object</span> <span class="nc">TweetEchoLambda</span> <span class="p">:</span> <span class="n">AppLoader</span> <span class="p">{</span>
     <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">env</span><span class="p">:</span> <span class="n">Map</span><span class="p">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">&gt;):</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">20</span><span class="p">))</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">17</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
+
+<span class="c1">// This class is the entry-point for the function call - configure it when deploying</span>
+<span class="k">class</span> <span class="nc">FunctionsExampleEntryClass</span> <span class="p">:</span> <span class="n">LambdaFunction</span><span class="p">(</span><span class="n">TweetEchoLambda</span><span class="p">)</span>
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Launching your Lambda Function locally - by simply providing the operating ENVIRONMENT map as would</span>
@@ -895,23 +896,22 @@
         <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">TweetEchoLambda</span><span class="p">(</span><span class="n">mapOf</span><span class="p">())</span>
         <span class="k">val</span> <span class="py">localLambda</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 
-        <span class="n">println</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span><span class="p">)))</span>
+        <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span><span class="p">))</span>
+
+        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
         <span class="n">localLambda</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
     <span class="p">}</span>
 
     <span class="c1">// the following code is purely here for demonstration purposes, to explain exactly what is happening at AWS.</span>
     <span class="k">fun</span> <span class="nf">runLambdaAsAwsWould</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">lambda</span> <span class="p">=</span> <span class="n">LambdaFunction</span><span class="p">(</span><span class="n">mapOf</span><span class="p">(</span><span class="n">BootstrapAppLoader</span><span class="p">.</span><span class="n">HTTP4K_BOOTSTRAP_CLASS</span> <span class="n">to</span> <span class="n">TweetEchoLambda</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">.</span><span class="n">name</span><span class="p">))</span>
-        <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">lambda</span><span class="p">.</span><span class="n">handle</span><span class="p">(</span><span class="n">APIGatewayProxyRequestEvent</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
+        <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">FunctionsExampleEntryClass</span><span class="p">().</span><span class="n">handle</span><span class="p">(</span><span class="n">APIGatewayProxyRequestEvent</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
             <span class="n">path</span> <span class="p">=</span> <span class="s">&quot;/&quot;</span>
             <span class="n">body</span> <span class="p">=</span> <span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span>
             <span class="n">httpMethod</span> <span class="p">=</span> <span class="s">&quot;GET&quot;</span>
             <span class="n">headers</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">()</span>
             <span class="n">queryStringParameters</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">()</span>
         <span class="p">})</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">statusCode</span><span class="p">)</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">)</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">body</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="n">runLambdaLocally</span><span class="p">()</span>
