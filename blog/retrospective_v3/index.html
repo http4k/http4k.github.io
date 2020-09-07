@@ -926,7 +926,7 @@
 <p>It's no secret that the <a href="https://http4k.org">http4k</a> team love testing - it's part of our core DNA and the simplicity of core design would be worthless unless we could test apps built with the library simply and effectively. To that end, some of the most exciting additions that we've added to the library have been in the arena of testing:</p>
 <ul>
 <li><a href="http://approvaltests.com">Approval Testing</a> is a technique for simplifying complex assertions that might otherwise be more effectively checked by eye. <code>http4k-testing-approval</code> provides the primitives and tooling for supporting this style of testing,</li>
-<li><a href="http://principlesofchaos.org">Chaos Testing</a> was made famous by Netflix for proving out how systems react when everything heads south. <code>http4k-testing-chaos</code> adds transparent, programmable failure-generation to any [httpt4k] app using only a simple <code>Filter</code>.</li>
+<li><a href="http://principlesofchaos.org">Chaos Testing</a> was made famous by Netflix for proving out how systems react when everything heads south. <code>http4k-testing-chaos</code> adds transparent, programmable failure-generation to any <a href="https://http4k.org">http4k</a> app using only a simple <code>Filter</code>.</li>
 <li><a href="https://servirtium.dev">Service Virtualization</a> enables API test contracts to be encoded and then shipped, simplifying the process of proving that apps retain compatibility, <code>http4k-testing-servirtium</code> provides the basis for recording and replaying contracts from disk or from other sources such as GitHub.</li>
 </ul>
 <p><img src="./testing.jpg" alt="testing"/></p>
@@ -946,7 +946,7 @@
 <p><img src="./serverless.png" alt="serverless"/></p>
 <p>One other piece of interesting research which came out and somewhat vindicated the dependency-lite approach of <a href="https://http4k.org">http4k</a> was <a href="https://mikhail.io/2018/08/serverless-cold-start-war/">Cold Start War</a>, which performed a lot of experiments and concluded that:</p>
 <blockquote>
-<p><strong>"As expected, the dependencies slow the loading down. You should keep your Funxctions lean, otherwise, you will pay in seconds for every cold start." - Mikhail Shilkov</strong></p>
+<p><strong>"As expected, the dependencies slow the loading down. You should keep your Functions lean, otherwise, you will pay in seconds for every cold start." - Mikhail Shilkov</strong></p>
 </blockquote>
 <p>For production deployments, we continue to recommend the use of a tool such as Proguard or R8 to massively reduce the size of packaged Serverless Function JAR file. The <a href="https://http4k.org">http4k</a> serverless modules also ship with zero or minimal dependencies to avoid any transitive bloat that might occur.</p>
 <hr/>
