@@ -865,11 +865,13 @@
 <li>The <code>AccessToken</code> can then be used to access various services from the OAuth provider APIs.</li>
 </ol>
 <p>There is a single user-defined interface, <code>OAuthPersistence</code>, required to implement to enable this flow. This interface is required to provide the custom way in which your application will store and retrieve the <code>CSRF</code> and <code>AccessToken</code> for a request. A common way to do this is through Cookies, but the values should definitely be encrypted. http4k only provides an insecure version of this class that you can use for testing. In order to remain provider-agnostic, the AccessToken object also contains the entirety of the (typically JSON) token response from the provider, which may include other fields depending on the types of scope for which your application is authorised by the user.</p>
-<p>To enable OAuth integration, construct a configured instance of <code>OAuthProvider</code>. This provides 3 things:
-1. A filter to protect application resources
-1. A callback HttpHandler for the OAuth provider to redirect the authenticated user to
-1. A fully configured API client (which populated the Host on the URI) - this allows different
-implementations of the provider to be used across environments.</p>
+<p>To enable OAuth integration, construct a configured instance of <code>OAuthProvider</code>. This provides 3 things:</p>
+<ol>
+<li>A filter to protect application resources</li>
+<li>A callback HttpHandler for the OAuth provider to redirect the authenticated user to</li>
+<li>A fully configured API client (which populated the Host on the URI) - this allows different
+implementations of the provider to be used across environments.</li>
+</ol>
 <h3 id="example-provider">Example provider <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/oauth/example_provider_oauth.kt"><img class="octocat"/></a></h3>
 <p>Out of the box, http4k provides implementations for several OAuth providers.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.oauth</span>
