@@ -845,584 +845,584 @@
 changes with their rationale when appropriate:</p>
 <h3 id="v32600">v3.260.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[all] [Unlikely break] Added some nicer naming and examples for when people are calling http4k via Java code.</li>
-<li>[http4k-core] Fixed SunHttp server backend not setting content length, and hence responses are always chunked.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-*, Unlikely break</strong> : Added some nicer naming and examples for when people are calling http4k via Java code.</li>
+<li><strong>http4k-core</strong> : Fixed SunHttp server backend not setting content length, and hence responses are always chunked.</li>
 </ul>
 <h3 id="v32590">v3.259.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-server-netty] Fix #141 Http4k-netty performs really badly on all benchmarks. Massive H/T adam-arold!</li>
-<li>[http4k-server-ratpack] Tweak to SO_BACKLOG size (1000).</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-server-netty</strong> : Fix #141 Http4k-netty performs really badly on all benchmarks. Massive H/T adam-arold!</li>
+<li><strong>http4k-server-ratpack</strong> : Tweak to SO_BACKLOG size (1000).</li>
 </ul>
 <h3 id="v32580">v3.258.0</h3>
 <ul>
-<li>[http4k-testing-kotest] New module! A set of matchers for use with the <code>kotest</code> library. H/T @nlochschmidt for the PR.</li>
-<li>[all] Upgrade some dependency versions.</li>
+<li><strong>http4k-testing-kotest</strong> : New module! A set of matchers for use with the <code>kotest</code> library. H/T @nlochschmidt for the PR.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
 <h3 id="v32570">v3.257.0</h3>
 <ul>
-<li>[http4k-serverless-*] Making the Serverless APIs consistent between flavours by ensuring that all Serverless functions act by class extension and not reflection based approach. Deprecated old approach. Hopefully this is simpler.. :) </li>
+<li><strong>http4k-serverless-*</strong> : Making the Serverless APIs consistent between flavours by ensuring that all Serverless functions act by class extension and not reflection based approach. Deprecated old approach. Hopefully this is simpler.. :) </li>
 </ul>
 <h3 id="v32561">v3.256.1</h3>
 <ul>
-<li>[http4k-core] Fix #470. Path.of cannot decode path parameter values containing %/</li>
+<li><strong>http4k-core</strong> : Fix #470. Path.of cannot decode path parameter values containing %/</li>
 </ul>
 <h3 id="v32560">v3.256.0</h3>
 <ul>
-<li>[http4k-security-oauth] Add ability to handle form encoded responses in OAuth responses.</li>
+<li><strong>http4k-security-oauth</strong> : Add ability to handle form encoded responses in OAuth responses.</li>
 </ul>
 <h3 id="v32550">v3.255.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[all] [Breaking (if you're not using it right!)] - Fixed up Maven dependencies so that they are not exporting compileOnly libraries into POMs.</li>
-<li>[http4k-security-oauth] Remove "user" from default list of GitHub scopes as it gives you write access to the profile. New default is empty (just public data).</li>
-<li>[http4k-core] Improve defaults of SunHttp server. H/T @nlochschmidt for the PR.</li>
-<li>[http4k-contract] Add description to OpenApi schema fields using Jackson annotations. H/T @env0der for the PR.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-*, Breaking (if you're not using it right!)</strong> : - Fixed up Maven dependencies so that they are not exporting compileOnly libraries into POMs.</li>
+<li><strong>http4k-security-oauth</strong> : Remove "user" from default list of GitHub scopes as it gives you write access to the profile. New default is empty (just public data).</li>
+<li><strong>http4k-core</strong> : Improve defaults of SunHttp server. H/T @nlochschmidt for the PR.</li>
+<li><strong>http4k-contract</strong> : Add description to OpenApi schema fields using Jackson annotations. H/T @env0der for the PR.</li>
 </ul>
 <h3 id="v32540">v3.254.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-core] Added <code>hostDemux()</code> routing for when you want to select an <code>HttpHandler</code> based on the Host header.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-core</strong> : Added <code>hostDemux()</code> routing for when you want to select an <code>HttpHandler</code> based on the Host header.</li>
 </ul>
 <h3 id="v32530">v3.253.0</h3>
 <ul>
-<li>[http4k-core] Replaced implementation of <code>JavaHttpClient</code> with one from Java standard library. Should you not yet have access to the Java 11 SDK, we renamed the old implementation to <code>Java8HttpClient</code>. Note that some headers that are added by default by the old Java8 implementation will no longer be added.</li>
-<li>[http4k-core] [Breaking] Change <code>Body.binary()</code> lens to use an InputStream instead of a raw <code>Body</code>. To fix, just provide the InputStream by calling <code>Body.stream()</code> or similar.</li>
-<li>[http4k-client-websocket] [Unlikely break] Allow API users to pass in their own <code>Draft</code> object for custom protocols. If broken, simple fix is to just use named arguments in the construction call to the client.</li>
-<li>[all] Upgrade some dependency versions.</li>
+<li><strong>http4k-core</strong> : Replaced implementation of <code>JavaHttpClient</code> with one from Java standard library. Should you not yet have access to the Java 11 SDK, we renamed the old implementation to <code>Java8HttpClient</code>. Note that some headers that are added by default by the old Java8 implementation will no longer be added.</li>
+<li><strong>http4k-core, Breaking</strong> : Change <code>Body.binary()</code> lens to use an InputStream instead of a raw <code>Body</code>. To fix, just provide the InputStream by calling <code>Body.stream()</code> or similar.</li>
+<li><strong>http4k-client-websocket, Unlikely break</strong> : Allow API users to pass in their own <code>Draft</code> object for custom protocols. If broken, simple fix is to just use named arguments in the construction call to the client.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
 <h3 id="v32520">v3.252.0</h3>
 <ul>
-<li>[http4k-server-apache, http4k-client-apache, http4k-client-apache-async] [Breaking] Updated to Apache HTTP 5.X.X. H/T to @jshiell. Note that the underlying Apache APIs have changed in the v5 release. For the clients, this should only break if you have customised the underlying HTTP <code>CloseableHttpClient</code> that is passed to the constructor of the http4k client. If you have, we have you covered with....</li>
-<li>[http4k-server-apache4, http4k-client-apache4, http4k-client-apache4-async] New modules to maintain previous integration with Apache HTTP 4.X.X. Intended to reduce the impact on projects that are not ready to move to v5 yet. In these compatibility modules, renamed <code>ApacheClient</code> -&gt; <code>Apache4Client</code> and <code>ApacheAsyncClient</code> to <code>Apache4AsyncClient</code> - which is the only change that should be required in end user code.</li>
-<li>[http4k-serverless-openwhisk] Fixes to support binary content types and overcome issues with the request/response format of the OW Java runtime.</li>
-<li>[http4k-core] Added some Filters for base64 encoding and decoding responses.</li>
-<li>[all] Upgrade some dependency versions.</li>
+<li><strong>http4k-server-apache, http4k-client-apache, http4k-client-apache-async, Breaking</strong> : Updated to Apache HTTP 5.X.X. H/T to @jshiell. Note that the underlying Apache APIs have changed in the v5 release. For the clients, this should only break if you have customised the underlying HTTP <code>CloseableHttpClient</code> that is passed to the constructor of the http4k client. If you have, we have you covered with....</li>
+<li><strong>http4k-server-apache4, http4k-client-apache4, http4k-client-apache4-async</strong> : New modules to maintain previous integration with Apache HTTP 4.X.X. Intended to reduce the impact on projects that are not ready to move to v5 yet. In these compatibility modules, renamed <code>ApacheClient</code> -&gt; <code>Apache4Client</code> and <code>ApacheAsyncClient</code> to <code>Apache4AsyncClient</code> - which is the only change that should be required in end user code.</li>
+<li><strong>http4k-serverless-openwhisk</strong> : Fixes to support binary content types and overcome issues with the request/response format of the OW Java runtime.</li>
+<li><strong>http4k-core</strong> : Added some Filters for base64 encoding and decoding responses.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
 <h3 id="v32510">v3.251.0</h3>
 <ul>
-<li>[http4k-core] Added support for multiple "cookie" headers. H/T @jshiell </li>
-<li>[http4k-serverless-openwhisk] New serverless module!</li>
-<li>[http4k-serverless-*] [Breaking] - Repackage some functions to <code>org.http4k.serverless</code> package. Just change the package names to fix.</li>
+<li><strong>http4k-core</strong> : Added support for multiple "cookie" headers. H/T @jshiell </li>
+<li><strong>http4k-serverless-openwhisk</strong> : New serverless module!</li>
+<li><strong>http4k-serverless-*, Breaking</strong> : - Repackage some functions to <code>org.http4k.serverless</code> package. Just change the package names to fix.</li>
 </ul>
 <h3 id="v32500">v3.250.0</h3>
 <ul>
-<li>[http4k-core] Add <code>Request.source</code> to provide extra information about the request origin (address/port/scheme). H/T @kam1sh and @jshiell for the contributions.</li>
-<li>[http4k-security-oauth] Add OAuth provider configuration for Facebook. H/T @knyttl for the PR.</li>
-<li>[http4k-server-netty] Implement KeepAlive. H/T @carbotaniuman for the PR.</li>
-<li>[http4k-bom] New Bill-Of-Materials module! </li>
-<li>[all] Upgrade some dependency versions.</li>
+<li><strong>http4k-core</strong> : Add <code>Request.source</code> to provide extra information about the request origin (address/port/scheme). H/T @kam1sh and @jshiell for the contributions.</li>
+<li><strong>http4k-security-oauth</strong> : Add OAuth provider configuration for Facebook. H/T @knyttl for the PR.</li>
+<li><strong>http4k-server-netty</strong> : Implement KeepAlive. H/T @carbotaniuman for the PR.</li>
+<li><strong>http4k-bom</strong> : New Bill-Of-Materials module! </li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
 <h3 id="v32490">v3.249.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-server-netty] Add support for response streaming. H/T @carbotaniuman for the PR.</li>
-<li>[http4k-serverless-gcf] New serverless module! H/T @ssijak for the PR.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-server-netty</strong> : Add support for response streaming. H/T @carbotaniuman for the PR.</li>
+<li><strong>http4k-serverless-gcf</strong> : New serverless module! H/T @ssijak for the PR.</li>
 </ul>
 <h3 id="v32480">v3.248.0</h3>
 <ul>
-<li>[http4k-server-ratpack] New backend module!</li>
-<li>[http4k-format-jackson-yaml] New module!</li>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-cloudnative] - Fix #418 - Fix separator propagation when adding values to an existing MapEnvironment. H/T @jshiell</li>
-<li>[http4k-contract] - Add support for securing the API description endpoint. H/T @goodhoko for the PR.</li>
-<li>[http4k-client-websocket] Added auto-reconnection support on blocking WsClient. H/T @alphaho for the PR.</li>
-<li>[http4k-format-*] Rename/deprecate <code>asXYZString(Any)</code> -&gt; <code>asFormatString(Any)</code> in all modules</li>
+<li><strong>http4k-server-ratpack</strong> : New backend module!</li>
+<li><strong>http4k-format-jackson-yaml</strong> : New module!</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-cloudnative</strong> : - Fix #418 - Fix separator propagation when adding values to an existing MapEnvironment. H/T @jshiell</li>
+<li><strong>http4k-contract</strong> : - Add support for securing the API description endpoint. H/T @goodhoko for the PR.</li>
+<li><strong>http4k-client-websocket</strong> : Added auto-reconnection support on blocking WsClient. H/T @alphaho for the PR.</li>
+<li><strong>http4k-format-*</strong> : Rename/deprecate <code>asXYZString(Any)</code> -&gt; <code>asFormatString(Any)</code> in all modules</li>
 </ul>
 <h3 id="v32470">v3.247.0</h3>
 <ul>
-<li>[http4k-server-ktornetty] New backend module! H/T @albertlatacz for the contribution!</li>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-security-oauth] Fix #414 BasicAuth server filter to not throw an exception on invalid base64 input. H/T @Sebruck for the fix.</li>
+<li><strong>http4k-server-ktornetty</strong> : New backend module! H/T @albertlatacz for the contribution!</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-security-oauth</strong> : Fix #414 BasicAuth server filter to not throw an exception on invalid base64 input. H/T @Sebruck for the fix.</li>
 </ul>
 <h3 id="v32460">v3.246.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-template-pebble] Fix #411 - Non-root pebble templates when using CachingClasspath from a compiled JAR. H/T @alyphen </li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-template-pebble</strong> : Fix #411 - Non-root pebble templates when using CachingClasspath from a compiled JAR. H/T @alyphen </li>
 </ul>
 <h3 id="v32451">v3.245.1</h3>
 <ul>
-<li>[http4k-server-ktorcio] Fix #410 - KtorCIO does not stop properly. </li>
+<li><strong>http4k-server-ktorcio</strong> : Fix #410 - KtorCIO does not stop properly. </li>
 </ul>
 <h3 id="v32450">v3.245.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-core] Factored out <code>Http4kServletAdapter</code> to allow usage of the Servlet API outside of creating a Servlet instance.</li>
-<li>[all] [Breaking (prevent API abuse)] Restricted generic <code>with()</code> method actual http4k types. Usage outside our API should not use this method.</li>
-<li>[http4k-contract] Fix #404 - Rework of some <code>FieldRetrieval</code> classes to remove duplication and to support PropertyNamingStrategies set at the global level</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-core</strong> : Factored out <code>Http4kServletAdapter</code> to allow usage of the Servlet API outside of creating a Servlet instance.</li>
+<li><strong>http4k-*, Breaking (prevent API abuse)</strong> : Restricted generic <code>with()</code> method actual http4k types. Usage outside our API should not use this method.</li>
+<li><strong>http4k-contract</strong> : Fix #404 - Rework of some <code>FieldRetrieval</code> classes to remove duplication and to support PropertyNamingStrategies set at the global level</li>
 </ul>
 <h3 id="v32440">v3.244.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[all] [Breaking (if you're not using it right!)] Fix #397 - Fixed up Maven dependencies so that they are not bringing in runtime libraries.</li>
-<li>[http4k-core] - Add enum StringBiDiMapping #395 - H/T @goodhoko</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-*, Breaking (if you're not using it right!)</strong> : Fix #397 - Fixed up Maven dependencies so that they are not bringing in runtime libraries.</li>
+<li><strong>http4k-core</strong> : - Add enum StringBiDiMapping #395 - H/T @goodhoko</li>
 </ul>
 <h3 id="v32430">v3.243.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions, including Kotlin to <code>1.3.72</code>.</li>
-<li>[http4k-security-oauth] A strategy can now be passed into <code>AuthRequestWithRequestAuthRequestExtractor</code> to determine how to combine <code>AuthRequest</code> and <code>RequestObject</code> H/T @tom</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to <code>1.3.72</code>.</li>
+<li><strong>http4k-security-oauth</strong> : A strategy can now be passed into <code>AuthRequestWithRequestAuthRequestExtractor</code> to determine how to combine <code>AuthRequest</code> and <code>RequestObject</code> H/T @tom</li>
 </ul>
 <h3 id="v32420">v3.242.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-testing-servirtium] Improve error diagnostics. H/T @vchekan for the PR.</li>
-<li>[all] [Unlikely Break] Change <code>Router</code> to return <code>RouterMatch</code> instead of nullable <code>HttpHandler</code>. This allows us to support <code>METHOD_NOT_ALLOWED</code> (405) if we match a path but not a verb instead of just <code>NOT_FOUND</code> (404). This should break custom ro H/T @jshiell for the PR.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-testing-servirtium</strong> : Improve error diagnostics. H/T @vchekan for the PR.</li>
+<li><strong>http4k-*, Unlikely Break</strong> : Change <code>Router</code> to return <code>RouterMatch</code> instead of nullable <code>HttpHandler</code>. This allows us to support <code>METHOD_NOT_ALLOWED</code> (405) if we match a path but not a verb instead of just <code>NOT_FOUND</code> (404). This should break custom ro H/T @jshiell for the PR.</li>
 </ul>
 <h3 id="v32410">v3.241.0</h3>
 <ul>
-<li>[http4k-security-oauth] [Breaking] <code>client_id</code> along with the corresponding <code>TokenRequest</code> is passed into access and refresh token generators so additional validation can take place H/T @tom</li>
+<li><strong>http4k-security-oauth, Breaking</strong> : <code>client_id</code> along with the corresponding <code>TokenRequest</code> is passed into access and refresh token generators so additional validation can take place H/T @tom</li>
 </ul>
 <h3 id="v32400">v3.240.0</h3>
 <ul>
-<li>[all] Upgrade Kotlin to <code>1.3.71</code>.</li>
-<li>[http4k-testing-servirtium] Switch OkHttp client for Apache.</li>
-<li>[http4k-server-jetty] Made some classes non-internal so they can be easily reused for custom <code>ServerConfig</code> implementations.</li>
+<li><strong>http4k-</strong>* : Upgrade Kotlin to <code>1.3.71</code>.</li>
+<li><strong>http4k-testing-servirtium</strong> : Switch OkHttp client for Apache.</li>
+<li><strong>http4k-server-jetty</strong> : Made some classes non-internal so they can be easily reused for custom <code>ServerConfig</code> implementations.</li>
 </ul>
 <h3 id="v32390">v3.239.0</h3>
 <ul>
-<li>[http4k-client-websocket] [Breaking] Added extra onError handler when creating a non-blocking websocket.</li>
-<li>[all] Upgrade some dependency versions, including Kotlin to 1.3.70.</li>
+<li><strong>http4k-client-websocket, Breaking</strong> : Added extra onError handler when creating a non-blocking websocket.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.3.70.</li>
 </ul>
 <h3 id="v32380">v3.238.0</h3>
 <ul>
-<li>[http4k-security-oauth] Early work on supporting refresh tokens. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Early work on supporting refresh tokens. H/T @tom</li>
 </ul>
 <h3 id="v32370">v3.237.0</h3>
 <ul>
-<li>[http4k-core] Fix #377. <code>Added replaceHeaders()</code> method. Thanks to @bastman for the idea.</li>
-<li>[http4k-contract] Fix nullability of references in OpenApi3</li>
+<li><strong>http4k-core</strong> : Fix #377. <code>Added replaceHeaders()</code> method. Thanks to @bastman for the idea.</li>
+<li><strong>http4k-contract</strong> : Fix nullability of references in OpenApi3</li>
 </ul>
 <h3 id="v32360">v3.236.0</h3>
 <ul>
-<li>[http4k-testing-servirtium] Don't pass recording handler into non-test methods as a resolved parameter.</li>
+<li><strong>http4k-testing-servirtium</strong> : Don't pass recording handler into non-test methods as a resolved parameter.</li>
 </ul>
 <h3 id="v32350">v3.235.0</h3>
 <ul>
-<li>[http4k-testing-chaos] [Break/Rename] ChaosEngine is now exposed when configuring API. Renamed <code>withChaosEngine()</code> to <code>withChaosApi()</code>, replaced <code>toggle()</code> and <code>update()</code> with <code>enable()/disable()</code></li>
+<li><strong>http4k-testing-chaos, Break/Rename</strong> : ChaosEngine is now exposed when configuring API. Renamed <code>withChaosEngine()</code> to <code>withChaosApi()</code>, replaced <code>toggle()</code> and <code>update()</code> with <code>enable()/disable()</code></li>
 </ul>
 <h3 id="v32340">v3.234.0</h3>
 <ul>
-<li>[http4k-testing-chaos] [Break] Tweaked API make it simpler to use the <code>ChaosEngine</code> via programmatically (as opposed to REST).</li>
-<li>[http4k-testing-servirtium] [Tiny break] Tweaks to <code>InteractionOptions</code> to make working with Servirtium tests a bit nicer.</li>
+<li><strong>http4k-testing-chaos, Break</strong> : Tweaked API make it simpler to use the <code>ChaosEngine</code> via programmatically (as opposed to REST).</li>
+<li><strong>http4k-testing-servirtium, Tiny break</strong> : Tweaks to <code>InteractionOptions</code> to make working with Servirtium tests a bit nicer.</li>
 </ul>
 <h3 id="v32330">v3.233.0</h3>
 <ul>
-<li>[http4k-testing-servirtium] Upgrade ServirtiumServer to use OkHttp instead of JavaHttpClient (due to streaming restrictions on MiTM).</li>
-<li>[http4k-testing-servirtium] [Break] Rename <code>Github</code> to <code>GitHub</code>.</li>
+<li><strong>http4k-testing-servirtium</strong> : Upgrade ServirtiumServer to use OkHttp instead of JavaHttpClient (due to streaming restrictions on MiTM).</li>
+<li><strong>http4k-testing-servirtium, Break</strong> : Rename <code>Github</code> to <code>GitHub</code>.</li>
 </ul>
 <h3 id="v32320">v3.232.0</h3>
 <ul>
-<li>[http4k-format-kotlinx-serialization] New JSON module! H/T @joscha-alisch for the PR. :)</li>
-<li>[http4k-testing-servirtium] Work around Kotlin @JvmOverloads problem in ServirtiumServer.</li>
-<li>[all] Upgrade some dependency versions.</li>
+<li><strong>http4k-format-kotlinx-serialization</strong> : New JSON module! H/T @joscha-alisch for the PR. :)</li>
+<li><strong>http4k-testing-servirtium</strong> : Work around Kotlin @JvmOverloads problem in ServirtiumServer.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
 <h3 id="v32310">v3.231.0</h3>
 <ul>
-<li>[http4k-testing-servirtium] Making API a bit more Java-compatible friendly. Ability to vary the Server implementation.</li>
-<li>[http4k-server-jetty] Fix #362 - Websocket disconnect early causes lateinit reference race condition. H/T @fintara for the report/fix.</li>
+<li><strong>http4k-testing-servirtium</strong> : Making API a bit more Java-compatible friendly. Ability to vary the Server implementation.</li>
+<li><strong>http4k-server-jetty</strong> : Fix #362 - Websocket disconnect early causes lateinit reference race condition. H/T @fintara for the report/fix.</li>
 </ul>
 <h3 id="v32300">v3.230.0</h3>
 <ul>
-<li>[http4k-aws] Improved efficiency of building AWS credentials (replace String.format).</li>
-<li>[http4k-testing-servirtium] Making API a bit more Java-compatible friendly.</li>
-<li>[all] Upgrade some dependency versions.</li>
+<li><strong>http4k-aws</strong> : Improved efficiency of building AWS credentials (replace String.format).</li>
+<li><strong>http4k-testing-servirtium</strong> : Making API a bit more Java-compatible friendly.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
 <h3 id="v32290">v3.229.0</h3>
 <ul>
-<li>[http4k-security-oauth] Allowing for custom authenticate methods when fetching access tokens H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Allowing for custom authenticate methods when fetching access tokens H/T @tom</li>
 </ul>
 <h3 id="v32280">v3.228.0</h3>
 <ul>
-<li>[http4k-testing-servirtium] [Breaking] API is still in beta, so moving to a more composed approach which will increase reuse and allow for running Servirtium infra without a dependency on http4k or Junit. Added loading from GitHub. :)</li>
-<li>[http4k-security-oauth] [Breaking] Audience on request object is now a list to support multiple audiences. H/T @tom</li>
-<li>[http4k-security-oauth] Nonce is now also passed through on RequestJwts, so it can be added to request jwts. H/T @tom</li>
+<li><strong>http4k-testing-servirtium, Breaking</strong> : API is still in beta, so moving to a more composed approach which will increase reuse and allow for running Servirtium infra without a dependency on http4k or Junit. Added loading from GitHub. :)</li>
+<li><strong>http4k-security-oauth, Breaking</strong> : Audience on request object is now a list to support multiple audiences. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Nonce is now also passed through on RequestJwts, so it can be added to request jwts. H/T @tom</li>
 </ul>
 <h3 id="v32270">v3.227.0</h3>
 <ul>
-<li>[http4k-core] Implmement #340. Support SameSite cookies. H/T @danielwellman for the contribution.</li>
-<li>[http4k-format-jackson] Made <code>JacksonJsonPropertyAnnotated</code> Kotlin 1.4 safe (call to superclass might return null). H/T @pyos for spotting this.</li>
+<li><strong>http4k-core</strong> : Implmement #340. Support SameSite cookies. H/T @danielwellman for the contribution.</li>
+<li><strong>http4k-format-jackson</strong> : Made <code>JacksonJsonPropertyAnnotated</code> Kotlin 1.4 safe (call to superclass might return null). H/T @pyos for spotting this.</li>
 </ul>
 <h3 id="v32260">v3.226.0</h3>
 <ul>
-<li>[http4k-testing-servirtium] Moved Servirtium code to new module - was previously [http4k-incubator].</li>
+<li><strong>http4k-testing-servirtium</strong> : Moved Servirtium code to new module - was previously [http4k-incubator].</li>
 </ul>
 <h3 id="v32250">v3.225.0</h3>
 <ul>
-<li>[http4k-incubator] Rewrote Servirtium code to support manipulations.</li>
+<li><strong>http4k-incubator</strong> : Rewrote Servirtium code to support manipulations.</li>
 </ul>
 <h3 id="v32240">v3.224.0</h3>
 <ul>
-<li>[http4k-security-oauth] Fix issue where <code>AuthRequestWithRequestAuthRequestExtractor</code> doesn't take into account scopes not being nullable correctly. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Fix issue where <code>AuthRequestWithRequestAuthRequestExtractor</code> doesn't take into account scopes not being nullable correctly. H/T @tom</li>
 </ul>
 <h3 id="v32230">v3.223.0</h3>
 <ul>
-<li>[http4k-security-oauth] Adding <code>expiry</code> to <code>RequestObject</code>. H/T @tom</li>
-<li>[http4k-security-oauth] Fixing issue where unknown fields cause extracting <code>RequestObject</code> from a jwt, fails due to unknown fields. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Adding <code>expiry</code> to <code>RequestObject</code>. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Fixing issue where unknown fields cause extracting <code>RequestObject</code> from a jwt, fails due to unknown fields. H/T @tom</li>
 </ul>
 <h3 id="v32220">v3.222.0</h3>
 <ul>
-<li>[http4k-security-oauth] [Breaking] Error responses in the authorise endpoint now take into account values from the <code>request</code> parameter, this will require a validator for that jwt be implemented. H/T @tom</li>
-<li>[http4k-security-oauth] [Breaking] State is now its own type, and not just a string, so it can be validated. H/T @tom</li>
-<li>[http4k-security-oauth] [Breaking] <code>redirectUri</code> on <code>AuthRequest</code> is now nullable as it might come on a request jwt, this is validated to be always be present downstream. H/T @tom</li>
-<li>[http4k-security-oauth] Allow parsing of request jwt. H/T @tom</li>
-<li>[http4k-security-oauth] Adding <code>RequestObject</code> to <code>AuthRequest</code>. H/T @tom</li>
-<li>[http4k-security-oauth] Adding <code>AuthRequestWithRequestAuthRequestExtractor</code> that will extract the request from the jwt, assuming the validator is implemented which can be used instead of just using <code>AuthRequestFromQueryParameters</code> if support for parsing a request jwt is required. H/T @tom</li>
+<li><strong>http4k-security-oauth, Breaking</strong> : Error responses in the authorise endpoint now take into account values from the <code>request</code> parameter, this will require a validator for that jwt be implemented. H/T @tom</li>
+<li><strong>http4k-security-oauth, Breaking</strong> : State is now its own type, and not just a string, so it can be validated. H/T @tom</li>
+<li><strong>http4k-security-oauth, Breaking</strong> : <code>redirectUri</code> on <code>AuthRequest</code> is now nullable as it might come on a request jwt, this is validated to be always be present downstream. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Allow parsing of request jwt. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Adding <code>RequestObject</code> to <code>AuthRequest</code>. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Adding <code>AuthRequestWithRequestAuthRequestExtractor</code> that will extract the request from the jwt, assuming the validator is implemented which can be used instead of just using <code>AuthRequestFromQueryParameters</code> if support for parsing a request jwt is required. H/T @tom</li>
 </ul>
 <h3 id="v32210">v3.221.0</h3>
 <ul>
-<li>[all] [Unlikely break from Java only] Make all custom http4k exceptions extend RuntimeException. This helps with Java compatibility so things like LensFailure inside Java Lambdas don't require catching (as they are caught/dealt with by other bits of http4k automatically)</li>
+<li><strong>http4k-*, Unlikely break from Java only</strong> : Make all custom http4k exceptions extend RuntimeException. This helps with Java compatibility so things like LensFailure inside Java Lambdas don't require catching (as they are caught/dealt with by other bits of http4k automatically)</li>
 </ul>
 <h3 id="v32200">v3.220.0</h3>
 <ul>
-<li>[http4k-moshi] [Behaviour break] Fix #353 Don't fail by default on unknown properties. This is the expected default behaviour for all JSON implementations. H/T cnusp for the report.</li>
+<li><strong>http4k-moshi, Behaviour break</strong> : Fix #353 Don't fail by default on unknown properties. This is the expected default behaviour for all JSON implementations. H/T cnusp for the report.</li>
 </ul>
 <h3 id="v32190">v3.219.0</h3>
 <ul>
-<li>[http4k-incubator] Next iteration of Servirtium JUnit extensions. Improved API to support multiple storage engines.</li>
+<li><strong>http4k-incubator</strong> : Next iteration of Servirtium JUnit extensions. Improved API to support multiple storage engines.</li>
 </ul>
 <h3 id="v32180">v3.218.0</h3>
 <ul>
-<li>[http4k-incubator] Next iteration of Servirtium JUnit extensions. Correct indexing of interactions.</li>
-<li>[http4k-security-oauth] Authorisation rendering will now taking into account 'response_mode' of either query or fragment in responses and no longer just use the default fo the 'response_type'. H/T @tom</li>
-<li>[http4k-security-oauth] [Breaking] Error responses in the authorise endpoint will actually redirect back to 'redirect_uri' assuming the validator correctly validates both the 'client_id' and 'redirect_uri' to be valid. H/T @tom</li>
+<li><strong>http4k-incubator</strong> : Next iteration of Servirtium JUnit extensions. Correct indexing of interactions.</li>
+<li><strong>http4k-security-oauth</strong> : Authorisation rendering will now taking into account 'response_mode' of either query or fragment in responses and no longer just use the default fo the 'response_type'. H/T @tom</li>
+<li><strong>http4k-security-oauth, Breaking</strong> : Error responses in the authorise endpoint will actually redirect back to 'redirect_uri' assuming the validator correctly validates both the 'client_id' and 'redirect_uri' to be valid. H/T @tom</li>
 </ul>
 <h3 id="v32170">v3.217.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-incubator] Next iteration of Servirtium JUnit extensions. Only check content which is in the contract when replaying.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-incubator</strong> : Next iteration of Servirtium JUnit extensions. Only check content which is in the contract when replaying.</li>
 </ul>
 <h3 id="v32160">v3.216.0</h3>
 <ul>
-<li>[http4k-core] [Breaking] Removed clashing Events <code>then()</code> from deprecated (meaning it cannot be used as there is also another <code>then()</code> in that package). Use the one in <code>org.http4k.events</code> instead.</li>
-<li>[http4k-security-oauth] Adding nonce to AuthorizationCodeDetails H/T @tom</li>
+<li><strong>http4k-core, Breaking</strong> : Removed clashing Events <code>then()</code> from deprecated (meaning it cannot be used as there is also another <code>then()</code> in that package). Use the one in <code>org.http4k.events</code> instead.</li>
+<li><strong>http4k-security-oauth</strong> : Adding nonce to AuthorizationCodeDetails H/T @tom</li>
 </ul>
 <h3 id="v32150">v3.215.0</h3>
 <ul>
-<li>[http4k-core] GZip client filters now send correct accept-encoding header. @jshiell</li>
-<li>[http4k-core] New AcceptGZip client filter allows handling of remote GZip without compressing client requests. @jshiell</li>
+<li><strong>http4k-core</strong> : GZip client filters now send correct accept-encoding header. @jshiell</li>
+<li><strong>http4k-core</strong> : New AcceptGZip client filter allows handling of remote GZip without compressing client requests. @jshiell</li>
 </ul>
 <h3 id="v32140">v3.214.0</h3>
 <ul>
-<li>[http4k-core] Fix #344 H/T Streaming GZip encoder loses data. @jshiell</li>
+<li><strong>http4k-core</strong> : Fix #344 H/T Streaming GZip encoder loses data. @jshiell</li>
 </ul>
 <h3 id="v32130">v3.213.0</h3>
 <ul>
-<li>[http4k-security-oauth] Fixing wrong AuthRequestExtractor passed to AuthRequestTrackingFilter. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Fixing wrong AuthRequestExtractor passed to AuthRequestTrackingFilter. H/T @tom</li>
 </ul>
 <h3 id="v32120">v3.212.0</h3>
 <ul>
-<li>[http4k-security-oauth] allowing additional properties to be stored on auth request, if using additional extractors H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : allowing additional properties to be stored on auth request, if using additional extractors H/T @tom</li>
 </ul>
 <h3 id="v32110">v3.211.0</h3>
 <ul>
-<li>[http4k-core] Fixes for #338 - Gzip filters send content-encoding of gzip even when body is empty. H/T @jshiell</li>
-<li>[http4k-security-oauth] [Break] OIDC callback urls using the ResponseType 'code id_token' will now have the parameters returned as a fragment not a query as per 3.3.2.5 of the OpenID Connect Core 1.0 spec H/T @tom</li>
-<li>[http4k-security-oauth] [Break] Initial support of nonce in OIDC requests H/T @tom</li>
+<li><strong>http4k-core</strong> : Fixes for #338 - Gzip filters send content-encoding of gzip even when body is empty. H/T @jshiell</li>
+<li><strong>http4k-security-oauth, Break</strong> : OIDC callback urls using the ResponseType 'code id_token' will now have the parameters returned as a fragment not a query as per 3.3.2.5 of the OpenID Connect Core 1.0 spec H/T @tom</li>
+<li><strong>http4k-security-oauth, Break</strong> : Initial support of nonce in OIDC requests H/T @tom</li>
 </ul>
 <h3 id="v32100">v3.210.0</h3>
 <ul>
-<li>[http4k-core] Support for GZipping response streams. H/T @jshiell</li>
-<li>[http4k-security-oauth] Adding expires_in to token endpoint response. H/T @tom</li>
+<li><strong>http4k-core</strong> : Support for GZipping response streams. H/T @jshiell</li>
+<li><strong>http4k-security-oauth</strong> : Adding expires_in to token endpoint response. H/T @tom</li>
 </ul>
 <h3 id="v32090">v3.209.0</h3>
 <ul>
-<li>[all] Added <code>Status</code> to auto-marshalling JSON mappings.</li>
-<li>[http4k-security-oauth] Adding token_type to token endpoint response, and strip out nulls in response. H/T @tom</li>
+<li><strong>http4k-</strong>* : Added <code>Status</code> to auto-marshalling JSON mappings.</li>
+<li><strong>http4k-security-oauth</strong> : Adding token_type to token endpoint response, and strip out nulls in response. H/T @tom</li>
 </ul>
 <h3 id="v32080">v3.208.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-core] PR #333. Copy zipkin traces across threads. H/T @jshiell for the PR.</li>
-<li>[http4k-testing-approval] Close Readers when reading from them.</li>
-<li>[http4k-incubator] Next iteration of Servirtium JUnit extensions for recording and replaying.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-core</strong> : PR #333. Copy zipkin traces across threads. H/T @jshiell for the PR.</li>
+<li><strong>http4k-testing-approval</strong> : Close Readers when reading from them.</li>
+<li><strong>http4k-incubator</strong> : Next iteration of Servirtium JUnit extensions for recording and replaying.</li>
 </ul>
 <h3 id="v32070">v3.207.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions</li>
-<li>[http4k-incubator] Added first cut of Servirtium classes for recording and replaying traffic. Needs validating in the wild</li>
-<li>[http4k-format-jackson] Fix #320. http4k-format-jackson incompatible with jackson-module-kotlin 2.10.1</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
+<li><strong>http4k-incubator</strong> : Added first cut of Servirtium classes for recording and replaying traffic. Needs validating in the wild</li>
+<li><strong>http4k-format-jackson</strong> : Fix #320. http4k-format-jackson incompatible with jackson-module-kotlin 2.10.1</li>
 </ul>
 <h3 id="v32060">v3.206.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions.</li>
-<li>[http4k-contract] Fix #323. Doc generation does not work with multipart lenses.</li>
-<li>[http4k-format-jackson] Fix #313. Jackson serialization is not working properly with polymorphic types stored in a collection. H/T @alphaho for the PR :)</li>
-<li>[http4k-core] [Break] Renamed <code>value</code> on <code>ParamMeta</code> to <code>description</code>.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-contract</strong> : Fix #323. Doc generation does not work with multipart lenses.</li>
+<li><strong>http4k-format-jackson</strong> : Fix #313. Jackson serialization is not working properly with polymorphic types stored in a collection. H/T @alphaho for the PR :)</li>
+<li><strong>http4k-core, Break</strong> : Renamed <code>value</code> on <code>ParamMeta</code> to <code>description</code>.</li>
 </ul>
 <h3 id="v32050">v3.205.0</h3>
 <ul>
-<li>[all] Upgrade some dependency versions, including Kotlin to 1.3.61</li>
-<li>[http4k-security-oauth] allowing setting scopes on AccessToken creation so they are set on the response. H/T @tom</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.3.61</li>
+<li><strong>http4k-security-oauth</strong> : allowing setting scopes on AccessToken creation so they are set on the response. H/T @tom</li>
 </ul>
 <h3 id="v32040">v3.204.0</h3>
 <ul>
-<li>[http4k-core, http4k-aws] - increase efficiency of Hex implementation for trace ids and HMAC. H/T @time4tea</li>
-<li>[http4k-cloudnative] Reimplemented Environment to be more efficient. H/T @time4tea for noticing this.</li>
+<li><strong>http4k-core, http4k-aws</strong> : - increase efficiency of Hex implementation for trace ids and HMAC. H/T @time4tea</li>
+<li><strong>http4k-cloudnative</strong> : Reimplemented Environment to be more efficient. H/T @time4tea for noticing this.</li>
 </ul>
 <h3 id="v32030">v3.203.0</h3>
 <ul>
-<li>[http4k-security-oauth] On generating tokens allowing for the client id to be based on the result of validation rather than just the form parameters of the request. To support client assertions. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : On generating tokens allowing for the client id to be based on the result of validation rather than just the form parameters of the request. To support client assertions. H/T @tom</li>
 </ul>
 <h3 id="v32020">v3.202.0</h3>
 <ul>
-<li>[http4k-security-oauth] Adding new errors to support issues with client assertions. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Adding new errors to support issues with client assertions. H/T @tom</li>
 </ul>
 <h3 id="v32010">v3.201.0</h3>
 <ul>
-<li>[http4k-security-oauth] Allowing a scope to be set on AccessToken. Allowing for more low level validation of Authorise and Token Requests, by implementing <code>org.http4k.security.oauth.server.AuthoriseRequestValidator</code> and <code>org.http4k.security.oauth.server.accesstoken.AccessTokenRequestAuthentication</code> respectively. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : Allowing a scope to be set on AccessToken. Allowing for more low level validation of Authorise and Token Requests, by implementing <code>org.http4k.security.oauth.server.AuthoriseRequestValidator</code> and <code>org.http4k.security.oauth.server.accesstoken.AccessTokenRequestAuthentication</code> respectively. H/T @tom</li>
 </ul>
 <h3 id="v32000">v3.200.0</h3>
 <ul>
-<li>[http4k-contract] Support multiple request bodies in OpenApi v3</li>
+<li><strong>http4k-contract</strong> : Support multiple request bodies in OpenApi v3</li>
 </ul>
 <h3 id="v31991">v3.199.1</h3>
 <ul>
-<li>[http4k-format-jackson] Fix #313 Part 2 - Revert default behaviour for collections of polymorphic types, but is now overridable by using <code>autoBody()</code> instead of <code>auto()</code>. Reopened #313.</li>
+<li><strong>http4k-format-jackson</strong> : Fix #313 Part 2 - Revert default behaviour for collections of polymorphic types, but is now overridable by using <code>autoBody()</code> instead of <code>auto()</code>. Reopened #313.</li>
 </ul>
 <h3 id="v31990">v3.199.0</h3>
 <ul>
-<li>[http4k-format-jackson] [Breaking] Fix #313 - ConfigurableJackson.autoBody implementation would not work with collections of polymorphic types. This fix has the effect of blowing up auto-json behaviour when classes are defined inside functions (causing nasty <code>java.lang.reflect.GenericSignatureFormatError: Signature Parse error</code> exceptions). To remedy, just move inlined classes outside of the functions that they are defined in. H/T @alphaho for the PR.</li>
-<li>[all] Update some dependency versions</li>
+<li><strong>http4k-format-jackson, Breaking</strong> : Fix #313 - ConfigurableJackson.autoBody implementation would not work with collections of polymorphic types. This fix has the effect of blowing up auto-json behaviour when classes are defined inside functions (causing nasty <code>java.lang.reflect.GenericSignatureFormatError: Signature Parse error</code> exceptions). To remedy, just move inlined classes outside of the functions that they are defined in. H/T @alphaho for the PR.</li>
+<li><strong>http4k-</strong>* : Update some dependency versions</li>
 </ul>
 <h3 id="v31980">v3.198.0</h3>
 <ul>
-<li>[http4k-core] [Breaking] Reworking of ContentType to support multiple directives. <code>directive</code> field is now <code>directives</code>, so just add the extra 's' to fix :)</li>
-<li>[http4k-security-oauth] Moar options on <code>OAuthProviderConfig</code>. H/T @tom</li>
+<li><strong>http4k-core, Breaking</strong> : Reworking of ContentType to support multiple directives. <code>directive</code> field is now <code>directives</code>, so just add the extra 's' to fix :)</li>
+<li><strong>http4k-security-oauth</strong> : Moar options on <code>OAuthProviderConfig</code>. H/T @tom</li>
 </ul>
 <h3 id="v31970">v3.197.0</h3>
 <ul>
-<li>[all] Update some dependency versions, including Kotlin to <code>1.3.60</code>.</li>
-<li>[http4k-core] Make Query value optional when setting on a <code>Request</code>.</li>
-<li>[http4k-core] [Breaking] Fix #316. Optional Query lens handling is more accurate. See issue for details of change in behaviour.</li>
+<li><strong>http4k-</strong>* : Update some dependency versions, including Kotlin to <code>1.3.60</code>.</li>
+<li><strong>http4k-core</strong> : Make Query value optional when setting on a <code>Request</code>.</li>
+<li><strong>http4k-core, Breaking</strong> : Fix #316. Optional Query lens handling is more accurate. See issue for details of change in behaviour.</li>
 </ul>
 <h3 id="v31960">v3.196.0</h3>
 <ul>
-<li>[all] Update some dependency versions.</li>
-<li>[http4k-format-jackson, http4k-format-gson] Add support for auto marshalling <code>Throwable</code> in a sensible way.</li>
-<li>[http4k-cloudnative] Renamed badly named <code>UpstreamRequestFailed</code> to <code>RemoteRequestFailed</code>. Improved error handling.</li>
+<li><strong>http4k-</strong>* : Update some dependency versions.</li>
+<li><strong>http4k-format-jackson, http4k-format-gson</strong> : Add support for auto marshalling <code>Throwable</code> in a sensible way.</li>
+<li><strong>http4k-cloudnative</strong> : Renamed badly named <code>UpstreamRequestFailed</code> to <code>RemoteRequestFailed</code>. Improved error handling.</li>
 </ul>
 <h3 id="v31951">v3.195.1</h3>
 <ul>
-<li>[http4k-cloudnative] Fix adding value to overridden environment when using <code>set()</code>.  H/T @jippeholwerda for the PR</li>
+<li><strong>http4k-cloudnative</strong> : Fix adding value to overridden environment when using <code>set()</code>.  H/T @jippeholwerda for the PR</li>
 </ul>
 <h3 id="v31950">v3.195.0</h3>
 <ul>
-<li>[http4k-security-oauth] Tweak to handle Content-Type comparisons (with and without directive). H/T @jippeholwerda for the PR</li>
-<li>[http4k-multipart] - [Breaking] Added support for setting custom headers in Multipart form fields and files. This has removed the <code>String</code> as the default field type (it is now <code>MultipartFormField</code>. Calls to create lenses using <code>MultipartFormField</code> will now require <code>MultipartFormField.string()</code> instead.</li>
+<li><strong>http4k-security-oauth</strong> : Tweak to handle Content-Type comparisons (with and without directive). H/T @jippeholwerda for the PR</li>
+<li><strong>http4k-multipart] - [Breaking</strong> : Added support for setting custom headers in Multipart form fields and files. This has removed the <code>String</code> as the default field type (it is now <code>MultipartFormField</code>. Calls to create lenses using <code>MultipartFormField</code> will now require <code>MultipartFormField.string()</code> instead.</li>
 </ul>
 <h3 id="v31940">v3.194.0</h3>
 <ul>
-<li>[http4k-contract] Useful tweaks to the contracts API</li>
+<li><strong>http4k-contract</strong> : Useful tweaks to the contracts API</li>
 </ul>
 <h3 id="v31931">v3.193.1</h3>
 <p>[http4k-cloudnative] Fix #304 - map <code>get()</code> does not respect fallback values in overridden environment.</p>
 <h3 id="v31930">v3.193.0</h3>
 <ul>
-<li>[http4k-contract] Marking endpoints as deprecated in OpenApi3</li>
+<li><strong>http4k-contract</strong> : Marking endpoints as deprecated in OpenApi3</li>
 </ul>
 <h3 id="v31920">v3.192.0</h3>
 <ul>
-<li>[http4k-template-jade4j] New module! H/T @RichyHBM for the contribution! :)</li>
+<li><strong>http4k-template-jade4j</strong> : New module! H/T @RichyHBM for the contribution! :)</li>
 </ul>
 <h3 id="v31910">v3.191.0</h3>
 <ul>
-<li>[http4k-contract] Better support for overriding of raw map definition id in JSON schema generation</li>
+<li><strong>http4k-contract</strong> : Better support for overriding of raw map definition id in JSON schema generation</li>
 </ul>
 <h3 id="v31900">v3.190.0</h3>
 <ul>
-<li>[http4k-core] Added method to (immutably) modify status on <code>Response</code>. H/T @brandon-atkinson for the suggestion</li>
-<li>[http4k-core] Added composite object support to lens system, allowing creation of simple lenses which draw from several different values (of the same location only - e.g Query/EnvironmentKey)</li>
-<li>[http4k-contract] Support for overriding the entity definition id in JSON schema generation</li>
-<li>[all] Update some dependency versions.</li>
+<li><strong>http4k-core</strong> : Added method to (immutably) modify status on <code>Response</code>. H/T @brandon-atkinson for the suggestion</li>
+<li><strong>http4k-core</strong> : Added composite object support to lens system, allowing creation of simple lenses which draw from several different values (of the same location only - e.g Query/EnvironmentKey)</li>
+<li><strong>http4k-contract</strong> : Support for overriding the entity definition id in JSON schema generation</li>
+<li><strong>http4k-</strong>* : Update some dependency versions.</li>
 </ul>
 <h3 id="v31890">v3.189.0</h3>
 <ul>
-<li>[http4k-server-netty] Fix reported port in <code>Netty</code>. H/T @fantayeneh for the PR :)</li>
-<li>[http4k-security-oauth] Add <code>validateScopes()</code> to <code>ClientValidator</code>. H/T  @tom</li>
+<li><strong>http4k-server-netty</strong> : Fix reported port in <code>Netty</code>. H/T @fantayeneh for the PR :)</li>
+<li><strong>http4k-security-oauth</strong> : Add <code>validateScopes()</code> to <code>ClientValidator</code>. H/T  @tom</li>
 </ul>
 <h3 id="v31880">v3.188.0</h3>
 <ul>
-<li>[http4k-contract] Support multiple-response models in OpenApi2 and 3. Note that this currently is unsupported in the OpenApi UI due to a bug (which doesn't display the schema for the response correctly). However, the JSON schema is generated correctly in these cases.</li>
-<li>[all] Update some dependency versions.</li>
+<li><strong>http4k-contract</strong> : Support multiple-response models in OpenApi2 and 3. Note that this currently is unsupported in the OpenApi UI due to a bug (which doesn't display the schema for the response correctly). However, the JSON schema is generated correctly in these cases.</li>
+<li><strong>http4k-</strong>* : Update some dependency versions.</li>
 </ul>
 <h3 id="v31870">v3.187.0</h3>
 <ul>
-<li>[all] Update some dependency versions, and changes to various APIs involved (Jackson and Resilience4J)</li>
-<li>[http4k-core] - Add YearMonth support to standard JSON mappings</li>
-<li>[http4k-format-jackson, http4k-format-gson] [Possible break] - Moved reified <code>NODE.asA()</code> method from <code>JsonLibAutoMarshallingJson</code> down onto the instances of the <code>Json</code> (<code>ConfigurableJackson</code>/<code>ConfigurableGson</code>). This is so that we can handle generified classes such as lists and maps correctly. (As per the problems fixed in 3.181.0)</li>
+<li><strong>http4k-</strong>* : Update some dependency versions, and changes to various APIs involved (Jackson and Resilience4J)</li>
+<li><strong>http4k-core</strong> : - Add YearMonth support to standard JSON mappings</li>
+<li><strong>http4k-format-jackson, http4k-format-gson, Possible break</strong> : - Moved reified <code>NODE.asA()</code> method from <code>JsonLibAutoMarshallingJson</code> down onto the instances of the <code>Json</code> (<code>ConfigurableJackson</code>/<code>ConfigurableGson</code>). This is so that we can handle generified classes such as lists and maps correctly. (As per the problems fixed in 3.181.0)</li>
 </ul>
 <h3 id="v31860">v3.186.0</h3>
 <ul>
-<li>[http4k-core] - Rollback a couple of places which were using Java9+ APIs (for no good reason).</li>
+<li><strong>http4k-core</strong> : - Rollback a couple of places which were using Java9+ APIs (for no good reason).</li>
 </ul>
 <h3 id="v31850">v3.185.0</h3>
 <ul>
-<li>[http4k-contract] Improvements to rendering enums as their own objects in JSON Schema.</li>
+<li><strong>http4k-contract</strong> : Improvements to rendering enums as their own objects in JSON Schema.</li>
 </ul>
 <h3 id="v31840">v3.184.0</h3>
 <ul>
-<li>[http4k-contract] Add <code>Cookies</code> options to contract DSL</li>
+<li><strong>http4k-contract</strong> : Add <code>Cookies</code> options to contract DSL</li>
 </ul>
 <h3 id="v31830">v3.183.0</h3>
 <ul>
-<li>[http4k-serverless-lambda] Add ability to access Lambda context. H/T @ivoanjo for the PR.</li>
-<li>[http4k-contract] Fix rendering of OrSecurity when there are more than 2 parts.</li>
+<li><strong>http4k-serverless-lambda</strong> : Add ability to access Lambda context. H/T @ivoanjo for the PR.</li>
+<li><strong>http4k-contract</strong> : Fix rendering of OrSecurity when there are more than 2 parts.</li>
 </ul>
 <h3 id="v31820">v3.182.0</h3>
 <ul>
-<li>[http4k-core] Rename <code>EventsFilter</code> to <code>EventFilter</code> because sanity.</li>
-<li>[http4k-format-jackson, http4k-format-gson] Reintroduce <code>autoBody()</code> method</li>
+<li><strong>http4k-core</strong> : Rename <code>EventsFilter</code> to <code>EventFilter</code> because sanity.</li>
+<li><strong>http4k-format-jackson, http4k-format-gson</strong> : Reintroduce <code>autoBody()</code> method</li>
 </ul>
 <h3 id="v31810">v3.181.0</h3>
 <ul>
-<li>[http4k-core] Added base events implementations for StructuredLogging.</li>
-<li>[http4k-core] [Repackage] Events classes are now in <code>org.http4k.events</code>.</li>
-<li>[http4k-core] [Breaking] <code>EventCategory</code> is no longer a field of <code>Event</code>. To fix, just remove <code>override</code> from your <code>Event</code> classes.</li>
-<li>[http4k-format-jackson, http4k-format-gson] Fixed problem when attempting to deserialise generic Lists.</li>
+<li><strong>http4k-core</strong> : Added base events implementations for StructuredLogging.</li>
+<li><strong>http4k-core, Repackage</strong> : Events classes are now in <code>org.http4k.events</code>.</li>
+<li><strong>http4k-core, Breaking</strong> : <code>EventCategory</code> is no longer a field of <code>Event</code>. To fix, just remove <code>override</code> from your <code>Event</code> classes.</li>
+<li><strong>http4k-format-jackson, http4k-format-gson</strong> : Fixed problem when attempting to deserialise generic Lists.</li>
 </ul>
 <h3 id="v31800">v3.180.0</h3>
 <ul>
-<li>[all] Update various dependencies.</li>
-<li>[http4k-testing-hamcrest] Improve messages of Hamkrest matchers. H/T @albertlatacz</li>
-<li>[http4k-cloudnative] Fix #291 - Readiness check result when there are &gt; 2 checks may not report the correct result. H/T @alfi</li>
-<li>[http4k-security-oauth] [Possibly breaking] Making client_secret optional in AuthorizationCodeAccessTokenRequest to support non client_secret flows. H/T @tom</li>
+<li><strong>http4k-</strong>* : Update various dependencies.</li>
+<li><strong>http4k-testing-hamcrest</strong> : Improve messages of Hamkrest matchers. H/T @albertlatacz</li>
+<li><strong>http4k-cloudnative</strong> : Fix #291 - Readiness check result when there are &gt; 2 checks may not report the correct result. H/T @alfi</li>
+<li><strong>http4k-security-oauth, Possibly breaking</strong> : Making client_secret optional in AuthorizationCodeAccessTokenRequest to support non client_secret flows. H/T @tom</li>
 </ul>
 <h3 id="v31791">v3.179.1</h3>
 <ul>
-<li>[http4k-client-okhttp] Include status description in Response object.</li>
+<li><strong>http4k-client-okhttp</strong> : Include status description in Response object.</li>
 </ul>
 <h3 id="v31790">v3.179.0</h3>
 <ul>
-<li>[http4k-contract] Added <code>OpenApiExtension</code> interface, which allows the definition of extensions that will modify the OpenApi specification JSON. H/T @rgladwell for the inspiration.</li>
-<li>[http4k-contract] Support composite security models using <code>or()</code> and <code>and()</code>. Once again, H/T @rgladwell :)</li>
+<li><strong>http4k-contract</strong> : Added <code>OpenApiExtension</code> interface, which allows the definition of extensions that will modify the OpenApi specification JSON. H/T @rgladwell for the inspiration.</li>
+<li><strong>http4k-contract</strong> : Support composite security models using <code>or()</code> and <code>and()</code>. Once again, H/T @rgladwell :)</li>
 </ul>
 <h3 id="v31780">v3.178.0</h3>
 <ul>
-<li>[http4k-security-oauth] [Possibly breaking] Request is passed as a parameter to the ClientValidator. Just pass it in! :)  H/T @tom</li>
-<li>[http4k-contract] [Behaviour change] When specified, individual route security now replaces global security (this is as the security model in the OpenApi spec is specified) as opposed to both being applied. </li>
+<li><strong>http4k-security-oauth, Possibly breaking</strong> : Request is passed as a parameter to the ClientValidator. Just pass it in! :)  H/T @tom</li>
+<li><strong>http4k-contract, Behaviour change</strong> : When specified, individual route security now replaces global security (this is as the security model in the OpenApi spec is specified) as opposed to both being applied. </li>
 </ul>
 <h3 id="v31770">v3.177.0</h3>
 <ul>
-<li>[http4k-security-oauth] [Possibly breaking] More support for OIDC, adding state to AuthorizationCodeDetails, and passing it into createForAccessToken on IdTokens. H/T @tom</li>
+<li><strong>http4k-security-oauth, Possibly breaking</strong> : More support for OIDC, adding state to AuthorizationCodeDetails, and passing it into createForAccessToken on IdTokens. H/T @tom</li>
 </ul>
 <h3 id="v31760">v3.176.0</h3>
 <ul>
-<li>[http4k-security-oauth] More support for OIDC. H/T @tom</li>
+<li><strong>http4k-security-oauth</strong> : More support for OIDC. H/T @tom</li>
 </ul>
 <h3 id="v31750">v3.175.0</h3>
 <ul>
-<li>[all] Update various dependencies, including Kotlin to 1.3.50.</li>
-<li>[http4k-security-oauth] Some support for OIDC. H/T @tom</li>
+<li><strong>http4k-</strong>* : Update various dependencies, including Kotlin to 1.3.50.</li>
+<li><strong>http4k-security-oauth</strong> : Some support for OIDC. H/T @tom</li>
 </ul>
 <h3 id="v31740">v3.174.0</h3>
 <ul>
-<li>[all] Update various dependencies, including Jackson for a CVE.</li>
+<li><strong>http4k-</strong>* : Update various dependencies, including Jackson for a CVE.</li>
 </ul>
 <h3 id="v31730">v3.173.0</h3>
 <ul>
-<li>[http4k-core] Fix #273 - parentSpanId trace incorrectly populated when no previous traces</li>
-<li>[http4k-contract] [Unlikely Break] Remodelled how Security is rendered, so it's possible that this may break slightly for customer implementations</li>
-<li>[http4k-contract] Added support for Implicit OAuth flow, with suport for custom <code>googleCloudEndpoints</code> Security. H/T @rgladwell</li>
+<li><strong>http4k-core</strong> : Fix #273 - parentSpanId trace incorrectly populated when no previous traces</li>
+<li><strong>http4k-contract, Unlikely Break</strong> : Remodelled how Security is rendered, so it's possible that this may break slightly for customer implementations</li>
+<li><strong>http4k-contract</strong> : Added support for Implicit OAuth flow, with suport for custom <code>googleCloudEndpoints</code> Security. H/T @rgladwell</li>
 </ul>
 <h3 id="v31720">v3.172.0</h3>
 <ul>
-<li>[http4k-core] Added uni-directional serialization/deserialization options to JSON lib auto-conversion configuration. </li>
+<li><strong>http4k-core</strong> : Added uni-directional serialization/deserialization options to JSON lib auto-conversion configuration. </li>
 </ul>
 <h3 id="v31710">v3.171.0</h3>
 <ul>
-<li>[http4k-core] [Break (mitigation)] Replaced default resource loader location for <code>singlePageApp()</code> to <code>/public</code> instead of root - this is for safety of NOT serving the root of the classpath by default.</li>
+<li><strong>http4k-core, Break (mitigation)</strong> : Replaced default resource loader location for <code>singlePageApp()</code> to <code>/public</code> instead of root - this is for safety of NOT serving the root of the classpath by default.</li>
 </ul>
 <h3 id="v31700">v3.170.0</h3>
 <ul>
-<li>[http4k-core] Add a warning when <code>static()</code> is used with no package path, thus exposing the contents of the classpath remotely.</li>
+<li><strong>http4k-core</strong> : Add a warning when <code>static()</code> is used with no package path, thus exposing the contents of the classpath remotely.</li>
 </ul>
 <h3 id="v31690">v3.169.0</h3>
 <ul>
-<li>[all] Update various dependencies.</li>
+<li><strong>http4k-</strong>* : Update various dependencies.</li>
 </ul>
 <h3 id="v31680">v3.168.0</h3>
 <ul>
-<li>[http4k-contract] Collect LensFailure causes into a single place when validating.</li>
+<li><strong>http4k-contract</strong> : Collect LensFailure causes into a single place when validating.</li>
 </ul>
 <h3 id="v31670">v3.167.0</h3>
 <ul>
-<li>[http4k-contract] [Possibly Break] Open out <code>ErrorResponseRenderer</code> interface to take LensFailure instead of the individual failures when rendering <code>badResponse()</code>. To fix, simply wrap the list of failures into a LensFailure.</li>
+<li><strong>http4k-contract, Possibly Break</strong> : Open out <code>ErrorResponseRenderer</code> interface to take LensFailure instead of the individual failures when rendering <code>badResponse()</code>. To fix, simply wrap the list of failures into a LensFailure.</li>
 </ul>
 <h3 id="v31661">v3.166.1</h3>
 <ul>
-<li>[http4k-core] Tweak <code>singlePageApp()</code> routing handler, to correctly apply filters when fallback page is used.</li>
+<li><strong>http4k-core</strong> : Tweak <code>singlePageApp()</code> routing handler, to correctly apply filters when fallback page is used.</li>
 </ul>
 <h3 id="v31660">v3.166.0</h3>
 <ul>
-<li>[http4k-core] Added <code>singlePageApp()</code> routing handler, which matches both static content or falls back to the root path index file</li>
+<li><strong>http4k-core</strong> : Added <code>singlePageApp()</code> routing handler, which matches both static content or falls back to the root path index file</li>
 </ul>
 <h3 id="v31650">v3.165.0</h3>
 <ul>
-<li>[http4k-contract] Fix invalid OpenApi2 when root and base path match. H/T @rgladwell</li>
-<li>[http4k-contract] <code>ContractRoute</code> is now an <code>HttpHandler</code>, so no need to wrap contract routes in a <code>contract {}</code> to test them. H/T @rgladwell for the inspiration.</li>
-<li>[http4k-contract] Support Host/baseUri values in OpenApi2. H/T @rgladwell</li>
-<li>[http4k-contract] Optionally add description route to route list H/T @rgladwell</li>
+<li><strong>http4k-contract</strong> : Fix invalid OpenApi2 when root and base path match. H/T @rgladwell</li>
+<li><strong>http4k-contract</strong> : <code>ContractRoute</code> is now an <code>HttpHandler</code>, so no need to wrap contract routes in a <code>contract {}</code> to test them. H/T @rgladwell for the inspiration.</li>
+<li><strong>http4k-contract</strong> : Support Host/baseUri values in OpenApi2. H/T @rgladwell</li>
+<li><strong>http4k-contract</strong> : Optionally add description route to route list H/T @rgladwell</li>
 </ul>
 <h3 id="v31640">v3.164.0</h3>
 <ul>
-<li>[all] Update various dependencies, including Kotlin to 1.3.41.</li>
-<li>[http4k-testing-approval] Upgrade of HTML library from above may have an effect on output of HTML approval tests.</li>
-<li>[http4k-contract] Support for more Jackson annotations in JSON Schema rendering. H/T @tom for the PR contributing this.</li>
+<li><strong>http4k-</strong>* : Update various dependencies, including Kotlin to 1.3.41.</li>
+<li><strong>http4k-testing-approval</strong> : Upgrade of HTML library from above may have an effect on output of HTML approval tests.</li>
+<li><strong>http4k-contract</strong> : Support for more Jackson annotations in JSON Schema rendering. H/T @tom for the PR contributing this.</li>
 </ul>
 <h3 id="v31630">v3.163.0</h3>
 <ul>
-<li>[http4k-testing-chaos] Add detail to Chaos OpenApi interface.</li>
+<li><strong>http4k-testing-chaos</strong> : Add detail to Chaos OpenApi interface.</li>
 </ul>
 <h3 id="v31620">v3.162.0</h3>
 <ul>
-<li>[http4k-testing-chaos] Add detail to Chaos OpenApi interface.</li>
+<li><strong>http4k-testing-chaos</strong> : Add detail to Chaos OpenApi interface.</li>
 </ul>
 <h3 id="v31610">v3.161.0</h3>
 <ul>
-<li>[http4k-cloudnative] Added Forbidden request exception to HandleUpstreamRequestFailed.</li>
+<li><strong>http4k-cloudnative</strong> : Added Forbidden request exception to HandleUpstreamRequestFailed.</li>
 </ul>
 <h3 id="v31601">v3.160.1</h3>
 <ul>
-<li>[http4k-testing-chaos] Countdown chaos trigger fixed.</li>
+<li><strong>http4k-testing-chaos</strong> : Countdown chaos trigger fixed.</li>
 </ul>
 <h3 id="v31600">v3.160.0</h3>
 <ul>
-<li>[http4k-testing-chaos] Slight fix to avoid consuming stream body when setting chaos.</li>
+<li><strong>http4k-testing-chaos</strong> : Slight fix to avoid consuming stream body when setting chaos.</li>
 </ul>
 <h3 id="v31590">v3.159.0</h3>
 <ul>
-<li>[all] Update various dependencies.</li>
-<li>[http4k-client-okhttp] Updated <code>OkHttp</code> to v4.0.0 (Kotlin edition).</li>
-<li>[http4k-contract] Tweak to JSON Schema rendering to handle recursive objects better.</li>
+<li><strong>http4k-</strong>* : Update various dependencies.</li>
+<li><strong>http4k-client-okhttp</strong> : Updated <code>OkHttp</code> to v4.0.0 (Kotlin edition).</li>
+<li><strong>http4k-contract</strong> : Tweak to JSON Schema rendering to handle recursive objects better.</li>
 </ul>
 <h3 id="v31581">v3.158.1</h3>
 <ul>
-<li>[http4k-server-netty] Fix #260 - cannot set multiple response headers with same name</li>
-<li>[http4k-server-undertow] Fix #260 - cannot set multiple response headers with same name</li>
+<li><strong>http4k-server-netty</strong> : Fix #260 - cannot set multiple response headers with same name</li>
+<li><strong>http4k-server-undertow</strong> : Fix #260 - cannot set multiple response headers with same name</li>
 </ul>
 <h3 id="v31580">v3.158.0</h3>
 <ul>
-<li>[http4k-contract] POSSIBLE BEHAVIOUR CHANGE DUE TO BUG: Fix #259 - Contract blocks do not produce 400s if an external CatchAll is provided. This may have an effect on how errors are generated (a 400 is produced instead of the previous 500 from the CatchAll).</li>
+<li><strong>http4k-contract</strong> : POSSIBLE BEHAVIOUR CHANGE DUE TO BUG: Fix #259 - Contract blocks do not produce 400s if an external CatchAll is provided. This may have an effect on how errors are generated (a 400 is produced instead of the previous 500 from the CatchAll).</li>
 </ul>
 <h3 id="v31571">v3.157.1</h3>
 <ul>
-<li>[http4k-security-oauth] Fix broken deprecation annotation.</li>
+<li><strong>http4k-security-oauth</strong> : Fix broken deprecation annotation.</li>
 </ul>
 <h3 id="v31570">v3.157.0</h3>
 <ul>
-<li>[http4k-security-oauth] Default to JSON format response in Access Token response</li>
-<li>[http4k-security-oauth] Renamed a couple of classes (AccessTokenContainer -&gt; AccessToken), and removed <code>isValid</code> method from <code>AuthorizationCodes</code> because it doesn't make sense for this to be on the OAuthServer.</li>
+<li><strong>http4k-security-oauth</strong> : Default to JSON format response in Access Token response</li>
+<li><strong>http4k-security-oauth</strong> : Renamed a couple of classes (AccessTokenContainer -&gt; AccessToken), and removed <code>isValid</code> method from <code>AuthorizationCodes</code> because it doesn't make sense for this to be on the OAuthServer.</li>
 </ul>
 <h3 id="v31560">v3.156.0</h3>
 <ul>
-<li>[all] Update Kotlin to 1.3.40</li>
-<li>[http4k-contract] Support OAuthSecurity renderer.</li>
+<li><strong>http4k-</strong>* : Update Kotlin to 1.3.40</li>
+<li><strong>http4k-contract</strong> : Support OAuthSecurity renderer.</li>
 </ul>
 <h3 id="v31552">v3.155.2</h3>
 <ul>
-<li>[all] Update various dependencies.</li>
-<li>[all] Dokka improvements. Does not mitigate #196 as we run the main build on OpenJdk11. H/T @ivoanjo</li>
+<li><strong>http4k-</strong>* : Update various dependencies.</li>
+<li><strong>http4k-</strong>* : Dokka improvements. Does not mitigate #196 as we run the main build on OpenJdk11. H/T @ivoanjo</li>
 </ul>
 <h3 id="v31551">v3.155.1</h3>
 <ul>
@@ -1434,138 +1434,138 @@ changes with their rationale when appropriate:</p>
 </ul>
 <h3 id="v31541">v3.154.1</h3>
 <ul>
-<li>[http4k-multipart] Made the multipart header parser case-insensitive. H/T @tenniscp25</li>
+<li><strong>http4k-multipart</strong> : Made the multipart header parser case-insensitive. H/T @tenniscp25</li>
 </ul>
 <h3 id="v31540">v3.154.0</h3>
 <ul>
-<li>[http4k-contract] Add <code>SchemaModelNamer</code> to allow for custom JSON Schema model names.</li>
+<li><strong>http4k-contract</strong> : Add <code>SchemaModelNamer</code> to allow for custom JSON Schema model names.</li>
 </ul>
 <h3 id="v31530">v3.153.0</h3>
 <ul>
-<li>[http4k-contract] OperationIds are generated without illegal characters <code>{}</code>.</li>
+<li><strong>http4k-contract</strong> : OperationIds are generated without illegal characters <code>{}</code>.</li>
 </ul>
 <h3 id="v31520">v3.152.0</h3>
 <ul>
-<li>[http4k-contract] Support non-string keys for "text convertible" values in maps for Auto-schema generation.</li>
+<li><strong>http4k-contract</strong> : Support non-string keys for "text convertible" values in maps for Auto-schema generation.</li>
 </ul>
 <h3 id="v31510">v3.151.0</h3>
 <ul>
-<li>[http4k-contract] Fixed Auto-schema generation to detect and remove duplicate items from list schemas.</li>
+<li><strong>http4k-contract</strong> : Fixed Auto-schema generation to detect and remove duplicate items from list schemas.</li>
 </ul>
 <h3 id="v31500">v3.150.0</h3>
 <ul>
-<li>[http4k-security-oauth] Make authentication mechanism for grant types configurable.</li>
+<li><strong>http4k-security-oauth</strong> : Make authentication mechanism for grant types configurable.</li>
 </ul>
 <h3 id="v31490">v3.149.0</h3>
 <ul>
-<li>[http4k-security-oauth] Initial support for <code>client_credentials</code> grant type.</li>
+<li><strong>http4k-security-oauth</strong> : Initial support for <code>client_credentials</code> grant type.</li>
 </ul>
 <h3 id="v31480">v3.148.0</h3>
 <ul>
-<li>[http4k-contract] Jackson property searching in OpenApi3 now searches superclasses.</li>
+<li><strong>http4k-contract</strong> : Jackson property searching in OpenApi3 now searches superclasses.</li>
 </ul>
 <h3 id="v31470">v3.147.0</h3>
 <ul>
-<li>[http4k-contract] Support custom <code>JsonProperty</code> annotation for OpenAPi3 generation</li>
-<li>[http4k-cloudnative] New exception type for unuathorised. H/T @tom</li>
+<li><strong>http4k-contract</strong> : Support custom <code>JsonProperty</code> annotation for OpenAPi3 generation</li>
+<li><strong>http4k-cloudnative</strong> : New exception type for unuathorised. H/T @tom</li>
 </ul>
 <h3 id="v31460">v3.146.0</h3>
 <ul>
-<li>[http4k-contract] Fix #228 - Support Map-based fields in OpenApi 3 Auto-schema generation as <code>additionalProperties</code>. H/T @noahbetzen-wk for the idea.</li>
+<li><strong>http4k-contract</strong> : Fix #228 - Support Map-based fields in OpenApi 3 Auto-schema generation as <code>additionalProperties</code>. H/T @noahbetzen-wk for the idea.</li>
 </ul>
 <h3 id="v31450">v3.145.0</h3>
 <ul>
-<li>[http4k-contract] Reimplement Auto-schema generation using reflection. Added test cases to use 
+<li><strong>http4k-contract</strong> : Reimplement Auto-schema generation using reflection. Added test cases to use 
 the OpenApi generator to create valid code-based OpenApi clients using the OpenApi generator.</li>
-<li>[http4k-format-jackson] Removed reflective JSON schema creator, since it was not actually OA3 compliant.</li>
+<li><strong>http4k-format-jackson</strong> : Removed reflective JSON schema creator, since it was not actually OA3 compliant.</li>
 </ul>
 <h3 id="v31440">v3.144.0</h3>
 <ul>
-<li>[all] Update various dependencies.</li>
-<li>[http4k-contract] Improvements to better adhere to OA3 spec.</li>
-<li>[http4k-security-oauth] Allow injecting OpenID's <code>request</code> parameter into the authorization request.</li>
-<li>[http4k-security-oauth] Expose request to AuthRequestTracking. </li>
+<li><strong>http4k-</strong>* : Update various dependencies.</li>
+<li><strong>http4k-contract</strong> : Improvements to better adhere to OA3 spec.</li>
+<li><strong>http4k-security-oauth</strong> : Allow injecting OpenID's <code>request</code> parameter into the authorization request.</li>
+<li><strong>http4k-security-oauth</strong> : Expose request to AuthRequestTracking. </li>
 </ul>
 <h3 id="v31431">v3.143.1</h3>
 <ul>
-<li>[http4k-core] Replace RequestContexts with reference to Store<RequestContext>. H/T @amcghie</li>
-<li>[http4k-contract] Added some missing deprecations.</li>
-<li>[http4k-contract] Fix #243 - Nulls not allowed in OpenApi V3 JSON models.</li>
+<li><strong>http4k-core</strong> : Replace RequestContexts with reference to Store<RequestContext>. H/T @amcghie</li>
+<li><strong>http4k-contract</strong> : Added some missing deprecations.</li>
+<li><strong>http4k-contract</strong> : Fix #243 - Nulls not allowed in OpenApi V3 JSON models.</li>
 </ul>
 <h3 id="v31430">v3.143.0</h3>
 <ul>
-<li>[http4k-contract] Fix #239 - OpenApi v3 schemas for raw lists blow up when rendering.</li>
-<li>[all] Update various dependencies.</li>
+<li><strong>http4k-contract</strong> : Fix #239 - OpenApi v3 schemas for raw lists blow up when rendering.</li>
+<li><strong>http4k-</strong>* : Update various dependencies.</li>
 </ul>
 <h3 id="v31420">v3.142.0</h3>
 <ul>
-<li>[http4k-contract] Both OpenApi v2 and v3 are now supported, including automatic schema generation. Some classes for 
+<li><strong>http4k-contract</strong> : Both OpenApi v2 and v3 are now supported, including automatic schema generation. Some classes for 
 OpenApi2 have moved to a new package - Deprecations should provide most alternatives. See module docs for details. For OpenApi v3, optionally include <code>http4k-format-jackson</code> to get JSON schema models based on JVM objects.</li>
-<li>[http4k-format-jackson] Added reflective JSON schema creator, to be used for generating named models from JVM objects.  </li>
+<li><strong>http4k-format-jackson</strong> : Added reflective JSON schema creator, to be used for generating named models from JVM objects.  </li>
 </ul>
 <h3 id="v31410">v3.141.0</h3>
 <ul>
-<li>[http4k-core] - Fix #233 - MemoryBody blows up with "java.nio.ReadOnlyBufferException"</li>
-<li>[http4k-core] - Tighten up security on  Basic and Bearer auth server filters.  H/T @andymoody</li>
-<li>[http4k-security-oauth] - Add filter to check bearer token is valid access token. H/T @andymoody</li>
+<li><strong>http4k-core</strong> : - Fix #233 - MemoryBody blows up with "java.nio.ReadOnlyBufferException"</li>
+<li><strong>http4k-core</strong> : - Tighten up security on  Basic and Bearer auth server filters.  H/T @andymoody</li>
+<li><strong>http4k-security-oauth</strong> : - Add filter to check bearer token is valid access token. H/T @andymoody</li>
 </ul>
 <h3 id="v31400">v3.140.0</h3>
 <ul>
-<li>[all] Update dependencies (including Kotlin bump to 1.3.31)</li>
-<li>[http4k-security-oauth] Handle user rejecting/failing authentication. H/T @andymoody </li>
+<li><strong>http4k-</strong>* : Update dependencies (including Kotlin bump to 1.3.31)</li>
+<li><strong>http4k-security-oauth</strong> : Handle user rejecting/failing authentication. H/T @andymoody </li>
 </ul>
 <h3 id="v31390">v3.139.0</h3>
 <ul>
-<li>[http4k-security-oauth] Allow access token generation to explicitly reject an authorization code already used. H/T @andymoody </li>
+<li><strong>http4k-security-oauth</strong> : Allow access token generation to explicitly reject an authorization code already used. H/T @andymoody </li>
 </ul>
 <h3 id="v31381">v3.138.1</h3>
 <ul>
-<li>[http4k-security-oauth] Amend error responses from access token generation. H/T @andymoody</li>
+<li><strong>http4k-security-oauth</strong> : Amend error responses from access token generation. H/T @andymoody</li>
 </ul>
 <h3 id="v31380">v3.138.0</h3>
 <ul>
-<li>[http4k-contracts] Tweaks to Security model for <code>http4k-contracts</code>. (Renamed) <code>ApiKeySecurity</code> is now a proper class, and added <code>BasicAuthSecurity</code>. You can now also override the security model on a per-route basis.</li>
-<li>[http4k-contract] Added ability to set the <code>Security</code> on each individual contract route. This overrides any <code>Security</code> 
+<li><strong>http4k-contracts</strong> : Tweaks to Security model for <code>http4k-contracts</code>. (Renamed) <code>ApiKeySecurity</code> is now a proper class, and added <code>BasicAuthSecurity</code>. You can now also override the security model on a per-route basis.</li>
+<li><strong>http4k-contract</strong> : Added ability to set the <code>Security</code> on each individual contract route. This overrides any <code>Security</code> 
 set on a contract-level basis.</li>
 </ul>
 <h3 id="v31371">v3.137.1</h3>
 <ul>
-<li>[http4k-serverless] Allow invocation of serverless functions locally. H/T @Charlyzzz</li>
-<li>[http4k-core] Fix #226 - ResourceLoadingHandler not close stream</li>
+<li><strong>http4k-serverless</strong> : Allow invocation of serverless functions locally. H/T @Charlyzzz</li>
+<li><strong>http4k-core</strong> : Fix #226 - ResourceLoadingHandler not close stream</li>
 </ul>
 <h3 id="v31370">v3.137.0</h3>
 <ul>
-<li>[http4k-security-oauth] Rename AuthRequestPersistence to AuthRequestTracking</li>
+<li><strong>http4k-security-oauth</strong> : Rename AuthRequestPersistence to AuthRequestTracking</li>
 </ul>
 <h3 id="v31360">v3.136.0</h3>
 <ul>
-<li>[http4k-security-oauth] Allow the http request to be referenced when generating OAuth authorization codes. H/T @andymoody</li>
+<li><strong>http4k-security-oauth</strong> : Allow the http request to be referenced when generating OAuth authorization codes. H/T @andymoody</li>
 </ul>
 <h3 id="v31350">v3.135.0</h3>
 <ul>
-<li>[http4k-core] Change <code>mime.types</code> location so it doesn't conflic with other libraries. H/T @benusher and @dgliosca</li>
-<li>[http4k-testing-chaos] Added <code>SnipRequestBody</code> behaviour.</li>
-<li>[http4k-core] (Small) Breaking Fixed location of some extension files to be relevant to the particular package that they are referencing. This will require reimporting the new location into your source if you were using the imports.</li>
+<li><strong>http4k-core</strong> : Change <code>mime.types</code> location so it doesn't conflic with other libraries. H/T @benusher and @dgliosca</li>
+<li><strong>http4k-testing-chaos</strong> : Added <code>SnipRequestBody</code> behaviour.</li>
+<li><strong>http4k-core</strong> : (Small) Breaking Fixed location of some extension files to be relevant to the particular package that they are referencing. This will require reimporting the new location into your source if you were using the imports.</li>
 </ul>
 <h3 id="v31340">v3.134.0</h3>
 <ul>
-<li>[http4k-testing-approval] Made content-type aware approval tests check the content type after the content. This is friendlier for failing tests, as 
+<li><strong>http4k-testing-approval</strong> : Made content-type aware approval tests check the content type after the content. This is friendlier for failing tests, as 
 it is more important that the content is correct than the content-type (and often errors don't have content type set so you 
 get an erroneous error message which masks the fact that the content was wrong).</li>
 </ul>
 <h3 id="v31330">v3.133.0</h3>
 <ul>
-<li>[http4k-cloudnative] <code>HandleUpstreamRequestFailed</code> client filter now takes a predicate <code>(Response) -&gt; Boolean</code> instead of a boolean. This allows for more fine grained custom control of which Responses are acceptable.</li>
-<li>[all] Upgrade deps, including Kotlin to <code>1.3.30</code>.</li>
-<li>[http4k-contract] Fix #221 - Contract path fixed segments cannot contain slash characters.</li>
+<li><strong>http4k-cloudnative</strong> : <code>HandleUpstreamRequestFailed</code> client filter now takes a predicate <code>(Response) -&gt; Boolean</code> instead of a boolean. This allows for more fine grained custom control of which Responses are acceptable.</li>
+<li><strong>http4k-</strong>* : Upgrade deps, including Kotlin to <code>1.3.30</code>.</li>
+<li><strong>http4k-contract</strong> : Fix #221 - Contract path fixed segments cannot contain slash characters.</li>
 </ul>
 <h3 id="v31320">v3.132.0</h3>
 <ul>
-<li>[http4k-format-jackson] Convert <code>Jackson</code> to use <code>readValue</code> instead of <code>convertValue</code>. This fixes some problems with type conversions.</li>
+<li><strong>http4k-format-jackson</strong> : Convert <code>Jackson</code> to use <code>readValue</code> instead of <code>convertValue</code>. This fixes some problems with type conversions.</li>
 </ul>
 <h3 id="v31310">v3.131.0</h3>
 <ul>
-<li>[http4k-core] (Possible) Break: Made lense implementations <code>Query, Header etc</code> clear previous values by default instead of 
+<li><strong>http4k-core</strong> : (Possible) Break: Made lense implementations <code>Query, Header etc</code> clear previous values by default instead of 
 appending. This leads to a more consistent behaviour. In order to be able to set multiple values on an object 
 using a lense, use the <code>multi</code> form instead - eg. <code>Header.required("foo")</code> -&gt; <code>Header.multi.required("foo")</code>. We 
 envisage the impact of this change is limited as it's only Queries that generally can have multiple possible 
@@ -1573,31 +1573,31 @@ values, and in the vast majority of cases a replace rather than append is expect
 </ul>
 <h3 id="v31300">v3.130.0</h3>
 <ul>
-<li>[http4k-contract] Generify contract handling code to allow for custom <code>HttpMessageMeta&lt;XYZ&gt;</code> </li>
+<li><strong>http4k-contract</strong> : Generify contract handling code to allow for custom <code>HttpMessageMeta&lt;XYZ&gt;</code> </li>
 </ul>
 <h3 id="v31290">v3.129.0</h3>
 <ul>
 <li>(Slight) Break: Collapsed <code>UpstreamRequestFailed</code> exceptions to contain the status, and thus removing non-special 
 cases like <code>BadRequest</code> and <code>BadGateway</code>. This makes them much easier to use in practice as users have access 
 to the the status. To migrate, simply replace previous classes with <code>UpstreamRequestFailed(Status.XYZ, message)</code>. </li>
-<li>[http4k-contract] Open up <code>ContractRoute</code> API to facilitate extension when defining a custom <code>ContractRenderer</code>.</li>
-<li>[all] Upgrade deps.</li>
+<li><strong>http4k-contract</strong> : Open up <code>ContractRoute</code> API to facilitate extension when defining a custom <code>ContractRenderer</code>.</li>
+<li><strong>http4k-</strong>* : Upgrade deps.</li>
 </ul>
 <h3 id="v31280">v3.128.0</h3>
 <ul>
-<li>[http4k-core] Added base64 to the supported mappings for Query/Headers etc...</li>
-<li>[http4k-testing-approval] Approver does not write actual output if there is none to write and there is no approved content</li>
+<li><strong>http4k-core</strong> : Added base64 to the supported mappings for Query/Headers etc...</li>
+<li><strong>http4k-testing-approval</strong> : Approver does not write actual output if there is none to write and there is no approved content</li>
 </ul>
 <h3 id="v31270">v3.127.0</h3>
 <ul>
-<li>[http4k-testing-approval] Improved <code>Approver</code> interface to more closely match the traditional 
+<li><strong>http4k-testing-approval</strong> : Improved <code>Approver</code> interface to more closely match the traditional 
 <code>assert&lt;XYZ&gt;</code> approach - this results in a more discoverable/obvious API.</li>
-<li>[http4k-testing-hamkrest] Added ability to create a Hamkrest matcher directly from the <code>Approver</code> instance to be combined 
+<li><strong>http4k-testing-hamkrest</strong> : Added ability to create a Hamkrest matcher directly from the <code>Approver</code> instance to be combined 
 with other relevant matchers.</li>
 </ul>
 <h3 id="v31260">v3.126.0</h3>
 <ul>
-<li>[http4k-testing-approval] Add support for XML and HTML approval tests.</li>
+<li><strong>http4k-testing-approval</strong> : Add support for XML and HTML approval tests.</li>
 </ul>
 <h3 id="v31250">v3.125.0</h3>
 <ul>
@@ -1607,11 +1607,11 @@ the <a href="https://github.com/dmcg/okey-doke">OkeyDoke</a> approval testing fi
 </ul>
 <h3 id="v31240">v3.124.0</h3>
 <ul>
-<li>[http4k-security-oauth] Make authentication response available when creating AuthorizationCode.</li>
+<li><strong>http4k-security-oauth</strong> : Make authentication response available when creating AuthorizationCode.</li>
 </ul>
 <h3 id="v31230">v3.123.0</h3>
 <ul>
-<li>[http4k-security-oauth] Introduce OAuthServer to <code>http4k-security-oauth</code> to assist in the creation of authorization servers.</li>
+<li><strong>http4k-security-oauth</strong> : Introduce OAuthServer to <code>http4k-security-oauth</code> to assist in the creation of authorization servers.</li>
 </ul>
 <h3 id="v31220">v3.122.0</h3>
 <ul>
