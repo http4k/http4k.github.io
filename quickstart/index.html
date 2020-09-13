@@ -838,20 +838,17 @@
                     
                     
                     <h1 id="quickstart">Quickstart</h1>
-<p>For the impatient, there is a repository of examples at <a href="https://github.com/http4k/examples">http4k/examples</a>.</p>
-<p>... alternatively, for a step-by-step guide, keep reading...</p>
-<p>This simple example demonstrates how to serve and consume HTTP services using <strong>http4k</strong>. </p>
-<p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
+<p>This simple example demonstrates how to serve and consume HTTP services using <strong>http4k</strong>. To install, add these dependencies to your <strong>Gradle</strong> file:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
     <span class="n">implementation</span> <span class="nf">platform</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-bom:3.260.0&quot;</span><span class="o">)</span>
     <span class="n">implementation</span> <span class="s2">&quot;org.http4k:http4k-core&quot;</span>
-    <span class="n">implementation</span> <span class="s2">&quot;org.http4k:http4k-server-jetty&quot;</span>
+    <span class="n">implementation</span> <span class="s2">&quot;org.http4k:http4k-server-netty&quot;</span>
     <span class="n">implementation</span> <span class="s2">&quot;org.http4k:http4k-client-apache&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
 
 
-<p>The following creates a simple endpoint, binds it to a Jetty server then starts, queries, and stops it.</p>
+<p>The following creates a simple endpoint, binds it to a Netty server then starts, queries, and stops it.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">quickstart</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
@@ -859,27 +856,28 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Netty</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-
     <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.query(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="k">val</span> <span class="py">jettyServer</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
-
-    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 
     <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
 
+    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
 
-    <span class="n">jettyServer</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 
 
-<h2 id="single-line-cd-bootstrap">Single-line CD Bootstrap</h2>
+<h1 id="examples-repo">Examples Repo</h1>
+<p>For fully self-contained examples demonstrates the standout features of <strong>http4k</strong>, there is a GitHub repository at <a href="https://github.com/http4k/examples">http4k/examples</a>.</p>
+<h1 id="single-line-cd-bootstrap">Single-line CD Bootstrap</h1>
 <p>Run the single command in the readme of <a href="https://github.com/http4k/http4k-bootstrap">this repo</a> to create a HelloWorld <strong>http4k</strong> app with a full CD pipeline using Github -&gt; TravisCI -&gt; Heroku.</p>
                     
                 </div>

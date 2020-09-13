@@ -884,7 +884,7 @@ then be applied to an <code>HttpHandler</code>.</li>
 <li><strong>Immutability:</strong> All entities in the library are immutable unless their function explicitly disallows this.</li>
 <li><strong>Symmetric:</strong> The <code>HttpHandler</code> interface is identical for both HTTP services and clients. This allows for simple offline testability of applications, as well as 
 plugging together of services without HTTP container being required.</li>
-<li><strong>Dependency-lite:</strong> Apart the from Kotlin StdLib, <code>http4k-core</code> module has ZERO dependencies and weighs in at ~700kb. Add-on modules only have dependencies required for specific implementation.</li>
+<li><strong>Dependency-lite:</strong> Apart the from Kotlin StdLib, <code>http4k-core</code> module has <strong>ZERO</strong> dependencies and weighs in at ~1mb. Add-on modules only have dependencies required for specific implementation.</li>
 <li><strong>Testability</strong> Built by <strong>TDD</strong> enthusiasts, so supports <strong>super-easy</strong> mechanisms for both In and Out of Container testing of:<ul>
 <li>individual endpoints</li>
 <li>applications</li>
@@ -894,7 +894,7 @@ plugging together of services without HTTP container being required.</li>
 </li>
 </ul>
 <h2 id="quick-start">Quick-start:</h2>
-<p>Bored with reading already and just want to get coding? For the impatient, visit the <a href="https://www.http4k.org/quickstart/">quickstart</a>, which showcases a variety of <a href="https://http4k.org">http4k</a> usecases and features.</p>
+<p>Bored with reading already and just want to get coding? For the impatient, visit the <a href="https://www.http4k.org/quickstart/">quickstart</a> or the <a href="https://github.com/http4k/examples">examples repo</a>, which showcases a variety of <a href="https://http4k.org">http4k</a> use-cases and features.</p>
 <h2 id="module-feature-overview">Module feature overview</h2>
 <ul>
 <li><a href="https://http4k.org/guide/modules/core">Core:</a> <ul>
@@ -914,25 +914,26 @@ plugging together of services without HTTP container being required.</li>
 <li><a href="https://http4k.org/guide/modules/clients">Client:</a> <ul>
 <li><strong>1LOC</strong> client adapters <ul>
 <li><strong>Apache</strong> sync + async HTTP</li>
+<li><strong>Java</strong> (bundled with <code>http4k-core</code>)</li>
 <li><strong>Jetty</strong> HTTP (supports sync and async HTTP)</li>
 <li><strong>OkHttp</strong> HTTP (supports sync and async HTTP)</li>
-<li><strong>Java</strong> (bundled with <code>http4k-core</code>)</li>
 </ul>
 </li>
 <li><strong>1LOC</strong> WebSocket client, with blocking and non-blocking modes</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/servers">Server:</a><ul>
-<li><strong>1LOC</strong> server backend spinup for:<ul>
+<li><strong>1LOC</strong> server backend spin-up for:<ul>
+<li><strong>Apache v4 &amp; v5</strong> (from httpcore)</li>
 <li><strong>Jetty</strong> (including websocket support)</li>
-<li><strong>Undertow</strong></li>
-<li><strong>Apache</strong> (from httpcore)</li>
+<li><strong>Ktor CIO &amp; Netty</strong></li>
 <li><strong>Netty</strong></li>
-<li><strong>Ktor CIO</strong></li>
 <li><strong>SunHttp</strong> (bundled with <code>http4k-core</code>)</li>
+<li><strong>Undertow</strong></li>
 </ul>
 </li>
-<li>API design allows for plugging into configurable instances of each</li>
+<li>API design allows for simple customization of underying backend.</li>
+<li><strong>Native Friendly</strong> Several of these backends can be compiled with <strong>GraalVM</strong> and <strong>Quarkus</strong> with zero configuration.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/serverless">Serverless:</a><ul>
