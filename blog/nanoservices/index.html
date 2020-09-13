@@ -12,15 +12,15 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k blog: http4k Nanoservices">
-<meta name="twitter:title" content="http4k blog: http4k Nanoservices">
-<meta property="og:title" content="http4k blog: http4k Nanoservices" />
+<meta itemprop="name" content="http4k blog: Nanoservices: 7 things you can accomplish with http4k in a single line of code">
+<meta name="twitter:title" content="http4k blog: Nanoservices: 7 things you can accomplish with http4k in a single line of code">
+<meta property="og:title" content="http4k blog: Nanoservices: 7 things you can accomplish with http4k in a single line of code" />
 
 
 
-<meta name="description" content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet. And that's original style btw... none of this 280 character verbosity!">
-<meta property="og:description" content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet. And that's original style btw... none of this 280 character verbosity!" />
-<meta name="twitter:description" content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet. And that's original style btw... none of this 280 character verbosity!">
+<meta name="description" content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet.">
+<meta property="og:description" content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet." />
+<meta name="twitter:description" content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet.">
 
 
 
@@ -78,7 +78,7 @@
     
     
     
-    <title>http4k blog: http4k Nanoservices</title>
+    <title>http4k blog: Nanoservices: 7 things you can accomplish with http4k in a single line of code</title>
     
     
     
@@ -837,13 +837,14 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1 id="http4k-nanoservices">http4k Nanoservices</h1>
+                    <h1 id="nanoservices-7-things-you-can-accomplish-with-http4k-in-a-single-line-of-kotlin">Nanoservices: 7 things you can accomplish with http4k in a single line of Kotlin</h1>
 <h5 id="september-2020-daviddenton">september 2020 / <a href="http://github.com/daviddenton">@daviddenton</a></h5>
-<p>http4k is a small library with minimal dependencies, but what you can accomplish with just a single line of code is quite remarkable due to a combination of the available modules and the <code>Server as a Function</code> concept.</p>
-<p>The main code of the following http4k applications (in the appropriately named function) all fit in a tweet (140 characters)... exports excluded ;)</p>
-<h3 id="simple-proxy">Simple Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
+<p>http4k is a small library with a minimal dependency set, but what really makes it shine is the power afforded by the combination of the "Server as a Function" concepts of <code>HttpHandler</code> and <code>Filter</code>. </p>
+<p>Skeptical? We would be disappointed if you weren't! Hence, we decided to prove the types of things that can be accomplished with the APIs provided by <a href="https://http4k.org">http4k</a> and a little ingenuity.</p>
+<p>For each of the examples below, there is a fully formed <a href="https://http4k.org">http4k</a> applications declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code>. Even better, all of the main app code (excluding import statements 🙂) can fit in a single Tweet.</p>
+<h3 id="1-build-a-transparent-proxy">1. Build a transparent Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
-<p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
+<p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client <code>HttpHandler</code> signature, we can simply pipe an HTTP Client onto a Server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
@@ -876,7 +877,7 @@
 
 <hr/>
 
-<h3 id="latency-reporting-proxy">Latency Reporting Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/latency_reporting_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="2-report-latency-through-a-proxy">2. Report latency through a Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/latency_reporting_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Building on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -913,7 +914,7 @@
 
 <hr/>
 
-<h3 id="wire-sniffing-proxy">Wire-sniffing Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/wire_sniffing_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="3-build-a-cheap-wireshark-to-sniff-inter-service-traffic">3. Build a cheap Wireshark to sniff inter-service traffic <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/wire_sniffing_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Applying a <code>DebuggingFilter</code> to the HTTP calls in a proxy dumps the entire contents out to <code>StdOut</code> (or other stream).</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -950,7 +951,7 @@
 
 <hr/>
 
-<h3 id="traffic-recording-proxy-replayer">Traffic Recording Proxy &amp; Replayer <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/record_and_replay_http_traffic_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="4-record-all-traffic-to-disk-and-replay-it-later">4. Record all traffic to disk and replay it later <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/record_and_replay_http_traffic_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1001,7 +1002,7 @@
 
 <hr/>
 
-<h3 id="static-file-server">Static file Server <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/static_file_server.kt"><img class="octocat"/></a></h3>
+<h3 id="5-serve-static-files-from-disk">5. Serve static files from disk <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/static_file_server.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Longer than the Python <code>SimpleHttpServer</code>, but still pretty small!</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1030,7 +1031,7 @@
 
 <hr/>
 
-<h3 id="websocket-clock">Websocket Clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/websocket_clock.kt"><img class="octocat"/></a></h3>
+<h3 id="6-build-a-ticking-websocket-clock">6. Build a ticking Websocket clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/websocket_clock.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
 <p>Like Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1060,7 +1061,7 @@
 
 <hr/>
 
-<h3 id="chaos-proxy-random-latency-edition">Chaos Proxy (random latency edition) <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/chaos_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="7-build-your-own-chaosmonkey">7. Build your own ChaosMonkey <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/chaos_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-testing-chaos</code></p>
 <p>As per the <a href="https://principlesofchaos.org/">Principles of Chaos</a>, this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an <code>OpenApi</code> documented set of RPC endpoints.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
