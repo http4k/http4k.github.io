@@ -842,7 +842,7 @@
 <p>http4k is a small library with a minimal dependency set, but what really makes it shine is the power afforded by the combination of the "Server as a Function" concepts of <code>HttpHandler</code> and <code>Filter</code>. </p>
 <p>Skeptical? We would be disappointed if you weren't! Hence, we decided to prove the types of things that can be accomplished with the APIs provided by <a href="https://http4k.org">http4k</a> and a little ingenuity.</p>
 <p>For each of the examples below, there is a fully formed <a href="https://http4k.org">http4k</a> applications declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code>. Even better, all of the main app code (excluding import statements 🙂) can fit in a single Tweet.</p>
-<h3 id="1-build-a-transparent-proxy">1. Build a transparent Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="1-build-a-simple-proxy">1. Build a simple proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client <code>HttpHandler</code> signature, we can simply pipe an HTTP Client onto a Server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -877,7 +877,7 @@
 
 <hr/>
 
-<h3 id="2-report-latency-through-a-proxy">2. Report latency through a Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/latency_reporting_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="2-report-latency-through-a-proxy">2. Report latency through a proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/latency_reporting_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Building on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
