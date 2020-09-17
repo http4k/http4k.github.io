@@ -845,9 +845,35 @@
 
 
 <h3 id="about">About</h3>
-<p>This module provides super-simple AWS request signing functionality for talking to AWS services. Once configured with the correct keys, the various AWS services are actually really simple to integrate with they're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.</p>
+<p>This module provides 2 things:
+1. a http4k compatible <code>SdkHttpClient</code>. This is so you can puse the standard Amazon SDKs libraries by plugging in a standard <code>HttpHandler</code>. This simplifies fault testingm and means that you can print out the exact traffic which is going to AWS - which is brilliant for both debugging and writing Fakes. :)</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example_sdk.kt"><img class="octocat"/></a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.aws</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.aws.AwsSdkClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.DebuggingFilters</span>
+<span class="k">import</span> <span class="nn">software.amazon.awssdk.services.s3.S3Client</span>
+<span class="k">import</span> <span class="nn">software.amazon.awssdk.services.s3.model.CreateBucketRequest</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">fakeS3</span> <span class="p">=</span> <span class="n">DebuggingFilters</span><span class="p">.</span><span class="n">PrintRequestAndResponse</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span>
+
+    <span class="k">val</span> <span class="py">s3</span> <span class="p">=</span> <span class="n">S3Client</span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">httpClient</span><span class="p">(</span><span class="n">AwsSdkClient</span><span class="p">(</span><span class="n">fakeS3</span><span class="p">))</span>
+        <span class="p">.</span><span class="n">build</span><span class="p">()</span>
+
+    <span class="n">s3</span><span class="p">.</span><span class="n">createBucket</span><span class="p">(</span><span class="n">CreateBucketRequest</span><span class="p">.</span><span class="n">builder</span><span class="p">().</span><span class="n">bucket</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">).</span><span class="n">build</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<ol>
+<li>super-simple AWS request signing functionality for talking to AWS services. Once configured with the correct keys, the various AWS services are actually really simple to integrate with they're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.</li>
+</ol>
 <p>http4k provides a <code>Filter</code> which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example.kt"><img class="octocat"/></a></h4>
+<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example.kt"><img class="octocat"/></a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.aws</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.aws.AwsCredentialScope</span>
