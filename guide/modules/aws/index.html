@@ -854,6 +854,8 @@
 <span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.then</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.DebuggingFilters</span>
+<span class="k">import</span> <span class="nn">software.amazon.awssdk.auth.credentials.AwsBasicCredentials</span>
+<span class="k">import</span> <span class="nn">software.amazon.awssdk.regions.Region.EU_WEST_1</span>
 <span class="k">import</span> <span class="nn">software.amazon.awssdk.services.s3.S3Client</span>
 <span class="k">import</span> <span class="nn">software.amazon.awssdk.services.s3.model.CreateBucketRequest</span>
 
@@ -861,6 +863,8 @@
     <span class="k">val</span> <span class="py">fakeS3</span> <span class="p">=</span> <span class="n">DebuggingFilters</span><span class="p">.</span><span class="n">PrintRequestAndResponse</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span>
 
     <span class="k">val</span> <span class="py">s3</span> <span class="p">=</span> <span class="n">S3Client</span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">region</span><span class="p">(</span><span class="n">EU_WEST_1</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">credentialsProvider</span> <span class="p">{</span> <span class="n">AwsBasicCredentials</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="s">&quot;accessKey&quot;</span><span class="p">,</span> <span class="s">&quot;secret&quot;</span><span class="p">)</span> <span class="p">}</span>
         <span class="p">.</span><span class="n">httpClient</span><span class="p">(</span><span class="n">AwsSdkClient</span><span class="p">(</span><span class="n">fakeS3</span><span class="p">))</span>
         <span class="p">.</span><span class="n">build</span><span class="p">()</span>
 
