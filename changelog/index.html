@@ -845,7 +845,11 @@
 changes with their rationale when appropriate:</p>
 <h3 id="v32620-uncut">v3.262.0 (uncut)</h3>
 <ul>
-<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.4.10</li>
+<li><strong>http4k-</strong><em> : Take advantage of Kotlin Functional Interfaces, including for Filter. Breaking change to creation of Filters </em><em>from Java code only</em>* as they can just be lambdas eg. <code>Filter filter = next -&gt; req -&gt; next.invoke(request.header("foo", "bar"));</code> </li>
+<li><strong>http4k-testing-kotest - Possible Break</strong>: DUE TO KOTLIN 1.4.10. Remove a <code>haveBody</code> matcher which uses <code>Matcher&lt;JsonNode&gt;</code> directly, because of a bug in Kotest:
+https://github.com/kotest/kotest/issues/1727</li>
+<li><strong>http4k-format-jackson - Possible Break</strong>: DUE TO KOTLIN 1.4.10. Inline classes do not deserialise properly. See: https://github.com/FasterXML/jackson-module-kotlin/issues/356</li>
 </ul>
 <h3 id="v32610">v3.261.0</h3>
 <ul>
