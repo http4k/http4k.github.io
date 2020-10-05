@@ -916,52 +916,31 @@
 </code></pre></div>
 
 
-<h3 id="using-custom-result-adts">Using custom "Result" ADTs</h3>
-<p>An alternative approach to using Exceptions to automatically produce <code>BadRequests</code> is to use an Either-type structure, and this would be easy to implement - but the lack of an in-built Result/Either type in the standard Kotlin library means that we 
-don't have a single representation to use without shackling ourselves to another Either-containing library such as Arrow or Result4k.</p>
-<p>Additionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases.</p>
-<p>Below is an example which uses a custom Result ADT - this will work for all extraction Lenses that you define:</p>
-<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example_custom_result_adt.kt"><img class="octocat"/></a></h3>
+<h3 id="using-result-adt">Using "Result" ADT</h3>
+<p>An alternative approach to using Exceptions to automatically produce <code>BadRequests</code> is to use an Either-type structure, and this would be easy to implement - but the lack of an usable Result/Either type in the standard Kotlin library means that we have chosen to use <code>Result4k</code> as an optional dependency. If it is on the classpath you will gain support for it.</p>
+<p>Additionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases - you can follow the example in the http4k source to implement your own version of the one we supply for Result4k. Below is an example which uses that Result4k ADT:</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example_result4k.kt"><img class="octocat"/></a></h3>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.typesafe_http_requests_with_lenses</span>
 
 <span class="k">import</span> <span class="nn">com.fasterxml.jackson.databind.JsonNode</span>
+<span class="k">import</span> <span class="nn">dev.forkhandles.result4k.Result</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.format.Jackson.json</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.LensExtractor</span>
 <span class="k">import</span> <span class="nn">org.http4k.lens.LensFailure</span>
 <span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.asResult</span>
 <span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
 
-<span class="c1">// This is our custom Result/Either ADT, although it could be anything, like a Result4k Result (which has map() etc)</span>
-<span class="k">sealed</span> <span class="k">class</span> <span class="nc">Result</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span><span class="p">&gt;</span>
-
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Succeeded</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span><span class="p">&gt;(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;()</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Failed</span><span class="p">&lt;</span><span class="k">out</span> <span class="n">T</span><span class="p">&gt;(</span><span class="k">val</span> <span class="py">e</span><span class="p">:</span> <span class="n">Exception</span><span class="p">)</span> <span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;()</span>
-
-
-<span class="c1">// This simple extension method can be used to convert all Lenses to return our custom Result type instead of the standard exception</span>
-<span class="k">fun</span> <span class="p">&lt;</span><span class="n">IN</span>, <span class="n">OUT</span><span class="p">&gt;</span> <span class="nf">LensExtractor</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;.</span><span class="n">toResult</span><span class="p">():</span> <span class="n">LensExtractor</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">OUT</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="k">object</span> <span class="p">:</span> <span class="nc">LensExtractor</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">OUT</span><span class="p">&gt;&gt;</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">IN</span><span class="p">):</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">OUT</span><span class="p">&gt;</span> <span class="p">=</span> <span class="k">try</span> <span class="p">{</span>
-        <span class="n">Succeeded</span><span class="p">(</span><span class="k">this</span><span class="n">@toResult</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">))</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="n">LensFailure</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">Failed</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// examples of using the above extension function</span>
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="k">val</span> <span class="py">queryResultLens</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="n">toResult</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">intResult</span><span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">Int</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">queryResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/?foo=123&quot;</span><span class="p">))</span>
-
+    <span class="k">val</span> <span class="py">queryResultLens</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="n">asResult</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">intResult</span><span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">Int</span><span class="p">,</span> <span class="n">LensFailure</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">queryResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/?foo=123&quot;</span><span class="p">))</span>
     <span class="n">println</span><span class="p">(</span><span class="n">intResult</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">jsonResultLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">json</span><span class="p">().</span><span class="n">toLens</span><span class="p">().</span><span class="n">toResult</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">jsonResult</span><span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">JsonNode</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">jsonResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/foo&quot;</span><span class="p">))</span>
 
+    <span class="k">val</span> <span class="py">jsonResultLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">json</span><span class="p">().</span><span class="n">toLens</span><span class="p">().</span><span class="n">asResult</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">jsonResult</span><span class="p">:</span> <span class="n">Result</span><span class="p">&lt;</span><span class="n">JsonNode</span><span class="p">,</span> <span class="n">LensFailure</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">jsonResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/foo&quot;</span><span class="p">))</span>
     <span class="n">println</span><span class="p">(</span><span class="n">jsonResult</span><span class="p">)</span>
-
 <span class="p">}</span>
 </code></pre></div>
                     
