@@ -845,9 +845,11 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v32650">v3.265.0</h3>
+<h3 id="v32650-uncut">v3.265.0 (uncut)</h3>
 <ul>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li>[http4k-security-oauth] [Break (via repackaging of dependent JAR)] - Result4k changed published package structure. Changes made to accommodate new package <code>dev.forkhandles.result4k</code> instead of <code>com.natpryce</code>. To fix, simply find/replace the package names - everything else is identical.</li>
+<li><strong>http4k-core</strong> : Lenses can now be restricted to inject/extract types. This has an effect on BodyLenses which can be tied to Request/Response.</li>
 </ul>
 <h3 id="v32640">v3.264.0</h3>
 <ul>
