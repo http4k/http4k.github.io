@@ -840,10 +840,9 @@
                     <h1>Typesafe contracts (OpenAPI3)</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-contract&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-contract&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-&lt;insert json lib&gt;&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 </code></pre></div>
-
 
 <h3 id="about">About</h3>
 <p>The <code>http4k-contract</code> module adds a much more sophisticated routing mechanism to that available in <code>http4k-core</code>. It adds the facility 
@@ -855,7 +854,7 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <li><strong>Security:</strong> to secure the <code>Routes</code> against unauthorised access. Current implementations include <code>ApiKey</code>, <code>BasicAuth</code>, <code>BearerAuth</code> and <code>OAuth</code>.</li>
 </ul>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/contracts/example.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.contracts</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.contracts</span>
 
 <span class="c1">// for this example we&#39;re using Jackson - note that the auto method imported is an extension</span>
 <span class="c1">// function that is defined on the Jackson instance</span>
@@ -961,7 +960,6 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>When launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.</p>
 <p>For a more extended example, see the following example apps: </p>
 <ul>
@@ -974,12 +972,11 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <li><em>OpenApi v2 &amp; v3:</em> The standard mechanism can be used with any of the supported http4k JSON modules. It generates 
 anonymous JSON schema definition names that are then listed in the <code>schema</code> section of the OpenApi docs.</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>    <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;1.2&quot;</span><span class="p">,</span> <span class="s">&quot;module description&quot;</span><span class="p">),</span> <span class="n">Argo</span><span class="p">)</span>
+<div class="kotlin codehilite"><pre><span></span><code>    <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;1.2&quot;</span><span class="p">,</span> <span class="s">&quot;module description&quot;</span><span class="p">),</span> <span class="n">Argo</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>... generates definitions like the following in the schema definitions:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="json codehilite"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;components&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;schemas&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;object1283926341&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -995,18 +992,16 @@ anonymous JSON schema definition names that are then listed in the <code>schema<
 <span class="p">}</span>
 </code></pre></div>
 
-
 <ol>
 <li><em>OpenApi v3 only:</em> By including a supported Auto-JSON marshalling module on the classpath (currently only <code>http4k-format-jackson</code>), 
 the names of the definitions are generated based on the Kotlin class instances provided to the Contract Route DSL. Note that 
 an overloaded OpenApi function automatically provides the default Jackson instance, so we can remove it from the renderer creation:</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>    <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;1.2&quot;</span><span class="p">,</span> <span class="s">&quot;module description&quot;</span><span class="p">),</span> <span class="n">Jackson</span><span class="p">)</span>
+<div class="kotlin codehilite"><pre><span></span><code>    <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;1.2&quot;</span><span class="p">,</span> <span class="s">&quot;module description&quot;</span><span class="p">),</span> <span class="n">Jackson</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>... generates definitions like the following in the schema definitions:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="json codehilite"><pre><span></span><code><span class="p">{</span>
    <span class="nt">&quot;components&quot;</span><span class="p">:{</span>
       <span class="nt">&quot;schemas&quot;</span><span class="p">:{</span>
           <span class="nt">&quot;ArbObject&quot;</span><span class="p">:</span> <span class="p">{</span>

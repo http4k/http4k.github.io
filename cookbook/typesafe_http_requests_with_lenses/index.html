@@ -841,13 +841,12 @@
                     
                     <p>Example showing how to create and apply lenses to requests and responses to both extract and inject typesafe values out of and into HTTP messages. Note that since the <strong>http4k</strong> <code>Request/Response</code> objects are immutable, all injection occurs via copy.</p>
 <h3 id="gradle-setup">Gradle setup</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 </code></pre></div>
-
 
 <h3 id="standard-exception-based-approach">Standard (exception based) approach <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example.kt"><img class="octocat"/></a></h3>
 <p>Errors in extracting Lenses are propagated as exceptions which are caught and handled by the <code>CatchLensFailure</code> Filter.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.typesafe_http_requests_with_lenses</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.typesafe_http_requests_with_lenses</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_PLAIN</span>
@@ -915,12 +914,11 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="using-result-adt">Using "Result" ADT</h3>
 <p>An alternative approach to using Exceptions to automatically produce <code>BadRequests</code> is to use an Either-type structure, and this would be easy to implement - but the lack of an usable Result/Either type in the standard Kotlin library means that we have chosen to use <code>Result4k</code> as an optional dependency. If it is on the classpath you will gain support for it.</p>
 <p>Additionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases - you can follow the example in the http4k source to implement your own version of the one we supply for Result4k. Below is an example which uses that Result4k ADT:</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/typesafe_http_requests_with_lenses/example_result4k.kt"><img class="octocat"/></a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.typesafe_http_requests_with_lenses</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.typesafe_http_requests_with_lenses</span>
 
 <span class="k">import</span> <span class="nn">com.fasterxml.jackson.databind.JsonNode</span>
 <span class="k">import</span> <span class="nn">dev.forkhandles.result4k.Result</span>

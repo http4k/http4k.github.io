@@ -840,9 +840,8 @@
                     <h1>Approval Testing</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-testing-approval&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-testing-approval&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 </code></pre></div>
-
 
 <h3 id="about">About</h3>
 <p><a href="http://approvaltests.com/">Approval testing</a> is a form of testing which allows the expected output of 
@@ -871,7 +870,7 @@ will inject the <code>Approver</code> automatically into test methods.</p>
 <h2 id="standard-approval-tests">Standard Approval tests</h2>
 <p>By using the <code>ApprovalTest</code> extension, an instance of an <code>Approver</code> is injected into each test.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_standard.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.approvaltests</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.approvaltests</span>
 
 
 <span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
@@ -916,7 +915,6 @@ will inject the <code>Approver</code> automatically into test methods.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h2 id="content-type-specific-approval-tests">Content-type specific Approval tests</h2>
 <p>Because so many APIs are based around messages with a particular content type, the 
 module also provides Junit 5 extensions that will:</p>
@@ -932,7 +930,7 @@ module also provides Junit 5 extensions that will:</p>
 <li><code>XmlApprovalTest</code></li>
 </ul>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_json.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.approvaltests</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.approvaltests</span>
 
 <span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
 <span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
@@ -985,7 +983,6 @@ module also provides Junit 5 extensions that will:</p>
 
 <span class="p">}</span>
 </code></pre></div>
-
 
 <h2 id="implementing-custom-junit-extensions">Implementing custom JUnit Extensions</h2>
 <p>As with the rest of <a href="https://http4k.org">http4k</a>, a base implementation, <code>BaseApprovalTest</code> of the Junit5 Extension is 

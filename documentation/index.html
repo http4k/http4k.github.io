@@ -868,10 +868,9 @@
 </div>
 
 <p><a href="https://http4k.org">http4k</a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://http4k.org">http4k</a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
-<div class="codehilite"><pre><span></span><code> <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
+<div class="kotlin codehilite"><pre><span></span><code> <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
  <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
 </code></pre></div>
-
 
 <p><a href="https://http4k.org">http4k</a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
 <p>The principles of <a href="https://http4k.org">http4k</a> are:</p>
@@ -939,7 +938,7 @@ plugging together of services without HTTP container being required.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/modules/serverless">Serverless:</a><ul>
-<li>AWS: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to AWS Lambda to be called from API Gateway. </li>
+<li>AWS: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to AWS Lambda to be called from API Gateway/AppLoadBalancer. </li>
 <li>Google Cloud Functions: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Google Cloud Functions with <code>GCloud</code>. </li>
 <li>Apache OpenWhisk: Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Google Cloud Functions with <code>GCloud</code>. </li>
 </ul>
@@ -1047,15 +1046,14 @@ plugging together of services without HTTP container being required.</li>
 <h2 id="example">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/readme/example.kt"><img class="octocat" src="https://www.http4k.org/img/octocat-32.png"/></a></h2>
 <p>This quick example is designed to convey the simplicity &amp; features of <a href="https://http4k.org">http4k</a> . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point and demonstrates how to serve and consume HTTP services with dynamic routing.</p>
 <p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
     <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
     <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
     <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
 
-
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
@@ -1131,7 +1129,6 @@ plugging together of services without HTTP container being required.</li>
 <span class="c1">//    hello Bob</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <h2 id="acknowledgments">Acknowledgments</h2>
 <ul>

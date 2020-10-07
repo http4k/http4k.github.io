@@ -840,15 +840,14 @@
                     <h1>AWS</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-aws&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-aws&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 </code></pre></div>
-
 
 <h3 id="about">About</h3>
 <p>This module provides 2 things:
 1. a http4k compatible <code>SdkHttpClient</code>. This is so you can puse the standard Amazon SDKs libraries by plugging in a standard <code>HttpHandler</code>. This simplifies fault testingm and means that you can print out the exact traffic which is going to AWS - which is brilliant for both debugging and writing Fakes. :)</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example_sdk.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.aws</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.aws</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.aws.AwsSdkClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
@@ -872,13 +871,12 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <ol>
 <li>super-simple AWS request signing functionality for talking to AWS services. Once configured with the correct keys, the various AWS services are actually really simple to integrate with they're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.</li>
 </ol>
 <p>http4k provides a <code>Filter</code> which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/aws/example.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.aws</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.aws</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.aws.AwsCredentialScope</span>
 <span class="k">import</span> <span class="nn">org.http4k.aws.AwsCredentials</span>

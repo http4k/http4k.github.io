@@ -840,15 +840,14 @@
                     <h1>Resilience</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-resilience4j&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-resilience4j&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 </code></pre></div>
-
 
 <h3 id="about">About</h3>
 <p>This module provides configurable Filters to provide CircuitBreaking, RateLimiting, Retrying and Bulkheading, by integrating with the awesome <a href="http://resilience4j.github.io/resilience4j/">Resilience4J</a> library.</p>
 <h3 id="circuit-breaking">Circuit Breaking <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_circuit.kt"><img class="octocat"/></a></h3>
 <p>A Circuit Filter detects failures and then Opens for a set period to allow the underlying system to recover.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
 
 <span class="k">import</span> <span class="nn">io.github.resilience4j.circuitbreaker.CircuitBreaker</span>
 <span class="k">import</span> <span class="nn">io.github.resilience4j.circuitbreaker.CircuitBreakerConfig</span>
@@ -893,10 +892,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="rate-limiting">Rate Limiting <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_ratelimiter.kt"><img class="octocat"/></a></h3>
 <p>A RateLimit Filter monitors the number of requests over a set window.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
 
 <span class="k">import</span> <span class="nn">io.github.resilience4j.ratelimiter.RateLimiter</span>
 <span class="k">import</span> <span class="nn">io.github.resilience4j.ratelimiter.RateLimiterConfig</span>
@@ -924,10 +922,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="retrying">Retrying <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_retrying.kt"><img class="octocat"/></a></h3>
 <p>A Retrying Filter retries requests if a failure is generated.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
 
 <span class="k">import</span> <span class="nn">io.github.resilience4j.retry.Retry</span>
 <span class="k">import</span> <span class="nn">io.github.resilience4j.retry.RetryConfig</span>
@@ -965,10 +962,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="bulkheading">Bulkheading <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/resilience/example_bulkheading.kt"><img class="octocat"/></a></h3>
 <p>A Bulkhead Filter limits the amount of parallel calls that can be executed.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.resilience</span>
 
 <span class="k">import</span> <span class="nn">io.github.resilience4j.bulkhead.Bulkhead</span>
 <span class="k">import</span> <span class="nn">io.github.resilience4j.bulkhead.BulkheadConfig</span>

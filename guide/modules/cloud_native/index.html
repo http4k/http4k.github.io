@@ -840,9 +840,8 @@
                     <h1>Cloud native Configuration</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-cloudnative&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-cloudnative&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 </code></pre></div>
-
 
 <p>http4k applications are naturally at home operating in distributed, Cloud Native environments. Whilst simple to create, this module 
 provides requisite tooling to get apps up and running with the minimum of effort to enable the following operational aspects:</p>
@@ -868,7 +867,7 @@ and plugged into the endpoint.</li>
 <p>In Kubernetes, this set of endpoints is generally hosted on a second port to avoid the API clashes, so http4k provides the machinery to 
 easily start these services on a different port to the main application API via the <code>Http4kK8sServer</code> object.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/cloud_native/example_k8s.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.cloud_native</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.cloud_native</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.cloudnative.Http4kK8sServer</span>

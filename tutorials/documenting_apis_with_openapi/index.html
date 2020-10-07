@@ -862,7 +862,7 @@
 <p>After importing the <code>http4k-core</code> and <code>http4k-contract</code> dependencies into your project, we can write a new endpoint aka <code>ContractRoute</code>. The first thing to note is that we will be using a slightly different routing DSL the standard http4k one, one which provides a richer way to document endpoints - but don't worry - at it's core it utilises the same simple http4k building blocks of <code>HttpHandler</code> and <code>Filter</code>, as well as leveraging the <strong><a href="https://www.http4k.org/guide/modules/core/#typesafe-parameter-destructuringconstruction-of-http-messages-with-lenses">http4k Lens API</a></strong> to automatically extract and convert incoming  parameters into richer domain types. As ever, routes can (and should) be written and testing independently, which aids code decomposition and reuse. </p>
 <p>In this simple example, we're going to use a path with two dynamic parameters; <code>name</code> - a String, and the Integer <code>age</code> - which will be extracted and "mapped" into the constructor of a simple validated domain wrapper type. If the basic format of the path or the values for these path parameters cannot be extracted correctly, the endpoint fails to match and is skipped - this allows for several different variations of the same URI path signature to co-exist. </p>
 <p>Once the values have been extracted, they are passed as arguments to a function which will return a pre-configured <code>HttpHandler</code> for that call:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.contract.ContractRoute</span>
 <span class="k">import</span> <span class="nn">org.http4k.contract.div</span>
@@ -888,9 +888,8 @@
 <span class="k">val</span> <span class="py">basicRoute</span><span class="p">:</span> <span class="n">ContractRoute</span> <span class="p">=</span> <span class="s">&quot;/greet&quot;</span> <span class="p">/</span> <span class="n">Path</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span> <span class="p">/</span> <span class="n">Path</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Age</span><span class="p">).</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">)</span> <span class="n">bindContract</span> <span class="n">GET</span> <span class="n">to</span> <span class="o">::</span><span class="n">basicHandler</span>
 </code></pre></div>
 
-
 <p>And here's a unit test for that endpoint - the good news is that it's no more complex than a standard http4k unit test because <code>ContractRoute</code> is also an <code>HttpHandler</code> so can just be invoked as a function. Here, we're also leveraging the <code>http4k-testing-hamkrest</code> module to supply <strong><a href="https://github.com/npryce/hamkrest">Hamkrest</a></strong> Matchers for validating the response message:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
 
 <span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -906,12 +905,11 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="2-defining-an-http-contract">2. Defining an HTTP contract</h3>
 <p>Now that we've got our endpoint, we want to be able to actually serve it with the <strong><a href="https://www.openapis.org/">OpenApi</a></strong> documentation. For contract-based routing, we use the <code>contract {}</code> routing DSL which allows us to specify a richer set of details about the API definition, but exposes exactly the same API semantics as the standard <code>routes()</code> block - it is also an <code>HttpHandler</code> and can therefore be composed together to form standard route-matching trees.</p>
 <p>For rendering the API documentation, we configure an <code>OpenApi</code> object, supplying a standard http4k JSON adapter instance - the recommended one to use is <code>Jackson</code> from the <code>http4k-format-jackson</code> module, so we'll need to import that module into our project as well.</p>
 <p>Whilst all of the settings used in this DSL above are optional (and default to sensible values if not overridden), here we are updating the URL where the OpenApi spec is served and supplying an instance of <code>Security</code> that we will use to protect our routes (more about that later). </p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.contract.contract</span>
 <span class="k">import</span> <span class="nn">org.http4k.contract.openapi.ApiInfo</span>
@@ -935,7 +933,6 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Now we've got a complete contract, we can simply start the server and browse to <code>http://localhost:9000/api/swagger.json</code> to see the basic API spec in the OpenApi UI (or see the online version <strong><a target="_blank" href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fdocumenting_apis_with_openapi%2F2_openapi.json">here</a></strong>) to see how the endpoint contract looks and how the process of supplying credentials is done through the UI by clicking <code>Authorize</code>. </p>
 <p>This covers the very basics of generating API docs, but there is still a lot more http4k can do for us...</p>
 <h3 id="3-auto-validating-incoming-http-messages">3. Auto-validating incoming HTTP messages</h3>
@@ -947,7 +944,7 @@ In http4k, the extended contract metadata is kept close to the endpoint code and
 <li><strong>Contractual</strong> properties define parameters using the <strong><a href="https://www.http4k.org/guide/modules/core/#typesafe-parameter-destructuringconstruction-of-http-messages-with-lenses">http4k Lens API</a></strong> (in the same way as we used for the path) for the <code>Query</code>, <code>Header</code> or <code>Body</code> parts of the request. Once added to the contract, these items will also be auto-validated for form and presence before the contract HttpHandler is invoked, thus eliminating the need for any custom validation code to be written. We can then use the same lenses to confidently extract those values inside our HttpHandler code.</li>
 </ol>
 <p>Let's demonstrate by writing a slightly different version of the same endpoint, but move <code>age</code> to be a required query parameter, and also add the option to override the <code>drink</code> we offer:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.contract.ContractRoute</span>
 <span class="k">import</span> <span class="nn">org.http4k.contract.Tag</span>
@@ -991,11 +988,10 @@ In http4k, the extended contract metadata is kept close to the endpoint code and
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>If we then add the <code>Greetings</code> endpoint to the contract and make a call omitting <code>age</code>...</p>
 <p><code>http://localhost:9000/greet/Bob?drink=cola</code></p>
 <p>... the contract validation will fail and a HTTP Bad Request (400) returned to the client with a JSON body describing the error:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">HTTP</span><span class="p">/</span><span class="m">1.1</span> <span class="m">400</span> <span class="n">Bad</span> <span class="n">Request</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="n">HTTP</span><span class="p">/</span><span class="m">1.1</span> <span class="m">400</span> <span class="n">Bad</span> <span class="n">Request</span>
 <span class="n">content</span><span class="p">-</span><span class="n">type</span><span class="p">:</span> <span class="n">application</span><span class="p">/</span><span class="n">json</span><span class="p">;</span> <span class="n">charset</span><span class="p">=</span><span class="n">utf</span><span class="p">-</span><span class="m">8</span>
 
 <span class="p">{</span>
@@ -1012,13 +1008,12 @@ In http4k, the extended contract metadata is kept close to the endpoint code and
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>We can see the updated OpenApi UI <strong><a target="_blank" href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fdocumenting_apis_with_openapi%2F3_openapi.json">here</a></strong>. Note that because request parameters are validated before sending, we cannot replicate the above invalid request in the UI.</p>
 <h3 id="4-modelling-http-body-messages">4. Modelling HTTP body messages</h3>
 <p>The most exciting part http4k supporting OpenApi3 is the ability to represent HTTP messages in <strong><a href="https://json-schema.org/">JSON Schema</a></strong> form in the documentation. This facility is what unlocks the true cross-language support and takes the usefulness of the OpenApi UI to another level, for both exploratory and support functions. Request and response messages can both be specified in the <code>meta {}</code> block using overloads of the <code>receiving()</code> and <code>returning()</code> functions. By using these functions, we can supply an example object to the DSL - this is what drives the generation of the JSON Schema and, more importantly, ensures that the documentation cannot go stale as it is driven by code.</p>
 <p>Lets add another route to the mix which returns a JSON body object modelled with a Kotlin Data class and once again using the <strong><a href="https://www.http4k.org/guide/modules/core/#typesafe-parameter-destructuringconstruction-of-http-messages-with-lenses">http4k Lens API</a></strong>. Here, the lens not only provides the validating (de)serialisation mechanism, but also activates the <code>Content-Type</code> header injection and parsing behaviour - this will ensure that all incoming and outgoing messages have the correct headers. </p>
 <p>For JSON bodies, the lens is created with <code>Body.auto&lt;&gt;().toLens()</code> (<code>auto()</code> is an extension function imported from <code>Jackson</code>) which provides the typed injection and extraction functions. Notice here that for injection we are using the more fluent API  <code>with()</code> and <code>of()</code> extension functions, as opposed to the standard lens injection function<code>(X, HttpMessage) -&gt; HttpMessage</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.documenting_apis_with_openapi</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.contract.ContractRoute</span>
 <span class="k">import</span> <span class="nn">org.http4k.contract.Tag</span>
@@ -1063,7 +1058,6 @@ In http4k, the extended contract metadata is kept close to the endpoint code and
     <span class="p">}</span> <span class="n">bindContract</span> <span class="n">GET</span> <span class="n">to</span> <span class="o">::</span><span class="n">handler</span>
 <span class="p">}</span>
 </code></pre></div>
-
 
 <p>Taking a final look at the OpenApi UI <strong><a target="_blank" href="https://www.http4k.org/openapi3/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhttp4k%2Fhttp4k%2Fmaster%2Fsrc%2Fdocs%2Ftutorials%2Fdocumenting_apis_with_openapi%2F4_openapi.json">here</a></strong> shows that not just has the UI been updated with the new route, but that example entries for the expected response are now displayed, as well as JSON Schema entries for the <code>Person</code> and <code>Age</code> classes in the <code>Schemas</code> section at the bottom.</p>
 <h3 id="wrapping-up">Wrapping up...</h3>

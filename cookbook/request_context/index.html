@@ -850,12 +850,11 @@ that state accessed inside other Filters or the terminating HttpHandler. There a
 Regardless of which of the above mechanisms are used, an instance of the <code>ServerFilters.InitialiseRequestContext</code> Filter must wrap the HttpHandler(s) to activate
 the shared bag of state for each request, and to remove the state after the request is complete.</p>
 <h3 id="gradle-setup">Gradle setup</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 </code></pre></div>
 
-
 <h4 id="string-based-keys">String-based keys <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/string_key_example.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.request_context</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.request_context</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
@@ -898,9 +897,8 @@ the shared bag of state for each request, and to remove the state after the requ
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h4 id="lens-based-keys">Lens-based keys <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/lens_key_example.kt"><img class="octocat"/></a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.request_context</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.request_context</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>

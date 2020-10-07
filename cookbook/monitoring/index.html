@@ -841,14 +841,13 @@
                     
                     <p>Measuring performance of application estate is crucial in today's microservice world - it is crucial that dev-ops enabled teams can monitor, react and scale dynamically to changes in the runtime environment. However, because of the plethora of monitoring tools on the market, and because <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> is a toolkit and not a complete "batteries included" framework, it provides a number of integration points to enable monitoring systems to be plugged in as required. Additionally, it is envisaged that users will probably want to provide their own implementations of the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> <code>ServerConfig</code> classes (<code>Jetty</code>, <code>Undertow</code> etc..) so that tweaking and tuning to their exact requirements is accessible, instead of <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> attempting to provide some generic configuration API to achieve it.</p>
 <h3 id="gradle-setup">Gradle setup</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
+<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-metrics-micrometer&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.265.0&quot;</span>
 </code></pre></div>
 
-
 <h3 id="metrics-micrometer">Metrics (Micrometer) <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_micrometer.kt"><img class="octocat"/></a></h3>
 <p><a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> provides module support for monitoring application endpoints using the <a href="http://micrometer.io/"><strong>micrometer</strong></a> metrics abstraction library, which currently enables support for libraries such as Graphite, StatsD, Prometheus and Netflix Atlas. This also provides drop-in classes to record stats such as JVM performance, GC and thread usage.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
 
 <span class="k">import</span> <span class="nn">io.micrometer.core.instrument.simple.SimpleMeterRegistry</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
@@ -890,10 +889,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="metrics-other-apis">Metrics (other APIs) <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_metrics.kt"><img class="octocat"/></a></h3>
 <p>Alternatively, it's very easy to use a standard <code>Filter</code> to report on stats:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpTransaction</span>
@@ -948,10 +946,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="logging">Logging <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_logging.kt"><img class="octocat"/></a></h3>
 <p>This is trivial to achieve by using a Filter:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpTransaction</span>
@@ -984,10 +981,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="distributed-tracing">Distributed tracing <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_tracing.kt"><img class="octocat"/></a></h3>
 <p>This allows a chain of application calls to be tied together and is generally done through the setting of HTTP headers on each call. <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> supports the <a href="https://zipkin.io/">OpenZipkin</a> standard for achieving this and provides both Server-side and Client-side <code>Filters</code> for this purpose. This example shows a chain of two proxies and an endpoint - run it to observe the changes to the tracing headers as the request flows through the system:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
@@ -1038,10 +1034,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h3 id="debugging">Debugging <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/monitoring/example_debugging.kt"><img class="octocat"/></a></h3>
 <p>Easily wrap an <code>HttpHandler</code> in a debugging filter to check out what is going on under the covers:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
+<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.monitoring</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
