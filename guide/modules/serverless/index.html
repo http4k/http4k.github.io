@@ -840,7 +840,7 @@
                     <h1>Serverless backend</h1>
                     
                     <h3 id="installation-gradle">Installation (Gradle)</h3>
-<div class="groovy codehilite"><pre><span></span><code><span class="c1">// AWS Lambda: </span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// AWS Lambda: </span>
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-lambda&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.266.0&quot;</span>
 
 <span class="c1">// Google Cloud Functions: </span>
@@ -872,7 +872,7 @@
 </ol>
 <p>We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the <code>AppLoader</code> is created and how to launch the app locally:</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/lambda/example.kt"><img class="octocat"/></a></h4>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.lambda</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.lambda</span>
 
 <span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span>
 <span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent</span>
@@ -936,7 +936,7 @@
 <p>You can compose filters and handlers as usual and pass them to the constructor of the <code>GoogleCloudFunction</code> and make your entry point class extend from it.
 Here is an example:</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/gcf/example.kt"><img class="octocat"/></a></h4>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.gcf</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.gcf</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
@@ -1016,7 +1016,7 @@ Applying this plugin <a href="https://imperceptiblethoughts.com/shadow/">shadow 
 <p>After building, and having your jar as the only file in the <code>libs/</code> folder you can deploy the function from the parent folder with : </p>
 <p><code>gcloud functions deploy example-function --runtime=java11 --entry-point=guide.modules.serverless.gcf.FunctionsExampleEntryClass --trigger-http --source=libs/</code></p>
 <p>If you wan't to invoke functions locally you can do it with this gradle setup and passing a <code>-PrunFunction.target</code> parameter to the build task : </p>
-<div class="groovy codehilite"><pre><span></span><code><span class="n">configurations</span> <span class="o">{</span>
+<div class="codehilite"><pre><span></span><code><span class="n">configurations</span> <span class="o">{</span>
     <span class="n">invoker</span>
 <span class="o">}</span>
 
@@ -1044,7 +1044,7 @@ Simple example on how to setup <code>pom.xml</code> to run functions locally and
 <p>OpenWhisk has a Java runtime which is triggered by calling an entry point class which contains a static <code>main()</code> function receiving a GSON <code>JsonObject</code>.</p>
 <p>In order to achieve this in <a href="https://http4k.org">http4k</a>, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple class needs to be written which uses the <code>OpenWhiskFunction</code> wrapper. Because of the OpenWhisk runtime usage of the library, a <code>compileOnly</code> dependency also needs to be added on <a href="https://mvnrepository.com/artifact/com.google.code.gson/gson">GSON</a> to ensure that your function can build correctly.</p>
 <h4 id="code_2">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/openwhisk/example.kt"><img class="octocat"/></a></h4>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.openwhisk</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.openwhisk</span>
 
 <span class="k">import</span> <span class="nn">com.google.gson.JsonObject</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>

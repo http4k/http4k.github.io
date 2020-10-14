@@ -844,7 +844,7 @@
 <h3 id="simple-proxy">Simple Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client HttpHandler signature, we can simply mount an HTTP client onto a Server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -876,7 +876,7 @@
 <h3 id="latency-reporting-proxy">Latency Reporting Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/latency_reporting_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Building on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -910,7 +910,7 @@
 <h3 id="wire-sniffing-proxy">Wire-sniffing Proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/wire_sniffing_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Applying a <code>DebuggingFilter</code> to the HTTP calls in a proxy dumps the entire contents out to <code>StdOut</code> (or other stream).</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -944,7 +944,7 @@
 <h3 id="traffic-recording-proxy-replayer">Traffic Recording Proxy &amp; Replayer <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/record_and_replay_http_traffic_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -992,7 +992,7 @@
 <h3 id="static-file-server">Static file Server <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/static_file_server.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Longer than the Python <code>SimpleHttpServer</code>, but still pretty small!</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -1018,7 +1018,7 @@
 <h3 id="websocket-clock">Websocket Clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/websocket_clock.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
 <p>Like Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
@@ -1045,7 +1045,7 @@
 <h3 id="chaos-proxy-random-latency-edition">Chaos Proxy (random latency edition) <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/nanoservices/chaos_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-testing-chaos</code></p>
 <p>As per the <a href="https://principlesofchaos.org/">Principles of Chaos</a>, this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an <code>OpenApi</code> documented set of RPC endpoints.</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosBehaviours.Latency</span>
 <span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosEngine</span>

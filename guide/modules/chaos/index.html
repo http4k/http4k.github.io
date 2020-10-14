@@ -840,7 +840,7 @@
                     <h1>Chaos Testing</h1>
                     
                     <h2 id="installation-gradle">Installation (Gradle)</h2>
-<div class="groovy codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-testing-chaos&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.266.0&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-testing-chaos&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.266.0&quot;</span>
 </code></pre></div>
 
 <h2 id="about">About</h2>
@@ -988,7 +988,7 @@
 <h2 id="manually-injecting-chaos">Manually injecting Chaos</h2>
 <p>For use in automated test suites, it is simple to define the Chaos behaviour programmatically using the API and then use the <code>ChaosEngine</code> to add it onto an existing application.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/chaos/example_chaos.kt"><img class="octocat"/></a></h4>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.chaos</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.chaos</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosBehaviours.ReturnStatus</span>
 <span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosEngine</span>
@@ -1049,7 +1049,7 @@
 <li>Always return an HTTP 404 (Not Found) status for 10 requests</li>
 <li>Repeat the above until Big Ben strikes in the New Year 2020.</li>
 </ol>
-<div class="json codehilite"><pre><span></span><code><span class="p">[</span>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
   <span class="p">{</span>
     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;repeat&quot;</span><span class="p">,</span>
     <span class="nt">&quot;stages&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -1084,7 +1084,7 @@
 </code></pre></div>
 
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/chaos/example_chaos_controls_openapi.kt"><img class="octocat"/></a></h4>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.chaos</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.chaos</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.chaos.withChaosApi</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
@@ -1109,7 +1109,7 @@
 
 <h2 id="interacting-with-chaosengine-using-an-http-client">Interacting with ChaosEngine using an HTTP client</h2>
 <h4 id="code_2">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/chaos/example_chaos_controls_client.kt"><img class="octocat"/></a></h4>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.chaos</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.chaos</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosBehaviours.ReturnStatus</span>
 <span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosEngine</span>

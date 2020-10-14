@@ -854,7 +854,7 @@ values to check them as soon as possible in the application bootstrap phase.</p>
 <h4 id="1-optionality">1. Optionality</h4>
 <p>Kotlin's type system guards us against missing values being injected - for instance the following code will throw a 
 <code>IllegalStateException</code> due to a typo in the parameter name:</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
 
 <span class="c1">// export ANTIDISESTABLISHMENTARIANISM=opposition to the disestablishment of the Church of England</span>
 
@@ -884,7 +884,7 @@ standard types, including:</p>
 <p>But handling these raw types alone is not enough to guarantee safety - it is best to marshall the values into a 
 suitable operational/domain type that can validate the input and avoid confusion. Kotlin gives us a simple way to do this 
 using <code>require</code> as a guard:</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
 
 <span class="k">class</span> <span class="nc">Port</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">init</span> <span class="p">{</span>
@@ -900,7 +900,7 @@ using <code>require</code> as a guard:</p>
 example of this is the passing of temporal values as integers - timeouts defined this way could be easily be 
 parsed into the wrong time unit (seconds instead of milliseconds). Using a higher level primitive such as <code>Duration</code> 
 will help us here:</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
 
 <span class="k">import</span> <span class="nn">java.time.Duration</span>
 
@@ -921,7 +921,7 @@ for each value that we wish to parse.</p>
 <h4 id="3-multiplicity">3. Multiplicity</h4>
 <p>Configuration parameters may have one or many values and need to be converted safely from the injected string 
 representation (usually comma-separated) and into their internally represented types at application startup: </p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
 
 <span class="k">class</span> <span class="nc">Host</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
 
@@ -936,7 +936,7 @@ representation (usually comma-separated) and into their internally represented t
 application secrets, DB passwords or API keys should be handled in a way that avoid storing directly in memory in a 
 readable format or long lived fashion, where they may be inadvertently inspected or outputted into a log file.</p>
 <p>Dangling code situations such as in the code below are common, and are asking for trouble...</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -966,7 +966,7 @@ convenient to source parameter values from a variety of contexts when running ap
 <li>Source code defined environmental configuration</li>
 </ul>
 <p>Implementing this kind of fallback logic manually, you'd end up with code like the below: </p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
 
 <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;DEFAULT_USER&quot;</span>
 </code></pre></div>
@@ -988,7 +988,7 @@ one (for a <code>Lens</code>) or both (for a <code>BiDiLens</code>) of the follo
 <li><strong>LensInjector</strong> - takes a value of type <code>IN</code> and a value of type <code>OUT</code> and returns a modified value of type <code>IN</code> 
 with the value injected into it.</li>
 </ol>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
 
 <span class="k">interface</span> <span class="nc">LensExtractor</span><span class="p">&lt;</span><span class="k">in</span> <span class="n">IN</span><span class="p">,</span> <span class="k">out</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">:</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">OUT</span> <span class="p">{</span>
     <span class="k">override</span> <span class="k">operator</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">IN</span><span class="p">):</span> <span class="n">OUT</span>
@@ -1017,7 +1017,7 @@ This is done in code using the <code>map()</code> method defined on the Lens.</l
 by deciding it's optionality.</p>
 <p>It sounds involved, but it is consistent and the fluent API has been designed to make it simpler. By way of an example, 
 here we define a bi-directional Lens for custom type <code>Page</code>, extracted from a querystring value and defaulting to Page 1.</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
@@ -1045,7 +1045,7 @@ contexts.</p>
 <p>in <a href="https://http4k.org">http4k</a>, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
 <code>Map</code>, in that it can be composed with other <code>Environment</code> objects to provide a consolidated view of all of it's 
 component values. </p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
 <span class="k">import</span> <span class="nn">java.io.File</span>
@@ -1063,7 +1063,7 @@ component values. </p>
 difference starts to become apparent when attempting to retrieve values from the <code>Environment</code> instance. This is done 
 using <code>EnviromentKey</code> Lenses, which are an extension of the <a href="https://http4k.org">http4k</a> Lens system that specifically targets <code>Environment</code> 
 objects. </p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
 <span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span>
@@ -1103,7 +1103,7 @@ specific <code>use()</code> block, after which the underlying value is internall
 an <code>IllegalStateException</code>. </p>
 <p>The typical use-case for this block is to set-up a SQL <code>Datasource</code> or to create a <code>Filter</code> which adds authentication to 
 all outbound requests, as in the example below:</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.post</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>

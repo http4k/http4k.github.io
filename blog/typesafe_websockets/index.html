@@ -861,7 +861,7 @@
 <li>Lens-based marshalling of Websocket message objects using Jackson. </li>
 <li><code>WsHandler</code> can be combined with an <code>HttpHandler</code> to make a <code>PolyHandler</code> - an application which can serve many protocols. Conversion of the <code>PolyHandler</code> to a supporting Server can be done via the standard <code>asServer()</code> mechanism, or it can be kept offline for ultra-fast in-memory testing:</li>
 </ul>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_websockets</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_websockets</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
@@ -915,7 +915,7 @@
 <h4 id="testability">Testability <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/typesafe_websockets/example_testing.kt"><img class="octocat"/></a></h4>
 <p>As well as API simplicity, the <a href="https://http4k.org">http4k</a> team are very passionate about testing, and it was very important that this could be done in an out-of-container fashion - ie. in memory and with no server being started. As such, it is possible to call <code>testWsClient()</code> on an <code>WsHandler</code> to provide a synchronous API for testing. Messages and other events can be "sent" to a connected websocket and responses will be received back in a completely predictable way from the application under test.</p>
 <p>In the below example, we have gone one step further - defining a contract test case and then providing 2 implementations of it - one for unit-testing (in memory), one using a server. <a href="https://http4k.org">http4k</a> provides clients with an identical interface for both cases, meaning it's possible reuse the same test logic:</p>
-<div class="kotlin codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_websockets</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_websockets</span>
 
 <span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
 <span class="k">import</span> <span class="nn">com.natpryce.hamkrest.equalTo</span>
