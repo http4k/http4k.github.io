@@ -12,9 +12,9 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k blog: Nanoservices: The Power of composition">
-<meta name="twitter:title" content="http4k blog: Nanoservices: The Power of composition">
-<meta property="og:title" content="http4k blog: Nanoservices: The Power of composition" />
+<meta itemprop="name" content="http4k blog: Nanoservices: The Power of Composition">
+<meta name="twitter:title" content="http4k blog: Nanoservices: The Power of Composition">
+<meta property="og:title" content="http4k blog: Nanoservices: The Power of Composition" />
 
 
 
@@ -78,7 +78,7 @@
     
     
     
-    <title>http4k blog: Nanoservices: The Power of composition</title>
+    <title>http4k blog: Nanoservices: The Power of Composition</title>
     
     
     
@@ -856,7 +856,7 @@
 <h5 id="october-2020-daviddenton">october 2020 / <a href="http://github.com/daviddenton">@daviddenton</a></h5>
 <p>http4k is a small library with a zero dependencies (apart from Kotlin StdLib), but what really makes it shine is the power afforded by the combination of the "Server as a Function" concepts of <code>HttpHandler</code> and <code>Filter</code>. </p>
 <p>Skeptical? We would be disappointed if you weren't! Hence, we decided to prove the types of things that can be accomplished with the APIs provided by <a href="https://http4k.org">http4k</a> and a little ingenuity.</p>
-<p>For each of the examples below, there is a fully formed <a href="https://http4k.org">http4k</a> applications declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code> using one of the swappable server backends. Even better, each of app's code (excluding import statements 🙂 ) fits in a single Tweet.</p>
+<p>For each of the examples below, there is a fully formed <a href="https://http4k.org">http4k</a> application declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code> using one of the swappable server backends. Even better, each of app's code (excluding import statements 🙂 ) fits in a single Tweet.</p>
 <h3 id="1-build-a-simple-proxy">1. Build a simple proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client <code>HttpHandler</code> signature, we can simply pipe an HTTP Client onto a server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
@@ -1156,7 +1156,7 @@
 
 <h3 id="9-build-your-own-chaosmonkey">9. Build your own ChaosMonkey <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/chaos_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-testing-chaos</code></p>
-<p>As per the <a href="https://principlesofchaos.org/">Principles of Chaos</a>, this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an <code>OpenApi</code> documented set of RPC endpoints.</p>
+<p>As per the [Principles of Chaos], this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an <code>OpenApi</code> documented set of RPC endpoints.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.chaos.ChaosBehaviours.Latency</span>
@@ -1230,6 +1230,9 @@
 </code></pre></div>
 
 <hr/>
+
+<p>Obviously we haven't thought of everything here. We'd love to hear your ideas about other clever uses of the <a href="https://http4k.org">http4k</a> building blocks, or to take PRs to integrate them into the library for wider use. You can get in touch through <a href="http://github.com/http4k">GitHub</a> or the usual <a href="https://www.http4k.org/support">channels</a>.</p>
+<p><a href="https://principlesofchaos.org/">Principles of Chaos</a></p>
                     
                 </div>
             </div>
