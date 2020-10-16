@@ -963,37 +963,53 @@
 
 <hr/>
 
-<h3 id="4-build-a-web-cache">4. Build a web cache <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/remote_terminal.kt"><img class="octocat"/></a></h3>
-<p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
-<p>Use Websockets to remote control a terminal!*</p>
-<p><sub>*Obviously this is, in general, a really (really) bad idea.</sub></p>
+<h3 id="4-build-a-web-cache">4. Build a web cache <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/disk_cache.kt"><img class="octocat"/></a></h3>
+<p>Requires: <code>http4k-core</code>, <code>http4k-server-ktorcio</code></p>
+<p>Recording all traffic to disk can be achieved by just creating a <code>ReadWriteCache</code> and then adding a couple of pre-supplied Filters to a proxy. When running this example you can see that only the first request is audited.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Netty</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyHost</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.RequestFilters.ProxyProtocolMode.Https</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters.ReportHttpTransaction</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.TrafficFilters.RecordTo</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.TrafficFilters.ServeCachedFrom</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.KtorCIO</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
-<span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
-<span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
-<span class="k">import</span> <span class="nn">java.lang.Runtime.getRuntime</span>
-<span class="k">import</span> <span class="nn">java.util.Scanner</span>
+<span class="k">import</span> <span class="nn">org.http4k.traffic.ReadWriteCache</span>
+<span class="k">import</span> <span class="nn">java.io.File</span>
 
-<span class="k">fun</span> <span class="nf">`websocket terminal`</span><span class="p">()</span> <span class="p">=</span>
-    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-        <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">getRuntime</span><span class="p">().</span><span class="n">exec</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">()).</span><span class="n">inputStream</span><span class="p">.</span><span class="n">reader</span><span class="p">().</span><span class="n">readText</span><span class="p">()))</span>
-        <span class="p">}</span>
-    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+<span class="k">fun</span> <span class="err">`</span><span class="nf">disk</span> <span class="n">cache</span><span class="p">!</span><span class="err">`</span><span class="p">(</span><span class="n">dir</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">cache</span> <span class="p">=</span> <span class="n">ReadWriteCache</span><span class="p">.</span><span class="n">Disk</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">RecordTo</span><span class="p">(</span><span class="n">cache</span><span class="p">))</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ServeCachedFrom</span><span class="p">(</span><span class="n">cache</span><span class="p">))</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">uri</span><span class="p">)</span> <span class="p">})</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">KtorCIO</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+<span class="p">}</span>
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">`websocket terminal`</span><span class="p">()</span>
+    <span class="n">System</span><span class="p">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+    <span class="n">System</span><span class="p">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
+    <span class="n">System</span><span class="p">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">ws</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">))</span>
-    <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span> <span class="p">}</span>
+    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">JavaHttpClient</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">dir</span> <span class="p">=</span> <span class="s">&quot;store&quot;</span>
+    <span class="n">File</span><span class="p">(</span><span class="n">dir</span><span class="p">).</span><span class="n">deleteRecursively</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">scan</span> <span class="p">=</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">`in`</span><span class="p">)</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="n">nextLine</span><span class="p">()))</span>
+    <span class="err">`</span><span class="n">disk</span> <span class="n">cache</span><span class="p">!</span><span class="err">`</span><span class="p">(</span><span class="n">dir</span><span class="p">).</span><span class="n">use</span> <span class="p">{</span>
+        <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://api.github.com/users/http4k&quot;</span><span class="p">)</span>
+
+        <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="n">bodyString</span><span class="p">())</span>
+
+        <span class="c1">// this request is served from the cache, so will not generate a call</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="n">bodyString</span><span class="p">())</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1178,7 +1194,7 @@
 
 <hr/>
 
-<h3 id="10-build-a-remote-terminal">10. Build a remote terminal! <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/remote_terminal.kt"><img class="octocat"/></a></h3>
+<h3 id="10-build-a-remote-terminal">10. Build a remote terminal! <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/web_terminal.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
 <p>Use Websockets to remote control a terminal!*</p>
 <p><sub>*Obviously this is, in general, a really (really) bad idea.</sub></p>
