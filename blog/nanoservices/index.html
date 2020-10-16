@@ -1042,13 +1042,13 @@
 <hr/>
 
 <h3 id="6-build-a-ticking-websocket-clock">6. Build a ticking Websocket clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/websocket_clock.kt"><img class="octocat"/></a></h3>
-<p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
-<p>Like Http handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.</p>
+<p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
+<p>Like HTTP handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Netty</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
@@ -1060,7 +1060,7 @@
             <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">Instant</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">toString</span><span class="p">()))</span>
             <span class="n">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span>
         <span class="p">}</span>
-    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">`ticking websocket clock`</span><span class="p">()</span>
@@ -1107,6 +1107,76 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
+<hr/>
+
+<h3 id="8-watch-for-file-changes">8. Watch for file changes <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/file_watcher.kt"><img class="octocat"/></a></h3>
+<p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
+<p>Back to Websockets, we can watch the file system for changes and subscribe to the event feed.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span> <span class="nn">java.nio.file.FileSystems.getDefault</span>
+<span class="k">import</span> <span class="nn">java.nio.file.Paths</span>
+<span class="k">import</span> <span class="nn">java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY</span>
+
+<span class="k">fun</span> <span class="nf">`file watcher`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
+        <span class="k">val</span> <span class="py">w</span> <span class="p">=</span> <span class="n">getDefault</span><span class="p">().</span><span class="n">newWatchService</span><span class="p">()</span>
+        <span class="n">Paths</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">register</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">ENTRY_MODIFY</span><span class="p">)</span>
+        <span class="k">val</span> <span class="py">key</span> <span class="p">=</span> <span class="n">w</span><span class="p">.</span><span class="n">take</span><span class="p">()</span>
+        <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="n">key</span><span class="p">.</span><span class="n">pollEvents</span><span class="p">().</span><span class="n">forEach</span> <span class="p">{</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">context</span><span class="p">().</span><span class="n">toString</span><span class="p">()))</span> <span class="p">}</span>
+    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">`file watcher`</span><span class="p">()</span>
+    <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">)).</span><span class="n">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr/>
+
+<h3 id="9-build-a-remote-terminal">9. Build a remote terminal! <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/remote_terminal.kt"><img class="octocat"/></a></h3>
+<p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
+<p>Use Websockets to remote control a terminal!*</p>
+<p><sub>*Obviously this is, in general, a really (really) bad idea.</sub></p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Netty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span> <span class="nn">java.lang.Runtime.getRuntime</span>
+<span class="k">import</span> <span class="nn">java.util.Scanner</span>
+
+<span class="k">fun</span> <span class="nf">`websocket terminal`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
+        <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
+            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">getRuntime</span><span class="p">().</span><span class="n">exec</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">()).</span><span class="n">inputStream</span><span class="p">.</span><span class="n">reader</span><span class="p">().</span><span class="n">readText</span><span class="p">()))</span>
+        <span class="p">}</span>
+    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">`websocket terminal`</span><span class="p">()</span>
+
+    <span class="k">val</span> <span class="py">ws</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">))</span>
+    <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span> <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">scan</span> <span class="p">=</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">`in`</span><span class="p">)</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="n">nextLine</span><span class="p">()))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr/>
                     
                 </div>
             </div>
