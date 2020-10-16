@@ -856,7 +856,7 @@
 <h5 id="october-2020-daviddenton">october 2020 / <a href="http://github.com/daviddenton">@daviddenton</a></h5>
 <p>http4k is a small library with a minimal dependency set, but what really makes it shine is the power afforded by the combination of the "Server as a Function" concepts of <code>HttpHandler</code> and <code>Filter</code>. </p>
 <p>Skeptical? We would be disappointed if you weren't! Hence, we decided to prove the types of things that can be accomplished with the APIs provided by <a href="https://http4k.org">http4k</a> and a little ingenuity.</p>
-<p>For each of the examples below, there is a fully formed <a href="https://http4k.org">http4k</a> applications declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code>. Even better, all of the main app code (excluding import statements 🙂) can fit in a single Tweet.</p>
+<p>For each of the examples below, there is a fully formed <a href="https://http4k.org">http4k</a> applications declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code> using one of the swappable server backends. Even better, each of app's code (excluding import statements 🙂) fits in a single Tweet.</p>
 <h3 id="1-build-a-simple-proxy">1. Build a simple proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client <code>HttpHandler</code> signature, we can simply pipe an HTTP Client onto a Server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
@@ -1014,7 +1014,7 @@
 <hr/>
 
 <h3 id="5-serve-static-files-from-disk">5. Serve static files from disk <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/static_file_server.kt"><img class="octocat"/></a></h3>
-<p>Requires: <code>http4k-core</code></p>
+<p>Requires: <code>http4k-core</code>, <code>http4k-server-undertow</code></p>
 <p>Longer than the Python <code>SimpleHttpServer</code>, but still pretty small!</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
 
@@ -1023,12 +1023,12 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.ResourceLoader.Companion.Directory</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.static</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Undertow</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
 <span class="k">fun</span> <span class="nf">`static file server`</span><span class="p">()</span> <span class="p">=</span>
     <span class="n">static</span><span class="p">(</span><span class="n">Directory</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">())</span>
         <span class="p">.</span><span class="n">start</span><span class="p">()</span>
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -1142,7 +1142,7 @@
 <hr/>
 
 <h3 id="9-build-a-remote-terminal">9. Build a remote terminal! <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/remote_terminal.kt"><img class="octocat"/></a></h3>
-<p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
+<p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
 <p>Use Websockets to remote control a terminal!*</p>
 <p><sub>*Obviously this is, in general, a really (really) bad idea.</sub></p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
