@@ -963,7 +963,44 @@
 
 <hr/>
 
-<h3 id="4-record-all-traffic-to-disk-and-replay-it-later">4. Record all traffic to disk and replay it later <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/record_and_replay_http_traffic_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="4-build-a-web-cache">4. Build a web cache <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/remote_terminal.kt"><img class="octocat"/></a></h3>
+<p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
+<p>Use Websockets to remote control a terminal!*</p>
+<p><sub>*Obviously this is, in general, a really (really) bad idea.</sub></p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Netty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span> <span class="nn">java.lang.Runtime.getRuntime</span>
+<span class="k">import</span> <span class="nn">java.util.Scanner</span>
+
+<span class="k">fun</span> <span class="nf">`websocket terminal`</span><span class="p">()</span> <span class="p">=</span>
+    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
+        <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
+            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">getRuntime</span><span class="p">().</span><span class="n">exec</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">()).</span><span class="n">inputStream</span><span class="p">.</span><span class="n">reader</span><span class="p">().</span><span class="n">readText</span><span class="p">()))</span>
+        <span class="p">}</span>
+    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">`websocket terminal`</span><span class="p">()</span>
+
+    <span class="k">val</span> <span class="py">ws</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">))</span>
+    <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span> <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">scan</span> <span class="p">=</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">`in`</span><span class="p">)</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="n">nextLine</span><span class="p">()))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr/>
+
+<h3 id="5-record-all-traffic-to-disk-and-replay-it-later">5. Record all traffic to disk and replay it later <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/record_and_replay_http_traffic_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1013,7 +1050,7 @@
 
 <hr/>
 
-<h3 id="5-serve-static-files-from-disk">5. Serve static files from disk <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/static_file_server.kt"><img class="octocat"/></a></h3>
+<h3 id="6-serve-static-files-from-disk">6. Serve static files from disk <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/static_file_server.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-undertow</code></p>
 <p>Longer than the Python <code>SimpleHttpServer</code>, but still pretty small!</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1041,7 +1078,7 @@
 
 <hr/>
 
-<h3 id="6-build-a-ticking-websocket-clock">6. Build a ticking Websocket clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/websocket_clock.kt"><img class="octocat"/></a></h3>
+<h3 id="7-build-a-ticking-websocket-clock">7. Build a ticking Websocket clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/websocket_clock.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
 <p>Like HTTP handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1070,7 +1107,7 @@
 
 <hr/>
 
-<h3 id="7-build-your-own-chaosmonkey">7. Build your own ChaosMonkey <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/chaos_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="8-build-your-own-chaosmonkey">8. Build your own ChaosMonkey <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/chaos_proxy.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-testing-chaos</code></p>
 <p>As per the <a href="https://principlesofchaos.org/">Principles of Chaos</a>, this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an <code>OpenApi</code> documented set of RPC endpoints.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1110,7 +1147,7 @@
 
 <hr/>
 
-<h3 id="8-watch-for-file-changes">8. Watch for file changes <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/file_watcher.kt"><img class="octocat"/></a></h3>
+<h3 id="9-watch-for-file-changes">9. Watch for file changes <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/file_watcher.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
 <p>Back to Websockets, we can watch the file system for changes and subscribe to the event feed.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1141,7 +1178,7 @@
 
 <hr/>
 
-<h3 id="9-build-a-remote-terminal">9. Build a remote terminal! <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/remote_terminal.kt"><img class="octocat"/></a></h3>
+<h3 id="10-build-a-remote-terminal">10. Build a remote terminal! <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/remote_terminal.kt"><img class="octocat"/></a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
 <p>Use Websockets to remote control a terminal!*</p>
 <p><sub>*Obviously this is, in general, a really (really) bad idea.</sub></p>
