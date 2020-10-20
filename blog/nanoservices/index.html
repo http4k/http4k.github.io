@@ -1209,12 +1209,16 @@
 <span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
 <span class="k">import</span> <span class="nn">java.lang.Runtime.getRuntime</span>
-<span class="k">import</span> <span class="nn">java.util.Scanner</span>
+<span class="k">import</span> <span class="nn">java.util.*</span>
 
 <span class="k">fun</span> <span class="nf">`websocket terminal`</span><span class="p">()</span> <span class="p">=</span>
     <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
         <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">getRuntime</span><span class="p">().</span><span class="n">exec</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">()).</span><span class="n">inputStream</span><span class="p">.</span><span class="n">reader</span><span class="p">().</span><span class="n">readText</span><span class="p">()))</span>
+            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span>
+                <span class="n">getRuntime</span><span class="p">()</span>
+                    <span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span>
+                    <span class="p">.</span><span class="n">inputStream</span><span class="p">.</span><span class="n">reader</span><span class="p">().</span><span class="n">readText</span><span class="p">()</span>
+            <span class="p">))</span>
         <span class="p">}</span>
     <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
 
