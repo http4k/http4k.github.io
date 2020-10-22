@@ -854,7 +854,7 @@
                     
                     <h1>XML handling</h1>
                     
-                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="c1">// json.org XML:</span>
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-xml&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 
@@ -862,16 +862,16 @@
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-jackson-xml&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
-<h3 id="about">About</h3>
+<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>These modules provide auto-marshalling functionality to convert XML into arbitrary data classes. The 2 differ slightly in their behaviour, due to the underlying libraries used for implementation. We recommend using <code>http4k-format-jackson-xml</code> as it has more predictable and consistent behaviour.</p>
-<h3 id="jacksonxml">JacksonXml</h3>
+<h3 id="jacksonxml">JacksonXml<a class="headerlink" href="#jacksonxml" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Provides bi-directional conversion</li>
 <li>Does NOT expose an XML DOM node model</li>
 <li>Generally requires <code>Jackson</code> field annotations to manipulate output format</li>
 <li>Provides extension point to map custom types using BiDiMapping registration (so supports all Java and Http4k primitives such as <code>Uri</code>)</li>
 </ul>
-<h4 id="jacksonxml-code">JacksonXML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/jacksonAutoXml.kt"><img class="octocat"/></a></h4>
+<h4 id="jacksonxml_code">JacksonXML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/jacksonAutoXml.kt"><img class="octocat"/></a><a class="headerlink" href="#jacksonxml_code" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Provides extraction conversion only</li>
 <li>Exposes an XML DOM node model as a first-class citizen - so can read directly from a string into a DOM model</li>
@@ -907,9 +907,9 @@
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="xml">Xml</h3>
+<h3 id="xml">Xml<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h3>
 <p>As above, we recommend using <code>http4k-format-jackson-xml</code> as it has more predictable and consistent behaviour.</p>
-<h4 id="xml-code">XML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"><img class="octocat"/></a></h4>
+<h4 id="xml_code">XML Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/xml/autoXml.kt"><img class="octocat"/></a><a class="headerlink" href="#xml_code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.xml</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Body</span>

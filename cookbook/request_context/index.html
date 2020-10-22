@@ -864,11 +864,11 @@ that state accessed inside other Filters or the terminating HttpHandler. There a
 <p>Whilst the first method looks technically simpler, the use of simple Strings does not provide the type-safety of the second, which uses unique shared Key objects to guarantee non-clashing of keys and type-safety of the state.
 Regardless of which of the above mechanisms are used, an instance of the <code>ServerFilters.InitialiseRequestContext</code> Filter must wrap the HttpHandler(s) to activate
 the shared bag of state for each request, and to remove the state after the request is complete.</p>
-<h3 id="gradle-setup">Gradle setup</h3>
+<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
-<h4 id="string-based-keys">String-based keys <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/string_key_example.kt"><img class="octocat"/></a></h4>
+<h4 id="string-based_keys">String-based keys <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/string_key_example.kt"><img class="octocat"/></a><a class="headerlink" href="#string-based_keys" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.request_context</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
@@ -912,7 +912,7 @@ the shared bag of state for each request, and to remove the state after the requ
 <span class="p">}</span>
 </code></pre></div>
 
-<h4 id="lens-based-keys">Lens-based keys <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/lens_key_example.kt"><img class="octocat"/></a></h4>
+<h4 id="lens-based_keys">Lens-based keys <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/request_context/lens_key_example.kt"><img class="octocat"/></a><a class="headerlink" href="#lens-based_keys" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.request_context</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>

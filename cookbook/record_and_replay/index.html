@@ -855,14 +855,14 @@
                     <h1>Recording/replaying HTTP traffic</h1>
                     
                     <p>A set of classes to provide simple recording/replaying of HTTP traffic. This is perfect for testing purposes, or in short lived, low traffic environments where no proper caches are available.</p>
-<h3 id="gradle-setup">Gradle setup</h3>
+<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
-<h3 id="caching-http-traffic">Caching HTTP Traffic</h3>
+<h3 id="caching_http_traffic">Caching HTTP Traffic<a class="headerlink" href="#caching_http_traffic" title="Permanent link">&para;</a></h3>
 <p>Using <code>Filters</code> it's possible to record traffic and then return recorded content instead of making repeated calls. Note that the provided storage 
 implementations DO NOT have any facility for Cache Control or eviction, or respect any response headers around caching. Requests are indexed in a way optimised for retrieval.</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/record_and_replay/example_cache.kt"><img class="octocat"/></a></h4>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/record_and_replay/example_cache.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.record_and_replay</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -888,9 +888,9 @@ implementations DO NOT have any facility for Cache Control or eviction, or respe
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="recording-streams-of-http-traffic">Recording Streams of HTTP Traffic</h3>
+<h3 id="recording_streams_of_http_traffic">Recording Streams of HTTP Traffic<a class="headerlink" href="#recording_streams_of_http_traffic" title="Permanent link">&para;</a></h3>
 <p>Using <code>Filters</code> it's possible to record a stream traffic and then replay recorded content instead. Requests are indexed in a way optimised for iteration.</p>
-<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/record_and_replay/example_stream.kt"><img class="octocat"/></a></h4>
+<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/record_and_replay/example_stream.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.record_and_replay</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
@@ -924,7 +924,7 @@ implementations DO NOT have any facility for Cache Control or eviction, or respe
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="concepts">Concepts</h3>
+<h3 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h3>
 <p>The <code>org.http4k.traffic</code> package contains the interfaces which make up the core concepts for traffic capture and replay. These interfaces are:</p>
 <ul>
 <li>A <code>Sink</code> consumes request/response pairs for storage. </li>

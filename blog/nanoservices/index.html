@@ -852,12 +852,12 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1 id="nanoservices-the-power-of-composition">Nanoservices: The Power of Composition</h1>
-<h5 id="october-2020-daviddenton">october 2020 / <a href="http://github.com/daviddenton">@daviddenton</a></h5>
+                    <h1 id="nanoservices_the_power_of_composition">Nanoservices: The Power of Composition<a class="headerlink" href="#nanoservices_the_power_of_composition" title="Permanent link">&para;</a></h1>
+<h5 id="october_2020_daviddenton">october 2020 / <a href="http://github.com/daviddenton">@daviddenton</a><a class="headerlink" href="#october_2020_daviddenton" title="Permanent link">&para;</a></h5>
 <p>http4k is a small library with a zero dependencies (apart from Kotlin StdLib), but what really makes it shine is the power afforded by the combination of the "Server as a Function" concepts of <code>HttpHandler</code> and <code>Filter</code>. </p>
 <p>Skeptical? We would be disappointed if you weren't! Hence, we decided to prove the types of things that can be accomplished with the APIs provided by <a href="https://http4k.org">http4k</a> and a little ingenuity.</p>
 <p>For each of the examples below, there is a fully formed <a href="https://http4k.org">http4k</a> application declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code> using one of the swappable server backends. Even better, each of app's code (excluding import statements 🙂 ) fits in a single Tweet.</p>
-<h3 id="1-build-a-simple-proxy">1. Build a simple proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="1_build_a_simple_proxy">1. Build a simple proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a><a class="headerlink" href="#1_build_a_simple_proxy" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client <code>HttpHandler</code> signature, we can simply pipe an HTTP Client onto a server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -891,7 +891,7 @@
 
 <hr/>
 
-<h3 id="2-report-latency-through-a-proxy">2. Report latency through a proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/latency_reporting_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="2_report_latency_through_a_proxy">2. Report latency through a proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/latency_reporting_proxy.kt"><img class="octocat"/></a><a class="headerlink" href="#2_report_latency_through_a_proxy" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Building on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -927,7 +927,7 @@
 
 <hr/>
 
-<h3 id="3-build-a-wireshark-to-sniff-inter-service-traffic">3. Build a Wireshark to sniff inter-service traffic <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/wire_sniffing_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="3_build_a_wireshark_to_sniff_inter-service_traffic">3. Build a Wireshark to sniff inter-service traffic <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/wire_sniffing_proxy.kt"><img class="octocat"/></a><a class="headerlink" href="#3_build_a_wireshark_to_sniff_inter-service_traffic" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>Applying a <code>DebuggingFilter</code> to the HTTP calls in a proxy dumps the entire contents out to <code>StdOut</code> (or other stream).</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -963,7 +963,7 @@
 
 <hr/>
 
-<h3 id="4-build-a-ticking-websocket-clock">4. Build a ticking Websocket clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/websocket_clock.kt"><img class="octocat"/></a></h3>
+<h3 id="4_build_a_ticking_websocket_clock">4. Build a ticking Websocket clock <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/websocket_clock.kt"><img class="octocat"/></a><a class="headerlink" href="#4_build_a_ticking_websocket_clock" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
 <p>Like HTTP handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -992,7 +992,7 @@
 
 <hr/>
 
-<h3 id="5-build-a-web-cache">5. Build a web cache <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/disk_cache.kt"><img class="octocat"/></a></h3>
+<h3 id="5_build_a_web_cache">5. Build a web cache <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/disk_cache.kt"><img class="octocat"/></a><a class="headerlink" href="#5_build_a_web_cache" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-ktorcio</code></p>
 <p>Recording all traffic to disk can be achieved by just creating a <code>ReadWriteCache</code> and then adding a couple of pre-supplied Filters to a proxy. When running this example you can see that only the first request is audited.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1045,7 +1045,7 @@
 
 <hr/>
 
-<h3 id="6-record-all-traffic-to-disk-and-replay-it-later">6. Record all traffic to disk and replay it later <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/record_and_replay_http_traffic_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="6_record_all_traffic_to_disk_and_replay_it_later">6. Record all traffic to disk and replay it later <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/record_and_replay_http_traffic_proxy.kt"><img class="octocat"/></a><a class="headerlink" href="#6_record_all_traffic_to_disk_and_replay_it_later" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it's easy to write other other stores such as an S3 bucket etc.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1095,7 +1095,7 @@
 
 <hr/>
 
-<h3 id="7-watch-your-fs-for-file-changes">7. Watch your FS for file changes <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/file_watcher.kt"><img class="octocat"/></a></h3>
+<h3 id="7_watch_your_fs_for_file_changes">7. Watch your FS for file changes <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/file_watcher.kt"><img class="octocat"/></a><a class="headerlink" href="#7_watch_your_fs_for_file_changes" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-jetty</code></p>
 <p>Back to Websockets, we can watch the file system for changes and subscribe to the event feed.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1128,7 +1128,7 @@
 
 <hr/>
 
-<h3 id="8-serve-static-files-from-disk">8. Serve static files from disk <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/static_file_server.kt"><img class="octocat"/></a></h3>
+<h3 id="8_serve_static_files_from_disk">8. Serve static files from disk <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/static_file_server.kt"><img class="octocat"/></a><a class="headerlink" href="#8_serve_static_files_from_disk" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-undertow</code></p>
 <p>Longer than the Python <code>SimpleHttpServer</code>, but still pretty small!</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1156,7 +1156,7 @@
 
 <hr/>
 
-<h3 id="9-build-your-own-chaosmonkey">9. Build your own ChaosMonkey <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/chaos_proxy.kt"><img class="octocat"/></a></h3>
+<h3 id="9_build_your_own_chaosmonkey">9. Build your own ChaosMonkey <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/chaos_proxy.kt"><img class="octocat"/></a><a class="headerlink" href="#9_build_your_own_chaosmonkey" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-testing-chaos</code></p>
 <p>As per the [Principles of Chaos], this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an <code>OpenApi</code> documented set of RPC endpoints.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.nanoservices</span>
@@ -1196,7 +1196,7 @@
 
 <hr/>
 
-<h3 id="10-build-a-remote-terminal">10. Build a remote terminal! <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/web_terminal.kt"><img class="octocat"/></a></h3>
+<h3 id="10_build_a_remote_terminal">10. Build a remote terminal! <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/web_terminal.kt"><img class="octocat"/></a><a class="headerlink" href="#10_build_a_remote_terminal" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p>
 <p>Use Websockets to remote control a terminal!* Run the example and just type commands into the prompt to have them magicked to the server backend</p>
 <p><sub>*Obviously this is, in general, a really (really) bad idea.</sub></p>

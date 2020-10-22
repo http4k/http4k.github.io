@@ -852,9 +852,9 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1 id="server-as-a-function-in-kotlin-typesafe-without-the-server">Server as a Function. In Kotlin. Typesafe. Without the Server.</h1>
-<h5 id="november-2017-daviddenton">november 2017 / <a href="http://github.com/daviddenton">@daviddenton</a></h5>
-<h2 id="meet-http4k">Meet <a href="https://http4k.org">http4k</a></h2>
+                    <h1 id="server_as_a_function_in_kotlin_typesafe_without_the_server">Server as a Function. In Kotlin. Typesafe. Without the Server.<a class="headerlink" href="#server_as_a_function_in_kotlin_typesafe_without_the_server" title="Permanent link">&para;</a></h1>
+<h5 id="november_2017_daviddenton">november 2017 / <a href="http://github.com/daviddenton">@daviddenton</a><a class="headerlink" href="#november_2017_daviddenton" title="Permanent link">&para;</a></h5>
+<h2 id="meet_http4k">Meet <a href="https://http4k.org">http4k</a><a class="headerlink" href="#meet_http4k" title="Permanent link">&para;</a></h2>
 <p><a href="https://http4k.org">http4k</a> is an HTTP toolkit written in Kotlin that enables the serving and consuming 
 of HTTP services in a functional and consistent way.</p>
 <p>Whenever (yet another) new JVM HTTP framework is released, the inevitable question that rightly get asked is <strong>"How it 
@@ -874,7 +874,7 @@ and hello to automatic request validation and data class-based contracts for HTT
 <li><a href="https://http4k.org">http4k</a> is serverless. Or rather - server independent. Test an app out of 
 container and then deploy it into any supported local container with 1 LOC - or as a function into AWS Lambda.</li>
 </ul>
-<h3 id="oh-god-not-another-framework-why-does-this-even-exist">Oh god, not another framework! Why does this even exist?!?</h3>
+<h3 id="oh_god_not_another_framework_why_does_this_even_exist">Oh god, not another framework! Why does this even exist?!?<a class="headerlink" href="#oh_god_not_another_framework_why_does_this_even_exist" title="Permanent link">&para;</a></h3>
 <p>Firstly - we don't consider <a href="https://http4k.org">http4k</a> to be a framework - it's a set of libraries 
 providing a functional toolkit to serve and consume HTTP services, focusing on simple, consistent, and testable APIs. 
 Hence, whilst it does provide support for various APIs <em>relevant to serving and consuming HTTP</em>, it does not provide 
@@ -887,10 +887,10 @@ stolen. For instance - the routing module is inspired by <a href="https://github
 <p>With the growing adoption of Kotlin, we wanted something that would fully leverage the functional features of the language 
 and it felt like a good time to start something from scratch, whilst avoiding the <em>magic</em> that plagues other frameworks. 
 Hence, <a href="https://http4k.org">http4k</a> is primarily designed to be a Kotlin-first library.</p>
-<h2 id="claim-a-small-simple-immutable">Claim A: Small, simple, immutable.</h2>
+<h2 id="claim_a_small_simple_immutable">Claim A: Small, simple, immutable.<a class="headerlink" href="#claim_a_small_simple_immutable" title="Permanent link">&para;</a></h2>
 <p>Based on the awesome <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a> paper from Twitter, <a href="https://http4k.org">http4k</a> 
 apps are modelled by composing 2 types of simple, independent function. </p>
-<h3 id="function-1-httphandler">Function 1: HttpHandler</h3>
+<h3 id="function_1_httphandler">Function 1: HttpHandler<a class="headerlink" href="#function_1_httphandler" title="Permanent link">&para;</a></h3>
 <p>An <code>HttpHandler</code> represents an HTTP endpoint. It's not even an Interface, modelled merely as a <a href="https://kotlinlang.org/docs/reference/type-aliases.html">Typealias</a>:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">typealias</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Response</span>
 </code></pre></div>
@@ -913,7 +913,7 @@ extra infrastructure - just call the function, it's as easy as:</p>
 
 <p>To plug it into a different Server-backend, just depend on the relevant module (Jetty, Undertow, Netty, Apache (httpcore), 
 Ktor CIO, Ktor Netty, and SunHttp are available) and change the call to <code>asServer()</code>.</p>
-<h3 id="function-2-filter">Function 2: Filter</h3>
+<h3 id="function_2_filter">Function 2: Filter<a class="headerlink" href="#function_2_filter" title="Permanent link">&para;</a></h3>
 <p><code>Filters</code> provides pre and post Request processing and are simply:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">HttpHandler</span>
 </code></pre></div>
@@ -932,7 +932,7 @@ couple of Kotlin <a href="https://kotlinlang.org/docs/reference/extensions.html"
 </code></pre></div>
 
 <p>Filters are also trivial to test independently, because they are generally just stateless functions.</p>
-<h3 id="routing">Routing</h3>
+<h3 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h3>
 <p><a href="https://http4k.org">http4k</a>'s nestable routing looks a lot like every other Sinatra-style framework these 
 days, and allows for infinitely nesting <code>HttpHandlers</code> - this just exposes another <code>HttpHandler</code> so you can easily extract, 
 test and reuse sets of routes as easily as you could with one:</p>
@@ -949,7 +949,7 @@ test and reuse sets of routes as easily as you could with one:</p>
 module rocks in at about 700kb, and has zero dependencies (other than the Kotlin language itself). Additionally, everything 
 in the core is <em>functional and predictable</em> - there is no static API magic going on under the covers (making it difficult 
 to have multiple apps in the same JVM), no annotations, no compiler-plugins, and no reflection.</p>
-<h2 id="claim-b-symmetric-http">Claim B. Symmetric HTTP</h2>
+<h2 id="claim_b_symmetric_http">Claim B. Symmetric HTTP<a class="headerlink" href="#claim_b_symmetric_http" title="Permanent link">&para;</a></h2>
 <p>Out of the multitude of JVM http frameworks out there, not many actually consider how you app talks to other services, 
 yet in this Microservice™ world that's an absolutely massive part of what many apps do!</p>
 <p>As per a core principle behind "Server as a Function", <a href="https://http4k.org">http4k</a> provides a symmetric API for HTTP clients - ie. it's 
@@ -975,7 +975,7 @@ testing insanely fast:</p>
 
 <p><a href="https://http4k.org">http4k</a> provides a HTTP client adapters for both <a href="https://hc.apache.org/">Apache</a> and <a href="http://square.github.io/okhttp/">OkHttp</a>, 
 all with streaming support.</p>
-<h2 id="claim-c-typesafe-http-with-lenses">Claim C. Typesafe HTTP with Lenses</h2>
+<h2 id="claim_c_typesafe_http_with_lenses">Claim C. Typesafe HTTP with Lenses<a class="headerlink" href="#claim_c_typesafe_http_with_lenses" title="Permanent link">&para;</a></h2>
 <p>The immutable <a href="https://http4k.org">http4k</a> model for HTTP objects contains all the usual suspect methods for getting values from the messages. 
 For instance, if we are expecting a search parameter with a query containing a page number:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?page=123&quot;</span><span class="p">)</span>
@@ -986,7 +986,7 @@ For instance, if we are expecting a search parameter with a query containing a p
 either of those things is not true. For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a> to enforce the expected HTTP contract.</p>
 <p>The use of Lenses in <a href="https://http4k.org">http4k</a> applications can remove the need for writing any parsing or validation code for all incoming 
 data (including Forms), as validations are taken care of by the library. </p>
-<h3 id="lens-basics">Lens basics</h3>
+<h3 id="lens_basics">Lens basics<a class="headerlink" href="#lens_basics" title="Permanent link">&para;</a></h3>
 <p>A Lens is a bi-directional entity which can be used to either <em>get</em> or <em>set</em> a particular value from/onto an HTTP message. 
 <a href="https://http4k.org">http4k</a> provides a DSL to configure these lenses to target particular parts of the message, whilst at the same time 
 specifying the requirement for those parts (i.e. mandatory or optional) and the type. For the above example, we could use 
@@ -1024,7 +1024,7 @@ classes. This works for both get and set operations:</p>
 <span class="k">val</span> <span class="py">myDate</span><span class="p">:</span> <span class="n">MyDate</span> <span class="p">=</span> <span class="n">dateQuery</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://server/search?date=2000-01-01&quot;</span><span class="p">))</span>
 </code></pre></div>
 
-<h3 id="lensing-http-bodies-with-data-classes">Lensing HTTP bodies with Data classes</h3>
+<h3 id="lensing_http_bodies_with_data_classes">Lensing HTTP bodies with Data classes<a class="headerlink" href="#lensing_http_bodies_with_data_classes" title="Permanent link">&para;</a></h3>
 <p>Some of the supported message libraries (eg. GSON, Jackson, Moshi, XML) provide the mechanism to automatically marshall 
 data objects to/from JSON and XML using reflection (oops - looks like we broke our reflection promise - but technically 
 we're not doing it ;) !). This behaviour is supported in <a href="https://http4k.org">http4k</a> Lenses through the use of the <code>auto()</code> method, which 
@@ -1040,7 +1040,7 @@ will marshall objects to/from HTTP messages:</p>
 <p>This mechanism works for all incoming and outgoing JSON and XML Requests and Responses. To assist with developing whilst 
 using this type of auto-marshalling, we have created a <a href="http://http4k-data-class-gen.herokuapp.com/">tool</a> to automatically 
 generate a set of data classes for a given messages.</p>
-<h2 id="claim-d-serverless">Claim D. Serverless</h2>
+<h2 id="claim_d_serverless">Claim D. Serverless<a class="headerlink" href="#claim_d_serverless" title="Permanent link">&para;</a></h2>
 <p>Ah yes - Serverless - the latest in the Cool Kids Club and killer fodder for the resume. Well, since <a href="https://http4k.org">http4k</a> is server 
 independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, 
 and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. 
@@ -1063,7 +1063,7 @@ is AWS, there is a fair amount of configuration required to make this possible, 
 <p>Since <a href="https://http4k.org">http4k</a> is very dependency-light, full binary uploads of these AWS Lambdas tend to be very small - and by utilising 
 <a href="https://www.guardsquare.com/en/proguard">Proguard</a> we've seen the size of a Lambda UberJar go as small as 150kb.</p>
 <p>Introduced in v3.0.0, this support is available in the <code>http4k-serverless-lambda</code> module.</p>
-<h2 id="the-final-words">The final word(s)!</h2>
+<h2 id="the_final_words">The final word(s)!<a class="headerlink" href="#the_final_words" title="Permanent link">&para;</a></h2>
 <p>As pointed out above, <code>http4k-core</code> module has zero dependencies. It is also small, even though it also provides:</p>
 <ul>
 <li>Support for static file-serving with HotReload.</li>
@@ -1092,7 +1092,7 @@ the vast majority of traffic for a major publishing website (in the top 1000 sit
 <p>Well, that's it for this whirlwind tour - we hope you found it worth reading this far! We'd love you to try out <a href="https://http4k.org">http4k</a> 
 and feedback why you love/hate/are indifferent to it :) . And if you want to get involved or chat to the authors, we hang 
 out in the friendly #http4k channel @ <a href="http://slack.kotlinlang.org/">slack.kotlinlang,org</a>.</p>
-<h5 id="footnotes">Footnotes</h5>
+<h5 id="footnotes">Footnotes<a class="headerlink" href="#footnotes" title="Permanent link">&para;</a></h5>
 <ul>
 <li><strong>"But... but... but... asynchronous! And Webscale!"</strong>, <em>I heard them froth</em>. Yes, you are correct - "Server as a Function" 
 is based on asynchronous functions and <a href="https://http4k.org">http4k</a> exposes a synchronous API. However, our experience suggests that for the 

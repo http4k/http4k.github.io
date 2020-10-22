@@ -854,11 +854,11 @@
                     
                     <h1>Service Virtualisaion</h1>
                     
-                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-testing-servirtium&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
-<h3 id="about">About</h3>
+<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>Service Virtualisation testing technology provides a way of declaring contracts which can record HTTP conversations to a custom Markdown format and then replaying them later offline. <a href="https://http4k.org">http4k</a> provides a fully featured implementation of the <a href="https://servirtium.dev">Servirtium</a> solution to implement this concept.</p>
 <p>The basic idea is that you define an abstract contract Class/Interface which describes the expected behaviour for a system using a Client class (aka the <code>Client-Under-Test</code>). This contract is then implemented twice:</p>
 <ol>
@@ -878,15 +878,15 @@
 <p>A Storage Provider abstraction for storing and loading recorded contracts from various locations including disk and directly from <a href="https://github.com">GitHub</a>.</p>
 </li>
 </ol>
-<h3 id="examples-of-use">Examples of use</h3>
+<h3 id="examples_of_use">Examples of use<a class="headerlink" href="#examples_of_use" title="Permanent link">&para;</a></h3>
 <p>Climate API Demo: <a href="https://github.com/http4k/servirtium-demo-kotlin-climate-tck">github.com/http4k/servirtium-demo-kotlin-climate-tck</a>. The climate API tested uses a simple programatic wrapper for World Bank's climate-data service. It can respond to requests with XML or JSON payloads, and the <code>http4k-testing-servirtium</code> module can record and payback either. This is a standard showcase for Servirtium.</p>
-<h2 id="kotlin-examples">Kotlin Examples:</h2>
+<h2 id="kotlin_examples">Kotlin Examples:<a class="headerlink" href="#kotlin_examples" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Playback of a Servirtium recording: <a href="https://github.com/http4k/servirtium-demo-kotlin-climate-tck/blob/master/src/test/kotlin/servirtium/http4k/kotlin/DiskPlaybackClimateApiTests.kt">kotlin/DiskPlaybackClimateApiTests.kt</a></li>
 <li>Making a Servirtium recording: <a href="https://github.com/http4k/servirtium-demo-kotlin-climate-tck/blob/master/src/test/kotlin/servirtium/http4k/kotlin/DiskRecordingClimateApiTest.kt">kotlin/DiskRecordingClimateApiTest.kt</a></li>
 <li>In the same package, see also a direct example for contrast, and one that can playback from recordings themselves on a website rather than from local disk.</li>
 </ul>
-<h2 id="java-examples">Java Examples:</h2>
+<h2 id="java_examples">Java Examples:<a class="headerlink" href="#java_examples" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Playback of a Servirtium recording: <a href="https://github.com/http4k/servirtium-demo-kotlin-climate-tck/blob/master/src/test/java/servirtium/http4k/java/DiskReplayClimateApiTests.java">java/DiskReplayClimateApiTests.java</a></li>
 <li>Making a Servirtium recording: <a href="https://github.com/http4k/servirtium-demo-kotlin-climate-tck/blob/master/src/test/java/servirtium/http4k/java/DiskRecordingClimateApiTests.java">java/DiskRecordingClimateApiTests.java</a></li>

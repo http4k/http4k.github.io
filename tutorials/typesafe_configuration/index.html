@@ -852,12 +852,12 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1 id="add-typesafe-12-factor-configuration-to-http4k-apps-with-environments">Add typesafe 12-factor configuration to http4k apps with Environments.</h1>
-<h2 id="intro">Intro</h2>
+                    <h1 id="add_typesafe_12-factor_configuration_to_http4k_apps_with_environments">Add typesafe 12-factor configuration to http4k apps with Environments.<a class="headerlink" href="#add_typesafe_12-factor_configuration_to_http4k_apps_with_environments" title="Permanent link">&para;</a></h1>
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h2>
 <p>This post covers the various concerns around configuring HTTP apps, and introduces the <a href="https://http4k.org">http4k</a> 
 approach for addressing these when deploying applications into cloud-native environments, which leverages the Kotlin type 
 system for maximum safely and code reuse.</p>
-<h2 id="concerns-when-configuring-applications">Concerns when configuring applications</h2>
+<h2 id="concerns_when_configuring_applications">Concerns when configuring applications<a class="headerlink" href="#concerns_when_configuring_applications" title="Permanent link">&para;</a></h2>
 <p>One of the tenets of operating applications according to the principles of <a href="https://12factor.net/">12factor</a>, 
 and especially in containerised cloud-native apps, is to inject all app configuration through the use of environmental 
 variables. Additionally, when using more restrictive settings (such as utilising JVM security manager policies or through 
@@ -866,7 +866,7 @@ etc) from disk, which reinforces this approach.</p>
 <p>There are several particular relevant concerns that we need to address, but overall the effect that we are looking for is 
 that any misconfiguration of the application will result in it failing to startup. For this reason we want to reify all 
 values to check them as soon as possible in the application bootstrap phase.</p>
-<h4 id="1-optionality">1. Optionality</h4>
+<h4 id="1_optionality">1. Optionality<a class="headerlink" href="#1_optionality" title="Permanent link">&para;</a></h4>
 <p>Kotlin's type system guards us against missing values being injected - for instance the following code will throw a 
 <code>IllegalStateException</code> due to a typo in the parameter name:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
@@ -887,7 +887,7 @@ which could be data-driven (ie. not known at compile-time).</li>
 are not.</li>
 </ul>
 <p>Missing values should produce a reasonable error and stop the app from starting.</p>
-<h4 id="2-type-coercion">2. Type coercion</h4>
+<h4 id="2_type_coercion">2. Type coercion<a class="headerlink" href="#2_type_coercion" title="Permanent link">&para;</a></h4>
 <p>Most applications will require a variety of configuration primitive types, which may or may not map to the Java/Kotlin 
 standard types, including:</p>
 <ul>
@@ -933,7 +933,7 @@ will help us here:</p>
 exceptions depending on if the value was missing (<code>IllegalStateException</code>), unparsable (<code>DateTimeParseException</code>) or 
 invalid (<code>IllegalArgumentException</code>). The conversion code from <code>String -&gt; Duration</code> must also be repeated (or extracted) 
 for each value that we wish to parse.</p>
-<h4 id="3-multiplicity">3. Multiplicity</h4>
+<h4 id="3_multiplicity">3. Multiplicity<a class="headerlink" href="#3_multiplicity" title="Permanent link">&para;</a></h4>
 <p>Configuration parameters may have one or many values and need to be converted safely from the injected string 
 representation (usually comma-separated) and into their internally represented types at application startup: </p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">tutorials.typesafe_configuration.pre</span>
@@ -946,7 +946,7 @@ representation (usually comma-separated) and into their internally represented t
 </code></pre></div>
 
 <p>Once again, the splitting code will need to be repeated for each config value, or extracted to a library function.</p>
-<h4 id="4-security">4. Security</h4>
+<h4 id="4_security">4. Security<a class="headerlink" href="#4_security" title="Permanent link">&para;</a></h4>
 <p>The configuration of a standard app will generally contain both sensitive and non-sensitive values. Sensitive such as 
 application secrets, DB passwords or API keys should be handled in a way that avoid storing directly in memory in a 
 readable format or long lived fashion, where they may be inadvertently inspected or outputted into a log file.</p>
@@ -969,7 +969,7 @@ readable format or long lived fashion, where they may be inadvertently inspected
 <span class="k">val</span> <span class="py">file</span> <span class="p">=</span> <span class="n">readFile</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;AWS_SECRET_KEY&quot;</span><span class="p">),</span> <span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<h4 id="5-configuration-context-overriding">5. Configuration Context &amp; Overriding</h4>
+<h4 id="5_configuration_context_overriding">5. Configuration Context &amp; Overriding<a class="headerlink" href="#5_configuration_context_overriding" title="Permanent link">&para;</a></h4>
 <p>We also want to avoid defining all values for all possible scenarios - for example in test cases, so the ability 
 to overlay configuration sets on top of each other is useful. Although it is against the rules of 12-factor, it is sometimes 
 convenient to source parameter values from a variety of contexts when running applications in non-cloud environments:</p>
@@ -986,12 +986,12 @@ convenient to source parameter values from a variety of contexts when running ap
 <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;DEFAULT_USER&quot;</span>
 </code></pre></div>
 
-<h2 id="the-http4k-approach">The http4k approach...</h2>
+<h2 id="the_http4k_approach">The http4k approach...<a class="headerlink" href="#the_http4k_approach" title="Permanent link">&para;</a></h2>
 <p>There are <a href="https://github.com/ufoscout/properlty">already</a> <a href="https://github.com/config4k/config4k">many</a> <a href="https://github.com/uchuhimo/konf">options</a> <a href="https://github.com/jdiazcano/cfg4k">for</a> <a href="https://github.com/daviddenton/configur8">configurational</a> 
 <a href="https://github.com/mariomac/kaconf">libraries</a> written in Kotlin, but <a href="https://http4k.org">http4k</a> also provides an option in the <code>http4k-cloudnative</code> add-on module 
 which leverages the power of the Lens system already built into the core library to provide a consistent experience to 
 API users. In case you're new to Lenses, here's a recap...</p>
-<h3 id="lenses-a-recap">Lenses - a recap</h3>
+<h3 id="lenses_-_a_recap">Lenses - a recap<a class="headerlink" href="#lenses_-_a_recap" title="Permanent link">&para;</a></h3>
 <p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
 although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
 contexts.</p>
@@ -1056,7 +1056,7 @@ here we define a bi-directional Lens for custom type <code>Page</code>, extracte
 <p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
 although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
 contexts.</p>
-<h2 id="http4k-environments">http4k Environments</h2>
+<h2 id="http4k_environments">http4k Environments<a class="headerlink" href="#http4k_environments" title="Permanent link">&para;</a></h2>
 <p>in <a href="https://http4k.org">http4k</a>, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
 <code>Map</code>, in that it can be composed with other <code>Environment</code> objects to provide a consolidated view of all of it's 
 component values. </p>
@@ -1106,11 +1106,11 @@ objects. </p>
 <span class="k">val</span> <span class="py">hosts</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Host</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">hostsLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
 </code></pre></div>
 
-<h5 id="handling-failure">Handling failure</h5>
+<h5 id="handling_failure">Handling failure<a class="headerlink" href="#handling_failure" title="Permanent link">&para;</a></h5>
 <p>When using the <a href="https://http4k.org">http4k</a> Environment to define config, missing or values which cannot be deserialised all now cause 
 a <code>LensFailure</code> to be thrown with a descriptive error message. As before, this results in the application failing to 
 start, but as the exception if both consistent and explicit, diagnosing the problem becomes much simpler.</p>
-<h4 id="single-shot-secrets">Single-shot Secrets</h4>
+<h4 id="single-shot_secrets">Single-shot Secrets<a class="headerlink" href="#single-shot_secrets" title="Permanent link">&para;</a></h4>
 <p>In order to avoid the accidental exposure of sensitive information such as passwords into the application runtime, a new 
 type <code>Secret</code> has been introduced, which tries as much as possible to avoid exposing it's internal value as a readable 
 <code>String</code>. The <code>Secret</code> class is designed to only have the string version of it's value read once, and only within a 

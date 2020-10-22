@@ -854,7 +854,7 @@
                     
                     <h1>Serverless backend</h1>
                     
-                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="c1">// AWS Lambda: </span>
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-lambda&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 
@@ -865,9 +865,9 @@
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-openwhisk&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
-<h3 id="about">About</h3>
+<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>These modules provide integration with Serverless deployment environments, such as AWS Lambda or Google Cloud Functions by implementing a single interface. </p>
-<h4 id="aws-lambda-integration">AWS Lambda integration</h4>
+<h4 id="aws_lambda_integration">AWS Lambda integration<a class="headerlink" href="#aws_lambda_integration" title="Permanent link">&para;</a></h4>
 <p>Since <a href="https://http4k.org">http4k</a> is server independent, it turns out to be fairly trivial to deploy full applications to <a href="https://aws.amazon.com/lambda">AWS Lambda</a>, and then call them by setting up the <a href="https://aws.amazon.com/api-gateway">API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library. This has the added bonus that you can test your applications in a local environment and then simply deploy them to AWS Lambda via S3 upload.</p>
 <p>In order to achieve this, only a single interface <code>AppLoader</code> needs to be implemented and a simple extension of <code>LambdaFunction</code> supplied.</p>
 <p>This is far from a complete guide, but configuring AWS Lambda and the API Gateway involves several stages:</p>
@@ -886,7 +886,7 @@
 </li>
 </ol>
 <p>We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the <code>AppLoader</code> is created and how to launch the app locally:</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/lambda/example.kt"><img class="octocat"/></a></h4>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/lambda/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.lambda</span>
 
 <span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span>
@@ -945,12 +945,12 @@
 <span class="k">inline fun</span> <span class="p">&lt;</span><span class="k">reified</span> <span class="n">T</span><span class="p">&gt;</span> <span class="nf">proxy</span><span class="p">():</span> <span class="n">T</span> <span class="p">=</span> <span class="n">Proxy</span><span class="p">.</span><span class="n">newProxyInstance</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">.</span><span class="n">classLoader</span><span class="p">,</span> <span class="n">arrayOf</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">))</span> <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="p">-&gt;</span> <span class="k">null</span> <span class="p">}</span> <span class="k">as</span> <span class="n">T</span>
 </code></pre></div>
 
-<h4 id="google-cloud-functions-integration">Google Cloud Functions integration</h4>
+<h4 id="google_cloud_functions_integration">Google Cloud Functions integration<a class="headerlink" href="#google_cloud_functions_integration" title="Permanent link">&para;</a></h4>
 <p>Google Cloud Functions are triggered in the cloud by calling an entry point class which implements their <code>HttpFunction</code> interface.</p>
 <p>In order to achieve this in <a href="https://http4k.org">http4k</a>, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple extension class needs to be written which accepts this interface.</p>
 <p>You can compose filters and handlers as usual and pass them to the constructor of the <code>GoogleCloudFunction</code> and make your entry point class extend from it.
 Here is an example:</p>
-<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/gcf/example.kt"><img class="octocat"/></a></h4>
+<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/gcf/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.gcf</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
@@ -1055,10 +1055,10 @@ Applying this plugin <a href="https://imperceptiblethoughts.com/shadow/">shadow 
 
 <p>If you are using Maven, you do not have to build the fat JAR and can deploy the function from the project folder.
 Simple example on how to setup <code>pom.xml</code> to run functions locally and deploy Maven project to the cloud is shown <a href="https://cloud.google.com/functions/docs/first-java">here</a></p>
-<h4 id="apache-openwhisk-integration">Apache OpenWhisk integration</h4>
+<h4 id="apache_openwhisk_integration">Apache OpenWhisk integration<a class="headerlink" href="#apache_openwhisk_integration" title="Permanent link">&para;</a></h4>
 <p>OpenWhisk has a Java runtime which is triggered by calling an entry point class which contains a static <code>main()</code> function receiving a GSON <code>JsonObject</code>.</p>
 <p>In order to achieve this in <a href="https://http4k.org">http4k</a>, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple class needs to be written which uses the <code>OpenWhiskFunction</code> wrapper. Because of the OpenWhisk runtime usage of the library, a <code>compileOnly</code> dependency also needs to be added on <a href="https://mvnrepository.com/artifact/com.google.code.gson/gson">GSON</a> to ensure that your function can build correctly.</p>
-<h4 id="code_2">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/openwhisk/example.kt"><img class="octocat"/></a></h4>
+<h4 id="code_2">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/openwhisk/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.openwhisk</span>
 
 <span class="k">import</span> <span class="nn">com.google.gson.JsonObject</span>

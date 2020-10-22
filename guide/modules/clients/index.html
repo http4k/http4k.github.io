@@ -854,7 +854,7 @@
                     
                     <h1>HTTP & Websocket clients</h1>
                     
-                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="c1">// Java (for development only):</span>
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 
@@ -880,11 +880,11 @@
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-websocket&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
-<h3 id="http">HTTP</h3>
+<h3 id="http">HTTP<a class="headerlink" href="#http" title="Permanent link">&para;</a></h3>
 <p>Supported HTTP client adapter APIs are wrapped to provide an <code>HttpHandler</code> interface in 1 LOC.</p>
 <p>Activate streaming mode by passing a <code>BodyMode</code> (default is non-streaming).</p>
 <p>These examples are for the Apache HTTP client, but the API is similar for the others:</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_http.kt"><img class="octocat"/></a></h4>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_http.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.clients</span>
 
 <span class="k">import</span> <span class="nn">org.apache.hc.client5.http.config.RequestConfig</span>
@@ -939,9 +939,9 @@
 </code></pre></div>
 
 <p>Additionally, all HTTP client adapter modules allow for custom configuration of the relevant underlying client. Async-supporting clients implement the <code>AsyncHttpClient</code> interface can be passed a callback.</p>
-<h3 id="websocket">Websocket</h3>
+<h3 id="websocket">Websocket<a class="headerlink" href="#websocket" title="Permanent link">&para;</a></h3>
 <p>http4k supplies both blocking and non-blocking Websocket clients. The former is perfect for integration testing purposes, and as it uses the same interface <code>WsClient</code> as the in-memory test client (<code>WsHandler.testWsClient()</code>) it is simple to write unit tests which can then be reused as system tests by virtue of swapping out the client.</p>
-<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_websocket.kt"><img class="octocat"/></a></h4>
+<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/clients/example_websocket.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.clients</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.WebsocketClient</span>

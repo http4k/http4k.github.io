@@ -860,45 +860,45 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v32690">v3.269.0</h3>
+<h3 id="v32690">v3.269.0<a class="headerlink" href="#v32690" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Fix #502 - OPTIONS requests not honoured for requests with body</li>
 <li><strong>http4k-contract</strong> : Support for JavaBeans in OpenAPI descriptions.</li>
 </ul>
-<h3 id="v32680">v3.268.0</h3>
+<h3 id="v32680">v3.268.0<a class="headerlink" href="#v32680" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Add Parameter Match routing, so you can match on presence of parameters in a request</li>
 <li><strong>http4k-testing-kotest</strong>: Re-add kotest matcher as is fixed in underlying kotest lib.</li>
 </ul>
-<h3 id="v32670">v3.267.0</h3>
+<h3 id="v32670">v3.267.0<a class="headerlink" href="#v32670" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
-<h3 id="v32660">v3.266.0</h3>
+<h3 id="v32660">v3.266.0<a class="headerlink" href="#v32660" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Add CustomBasicAuth and ProxyBasicAuth filters. H/T @raymanoz for the PR</li>
 <li><strong>http4k-core</strong> : Implemented OriginPolicy for CORS. H/T @kratostaine for the PR</li>
 <li><strong>http4k-server-netty</strong> : Websocket support added. H/T @carbotaniuman for the PR</li>
 </ul>
-<h3 id="v32650">v3.265.0</h3>
+<h3 id="v32650">v3.265.0<a class="headerlink" href="#v32650" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li>[http4k-security-oauth] [Break (via repackaging of dependent JAR)] - Result4k changed published package structure. Changes made to accommodate new package <code>dev.forkhandles.result4k</code> instead of <code>com.natpryce</code>. To fix, simply find/replace the package names - everything else is identical.</li>
 <li><strong>http4k-serverless-lambda</strong> : Work around various inconsistencies between the APIGateway V1 and V2.</li>
 <li><strong>http4k-core</strong> : Lenses can now be restricted to inject/extract types. This has an effect on BodyLenses which can be tied to Request/Response.</li>
 </ul>
-<h3 id="v32640">v3.264.0</h3>
+<h3 id="v32640">v3.264.0<a class="headerlink" href="#v32640" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-serverless-lambda</strong> : Support for ApiGateway V1 &amp; v2 and AppLoadBalancer requests. Just extend the correct class. Converted functions to use the official AWS <code>RequestHandler</code> interfaces (which means that you can refer to just the name of the class when deploying lambda instead of <code>handle()</code>)</li>
 </ul>
-<h3 id="v32630">v3.263.0</h3>
+<h3 id="v32630">v3.263.0<a class="headerlink" href="#v32630" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-cloudnative</strong> : Add support for loading config files and YAML files into Environments.</li>
 </ul>
-<h3 id="v32620">v3.262.0</h3>
+<h3 id="v32620">v3.262.0<a class="headerlink" href="#v32620" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.4.10</li>
 <li><strong>http4k-</strong><em> : Take advantage of Kotlin Functional Interfaces, including for Filter. Breaking change to creation of Filters </em><em>from Java code only</em>* as they can just be lambdas eg. <code>Filter filter = next -&gt; req -&gt; next.invoke(request.header("foo", "bar"));</code> </li>
@@ -906,42 +906,42 @@ changes with their rationale when appropriate:</p>
 https://github.com/kotest/kotest/issues/1727</li>
 <li><strong>http4k-format-jackson - Possible Break</strong>: DUE TO KOTLIN 1.4.10. Inline classes do not deserialise properly. See: https://github.com/FasterXML/jackson-module-kotlin/issues/356</li>
 </ul>
-<h3 id="v32610">v3.261.0</h3>
+<h3 id="v32610">v3.261.0<a class="headerlink" href="#v32610" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-</strong>* : Remove some example code which was mistakenly added to some main src dirs. No impact on anything other than JAR size.</li>
 <li><strong>http4k-aws</strong>* : Add pluggable Amazon SDK client, allowing you to plug an HttpHandler into the Amazon SDK.</li>
 </ul>
-<h3 id="v32600">v3.260.0</h3>
+<h3 id="v32600">v3.260.0<a class="headerlink" href="#v32600" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-*, Unlikely break</strong> : Added some nicer naming and examples for when people are calling http4k via Java code.</li>
 <li><strong>http4k-core</strong> : Fixed SunHttp server backend not setting content length, and hence responses are always chunked.</li>
 </ul>
-<h3 id="v32590">v3.259.0</h3>
+<h3 id="v32590">v3.259.0<a class="headerlink" href="#v32590" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-server-netty</strong> : Fix #141 Http4k-netty performs really badly on all benchmarks. Massive H/T adam-arold!</li>
 <li><strong>http4k-server-ratpack</strong> : Tweak to SO_BACKLOG size (1000).</li>
 </ul>
-<h3 id="v32580">v3.258.0</h3>
+<h3 id="v32580">v3.258.0<a class="headerlink" href="#v32580" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-kotest</strong> : New module! A set of matchers for use with the <code>kotest</code> library. H/T @nlochschmidt for the PR.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
-<h3 id="v32570">v3.257.0</h3>
+<h3 id="v32570">v3.257.0<a class="headerlink" href="#v32570" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-serverless-*</strong> : Making the Serverless APIs consistent between flavours by ensuring that all Serverless functions act by class extension and not reflection based approach. Deprecated old approach. Hopefully this is simpler.. :) </li>
 </ul>
-<h3 id="v32561">v3.256.1</h3>
+<h3 id="v32561">v3.256.1<a class="headerlink" href="#v32561" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Fix #470. Path.of cannot decode path parameter values containing %/</li>
 </ul>
-<h3 id="v32560">v3.256.0</h3>
+<h3 id="v32560">v3.256.0<a class="headerlink" href="#v32560" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Add ability to handle form encoded responses in OAuth responses.</li>
 </ul>
-<h3 id="v32550">v3.255.0</h3>
+<h3 id="v32550">v3.255.0<a class="headerlink" href="#v32550" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-*, Breaking (if you're not using it right!)</strong> : - Fixed up Maven dependencies so that they are not exporting compileOnly libraries into POMs.</li>
@@ -949,19 +949,19 @@ https://github.com/kotest/kotest/issues/1727</li>
 <li><strong>http4k-core</strong> : Improve defaults of SunHttp server. H/T @nlochschmidt for the PR.</li>
 <li><strong>http4k-contract</strong> : Add description to OpenApi schema fields using Jackson annotations. H/T @env0der for the PR.</li>
 </ul>
-<h3 id="v32540">v3.254.0</h3>
+<h3 id="v32540">v3.254.0<a class="headerlink" href="#v32540" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Added <code>hostDemux()</code> routing for when you want to select an <code>HttpHandler</code> based on the Host header.</li>
 </ul>
-<h3 id="v32530">v3.253.0</h3>
+<h3 id="v32530">v3.253.0<a class="headerlink" href="#v32530" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Replaced implementation of <code>JavaHttpClient</code> with one from Java standard library. Should you not yet have access to the Java 11 SDK, we renamed the old implementation to <code>Java8HttpClient</code>. Note that some headers that are added by default by the old Java8 implementation will no longer be added.</li>
 <li><strong>http4k-core, Breaking</strong> : Change <code>Body.binary()</code> lens to use an InputStream instead of a raw <code>Body</code>. To fix, just provide the InputStream by calling <code>Body.stream()</code> or similar.</li>
 <li><strong>http4k-client-websocket, Unlikely break</strong> : Allow API users to pass in their own <code>Draft</code> object for custom protocols. If broken, simple fix is to just use named arguments in the construction call to the client.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
-<h3 id="v32520">v3.252.0</h3>
+<h3 id="v32520">v3.252.0<a class="headerlink" href="#v32520" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-server-apache, http4k-client-apache, http4k-client-apache-async, Breaking</strong> : Updated to Apache HTTP 5.X.X. H/T to @jshiell. Note that the underlying Apache APIs have changed in the v5 release. For the clients, this should only break if you have customised the underlying HTTP <code>CloseableHttpClient</code> that is passed to the constructor of the http4k client. If you have, we have you covered with....</li>
 <li><strong>http4k-server-apache4, http4k-client-apache4, http4k-client-apache4-async</strong> : New modules to maintain previous integration with Apache HTTP 4.X.X. Intended to reduce the impact on projects that are not ready to move to v5 yet. In these compatibility modules, renamed <code>ApacheClient</code> -&gt; <code>Apache4Client</code> and <code>ApacheAsyncClient</code> to <code>Apache4AsyncClient</code> - which is the only change that should be required in end user code.</li>
@@ -969,13 +969,13 @@ https://github.com/kotest/kotest/issues/1727</li>
 <li><strong>http4k-core</strong> : Added some Filters for base64 encoding and decoding responses.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
-<h3 id="v32510">v3.251.0</h3>
+<h3 id="v32510">v3.251.0<a class="headerlink" href="#v32510" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Added support for multiple "cookie" headers. H/T @jshiell </li>
 <li><strong>http4k-serverless-openwhisk</strong> : New serverless module!</li>
 <li><strong>http4k-serverless-*, Breaking</strong> : - Repackage some functions to <code>org.http4k.serverless</code> package. Just change the package names to fix.</li>
 </ul>
-<h3 id="v32500">v3.250.0</h3>
+<h3 id="v32500">v3.250.0<a class="headerlink" href="#v32500" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Add <code>Request.source</code> to provide extra information about the request origin (address/port/scheme). H/T @kam1sh and @jshiell for the contributions.</li>
 <li><strong>http4k-security-oauth</strong> : Add OAuth provider configuration for Facebook. H/T @knyttl for the PR.</li>
@@ -983,13 +983,13 @@ https://github.com/kotest/kotest/issues/1727</li>
 <li><strong>http4k-bom</strong> : New Bill-Of-Materials module! </li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
-<h3 id="v32490">v3.249.0</h3>
+<h3 id="v32490">v3.249.0<a class="headerlink" href="#v32490" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-server-netty</strong> : Add support for response streaming. H/T @carbotaniuman for the PR.</li>
 <li><strong>http4k-serverless-gcf</strong> : New serverless module! H/T @ssijak for the PR.</li>
 </ul>
-<h3 id="v32480">v3.248.0</h3>
+<h3 id="v32480">v3.248.0<a class="headerlink" href="#v32480" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-server-ratpack</strong> : New backend module!</li>
 <li><strong>http4k-format-jackson-yaml</strong> : New module!</li>
@@ -999,137 +999,137 @@ https://github.com/kotest/kotest/issues/1727</li>
 <li><strong>http4k-client-websocket</strong> : Added auto-reconnection support on blocking WsClient. H/T @alphaho for the PR.</li>
 <li><strong>http4k-format-*</strong> : Rename/deprecate <code>asXYZString(Any)</code> -&gt; <code>asFormatString(Any)</code> in all modules</li>
 </ul>
-<h3 id="v32470">v3.247.0</h3>
+<h3 id="v32470">v3.247.0<a class="headerlink" href="#v32470" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-server-ktornetty</strong> : New backend module! H/T @albertlatacz for the contribution!</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-security-oauth</strong> : Fix #414 BasicAuth server filter to not throw an exception on invalid base64 input. H/T @Sebruck for the fix.</li>
 </ul>
-<h3 id="v32460">v3.246.0</h3>
+<h3 id="v32460">v3.246.0<a class="headerlink" href="#v32460" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-template-pebble</strong> : Fix #411 - Non-root pebble templates when using CachingClasspath from a compiled JAR. H/T @alyphen </li>
 </ul>
-<h3 id="v32451">v3.245.1</h3>
+<h3 id="v32451">v3.245.1<a class="headerlink" href="#v32451" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-server-ktorcio</strong> : Fix #410 - KtorCIO does not stop properly. </li>
 </ul>
-<h3 id="v32450">v3.245.0</h3>
+<h3 id="v32450">v3.245.0<a class="headerlink" href="#v32450" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Factored out <code>Http4kServletAdapter</code> to allow usage of the Servlet API outside of creating a Servlet instance.</li>
 <li><strong>http4k-*, Breaking (prevent API abuse)</strong> : Restricted generic <code>with()</code> method actual http4k types. Usage outside our API should not use this method.</li>
 <li><strong>http4k-contract</strong> : Fix #404 - Rework of some <code>FieldRetrieval</code> classes to remove duplication and to support PropertyNamingStrategies set at the global level</li>
 </ul>
-<h3 id="v32440">v3.244.0</h3>
+<h3 id="v32440">v3.244.0<a class="headerlink" href="#v32440" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-*, Breaking (if you're not using it right!)</strong> : Fix #397 - Fixed up Maven dependencies so that they are not bringing in runtime libraries.</li>
 <li><strong>http4k-core</strong> : - Add enum StringBiDiMapping #395 - H/T @goodhoko</li>
 </ul>
-<h3 id="v32430">v3.243.0</h3>
+<h3 id="v32430">v3.243.0<a class="headerlink" href="#v32430" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to <code>1.3.72</code>.</li>
 <li><strong>http4k-security-oauth</strong> : A strategy can now be passed into <code>AuthRequestWithRequestAuthRequestExtractor</code> to determine how to combine <code>AuthRequest</code> and <code>RequestObject</code> H/T @tom</li>
 </ul>
-<h3 id="v32420">v3.242.0</h3>
+<h3 id="v32420">v3.242.0<a class="headerlink" href="#v32420" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-testing-servirtium</strong> : Improve error diagnostics. H/T @vchekan for the PR.</li>
 <li><strong>http4k-*, Unlikely Break</strong> : Change <code>Router</code> to return <code>RouterMatch</code> instead of nullable <code>HttpHandler</code>. This allows us to support <code>METHOD_NOT_ALLOWED</code> (405) if we match a path but not a verb instead of just <code>NOT_FOUND</code> (404). This should break custom ro H/T @jshiell for the PR.</li>
 </ul>
-<h3 id="v32410">v3.241.0</h3>
+<h3 id="v32410">v3.241.0<a class="headerlink" href="#v32410" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth, Breaking</strong> : <code>client_id</code> along with the corresponding <code>TokenRequest</code> is passed into access and refresh token generators so additional validation can take place H/T @tom</li>
 </ul>
-<h3 id="v32400">v3.240.0</h3>
+<h3 id="v32400">v3.240.0<a class="headerlink" href="#v32400" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade Kotlin to <code>1.3.71</code>.</li>
 <li><strong>http4k-testing-servirtium</strong> : Switch OkHttp client for Apache.</li>
 <li><strong>http4k-server-jetty</strong> : Made some classes non-internal so they can be easily reused for custom <code>ServerConfig</code> implementations.</li>
 </ul>
-<h3 id="v32390">v3.239.0</h3>
+<h3 id="v32390">v3.239.0<a class="headerlink" href="#v32390" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-client-websocket, Breaking</strong> : Added extra onError handler when creating a non-blocking websocket.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.3.70.</li>
 </ul>
-<h3 id="v32380">v3.238.0</h3>
+<h3 id="v32380">v3.238.0<a class="headerlink" href="#v32380" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Early work on supporting refresh tokens. H/T @tom</li>
 </ul>
-<h3 id="v32370">v3.237.0</h3>
+<h3 id="v32370">v3.237.0<a class="headerlink" href="#v32370" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Fix #377. <code>Added replaceHeaders()</code> method. Thanks to @bastman for the idea.</li>
 <li><strong>http4k-contract</strong> : Fix nullability of references in OpenApi3</li>
 </ul>
-<h3 id="v32360">v3.236.0</h3>
+<h3 id="v32360">v3.236.0<a class="headerlink" href="#v32360" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-servirtium</strong> : Don't pass recording handler into non-test methods as a resolved parameter.</li>
 </ul>
-<h3 id="v32350">v3.235.0</h3>
+<h3 id="v32350">v3.235.0<a class="headerlink" href="#v32350" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-chaos, Break/Rename</strong> : ChaosEngine is now exposed when configuring API. Renamed <code>withChaosEngine()</code> to <code>withChaosApi()</code>, replaced <code>toggle()</code> and <code>update()</code> with <code>enable()/disable()</code></li>
 </ul>
-<h3 id="v32340">v3.234.0</h3>
+<h3 id="v32340">v3.234.0<a class="headerlink" href="#v32340" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-chaos, Break</strong> : Tweaked API make it simpler to use the <code>ChaosEngine</code> via programmatically (as opposed to REST).</li>
 <li><strong>http4k-testing-servirtium, Tiny break</strong> : Tweaks to <code>InteractionOptions</code> to make working with Servirtium tests a bit nicer.</li>
 </ul>
-<h3 id="v32330">v3.233.0</h3>
+<h3 id="v32330">v3.233.0<a class="headerlink" href="#v32330" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-servirtium</strong> : Upgrade ServirtiumServer to use OkHttp instead of JavaHttpClient (due to streaming restrictions on MiTM).</li>
 <li><strong>http4k-testing-servirtium, Break</strong> : Rename <code>Github</code> to <code>GitHub</code>.</li>
 </ul>
-<h3 id="v32320">v3.232.0</h3>
+<h3 id="v32320">v3.232.0<a class="headerlink" href="#v32320" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-format-kotlinx-serialization</strong> : New JSON module! H/T @joscha-alisch for the PR. :)</li>
 <li><strong>http4k-testing-servirtium</strong> : Work around Kotlin @JvmOverloads problem in ServirtiumServer.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
-<h3 id="v32310">v3.231.0</h3>
+<h3 id="v32310">v3.231.0<a class="headerlink" href="#v32310" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-servirtium</strong> : Making API a bit more Java-compatible friendly. Ability to vary the Server implementation.</li>
 <li><strong>http4k-server-jetty</strong> : Fix #362 - Websocket disconnect early causes lateinit reference race condition. H/T @fintara for the report/fix.</li>
 </ul>
-<h3 id="v32300">v3.230.0</h3>
+<h3 id="v32300">v3.230.0<a class="headerlink" href="#v32300" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-aws</strong> : Improved efficiency of building AWS credentials (replace String.format).</li>
 <li><strong>http4k-testing-servirtium</strong> : Making API a bit more Java-compatible friendly.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
-<h3 id="v32290">v3.229.0</h3>
+<h3 id="v32290">v3.229.0<a class="headerlink" href="#v32290" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Allowing for custom authenticate methods when fetching access tokens H/T @tom</li>
 </ul>
-<h3 id="v32280">v3.228.0</h3>
+<h3 id="v32280">v3.228.0<a class="headerlink" href="#v32280" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-servirtium, Breaking</strong> : API is still in beta, so moving to a more composed approach which will increase reuse and allow for running Servirtium infra without a dependency on http4k or Junit. Added loading from GitHub. :)</li>
 <li><strong>http4k-security-oauth, Breaking</strong> : Audience on request object is now a list to support multiple audiences. H/T @tom</li>
 <li><strong>http4k-security-oauth</strong> : Nonce is now also passed through on RequestJwts, so it can be added to request jwts. H/T @tom</li>
 </ul>
-<h3 id="v32270">v3.227.0</h3>
+<h3 id="v32270">v3.227.0<a class="headerlink" href="#v32270" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Implmement #340. Support SameSite cookies. H/T @danielwellman for the contribution.</li>
 <li><strong>http4k-format-jackson</strong> : Made <code>JacksonJsonPropertyAnnotated</code> Kotlin 1.4 safe (call to superclass might return null). H/T @pyos for spotting this.</li>
 </ul>
-<h3 id="v32260">v3.226.0</h3>
+<h3 id="v32260">v3.226.0<a class="headerlink" href="#v32260" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-servirtium</strong> : Moved Servirtium code to new module - was previously [http4k-incubator].</li>
 </ul>
-<h3 id="v32250">v3.225.0</h3>
+<h3 id="v32250">v3.225.0<a class="headerlink" href="#v32250" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-incubator</strong> : Rewrote Servirtium code to support manipulations.</li>
 </ul>
-<h3 id="v32240">v3.224.0</h3>
+<h3 id="v32240">v3.224.0<a class="headerlink" href="#v32240" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Fix issue where <code>AuthRequestWithRequestAuthRequestExtractor</code> doesn't take into account scopes not being nullable correctly. H/T @tom</li>
 </ul>
-<h3 id="v32230">v3.223.0</h3>
+<h3 id="v32230">v3.223.0<a class="headerlink" href="#v32230" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Adding <code>expiry</code> to <code>RequestObject</code>. H/T @tom</li>
 <li><strong>http4k-security-oauth</strong> : Fixing issue where unknown fields cause extracting <code>RequestObject</code> from a jwt, fails due to unknown fields. H/T @tom</li>
 </ul>
-<h3 id="v32220">v3.222.0</h3>
+<h3 id="v32220">v3.222.0<a class="headerlink" href="#v32220" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth, Breaking</strong> : Error responses in the authorise endpoint now take into account values from the <code>request</code> parameter, this will require a validator for that jwt be implemented. H/T @tom</li>
 <li><strong>http4k-security-oauth, Breaking</strong> : State is now its own type, and not just a string, so it can be validated. H/T @tom</li>
@@ -1138,501 +1138,501 @@ https://github.com/kotest/kotest/issues/1727</li>
 <li><strong>http4k-security-oauth</strong> : Adding <code>RequestObject</code> to <code>AuthRequest</code>. H/T @tom</li>
 <li><strong>http4k-security-oauth</strong> : Adding <code>AuthRequestWithRequestAuthRequestExtractor</code> that will extract the request from the jwt, assuming the validator is implemented which can be used instead of just using <code>AuthRequestFromQueryParameters</code> if support for parsing a request jwt is required. H/T @tom</li>
 </ul>
-<h3 id="v32210">v3.221.0</h3>
+<h3 id="v32210">v3.221.0<a class="headerlink" href="#v32210" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-*, Unlikely break from Java only</strong> : Make all custom http4k exceptions extend RuntimeException. This helps with Java compatibility so things like LensFailure inside Java Lambdas don't require catching (as they are caught/dealt with by other bits of http4k automatically)</li>
 </ul>
-<h3 id="v32200">v3.220.0</h3>
+<h3 id="v32200">v3.220.0<a class="headerlink" href="#v32200" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-moshi, Behaviour break</strong> : Fix #353 Don't fail by default on unknown properties. This is the expected default behaviour for all JSON implementations. H/T cnusp for the report.</li>
 </ul>
-<h3 id="v32190">v3.219.0</h3>
+<h3 id="v32190">v3.219.0<a class="headerlink" href="#v32190" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-incubator</strong> : Next iteration of Servirtium JUnit extensions. Improved API to support multiple storage engines.</li>
 </ul>
-<h3 id="v32180">v3.218.0</h3>
+<h3 id="v32180">v3.218.0<a class="headerlink" href="#v32180" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-incubator</strong> : Next iteration of Servirtium JUnit extensions. Correct indexing of interactions.</li>
 <li><strong>http4k-security-oauth</strong> : Authorisation rendering will now taking into account 'response_mode' of either query or fragment in responses and no longer just use the default fo the 'response_type'. H/T @tom</li>
 <li><strong>http4k-security-oauth, Breaking</strong> : Error responses in the authorise endpoint will actually redirect back to 'redirect_uri' assuming the validator correctly validates both the 'client_id' and 'redirect_uri' to be valid. H/T @tom</li>
 </ul>
-<h3 id="v32170">v3.217.0</h3>
+<h3 id="v32170">v3.217.0<a class="headerlink" href="#v32170" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-incubator</strong> : Next iteration of Servirtium JUnit extensions. Only check content which is in the contract when replaying.</li>
 </ul>
-<h3 id="v32160">v3.216.0</h3>
+<h3 id="v32160">v3.216.0<a class="headerlink" href="#v32160" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core, Breaking</strong> : Removed clashing Events <code>then()</code> from deprecated (meaning it cannot be used as there is also another <code>then()</code> in that package). Use the one in <code>org.http4k.events</code> instead.</li>
 <li><strong>http4k-security-oauth</strong> : Adding nonce to AuthorizationCodeDetails H/T @tom</li>
 </ul>
-<h3 id="v32150">v3.215.0</h3>
+<h3 id="v32150">v3.215.0<a class="headerlink" href="#v32150" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : GZip client filters now send correct accept-encoding header. @jshiell</li>
 <li><strong>http4k-core</strong> : New AcceptGZip client filter allows handling of remote GZip without compressing client requests. @jshiell</li>
 </ul>
-<h3 id="v32140">v3.214.0</h3>
+<h3 id="v32140">v3.214.0<a class="headerlink" href="#v32140" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Fix #344 H/T Streaming GZip encoder loses data. @jshiell</li>
 </ul>
-<h3 id="v32130">v3.213.0</h3>
+<h3 id="v32130">v3.213.0<a class="headerlink" href="#v32130" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Fixing wrong AuthRequestExtractor passed to AuthRequestTrackingFilter. H/T @tom</li>
 </ul>
-<h3 id="v32120">v3.212.0</h3>
+<h3 id="v32120">v3.212.0<a class="headerlink" href="#v32120" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : allowing additional properties to be stored on auth request, if using additional extractors H/T @tom</li>
 </ul>
-<h3 id="v32110">v3.211.0</h3>
+<h3 id="v32110">v3.211.0<a class="headerlink" href="#v32110" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Fixes for #338 - Gzip filters send content-encoding of gzip even when body is empty. H/T @jshiell</li>
 <li><strong>http4k-security-oauth, Break</strong> : OIDC callback urls using the ResponseType 'code id_token' will now have the parameters returned as a fragment not a query as per 3.3.2.5 of the OpenID Connect Core 1.0 spec H/T @tom</li>
 <li><strong>http4k-security-oauth, Break</strong> : Initial support of nonce in OIDC requests H/T @tom</li>
 </ul>
-<h3 id="v32100">v3.210.0</h3>
+<h3 id="v32100">v3.210.0<a class="headerlink" href="#v32100" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Support for GZipping response streams. H/T @jshiell</li>
 <li><strong>http4k-security-oauth</strong> : Adding expires_in to token endpoint response. H/T @tom</li>
 </ul>
-<h3 id="v32090">v3.209.0</h3>
+<h3 id="v32090">v3.209.0<a class="headerlink" href="#v32090" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Added <code>Status</code> to auto-marshalling JSON mappings.</li>
 <li><strong>http4k-security-oauth</strong> : Adding token_type to token endpoint response, and strip out nulls in response. H/T @tom</li>
 </ul>
-<h3 id="v32080">v3.208.0</h3>
+<h3 id="v32080">v3.208.0<a class="headerlink" href="#v32080" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : PR #333. Copy zipkin traces across threads. H/T @jshiell for the PR.</li>
 <li><strong>http4k-testing-approval</strong> : Close Readers when reading from them.</li>
 <li><strong>http4k-incubator</strong> : Next iteration of Servirtium JUnit extensions for recording and replaying.</li>
 </ul>
-<h3 id="v32070">v3.207.0</h3>
+<h3 id="v32070">v3.207.0<a class="headerlink" href="#v32070" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
 <li><strong>http4k-incubator</strong> : Added first cut of Servirtium classes for recording and replaying traffic. Needs validating in the wild</li>
 <li><strong>http4k-format-jackson</strong> : Fix #320. http4k-format-jackson incompatible with jackson-module-kotlin 2.10.1</li>
 </ul>
-<h3 id="v32060">v3.206.0</h3>
+<h3 id="v32060">v3.206.0<a class="headerlink" href="#v32060" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-contract</strong> : Fix #323. Doc generation does not work with multipart lenses.</li>
 <li><strong>http4k-format-jackson</strong> : Fix #313. Jackson serialization is not working properly with polymorphic types stored in a collection. H/T @alphaho for the PR :)</li>
 <li><strong>http4k-core, Break</strong> : Renamed <code>value</code> on <code>ParamMeta</code> to <code>description</code>.</li>
 </ul>
-<h3 id="v32050">v3.205.0</h3>
+<h3 id="v32050">v3.205.0<a class="headerlink" href="#v32050" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.3.61</li>
 <li><strong>http4k-security-oauth</strong> : allowing setting scopes on AccessToken creation so they are set on the response. H/T @tom</li>
 </ul>
-<h3 id="v32040">v3.204.0</h3>
+<h3 id="v32040">v3.204.0<a class="headerlink" href="#v32040" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core, http4k-aws</strong> : - increase efficiency of Hex implementation for trace ids and HMAC. H/T @time4tea</li>
 <li><strong>http4k-cloudnative</strong> : Reimplemented Environment to be more efficient. H/T @time4tea for noticing this.</li>
 </ul>
-<h3 id="v32030">v3.203.0</h3>
+<h3 id="v32030">v3.203.0<a class="headerlink" href="#v32030" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : On generating tokens allowing for the client id to be based on the result of validation rather than just the form parameters of the request. To support client assertions. H/T @tom</li>
 </ul>
-<h3 id="v32020">v3.202.0</h3>
+<h3 id="v32020">v3.202.0<a class="headerlink" href="#v32020" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Adding new errors to support issues with client assertions. H/T @tom</li>
 </ul>
-<h3 id="v32010">v3.201.0</h3>
+<h3 id="v32010">v3.201.0<a class="headerlink" href="#v32010" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Allowing a scope to be set on AccessToken. Allowing for more low level validation of Authorise and Token Requests, by implementing <code>org.http4k.security.oauth.server.AuthoriseRequestValidator</code> and <code>org.http4k.security.oauth.server.accesstoken.AccessTokenRequestAuthentication</code> respectively. H/T @tom</li>
 </ul>
-<h3 id="v32000">v3.200.0</h3>
+<h3 id="v32000">v3.200.0<a class="headerlink" href="#v32000" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Support multiple request bodies in OpenApi v3</li>
 </ul>
-<h3 id="v31991">v3.199.1</h3>
+<h3 id="v31991">v3.199.1<a class="headerlink" href="#v31991" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-format-jackson</strong> : Fix #313 Part 2 - Revert default behaviour for collections of polymorphic types, but is now overridable by using <code>autoBody()</code> instead of <code>auto()</code>. Reopened #313.</li>
 </ul>
-<h3 id="v31990">v3.199.0</h3>
+<h3 id="v31990">v3.199.0<a class="headerlink" href="#v31990" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-format-jackson, Breaking</strong> : Fix #313 - ConfigurableJackson.autoBody implementation would not work with collections of polymorphic types. This fix has the effect of blowing up auto-json behaviour when classes are defined inside functions (causing nasty <code>java.lang.reflect.GenericSignatureFormatError: Signature Parse error</code> exceptions). To remedy, just move inlined classes outside of the functions that they are defined in. H/T @alphaho for the PR.</li>
 <li><strong>http4k-</strong>* : Update some dependency versions</li>
 </ul>
-<h3 id="v31980">v3.198.0</h3>
+<h3 id="v31980">v3.198.0<a class="headerlink" href="#v31980" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core, Breaking</strong> : Reworking of ContentType to support multiple directives. <code>directive</code> field is now <code>directives</code>, so just add the extra 's' to fix :)</li>
 <li><strong>http4k-security-oauth</strong> : Moar options on <code>OAuthProviderConfig</code>. H/T @tom</li>
 </ul>
-<h3 id="v31970">v3.197.0</h3>
+<h3 id="v31970">v3.197.0<a class="headerlink" href="#v31970" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update some dependency versions, including Kotlin to <code>1.3.60</code>.</li>
 <li><strong>http4k-core</strong> : Make Query value optional when setting on a <code>Request</code>.</li>
 <li><strong>http4k-core, Breaking</strong> : Fix #316. Optional Query lens handling is more accurate. See issue for details of change in behaviour.</li>
 </ul>
-<h3 id="v31960">v3.196.0</h3>
+<h3 id="v31960">v3.196.0<a class="headerlink" href="#v31960" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update some dependency versions.</li>
 <li><strong>http4k-format-jackson, http4k-format-gson</strong> : Add support for auto marshalling <code>Throwable</code> in a sensible way.</li>
 <li><strong>http4k-cloudnative</strong> : Renamed badly named <code>UpstreamRequestFailed</code> to <code>RemoteRequestFailed</code>. Improved error handling.</li>
 </ul>
-<h3 id="v31951">v3.195.1</h3>
+<h3 id="v31951">v3.195.1<a class="headerlink" href="#v31951" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-cloudnative</strong> : Fix adding value to overridden environment when using <code>set()</code>.  H/T @jippeholwerda for the PR</li>
 </ul>
-<h3 id="v31950">v3.195.0</h3>
+<h3 id="v31950">v3.195.0<a class="headerlink" href="#v31950" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Tweak to handle Content-Type comparisons (with and without directive). H/T @jippeholwerda for the PR</li>
 <li><strong>http4k-multipart] - [Breaking</strong> : Added support for setting custom headers in Multipart form fields and files. This has removed the <code>String</code> as the default field type (it is now <code>MultipartFormField</code>. Calls to create lenses using <code>MultipartFormField</code> will now require <code>MultipartFormField.string()</code> instead.</li>
 </ul>
-<h3 id="v31940">v3.194.0</h3>
+<h3 id="v31940">v3.194.0<a class="headerlink" href="#v31940" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Useful tweaks to the contracts API</li>
 </ul>
-<h3 id="v31931">v3.193.1</h3>
+<h3 id="v31931">v3.193.1<a class="headerlink" href="#v31931" title="Permanent link">&para;</a></h3>
 <p>[http4k-cloudnative] Fix #304 - map <code>get()</code> does not respect fallback values in overridden environment.</p>
-<h3 id="v31930">v3.193.0</h3>
+<h3 id="v31930">v3.193.0<a class="headerlink" href="#v31930" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Marking endpoints as deprecated in OpenApi3</li>
 </ul>
-<h3 id="v31920">v3.192.0</h3>
+<h3 id="v31920">v3.192.0<a class="headerlink" href="#v31920" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-template-jade4j</strong> : New module! H/T @RichyHBM for the contribution! :)</li>
 </ul>
-<h3 id="v31910">v3.191.0</h3>
+<h3 id="v31910">v3.191.0<a class="headerlink" href="#v31910" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Better support for overriding of raw map definition id in JSON schema generation</li>
 </ul>
-<h3 id="v31900">v3.190.0</h3>
+<h3 id="v31900">v3.190.0<a class="headerlink" href="#v31900" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Added method to (immutably) modify status on <code>Response</code>. H/T @brandon-atkinson for the suggestion</li>
 <li><strong>http4k-core</strong> : Added composite object support to lens system, allowing creation of simple lenses which draw from several different values (of the same location only - e.g Query/EnvironmentKey)</li>
 <li><strong>http4k-contract</strong> : Support for overriding the entity definition id in JSON schema generation</li>
 <li><strong>http4k-</strong>* : Update some dependency versions.</li>
 </ul>
-<h3 id="v31890">v3.189.0</h3>
+<h3 id="v31890">v3.189.0<a class="headerlink" href="#v31890" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-server-netty</strong> : Fix reported port in <code>Netty</code>. H/T @fantayeneh for the PR :)</li>
 <li><strong>http4k-security-oauth</strong> : Add <code>validateScopes()</code> to <code>ClientValidator</code>. H/T  @tom</li>
 </ul>
-<h3 id="v31880">v3.188.0</h3>
+<h3 id="v31880">v3.188.0<a class="headerlink" href="#v31880" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Support multiple-response models in OpenApi2 and 3. Note that this currently is unsupported in the OpenApi UI due to a bug (which doesn't display the schema for the response correctly). However, the JSON schema is generated correctly in these cases.</li>
 <li><strong>http4k-</strong>* : Update some dependency versions.</li>
 </ul>
-<h3 id="v31870">v3.187.0</h3>
+<h3 id="v31870">v3.187.0<a class="headerlink" href="#v31870" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update some dependency versions, and changes to various APIs involved (Jackson and Resilience4J)</li>
 <li><strong>http4k-core</strong> : - Add YearMonth support to standard JSON mappings</li>
 <li><strong>http4k-format-jackson, http4k-format-gson, Possible break</strong> : - Moved reified <code>NODE.asA()</code> method from <code>JsonLibAutoMarshallingJson</code> down onto the instances of the <code>Json</code> (<code>ConfigurableJackson</code>/<code>ConfigurableGson</code>). This is so that we can handle generified classes such as lists and maps correctly. (As per the problems fixed in 3.181.0)</li>
 </ul>
-<h3 id="v31860">v3.186.0</h3>
+<h3 id="v31860">v3.186.0<a class="headerlink" href="#v31860" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : - Rollback a couple of places which were using Java9+ APIs (for no good reason).</li>
 </ul>
-<h3 id="v31850">v3.185.0</h3>
+<h3 id="v31850">v3.185.0<a class="headerlink" href="#v31850" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Improvements to rendering enums as their own objects in JSON Schema.</li>
 </ul>
-<h3 id="v31840">v3.184.0</h3>
+<h3 id="v31840">v3.184.0<a class="headerlink" href="#v31840" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Add <code>Cookies</code> options to contract DSL</li>
 </ul>
-<h3 id="v31830">v3.183.0</h3>
+<h3 id="v31830">v3.183.0<a class="headerlink" href="#v31830" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-serverless-lambda</strong> : Add ability to access Lambda context. H/T @ivoanjo for the PR.</li>
 <li><strong>http4k-contract</strong> : Fix rendering of OrSecurity when there are more than 2 parts.</li>
 </ul>
-<h3 id="v31820">v3.182.0</h3>
+<h3 id="v31820">v3.182.0<a class="headerlink" href="#v31820" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Rename <code>EventsFilter</code> to <code>EventFilter</code> because sanity.</li>
 <li><strong>http4k-format-jackson, http4k-format-gson</strong> : Reintroduce <code>autoBody()</code> method</li>
 </ul>
-<h3 id="v31810">v3.181.0</h3>
+<h3 id="v31810">v3.181.0<a class="headerlink" href="#v31810" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Added base events implementations for StructuredLogging.</li>
 <li><strong>http4k-core, Repackage</strong> : Events classes are now in <code>org.http4k.events</code>.</li>
 <li><strong>http4k-core, Breaking</strong> : <code>EventCategory</code> is no longer a field of <code>Event</code>. To fix, just remove <code>override</code> from your <code>Event</code> classes.</li>
 <li><strong>http4k-format-jackson, http4k-format-gson</strong> : Fixed problem when attempting to deserialise generic Lists.</li>
 </ul>
-<h3 id="v31800">v3.180.0</h3>
+<h3 id="v31800">v3.180.0<a class="headerlink" href="#v31800" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update various dependencies.</li>
 <li><strong>http4k-testing-hamcrest</strong> : Improve messages of Hamkrest matchers. H/T @albertlatacz</li>
 <li><strong>http4k-cloudnative</strong> : Fix #291 - Readiness check result when there are &gt; 2 checks may not report the correct result. H/T @alfi</li>
 <li><strong>http4k-security-oauth, Possibly breaking</strong> : Making client_secret optional in AuthorizationCodeAccessTokenRequest to support non client_secret flows. H/T @tom</li>
 </ul>
-<h3 id="v31791">v3.179.1</h3>
+<h3 id="v31791">v3.179.1<a class="headerlink" href="#v31791" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-client-okhttp</strong> : Include status description in Response object.</li>
 </ul>
-<h3 id="v31790">v3.179.0</h3>
+<h3 id="v31790">v3.179.0<a class="headerlink" href="#v31790" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Added <code>OpenApiExtension</code> interface, which allows the definition of extensions that will modify the OpenApi specification JSON. H/T @rgladwell for the inspiration.</li>
 <li><strong>http4k-contract</strong> : Support composite security models using <code>or()</code> and <code>and()</code>. Once again, H/T @rgladwell :)</li>
 </ul>
-<h3 id="v31780">v3.178.0</h3>
+<h3 id="v31780">v3.178.0<a class="headerlink" href="#v31780" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth, Possibly breaking</strong> : Request is passed as a parameter to the ClientValidator. Just pass it in! :)  H/T @tom</li>
 <li><strong>http4k-contract, Behaviour change</strong> : When specified, individual route security now replaces global security (this is as the security model in the OpenApi spec is specified) as opposed to both being applied. </li>
 </ul>
-<h3 id="v31770">v3.177.0</h3>
+<h3 id="v31770">v3.177.0<a class="headerlink" href="#v31770" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth, Possibly breaking</strong> : More support for OIDC, adding state to AuthorizationCodeDetails, and passing it into createForAccessToken on IdTokens. H/T @tom</li>
 </ul>
-<h3 id="v31760">v3.176.0</h3>
+<h3 id="v31760">v3.176.0<a class="headerlink" href="#v31760" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : More support for OIDC. H/T @tom</li>
 </ul>
-<h3 id="v31750">v3.175.0</h3>
+<h3 id="v31750">v3.175.0<a class="headerlink" href="#v31750" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update various dependencies, including Kotlin to 1.3.50.</li>
 <li><strong>http4k-security-oauth</strong> : Some support for OIDC. H/T @tom</li>
 </ul>
-<h3 id="v31740">v3.174.0</h3>
+<h3 id="v31740">v3.174.0<a class="headerlink" href="#v31740" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update various dependencies, including Jackson for a CVE.</li>
 </ul>
-<h3 id="v31730">v3.173.0</h3>
+<h3 id="v31730">v3.173.0<a class="headerlink" href="#v31730" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Fix #273 - parentSpanId trace incorrectly populated when no previous traces</li>
 <li><strong>http4k-contract, Unlikely Break</strong> : Remodelled how Security is rendered, so it's possible that this may break slightly for customer implementations</li>
 <li><strong>http4k-contract</strong> : Added support for Implicit OAuth flow, with suport for custom <code>googleCloudEndpoints</code> Security. H/T @rgladwell</li>
 </ul>
-<h3 id="v31720">v3.172.0</h3>
+<h3 id="v31720">v3.172.0<a class="headerlink" href="#v31720" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Added uni-directional serialization/deserialization options to JSON lib auto-conversion configuration. </li>
 </ul>
-<h3 id="v31710">v3.171.0</h3>
+<h3 id="v31710">v3.171.0<a class="headerlink" href="#v31710" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core, Break (mitigation)</strong> : Replaced default resource loader location for <code>singlePageApp()</code> to <code>/public</code> instead of root - this is for safety of NOT serving the root of the classpath by default.</li>
 </ul>
-<h3 id="v31700">v3.170.0</h3>
+<h3 id="v31700">v3.170.0<a class="headerlink" href="#v31700" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Add a warning when <code>static()</code> is used with no package path, thus exposing the contents of the classpath remotely.</li>
 </ul>
-<h3 id="v31690">v3.169.0</h3>
+<h3 id="v31690">v3.169.0<a class="headerlink" href="#v31690" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update various dependencies.</li>
 </ul>
-<h3 id="v31680">v3.168.0</h3>
+<h3 id="v31680">v3.168.0<a class="headerlink" href="#v31680" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Collect LensFailure causes into a single place when validating.</li>
 </ul>
-<h3 id="v31670">v3.167.0</h3>
+<h3 id="v31670">v3.167.0<a class="headerlink" href="#v31670" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract, Possibly Break</strong> : Open out <code>ErrorResponseRenderer</code> interface to take LensFailure instead of the individual failures when rendering <code>badResponse()</code>. To fix, simply wrap the list of failures into a LensFailure.</li>
 </ul>
-<h3 id="v31661">v3.166.1</h3>
+<h3 id="v31661">v3.166.1<a class="headerlink" href="#v31661" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Tweak <code>singlePageApp()</code> routing handler, to correctly apply filters when fallback page is used.</li>
 </ul>
-<h3 id="v31660">v3.166.0</h3>
+<h3 id="v31660">v3.166.0<a class="headerlink" href="#v31660" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Added <code>singlePageApp()</code> routing handler, which matches both static content or falls back to the root path index file</li>
 </ul>
-<h3 id="v31650">v3.165.0</h3>
+<h3 id="v31650">v3.165.0<a class="headerlink" href="#v31650" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Fix invalid OpenApi2 when root and base path match. H/T @rgladwell</li>
 <li><strong>http4k-contract</strong> : <code>ContractRoute</code> is now an <code>HttpHandler</code>, so no need to wrap contract routes in a <code>contract {}</code> to test them. H/T @rgladwell for the inspiration.</li>
 <li><strong>http4k-contract</strong> : Support Host/baseUri values in OpenApi2. H/T @rgladwell</li>
 <li><strong>http4k-contract</strong> : Optionally add description route to route list H/T @rgladwell</li>
 </ul>
-<h3 id="v31640">v3.164.0</h3>
+<h3 id="v31640">v3.164.0<a class="headerlink" href="#v31640" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update various dependencies, including Kotlin to 1.3.41.</li>
 <li><strong>http4k-testing-approval</strong> : Upgrade of HTML library from above may have an effect on output of HTML approval tests.</li>
 <li><strong>http4k-contract</strong> : Support for more Jackson annotations in JSON Schema rendering. H/T @tom for the PR contributing this.</li>
 </ul>
-<h3 id="v31630">v3.163.0</h3>
+<h3 id="v31630">v3.163.0<a class="headerlink" href="#v31630" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-chaos</strong> : Add detail to Chaos OpenApi interface.</li>
 </ul>
-<h3 id="v31620">v3.162.0</h3>
+<h3 id="v31620">v3.162.0<a class="headerlink" href="#v31620" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-chaos</strong> : Add detail to Chaos OpenApi interface.</li>
 </ul>
-<h3 id="v31610">v3.161.0</h3>
+<h3 id="v31610">v3.161.0<a class="headerlink" href="#v31610" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-cloudnative</strong> : Added Forbidden request exception to HandleUpstreamRequestFailed.</li>
 </ul>
-<h3 id="v31601">v3.160.1</h3>
+<h3 id="v31601">v3.160.1<a class="headerlink" href="#v31601" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-chaos</strong> : Countdown chaos trigger fixed.</li>
 </ul>
-<h3 id="v31600">v3.160.0</h3>
+<h3 id="v31600">v3.160.0<a class="headerlink" href="#v31600" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-chaos</strong> : Slight fix to avoid consuming stream body when setting chaos.</li>
 </ul>
-<h3 id="v31590">v3.159.0</h3>
+<h3 id="v31590">v3.159.0<a class="headerlink" href="#v31590" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update various dependencies.</li>
 <li><strong>http4k-client-okhttp</strong> : Updated <code>OkHttp</code> to v4.0.0 (Kotlin edition).</li>
 <li><strong>http4k-contract</strong> : Tweak to JSON Schema rendering to handle recursive objects better.</li>
 </ul>
-<h3 id="v31581">v3.158.1</h3>
+<h3 id="v31581">v3.158.1<a class="headerlink" href="#v31581" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-server-netty</strong> : Fix #260 - cannot set multiple response headers with same name</li>
 <li><strong>http4k-server-undertow</strong> : Fix #260 - cannot set multiple response headers with same name</li>
 </ul>
-<h3 id="v31580">v3.158.0</h3>
+<h3 id="v31580">v3.158.0<a class="headerlink" href="#v31580" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : POSSIBLE BEHAVIOUR CHANGE DUE TO BUG: Fix #259 - Contract blocks do not produce 400s if an external CatchAll is provided. This may have an effect on how errors are generated (a 400 is produced instead of the previous 500 from the CatchAll).</li>
 </ul>
-<h3 id="v31571">v3.157.1</h3>
+<h3 id="v31571">v3.157.1<a class="headerlink" href="#v31571" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Fix broken deprecation annotation.</li>
 </ul>
-<h3 id="v31570">v3.157.0</h3>
+<h3 id="v31570">v3.157.0<a class="headerlink" href="#v31570" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Default to JSON format response in Access Token response</li>
 <li><strong>http4k-security-oauth</strong> : Renamed a couple of classes (AccessTokenContainer -&gt; AccessToken), and removed <code>isValid</code> method from <code>AuthorizationCodes</code> because it doesn't make sense for this to be on the OAuthServer.</li>
 </ul>
-<h3 id="v31560">v3.156.0</h3>
+<h3 id="v31560">v3.156.0<a class="headerlink" href="#v31560" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update Kotlin to 1.3.40</li>
 <li><strong>http4k-contract</strong> : Support OAuthSecurity renderer.</li>
 </ul>
-<h3 id="v31552">v3.155.2</h3>
+<h3 id="v31552">v3.155.2<a class="headerlink" href="#v31552" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update various dependencies.</li>
 <li><strong>http4k-</strong>* : Dokka improvements. Does not mitigate #196 as we run the main build on OpenJdk11. H/T @ivoanjo</li>
 </ul>
-<h3 id="v31551">v3.155.1</h3>
+<h3 id="v31551">v3.155.1<a class="headerlink" href="#v31551" title="Permanent link">&para;</a></h3>
 <ul>
 <li>DO NOT USE - broken</li>
 </ul>
-<h3 id="v31550">v3.155.0</h3>
+<h3 id="v31550">v3.155.0<a class="headerlink" href="#v31550" title="Permanent link">&para;</a></h3>
 <ul>
 <li>DO NOT USE - broken</li>
 </ul>
-<h3 id="v31541">v3.154.1</h3>
+<h3 id="v31541">v3.154.1<a class="headerlink" href="#v31541" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-multipart</strong> : Made the multipart header parser case-insensitive. H/T @tenniscp25</li>
 </ul>
-<h3 id="v31540">v3.154.0</h3>
+<h3 id="v31540">v3.154.0<a class="headerlink" href="#v31540" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Add <code>SchemaModelNamer</code> to allow for custom JSON Schema model names.</li>
 </ul>
-<h3 id="v31530">v3.153.0</h3>
+<h3 id="v31530">v3.153.0<a class="headerlink" href="#v31530" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : OperationIds are generated without illegal characters <code>{}</code>.</li>
 </ul>
-<h3 id="v31520">v3.152.0</h3>
+<h3 id="v31520">v3.152.0<a class="headerlink" href="#v31520" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Support non-string keys for "text convertible" values in maps for Auto-schema generation.</li>
 </ul>
-<h3 id="v31510">v3.151.0</h3>
+<h3 id="v31510">v3.151.0<a class="headerlink" href="#v31510" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Fixed Auto-schema generation to detect and remove duplicate items from list schemas.</li>
 </ul>
-<h3 id="v31500">v3.150.0</h3>
+<h3 id="v31500">v3.150.0<a class="headerlink" href="#v31500" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Make authentication mechanism for grant types configurable.</li>
 </ul>
-<h3 id="v31490">v3.149.0</h3>
+<h3 id="v31490">v3.149.0<a class="headerlink" href="#v31490" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Initial support for <code>client_credentials</code> grant type.</li>
 </ul>
-<h3 id="v31480">v3.148.0</h3>
+<h3 id="v31480">v3.148.0<a class="headerlink" href="#v31480" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Jackson property searching in OpenApi3 now searches superclasses.</li>
 </ul>
-<h3 id="v31470">v3.147.0</h3>
+<h3 id="v31470">v3.147.0<a class="headerlink" href="#v31470" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Support custom <code>JsonProperty</code> annotation for OpenAPi3 generation</li>
 <li><strong>http4k-cloudnative</strong> : New exception type for unuathorised. H/T @tom</li>
 </ul>
-<h3 id="v31460">v3.146.0</h3>
+<h3 id="v31460">v3.146.0<a class="headerlink" href="#v31460" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Fix #228 - Support Map-based fields in OpenApi 3 Auto-schema generation as <code>additionalProperties</code>. H/T @noahbetzen-wk for the idea.</li>
 </ul>
-<h3 id="v31450">v3.145.0</h3>
+<h3 id="v31450">v3.145.0<a class="headerlink" href="#v31450" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Reimplement Auto-schema generation using reflection. Added test cases to use 
 the OpenApi generator to create valid code-based OpenApi clients using the OpenApi generator.</li>
 <li><strong>http4k-format-jackson</strong> : Removed reflective JSON schema creator, since it was not actually OA3 compliant.</li>
 </ul>
-<h3 id="v31440">v3.144.0</h3>
+<h3 id="v31440">v3.144.0<a class="headerlink" href="#v31440" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update various dependencies.</li>
 <li><strong>http4k-contract</strong> : Improvements to better adhere to OA3 spec.</li>
 <li><strong>http4k-security-oauth</strong> : Allow injecting OpenID's <code>request</code> parameter into the authorization request.</li>
 <li><strong>http4k-security-oauth</strong> : Expose request to AuthRequestTracking. </li>
 </ul>
-<h3 id="v31431">v3.143.1</h3>
+<h3 id="v31431">v3.143.1<a class="headerlink" href="#v31431" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Replace RequestContexts with reference to Store<RequestContext>. H/T @amcghie</li>
 <li><strong>http4k-contract</strong> : Added some missing deprecations.</li>
 <li><strong>http4k-contract</strong> : Fix #243 - Nulls not allowed in OpenApi V3 JSON models.</li>
 </ul>
-<h3 id="v31430">v3.143.0</h3>
+<h3 id="v31430">v3.143.0<a class="headerlink" href="#v31430" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Fix #239 - OpenApi v3 schemas for raw lists blow up when rendering.</li>
 <li><strong>http4k-</strong>* : Update various dependencies.</li>
 </ul>
-<h3 id="v31420">v3.142.0</h3>
+<h3 id="v31420">v3.142.0<a class="headerlink" href="#v31420" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Both OpenApi v2 and v3 are now supported, including automatic schema generation. Some classes for 
 OpenApi2 have moved to a new package - Deprecations should provide most alternatives. See module docs for details. For OpenApi v3, optionally include <code>http4k-format-jackson</code> to get JSON schema models based on JVM objects.</li>
 <li><strong>http4k-format-jackson</strong> : Added reflective JSON schema creator, to be used for generating named models from JVM objects.  </li>
 </ul>
-<h3 id="v31410">v3.141.0</h3>
+<h3 id="v31410">v3.141.0<a class="headerlink" href="#v31410" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : - Fix #233 - MemoryBody blows up with "java.nio.ReadOnlyBufferException"</li>
 <li><strong>http4k-core</strong> : - Tighten up security on  Basic and Bearer auth server filters.  H/T @andymoody</li>
 <li><strong>http4k-security-oauth</strong> : - Add filter to check bearer token is valid access token. H/T @andymoody</li>
 </ul>
-<h3 id="v31400">v3.140.0</h3>
+<h3 id="v31400">v3.140.0<a class="headerlink" href="#v31400" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Update dependencies (including Kotlin bump to 1.3.31)</li>
 <li><strong>http4k-security-oauth</strong> : Handle user rejecting/failing authentication. H/T @andymoody </li>
 </ul>
-<h3 id="v31390">v3.139.0</h3>
+<h3 id="v31390">v3.139.0<a class="headerlink" href="#v31390" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Allow access token generation to explicitly reject an authorization code already used. H/T @andymoody </li>
 </ul>
-<h3 id="v31381">v3.138.1</h3>
+<h3 id="v31381">v3.138.1<a class="headerlink" href="#v31381" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Amend error responses from access token generation. H/T @andymoody</li>
 </ul>
-<h3 id="v31380">v3.138.0</h3>
+<h3 id="v31380">v3.138.0<a class="headerlink" href="#v31380" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contracts</strong> : Tweaks to Security model for <code>http4k-contracts</code>. (Renamed) <code>ApiKeySecurity</code> is now a proper class, and added <code>BasicAuthSecurity</code>. You can now also override the security model on a per-route basis.</li>
 <li><strong>http4k-contract</strong> : Added ability to set the <code>Security</code> on each individual contract route. This overrides any <code>Security</code> 
 set on a contract-level basis.</li>
 </ul>
-<h3 id="v31371">v3.137.1</h3>
+<h3 id="v31371">v3.137.1<a class="headerlink" href="#v31371" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-serverless</strong> : Allow invocation of serverless functions locally. H/T @Charlyzzz</li>
 <li><strong>http4k-core</strong> : Fix #226 - ResourceLoadingHandler not close stream</li>
 </ul>
-<h3 id="v31370">v3.137.0</h3>
+<h3 id="v31370">v3.137.0<a class="headerlink" href="#v31370" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Rename AuthRequestPersistence to AuthRequestTracking</li>
 </ul>
-<h3 id="v31360">v3.136.0</h3>
+<h3 id="v31360">v3.136.0<a class="headerlink" href="#v31360" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Allow the http request to be referenced when generating OAuth authorization codes. H/T @andymoody</li>
 </ul>
-<h3 id="v31350">v3.135.0</h3>
+<h3 id="v31350">v3.135.0<a class="headerlink" href="#v31350" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Change <code>mime.types</code> location so it doesn't conflic with other libraries. H/T @benusher and @dgliosca</li>
 <li><strong>http4k-testing-chaos</strong> : Added <code>SnipRequestBody</code> behaviour.</li>
 <li><strong>http4k-core</strong> : (Small) Breaking Fixed location of some extension files to be relevant to the particular package that they are referencing. This will require reimporting the new location into your source if you were using the imports.</li>
 </ul>
-<h3 id="v31340">v3.134.0</h3>
+<h3 id="v31340">v3.134.0<a class="headerlink" href="#v31340" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-approval</strong> : Made content-type aware approval tests check the content type after the content. This is friendlier for failing tests, as 
 it is more important that the content is correct than the content-type (and often errors don't have content type set so you 
 get an erroneous error message which masks the fact that the content was wrong).</li>
 </ul>
-<h3 id="v31330">v3.133.0</h3>
+<h3 id="v31330">v3.133.0<a class="headerlink" href="#v31330" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-cloudnative</strong> : <code>HandleUpstreamRequestFailed</code> client filter now takes a predicate <code>(Response) -&gt; Boolean</code> instead of a boolean. This allows for more fine grained custom control of which Responses are acceptable.</li>
 <li><strong>http4k-</strong>* : Upgrade deps, including Kotlin to <code>1.3.30</code>.</li>
 <li><strong>http4k-contract</strong> : Fix #221 - Contract path fixed segments cannot contain slash characters.</li>
 </ul>
-<h3 id="v31320">v3.132.0</h3>
+<h3 id="v31320">v3.132.0<a class="headerlink" href="#v31320" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-format-jackson</strong> : Convert <code>Jackson</code> to use <code>readValue</code> instead of <code>convertValue</code>. This fixes some problems with type conversions.</li>
 </ul>
-<h3 id="v31310">v3.131.0</h3>
+<h3 id="v31310">v3.131.0<a class="headerlink" href="#v31310" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : (Possible) Break: Made lense implementations <code>Query, Header etc</code> clear previous values by default instead of 
 appending. This leads to a more consistent behaviour. In order to be able to set multiple values on an object 
@@ -1640,11 +1640,11 @@ using a lense, use the <code>multi</code> form instead - eg. <code>Header.requir
 envisage the impact of this change is limited as it's only Queries that generally can have multiple possible 
 values, and in the vast majority of cases a replace rather than append is expected.</li>
 </ul>
-<h3 id="v31300">v3.130.0</h3>
+<h3 id="v31300">v3.130.0<a class="headerlink" href="#v31300" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract</strong> : Generify contract handling code to allow for custom <code>HttpMessageMeta&lt;XYZ&gt;</code> </li>
 </ul>
-<h3 id="v31290">v3.129.0</h3>
+<h3 id="v31290">v3.129.0<a class="headerlink" href="#v31290" title="Permanent link">&para;</a></h3>
 <ul>
 <li>(Slight) Break: Collapsed <code>UpstreamRequestFailed</code> exceptions to contain the status, and thus removing non-special 
 cases like <code>BadRequest</code> and <code>BadGateway</code>. This makes them much easier to use in practice as users have access 
@@ -1652,37 +1652,37 @@ to the the status. To migrate, simply replace previous classes with <code>Upstre
 <li><strong>http4k-contract</strong> : Open up <code>ContractRoute</code> API to facilitate extension when defining a custom <code>ContractRenderer</code>.</li>
 <li><strong>http4k-</strong>* : Upgrade deps.</li>
 </ul>
-<h3 id="v31280">v3.128.0</h3>
+<h3 id="v31280">v3.128.0<a class="headerlink" href="#v31280" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : Added base64 to the supported mappings for Query/Headers etc...</li>
 <li><strong>http4k-testing-approval</strong> : Approver does not write actual output if there is none to write and there is no approved content</li>
 </ul>
-<h3 id="v31270">v3.127.0</h3>
+<h3 id="v31270">v3.127.0<a class="headerlink" href="#v31270" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-approval</strong> : Improved <code>Approver</code> interface to more closely match the traditional 
 <code>assert&lt;XYZ&gt;</code> approach - this results in a more discoverable/obvious API.</li>
 <li><strong>http4k-testing-hamkrest</strong> : Added ability to create a Hamkrest matcher directly from the <code>Approver</code> instance to be combined 
 with other relevant matchers.</li>
 </ul>
-<h3 id="v31260">v3.126.0</h3>
+<h3 id="v31260">v3.126.0<a class="headerlink" href="#v31260" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-testing-approval</strong> : Add support for XML and HTML approval tests.</li>
 </ul>
-<h3 id="v31250">v3.125.0</h3>
+<h3 id="v31250">v3.125.0<a class="headerlink" href="#v31250" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-testing-approval</code> module, which is compatible with JUnit5 tests and integrates with 
 the <a href="https://github.com/dmcg/okey-doke">OkeyDoke</a> approval testing files and IntelliJ plugin. H/T to 
 @jshiell for the inspiration Gist containing the base Junit5 Extension.</li>
 </ul>
-<h3 id="v31240">v3.124.0</h3>
+<h3 id="v31240">v3.124.0<a class="headerlink" href="#v31240" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Make authentication response available when creating AuthorizationCode.</li>
 </ul>
-<h3 id="v31230">v3.123.0</h3>
+<h3 id="v31230">v3.123.0<a class="headerlink" href="#v31230" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-security-oauth</strong> : Introduce OAuthServer to <code>http4k-security-oauth</code> to assist in the creation of authorization servers.</li>
 </ul>
-<h3 id="v31220">v3.122.0</h3>
+<h3 id="v31220">v3.122.0<a class="headerlink" href="#v31220" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Generified <code>GenerateXmlDataClasses</code> filter, and added default implementations for 
  <code>http4k-format-jackson-xml</code> and <code>http4k-format-xml</code> modules.</li>
@@ -1690,12 +1690,12 @@ the <a href="https://github.com/dmcg/okey-doke">OkeyDoke</a> approval testing fi
 <li>Removed superfluous <code>CatchLensFailure</code> filter from <code>http4k-contracts</code> module. This is not required 
 as lens failures are already handled by the main contract handler.</li>
 </ul>
-<h3 id="v31210">v3.121.0</h3>
+<h3 id="v31210">v3.121.0<a class="headerlink" href="#v31210" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Moved Jackson XML support to new module <code>http4k-format-jackson-xml</code>. Note that this is for 
  auto-marshalling of data-classes only and does not expose an XML DOM model.</li>
 </ul>
-<h3 id="v31200">v3.120.0</h3>
+<h3 id="v31200">v3.120.0<a class="headerlink" href="#v31200" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Deprecated <code>Body.view()</code> lens construction in favour of a <code>Body.viewModel()</code> call which removes the 
 implicitly called <code>toLens()</code>. This allows further mapping from one <code>ViewModel</code> type to another, 
@@ -1703,20 +1703,20 @@ and brings the view lens construction into line with the rest of the extension f
 <li>Add auto-marshalling XML support to <code>http4k-format-jackson</code> module.</li>
 <li>Upgrade deps.</li>
 </ul>
-<h3 id="v31190">v3.119.0</h3>
+<h3 id="v31190">v3.119.0<a class="headerlink" href="#v31190" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add <code>UpstreamRequestFailed</code> exceptions and <code>HandleUpstreamRequestFailed</code> filters to 
 <code>http4k-cloudnative</code>. These allow apps to neatly deal with upstream failure in a sensible way.</li>
 </ul>
-<h3 id="v31180">v3.118.0</h3>
+<h3 id="v31180">v3.118.0<a class="headerlink" href="#v31180" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Tweak <code>contract()</code> DSL to add remaining options for configuration.</li>
 </ul>
-<h3 id="v31170">v3.117.0</h3>
+<h3 id="v31170">v3.117.0<a class="headerlink" href="#v31170" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Renamed <code>ChaosControls</code> (deprecated) to <code>ChaosEngine</code>.</li>
 </ul>
-<h3 id="v31160">v3.116.0</h3>
+<h3 id="v31160">v3.116.0<a class="headerlink" href="#v31160" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added new templating module <code>http4k-templates-freemarker</code>. H/T @amcghie for the PR implementing this</li>
 <li><code>http4k-contract</code> has a new DSL for construction of the contract which replaces the old one (now 
@@ -1727,19 +1727,19 @@ didn't like it (too complex maybe), so we've hard coded the warning instead whic
 This will allow refining of routes or entire contracts to be more efficient.</li>
 <li>Upgrade deps.</li>
 </ul>
-<h3 id="v31151">v3.115.1</h3>
+<h3 id="v31151">v3.115.1<a class="headerlink" href="#v31151" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #217 - Cannot override the definitionId of a top-level array in OpenAPI</li>
 <li>Upgrade deps</li>
 </ul>
-<h3 id="v31150">v3.115.0</h3>
+<h3 id="v31150">v3.115.0<a class="headerlink" href="#v31150" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Chaos now do not blat <code>x-uri-template</code> when used with a <code>RoutingHttpHandler</code></li>
 <li>Simplified usage of <code>Once</code> chaos trigger.</li>
 <li>(Slight break) Consistentified (!) construction of Chaos Behaviours, Stages and Triggers. Replaced 
 singletons with function calls. Eg. <code>Always -&gt; Always()</code></li>
 </ul>
-<h3 id="v31140">v3.114.0</h3>
+<h3 id="v31140">v3.114.0<a class="headerlink" href="#v31140" title="Permanent link">&para;</a></h3>
 <ul>
 <li>(Possible Break): Fix #215 - <code>LensFailure</code> does not always include target object. Only change to the API 
 is that <code>IN</code> generic in Lenses is now bounded by <code>IN : Any</code>. This fix is a actually internally consistent as 
@@ -1749,41 +1749,41 @@ we could not always include the target otherwise (which is an <code>Any?</code>)
 <li>Upgrade to various deps.</li>
 <li>Removed deprecations.</li>
 </ul>
-<h3 id="v31130">v3.113.0</h3>
+<h3 id="v31130">v3.113.0<a class="headerlink" href="#v31130" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added some common types for Environmental setup, and equivalent BiDiLens mappings</li>
 <li>Handle null response in Java Http client. H/T @FredNordin</li>
 </ul>
-<h3 id="v31122">v3.112.2</h3>
+<h3 id="v31122">v3.112.2<a class="headerlink" href="#v31122" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #212 - allow null values in HTTP contract definitions. This does mean we lose the type definition for 
 that field, but we don't blow up silently (which was the previous behaviour). H/T @xhanin</li>
 </ul>
-<h3 id="v31121">v3.112.1</h3>
+<h3 id="v31121">v3.112.1<a class="headerlink" href="#v31121" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Re-add <code>Path.nonEmptyString()</code> which was accidentally removed. </li>
 </ul>
-<h3 id="v31120">v3.112.0</h3>
+<h3 id="v31120">v3.112.0<a class="headerlink" href="#v31120" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add support for prohibiting String unmarshalling in JSON auto-marshalling configuration.</li>
 <li>HTTP Contracts now use the underlying <code>ContractRenderer</code> to produce the BadRequest and NotFound responses. Made <code>OpenAPI</code> 
 open so that these responses can be customised.</li>
 </ul>
-<h3 id="v31110">v3.111.0</h3>
+<h3 id="v31110">v3.111.0<a class="headerlink" href="#v31110" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add support for JSON views in <code>Jackson</code> module. H/T @xhanin for the donkey work.</li>
 </ul>
-<h3 id="v31100">v3.110.0</h3>
+<h3 id="v31100">v3.110.0<a class="headerlink" href="#v31100" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Breaking: slight rearrangement of RouteMeta <code>receiving/returning</code> methods to provide consistency when defining route 
 contracts.</li>
 </ul>
-<h3 id="v31090">v3.109.0</h3>
+<h3 id="v31090">v3.109.0<a class="headerlink" href="#v31090" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Moved the set of predefined String <code>BiDiMapping</code> instances to their own class. Bulked out the 
 auto-mapping configuration options.</li>
 </ul>
-<h3 id="v31080">v3.108.0</h3>
+<h3 id="v31080">v3.108.0<a class="headerlink" href="#v31080" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Upgrade to various deps.</li>
 <li>Extracted out new <code>BiDiMapping</code> type, which encapsulates string &lt;-&gt; type conversions and removes a 
@@ -1791,88 +1791,88 @@ boatload of duplications. These conversions are now used consistently across all
 (Lenses, auto-mapping).</li>
 <li>Improved configurability of <code>AutoMarshallingJson</code> instances.</li>
 </ul>
-<h3 id="v31070">v3.107.0</h3>
+<h3 id="v31070">v3.107.0<a class="headerlink" href="#v31070" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Upgrade to various deps.</li>
 <li>Fix #208 - Xml auto deserialisation incorrectly converting strings to numbers</li>
 </ul>
-<h3 id="v31061">v3.106.1</h3>
+<h3 id="v31061">v3.106.1<a class="headerlink" href="#v31061" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #207 - repeating prefixes in static routes are not handled correctly. H/T @ruXlab for the PR to fix.</li>
 </ul>
-<h3 id="v31060">v3.106.0</h3>
+<h3 id="v31060">v3.106.0<a class="headerlink" href="#v31060" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add <code>http4k-server-ktorcio</code> server backend. Note that whilst this module does allow http4k apps to plug into the Ktor-CIO engine, it does not provide fully front-to-back coroutine support.</li>
 </ul>
-<h3 id="v31050">v3.105.0</h3>
+<h3 id="v31050">v3.105.0<a class="headerlink" href="#v31050" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Preventing FallbackCacheControl from duplicating existing headers. H/T @leandronunes85</li>
 <li>Breaking: Make <code>Body.length</code> nullable instead of throwing exception when value is not available. H/T @zvozin</li>
 </ul>
-<h3 id="v31040">v3.104.0</h3>
+<h3 id="v31040">v3.104.0<a class="headerlink" href="#v31040" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Upgrade to various deps.</li>
 <li>Add session token support to AWS filter, and "credentials provider" to allow for rotating AWS sessions. H/T @dhobbs.</li>
 <li>Breaking: Moved WsClient from <code>org.http4k.testing</code> to <code>org.http4k.websocket</code>.</li>
 </ul>
-<h3 id="v31032">v3.103.2</h3>
+<h3 id="v31032">v3.103.2<a class="headerlink" href="#v31032" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix <code>access-control-allow-origin</code> returned when server supports multiple origins H/T @johnnorris</li>
 </ul>
-<h3 id="v31031">v3.103.1</h3>
+<h3 id="v31031">v3.103.1<a class="headerlink" href="#v31031" title="Permanent link">&para;</a></h3>
 <ul>
 <li>(Properly) Fix #198 - Rewrote OpenApi contract to ensure it stays fixed. H/T @reik-wargaming for the help in tracking this down.</li>
 </ul>
-<h3 id="v31030">v3.103.0</h3>
+<h3 id="v31030">v3.103.0<a class="headerlink" href="#v31030" title="Permanent link">&para;</a></h3>
 <ul>
 <li>"Fix" #198 - Breaking change made in <code>http4k-contracts</code> to clarify/deconfuse API. Hid <code>body</code> parameter in contract route meta DSL - it is now <code>receiving()</code>.</li>
 <li>Upgraded some dependencies, including Gradle to v5.0.</li>
 <li>Breaking: Resilience4j dependency upgrade causes a break when providing custom config. Simply insert the Config type generic to fix:
 e.g. <code>RetryConfig.custom()</code> -&gt; <code>RetryConfig.custom&lt;RetryConfig&gt;()</code></li>
 </ul>
-<h3 id="v31021">v3.102.1</h3>
+<h3 id="v31021">v3.102.1<a class="headerlink" href="#v31021" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #197 - Swagger spec for form fields had incorrect description. </li>
 </ul>
-<h3 id="v31020">v3.102.0</h3>
+<h3 id="v31020">v3.102.0<a class="headerlink" href="#v31020" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Introduce interface for Environment</li>
 </ul>
-<h3 id="v31010">v3.101.0</h3>
+<h3 id="v31010">v3.101.0<a class="headerlink" href="#v31010" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Upgrades to dependencies</li>
 <li>Improved Client-side HTTP status descriptions</li>
 <li>Lenses now support Durations out of the box</li>
 <li>Environments now support multi-value keys (comma separated)</li>
 </ul>
-<h3 id="v31000">v3.100.0</h3>
+<h3 id="v31000">v3.100.0<a class="headerlink" href="#v31000" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Make <code>Undertow</code> API friendlier</li>
 <li>Fix to JsonReadinessCheckResultRenderer to actually implement the correct interface</li>
 </ul>
-<h3 id="v3990">v3.99.0</h3>
+<h3 id="v3990">v3.99.0<a class="headerlink" href="#v3990" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Enhancement of <code>http4k-cloudnative</code> - now supports extra-health check routes, and provide way to load app configuration via Properties files.</li>
 </ul>
-<h3 id="v3980">v3.98.0</h3>
+<h3 id="v3980">v3.98.0<a class="headerlink" href="#v3980" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add filter allowing Gzipping based on an allowed set of content types. H/T @jshiell</li>
 <li>Change HttpHandler extending HttpClients to use <code>object invoke()</code> mechanism, as the individual clients have no visible API surface of their own. Introduced <code>DualSyncAsyncHttpHandler</code> interface.</li>
 </ul>
-<h3 id="v3970">v3.97.0</h3>
+<h3 id="v3970">v3.97.0<a class="headerlink" href="#v3970" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Webdriver checkbox handling improved. H/T @gypsydave5</li>
 <li>upgrade to various versions</li>
 </ul>
-<h3 id="v3960">v3.96.0</h3>
+<h3 id="v3960">v3.96.0<a class="headerlink" href="#v3960" title="Permanent link">&para;</a></h3>
 <ul>
 <li>upgrade to Kotlin 1.3.0</li>
 </ul>
-<h3 id="v3951">v3.95.1</h3>
+<h3 id="v3951">v3.95.1<a class="headerlink" href="#v3951" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Tweak to K8S port variables.</li>
 </ul>
-<h3 id="v3950">v3.95.0</h3>
+<h3 id="v3950">v3.95.0<a class="headerlink" href="#v3950" title="Permanent link">&para;</a></h3>
 <ul>
 <li>(Unlikely break): Change <code>Http4kServer</code> interface to return <code>Unit</code> from <code>stop()</code>. This affects all server implementations.</li>
 <li>Added DSL function for working with JSON objects (scopes JSON as <code>this</code>). <code>fun &lt;T&gt; Json&lt;NODE&gt;.invoke(Json&lt;NODE&gt;.() -&gt; T)</code></li>
@@ -1880,199 +1880,199 @@ e.g. <code>RetryConfig.custom()</code> -&gt; <code>RetryConfig.custom&lt;RetryCo
 <li>Upgrade some dependencies</li>
 <li>Deprecation: Moved <code>Header.Common</code> fields to main <code>Header</code> object. Extension properties should go there now.</li>
 </ul>
-<h3 id="v3941">v3.94.1</h3>
+<h3 id="v3941">v3.94.1<a class="headerlink" href="#v3941" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Use UTC when checking cookie expiry</li>
 </ul>
-<h3 id="v3940">v3.94.0</h3>
+<h3 id="v3940">v3.94.0<a class="headerlink" href="#v3940" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Deprecate String.toBody()</li>
 <li>Fix checkbox behaviour in webdriver</li>
 </ul>
-<h3 id="v3394-v3934">~v3.39.4~ v3.93.4</h3>
+<h3 id="v3394_v3934">~v3.39.4~ v3.93.4<a class="headerlink" href="#v3394_v3934" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Use Jetty latest release version (rather than RC one) </li>
 </ul>
-<h3 id="v3393">v3.39.3</h3>
+<h3 id="v3393">v3.39.3<a class="headerlink" href="#v3393" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #189 - Uri toString now omits leading slash if the authority of a Uri is blank. This <em>could</em> be a potential break, but is actually more consistent as a Uri can currently be relative or absolute.</li>
 </ul>
-<h3 id="v3392">v3.39.2</h3>
+<h3 id="v3392">v3.39.2<a class="headerlink" href="#v3392" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Extend <code>SetBaseUriFrom</code> to support query parameters </li>
 </ul>
-<h3 id="v3391">v3.39.1</h3>
+<h3 id="v3391">v3.39.1<a class="headerlink" href="#v3391" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>SetBaseUriFrom</code> filter</li>
 </ul>
-<h3 id="v3390">v3.39.0</h3>
+<h3 id="v3390">v3.39.0<a class="headerlink" href="#v3390" title="Permanent link">&para;</a></h3>
 <ul>
 <li>(Possible breaking change): <code>Json</code> is now only generified by a single type parameter instead of 2. For most usages, this type would have been identical anyway, but the upgrade of Argo has finally allowed the removal of this dead generic. Simply replace <code>Json&lt;Node, Node&gt;</code> with <code>Json&lt;Node&gt;</code>.</li>
 <li>Added Offset datetime types to all JSON auto-marshalling libraries</li>
 <li>Build logic for versioning is now in Kotlin. H/T @jmfayard for the PR</li>
 <li>Upgrade Kotlin, and various other dependencies</li>
 </ul>
-<h3 id="v3381">v3.38.1</h3>
+<h3 id="v3381">v3.38.1<a class="headerlink" href="#v3381" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix <code>withChaosControls</code> URL pattern so that it matches sub-routes ok on original handler</li>
 </ul>
-<h3 id="v3380">v3.38.0</h3>
+<h3 id="v3380">v3.38.0<a class="headerlink" href="#v3380" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>BearerAuth</code> and <code>BasicAuth</code> implementations which populate <code>RequestContexts</code>. Plus cookbook example :)</li>
 </ul>
-<h3 id="v3371">v3.37.1</h3>
+<h3 id="v3371">v3.37.1<a class="headerlink" href="#v3371" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #177 - Make RequestContexts thread-safe.</li>
 </ul>
-<h3 id="v3370">v3.37.0</h3>
+<h3 id="v3370">v3.37.0<a class="headerlink" href="#v3370" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Upgrades to <code>http4k-testing-webdriver</code>. H/T @dickon for the PRs</li>
 <li>Added <code>ProxyHost</code> request filter which is useful for writing proxy-type apps.</li>
 </ul>
-<h3 id="v3361">v3.36.1</h3>
+<h3 id="v3361">v3.36.1<a class="headerlink" href="#v3361" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #168 - Fix rest of hamkrest matchers caused by generics mishap.</li>
 <li>Upgrade HTTP client dependency versions.</li>
 </ul>
-<h3 id="v3360">v3.36.0</h3>
+<h3 id="v3360">v3.36.0<a class="headerlink" href="#v3360" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-testing-chaos</code> module, designed to enhance failure-mode testing for http4k apps. Massive H/T to @IgorPerikov for the PR which drove this module's creation.</li>
 <li>Added <code>http4k-incubator</code> module, for hosting developing projects and other code which might be promoted to top-level modules in the future.</li>
 </ul>
-<h3 id="v3352">v3.35.2</h3>
+<h3 id="v3352">v3.35.2<a class="headerlink" href="#v3352" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #167 - Reintroduce <code>hasBody</code> compatibility with common matchers such as <code>containsString()</code></li>
 <li>Remove deprecations.</li>
 </ul>
-<h3 id="v3351">v3.35.1</h3>
+<h3 id="v3351">v3.35.1<a class="headerlink" href="#v3351" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #165 - AWS auth filter does not replace headers - it sets them (which breaks for request signing)</li>
 <li>Fix #164 - Webdriver internal state breaks when navigating to a full URL</li>
 <li>Fix #162 - <code>SetHostFrom</code> doesn't set 'Host' header correctly (missing port). H/T @elifarley</li>
 </ul>
-<h3 id="v3350">v3.35.0</h3>
+<h3 id="v3350">v3.35.0<a class="headerlink" href="#v3350" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added some regex matchers to <code>http4k-testing-hamkrest</code>.</li>
 <li>Added <code>BearerAuth</code> authentication Server and Client Filters - these work similarly to <code>BasicAuth</code>.</li>
 <li>Added option for <code>defaulted()</code> lenses to fall back to another supplied lens in the case of missing value. Thanks to @dmcg for the inspiration. :)</li>
 </ul>
-<h3 id="v3343">v3.34.3</h3>
+<h3 id="v3343">v3.34.3<a class="headerlink" href="#v3343" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #160 - <code>JavaHttpClient</code> does not copy body stream correctly onto URL connection.</li>
 </ul>
-<h3 id="v3342">v3.34.2</h3>
+<h3 id="v3342">v3.34.2<a class="headerlink" href="#v3342" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #159 - Contracts should not have Security applied to the description route by default.</li>
 </ul>
-<h3 id="v3341">v3.34.1</h3>
+<h3 id="v3341">v3.34.1<a class="headerlink" href="#v3341" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #158 - Static and contract routes filters are applied in the wrong order.</li>
 </ul>
-<h3 id="v3340">v3.34.0</h3>
+<h3 id="v3340">v3.34.0<a class="headerlink" href="#v3340" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add default SamplingDecision param to ZipkinTraces - defaults to always sample.</li>
 <li>Fix #150 - StaticRoutingHandler filters being called twice.</li>
 <li>Fix #151 - POTENTIAL BREAK: Rework of Status objects to fix equality against the Status constant <code>vals</code> when a description has been overridden. This involves the following potential breaking change: The Status class is no longer a data class to tighten up encapsulation - user calls to copy() will have to be replaced.</li>
 </ul>
-<h3 id="v3332">v3.33.2</h3>
+<h3 id="v3332">v3.33.2<a class="headerlink" href="#v3332" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Raise SO_BACKLOG in Apache and Netty server implementations.</li>
 <li>Add PERMANENT_REDIRECT and UNPROCESSABLE_ENTITY Status object.</li>
 </ul>
-<h3 id="v3331">v3.33.1</h3>
+<h3 id="v3331">v3.33.1<a class="headerlink" href="#v3331" title="Permanent link">&para;</a></h3>
 <ul>
 <li>No change from 3.33.0. Previous version couldn't be made available to maven central.</li>
 </ul>
-<h3 id="v3330">v3.33.0</h3>
+<h3 id="v3330">v3.33.0<a class="headerlink" href="#v3330" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add convenient way to extract from as a Map from http message. H/T to @dmcg (this version is available in jcenter only)</li>
 </ul>
-<h3 id="v3321">v3.32.1</h3>
+<h3 id="v3321">v3.32.1<a class="headerlink" href="#v3321" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #142 - Pebble templates don't load from JAR files.</li>
 </ul>
-<h3 id="v3320">v3.32.0</h3>
+<h3 id="v3320">v3.32.0<a class="headerlink" href="#v3320" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add support for propagation of the Zipkin x-b3-sampled header</li>
 </ul>
-<h3 id="v3310">v3.31.0</h3>
+<h3 id="v3310">v3.31.0<a class="headerlink" href="#v3310" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Changes to the Netty factory to enable running http4k on GraalVM. H/T @RichyHBM</li>
 </ul>
-<h3 id="v3300">v3.30.0</h3>
+<h3 id="v3300">v3.30.0<a class="headerlink" href="#v3300" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Allow all server implementations to start on port 0 (ie. find a free port) and then report it back as a part of the <code>Http4kServer</code> interface</li>
 </ul>
-<h3 id="v3290">v3.29.0</h3>
+<h3 id="v3290">v3.29.0<a class="headerlink" href="#v3290" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Make HTTP clients resilient to unknown host and connection refused exceptions</li>
 <li>Implemented #134 - Added default (de)serialization for common JDK primitives to all Auto-marshalling JSON modules - eg. date times and UUIDs</li>
 </ul>
-<h3 id="v3280">v3.28.0</h3>
+<h3 id="v3280">v3.28.0<a class="headerlink" href="#v3280" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #131 - Uri's created with paths that don't contain leading slashes.</li>
 <li>Added etag parser filter. H/T @dgliosca for the PR</li>
 <li>Fix #132 - Ensured that <code>disableDefaultTyping</code> is called in default Jackson implementation. This should be the default anyway, but has been added to ensure that we don't fall foul of <a href="https://github.com/FasterXML/jackson-databind/issues/1723">CVE-2017-7525</a> and to surface awareness of this issue.</li>
 </ul>
-<h3 id="v3270">v3.27.0</h3>
+<h3 id="v3270">v3.27.0<a class="headerlink" href="#v3270" title="Permanent link">&para;</a></h3>
 <ul>
 <li>OpenAPI now provides example values in the generated schema. H/T @skewwhiffy for the PR.</li>
 </ul>
-<h3 id="v3266">v3.26.6</h3>
+<h3 id="v3266">v3.26.6<a class="headerlink" href="#v3266" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #126 - ResourceLoadingHandler can expose mapped resources into the root. &lt;-- We think this is an important update, so please upgrade!</li>
 </ul>
-<h3 id="v3265">v3.26.5</h3>
+<h3 id="v3265">v3.26.5<a class="headerlink" href="#v3265" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #125 - ApacheServer implementation now sets content length if present.</li>
 </ul>
-<h3 id="v3264">v3.26.4</h3>
+<h3 id="v3264">v3.26.4<a class="headerlink" href="#v3264" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #123 - Multipart Body objects blow up when parsed after being debugged. As with all streams, care should be taken to not blow heap when internalising them for debugging purposes.</li>
 </ul>
-<h3 id="v3263">v3.26.3</h3>
+<h3 id="v3263">v3.26.3<a class="headerlink" href="#v3263" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Debugging filter now supports ignoring Multipart streams.</li>
 </ul>
-<h3 id="v3262">v3.26.2</h3>
+<h3 id="v3262">v3.26.2<a class="headerlink" href="#v3262" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Tweak: OpenAPI now doesn't return null values in the schema.</li>
 </ul>
-<h3 id="v3261">v3.26.1</h3>
+<h3 id="v3261">v3.26.1<a class="headerlink" href="#v3261" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #124 - headers in WebSocket upgrade request are incorrectly joined.</li>
 </ul>
-<h3 id="v3260">v3.26.0</h3>
+<h3 id="v3260">v3.26.0<a class="headerlink" href="#v3260" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Removed <code>supportedContentTypes</code> field from OpenApi contract JSON, since this is a legacy field.</li>
 </ul>
-<h3 id="v3250">v3.25.0</h3>
+<h3 id="v3250">v3.25.0<a class="headerlink" href="#v3250" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added option to Undertow to enable HTTP2 from main ServerConfig</li>
 </ul>
-<h3 id="v3240">v3.24.0</h3>
+<h3 id="v3240">v3.24.0<a class="headerlink" href="#v3240" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Upgrade various dependencies for Java 10 compatibility. H/T @tom</li>
 <li>Fix bug with repeated params in Websocket upgrade request. H/T @tom</li>
 </ul>
-<h3 id="v3231">v3.23.1</h3>
+<h3 id="v3231">v3.23.1<a class="headerlink" href="#v3231" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Composite LensFailures now capture (at least) the first failing cause (probably the body parameter in the case of an <code>http4k-contract</code> module.</li>
 </ul>
-<h3 id="v3230">v3.23.0</h3>
+<h3 id="v3230">v3.23.0<a class="headerlink" href="#v3230" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #116 - Can provide a custom Response creation method for <code>CatchLensFailure</code>. H/T @elifarley for the inspiration!</li>
 </ul>
-<h3 id="v3224">v3.22.4</h3>
+<h3 id="v3224">v3.22.4<a class="headerlink" href="#v3224" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added singleton method for Json.array, since if you pass in a single JsonNode (Jackson), it accidentally iterates over the fields in the node instead of using the object as an entry in the array.</li>
 <li>Fix #115 - Only add content-length for methods that allow content in AwsAuth filter</li>
 </ul>
-<h3 id="v3223">v3.22.3</h3>
+<h3 id="v3223">v3.22.3<a class="headerlink" href="#v3223" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Preserve routing information on request/response manipulation  </li>
 </ul>
-<h3 id="v3222">v3.22.2</h3>
+<h3 id="v3222">v3.22.2<a class="headerlink" href="#v3222" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>http4k-security-oauth</code> module added - with support for OAuth2 Authorization Grant flow</li>
 <li>Replaced classes reliant on <code>javax.activation</code> package, which allows Java 9+ to not require any external dependencies. \o/</li>
@@ -2080,87 +2080,87 @@ e.g. <code>RetryConfig.custom()</code> -&gt; <code>RetryConfig.custom&lt;RetryCo
 <li>PR #110 - Websocket client timeouts are incorrectly translated as seconds instead of millis. HT @anorth</li>
 <li>Core <code>JavaHttpClient</code> does not support streaming due to limitations with <code>HttpURLConnection</code> </li>
 </ul>
-<h3 id="v3211">v3.21.1</h3>
+<h3 id="v3211">v3.21.1<a class="headerlink" href="#v3211" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #109 - Jackson treats integer values inconsistently, leading to matching errors when using hamkrest.</li>
 </ul>
-<h3 id="v3210">v3.21.0</h3>
+<h3 id="v3210">v3.21.0<a class="headerlink" href="#v3210" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #107 - Killed the x-uri-template header and fixed the ReportHttpTransaction to have access to the <code>routingGroup</code>.</li>
 <li>Altered ordering of filters in <code>http4k-contract</code> so that the route is identified before pre-filters and security are applied. This allows knowledge of the path to be accessible at the time of application of those filters.</li>
 </ul>
-<h3 id="v3200">v3.20.0</h3>
+<h3 id="v3200">v3.20.0<a class="headerlink" href="#v3200" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Introduce JavaHttpClient to <code>http4k-core</code>. It provides a very basic http client without  any other 3rd party dependencies.</li>
 </ul>
-<h3 id="v3190">v3.19.0</h3>
+<h3 id="v3190">v3.19.0<a class="headerlink" href="#v3190" title="Permanent link">&para;</a></h3>
 <ul>
 <li>PR #104 - Add optional time/date formatters to LensSpecs so you can choose you serialisation format. H/T @elifarley</li>
 <li>Fix #105 - Swagger API json file: duplicate key in "definitions".</li>
 </ul>
-<h3 id="v3181">v3.18.1</h3>
+<h3 id="v3181">v3.18.1<a class="headerlink" href="#v3181" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fixed PR #100 - URI template regex required extra escaping. This only affects Android deployments as IDE shows the regex escaping is redundant. H/T @privatwolke</li>
 </ul>
-<h3 id="v3180">v3.18.0</h3>
+<h3 id="v3180">v3.18.0<a class="headerlink" href="#v3180" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Breaking: converted contract pre-security filter to be a post-security filter. This means that all standard filters are applied before the security later, which allows for logging and monitoring and context setup. The previous filter mechanic applied security first, which didn't allow for this. In the unlikely event that post-security filters still need to be applied, use the <code>withPostSecurityFilter()</code> function when building the contract.</li>
 <li>Docs for contract RouteMeta function parameters, and deprecated some unused functions (missed when we introduced the DSL).</li>
 <li>PR #99 - Contract routes now support up to 10 path segments. Thanks to @scap1784 for the PR! :)</li>
 </ul>
-<h3 id="v3171">v3.17.1</h3>
+<h3 id="v3171">v3.17.1<a class="headerlink" href="#v3171" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #97. Moshi does not fail when deserialise non-nullable fields correctly. Note that GSON still suffers from this problem</li>
 </ul>
-<h3 id="v3170">v3.17.0</h3>
+<h3 id="v3170">v3.17.0<a class="headerlink" href="#v3170" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added a pre-security filter option to contract creation, so that you can explicitly specify behaviour to occur before security kicks in.</li>
 </ul>
-<h3 id="v3160">v3.16.0</h3>
+<h3 id="v3160">v3.16.0<a class="headerlink" href="#v3160" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Convert <code>Security</code> (from sealed class) and <code>ApiKey</code> to be interfaces. This allows users to implement their own security models.</li>
 </ul>
-<h3 id="v3150">v3.15.0</h3>
+<h3 id="v3150">v3.15.0<a class="headerlink" href="#v3150" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Introduce <code>HttpTransaction</code> and new <code>ReportHttpTransaction</code> filter provide better generic API for reporting, along with the ability to label transactions for this purpose.</li>
 <li>Breaking: Rework the metrics request counter and timer Filter API. There is now a <code>HttpTransactionLabeller</code> for you to add as many labels as required to the transaction. Each of these labels will be used to tag the metric.</li>
 </ul>
-<h3 id="v3141">v3.14.1</h3>
+<h3 id="v3141">v3.14.1<a class="headerlink" href="#v3141" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #95 - Filters are now applied to "route not found" responses</li>
 </ul>
-<h3 id="v3140">v3.14.0</h3>
+<h3 id="v3140">v3.14.0<a class="headerlink" href="#v3140" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #93 - Apache server doesn't like content-length or transfer-encoding headers present in http4k response.</li>
 <li>Add ability to "name" input and output contract body definitions in an OpenAPI JSON doc. This applies to only the top level entity. If no override is passed, the objects are named according to their hashcode.</li>
 </ul>
-<h3 id="3134">3.13.4</h3>
+<h3 id="3134">3.13.4<a class="headerlink" href="#3134" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #92 - cookie date should always use US locale</li>
 </ul>
-<h3 id="v3133">v3.13.3</h3>
+<h3 id="v3133">v3.13.3<a class="headerlink" href="#v3133" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Further tweak to Netty. H/T @FredDeschenes</li>
 </ul>
-<h3 id="v3132">v3.13.2</h3>
+<h3 id="v3132">v3.13.2<a class="headerlink" href="#v3132" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #91 - large message handli
 ng in Netty</li>
 </ul>
-<h3 id="v3131">v3.13.1</h3>
+<h3 id="v3131">v3.13.1<a class="headerlink" href="#v3131" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Upgrade to Kotlin 1.2.20</li>
 </ul>
-<h3 id="v3130">v3.13.0</h3>
+<h3 id="v3130">v3.13.0<a class="headerlink" href="#v3130" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Support for <code>operationId</code> in OpenApi route metadata. H/T @danschultz for the PR.</li>
 <li>Removed previously deprecated methods.</li>
 </ul>
-<h3 id="v3120">v3.12.0</h3>
+<h3 id="v3120">v3.12.0<a class="headerlink" href="#v3120" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New client module <code>http4k-client-jetty</code>, which supports both sync and async models.</li>
 </ul>
-<h3 id="v3111">v3.11.1</h3>
+<h3 id="v3111">v3.11.1<a class="headerlink" href="#v3111" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #84. OPTIONS requests are not detected by contract routes.</li>
 <li>Added option to NOT authorise OPTIONS requests in ApiKey security filter.</li>
@@ -2169,608 +2169,608 @@ ng in Netty</li>
 <li>New metrics gathering module <code>http4k-metrics-micrometer</code>. Big H/T to @kirderf for the PR.</li>
 <li>Added support for async to <code>OkHttp</code> client module.</li>
 </ul>
-<h3 id="v3100">v3.10.0</h3>
+<h3 id="v3100">v3.10.0<a class="headerlink" href="#v3100" title="Permanent link">&para;</a></h3>
 <ul>
 <li>P/R 81 - adding headers and timeout to websocket client.</li>
 </ul>
-<h3 id="v390">v3.9.0</h3>
+<h3 id="v390">v3.9.0<a class="headerlink" href="#v390" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added compactify and prettify to Json implementations</li>
 <li>Added <code>Json.hasBody</code> Hamkrest matchers for comparing bodies. Note these are extension methods and need to be referenced/imported as such.</li>
 </ul>
-<h3 id="v380">v3.8.0</h3>
+<h3 id="v380">v3.8.0<a class="headerlink" href="#v380" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added facility for non-blocking websocket client to react to onConnect event. This API is
 the same as the inbound, server-side API - ie. there are no explicit connection event handlers. H/T @tom for the idea.</li>
 </ul>
-<h3 id="v370">v3.7.0</h3>
+<h3 id="v370">v3.7.0<a class="headerlink" href="#v370" title="Permanent link">&para;</a></h3>
 <ul>
 <li>P/R #13 Create extension methods for Response to add caching headers. H/T @k0zakinio.</li>
 </ul>
-<h3 id="v361">v3.6.1</h3>
+<h3 id="v361">v3.6.1<a class="headerlink" href="#v361" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #78. Serialisation of raw lists using Moshi fails in the same way as the Jackson auto-conversions do. Added convenience methods to get around this.</li>
 </ul>
-<h3 id="v360">v3.6.0</h3>
+<h3 id="v360">v3.6.0<a class="headerlink" href="#v360" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-format-moshi</code> to support the Square auto-marshalling library.</li>
 </ul>
-<h3 id="v351">v3.5.1</h3>
+<h3 id="v351">v3.5.1<a class="headerlink" href="#v351" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #76 - encoding of path segments to use URI encoding instead of URL form encoding.</li>
 </ul>
-<h3 id="v350">v3.5.0</h3>
+<h3 id="v350">v3.5.0<a class="headerlink" href="#v350" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added support for multiple HotReload template directories in <code>HandlebarsTemplates</code>. H/T @TomShacham</li>
 <li>Fix #74 - Request tracing span/parentSpan set too early so was shared between outgoing requests.</li>
 </ul>
-<h3 id="v340">v3.4.0</h3>
+<h3 id="v340">v3.4.0<a class="headerlink" href="#v340" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New server backend <code>http4k-server-apache</code>. H/T @kirderf for the PR :)</li>
 <li>We now set the length of the incoming request body when it is available in the incoming request.</li>
 </ul>
-<h3 id="v331">v3.3.1</h3>
+<h3 id="v331">v3.3.1<a class="headerlink" href="#v331" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Handlebars now uses combination of Class and Template name to cache templates.</li>
 </ul>
-<h3 id="v330">v3.3.0</h3>
+<h3 id="v330">v3.3.0<a class="headerlink" href="#v330" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Facility to compose <code>TemplateRenderers</code> with <code>then()</code> to provide fallback behaviour.</li>
 </ul>
-<h3 id="v323">v3.2.3</h3>
+<h3 id="v323">v3.2.3<a class="headerlink" href="#v323" title="Permanent link">&para;</a></h3>
 <ul>
 <li>PR #70: Header order equality for Request/Response - H/T @gypsydave5.</li>
 </ul>
-<h3 id="v322">v3.2.2</h3>
+<h3 id="v322">v3.2.2<a class="headerlink" href="#v322" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Switched out <code>Status</code> for <code>WsStatus</code> (with proper RFC code set) in Websockets.</li>
 </ul>
-<h3 id="v321">v3.2.1</h3>
+<h3 id="v321">v3.2.1<a class="headerlink" href="#v321" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Typesafe Websockets! Jetty now supports websockets, using the same style of API in the main http4k routing.</li>
 <li>(Possible) Breaking change: Because <code>WsHandler</code> (typealias) implements the same inbound interface as <code>HttpHandler</code>, you now cannot declare <code>HttpHandlers</code> without specifying the input type, so any "anonymous" handlers will not compile as a result. The required fix is very simple, but manual:
  `{ Response(OK) } should become { _:Request -&gt; Response(OK) }</li>
 </ul>
-<h3 id="v313">v3.1.3</h3>
+<h3 id="v313">v3.1.3<a class="headerlink" href="#v313" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix Request.form() for streaming requests</li>
 </ul>
-<h3 id="v312">v3.1.2</h3>
+<h3 id="v312">v3.1.2<a class="headerlink" href="#v312" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Remove possibility of empty message for Path Lens failure.</li>
 </ul>
-<h3 id="v311">v3.1.1</h3>
+<h3 id="v311">v3.1.1<a class="headerlink" href="#v311" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New (better!) API for <code>http4k-contract</code> module. Old meta DSL has been deprecated.</li>
 </ul>
-<h3 id="v301">v3.0.1</h3>
+<h3 id="v301">v3.0.1<a class="headerlink" href="#v301" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #63 - Apache Client Connect. timeout exception handling.</li>
 </ul>
-<h3 id="v300">v3.0.0</h3>
+<h3 id="v300">v3.0.0<a class="headerlink" href="#v300" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-serverless-lambda</code> module, allowing http4k applications to be deployed into AWS Lambda and then called from API Gateway. Effectively, the combination of these two services become just another Server back-end supported by the library. \o/</li>
 </ul>
-<h3 id="v2381">v2.38.1</h3>
+<h3 id="v2381">v2.38.1<a class="headerlink" href="#v2381" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>RequestContextKey</code> now follow the standardised Lens structure of required, optional, defaulted, and can now be removed (set to null). Replace calls
 to <code>RequestContextKey.of()</code> with <code>RequestContextKey.required()</code> </li>
 <li>Removed previously deprecated values. See below for details on replacements.</li>
 </ul>
-<h3 id="v2370">v2.37.0</h3>
+<h3 id="v2370">v2.37.0<a class="headerlink" href="#v2370" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-resilience4j</code> module, which adds Circuits, RateLimiters, Retrying and Bulkheading.</li>
 <li>Fix #60 (H/T @michaelhixson for the spot).</li>
 </ul>
-<h3 id="v2360">v2.36.0</h3>
+<h3 id="v2360">v2.36.0<a class="headerlink" href="#v2360" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added a couple of useful <code>ServerFilters</code>.</li>
 <li>Upgrade various dependency versions.</li>
 <li>Tidying of Multipart code.</li>
 </ul>
-<h3 id="v2351">v2.35.1</h3>
+<h3 id="v2351">v2.35.1<a class="headerlink" href="#v2351" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #57. Static handlers behave oddly when combined with an HTTP verb in the routing tree.</li>
 </ul>
-<h3 id="v2350">v2.35.0</h3>
+<h3 id="v2350">v2.35.0<a class="headerlink" href="#v2350" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #56. Altered behaviour of <code>CatchLensFailure</code> to NOT catch errors from unmarshalling Response objects. This was causing BAD_REQUEST to be incorrectly generated.</li>
 <li>Simplification of generics around LensSpecs. This should not be a breaking change, (there were 3 generics, now the MID has been removed so there are just 2) but could break if signatures are used explicitly.</li>
 </ul>
-<h3 id="v2340">v2.34.0</h3>
+<h3 id="v2340">v2.34.0<a class="headerlink" href="#v2340" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Reordered generics in LensInjector to make sense. This should have no effect on most code-bases, but could break if signatures are used explicitly. Just flip the generic types to switch.</li>
 </ul>
-<h3 id="v2331">v2.33.1</h3>
+<h3 id="v2331">v2.33.1<a class="headerlink" href="#v2331" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added support for unsigned AWS requests, which enables streaming content to S3. </li>
 </ul>
-<h3 id="v2330">v2.33.0</h3>
+<h3 id="v2330">v2.33.0<a class="headerlink" href="#v2330" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>BodyMode.Request</code> to configure streaming for clients.</li>
 <li><code>ResponseBodyMode</code> is now <code>BodyMode.Response</code> (Breaking change. Fixable with simple find/replace).</li>
 </ul>
-<h3 id="v2320">v2.32.0</h3>
+<h3 id="v2320">v2.32.0<a class="headerlink" href="#v2320" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>ServerFilter.ProcessFiles</code> filter to stream Multipart Files, convert them into references and replace inline in the Form.</li>
 </ul>
-<h3 id="v2314">v2.31.4</h3>
+<h3 id="v2314">v2.31.4<a class="headerlink" href="#v2314" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Avoid realising StreamBody unless necessary, which could break common usages of streaming. </li>
 </ul>
-<h3 id="v2313">v2.31.3</h3>
+<h3 id="v2313">v2.31.3<a class="headerlink" href="#v2313" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Tweaks to Server backends to improve efficiency.</li>
 </ul>
-<h3 id="v2312">v2.31.2</h3>
+<h3 id="v2312">v2.31.2<a class="headerlink" href="#v2312" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Webdriver will keep only the final URI after redirects.</li>
 </ul>
-<h3 id="v2311">v2.31.1</h3>
+<h3 id="v2311">v2.31.1<a class="headerlink" href="#v2311" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Increased granularity of <code>Replay.DiskStream</code> and ensure that traffic is returned in exact order on all OSes.</li>
 <li>Add support for redirects to Webdriver.</li>
 </ul>
-<h3 id="v2310">v2.31.0</h3>
+<h3 id="v2310">v2.31.0<a class="headerlink" href="#v2310" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Multipart module tweaked to provide a more consistent API.</li>
 <li>Fix FollowRedirects for POST/PUT request.</li>
 </ul>
-<h3 id="v2300">v2.30.0</h3>
+<h3 id="v2300">v2.30.0<a class="headerlink" href="#v2300" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Multipart form support through new module <code>http4k-multipart</code>.</li>
 <li>Deprecation: Replaced <code>Swagger</code> with <code>OpenApi</code> and deprecated the former (via typealias).</li>
 <li>Deprecation: Replaced <code>FormValidator</code> with <code>Validator</code> and deprecated the former (via typealias).</li>
 </ul>
-<h3 id="v2294">v2.29.4</h3>
+<h3 id="v2294">v2.29.4<a class="headerlink" href="#v2294" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Refactor release.</li>
 </ul>
-<h3 id="v2293">v2.29.3</h3>
+<h3 id="v2293">v2.29.3<a class="headerlink" href="#v2293" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #50 - Webdriver does not normalise relative links correctly.</li>
 </ul>
-<h3 id="v2292">v2.29.2</h3>
+<h3 id="v2292">v2.29.2<a class="headerlink" href="#v2292" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Http client modules now catch and convert Socket Timeout exceptions to HTTP 504s (with a custom message)</li>
 </ul>
-<h3 id="v2291">v2.29.1</h3>
+<h3 id="v2291">v2.29.1<a class="headerlink" href="#v2291" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Tweaks to how recorded traffic is stored on disk. Thanks to @dkandalov for the PR around this.</li>
 </ul>
-<h3 id="v2290">v2.29.0</h3>
+<h3 id="v2290">v2.29.0<a class="headerlink" href="#v2290" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>TrafficFilters</code> for recording and replaying HTTP traffic. See <code>org.http4k.traffic</code> package for details.</li>
 </ul>
-<h3 id="v2280">v2.28.0</h3>
+<h3 id="v2280">v2.28.0<a class="headerlink" href="#v2280" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-template-dust</code> for Dust template engine support. Thanks to @npryce for the PR to add this.</li>
 </ul>
-<h3 id="v2272">v2.27.2</h3>
+<h3 id="v2272">v2.27.2<a class="headerlink" href="#v2272" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #44 - Use quotes around cookie values</li>
 </ul>
-<h3 id="v2271">v2.27.1</h3>
+<h3 id="v2271">v2.27.1<a class="headerlink" href="#v2271" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Raise proper Exception (instead of LensFailure) when RequestContexts are not set up correctly, so we don't accidentally classify developer errors as BadRequests</li>
 </ul>
-<h3 id="v2270">v2.27.0</h3>
+<h3 id="v2270">v2.27.0<a class="headerlink" href="#v2270" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added facility to assign values into a <code>RequestContext</code> which is passed down the Filter chain. </li>
 </ul>
-<h3 id="v2263">v2.26.3</h3>
+<h3 id="v2263">v2.26.3<a class="headerlink" href="#v2263" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #44 - Request cookies should not be wrapped in quotes.</li>
 </ul>
-<h3 id="v2262">v2.26.2</h3>
+<h3 id="v2262">v2.26.2<a class="headerlink" href="#v2262" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #43 - AWS does not sign binary requests correctly.</li>
 </ul>
-<h3 id="v2261">v2.26.1</h3>
+<h3 id="v2261">v2.26.1<a class="headerlink" href="#v2261" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #41 - Sending binary body alters the size of the payload.</li>
 </ul>
-<h3 id="v2260">v2.26.0</h3>
+<h3 id="v2260">v2.26.0<a class="headerlink" href="#v2260" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added "catch all" routing option, which matches all methods to a handler.</li>
 </ul>
-<h3 id="v2254">v2.25.4</h3>
+<h3 id="v2254">v2.25.4<a class="headerlink" href="#v2254" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #40 - GZip filters now use content-encoding headers instead of transfer-encoding.</li>
 </ul>
-<h3 id="v2253">v2.25.3</h3>
+<h3 id="v2253">v2.25.3<a class="headerlink" href="#v2253" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #39 - ResponseBodyMode.Memory properly closes streams (breaks jetty + gzip).</li>
 </ul>
-<h3 id="v2252">v2.25.2</h3>
+<h3 id="v2252">v2.25.2<a class="headerlink" href="#v2252" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Ensure that streams are closed properly when consuming from an upstream client.</li>
 </ul>
-<h3 id="v2251">v2.25.1</h3>
+<h3 id="v2251">v2.25.1<a class="headerlink" href="#v2251" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Remove Apache client request streaming because it may not release connections properly. </li>
 </ul>
-<h3 id="v2250">v2.25.0</h3>
+<h3 id="v2250">v2.25.0<a class="headerlink" href="#v2250" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add streaming support to HTTP Server and Client modules.</li>
 <li>Remove CatchLensFailure ClientFilter as it will never be used.</li>
 </ul>
-<h3 id="v2240">v2.24.0</h3>
+<h3 id="v2240">v2.24.0<a class="headerlink" href="#v2240" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added CatchLensFailure for ClientFilters - which catches un-deserializable invalid responses from clients and generates a BAD_GATEWAY error.</li>
 </ul>
-<h3 id="v2234">v2.23.4</h3>
+<h3 id="v2234">v2.23.4<a class="headerlink" href="#v2234" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Switch XML generation to Gson over Jackson because Jackson doesn't handle uppercase field names well.</li>
 <li>Switch native XML parsed type to Document over Node.</li>
 </ul>
-<h3 id="v2233">v2.23.3</h3>
+<h3 id="v2233">v2.23.3<a class="headerlink" href="#v2233" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New algorithm for XML data class deserialisation, so un-deprecated XML methods.</li>
 </ul>
-<h3 id="v2232">v2.23.2</h3>
+<h3 id="v2232">v2.23.2<a class="headerlink" href="#v2232" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Deprecated methods in XML support due to limitation with underlying Jackson implementation.</li>
 </ul>
-<h3 id="v2231">v2.23.1</h3>
+<h3 id="v2231">v2.23.1<a class="headerlink" href="#v2231" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fixed bug with GenerateXmlDataClasses filter</li>
 </ul>
-<h3 id="v2230">v2.23.0</h3>
+<h3 id="v2230">v2.23.0<a class="headerlink" href="#v2230" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Renamed <code>http4k-format-jackson-xml</code> module to <code>http4k-format-xml</code>.</li>
 <li>Improved XML unmarshalling support.</li>
 </ul>
-<h3 id="v2221">v2.22.1</h3>
+<h3 id="v2221">v2.22.1<a class="headerlink" href="#v2221" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fixed 36: Form entry is too strict with content encoding.</li>
 </ul>
-<h3 id="v2220">v2.22.0</h3>
+<h3 id="v2220">v2.22.0<a class="headerlink" href="#v2220" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-format-jackson-xml</code> module, with XML parsing support.</li>
 <li>Upgrade several dependencies</li>
 </ul>
-<h3 id="v2212">v2.21.2</h3>
+<h3 id="v2212">v2.21.2<a class="headerlink" href="#v2212" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fixed Hamkrest matchers to be on HttpMessage and not Http Request.</li>
 </ul>
-<h3 id="v2211">v2.21.1</h3>
+<h3 id="v2211">v2.21.1<a class="headerlink" href="#v2211" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Default body Content Negotiation strategy changed to None</li>
 </ul>
-<h3 id="v2210">v2.21.0</h3>
+<h3 id="v2210">v2.21.0<a class="headerlink" href="#v2210" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Converted Content-Negotiation strategy from an Enum to an interface, so that users can define their own strategies. We also now check encoding so there are 4-built in strategies to choose from: Strict, StrictNoDirective, NonStrict and None.</li>
 </ul>
-<h3 id="v2201">v2.20.1</h3>
+<h3 id="v2201">v2.20.1<a class="headerlink" href="#v2201" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fixed #31 - Matching of segments in URIs is done after URLs are decoded, which results in not capturing encoded slashes in the path segments.</li>
 </ul>
-<h3 id="v2200">v2.20.0</h3>
+<h3 id="v2200">v2.20.0<a class="headerlink" href="#v2200" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fixed #30 - CachingClasspath template ResourceLoader not working with non-root packages.</li>
 </ul>
-<h3 id="v2190">v2.19.0</h3>
+<h3 id="v2190">v2.19.0<a class="headerlink" href="#v2190" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fixed #29 - webdriver submission of text area.</li>
 <li>Http clients now use a new instance of the default for each instantiation. Previously there was a shared instance.</li>
 <li>Add regex body type for parsing values out of bodies, and "None" option for content negotiation.</li>
 </ul>
-<h3 id="v2183">v2.18.3</h3>
+<h3 id="v2183">v2.18.3<a class="headerlink" href="#v2183" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix AWS request signing for requests containing empty path </li>
 </ul>
-<h3 id="v2182">v2.18.2</h3>
+<h3 id="v2182">v2.18.2<a class="headerlink" href="#v2182" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix AWS request signing for requests containing path with special characters </li>
 </ul>
-<h3 id="v2181">v2.18.1</h3>
+<h3 id="v2181">v2.18.1<a class="headerlink" href="#v2181" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added support for newRequest() in new <code>RouteBinder</code> mechanic.</li>
 </ul>
-<h3 id="v2180">v2.18.0</h3>
+<h3 id="v2180">v2.18.0<a class="headerlink" href="#v2180" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add support for unlimited nesting for <code>routes()</code> blocks. Removed the raw <code>Route</code> object, which can be replaced with <code>Router</code> or <code>RoutingHttpHandler</code> where appropriate.</li>
 <li>As part of above, rejigged route setup logic. Deprecated old routing structure, so now  <code>"/path" to GET bind</code> is <code>"/path" bind GET to</code>. To fix deprecation, simply switch the calls to "to" and "bind" in routing setup. </li>
 <li>Rename of <code>bind()</code> in <code>http4k-contract</code> to be <code>bindContract()</code></li>
 </ul>
-<h3 id="v2172">v2.17.2</h3>
+<h3 id="v2172">v2.17.2<a class="headerlink" href="#v2172" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added missing eclectic HTTP method. :)</li>
 </ul>
-<h3 id="v2171">v2.17.1</h3>
+<h3 id="v2171">v2.17.1<a class="headerlink" href="#v2171" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added GZip filters to <code>http4k-core</code> to zip request and response bodies.</li>
 </ul>
-<h3 id="v2161">v2.16.1</h3>
+<h3 id="v2161">v2.16.1<a class="headerlink" href="#v2161" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Improved messages for <code>http4k-testing-hamkrest</code> matchers.</li>
 </ul>
-<h3 id="v2160">v2.16.0</h3>
+<h3 id="v2160">v2.16.0<a class="headerlink" href="#v2160" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-testing-hamkrest</code> which contains a set of Hamkrest matchers for Http4k objects.</li>
 </ul>
-<h3 id="v2150">v2.15.0</h3>
+<h3 id="v2150">v2.15.0<a class="headerlink" href="#v2150" title="Permanent link">&para;</a></h3>
 <ul>
 <li>More features for <code>http4k-testing-webdriver</code>. Cookie support added.</li>
 </ul>
-<h3 id="v2140">v2.14.0</h3>
+<h3 id="v2140">v2.14.0<a class="headerlink" href="#v2140" title="Permanent link">&para;</a></h3>
 <ul>
 <li>More features for <code>http4k-testing-webdriver</code>. We now support Form entry and submission.</li>
 </ul>
-<h3 id="v2130">v2.13.0</h3>
+<h3 id="v2130">v2.13.0<a class="headerlink" href="#v2130" title="Permanent link">&para;</a></h3>
 <ul>
 <li>More features for <code>http4k-testing-webdriver</code>.</li>
 </ul>
-<h3 id="v2120">v2.12.0</h3>
+<h3 id="v2120">v2.12.0<a class="headerlink" href="#v2120" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>http4k-testing-webdriver</code> module, an ultralight Selenium WebDriver for <strong>http4k</strong> apps</li>
 </ul>
-<h3 id="v2113">v2.11.3</h3>
+<h3 id="v2113">v2.11.3<a class="headerlink" href="#v2113" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #26 - GenerateDataClasses does not recurse into nested object trees</li>
 </ul>
-<h3 id="v2112">v2.11.2</h3>
+<h3 id="v2112">v2.11.2<a class="headerlink" href="#v2112" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix filter application on GroupRoutingHttpHandler to apply the filter when it is applied with <code>then(RoutingHttpHandler()</code></li>
 </ul>
-<h3 id="v2111">v2.11.1</h3>
+<h3 id="v2111">v2.11.1<a class="headerlink" href="#v2111" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix static routes not defaulting to index.html when in root context</li>
 </ul>
-<h3 id="v2110">v2.11.0</h3>
+<h3 id="v2110">v2.11.0<a class="headerlink" href="#v2110" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>SunHttp</code> server implementation (for development use only)</li>
 </ul>
-<h3 id="v2101">v2.10.1</h3>
+<h3 id="v2101">v2.10.1<a class="headerlink" href="#v2101" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix cookie parsing when value contains '='</li>
 </ul>
-<h3 id="v2100">v2.10.0</h3>
+<h3 id="v2100">v2.10.0<a class="headerlink" href="#v2100" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add method to set form values in the request</li>
 </ul>
-<h3 id="v290">v2.9.0</h3>
+<h3 id="v290">v2.9.0<a class="headerlink" href="#v290" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added PURGE HTTP method as it's used commonly by various caches.</li>
 </ul>
-<h3 id="v281">v2.8.1</h3>
+<h3 id="v281">v2.8.1<a class="headerlink" href="#v281" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Repackage AWS classes for consistency with rest of project</li>
 </ul>
-<h3 id="v271">v2.7.1</h3>
+<h3 id="v271">v2.7.1<a class="headerlink" href="#v271" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Alter AWS Auth filter creation. Now use <code>ClientFilters.AwsAuth</code></li>
 </ul>
-<h3 id="v270">v2.7.0</h3>
+<h3 id="v270">v2.7.0<a class="headerlink" href="#v270" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add AWS module</li>
 </ul>
-<h3 id="v260">v2.6.0</h3>
+<h3 id="v260">v2.6.0<a class="headerlink" href="#v260" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Newly created Zipkin traces are now populated onto incoming request in ServerFilters.</li>
 </ul>
-<h3 id="v251">v2.5.1</h3>
+<h3 id="v251">v2.5.1<a class="headerlink" href="#v251" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Slight tweak to GSON auto-marshalling to allow for use of raw Arrays with auto-marshalling</li>
 </ul>
-<h3 id="v250">v2.5.0</h3>
+<h3 id="v250">v2.5.0<a class="headerlink" href="#v250" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add <code>Thymeleaf</code> templating support</li>
 </ul>
-<h3 id="v240">v2.4.0</h3>
+<h3 id="v240">v2.4.0<a class="headerlink" href="#v240" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add <code>Pebble</code> templating support</li>
 </ul>
-<h3 id="v230">v2.3.0</h3>
+<h3 id="v230">v2.3.0<a class="headerlink" href="#v230" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Make Route a Router so we can nest them together.</li>
 </ul>
-<h3 id="v221">v2.2.1</h3>
+<h3 id="v221">v2.2.1<a class="headerlink" href="#v221" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Remove excess "charset" from headers in Undertow.</li>
 </ul>
-<h3 id="v220">v2.2.0</h3>
+<h3 id="v220">v2.2.0<a class="headerlink" href="#v220" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Rename  <code>by()</code> to <code>bind()</code> in routing for clarity. </li>
 </ul>
-<h3 id="v212">v2.1.2</h3>
+<h3 id="v212">v2.1.2<a class="headerlink" href="#v212" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix for #24 - UriTemplate captures query parameters when the trailing path parameter is a regex.</li>
 </ul>
-<h3 id="v210">v2.1.0</h3>
+<h3 id="v210">v2.1.0<a class="headerlink" href="#v210" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added GSON full-auto functions to convert arbitary objects to/from JSON.</li>
 </ul>
-<h3 id="v205">v2.0.5</h3>
+<h3 id="v205">v2.0.5<a class="headerlink" href="#v205" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #23. Contract now supports multi-part URL params (for hardcoded parts)</li>
 </ul>
-<h3 id="v204">v2.0.4</h3>
+<h3 id="v204">v2.0.4<a class="headerlink" href="#v204" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix #22. Uri template does not parse out correct path params when URL starts with a path part.</li>
 </ul>
-<h3 id="v203">v2.0.3</h3>
+<h3 id="v203">v2.0.3<a class="headerlink" href="#v203" title="Permanent link">&para;</a></h3>
 <ul>
 <li>toString() implementations to aid debugging</li>
 </ul>
-<h3 id="v201">v2.0.1</h3>
+<h3 id="v201">v2.0.1<a class="headerlink" href="#v201" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Readded missing default parameter for <code>newRequest()</code> on RouteSpec</li>
 </ul>
-<h3 id="v200">v2.0.0</h3>
+<h3 id="v200">v2.0.0<a class="headerlink" href="#v200" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Breaking: Inversion of routing API. <code>GET to "/someUri"</code> is now <code>"/someUri" to GET</code> for consistency across the entire API.</li>
 </ul>
-<h3 id="v1331">v1.33.1</h3>
+<h3 id="v1331">v1.33.1<a class="headerlink" href="#v1331" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Reimplementation of <code>http4k-contract</code> API to match main routing API. Contracts are now nestable.</li>
 </ul>
-<h3 id="v1322">v1.32.2</h3>
+<h3 id="v1322">v1.32.2<a class="headerlink" href="#v1322" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix Filters being applied twice in <code>ContractRoutingHttpHandler</code></li>
 </ul>
-<h3 id="v1321">v1.32.1</h3>
+<h3 id="v1321">v1.32.1<a class="headerlink" href="#v1321" title="Permanent link">&para;</a></h3>
 <ul>
 <li>More work on <code>http4k-contract</code> contract API</li>
 </ul>
-<h3 id="v1310">v1.31.0</h3>
+<h3 id="v1310">v1.31.0<a class="headerlink" href="#v1310" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Rework <code>http4k-contract</code> routing to be mounted in the same way as other <code>RoutingHttpHandlers</code></li>
 </ul>
-<h3 id="v1300">v1.30.0</h3>
+<h3 id="v1300">v1.30.0<a class="headerlink" href="#v1300" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Filters are now applied consistently to all Routers</li>
 </ul>
-<h3 id="v1290">v1.29.0</h3>
+<h3 id="v1290">v1.29.0<a class="headerlink" href="#v1290" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Tweak to DSL for defining StaticRouters</li>
 </ul>
-<h3 id="v1281">v1.28.1</h3>
+<h3 id="v1281">v1.28.1<a class="headerlink" href="#v1281" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix for #18: FollowRedirect will now work if location header includes charset information.  </li>
 </ul>
-<h3 id="v1280">v1.28.0</h3>
+<h3 id="v1280">v1.28.0<a class="headerlink" href="#v1280" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New DSL for defining StaticRouters</li>
 </ul>
-<h3 id="v1270">v1.27.0</h3>
+<h3 id="v1270">v1.27.0<a class="headerlink" href="#v1270" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Merged StaticContent and StaticRouter and repackage of contract API into other packages</li>
 </ul>
-<h3 id="v1262">v1.26.2</h3>
+<h3 id="v1262">v1.26.2<a class="headerlink" href="#v1262" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Extend fix for #17 to request <code>Cookie</code> header.</li>
 </ul>
-<h3 id="v1261">v1.26.1</h3>
+<h3 id="v1261">v1.26.1<a class="headerlink" href="#v1261" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix for #17. Cookie can now parse a cookie without attributes and ending in semicolon.</li>
 </ul>
-<h3 id="v1260">v1.26.0</h3>
+<h3 id="v1260">v1.26.0<a class="headerlink" href="#v1260" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added nestable Routers.</li>
 <li>Merging of Modules and Routers. <code>Router</code> is the new <code>Module</code>! <code>RouteModule</code> is now <code>ContractRouter</code>, so rename in code will be required.</li>
 </ul>
-<h3 id="v1251">v1.25.1</h3>
+<h3 id="v1251">v1.25.1<a class="headerlink" href="#v1251" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix for #15. OkHttp client handling of POSTs with no body.</li>
 </ul>
-<h3 id="v1250">v1.25.0</h3>
+<h3 id="v1250">v1.25.0<a class="headerlink" href="#v1250" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Can add custom mime types to Static Content</li>
 <li>GenerateDataClasses is capable of more complex object graphs</li>
 </ul>
-<h3 id="v1240">v1.24.0</h3>
+<h3 id="v1240">v1.24.0<a class="headerlink" href="#v1240" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Remove <code>HttpHandler.asServer</code> in favour of <code>HttpHandler.startServer</code> to avoid confusion.</li>
 <li>Introduce <code>Status.description()</code>.</li>
 </ul>
-<h3 id="v1230">v1.23.0</h3>
+<h3 id="v1230">v1.23.0<a class="headerlink" href="#v1230" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Netty sets content-length header.</li>
 </ul>
-<h3 id="v1222">v1.22.2</h3>
+<h3 id="v1222">v1.22.2<a class="headerlink" href="#v1222" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix for #12. Undertow not constructing response correctly.</li>
 </ul>
-<h3 id="v1220">v1.22.0</h3>
+<h3 id="v1220">v1.22.0<a class="headerlink" href="#v1220" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New module with Undertow.io support <code>http4k-server-undertow</code></li>
 <li>Jackson implementation now ignores unknown properties in incoming messages</li>
 <li>Netty implementation tidied up</li>
 </ul>
-<h3 id="v1211">v1.21.1</h3>
+<h3 id="v1211">v1.21.1<a class="headerlink" href="#v1211" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix for #11. Netty implementation returns incorrect status codes.</li>
 </ul>
-<h3 id="v1210">v1.21.0</h3>
+<h3 id="v1210">v1.21.0<a class="headerlink" href="#v1210" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add synonym methods for Lenses to aid readability. We now have <code>invoke(IN)/extract(IN)</code> and `invoke(IN, TARGET)/inject(IN, TARGET)</li>
 </ul>
-<h3 id="v1200">v1.20.0</h3>
+<h3 id="v1200">v1.20.0<a class="headerlink" href="#v1200" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>http4k-contracts</code>: Add option to change the route of the module description route</li>
 </ul>
-<h3 id="v1191">v1.19.1</h3>
+<h3 id="v1191">v1.19.1<a class="headerlink" href="#v1191" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>http4k-contracts</code>: Fix for contract module description routes not being authenticated via security filter</li>
 </ul>
-<h3 id="v1190">v1.19.0</h3>
+<h3 id="v1190">v1.19.0<a class="headerlink" href="#v1190" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>http4k-contracts</code>: Add <code>Swagger</code> module rendering with JSON schema models for messages.</li>
 </ul>
-<h3 id="v1180">v1.18.0</h3>
+<h3 id="v1180">v1.18.0<a class="headerlink" href="#v1180" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Add <code>nonEmptyString()</code> lens type to all request parts.</li>
 </ul>
-<h3 id="v1170">v1.17.0</h3>
+<h3 id="v1170">v1.17.0<a class="headerlink" href="#v1170" title="Permanent link">&para;</a></h3>
 <ul>
 <li>General rework</li>
 </ul>
-<h3 id="v1160">v1.16.0</h3>
+<h3 id="v1160">v1.16.0<a class="headerlink" href="#v1160" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Further work on Path Lenses. They are now fully supported and consistent for both simple and contract routing scenarios.</li>
 </ul>
-<h3 id="v1150">v1.15.0</h3>
+<h3 id="v1150">v1.15.0<a class="headerlink" href="#v1150" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Path lenses are now bidirectional, so can be used to populate requests as well as bodies an headers etc.</li>
 <li>Routes can now create shell Requests for themselves, using <code>route.newRequest()</code></li>
 </ul>
-<h3 id="v1140">v1.14.0</h3>
+<h3 id="v1140">v1.14.0<a class="headerlink" href="#v1140" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Body is now non-nullable (use <code>Body.EMPTY</code> instead)</li>
 <li>Rename methods <code>BodyLens</code> API for consistency and clarity. <code>required()</code> is now <code>toLens()</code>. <code>to()' binding method is now</code>of().</li>
 </ul>
-<h3 id="v1130">v1.13.0</h3>
+<h3 id="v1130">v1.13.0<a class="headerlink" href="#v1130" title="Permanent link">&para;</a></h3>
 <ul>
 <li>New client module: <code>http4k-client-okhttp</code></li>
 </ul>
-<h3 id="v1120">v1.12.0</h3>
+<h3 id="v1120">v1.12.0<a class="headerlink" href="#v1120" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Tidying</li>
 </ul>
-<h3 id="v1110">v1.11.0</h3>
+<h3 id="v1110">v1.11.0<a class="headerlink" href="#v1110" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added option for Body content-negotiation to be strict or non-strict (the default). Always be strict in what you send, relaxed in what you will accept. :)</li>
 </ul>
-<h3 id="v1100">v1.10.0</h3>
+<h3 id="v1100">v1.10.0<a class="headerlink" href="#v1100" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Moved <code>Credentials</code> to <code>org.http4k.core</code> package.</li>
 <li>Add various filters, including <code>SetHostFrom</code> and <code>CatchAll</code>.</li>
 </ul>
-<h3 id="v190">v1.9.0</h3>
+<h3 id="v190">v1.9.0<a class="headerlink" href="#v190" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added <code>GenerateDataClasses</code> so you can generate Kotlin data classes from JSON messages.</li>
 </ul>
-<h3 id="v180">v1.8.0</h3>
+<h3 id="v180">v1.8.0<a class="headerlink" href="#v180" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added CORs support</li>
 </ul>
-<h3 id="v170">v1.7.0</h3>
+<h3 id="v170">v1.7.0<a class="headerlink" href="#v170" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added auto() to Jackson, so you can auto convert body objects into and out of Requests/Responses</li>
 </ul>
-<h3 id="v160">v1.6.0</h3>
+<h3 id="v160">v1.6.0<a class="headerlink" href="#v160" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Added CachingFilters</li>
 </ul>
-<h3 id="v150">v1.5.0</h3>
+<h3 id="v150">v1.5.0<a class="headerlink" href="#v150" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Removed static factory methods for Request/Response. They were confusing/incomplete and users can easily recreate them via extension functions.</li>
 <li>Merge <code>org.http4k.core.Body</code> and <code>org.http4k.lens.Body</code>.</li>
 <li>Add Request/Response message parsers.</li>
 </ul>
-<h3 id="v140">v1.4.0</h3>
+<h3 id="v140">v1.4.0<a class="headerlink" href="#v140" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Turn Body into ByteBuffer wrapper rather than typealias. That should make .toString() behave as most people would expected.</li>
 </ul>
-<h3 id="v130">v1.3.0</h3>
+<h3 id="v130">v1.3.0<a class="headerlink" href="#v130" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Removed non-mandatory parameters from Request and Response constructors. This is aid API clarity.
 and force users to use the API methods for properly constructing the objects.</li>
 <li>Regex Lens added.</li>
 </ul>
-<h3 id="v100">v1.0.0</h3>
+<h3 id="v100">v1.0.0<a class="headerlink" href="#v100" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Initial major release.</li>
 </ul>

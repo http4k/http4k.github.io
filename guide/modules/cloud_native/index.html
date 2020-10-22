@@ -854,22 +854,22 @@
                     
                     <h1>Cloud native Configuration</h1>
                     
-                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-cloudnative&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
 <p>http4k applications are naturally at home operating in distributed, Cloud Native environments. Whilst simple to create, this module 
 provides requisite tooling to get apps up and running with the minimum of effort to enable the following operational aspects:</p>
-<h4 id="quick-start">Quick start</h4>
+<h4 id="quick_start">Quick start<a class="headerlink" href="#quick_start" title="Permanent link">&para;</a></h4>
 <p>Because http4k does not use reflection or annotation process for application startup, all of the supported Server-backends 
 start up and shutdown very quickly - this is crucial for cloud-based environments where an orchestration framework might move 
 instances around to redistribute load or avoid problematic server/rack/DCs.</p>
-<h4 id="configuration">Configuration</h4>
+<h4 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h4>
 <p>All application configuration should be injected via environmental variables. http4k provides an <code>Environment</code> object, along with 
 typesafe variable binding using the in-built Lenses mechanism. This typesafe API is consistent with the other usages of Lenses 
 throughout http4k, so should have a near-zero learning curve. Also provided are a set of extension methods for retrieving standard 
 environmental config for service ports from Kubernetes.</p>
-<h4 id="observability">Observability</h4>
+<h4 id="observability">Observability<a class="headerlink" href="#observability" title="Permanent link">&para;</a></h4>
 <p>Orchestration software such as Kubernetes and CloudFoundry regularly query a set of diagnostic endpoints to monitor the state of an 
 application. This module provides standardised <code>HttpHandler</code> implementations to model the following endpoints:</p>
 <ul>
@@ -881,7 +881,7 @@ and plugged into the endpoint.</li>
 </ul>
 <p>In Kubernetes, this set of endpoints is generally hosted on a second port to avoid the API clashes, so http4k provides the machinery to 
 easily start these services on a different port to the main application API via the <code>Http4kK8sServer</code> object.</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/cloud_native/example_k8s.kt"><img class="octocat"/></a></h4>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/cloud_native/example_k8s.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.cloud_native</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>

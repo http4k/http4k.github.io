@@ -854,7 +854,7 @@
                     
                     <h1>JSON handling</h1>
                     
-                    <h3 id="installation-gradle">Installation (Gradle)</h3>
+                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="c1">// Argo:  </span>
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-argo&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 
@@ -871,12 +871,12 @@
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-kotlinx-serialization&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
-<h3 id="about">About</h3>
+<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>These modules add the ability to use JSON as a first-class citizen when reading from and to HTTP messages. Each 
 implementation adds a set of standard methods and extension methods for converting common types into native JSON/XML 
 objects, including custom Lens methods for each library so that JSON node objects can be written and read directly from
  HTTP messages:</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/example.kt"><img class="octocat"/></a></h4>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.json</span>
 
 <span class="k">import</span> <span class="nn">com.fasterxml.jackson.databind.JsonNode</span>
@@ -933,11 +933,11 @@ objects, including custom Lens methods for each library so that JSON node object
 <span class="k">val</span> <span class="py">xmlNode</span><span class="p">:</span> <span class="n">Node</span> <span class="p">=</span> <span class="n">xmlLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;&lt;xml/&gt;&quot;</span><span class="p">))</span>
 </code></pre></div>
 
-<h3 id="auto-marshalling-capabilities">Auto-marshalling capabilities</h3>
+<h3 id="auto-marshalling_capabilities">Auto-marshalling capabilities<a class="headerlink" href="#auto-marshalling_capabilities" title="Permanent link">&para;</a></h3>
 <p>Some of the message libraries (eg. GSON, Jackson, Moshi, XML) provide the mechanism to automatically marshall data objects 
 to/from JSON and XML using reflection.</p>
 <p>We can use this facility in <a href="https://http4k.org">http4k</a> to automatically marshall objects to/from HTTP message bodies using <strong>Lenses</strong>:</p>
-<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/autoJson.kt"><img class="octocat"/></a></h4>
+<h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/autoJson.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.json</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
@@ -980,7 +980,7 @@ to/from JSON and XML using reflection.</p>
 
 <p>There is a utility to generate Kotlin data class code for JSON documents <a href="http://http4k-data-class-gen.herokuapp.com">here</a>. 
 These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
-<h4 id="faq-aka-gotchas-regarding-auto-marshalling-capabilities">FAQ (aka gotchas) regarding Auto-marshalling capabilities</h4>
+<h4 id="faq_aka_gotchas_regarding_auto-marshalling_capabilities">FAQ (aka gotchas) regarding Auto-marshalling capabilities<a class="headerlink" href="#faq_aka_gotchas_regarding_auto-marshalling_capabilities" title="Permanent link">&para;</a></h4>
 <p><strong>Q. Where is the <code>Body.auto</code> method defined?</strong></p>
 <p><strong>A.</strong> <code>Body.auto</code> is an extension method which is declared on the parent singleton <code>object</code> for each of the message libraries that supports auto-marshalling - eg. <code>Jackson</code>, <code>Gson</code>, <code>Moshi</code> and <code>Xml</code>. All of these objects are declared in the same package, so you need to add an import similar to:
 <code>import org.http4k.format.Jackson.auto</code></p>
