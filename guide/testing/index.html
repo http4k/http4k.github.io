@@ -866,7 +866,7 @@ Testing is just matter of calling the correct function! Additionally, because th
 (or indeed even to another HTTP framework entirely) is just a matter of switching out the HttpHandler implementation from the constructed app (out of container) to an HTTP client (in-container).</p>
 <p>That said, possibly the most useful thing is to demonstrate the process that we have developed to test micro-services. A simple example of the development process can be found 
 <a href="/tutorials/tdding_http4k">here</a>.</p>
-<h2 id="testing_modules">Testing modules<a class="headerlink" href="#testing_modules" title="Permanent link">&para;</a></h2>
+<h3 id="testing_modules">Testing modules<a class="headerlink" href="#testing_modules" title="Permanent link">&para;</a></h3>
 <p>We have developed the following modules to help with testing:</p>
 <ul>
 <li><a href="/guide/modules/hamkrest">http4k-testing-hamkrest</a>: a set of composable Hamkrest matchers for matching <a href="https://http4k.org">http4k</a> message objects against.</li>
@@ -874,7 +874,7 @@ Testing is just matter of calling the correct function! Additionally, because th
 <li><a href="/guide/modules/approvaltests">http4k-testing-approval</a>: JUnit 5 extensions for <a href="http://approvaltests.com/">Approval testing</a> of <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
 <li><a href="/guide/modules/chaos">http4k-testing-chaos</a>: API for declaring and injecting failure modes into <a href="https://http4k.org">http4k</a> applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
 </ul>
-<h2 id="example_code_for_testing">Example code for testing<a class="headerlink" href="#example_code_for_testing" title="Permanent link">&para;</a></h2>
+<h3 id="example_code_for_testing">Example code for testing<a class="headerlink" href="#example_code_for_testing" title="Permanent link">&para;</a></h3>
 <h4 id="testing_httphandlers_with_static_paths">Testing HttpHandlers with static paths <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/testing/StaticPathTest.kt"><img class="octocat"/></a><a class="headerlink" href="#testing_httphandlers_with_static_paths" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.testing</span>
 

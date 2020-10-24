@@ -882,7 +882,7 @@ recommend the usage of the
 mouse and keyboard shortcut to rename the file. </p>
 <p>The <code>http4k-testing-approval</code> module implements this functionality as a JUnit5 extension that 
 will inject the <code>Approver</code> automatically into test methods.</p>
-<h2 id="standard_approval_tests">Standard Approval tests<a class="headerlink" href="#standard_approval_tests" title="Permanent link">&para;</a></h2>
+<h3 id="standard_approval_tests">Standard Approval tests<a class="headerlink" href="#standard_approval_tests" title="Permanent link">&para;</a></h3>
 <p>By using the <code>ApprovalTest</code> extension, an instance of an <code>Approver</code> is injected into each test.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_standard.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.approvaltests</span>
@@ -930,7 +930,7 @@ will inject the <code>Approver</code> automatically into test methods.</p>
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="content-type_specific_approval_tests">Content-type specific Approval tests<a class="headerlink" href="#content-type_specific_approval_tests" title="Permanent link">&para;</a></h2>
+<h3 id="content-type_specific_approval_tests">Content-type specific Approval tests<a class="headerlink" href="#content-type_specific_approval_tests" title="Permanent link">&para;</a></h3>
 <p>Because so many APIs are based around messages with a particular content type, the 
 module also provides Junit 5 extensions that will:</p>
 <ol>
@@ -999,7 +999,7 @@ module also provides Junit 5 extensions that will:</p>
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="implementing_custom_junit_extensions">Implementing custom JUnit Extensions<a class="headerlink" href="#implementing_custom_junit_extensions" title="Permanent link">&para;</a></h2>
+<h3 id="implementing_custom_junit_extensions">Implementing custom JUnit Extensions<a class="headerlink" href="#implementing_custom_junit_extensions" title="Permanent link">&para;</a></h3>
 <p>As with the rest of <a href="https://http4k.org">http4k</a>, a base implementation, <code>BaseApprovalTest</code> of the Junit5 Extension is 
 provided, allowing API users to implement custom approval schemes or non-FS based approaches for 
 storing the approval files.</p>

@@ -859,11 +859,11 @@
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-jackson&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
-<h2 id="custom_auto-mapping_json_configurations">Custom auto-mapping JSON configurations<a class="headerlink" href="#custom_auto-mapping_json_configurations" title="Permanent link">&para;</a></h2>
+<h3 id="custom_auto-mapping_json_configurations">Custom auto-mapping JSON configurations<a class="headerlink" href="#custom_auto-mapping_json_configurations" title="Permanent link">&para;</a></h3>
 <p><strong>http4k</strong> declares an extended set of "primitive" types which it can marshall out of the box - this includes the various http4k primitives (Uri, Status), as well as a bunch of common types from the JDK such as the DateTime classes and Exceptions. These primitives types cannot be marshalled as top-level JSON structures on their own so should be contained in a custom wrapper class before transmission.</p>
 <p>You can declare your own custom marshaller by reimplementing the Json instance and adding mappings for your own types - either uni or bi-directional.</p>
 <p>This ability to render custom types through different JSON marshallers allows API users to provide different "views" for different purposes - for example we may wish to hide the values of some fields in the output, as below:</p>
-<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_json_marshallers/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/custom_json_marshallers/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.custom_json_marshallers</span>
 
 <span class="k">import</span> <span class="nn">com.fasterxml.jackson.databind.DeserializationFeature</span>

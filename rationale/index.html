@@ -854,9 +854,9 @@
                     
                     <h1>Rationale & Concepts</h1>
                     
-                    <h2 id="tldr">tldr;<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
+                    <h3 id="tldr">tldr;<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h3>
 <p><a href="https://www.http4k.org/server_as_a_function_in_kotlin">Presentation</a> about the development of http4k given at the Kotlin London meetup.</p>
-<h2 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h2>
+<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p><strong>http4k</strong> is the distillation of 15 years worth of experience of using various server-side libraries and we've stolen good ideas from everywhere we can. For instance - 
 the routing module is inspired by <a href="https://github.com/bodar/utterlyidle">UtterlyIdle</a>, the "Server as a function" and filter model is stolen from 
 <a href="https://twitter.github.io/finagle/">Finagle</a>, and the contract module OpenApi/Swagger generator is ported from <a href="http://fintrospect.io">Fintrospect</a>. With the growing 
@@ -878,7 +878,7 @@ adoption of Kotlin, we wanted something that would fully leverage the features o
 server and client sides (eg. logging/metrics/caching...) since they can be composed together for later use. </p>
 <p>As a bonus, we can also easily create simple Fake servers for any HTTP contract, which means (in combination with CDC suites) you can end-to-end test micro-services in an outside-in way (using GOOS-style acceptance tests).</p>
 <p>Scenarios such as "what happens if this HTTP dependency continually takes &gt; 5 seconds to respond?" are easily modelled - answers you can't easily get if you're faking out your dependencies inside the HTTP boundary.</p>
-<h2 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h2>
+<h3 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h3>
 <ul>
 <li>All incoming and outgoing HTTP services are modelled as <code>HttpHandler</code>, which is modelled as <code>(Request) -&gt; Response</code>:</li>
 </ul>

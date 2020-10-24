@@ -853,11 +853,11 @@
                     
                     
                     <h1 id="add_typesafe_12-factor_configuration_to_http4k_apps_with_environments">Add typesafe 12-factor configuration to http4k apps with Environments.<a class="headerlink" href="#add_typesafe_12-factor_configuration_to_http4k_apps_with_environments" title="Permanent link">&para;</a></h1>
-<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h2>
+<h3 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h3>
 <p>This post covers the various concerns around configuring HTTP apps, and introduces the <a href="https://http4k.org">http4k</a> 
 approach for addressing these when deploying applications into cloud-native environments, which leverages the Kotlin type 
 system for maximum safely and code reuse.</p>
-<h2 id="concerns_when_configuring_applications">Concerns when configuring applications<a class="headerlink" href="#concerns_when_configuring_applications" title="Permanent link">&para;</a></h2>
+<h3 id="concerns_when_configuring_applications">Concerns when configuring applications<a class="headerlink" href="#concerns_when_configuring_applications" title="Permanent link">&para;</a></h3>
 <p>One of the tenets of operating applications according to the principles of <a href="https://12factor.net/">12factor</a>, 
 and especially in containerised cloud-native apps, is to inject all app configuration through the use of environmental 
 variables. Additionally, when using more restrictive settings (such as utilising JVM security manager policies or through 
@@ -986,7 +986,7 @@ convenient to source parameter values from a variety of contexts when running ap
 <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;DEFAULT_USER&quot;</span>
 </code></pre></div>
 
-<h2 id="the_http4k_approach">The http4k approach...<a class="headerlink" href="#the_http4k_approach" title="Permanent link">&para;</a></h2>
+<h3 id="the_http4k_approach">The http4k approach...<a class="headerlink" href="#the_http4k_approach" title="Permanent link">&para;</a></h3>
 <p>There are <a href="https://github.com/ufoscout/properlty">already</a> <a href="https://github.com/config4k/config4k">many</a> <a href="https://github.com/uchuhimo/konf">options</a> <a href="https://github.com/jdiazcano/cfg4k">for</a> <a href="https://github.com/daviddenton/configur8">configurational</a> 
 <a href="https://github.com/mariomac/kaconf">libraries</a> written in Kotlin, but <a href="https://http4k.org">http4k</a> also provides an option in the <code>http4k-cloudnative</code> add-on module 
 which leverages the power of the Lens system already built into the core library to provide a consistent experience to 
@@ -1056,7 +1056,7 @@ here we define a bi-directional Lens for custom type <code>Page</code>, extracte
 <p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
 although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
 contexts.</p>
-<h2 id="http4k_environments">http4k Environments<a class="headerlink" href="#http4k_environments" title="Permanent link">&para;</a></h2>
+<h3 id="http4k_environments">http4k Environments<a class="headerlink" href="#http4k_environments" title="Permanent link">&para;</a></h3>
 <p>in <a href="https://http4k.org">http4k</a>, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
 <code>Map</code>, in that it can be composed with other <code>Environment</code> objects to provide a consolidated view of all of it's 
 component values. </p>
