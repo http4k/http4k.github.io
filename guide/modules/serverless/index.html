@@ -866,6 +866,9 @@
 
 <span class="c1">// Alibaba Function Compute: </span>
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-alibaba&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
+
+<span class="c1">// Tencent Serverless Cloud Functions: </span>
+<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-serverless-tencent&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.269.0&quot;</span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -892,7 +895,6 @@
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/lambda/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.lambda</span>
 
-<span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span>
 <span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
@@ -904,7 +906,7 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.ApiGatewayV1LambdaFunction</span>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
-<span class="k">import</span> <span class="nn">java.lang.reflect.Proxy</span>
+<span class="k">import</span> <span class="nn">org.http4k.util.proxy</span>
 
 <span class="c1">// This AppLoader is responsible for building our HttpHandler which is supplied to AWS</span>
 <span class="c1">// It is the only actual piece of code that needs to be written.</span>
@@ -921,6 +923,8 @@
     <span class="c1">// Launching your Lambda Function locally - by simply providing the operating ENVIRONMENT map as would</span>
     <span class="c1">// be configured on AWS.</span>
     <span class="k">fun</span> <span class="nf">runLambdaLocally</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;RUNNING LOCALLY:&quot;</span><span class="p">)</span>
+
         <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">TweetEchoLambda</span><span class="p">(</span><span class="n">mapOf</span><span class="p">())</span>
         <span class="k">val</span> <span class="py">localLambda</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
         <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span><span class="p">))</span>
@@ -931,21 +935,21 @@
 
     <span class="c1">// the following code is purely here for demonstration purposes, to explain exactly what is happening at AWS.</span>
     <span class="k">fun</span> <span class="nf">runLambdaAsAwsWould</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;RUNNING AS LAMBDA:&quot;</span><span class="p">)</span>
+
         <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">FunctionsExampleEntryClass</span><span class="p">().</span><span class="n">handleRequest</span><span class="p">(</span><span class="n">APIGatewayProxyRequestEvent</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
             <span class="n">path</span> <span class="p">=</span> <span class="s">&quot;/&quot;</span>
             <span class="n">body</span> <span class="p">=</span> <span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span>
             <span class="n">httpMethod</span> <span class="p">=</span> <span class="s">&quot;GET&quot;</span>
             <span class="n">headers</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">()</span>
             <span class="n">queryStringParameters</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">()</span>
-        <span class="p">},</span> <span class="n">proxy</span><span class="p">&lt;</span><span class="n">Context</span><span class="p">&gt;())</span>
+        <span class="p">},</span> <span class="n">proxy</span><span class="p">())</span>
         <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="n">runLambdaLocally</span><span class="p">()</span>
     <span class="n">runLambdaAsAwsWould</span><span class="p">()</span>
 <span class="p">}</span>
-
-<span class="k">inline fun</span> <span class="p">&lt;</span><span class="k">reified</span> <span class="n">T</span><span class="p">&gt;</span> <span class="nf">proxy</span><span class="p">():</span> <span class="n">T</span> <span class="p">=</span> <span class="n">Proxy</span><span class="p">.</span><span class="n">newProxyInstance</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">.</span><span class="n">classLoader</span><span class="p">,</span> <span class="n">arrayOf</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">))</span> <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="p">-&gt;</span> <span class="k">null</span> <span class="p">}</span> <span class="k">as</span> <span class="n">T</span>
 </code></pre></div>
 
 <h4 id="google_cloud_functions_integration">Google Cloud Functions integration<a class="headerlink" href="#google_cloud_functions_integration" title="Permanent link">&para;</a></h4>
