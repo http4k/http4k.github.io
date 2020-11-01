@@ -208,62 +208,8 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/aws/"
-           title="AWS">AWS</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
            href="../../guide/modules/core/"
            title="Core">Core</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../../guide/modules/json/"
-           title="JSON handling">JSON handling</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../../guide/modules/clients/"
-           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../../guide/modules/metrics/"
-           title="Metrics">Metrics</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../../guide/modules/multipart/"
-           title="Multipart forms">Multipart forms</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../../guide/modules/resilience/"
-           title="Resilience">Resilience</a>
     
 
             
@@ -289,8 +235,8 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/templating/"
-           title="Templating">Templating</a>
+           href="../../guide/modules/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
     
 
             
@@ -307,8 +253,35 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/oauth/"
-           title="OAuth">OAuth</a>
+           href="../../guide/modules/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/multipart/"
+           title="Multipart forms">Multipart forms</a>
     
 
             
@@ -318,6 +291,51 @@
         <a class="dropdown-item "
            href="../../guide/modules/cloud_native/"
            title="Cloud native Configuration">Cloud native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/oauth/"
+           title="OAuth">OAuth</a>
     
 
             
@@ -871,7 +889,9 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.MetricFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.MicrometerMetrics</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
 
@@ -883,14 +903,14 @@
     <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
 
     <span class="c1">// apply filters to a server...</span>
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">MetricFilters</span><span class="p">.</span><span class="n">Server</span><span class="p">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="p">.</span><span class="n">Server</span><span class="p">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">MicrometerMetrics</span><span class="p">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="n">MicrometerMetrics</span><span class="p">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
         <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 
     <span class="c1">// ... or to a client</span>
     <span class="k">val</span> <span class="py">client</span> <span class="p">=</span>
-        <span class="n">MetricFilters</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">MetricFilters</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
+        <span class="n">ClientFilters</span><span class="p">.</span><span class="n">MicrometerMetrics</span><span class="p">.</span><span class="n">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="n">MicrometerMetrics</span><span class="p">.</span><span class="n">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
             <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
     <span class="c1">// make some calls</span>
@@ -915,7 +935,7 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.HttpTransactionLabeller</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.HttpTransactionLabeler</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
@@ -933,17 +953,17 @@
         <span class="n">metricConsumer</span><span class="p">(</span><span class="s">&quot;uri is: ${tx.request.uri}&quot;</span><span class="p">,</span> <span class="n">tx</span><span class="p">.</span><span class="n">duration</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="k">val</span> <span class="py">addCustomLabels</span><span class="p">:</span> <span class="n">HttpTransactionLabeller</span> <span class="p">=</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">HttpTransaction</span> <span class="p">-&gt;</span> <span class="n">tx</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="s">&quot;status&quot;</span><span class="p">,</span> <span class="n">tx</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">code</span><span class="p">.</span><span class="n">toString</span><span class="p">())</span> <span class="p">}</span>
+    <span class="k">val</span> <span class="py">addCustomLabels</span><span class="p">:</span> <span class="n">HttpTransactionLabeler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">HttpTransaction</span> <span class="p">-&gt;</span> <span class="n">tx</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="s">&quot;status&quot;</span><span class="p">,</span> <span class="n">tx</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">.</span><span class="n">code</span><span class="p">.</span><span class="n">toString</span><span class="p">())</span> <span class="p">}</span>
 
     <span class="k">val</span> <span class="py">withCustomLabels</span> <span class="p">=</span> <span class="n">ResponseFilters</span><span class="p">.</span><span class="n">ReportHttpTransaction</span><span class="p">(</span>
-        <span class="n">transactionLabeller</span> <span class="p">=</span> <span class="n">addCustomLabels</span><span class="p">)</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">HttpTransaction</span> <span class="p">-&gt;</span>
+        <span class="n">transactionLabeler</span> <span class="p">=</span> <span class="n">addCustomLabels</span><span class="p">)</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">HttpTransaction</span> <span class="p">-&gt;</span>
         <span class="c1">// send metrics to some custom system here...</span>
         <span class="n">println</span><span class="p">(</span><span class="s">&quot;custom txLabels are: ${tx.labels} ${tx.duration}&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="c1">// this filter provides an anonymous identifier of the route</span>
     <span class="k">val</span> <span class="py">identifiedRouteFilter</span> <span class="p">=</span> <span class="n">ResponseFilters</span><span class="p">.</span><span class="n">ReportRouteLatency</span> <span class="p">{</span> <span class="n">requestGroup</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="n">Duration</span> <span class="p">-&gt;</span>
-        <span class="n">metricConsumer</span><span class="p">(</span><span class="s">&quot;requestGroup is: &quot;</span> <span class="p">+</span> <span class="n">requestGroup</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+        <span class="n">metricConsumer</span><span class="p">(</span><span class="s">&quot;requestGroup is: $requestGroup&quot;</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="k">val</span> <span class="py">monitoredApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">standardFilter</span>
