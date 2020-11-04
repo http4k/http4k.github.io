@@ -1,0 +1,984 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="TDDing http4k Part 3: Adding another endpoint">
+<meta name="twitter:title" content="TDDing http4k Part 3: Adding another endpoint">
+<meta property="og:title" content="TDDing http4k Part 3: Adding another endpoint" />
+
+
+
+<meta name="description" content="A step-by-step guide to TDDing a simple http4k application">
+<meta property="og:description" content="A step-by-step guide to TDDing a simple http4k application" />
+<meta name="twitter:description" content="A step-by-step guide to TDDing a simple http4k application">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/blog/tdding_http4k/_3/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>TDDing http4k Part 3: Adding another endpoint</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#3f51b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../../css/site.css">
+    
+    
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../rationale/"
+               title="Rationale & concepts">Rationale & concepts</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Developer guide</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Modules</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/cloud_native/"
+           title="Cloud native Configuration">Cloud native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/modules/servicevirtualisation/"
+           title="Service Virtualisaion">Service Virtualisaion</a>
+    
+
+            
+        </div>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../guide/testing/"
+           title="Application testing">Application testing</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Cookbook</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/"
+           title="How to use this guide">How to use this guide</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/server_as_a_function/"
+           title="Server as a function">Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/client_as_a_function/"
+           title="Client as a function">Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/container_integration/"
+           title="Container integration">Container integration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/simple_routing/"
+           title="Simple routing">Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/nestable_routes/"
+           title="Nestable routes">Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/typesafe_http_contracts/"
+           title="OpenAPI contracts/routing">OpenAPI contracts/routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/using_templates/"
+           title="Templating engines">Templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/request_context/"
+           title="Typesafe RequestContexts">Typesafe RequestContexts</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/typesafe_http_requests_with_lenses/"
+           title="Typesafe HTTP requests with lenses">Typesafe HTTP requests with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/custom_json_marshallers/"
+           title="Custom JSON marshallers">Custom JSON marshallers</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/html_forms/"
+           title="HTML forms">HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/multipart_forms/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/generating_data_classes/"
+           title="Generating data classes for messages">Generating data classes for messages</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/websockets/"
+           title="Websockets">Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/structured_logging_with_events/"
+           title="Structured Logging with Events">Structured Logging with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/basic_oauth_authorization_server/"
+           title="Basic OAuth Server configuration">Basic OAuth Server configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/custom_oauth_provider/"
+           title="Custom OAuth Provider configuration">Custom OAuth Provider configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/customised_servers/"
+           title="Custom Server (SSL)">Custom Server (SSL)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/service_virtualisation/"
+           title="Service Virtualisation with Servirtium">Service Virtualisation with Servirtium</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/principal_lookup/"
+           title="Principal lookup">Principal lookup</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/monitoring/"
+           title="Monitoring http4k">Monitoring http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/record_and_replay/"
+           title="Recording/replaying HTTP traffic">Recording/replaying HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../cookbook/test_driven_apps/"
+           title="Test driven apps">Test driven apps</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../api/"
+               title="API docs">API docs</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+            <div class="container">
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1>TDDing http4k Part 3: Adding another endpoint</h1>
+                    
+                    <h3 id="requirements">Requirements:<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Implement a "multiply" service, which will find the product of a number of integer values.</li>
+</ul>
+<h3 id="tests">Tests:<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.tdding_http4k._3</span>
+
+<span class="k">import</span> <span class="nn">blog.tdding_http4k._3.Matchers.answerShouldBe</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+
+<span class="k">object</span> <span class="nc">Matchers</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nc">Response</span><span class="p">.</span><span class="nf">answerShouldBe</span><span class="p">(</span><span class="n">expected</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="n">expected</span><span class="p">.</span><span class="n">toString</span><span class="p">())))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">EndToEndTest</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+
+    <span class="n">@BeforeEach</span>
+    <span class="k">fun</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">@AfterEach</span>
+    <span class="k">fun</span> <span class="nf">teardown</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`all endpoints are mounted correctly`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:${server.port()}/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:${server.port()}/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:${server.port()}/multiply?value=2&amp;value=4&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">8</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">AddFunctionalTest</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">MyMathsApp</span><span class="p">()</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`adds values together`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`answer is zero when no values`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">MultiplyFunctionalTest</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">MyMathsApp</span><span class="p">()</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`products values together`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/multiply?value=2&amp;value=4&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">8</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`answer is zero when no values`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/multiply&quot;</span><span class="p">)).</span><span class="n">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/multiply?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="production">Production:<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.tdding_http4k._3</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="k">fun</span> <span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">=</span> <span class="n">MyMathsApp</span><span class="p">().</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+
+<span class="k">fun</span> <span class="nf">MyMathsApp</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">CatchLensFailure</span><span class="p">.</span><span class="n">then</span><span class="p">(</span>
+    <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
+        <span class="s">&quot;/add&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">calculate</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">sum</span><span class="p">()</span> <span class="p">},</span>
+        <span class="s">&quot;/multiply&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">calculate</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">fold</span><span class="p">(</span><span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="n">memo</span><span class="p">,</span> <span class="n">next</span> <span class="p">-&gt;</span> <span class="n">memo</span> <span class="p">*</span> <span class="n">next</span> <span class="p">}</span> <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">private</span> <span class="k">fun</span> <span class="nf">calculate</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Int</span><span class="p">&gt;)</span> <span class="p">-&gt;</span> <span class="n">Int</span><span class="p">):</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Response</span> <span class="p">{</span>
+    <span class="k">val</span> <span class="py">values</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">multi</span><span class="p">.</span><span class="n">defaulted</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span> <span class="n">listOf</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
+        <span class="k">val</span> <span class="py">valuesToCalc</span> <span class="p">=</span> <span class="n">values</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">val</span> <span class="py">answer</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">valuesToCalc</span><span class="p">.</span><span class="n">isEmpty</span><span class="p">())</span> <span class="m">0</span> <span class="k">else</span> <span class="n">fn</span><span class="p">(</span><span class="n">valuesToCalc</span><span class="p">)</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">answer</span><span class="p">.</span><span class="n">toString</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+
+      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+<script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+
+
+</body>
+</html>

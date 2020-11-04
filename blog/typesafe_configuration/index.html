@@ -1,0 +1,1143 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="http4k blog: Add typesafe 12-factor configuration to http4k apps with Environments.">
+<meta name="twitter:title" content="http4k blog: Add typesafe 12-factor configuration to http4k apps with Environments.">
+<meta property="og:title" content="http4k blog: Add typesafe 12-factor configuration to http4k apps with Environments." />
+
+
+
+<meta name="description" content="An overview of how to configure http4k applications using the http4k-cloudnative module">
+<meta property="og:description" content="An overview of how to configure http4k applications using the http4k-cloudnative module" />
+<meta name="twitter:description" content="An overview of how to configure http4k applications using the http4k-cloudnative module">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/blog/typesafe_configuration/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>http4k blog: Add typesafe 12-factor configuration to http4k apps with Environments.</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#3f51b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../css/site.css">
+    
+    
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../rationale/"
+               title="Rationale & concepts">Rationale & concepts</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Developer guide</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Modules</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/cloud_native/"
+           title="Cloud native Configuration">Cloud native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/modules/servicevirtualisation/"
+           title="Service Virtualisaion">Service Virtualisaion</a>
+    
+
+            
+        </div>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/testing/"
+           title="Application testing">Application testing</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Cookbook</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/"
+           title="How to use this guide">How to use this guide</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/server_as_a_function/"
+           title="Server as a function">Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/client_as_a_function/"
+           title="Client as a function">Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/container_integration/"
+           title="Container integration">Container integration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/simple_routing/"
+           title="Simple routing">Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/nestable_routes/"
+           title="Nestable routes">Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/typesafe_http_contracts/"
+           title="OpenAPI contracts/routing">OpenAPI contracts/routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/using_templates/"
+           title="Templating engines">Templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/request_context/"
+           title="Typesafe RequestContexts">Typesafe RequestContexts</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/typesafe_http_requests_with_lenses/"
+           title="Typesafe HTTP requests with lenses">Typesafe HTTP requests with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/custom_json_marshallers/"
+           title="Custom JSON marshallers">Custom JSON marshallers</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/html_forms/"
+           title="HTML forms">HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/multipart_forms/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/generating_data_classes/"
+           title="Generating data classes for messages">Generating data classes for messages</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/websockets/"
+           title="Websockets">Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/structured_logging_with_events/"
+           title="Structured Logging with Events">Structured Logging with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/basic_oauth_authorization_server/"
+           title="Basic OAuth Server configuration">Basic OAuth Server configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/custom_oauth_provider/"
+           title="Custom OAuth Provider configuration">Custom OAuth Provider configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/customised_servers/"
+           title="Custom Server (SSL)">Custom Server (SSL)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/service_virtualisation/"
+           title="Service Virtualisation with Servirtium">Service Virtualisation with Servirtium</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/principal_lookup/"
+           title="Principal lookup">Principal lookup</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/monitoring/"
+           title="Monitoring http4k">Monitoring http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/record_and_replay/"
+           title="Recording/replaying HTTP traffic">Recording/replaying HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../cookbook/test_driven_apps/"
+           title="Test driven apps">Test driven apps</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../tdding_http4k/"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../api/"
+               title="API docs">API docs</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+            <div class="container">
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1 id="add_typesafe_12-factor_configuration_to_http4k_apps_with_environments">Add typesafe 12-factor configuration to http4k apps with Environments.<a class="headerlink" href="#add_typesafe_12-factor_configuration_to_http4k_apps_with_environments" title="Permanent link">&para;</a></h1>
+<h5 id="november_2018_daviddenton">november 2018 / <a href="http://github.com/daviddenton">@daviddenton</a><a class="headerlink" href="#november_2018_daviddenton" title="Permanent link">&para;</a></h5>
+<h3 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h3>
+<p>This post covers the various concerns around configuring HTTP apps, and introduces the <a href="https://http4k.org">http4k</a> approach for addressing these when deploying applications into cloud-native environments, which leverages the Kotlin type system for maximum safely and code reuse.</p>
+<h3 id="concerns_when_configuring_applications">Concerns when configuring applications<a class="headerlink" href="#concerns_when_configuring_applications" title="Permanent link">&para;</a></h3>
+<p>One of the tenets of operating applications according to the principles of <a href="https://12factor.net/">12factor</a>, 
+and especially in containerised cloud-native apps, is to inject all app configuration through the use of environmental 
+variables. Additionally, when using more restrictive settings (such as utilising JVM security manager policies or through 
+the use of container images which don't provide an OS baseline) it may not be possible to read files (such as YAML, JSON 
+etc) from disk, which reinforces this approach.</p>
+<p>There are several particular relevant concerns that we need to address, but overall the effect that we are looking for is 
+that any misconfiguration of the application will result in it failing to startup. For this reason we want to reify all 
+values to check them as soon as possible in the application bootstrap phase.</p>
+<h4 id="1_optionality">1. Optionality<a class="headerlink" href="#1_optionality" title="Permanent link">&para;</a></h4>
+<p>Kotlin's type system guards us against missing values being injected - for instance the following code will throw a 
+<code>IllegalStateException</code> due to a typo in the parameter name:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+
+<span class="c1">// export ANTIDISESTABLISHMENTARIANISM=opposition to the disestablishment of the Church of England</span>
+
+<span class="k">val</span> <span class="py">definition</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;ANTIDISESTABLISHMENTARIAMISM&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>However not all configuration values will be required. We can define that there are 3 distinct modes of optionality 
+available for each parameter:</p>
+<ul>
+<li><strong>Required:</strong> These values must be injected for each environment, with no default value defined. Most configurations such 
+as hostnames should always use this form to maximise operational safety.</li>
+<li><strong>Optional:</strong> These values can be supplied, but there is no default value. This category fits well with dynamic properties 
+which could be data-driven (ie. not known at compile-time).</li>
+<li><strong>Defaulted:</strong> These values can be supplied, but a fallback value (or chain of other config values) will be used if they 
+are not.</li>
+</ul>
+<p>Missing values should produce a reasonable error and stop the app from starting.</p>
+<h4 id="2_type_coercion">2. Type coercion<a class="headerlink" href="#2_type_coercion" title="Permanent link">&para;</a></h4>
+<p>Most applications will require a variety of configuration primitive types, which may or may not map to the Java/Kotlin 
+standard types, including:</p>
+<ul>
+<li><strong>strings</strong> such as service URLs, log levels, or AWS role names</li>
+<li><strong>numeric</strong> values such as ports or retry counts</li>
+<li><strong>booleans</strong> such as debug switch or feature flags</li>
+<li><strong>duration</strong> values for timeouts, backoff times</li>
+</ul>
+<p>But handling these raw types alone is not enough to guarantee safety - it is best to marshall the values into a 
+suitable operational/domain type that can validate the input and avoid confusion. Kotlin gives us a simple way to do this 
+using <code>require</code> as a guard:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+
+<span class="k">class</span> <span class="nc">Port</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="p">{</span>
+        <span class="n">require</span><span class="p">((</span><span class="m">1.</span><span class="p">.</span><span class="m">65535</span><span class="p">).</span><span class="n">contains</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="p">{</span> <span class="s">&quot;Out of range Port: &#39;$value&#39;&quot;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// export PORT=8000</span>
+<span class="k">val</span> <span class="py">port</span> <span class="p">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;PORT&quot;</span><span class="p">).</span><span class="n">toInt</span><span class="p">())</span>
+</code></pre></div>
+
+<p>Additionally to the above, it is important to represent those values in a form that cannot be misinterpreted. A good 
+example of this is the passing of temporal values as integers - timeouts defined this way could be easily be 
+parsed into the wrong time unit (seconds instead of milliseconds). Using a higher level primitive such as <code>Duration</code> 
+will help us here:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+
+<span class="k">import</span> <span class="nn">java.time.Duration</span>
+
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Timeout</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Duration</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="p">{</span>
+        <span class="n">require</span><span class="p">(!</span><span class="n">value</span><span class="p">.</span><span class="n">isNegative</span><span class="p">)</span> <span class="p">{</span> <span class="s">&quot;Cannot have negative timeout&quot;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// export TIMEOUT=PT30S</span>
+<span class="k">val</span> <span class="py">timeout</span> <span class="p">=</span> <span class="n">Timeout</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;TIMEOUT&quot;</span><span class="p">)))</span>
+</code></pre></div>
+
+<p>Obviously, the above is still not very safe - and what's more, a coercion could now fail with one of 3 different 
+exceptions depending on if the value was missing (<code>IllegalStateException</code>), unparsable (<code>DateTimeParseException</code>) or 
+invalid (<code>IllegalArgumentException</code>). The conversion code from <code>String -&gt; Duration</code> must also be repeated (or extracted) 
+for each value that we wish to parse.</p>
+<h4 id="3_multiplicity">3. Multiplicity<a class="headerlink" href="#3_multiplicity" title="Permanent link">&para;</a></h4>
+<p>Configuration parameters may have one or many values and need to be converted safely from the injected string 
+representation (usually comma-separated) and into their internally represented types at application startup: </p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+
+<span class="k">class</span> <span class="nc">Host</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+
+<span class="c1">// export HOSTNAMES=eu-west1.aws.com,eu-west2.aws.com,eu-west3.aws.com</span>
+
+<span class="k">val</span> <span class="py">hosts</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;HOSTNAMES&quot;</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">).</span><span class="n">map</span> <span class="p">{</span> <span class="n">Host</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">trim</span><span class="p">())</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>Once again, the splitting code will need to be repeated for each config value, or extracted to a library function.</p>
+<h4 id="4_security">4. Security<a class="headerlink" href="#4_security" title="Permanent link">&para;</a></h4>
+<p>The configuration of a standard app will generally contain both sensitive and non-sensitive values. Sensitive such as 
+application secrets, DB passwords or API keys should be handled in a way that avoid storing directly in memory in a 
+readable format or long lived fashion, where they may be inadvertently inspected or outputted into a log file.</p>
+<p>Dangling code situations such as in the code below are common, and are asking for trouble...</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">java.nio.ByteBuffer</span>
+
+<span class="k">val</span> <span class="py">s3</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+
+<span class="k">fun</span> <span class="nf">readFile</span><span class="p">(</span><span class="n">secretKey</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="n">bucketKey</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">ByteBuffer</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">s3</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://mybucket.s3.amazonaws.com/$bucketKey&quot;</span><span class="p">)).</span><span class="n">body</span><span class="p">.</span><span class="n">payload</span>
+<span class="p">}</span>
+
+<span class="c1">// export AWS_SECRET_KEY=someSuperSecretValueThatOpsReallyDoNotWantYouToKnow</span>
+
+<span class="k">val</span> <span class="py">file</span> <span class="p">=</span> <span class="n">readFile</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;AWS_SECRET_KEY&quot;</span><span class="p">),</span> <span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="5_configuration_context_overriding">5. Configuration Context &amp; Overriding<a class="headerlink" href="#5_configuration_context_overriding" title="Permanent link">&para;</a></h4>
+<p>We also want to avoid defining all values for all possible scenarios - for example in test cases, so the ability 
+to overlay configuration sets on top of each other is useful. Although it is against the rules of 12-factor, it is sometimes 
+convenient to source parameter values from a variety of contexts when running applications in non-cloud environments:</p>
+<ul>
+<li>System Environment variables</li>
+<li>Properties files</li>
+<li>JAR resources</li>
+<li>Local files</li>
+<li>Source code defined environmental configuration</li>
+</ul>
+<p>Implementing this kind of fallback logic manually, you'd end up with code like the below: </p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+
+<span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;DEFAULT_USER&quot;</span>
+</code></pre></div>
+
+<h3 id="the_http4k_approach">The http4k approach...<a class="headerlink" href="#the_http4k_approach" title="Permanent link">&para;</a></h3>
+<p>There are <a href="https://github.com/ufoscout/properlty">already</a> <a href="https://github.com/config4k/config4k">many</a> <a href="https://github.com/uchuhimo/konf">options</a> <a href="https://github.com/jdiazcano/cfg4k">for</a> <a href="https://github.com/daviddenton/configur8">configurational</a> 
+<a href="https://github.com/mariomac/kaconf">libraries</a> written in Kotlin, but <a href="https://http4k.org">http4k</a> also provides an option in the <code>http4k-cloudnative</code> add-on module 
+which leverages the power of the Lens system already built into the core library to provide a consistent experience to 
+API users. In case you're new to Lenses, here's a recap...</p>
+<h3 id="lenses_-_a_recap">Lenses - a recap<a class="headerlink" href="#lenses_-_a_recap" title="Permanent link">&para;</a></h3>
+<p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
+although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
+contexts.</p>
+<p>A Lens is an stateless object responsible for either the one-way (or Bidirectional) transformation of</p>
+<p>It defines type parameters representing input <code>IN</code> and output <code>OUT</code> types and implements 
+one (for a <code>Lens</code>) or both (for a <code>BiDiLens</code>) of the following interfaces:</p>
+<ol>
+<li><strong>LensExtractor</strong> - takes a value of type <code>IN</code> and extracts a value of type <code>OUT</code></li>
+<li><strong>LensInjector</strong> - takes a value of type <code>IN</code> and a value of type <code>OUT</code> and returns a modified value of type <code>IN</code> 
+with the value injected into it.</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+
+<span class="k">interface</span> <span class="nc">LensExtractor</span><span class="p">&lt;</span><span class="k">in</span> <span class="n">IN</span><span class="p">,</span> <span class="k">out</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">:</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">OUT</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">operator</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">IN</span><span class="p">):</span> <span class="n">OUT</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="nc">LensInjector</span><span class="p">&lt;</span><span class="k">in</span> <span class="n">IN</span><span class="p">,</span> <span class="k">in</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">{</span>
+    <span class="k">operator</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="n">R</span> <span class="p">:</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">IN</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">R</span><span class="p">):</span> <span class="n">R</span>
+<span class="p">}</span>
+
+<span class="k">interface</span> <span class="nc">Lens</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">LensExtractor</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;</span>
+
+<span class="k">interface</span> <span class="nc">BiDiLens</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">Lens</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;,</span> <span class="n">LensInjector</span><span class="p">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>The creation of a Lens consists of 4 main concerns:</p>
+<ol>
+<li><strong>targeting</strong> determines where the Lens expects to extract and inject the values from/to, which can consist of both 
+an overall target and a name within that target.</li>
+<li><strong>multiplicity</strong> handling which defines how many of a particular value we are attempting to handle.</li>
+<li>the <strong>transformation</strong> chain of function composition which forms a specification for converting one type to another. 
+This is done in code using the <code>map()</code> method defined on the Lens.</li>
+<li>the <strong>optionality</strong> of a Lens denotes the behaviour if/when a value cannot be found in the target.</li>
+</ol>
+<p>To define a Lens instance through the <a href="https://http4k.org">http4k</a> Lens API, we take an initial <strong>target</strong> specification, decide it's 
+<strong>multiplicity</strong>, provide any <strong>transformations</strong> with <code>map()</code>, and finally reify the specification into a Lens instance 
+by deciding it's optionality.</p>
+<p>It sounds involved, but it is consistent and the fluent API has been designed to make it simpler. By way of an example, 
+here we define a bi-directional Lens for custom type <code>Page</code>, extracted from a querystring value and defaulting to Page 1.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.BiDiLens</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Page</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">init</span> <span class="p">{</span>
+        <span class="n">require</span><span class="p">(</span><span class="n">value</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="s">&quot;Page number must be positive&quot;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">val</span> <span class="py">lens</span><span class="p">:</span> <span class="n">BiDiLens</span><span class="p">&lt;</span><span class="n">Request</span><span class="p">,</span> <span class="n">Page</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Page</span><span class="p">,</span> <span class="n">Page</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">defaulted</span><span class="p">(</span><span class="s">&quot;pageNumber&quot;</span><span class="p">,</span> <span class="n">Page</span><span class="p">(</span><span class="m">1</span><span class="p">))</span>
+
+<span class="k">val</span> <span class="py">pageNumber</span><span class="p">:</span> <span class="n">Page</span> <span class="p">=</span> <span class="n">lens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://abc/search?pageNumber=55&quot;</span><span class="p">))</span>
+
+<span class="k">val</span> <span class="py">updatedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">lens</span><span class="p">(</span><span class="n">pageNumber</span><span class="p">,</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://abc/search&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
+although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
+contexts.</p>
+<h3 id="http4k_environments">http4k Environments<a class="headerlink" href="#http4k_environments" title="Permanent link">&para;</a></h3>
+<p>in <a href="https://http4k.org">http4k</a>, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
+<code>Map</code>, in that it can be composed with other <code>Environment</code> objects to provide a consolidated view of all of it's 
+component values. </p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
+<span class="k">import</span> <span class="nn">java.io.File</span>
+
+<span class="k">val</span> <span class="py">systemEnv</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">ENV</span>
+<span class="k">val</span> <span class="py">jvmFlags</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">JVM_PROPERTIES</span>
+<span class="k">val</span> <span class="py">jar</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">fromResource</span><span class="p">(</span><span class="s">&quot;jar.properties&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">filesystem</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">from</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;fs.properties&quot;</span><span class="p">))</span>
+<span class="k">val</span> <span class="py">codeBased</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;key1&quot;</span> <span class="n">to</span> <span class="s">&quot;value1&quot;</span><span class="p">,</span> <span class="s">&quot;key2&quot;</span> <span class="n">to</span> <span class="s">&quot;value2&quot;</span><span class="p">)</span>
+
+<span class="k">val</span> <span class="py">consolidated</span><span class="p">:</span> <span class="n">Environment</span> <span class="p">=</span> <span class="n">jvmFlags</span> <span class="n">overrides</span> <span class="n">systemEnv</span> <span class="n">overrides</span> <span class="n">codeBased</span> <span class="n">overrides</span> <span class="n">filesystem</span> <span class="n">overrides</span> <span class="n">jar</span>
+</code></pre></div>
+
+<p>If you're using any of the other Kotlin-based configuration libraries, the above should look pretty familiar. The 
+difference starts to become apparent when attempting to retrieve values from the <code>Environment</code> instance. This is done 
+using <code>EnviromentKey</code> Lenses, which are an extension of the <a href="https://http4k.org">http4k</a> Lens system that specifically targets <code>Environment</code> 
+objects. </p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
+<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Lens</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.duration</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span> <span class="nn">java.time.Duration</span>
+
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Timeout</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Duration</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Port</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Host</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+
+<span class="c1">// export TIMEOUT=PT30S</span>
+<span class="c1">// export PORT=8080</span>
+<span class="c1">// export HOSTNAMES=eu-west1.aws.com,eu-west2.aws.com,eu-west3.aws.com</span>
+
+<span class="k">val</span> <span class="py">env</span> <span class="p">=</span> <span class="n">Environment</span><span class="p">.</span><span class="n">ENV</span>
+
+<span class="k">val</span> <span class="py">portLens</span><span class="p">:</span> <span class="n">Lens</span><span class="p">&lt;</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Port</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">EnvironmentKey</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Port</span><span class="p">).</span><span class="n">defaulted</span><span class="p">(</span><span class="s">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">Port</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
+<span class="k">val</span> <span class="py">timeoutLens</span><span class="p">:</span> <span class="n">Lens</span><span class="p">&lt;</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Timeout</span><span class="p">?&gt;</span> <span class="p">=</span> <span class="n">EnvironmentKey</span><span class="p">.</span><span class="n">duration</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Timeout</span><span class="p">).</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;TIMEOUT&quot;</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">hostsLens</span><span class="p">:</span> <span class="n">Lens</span><span class="p">&lt;</span><span class="n">Environment</span><span class="p">,</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Host</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="n">EnvironmentKey</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Host</span><span class="p">).</span><span class="n">multi</span><span class="p">.</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;HOSTNAMES&quot;</span><span class="p">)</span>
+
+<span class="k">val</span> <span class="py">timeout</span><span class="p">:</span> <span class="n">Timeout</span><span class="p">?</span> <span class="p">=</span> <span class="n">timeoutLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">port</span><span class="p">:</span> <span class="n">Port</span> <span class="p">=</span> <span class="n">portLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="k">val</span> <span class="py">hosts</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Host</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">hostsLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+</code></pre></div>
+
+<h5 id="handling_failure">Handling failure<a class="headerlink" href="#handling_failure" title="Permanent link">&para;</a></h5>
+<p>When using the <a href="https://http4k.org">http4k</a> Environment to define config, missing or values which cannot be deserialised all now cause 
+a <code>LensFailure</code> to be thrown with a descriptive error message. As before, this results in the application failing to 
+start, but as the exception if both consistent and explicit, diagnosing the problem becomes much simpler.</p>
+<h4 id="single-shot_secrets">Single-shot Secrets<a class="headerlink" href="#single-shot_secrets" title="Permanent link">&para;</a></h4>
+<p>In order to avoid the accidental exposure of sensitive information such as passwords into the application runtime, a new 
+type <code>Secret</code> has been introduced, which tries as much as possible to avoid exposing it's internal value as a readable 
+<code>String</code>. The <code>Secret</code> class is designed to only have the string version of it's value read once, and only within a 
+specific <code>use()</code> block, after which the underlying value is internally overwritten and further attempts to read it throw 
+an <code>IllegalStateException</code>. </p>
+<p>The typical use-case for this block is to set-up a SQL <code>Datasource</code> or to create a <code>Filter</code> which adds authentication to 
+all outbound requests, as in the example below:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
+<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span>
+<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Secret</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Lens</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.secret</span>
+
+<span class="c1">// export USER_PASSWORD=12345</span>
+<span class="k">val</span> <span class="py">accessToken</span><span class="p">:</span> <span class="n">Lens</span><span class="p">&lt;</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Secret</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">EnvironmentKey</span><span class="p">.</span><span class="n">secret</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;USER_PASSWORD&quot;</span><span class="p">)</span>
+
+<span class="k">val</span> <span class="py">secret</span><span class="p">:</span> <span class="n">Secret</span> <span class="p">=</span> <span class="n">accessToken</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="n">ENV</span><span class="p">)</span>
+
+<span class="k">val</span> <span class="py">authFilter</span><span class="p">:</span> <span class="n">Filter</span> <span class="p">=</span> <span class="n">secret</span><span class="p">.</span><span class="n">use</span> <span class="p">{</span> <span class="n">value</span><span class="p">:</span> <span class="n">String</span> <span class="p">-&gt;</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">BearerAuth</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="k">val</span> <span class="py">authedHttp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">authFilter</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span>
+</code></pre></div>
+
+<p>As with other supported primitives, <code>Secret</code> is available by default in all supported Lens Locations.</p>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+<script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+
+
+</body>
+</html>
