@@ -867,7 +867,7 @@
 
 <span class="k">class</span> <span class="nc">AnswerRecorder</span><span class="p">(</span><span class="k">private</span> <span class="k">val</span> <span class="py">httpClient</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">:</span> <span class="p">(</span><span class="n">Int</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Unit</span> <span class="p">{</span>
     <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">answer</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">httpClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/&quot;</span> <span class="p">+</span> <span class="n">answer</span><span class="p">.</span><span class="n">toString</span><span class="p">()))</span>
+        <span class="n">httpClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/$answer&quot;</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 

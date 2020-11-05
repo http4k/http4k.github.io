@@ -1002,8 +1002,7 @@
     <span class="k">val</span> <span class="py">multipartform</span> <span class="p">=</span> <span class="n">MultipartForm</span><span class="p">().</span><span class="n">with</span><span class="p">(</span>
         <span class="n">nameField</span> <span class="n">of</span> <span class="n">Name</span><span class="p">(</span><span class="s">&quot;rita&quot;</span><span class="p">),</span>
         <span class="n">imageFile</span> <span class="n">of</span> <span class="n">MultipartFormFile</span><span class="p">(</span><span class="s">&quot;image.txt&quot;</span><span class="p">,</span> <span class="n">ContentType</span><span class="p">.</span><span class="n">OCTET_STREAM</span><span class="p">,</span> <span class="s">&quot;somebinarycontent&quot;</span><span class="p">.</span><span class="n">byteInputStream</span><span class="p">()))</span>
-    <span class="k">val</span> <span class="py">validRequest</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">multipartform</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">validRequest</span>
+    <span class="k">return</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">strictFormBody</span> <span class="n">of</span> <span class="n">multipartform</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 

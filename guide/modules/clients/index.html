@@ -939,7 +939,7 @@
         <span class="s">&quot;/bob&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
             <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;bob&quot;</span><span class="p">))</span>
             <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-                <span class="n">println</span><span class="p">(</span><span class="s">&quot;server received: &quot;</span> <span class="p">+</span> <span class="n">it</span><span class="p">)</span>
+                <span class="n">println</span><span class="p">(</span><span class="s">&quot;server received: $it&quot;</span><span class="p">)</span>
                 <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
             <span class="p">}</span>
         <span class="p">}</span>
@@ -948,7 +948,7 @@
     <span class="c1">// blocking client - connection is done on construction</span>
     <span class="k">val</span> <span class="py">blockingClient</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
     <span class="n">blockingClient</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;server sent on connection&quot;</span><span class="p">))</span>
-    <span class="n">blockingClient</span><span class="p">.</span><span class="n">received</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;blocking client received: &quot;</span> <span class="p">+</span> <span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">blockingClient</span><span class="p">.</span><span class="n">received</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;blocking client received: $it&quot;</span><span class="p">)</span> <span class="p">}</span>
     <span class="n">blockingClient</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="c1">// non-blocking client - exposes a Websocket interface for attaching listeners,</span>
@@ -961,7 +961,7 @@
     <span class="p">}</span>
 
     <span class="n">nonBlockingClient</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-        <span class="n">println</span><span class="p">(</span><span class="s">&quot;non-blocking client received:&quot;</span> <span class="p">+</span> <span class="n">it</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;non-blocking client received:$it&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="n">nonBlockingClient</span><span class="p">.</span><span class="n">onClose</span> <span class="p">{</span>

@@ -985,7 +985,7 @@
     <span class="p">}</span>
 
     <span class="c1">// throw a bunch of requests at the filter - only 5 should pass</span>
-    <span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">it</span> <span class="k">in</span> <span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">thread</span> <span class="p">{</span>
             <span class="n">println</span><span class="p">(</span><span class="n">bulkheading</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
         <span class="p">}</span>

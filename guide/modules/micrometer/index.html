@@ -875,7 +875,7 @@
             <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
     <span class="c1">// make some calls</span>
-    <span class="p">(</span><span class="m">0.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">forEach</span> <span class="p">{</span>
+    <span class="n">repeat</span><span class="p">((</span><span class="m">0.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="n">count</span><span class="p">())</span> <span class="p">{</span>
         <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/metrics&quot;</span><span class="p">))</span>
         <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://http4k.org&quot;</span><span class="p">))</span>
     <span class="p">}</span>
