@@ -896,10 +896,14 @@
 
 <span class="c1">// this interface allows us to provide custom logic for storing and verifying the CSRF and AccessTokens.</span>
 <span class="c1">// to be maximally secure, never let the end-user see the access token!</span>
+<span class="c1">// also avoid allowing third parties set the original uri as this might allow phishing attacks</span>
+<span class="c1">// on strategy is might be to use an enum to map to a set of know uris</span>
+<span class="c1">// e.g. shoppingCart -&gt; /cart</span>
 <span class="k">class</span> <span class="nc">CustomOAuthPersistence</span> <span class="p">:</span> <span class="n">OAuthPersistence</span> <span class="p">{</span>
     <span class="k">var</span> <span class="py">nonce</span><span class="p">:</span> <span class="n">Nonce</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
     <span class="k">var</span> <span class="py">csrf</span><span class="p">:</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
     <span class="k">var</span> <span class="py">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="k">var</span> <span class="py">originalUri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
 
     <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveCsrf</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">CrossSiteRequestForgeryToken</span><span class="p">?</span> <span class="p">=</span> <span class="n">csrf</span>
 
@@ -914,6 +918,13 @@
     <span class="p">}</span>
 
     <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveNonce</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">Nonce</span><span class="p">?</span> <span class="p">=</span> <span class="n">nonce</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignOriginalUri</span><span class="p">(</span><span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">originalUri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">originalUri</span> <span class="p">=</span> <span class="n">originalUri</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;assignOriginalUri&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveOriginalUri</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">Uri</span><span class="p">?</span> <span class="p">=</span> <span class="n">originalUri</span>
 
     <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">AccessToken</span><span class="p">?</span> <span class="p">=</span> <span class="n">accessToken</span>
 
