@@ -873,11 +873,14 @@
 <p>As documented in the <a href="/blog/guns_for_show">Toolbox announcement post</a>, we've been busy consolidating a bunch of handy tools for generating code to work with <a href="https://http4k.org">http4k</a> projects, and we christened this the <strong>http4k Toolbox</strong> and it's avaiable both as a <a href="https://toolbox.httpk.org">website</a> and a command-line utility from Brew and SDKMan. From <a href="https://toolbox.httpk.org/project">Project Generation</a> to our own more sophisticated <a href="https://toolbox.httpk.org/openapi">OpenAPI3 Generator</a>, we hope that this will be the essential Swiss Army Knife in every <strong>http4k</strong> developer's pocket.</p>
 <h4 id="new_routing_implementation">New Routing implementation<a class="headerlink" href="#new_routing_implementation" title="Permanent link">&para;</a></h4>
 <h4 id="opentelemetry_monitor_all_the_things">OpenTelemetry: Monitor all the things!<a class="headerlink" href="#opentelemetry_monitor_all_the_things" title="Permanent link">&para;</a></h4>
-<ol>
-<li>OpenTelemetry is now supported, bringing a standard way of instrumenting apps with distributed tracing (XRay, Jaeger, Zipkin) and metrics. Docs here: https://www.http4k.org/guide/modules/opentelemetry/</li>
-</ol>
-<h4 id="library_api_changes">Library API changes<a class="headerlink" href="#library_api_changes" title="Permanent link">&para;</a></h4>
-<p>Like the neat little worker bunnies we are, we've taken the opportunity to clean up the source code. All previously Deprecated code has been removed</p>
+<p>The [OpenTelemetry] project describes itself as...</p>
+<blockquote>
+<p>**"... a collection of tools, APIs, and SDKs. You use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) for analysis in order to understand your software's performance and behavior."</p>
+</blockquote>
+<p>It's a great project run by the CNCF and very well fits in with the ethos that the <a href="https://http4k.org">http4k</a> team believes in. As with all <a href="https://http4k.org">http4k</a> integration modules, we want to enable <a href="https://http4k.org">http4k</a> developers to be able to plug in their apps as simply as possible - in this case, just configure the OpenTelemetry API or Java-agent, then just add some simple <code>Filters</code> to your code to start collecting Distributed Traces or Metrics. Several tracing schemes are supported, including Amazon XRay, Jaeger and Zipkin.</p>
+<p>For more docs on how to get it all working, head over to the <a href="/guide/modules/opentelemetry">docs</a>.</p>
+<h4 id="upgrading_library_api_changes">Upgrading &amp; library API changes<a class="headerlink" href="#upgrading_library_api_changes" title="Permanent link">&para;</a></h4>
+<p>Like the neat little worker bunnies we are, we've taken the opportunity to clean up the source code. All previously deprecated code has been removed, leaving the codebase nice and tidy. If you are upgrading, the best idea is to first upgrade to a late v3 version (v3.254.0), deal with the deprecations in place, then simply upgrade again to v4.</p>
 <h4 id="the_http4k_website">The http4k website<a class="headerlink" href="#the_http4k_website" title="Permanent link">&para;</a></h4>
 <h4 id="examples_repo">Examples Repo<a class="headerlink" href="#examples_repo" title="Permanent link">&para;</a></h4>
 <ol>
