@@ -834,7 +834,8 @@
                     <h1 id="http4k_v4_unleashed">http4k v4 unleashed<a class="headerlink" href="#http4k_v4_unleashed" title="Permanent link">&para;</a></h1>
 <h5 id="november_2020_the_http4k_team">november 2020 / the http4k team<a class="headerlink" href="#november_2020_the_http4k_team" title="Permanent link">&para;</a></h5>
 <p>Well, at last it's here - after 3 years - <a href="https://http4k.org">http4k</a> v4! Following on from the <a href="/blog/retrospective_v3">retrospective</a> that we did on version 3, we've been busy polishing, tidying up the edges, and pushing out a bunch of changes to make the project sparkle. Ready? Then let's dive into the good stuff that's been going on at <a href="https://http4k.org">http4k</a> Towers.</p>
-<h4 id="four_digits_good_-_the_new_http4k_versioning_scheme">"Four digits good" - the new http4k versioning scheme<a class="headerlink" href="#four_digits_good_-_the_new_http4k_versioning_scheme" title="Permanent link">&para;</a></h4>
+<hr/>
+<h4 id="four_digits_good_the_new_http4k_versioning_scheme">Four digits good: the new http4k versioning scheme<a class="headerlink" href="#four_digits_good_the_new_http4k_versioning_scheme" title="Permanent link">&para;</a></h4>
 <p>Ah yes - versioning - everyone's favourite topic. Part of the reason that <a href="https://http4k.org">http4k</a> v3 has been around so long is that we've somewhat been abusing the <a href="https://semver.org/">Semantic versioning</a> system, something which we've been unhappy with. Here's how it should work:</p>
 <div class="codehilite"><pre><span></span><code>For Version &lt;A&gt;.&lt;B&gt;.&lt;C&gt;
 
@@ -854,8 +855,10 @@ D = We broke something by accident. (Bug)
 </code></pre></div>
 
 <p>As you can see, for our users we'll be concentrating on changes in numbers A (occasional) and C (standard).</p>
+<hr/>
 <h4 id="platforms_guv_thousands_of_em_well_more_than_a_few">"Platforms, Guv! Thousands of 'em!" (well, more than a few...)<a class="headerlink" href="#platforms_guv_thousands_of_em_well_more_than_a_few" title="Permanent link">&para;</a></h4>
-<p>When <a href="https://http4k.org">http4k</a> v3 was released, we only supported 3 JVM Server backends and 1 Serverless platform. Since then, we've added a bunch, and are now up to a very respectable 17 standard deployment options for http4k apps:</p>
+<p><img src="./backends.png" alt="http4k backends"/></p>
+<p>When <a href="https://http4k.org">http4k</a> v3 was released, we only supported 3 JVM Server backends and 1 Serverless platform. Since then, we've added a bunch, and are now up to a very respectable 17 standard deployment options for http4k apps...</p>
 <div class="codehilite"><pre><span></span><code>10 JVM Backends - Apache 4 &amp; 5, Jetty, Ktor CIO &amp; Netty, Netty, Ratpack, SunHttp and Undertow (+ any Servlet container)
 1 Native platform - GraalVM (+ Quarkus)
 6 Serverless platforms - Alibaba, AWS Lamba, Azure, Google Cloud, OpenWhisk (IBM/Adobe/Nimbella/Cloudstation), Tencent
@@ -870,26 +873,44 @@ D = We broke something by accident. (Bug)
 </code></pre></div>
 
 <p>The even better news is that testing your <a href="https://http4k.org">http4k</a> apps locally (regardless of platform) is simple - and as ever there's no magic involved - just test them entirely in-memory, or bind them to a standard backend Server.</p>
-<h4 id="http4k_toolbox">http4k Toolbox<a class="headerlink" href="#http4k_toolbox" title="Permanent link">&para;</a></h4>
-<p>As documented in the <a href="/blog/guns_for_show">Toolbox announcement post</a>, we've been busy consolidating a bunch of handy tools for generating code to work with <a href="https://http4k.org">http4k</a> projects, and we christened this the <strong>http4k Toolbox</strong> and it's available in both <a href="https://toolbox.httpk.org">online</a> and a CLI flavours (available from Brew and SDKMan!). From <a href="https://toolbox.httpk.org/project">Project Generation</a> to our own more sophisticated <a href="https://toolbox.httpk.org/openapi">OpenAPI3 Generator</a>, we hope that this will be the essential Swiss Army Knife in every <strong>http4k</strong> developer's pocket.</p>
+<hr/>
+<h4 id="http4k_toolbox_your_new_swiss_army_knife">http4k Toolbox: your new Swiss Army Knife<a class="headerlink" href="#http4k_toolbox_your_new_swiss_army_knife" title="Permanent link">&para;</a></h4>
 <p><img src="./toolbox.png" alt="toolbox"/></p>
-<h4 id="new_routing_implementation">New Routing implementation<a class="headerlink" href="#new_routing_implementation" title="Permanent link">&para;</a></h4>
+<p>As documented in the <a href="/blog/guns_for_show">Toolbox announcement post</a>, we've been busy consolidating a bunch of handy tools for generating code to work with <a href="https://http4k.org">http4k</a> projects, and we christened this the <strong>http4k Toolbox</strong> and it's available in both <a href="https://toolbox.httpk.org">online</a> and a CLI flavours (available from Brew and SDKMan!). From <a href="https://toolbox.httpk.org/project">Project Generation</a> to our own more sophisticated <a href="https://toolbox.httpk.org/openapi">OpenAPI3 Generator</a>, we hope that this become an essential tool in every <strong>http4k</strong> developer's pocket.</p>
+<hr/>
+<h4 id="infinirouting">Infinirouting<a class="headerlink" href="#infinirouting" title="Permanent link">&para;</a></h4>
+<p><img src="./routing.png" alt="http4k routing"/></p>
+<p>The v3 routing scheme was pretty good as you could bind routes on static or dynamic paths and HTTP verbs, but being rampant power seekers, we wanted it to be better. We reasoned that if we could route traffic to HttpHandlers based on those things, then why not be able to route on <em>any</em> part of the request? We'd like to be able to do complicated matching this:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">(</span>
+    <span class="n">header</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="n">it</span> <span class="p">==</span> <span class="s">&quot;http4k.org&quot;</span> <span class="p">}</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="n">queries</span><span class="p">(</span><span class="s">&quot;queryName&quot;</span><span class="p">)</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;i had a query&quot;</span><span class="p">)</span> <span class="p">},</span>
+        <span class="n">body</span> <span class="p">{</span> <span class="n">body</span><span class="p">:</span> <span class="n">String</span> <span class="p">-&gt;</span> <span class="n">body</span><span class="p">.</span><span class="n">length</span> <span class="p">&gt;</span> <span class="m">5000</span> <span class="p">}</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;I was long&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">))</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>So after a lot of clattering and banging of heads, we cracked it - and in doing so managed to rewrite the entire of the <a href="https://http4k.org">http4k</a> routing layer in terms of these predicate Routers. It's really neat, powerful and infinitely(ish) nestable.</p>
+<hr/>
 <h4 id="opentelemetry_monitor_all_the_things">OpenTelemetry: Monitor all the things!<a class="headerlink" href="#opentelemetry_monitor_all_the_things" title="Permanent link">&para;</a></h4>
+<p><img src="./opentelemetry.png" alt="open telemetry"/></p>
 <p>The <a href="https://opentelemetry.io/">OpenTelemetry</a> project describes itself as...</p>
 <blockquote>
-<p>**"... a collection of tools, APIs, and SDKs. You use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) for analysis in order to understand your software's performance and behavior."</p>
+<p><strong>"... a collection of tools, APIs, and SDKs. You use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) for analysis in order to understand your software's performance and behavior." - OpenTelemetry.io</strong></p>
 </blockquote>
-<p><img src="./opentelemetry.png" alt="open telemetry"/></p>
 <p>It's a great project run by the CNCF and very well fits in with the ethos that the <a href="https://http4k.org">http4k</a> team believes in. As with all <a href="https://http4k.org">http4k</a> integration modules, we want to enable <a href="https://http4k.org">http4k</a> developers to be able to plug in their apps as simply as possible - in this case, just configure the OpenTelemetry API or Java-agent, then just add some simple <code>Filters</code> to your code to start collecting Distributed Traces or Metrics. Several tracing schemes are supported, including Amazon XRay, Jaeger and Zipkin.</p>
 <p>For more docs on how to get it all working, head over to the <a href="/guide/modules/opentelemetry">docs</a>.</p>
+<hr/>
 <h4 id="upgrading_library_api_changes">Upgrading &amp; library API changes<a class="headerlink" href="#upgrading_library_api_changes" title="Permanent link">&para;</a></h4>
-<p>Like the neat little worker bunnies we are, we've taken the opportunity to clean up the source code. All previously deprecated code has been removed, leaving the codebase nice and tidy. If you are upgrading, the best idea is to first upgrade to a late v3 version (v3.254.0), deal with the deprecations in place, then simply upgrade again to v4.</p>
+<p>Like the neat little worker bunnies we are, we've also taken the opportunity to clean up the <a href="https://http4k.org">http4k</a> source code. All previously deprecated code has been removed, leaving the codebase nice and tidy. If you are upgrading, the best idea is to first upgrade to a late v3 version (v3.254.0), deal with the deprecations in place, then simply upgrade again to v4.</p>
+<hr/>
 <h4 id="the_http4k_website">The http4k website<a class="headerlink" href="#the_http4k_website" title="Permanent link">&para;</a></h4>
-<h4 id="examples_repo">Examples Repo<a class="headerlink" href="#examples_repo" title="Permanent link">&para;</a></h4>
-<ol>
-<li>The examples repo continues to grow - there are now examples for deploying http4k apps to <em>GraalVM</em> and <em>Quarkus</em>, and an 
-https://github.com/http4k/examples</li>
-</ol>
+<p>One of the things that our users often feed back about was that the structure of the docs in <a href="https://http4k.org">http4k.org</a> could be improved, so we've begun overhauling the site to simplify the content. Expect this to be a continual improvement thing, but on the whole the content will be organised as follows:</p>
+<ul>
+<li>The <a href="/guide">Developer guide</a> will contain descriptions of the underlying concepts in and around the libraries. Code in the guide will be snippet-based.</li>
+<li>The <a href="/cookbook">Cookbook</a> will contain extended examples of how to accomplish particular tasks. eg. provide a custom <code>ServerConfig</code> implementation. Code here will generally be complete and contain runnable examples.</li>
+<li>The <a href="https://github.com/http4k/examples">Examples repo</a> hosts fully self-contained, runnable projects that can be used as a baseline for particular features - eg. how to write and run an <a href="https://github.com/http4k/examples/tree/master/quarkus">app on Quarkus</a> or use the cloudnative module to enable <a href="https://github.com/http4k/examples/tree/master/typesafe-configuration">typesafe configuration</a></li>
+</ul>
+<hr/>
 <h4 id="http4k_connect">http4k Connect<a class="headerlink" href="#http4k_connect" title="Permanent link">&para;</a></h4>
 <p><img src="./connect.png" alt="http4k connect"/>
 5. http4k-connect is our newest project which we hope to eventually standardise patterns for building 3rd party adapters to various backend services, and for building your own Fakes (backed by data-stores such as InMemory and Redis). </p>
