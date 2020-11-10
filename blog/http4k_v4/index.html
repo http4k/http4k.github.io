@@ -833,50 +833,53 @@
                     
                     <h1 id="http4k_v4_unleashed">http4k v4 unleashed<a class="headerlink" href="#http4k_v4_unleashed" title="Permanent link">&para;</a></h1>
 <h5 id="november_2020_the_http4k_team">november 2020 / the http4k team<a class="headerlink" href="#november_2020_the_http4k_team" title="Permanent link">&para;</a></h5>
-<p>Well, at last it's here - after 3 years - <a href="https://http4k.org">http4k</a> v4! Following on from the <a href="/blog/retrospective_v3">retrospective</a> that we did on version 3, we've been polishing up, tidying up the edges, and pushing out a bunch of changes to make the project sparkle. Ready? Then let's dive into the good stuff that's been going on at <a href="https://http4k.org">http4k</a> towers.</p>
+<p>Well, at last it's here - after 3 years - <a href="https://http4k.org">http4k</a> v4! Following on from the <a href="/blog/retrospective_v3">retrospective</a> that we did on version 3, we've been busy polishing, tidying up the edges, and pushing out a bunch of changes to make the project sparkle. Ready? Then let's dive into the good stuff that's been going on at <a href="https://http4k.org">http4k</a> Towers.</p>
 <h4 id="four_digits_good_-_the_new_http4k_versioning_scheme">"Four digits good" - the new http4k versioning scheme<a class="headerlink" href="#four_digits_good_-_the_new_http4k_versioning_scheme" title="Permanent link">&para;</a></h4>
-<p>Ah yes - versioning - everyone's favourite topic. The reason that <a href="https://http4k.org">http4k</a> v3 has been around so long is that we've somewhat been abusing the <a href="https://semver.org/">Semantic versioning</a> system, something which we've been unhappy with. Here's how it should work:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">For</span> <span class="k">Version</span> <span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="k">C</span><span class="o">&gt;</span>
+<p>Ah yes - versioning - everyone's favourite topic. Part of the reason that <a href="https://http4k.org">http4k</a> v3 has been around so long is that we've somewhat been abusing the <a href="https://semver.org/">Semantic versioning</a> system, something which we've been unhappy with. Here's how it should work:</p>
+<div class="codehilite"><pre><span></span><code>For Version &lt;A&gt;.&lt;B&gt;.&lt;C&gt;
 
-<span class="n">A</span> <span class="o">=</span> <span class="n">We</span> <span class="n">broke</span> <span class="n">something</span> <span class="k">on</span> <span class="n">purpose</span><span class="p">.</span> <span class="p">(</span><span class="n">Breaking</span> <span class="n">API</span> <span class="n">change</span><span class="p">)</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">Profit</span><span class="p">.</span> <span class="p">(</span><span class="n">Feature</span> <span class="o">/</span> <span class="n">Improvement</span><span class="p">)</span>
-<span class="k">C</span> <span class="o">=</span> <span class="n">We</span> <span class="n">broke</span> <span class="n">something</span> <span class="k">by</span> <span class="n">accident</span><span class="p">.</span> <span class="p">(</span><span class="n">Bug</span><span class="p">)</span>
+A = We broke something on purpose. (Breaking API change)
+B = Profit. (Feature / Improvement)
+C = We broke something by accident. (Bug)
 </code></pre></div>
 
 <p>Up until now, both breaking and non-breaking API changes on v3 have been done through the second (B) digit of the version - which doesn't allow API users to know if they are expecting a break. At the same time, we wanted to keep major (A) version changes for when there's a big "marketing" release.</p>
 <p>To get around this, we are introducing a new versioning scheme based on 4 digits:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">For</span> <span class="k">Version</span> <span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="k">C</span><span class="o">&gt;</span><span class="p">.</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span>
+<div class="codehilite"><pre><span></span><code>For Version &lt;A&gt;.&lt;B&gt;.&lt;C&gt;.&lt;D&gt;
 
-<span class="n">A</span> <span class="o">=</span> <span class="n">There</span><span class="s1">&#39;s something we&#39;</span><span class="n">d</span> <span class="k">like</span> <span class="n">the</span> <span class="n">world</span> <span class="k">to</span> <span class="n">know</span><span class="p">.</span> <span class="p">(</span><span class="n">Major</span> <span class="n">change</span> <span class="o">/</span> <span class="n">Marketing</span><span class="p">)</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">We</span> <span class="n">broke</span> <span class="n">something</span> <span class="k">on</span> <span class="n">purpose</span><span class="p">.</span> <span class="p">(</span><span class="n">Breaking</span> <span class="n">API</span> <span class="n">change</span><span class="p">)</span>
-<span class="k">C</span> <span class="o">=</span> <span class="n">Profit</span><span class="p">.</span> <span class="p">(</span><span class="n">Feature</span> <span class="o">/</span> <span class="n">Improvement</span><span class="p">)</span>
-<span class="n">D</span> <span class="o">=</span> <span class="n">We</span> <span class="n">broke</span> <span class="n">something</span> <span class="k">by</span> <span class="n">accident</span><span class="p">.</span> <span class="p">(</span><span class="n">Bug</span><span class="p">)</span>
+A = There&#39;s something we&#39;d like the world to know. (Major change / Marketing)
+B = We broke something on purpose. (Breaking API change)
+C = Profit. (Feature / Improvement)
+D = We broke something by accident. (Bug)
 </code></pre></div>
 
 <p>As you can see, for our users we'll be concentrating on changes in numbers A (occasional) and C (standard).</p>
-<h4 id="platforms_guv_thousands_of_em_well_more_than_a_few">"Platforms, Guv. Thousands of 'em!" (well, more than a few...)<a class="headerlink" href="#platforms_guv_thousands_of_em_well_more_than_a_few" title="Permanent link">&para;</a></h4>
-<p>When <a href="https://http4k.org">http4k</a> v3 was released, we only supported 3 JVM Server backends and 1 Serverless platform. Since then, we've added a bunch, and are now up to a massive 18 standard deployment options for http4k apps:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">10 JVM Backends - Apache 4/5, Jetty, Ktor CIO &amp; Netty, Netty, Ratpack, SunHttp and Undertow</span>
-<span class="err">+ any Servlet container!</span>
-<span class="err">2 Native platforms - GraalVM, Quarkus</span>
-<span class="err">6 Serverless platforms - Alibaba, AWS Lamba, Azure, Google Cloud, OpenWhisk (IBM/Adobe/Nimbella/Cloudstation), Tencent</span>
+<h4 id="platforms_guv_thousands_of_em_well_more_than_a_few">"Platforms, Guv! Thousands of 'em!" (well, more than a few...)<a class="headerlink" href="#platforms_guv_thousands_of_em_well_more_than_a_few" title="Permanent link">&para;</a></h4>
+<p>When <a href="https://http4k.org">http4k</a> v3 was released, we only supported 3 JVM Server backends and 1 Serverless platform. Since then, we've added a bunch, and are now up to a very respectable 17 standard deployment options for http4k apps:</p>
+<div class="codehilite"><pre><span></span><code>10 JVM Backends - Apache 4 &amp; 5, Jetty, Ktor CIO &amp; Netty, Netty, Ratpack, SunHttp and Undertow (+ any Servlet container)
+1 Native platform - GraalVM (+ Quarkus)
+6 Serverless platforms - Alibaba, AWS Lamba, Azure, Google Cloud, OpenWhisk (IBM/Adobe/Nimbella/Cloudstation), Tencent
 </code></pre></div>
 
-<p>Switching between platforms is super easy - just plug the standard <code>HttpHandler</code> into the the relevant <a href="https://http4k.org">http4k</a> module class with a single line of code, and then configure your Serverless platform to call the relevant function. Here's an example for Google Cloud:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">TestFunction</span> <span class="p">:</span> <span class="n">GoogleCloudFunction</span><span class="p">(</span>
-    <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">)</span> <span class="p">}</span>
-<span class="p">)</span>
+<p>Switching between all platforms is super easy - just plug the standard <code>HttpHandler</code> into the the relevant <a href="https://http4k.org">http4k</a> module class with a single line of code. Serverless modules all require just one more line,  plus configuring the Serverless platform to call the relevant function. Here's examples for both:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="k">val</span> <span class="py">jvmApp</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">(</span><span class="m">8080</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">MyServerlessFunction</span> <span class="p">:</span> <span class="n">GoogleCloudFunction</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 </code></pre></div>
 
-<p>The good news is that testing your Serverless functions locally is identical to testing any other <a href="https://http4k.org">http4k</a> app - and as ever there's no magic involved - just test them entirely in-memory, or bind them to a standard backend Server.</p>
+<p>The even better news is that testing your <a href="https://http4k.org">http4k</a> apps locally (regardless of platform) is simple - and as ever there's no magic involved - just test them entirely in-memory, or bind them to a standard backend Server.</p>
 <h4 id="http4k_toolbox">http4k Toolbox<a class="headerlink" href="#http4k_toolbox" title="Permanent link">&para;</a></h4>
-<p>As documented in the <a href="/blog/guns_for_show">Toolbox announcement post</a>, we've been busy consolidating a bunch of handy tools for generating code to work with <a href="https://http4k.org">http4k</a> projects, and we christened this the <strong>http4k Toolbox</strong> and it's avaiable both as a <a href="https://toolbox.httpk.org">website</a> and a command-line utility from Brew and SDKMan. From <a href="https://toolbox.httpk.org/project">Project Generation</a> to our own more sophisticated <a href="https://toolbox.httpk.org/openapi">OpenAPI3 Generator</a>, we hope that this will be the essential Swiss Army Knife in every <strong>http4k</strong> developer's pocket.</p>
+<p>As documented in the <a href="/blog/guns_for_show">Toolbox announcement post</a>, we've been busy consolidating a bunch of handy tools for generating code to work with <a href="https://http4k.org">http4k</a> projects, and we christened this the <strong>http4k Toolbox</strong> and it's available in both <a href="https://toolbox.httpk.org">online</a> and a CLI flavours (available from Brew and SDKMan!). From <a href="https://toolbox.httpk.org/project">Project Generation</a> to our own more sophisticated <a href="https://toolbox.httpk.org/openapi">OpenAPI3 Generator</a>, we hope that this will be the essential Swiss Army Knife in every <strong>http4k</strong> developer's pocket.</p>
+<p><img src="./toolbox.png" alt="toolbox"/></p>
 <h4 id="new_routing_implementation">New Routing implementation<a class="headerlink" href="#new_routing_implementation" title="Permanent link">&para;</a></h4>
 <h4 id="opentelemetry_monitor_all_the_things">OpenTelemetry: Monitor all the things!<a class="headerlink" href="#opentelemetry_monitor_all_the_things" title="Permanent link">&para;</a></h4>
-<p>The [OpenTelemetry] project describes itself as...</p>
+<p>The <a href="https://opentelemetry.io/">OpenTelemetry</a> project describes itself as...</p>
 <blockquote>
 <p>**"... a collection of tools, APIs, and SDKs. You use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) for analysis in order to understand your software's performance and behavior."</p>
 </blockquote>
+<p><img src="./opentelemetry.png" alt="open telemetry"/></p>
 <p>It's a great project run by the CNCF and very well fits in with the ethos that the <a href="https://http4k.org">http4k</a> team believes in. As with all <a href="https://http4k.org">http4k</a> integration modules, we want to enable <a href="https://http4k.org">http4k</a> developers to be able to plug in their apps as simply as possible - in this case, just configure the OpenTelemetry API or Java-agent, then just add some simple <code>Filters</code> to your code to start collecting Distributed Traces or Metrics. Several tracing schemes are supported, including Amazon XRay, Jaeger and Zipkin.</p>
 <p>For more docs on how to get it all working, head over to the <a href="/guide/modules/opentelemetry">docs</a>.</p>
 <h4 id="upgrading_library_api_changes">Upgrading &amp; library API changes<a class="headerlink" href="#upgrading_library_api_changes" title="Permanent link">&para;</a></h4>
@@ -888,9 +891,8 @@
 https://github.com/http4k/examples</li>
 </ol>
 <h4 id="http4k_connect">http4k Connect<a class="headerlink" href="#http4k_connect" title="Permanent link">&para;</a></h4>
-<ol>
-<li>http4k-connect is our newest project which we hope to eventually standardise patterns for building 3rd party adapters to various backend services, and for building your own Fakes (backed by data-stores such as InMemory and Redis). </li>
-</ol>
+<p><img src="./connect.png" alt="http4k connect"/>
+5. http4k-connect is our newest project which we hope to eventually standardise patterns for building 3rd party adapters to various backend services, and for building your own Fakes (backed by data-stores such as InMemory and Redis). </p>
                     
                 </div>
             </div>
