@@ -187,17 +187,6 @@
             
             
     
-        <a class="dropdown-item nav-link dropdown-toggle  active"
-            data-toggle="dropdown"
-            href="#"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="true"> Modules</a>
-        <div class="dropdown-menu show">
-            
-            
-            
-    
         <a class="dropdown-item "
            href="../"
            title="Overview">Overview</a>
@@ -360,6 +349,26 @@
             
             
     
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Testing</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../testing/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
         <a class="dropdown-item "
            href="../hamkrest/"
            title="Hamkrest">Hamkrest</a>
@@ -379,8 +388,8 @@
             
     
         <a class="dropdown-item "
-           href="../approvaltests/"
-           title="Approval Testing">Approval Testing</a>
+           href="../webdriver/"
+           title="WebDriver">WebDriver</a>
     
 
             
@@ -388,8 +397,8 @@
             
     
         <a class="dropdown-item "
-           href="../webdriver/"
-           title="WebDriver">WebDriver</a>
+           href="../approvaltests/"
+           title="Approval Testing">Approval Testing</a>
     
 
             
@@ -412,15 +421,6 @@
 
             
         </div>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../../testing/"
-           title="Application testing">Application testing</a>
     
 
             
@@ -927,6 +927,39 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <li>Debugging request and responses</li>
 </ul>
 <p>Check out the <code>org.http4k.filter</code> package for the exact list.</p>
+<h4 id="testing_filters">Testing Filters <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/core/FilterTest.kt"><img class="octocat"/></a><a class="headerlink" href="#testing_filters" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.testing</span>
+
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasHeader</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+<span class="k">val</span> <span class="py">AddLatency</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="p">-&gt;</span>
+    <span class="p">{</span>
+        <span class="n">next</span><span class="p">(</span><span class="n">it</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s">&quot;some value&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">FilterTest</span> <span class="p">{</span>
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`adds a special header`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">val</span> <span class="py">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">AddLatency</span><span class="p">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+        <span class="k">val</span> <span class="py">response</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">and</span><span class="p">(</span><span class="n">hasHeader</span><span class="p">(</span><span class="s">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s">&quot;some value&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
 <h3 id="routers_-_nestable_path-based_routing">Routers - Nestable, path-based Routing<a class="headerlink" href="#routers_-_nestable_path-based_routing" title="Permanent link">&para;</a></h3>
 <p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and <a href="https://http4k.org">http4k</a> will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
@@ -938,6 +971,36 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 </code></pre></div>
 
 <p>Note that the <code>http4k-contract</code> module contains a more typesafe implementation of routing functionality, with runtime-generated live documentation in OpenApi/Swagger format.</p>
+<h4 id="testing_routers">Testing Routers <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/core/RoutingTest.kt"><img class="octocat"/></a><a class="headerlink" href="#testing_routers" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.testing</span>
+
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.RoutingHttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+<span class="k">val</span> <span class="py">EchoPath</span> <span class="p">=</span> <span class="s">&quot;/echo/{message}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">r</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;nothing!&quot;</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">DynamicPathTest</span> <span class="p">{</span>
+
+    <span class="n">@Test</span>
+    <span class="k">fun</span> <span class="nf">`echoes body from path`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="n">EchoPath</span><span class="p">)</span>
+        <span class="k">val</span> <span class="py">response</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">route</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="s">&quot;my great message&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
 <h3 id="typesafe_parameter_destructuringconstruction_of_http_messages_with_lenses">Typesafe parameter destructuring/construction of HTTP messages with Lenses<a class="headerlink" href="#typesafe_parameter_destructuringconstruction_of_http_messages_with_lenses" title="Permanent link">&para;</a></h3>
 <p>Getting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. 
 For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a>. </p>

@@ -12,19 +12,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k blog: TDDing http4k">
-<meta name="twitter:title" content="http4k blog: TDDing http4k">
-<meta property="og:title" content="http4k blog: TDDing http4k" />
+<meta itemprop="name" content="Testing http4k applications">
+<meta name="twitter:title" content="Testing http4k applications">
+<meta property="og:title" content="Testing http4k applications" />
 
 
 
-<meta name="description" content="A step-by-step guide to TDDing a simple http4k application">
-<meta property="og:description" content="A step-by-step guide to TDDing a simple http4k application" />
-<meta name="twitter:description" content="A step-by-step guide to TDDing a simple http4k application">
+<meta name="description" content="How to test http4k endpoints and applications, and modules that support testing">
+<meta property="og:description" content="How to test http4k endpoints and applications, and modules that support testing" />
+<meta name="twitter:description" content="How to test http4k endpoints and applications, and modules that support testing">
 
 
 
-<link rel="canonical" href="https://www.http4k.org/blog/tdding_http4k/">
+<link rel="canonical" href="https://www.http4k.org/guide/modules/testing/">
 
 
 
@@ -78,7 +78,7 @@
     
     
     
-    <title>http4k blog: TDDing http4k</title>
+    <title>Testing http4k applications</title>
     
     
     
@@ -99,7 +99,7 @@
     
     <link rel="stylesheet" href="/css/main.css"/>
     
-    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../../css/site.css">
     
     
 </head>
@@ -129,7 +129,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../documentation/"
+               href="../../../documentation/"
                title="Introduction">Introduction</a>
         </li>
     
@@ -141,7 +141,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../quickstart/"
+               href="../../../quickstart/"
                title="Quickstart">Quickstart</a>
         </li>
     
@@ -153,7 +153,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../rationale/"
+               href="../../../rationale/"
                title="Rationale & concepts">Rationale & concepts</a>
         </li>
     
@@ -165,7 +165,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../changelog/"
+               href="../../../changelog/"
                title="Changelog">Changelog</a>
         </li>
     
@@ -175,20 +175,20 @@
         
         
     
-        <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle "
+        <li class="nav-item dropdown active show">
+            <a class="nav-link dropdown-toggle active"
                data-toggle="dropdown"
                href="#"
                role="button"
                aria-haspopup="true"
-               aria-expanded="false">Developer guide</a>
-            <div class="dropdown-menu ">
+               aria-expanded="true">Developer guide</a>
+            <div class="dropdown-menu show">
             
             
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/"
+           href="../"
            title="Overview">Overview</a>
     
 
@@ -197,7 +197,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/core/"
+           href="../core/"
            title="Core">Core</a>
     
 
@@ -206,7 +206,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/servers/"
+           href="../servers/"
            title="Server backend">Server backend</a>
     
 
@@ -215,7 +215,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/serverless/"
+           href="../serverless/"
            title="Serverless backend">Serverless backend</a>
     
 
@@ -224,7 +224,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/clients/"
+           href="../clients/"
            title="HTTP & Websocket clients">HTTP & Websocket clients</a>
     
 
@@ -233,7 +233,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/contracts/"
+           href="../contracts/"
            title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
     
 
@@ -242,7 +242,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/json/"
+           href="../json/"
            title="JSON handling">JSON handling</a>
     
 
@@ -251,7 +251,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/templating/"
+           href="../templating/"
            title="Templating">Templating</a>
     
 
@@ -260,7 +260,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/multipart/"
+           href="../multipart/"
            title="Multipart forms">Multipart forms</a>
     
 
@@ -269,7 +269,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/cloud_native/"
+           href="../cloud_native/"
            title="Cloud native Configuration">Cloud native Configuration</a>
     
 
@@ -278,7 +278,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/micrometer/"
+           href="../micrometer/"
            title="Micrometer">Micrometer</a>
     
 
@@ -287,7 +287,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/opentelemetry/"
+           href="../opentelemetry/"
            title="OpenTelemetry">OpenTelemetry</a>
     
 
@@ -296,7 +296,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/resilience4j/"
+           href="../resilience4j/"
            title="Resilience4J">Resilience4J</a>
     
 
@@ -305,7 +305,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/aws/"
+           href="../aws/"
            title="AWS">AWS</a>
     
 
@@ -314,7 +314,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/oauth/"
+           href="../oauth/"
            title="OAuth">OAuth</a>
     
 
@@ -323,7 +323,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/jsonrpc/"
+           href="../jsonrpc/"
            title="JSON RPC">JSON RPC</a>
     
 
@@ -332,7 +332,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/xml/"
+           href="../xml/"
            title="XML handling">XML handling</a>
     
 
@@ -341,7 +341,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/yaml/"
+           href="../yaml/"
            title="YAML handling">YAML handling</a>
     
 
@@ -349,19 +349,19 @@
             
             
     
-        <a class="dropdown-item nav-link dropdown-toggle  "
+        <a class="dropdown-item nav-link dropdown-toggle  active"
             data-toggle="dropdown"
             href="#"
             role="button"
             aria-haspopup="true"
-            aria-expanded="false"> Testing</a>
-        <div class="dropdown-menu ">
+            aria-expanded="true"> Testing</a>
+        <div class="dropdown-menu show">
             
             
             
     
-        <a class="dropdown-item "
-           href="../../guide/modules/testing/"
+        <a class="dropdown-item active"
+           href="./"
            title="Overview">Overview</a>
     
 
@@ -370,7 +370,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/hamkrest/"
+           href="../hamkrest/"
            title="Hamkrest">Hamkrest</a>
     
 
@@ -379,7 +379,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/kotest/"
+           href="../kotest/"
            title="Kotest">Kotest</a>
     
 
@@ -388,7 +388,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/webdriver/"
+           href="../webdriver/"
            title="WebDriver">WebDriver</a>
     
 
@@ -397,7 +397,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/approvaltests/"
+           href="../approvaltests/"
            title="Approval Testing">Approval Testing</a>
     
 
@@ -406,7 +406,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/chaos/"
+           href="../chaos/"
            title="Chaos Testing">Chaos Testing</a>
     
 
@@ -415,7 +415,7 @@
             
     
         <a class="dropdown-item "
-           href="../../guide/modules/servicevirtualisation/"
+           href="../servicevirtualisation/"
            title="Service Virtualisaion">Service Virtualisaion</a>
     
 
@@ -446,7 +446,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/"
+           href="../../../cookbook/"
            title="How to use this guide">How to use this guide</a>
     
 
@@ -455,7 +455,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/server_as_a_function/"
+           href="../../../cookbook/server_as_a_function/"
            title="Server as a function">Server as a function</a>
     
 
@@ -464,7 +464,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/client_as_a_function/"
+           href="../../../cookbook/client_as_a_function/"
            title="Client as a function">Client as a function</a>
     
 
@@ -473,7 +473,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/container_integration/"
+           href="../../../cookbook/container_integration/"
            title="Container integration">Container integration</a>
     
 
@@ -482,7 +482,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/simple_routing/"
+           href="../../../cookbook/simple_routing/"
            title="Simple routing">Simple routing</a>
     
 
@@ -491,7 +491,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/nestable_routes/"
+           href="../../../cookbook/nestable_routes/"
            title="Nestable routes">Nestable routes</a>
     
 
@@ -500,7 +500,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/typesafe_http_contracts/"
+           href="../../../cookbook/typesafe_http_contracts/"
            title="OpenAPI contracts/routing">OpenAPI contracts/routing</a>
     
 
@@ -509,7 +509,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/using_templates/"
+           href="../../../cookbook/using_templates/"
            title="Templating engines">Templating engines</a>
     
 
@@ -518,7 +518,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/request_context/"
+           href="../../../cookbook/request_context/"
            title="Typesafe RequestContexts">Typesafe RequestContexts</a>
     
 
@@ -527,7 +527,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/typesafe_http_requests_with_lenses/"
+           href="../../../cookbook/typesafe_http_requests_with_lenses/"
            title="Typesafe HTTP requests with lenses">Typesafe HTTP requests with lenses</a>
     
 
@@ -536,7 +536,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/custom_json_marshallers/"
+           href="../../../cookbook/custom_json_marshallers/"
            title="Custom JSON marshallers">Custom JSON marshallers</a>
     
 
@@ -545,7 +545,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/html_forms/"
+           href="../../../cookbook/html_forms/"
            title="HTML forms">HTML forms</a>
     
 
@@ -554,7 +554,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/multipart_forms/"
+           href="../../../cookbook/multipart_forms/"
            title="Multipart forms">Multipart forms</a>
     
 
@@ -563,7 +563,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/generating_data_classes/"
+           href="../../../cookbook/generating_data_classes/"
            title="Generating data classes for messages">Generating data classes for messages</a>
     
 
@@ -572,7 +572,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/websockets/"
+           href="../../../cookbook/websockets/"
            title="Websockets">Websockets</a>
     
 
@@ -581,7 +581,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/structured_logging_with_events/"
+           href="../../../cookbook/structured_logging_with_events/"
            title="Structured Logging with Events">Structured Logging with Events</a>
     
 
@@ -590,7 +590,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/basic_oauth_authorization_server/"
+           href="../../../cookbook/basic_oauth_authorization_server/"
            title="Basic OAuth Server configuration">Basic OAuth Server configuration</a>
     
 
@@ -599,7 +599,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/custom_oauth_provider/"
+           href="../../../cookbook/custom_oauth_provider/"
            title="Custom OAuth Provider configuration">Custom OAuth Provider configuration</a>
     
 
@@ -608,7 +608,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/customised_servers/"
+           href="../../../cookbook/customised_servers/"
            title="Custom Server (SSL)">Custom Server (SSL)</a>
     
 
@@ -617,7 +617,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/service_virtualisation/"
+           href="../../../cookbook/service_virtualisation/"
            title="Service Virtualisation with Servirtium">Service Virtualisation with Servirtium</a>
     
 
@@ -626,7 +626,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/principal_lookup/"
+           href="../../../cookbook/principal_lookup/"
            title="Principal lookup">Principal lookup</a>
     
 
@@ -635,7 +635,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/monitoring/"
+           href="../../../cookbook/monitoring/"
            title="Monitoring http4k">Monitoring http4k</a>
     
 
@@ -644,7 +644,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/record_and_replay/"
+           href="../../../cookbook/record_and_replay/"
            title="Recording/replaying HTTP traffic">Recording/replaying HTTP traffic</a>
     
 
@@ -653,7 +653,7 @@
             
     
         <a class="dropdown-item "
-           href="../../cookbook/test_driven_apps/"
+           href="../../../cookbook/test_driven_apps/"
            title="Test driven apps">Test driven apps</a>
     
 
@@ -669,7 +669,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../in_action/"
+               href="../../../in_action/"
                title="http4k in action">http4k in action</a>
         </li>
     
@@ -679,20 +679,20 @@
         
         
     
-        <li class="nav-item dropdown active show">
-            <a class="nav-link dropdown-toggle active"
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
                data-toggle="dropdown"
                href="#"
                role="button"
                aria-haspopup="true"
-               aria-expanded="true">Blog</a>
-            <div class="dropdown-menu show">
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
             
             
             
     
         <a class="dropdown-item "
-           href="../"
+           href="../../../blog/"
            title="Overview">Overview</a>
     
 
@@ -701,7 +701,7 @@
             
     
         <a class="dropdown-item "
-           href="../meet_http4k/"
+           href="../../../blog/meet_http4k/"
            title="Meet http4k">Meet http4k</a>
     
 
@@ -710,7 +710,7 @@
             
     
         <a class="dropdown-item "
-           href="../typesafe_websockets/"
+           href="../../../blog/typesafe_websockets/"
            title="Typesafe Websockets">Typesafe Websockets</a>
     
 
@@ -718,8 +718,8 @@
             
             
     
-        <a class="dropdown-item active"
-           href="./"
+        <a class="dropdown-item "
+           href="../../../blog/tdding_http4k/"
            title="TDDing http4k">TDDing http4k</a>
     
 
@@ -728,7 +728,7 @@
             
     
         <a class="dropdown-item "
-           href="../typesafe_configuration/"
+           href="../../../blog/typesafe_configuration/"
            title="Typesafe 12-factor config">Typesafe 12-factor config</a>
     
 
@@ -737,7 +737,7 @@
             
     
         <a class="dropdown-item "
-           href="../documenting_apis_with_openapi/"
+           href="../../../blog/documenting_apis_with_openapi/"
            title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
     
 
@@ -746,7 +746,7 @@
             
     
         <a class="dropdown-item "
-           href="../retrospective_v3/"
+           href="../../../blog/retrospective_v3/"
            title="Retrospective on v3">Retrospective on v3</a>
     
 
@@ -755,7 +755,7 @@
             
     
         <a class="dropdown-item "
-           href="../nanoservices/"
+           href="../../../blog/nanoservices/"
            title="Nanoservices">Nanoservices</a>
     
 
@@ -764,7 +764,7 @@
             
     
         <a class="dropdown-item "
-           href="../toolbox/"
+           href="../../../blog/toolbox/"
            title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
     
 
@@ -780,7 +780,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../performance/"
+               href="../../../performance/"
                title="Performance">Performance</a>
         </li>
     
@@ -792,7 +792,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../faq/"
+               href="../../../faq/"
                title="FAQ">FAQ</a>
         </li>
     
@@ -804,7 +804,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../support/"
+               href="../../../support/"
                title="Getting support">Getting support</a>
         </li>
     
@@ -816,7 +816,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../contributing/"
+               href="../../../contributing/"
                title="Contribute/support http4k">Contribute/support http4k</a>
         </li>
     
@@ -828,7 +828,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../code-of-conduct/"
+               href="../../../code-of-conduct/"
                title="Code of Conduct">Code of Conduct</a>
         </li>
     
@@ -840,7 +840,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../api/"
+               href="../../../api/"
                title="API docs">API docs</a>
         </li>
     
@@ -858,28 +858,29 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1 id="tdding_http4k">TDDing http4k<a class="headerlink" href="#tdding_http4k" title="Permanent link">&para;</a></h1>
-<h5 id="february_2018_daviddenton">february 2018 / <a href="github">@daviddenton</a><a class="headerlink" href="#february_2018_daviddenton" title="Permanent link">&para;</a></h5>
-<p>This post is a guide to <em>how</em> we build <a href="https://http4k.org">http4k</a> applications test first to provide excellent test coverage driven by decoupled tests. </p>
-<h3 id="application_design">Application Design<a class="headerlink" href="#application_design" title="Permanent link">&para;</a></h3>
-<p>For this example, we will use an example of a Maths app with the following requirements:</p>
-<ul>
-<li>The app must add 2 numbers together via an HTTP call</li>
-<li>The app must multiply 2 numbers together via an HTTP call</li>
-<li>Answers generated by the service will be logged (via HTTP POST) to another server - the Recorder.</li>
-</ul>
-<p>Apps can generally be split into 3 tiers:</p>
+                    <h1>Overview</h1>
+                    
+                    <p>The creators of [http4k] takes testing very seriously - so seriously that there really isn't that much to say here! 
+The API has been designed to make it as simple as possible to test both individual endpoints and entire applications in a consistent fashion, which is aided by remembering that:</p>
 <ol>
-<li>Endpoint: <code>HttpHandlers</code> are constructed individually, by providing a builder function which takes the business-level dependencies. </li>
-<li>Application: Builder function which takes the transport-level dependencies, and converts them into business-level dependencies. All routes are constructed and collected in this tier.</li>
-<li>Server: Builder function which takes the configuration for environmental concerns such as ports and downstream urls.</li>
+<li>The input and output <code>Request/Response</code> objects are immutable.</li>
+<li><code>HttpHandlers</code> are just functions.</li>
+<li>An entire [http4k] application is <em>just</em> an <code>HttpHandler</code>.</li>
 </ol>
-<p>The tutorial is split into 4 sections:</p>
+<p>Because of the above, there really isn't much required in the way of "testing infrastructure" - no magic containers or test fixtures that you might find in other frameworks. 
+Testing is just matter of calling the correct function! Additionally, because the server and client HttpHandler interfaces are symmetrical - moving between in and out of container contexts 
+(or indeed even to another HTTP framework entirely) is just a matter of switching out the HttpHandler implementation from the constructed app (out of container) to an HTTP client (in-container).</p>
+<p>That said, possibly the most useful thing is to demonstrate the process that we have developed to test micro-services. A simple example of the development process can be found 
+<a href="/tutorials/tdding_http4k">here</a>.</p>
+<h3 id="testing_modules">Testing modules<a class="headerlink" href="#testing_modules" title="Permanent link">&para;</a></h3>
+<p>We have developed the following modules to help with testing:</p>
 <ul>
-<li><a href="_1">Part 1: Building a walking skeleton</a></li>
-<li><a href="_2">Part 2: Adding an endpoint</a></li>
-<li><a href="_3">Part 3: Adding another endpoint</a></li>
-<li><a href="_4">Part 4: Adding an external dependency</a></li>
+<li><a href="/guide/modules/hamkrest">http4k-testing-hamkrest</a>: a set of composable Hamkrest matchers for matching [http4k] message objects against.</li>
+<li><a href="/guide/modules/kotest">http4k-testing-kotest</a>: a set of composable Kotest matchers for matching [http4k] message objects against.</li>
+<li><a href="/guide/modules/webdriver">http4k-testing-webdriver</a>: an ultra-lightweight Selenium WebDriver implementation which can be used to test-drive [http4k] apps (ie. HttpHandlers).</li>
+<li><a href="/guide/modules/approvaltests">http4k-testing-approval</a>: JUnit 5 extensions for <a href="http://approvaltests.com/">Approval testing</a> of [http4k] Request and Response messages.</li>
+<li><a href="/guide/modules/chaos">http4k-testing-chaos</a>: API for declaring and injecting failure modes into [http4k] applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
+<li><a href="/guide/modules/servicevirtualisation">http4k-testing-servitium</a>: a fully featured implementation of the <a href="https://servirtium.dev">Servirtium</a> solution for Service Virtualization testing approach.</li>
 </ul>
                     
                 </div>
@@ -891,7 +892,7 @@
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/index-min.js"></script>
 
-      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
 
 
 
