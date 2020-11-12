@@ -884,7 +884,7 @@ D = We broke something by accident. (Bug)
 <p>As you can see, for our users we'll be concentrating on changes in numbers A (occasional) and C (standard).</p>
 <hr/>
 <h4 id="platforms_guv_thousands_of_em_well_more_than_a_few">"Platforms, Guv! Thousands of 'em!" (well, more than a few...)<a class="headerlink" href="#platforms_guv_thousands_of_em_well_more_than_a_few" title="Permanent link">&para;</a></h4>
-<p><img src="./backends.png" alt="http4k backends"/></p>
+<p><img class="blogImage" src="./backends.png" alt="http4k backends"/></p>
 <p>When <a href="https://http4k.org">http4k</a> v3 was released, we only supported 3 JVM Server backends and 1 Serverless platform. Since then, we've added a bunch, and are now up to a very respectable 17 standard deployment options for http4k apps...</p>
 <div class="codehilite"><pre><span></span><code>10 JVM Backends - Apache 4 &amp; 5, Jetty, Ktor CIO &amp; Netty, Netty, Ratpack, SunHttp and Undertow (+ any Servlet container)
 1 Native platform - GraalVM (+ Quarkus)
@@ -902,11 +902,11 @@ D = We broke something by accident. (Bug)
 <p>The even better news is that testing your <a href="https://http4k.org">http4k</a> apps locally (regardless of platform) is simple - and as ever there's no magic involved - just test them entirely in-memory, or bind them to a standard backend Server.</p>
 <hr/>
 <h4 id="http4k_toolbox_your_new_swiss_army_knife">http4k Toolbox: your new Swiss Army Knife<a class="headerlink" href="#http4k_toolbox_your_new_swiss_army_knife" title="Permanent link">&para;</a></h4>
-<p><img src="./toolbox.png" alt="toolbox"/></p>
+<p><img class="blogImage" src="./toolbox.png" alt="toolbox"/></p>
 <p>As documented in the <a href="/blog/toolbox">Toolbox announcement post</a>, we've been busy consolidating a bunch of handy tools for generating code to work with <a href="https://http4k.org">http4k</a> projects, and we christened this the <strong>http4k Toolbox</strong> and it's available in both <a href="https://toolbox.http4k.org">online</a> and a CLI flavours (available from Brew and SDKMan!). From <a href="https://toolbox.httpk.org/project">Project Generation</a> to our own more sophisticated <a href="https://toolbox.httpk.org/openapi">OpenAPI3 Generator</a>, we hope that this become an essential tool in every <strong>http4k</strong> developer's pocket.</p>
 <hr/>
 <h4 id="infinirouting">Infinirouting<a class="headerlink" href="#infinirouting" title="Permanent link">&para;</a></h4>
-<p><img src="./routing.png" alt="http4k routing"/></p>
+<p><img class="blogImage" src="./routing.png" alt="http4k routing"/></p>
 <p>The v3 routing scheme was pretty good as you could bind routes on static or dynamic paths and HTTP verbs, but being rampant power seekers, we wanted it to be better. We reasoned that if we could route traffic to HttpHandlers based on those things, then why not be able to route on <em>any</em> part of the request? We'd like to be able to do complicated matching this:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">(</span>
     <span class="n">header</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="n">it</span> <span class="p">==</span> <span class="s">&quot;http4k.org&quot;</span> <span class="p">}</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
@@ -919,7 +919,7 @@ D = We broke something by accident. (Bug)
 <p>So after a lot of clattering and banging of heads, we cracked it - and in doing so managed to rewrite the entire of the <a href="https://http4k.org">http4k</a> routing layer in terms of these predicate <code>Routers</code>. It's really neat, infinitely(ish) nestable, and makes us feel just a little bit smug for getting it working.</p>
 <hr/>
 <h4 id="opentelemetry_monitor_all_the_things">OpenTelemetry: Monitor all the things!<a class="headerlink" href="#opentelemetry_monitor_all_the_things" title="Permanent link">&para;</a></h4>
-<p><img src="./opentelemetry.png" alt="open telemetry"/></p>
+<p><img class="blogImage" src="./opentelemetry.png" alt="open telemetry"/></p>
 <p>The <a href="https://opentelemetry.io/">OpenTelemetry</a> project describes itself as...</p>
 <blockquote>
 <p><strong>"... a collection of tools, APIs, and SDKs. You use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) for analysis in order to understand your software's performance and behavior." - OpenTelemetry.io</strong></p>
@@ -943,7 +943,7 @@ D = We broke something by accident. (Bug)
 <p>If your team would also like to take advantage of our experience in delivering projects using <a href="https://http4k.org">http4k</a>, then please visit the <a href="/support">support/training</a> page, reach out and we'd love to see how we can help.</p>
 <hr/>
 <h4 id="http4k_connect">http4k Connect<a class="headerlink" href="#http4k_connect" title="Permanent link">&para;</a></h4>
-<p><img src="./connect.png" alt="http4k connect"/></p>
+<p><img class="blogImage" src="./connect.png" alt="http4k connect"/></p>
 <p><a href="http://github.com/http4k/http4k-connect">http4k-connect</a> is the team's newest side project, the purpose of which is to eventually standardise patterns for building 3rd party adapters to various backend services, and for building your own Fakes (backed by data-stores such as InMemory, S3 or Redis). </p>
 <p>Mostly, the existence of the project is to avoid us having to reinvent the same things again and again. It's pretty hot off the press, but will be receiving a lot of attention over the coming weeks and months, and we'll be documenting the mechanisms in both web and live talks.</p>
 <hr/>
