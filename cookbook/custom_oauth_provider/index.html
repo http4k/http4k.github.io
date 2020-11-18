@@ -887,6 +887,7 @@
 <span class="k">import</span> <span class="nn">org.http4k.security.OAuthPersistence</span>
 <span class="k">import</span> <span class="nn">org.http4k.security.OAuthProvider</span>
 <span class="k">import</span> <span class="nn">org.http4k.security.OAuthProviderConfig</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.openid.IdToken</span>
 <span class="k">import</span> <span class="nn">org.http4k.security.openid.Nonce</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
@@ -955,7 +956,7 @@
 
     <span class="k">override</span> <span class="k">fun</span> <span class="nf">retrieveToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">AccessToken</span><span class="p">?</span> <span class="p">=</span> <span class="n">accessToken</span>
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="p">):</span> <span class="n">Response</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">assignToken</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">:</span> <span class="n">Response</span><span class="p">,</span> <span class="n">accessToken</span><span class="p">:</span> <span class="n">AccessToken</span><span class="p">,</span> <span class="n">idToken</span><span class="p">:</span> <span class="n">IdToken</span><span class="p">?):</span> <span class="n">Response</span> <span class="p">{</span>
         <span class="k">this</span><span class="p">.</span><span class="n">accessToken</span> <span class="p">=</span> <span class="n">accessToken</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;assignToken&quot;</span><span class="p">)</span>
     <span class="p">}</span>
