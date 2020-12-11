@@ -868,11 +868,17 @@
 changes with their rationale when appropriate:</p>
 <h3 id="v32830_uncut">v3.283.0 (uncut)<a class="headerlink" href="#v32830_uncut" title="Permanent link">&para;</a></h3>
 <ul>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Fix #536 - Path encoding fixed using lens.</li>
 <li><strong>http4k-core</strong> : Support multiple, nested RequestContexts.</li>
 <li><strong>http4k-format-moshi</strong> : Add support for (de)serialising Unit.</li>
 <li><strong>http4k-security-oauth</strong> : Ability to provide custom <code>RedirectionUriBuilder</code> for non-JWT cases.</li>
 <li><strong>http4k-testing-chaos</strong> : Ability to name Chaos API in OpenApi document.</li>
+<li><strong>http4k-opentelemetry</strong> : <strong>Breaking (dependency change)</strong> Upgrade to new 0.12.0 of OpenTelemetry Java API has caused some API changes.</li>
+<li><strong>http4k-format-jackson</strong> : <strong>Breaking (dependency change)</strong> Upgrade to new version of Jackson. PropertyNamingStrategies will need to be replaced as old one could cause deadlock: https://github.com/FasterXML/jackson-databind/issues/2715</li>
+<li><strong>http4k-format-jackson-xml</strong> : <strong>Breaking</strong> We recommend that users of this lib <strong>DO NOT UPGRADE</strong> to this release due to open bug with nullable fields. See: https://github.com/FasterXML/jackson-dataformat-xml/issues/435 .  There is a workaround which is to add default values into the nullable fields in your DTO classes. eg.
+ <code>kotlin
+data class MyDto(val field: String? = null)</code></li>
 </ul>
 <h3 id="v32820">v3.282.0<a class="headerlink" href="#v32820" title="Permanent link">&para;</a></h3>
 <ul>
