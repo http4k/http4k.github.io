@@ -871,9 +871,9 @@
 <p>OpenTelemetry provides a pluggable interface for tracing propagation, so you can easily switch between different implementations such as AWS X-Ray, B3 and Jaeger etc.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.opentelemetry</span>
 
-<span class="k">import</span> <span class="nn">io.opentelemetry.OpenTelemetry</span>
-<span class="k">import</span> <span class="nn">io.opentelemetry.context.propagation.DefaultContextPropagators</span>
-<span class="k">import</span> <span class="nn">io.opentelemetry.extensions.trace.propagation.AwsXRayPropagator</span>
+<span class="k">import</span> <span class="nn">io.opentelemetry.api.OpenTelemetry</span>
+<span class="k">import</span> <span class="nn">io.opentelemetry.context.propagation.ContextPropagators</span>
+<span class="k">import</span> <span class="nn">io.opentelemetry.extension.trace.propagation.AwsXRayPropagator</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
@@ -890,10 +890,7 @@
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// configure OpenTelemetry using the Amazon XRAY tracing scheme</span>
-    <span class="n">OpenTelemetry</span><span class="p">.</span><span class="n">setPropagators</span><span class="p">(</span>
-        <span class="n">DefaultContextPropagators</span><span class="p">.</span><span class="n">builder</span><span class="p">()</span>
-            <span class="p">.</span><span class="n">addTextMapPropagator</span><span class="p">(</span><span class="n">AwsXRayPropagator</span><span class="p">.</span><span class="n">getInstance</span><span class="p">())</span>
-            <span class="p">.</span><span class="n">build</span><span class="p">())</span>
+    <span class="n">OpenTelemetry</span><span class="p">.</span><span class="n">setGlobalPropagators</span><span class="p">(</span><span class="n">ContextPropagators</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">AwsXRayPropagator</span><span class="p">.</span><span class="n">getInstance</span><span class="p">()))</span>
 
     <span class="c1">// this HttpHandler represents a 3rd party service, and will repeat the request body</span>
     <span class="k">val</span> <span class="py">repeater</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
@@ -964,7 +961,7 @@
 <span class="p">}</span>
 
 <span class="k">private</span> <span class="k">fun</span> <span class="nf">exportMetricsFromOpenTelemetry</span><span class="p">():</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">MetricData</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">InMemoryMetricExporter</span><span class="p">.</span><span class="n">create</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
-    <span class="n">export</span><span class="p">(</span><span class="n">OpenTelemetrySdk</span><span class="p">.</span><span class="n">getMeterProvider</span><span class="p">().</span><span class="n">metricProducer</span><span class="p">.</span><span class="n">collectAllMetrics</span><span class="p">())</span>
+    <span class="n">export</span><span class="p">(</span><span class="n">OpenTelemetrySdk</span><span class="p">.</span><span class="n">getGlobalMeterProvider</span><span class="p">().</span><span class="n">metricProducer</span><span class="p">.</span><span class="n">collectAllMetrics</span><span class="p">())</span>
 <span class="p">}.</span><span class="n">finishedMetricItems</span>
 </code></pre></div>
                     

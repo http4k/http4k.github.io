@@ -879,8 +879,7 @@
 <span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
 
 <span class="k">fun</span> <span class="nf">`simple proxy`</span><span class="p">()</span> <span class="p">=</span>
-    <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+    <span class="n">JavaHttpClient</span><span class="p">()</span>
         <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
         <span class="p">.</span><span class="n">start</span><span class="p">()</span>
 
