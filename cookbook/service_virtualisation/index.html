@@ -874,7 +874,7 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters.SetBaseUriFrom</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters.SetHostFrom</span>
 <span class="k">import</span> <span class="nn">org.http4k.junit.ServirtiumRecording</span>
 <span class="k">import</span> <span class="nn">org.http4k.junit.ServirtiumReplay</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
@@ -933,7 +933,7 @@
 <span class="n">@Disabled</span>
 <span class="k">class</span> <span class="nc">RemoteHttpRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="k">private</span> <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">SetBaseUriFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://serverundertest:8080&quot;</span><span class="p">))</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://serverundertest:8080&quot;</span><span class="p">))</span>
         <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
     <span class="n">@JvmField</span>
@@ -979,7 +979,7 @@
         <span class="n">WordCounterApp</span><span class="p">().</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8080</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="k">private</span> <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">SetBaseUriFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8080&quot;</span><span class="p">))</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8080&quot;</span><span class="p">))</span>
         <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
     <span class="n">@JvmField</span>
@@ -1021,7 +1021,7 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.then</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters.SetBaseUriFrom</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters.SetHostFrom</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.HandleRemoteRequestFailed</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
@@ -1056,7 +1056,7 @@
 <span class="cm"> * This client wraps the calls to a remote WordCounter service</span>
 <span class="cm"> */</span>
 <span class="k">class</span> <span class="nc">WordCounterClient</span><span class="p">(</span><span class="n">baseUri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">http</span> <span class="p">=</span> <span class="n">SetBaseUriFrom</span><span class="p">(</span><span class="n">baseUri</span><span class="p">)</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="py">http</span> <span class="p">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">baseUri</span><span class="p">)</span>
         <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="n">HandleRemoteRequestFailed</span><span class="p">())</span>
         <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
