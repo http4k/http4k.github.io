@@ -900,7 +900,7 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.events.AutoJsonEvents</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.AutoMarshallingEvents</span>
 <span class="k">import</span> <span class="nn">org.http4k.events.Event</span>
 <span class="k">import</span> <span class="nn">org.http4k.events.EventFilter</span>
 <span class="k">import</span> <span class="nn">org.http4k.events.EventFilters</span>
@@ -916,7 +916,7 @@
         <span class="n">EventFilters</span><span class="p">.</span><span class="n">AddTimestamp</span><span class="p">()</span>
             <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="n">AddZipkinTraces</span><span class="p">())</span>
             <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">AddRequestCount</span><span class="p">())</span>
-            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">AutoJsonEvents</span><span class="p">(</span><span class="n">Jackson</span><span class="p">))</span>
+            <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">AutoMarshallingEvents</span><span class="p">(</span><span class="n">Jackson</span><span class="p">))</span>
 
     <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">}</span>
 
