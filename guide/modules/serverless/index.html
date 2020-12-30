@@ -904,7 +904,6 @@
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/lambda/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.lambda</span>
 
-<span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
@@ -946,13 +945,14 @@
     <span class="k">fun</span> <span class="nf">runLambdaAsAwsWould</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span><span class="s">&quot;RUNNING AS LAMBDA:&quot;</span><span class="p">)</span>
 
-        <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">FunctionsExampleEntryClass</span><span class="p">().</span><span class="n">handleRequest</span><span class="p">(</span><span class="n">APIGatewayProxyRequestEvent</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
-            <span class="n">path</span> <span class="p">=</span> <span class="s">&quot;/&quot;</span>
-            <span class="n">body</span> <span class="p">=</span> <span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span>
-            <span class="n">httpMethod</span> <span class="p">=</span> <span class="s">&quot;GET&quot;</span>
-            <span class="n">headers</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">()</span>
-            <span class="n">queryStringParameters</span> <span class="p">=</span> <span class="n">mapOf</span><span class="p">()</span>
-        <span class="p">},</span> <span class="n">proxy</span><span class="p">())</span>
+        <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">FunctionsExampleEntryClass</span><span class="p">().</span><span class="n">handleRequest</span><span class="p">(</span><span class="n">mapOf</span><span class="p">(</span>
+            <span class="s">&quot;path&quot;</span> <span class="n">to</span> <span class="s">&quot;/&quot;</span><span class="p">,</span>
+            <span class="s">&quot;queryStringParameters&quot;</span> <span class="n">to</span> <span class="n">emptyMap</span><span class="p">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">&gt;(),</span>
+            <span class="s">&quot;body&quot;</span> <span class="n">to</span> <span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span><span class="p">,</span>
+            <span class="s">&quot;headers&quot;</span> <span class="n">to</span> <span class="n">emptyMap</span><span class="p">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">&gt;(),</span>
+            <span class="s">&quot;isBase64Encoded&quot;</span> <span class="n">to</span> <span class="k">false</span><span class="p">,</span>
+            <span class="s">&quot;httpMethod&quot;</span> <span class="n">to</span> <span class="s">&quot;GET&quot;</span>
+        <span class="p">),</span> <span class="n">proxy</span><span class="p">())</span>
         <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
     <span class="p">}</span>
 
