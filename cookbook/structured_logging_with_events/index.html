@@ -911,7 +911,7 @@
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Stack filters for Events in the same way as HttpHandlers to transform or add metadata to the Events.</span>
-    <span class="c1">// We use AutoJsonEvents (here with Jackson) to handle the final serialisation process.</span>
+    <span class="c1">// We use AutoMarshallingEvents (here with Jackson) to handle the final serialisation process.</span>
     <span class="k">val</span> <span class="py">events</span> <span class="p">=</span>
         <span class="n">EventFilters</span><span class="p">.</span><span class="n">AddTimestamp</span><span class="p">()</span>
             <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="n">AddZipkinTraces</span><span class="p">())</span>
