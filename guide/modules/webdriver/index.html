@@ -865,7 +865,7 @@
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
-<p>A basic Selenium WebDriver API implementation for <a href="https://http4k.org">http4k</a> HttpHandlers, which runs completely out of container (no network) for ultra fast tests.</p>
+<p>A basic Selenium WebDriver API implementation for <a href="https://http4k.org">http4k</a> HttpHandlers, which runs completely out of container (no network) for ultra fast tests, backed by JSoup.</p>
 <table>
 <thead>
 <tr>
@@ -927,7 +927,9 @@
 </tr>
 </tbody>
 </table>
-<p>Use the API like any other WebDriver implementation, by simply passing your app HttpHandler to construct it:</p>
+<p>Use the API like any other WebDriver implementation, by simply passing your app HttpHandler to construct it. Note that we now support version 4 of the API, which has deprecated the old <code>By</code> implementations. 
+http4k ships with a custom set of JSoup <code>By</code> implementations, so be sure to import <code>org.http4k.webdriver.By</code> instead of the old <code>org.openqa.selenium.By</code> ones (which will fail with a <code>ClassCastException</code> 
+when used).</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/webdriver/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.webdriver</span>
 
@@ -936,8 +938,8 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.webdriver.By</span>
 <span class="k">import</span> <span class="nn">org.http4k.webdriver.Http4kWebDriver</span>
-<span class="k">import</span> <span class="nn">org.openqa.selenium.By</span>
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
@@ -951,12 +953,14 @@
     <span class="n">driver</span><span class="p">.</span><span class="n">navigate</span><span class="p">().</span><span class="n">to</span><span class="p">(</span><span class="s">&quot;http://localhost:10000/hello&quot;</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="c1">// Note that we are using `org.http4k.webdriver.By`, as opposed to the ones from `org.openqa.selenium.By`</span>
     <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">findElement</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="n">tagName</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)))</span>
 
 <span class="c1">// prints:</span>
 <span class="c1">//</span>
 <span class="c1">// hello</span>
-<span class="c1">// JSoupWebElement(element=&lt;title&gt;hello&lt;/title&gt;)</span>
+<span class="c1">// &lt;title&gt;hello&lt;/title&gt;</span>
 <span class="p">}</span>
 </code></pre></div>
                     
