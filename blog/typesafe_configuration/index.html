@@ -870,7 +870,7 @@
                     <h1 id="add_typesafe_12-factor_configuration_to_http4k_apps_with_environments">Add typesafe 12-factor configuration to http4k apps with Environments<a class="headerlink" href="#add_typesafe_12-factor_configuration_to_http4k_apps_with_environments" title="Permanent link">&para;</a></h1>
 <h5 id="november_2018_daviddenton">november 2018 / <a href="http://github.com/daviddenton">@daviddenton</a><a class="headerlink" href="#november_2018_daviddenton" title="Permanent link">&para;</a></h5>
 <h3 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h3>
-<p>This post covers the various concerns around configuring HTTP apps, and introduces the <a href="https://http4k.org">http4k</a> approach for addressing these when deploying applications into cloud-native environments, which leverages the Kotlin type system for maximum safely and code reuse.</p>
+<p>This post covers the various concerns around configuring HTTP apps, and introduces the http4k approach for addressing these when deploying applications into cloud-native environments, which leverages the Kotlin type system for maximum safely and code reuse.</p>
 <h3 id="concerns_when_configuring_applications">Concerns when configuring applications<a class="headerlink" href="#concerns_when_configuring_applications" title="Permanent link">&para;</a></h3>
 <p>One of the tenets of operating applications according to the principles of <a href="https://12factor.net/">12factor</a>, 
 and especially in containerised cloud-native apps, is to inject all app configuration through the use of environmental 
@@ -1002,12 +1002,12 @@ convenient to source parameter values from a variety of contexts when running ap
 
 <h3 id="the_http4k_approach">The http4k approach...<a class="headerlink" href="#the_http4k_approach" title="Permanent link">&para;</a></h3>
 <p>There are <a href="https://github.com/ufoscout/properlty">already</a> <a href="https://github.com/config4k/config4k">many</a> <a href="https://github.com/uchuhimo/konf">options</a> <a href="https://github.com/jdiazcano/cfg4k">for</a> <a href="https://github.com/daviddenton/configur8">configurational</a> 
-<a href="https://github.com/mariomac/kaconf">libraries</a> written in Kotlin, but <a href="https://http4k.org">http4k</a> also provides an option in the <code>http4k-cloudnative</code> add-on module 
+<a href="https://github.com/mariomac/kaconf">libraries</a> written in Kotlin, but http4k also provides an option in the <code>http4k-cloudnative</code> add-on module 
 which leverages the power of the Lens system already built into the core library to provide a consistent experience to 
 API users. In case you're new to Lenses, here's a recap...</p>
 <h3 id="lenses_-_a_recap">Lenses - a recap<a class="headerlink" href="#lenses_-_a_recap" title="Permanent link">&para;</a></h3>
 <p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
-although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
+although this concept has been extended within the http4k ecosystem to support that of a form handling and request 
 contexts.</p>
 <p>A Lens is an stateless object responsible for either the one-way (or Bidirectional) transformation of</p>
 <p>It defines type parameters representing input <code>IN</code> and output <code>OUT</code> types and implements 
@@ -1041,7 +1041,7 @@ an overall target and a name within that target.</li>
 This is done in code using the <code>map()</code> method defined on the Lens.</li>
 <li>the <strong>optionality</strong> of a Lens denotes the behaviour if/when a value cannot be found in the target.</li>
 </ol>
-<p>To define a Lens instance through the <a href="https://http4k.org">http4k</a> Lens API, we take an initial <strong>target</strong> specification, decide it's 
+<p>To define a Lens instance through the http4k Lens API, we take an initial <strong>target</strong> specification, decide it's 
 <strong>multiplicity</strong>, provide any <strong>transformations</strong> with <code>map()</code>, and finally reify the specification into a Lens instance 
 by deciding it's optionality.</p>
 <p>It sounds involved, but it is consistent and the fluent API has been designed to make it simpler. By way of an example, 
@@ -1068,7 +1068,7 @@ here we define a bi-directional Lens for custom type <code>Page</code>, extracte
 </code></pre></div>
 
 <p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
-although this concept has been extended within the <a href="https://http4k.org">http4k</a> ecosystem to support that of a form handling and request 
+although this concept has been extended within the http4k ecosystem to support that of a form handling and request 
 contexts.</p>
 <h3 id="http4k_environments">http4k Environments<a class="headerlink" href="#http4k_environments" title="Permanent link">&para;</a></h3>
 <p>in <a href="https://http4k.org">http4k</a>, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
@@ -1090,7 +1090,7 @@ component values. </p>
 
 <p>If you're using any of the other Kotlin-based configuration libraries, the above should look pretty familiar. The 
 difference starts to become apparent when attempting to retrieve values from the <code>Environment</code> instance. This is done 
-using <code>EnviromentKey</code> Lenses, which are an extension of the <a href="https://http4k.org">http4k</a> Lens system that specifically targets <code>Environment</code> 
+using <code>EnviromentKey</code> Lenses, which are an extension of the http4k Lens system that specifically targets <code>Environment</code> 
 objects. </p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
 
@@ -1121,7 +1121,7 @@ objects. </p>
 </code></pre></div>
 
 <h5 id="handling_failure">Handling failure<a class="headerlink" href="#handling_failure" title="Permanent link">&para;</a></h5>
-<p>When using the <a href="https://http4k.org">http4k</a> Environment to define config, missing or values which cannot be deserialised all now cause 
+<p>When using the http4k Environment to define config, missing or values which cannot be deserialised all now cause 
 a <code>LensFailure</code> to be thrown with a descriptive error message. As before, this results in the application failing to 
 start, but as the exception if both consistent and explicit, diagnosing the problem becomes much simpler.</p>
 <h4 id="single-shot_secrets">Single-shot Secrets<a class="headerlink" href="#single-shot_secrets" title="Permanent link">&para;</a></h4>

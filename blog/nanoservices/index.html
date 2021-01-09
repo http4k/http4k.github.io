@@ -870,8 +870,8 @@
                     <h1 id="nanoservices_the_power_of_composition">Nanoservices: The Power of Composition<a class="headerlink" href="#nanoservices_the_power_of_composition" title="Permanent link">&para;</a></h1>
 <h5 id="october_2020_daviddenton">october 2020 / <a href="http://github.com/daviddenton">@daviddenton</a><a class="headerlink" href="#october_2020_daviddenton" title="Permanent link">&para;</a></h5>
 <p>http4k is a small library with a zero dependencies (apart from Kotlin StdLib), but what really makes it shine is the power afforded by the combination of the "Server as a Function" concepts of <code>HttpHandler</code> and <code>Filter</code>. </p>
-<p>Skeptical? We would be disappointed if you weren't! Hence, we decided to prove the types of things that can be accomplished with the APIs provided by <a href="https://http4k.org">http4k</a> and a little ingenuity.</p>
-<p>For each of the examples below, there is a fully formed <a href="https://http4k.org">http4k</a> application declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code> using one of the swappable server backends. Even better, each of app's code (excluding import statements 🙂 ) fits in a single Tweet.</p>
+<p>Skeptical? We would be disappointed if you weren't! Hence, we decided to prove the types of things that can be accomplished with the APIs provided by http4k and a little ingenuity.</p>
+<p>For each of the examples below, there is a fully formed http4k application declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code> using one of the swappable server backends. Even better, each of app's code (excluding import statements 🙂 ) fits in a single Tweet.</p>
 <h3 id="1_build_a_simple_proxy">1. Build a simple proxy <a href="https://github.com/http4k/http4k/blob/master/src/docs/blog/nanoservices/simple_proxy.kt"><img class="octocat"/></a><a class="headerlink" href="#1_build_a_simple_proxy" title="Permanent link">&para;</a></h3>
 <p>Requires: <code>http4k-core</code></p>
 <p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client <code>HttpHandler</code> signature, we can simply pipe an HTTP Client onto a server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p>
@@ -1251,7 +1251,7 @@
 
 <hr/>
 
-<p>Obviously we haven't thought of everything here. We'd love to hear your ideas about other clever uses of the <a href="https://http4k.org">http4k</a> building blocks, or to take PRs to integrate them into the library for wider use. You can get in touch through <a href="http://github.com/http4k">GitHub</a> or the usual <a href="https://www.http4k.org/support">channels</a>.</p>
+<p>Obviously we haven't thought of everything here. We'd love to hear your ideas about other clever uses of the http4k building blocks, or to take PRs to integrate them into the library for wider use. You can get in touch through <a href="http://github.com/http4k">GitHub</a> or the usual <a href="https://www.http4k.org/support">channels</a>.</p>
 <p><a href="https://principlesofchaos.org/">Principles of Chaos</a></p>
                     
                 </div>

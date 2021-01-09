@@ -869,10 +869,10 @@
                     
                     <h1 id="http4k_v4_17_platforms_and_counting">http4k v4: 17 platforms and counting...<a class="headerlink" href="#http4k_v4_17_platforms_and_counting" title="Permanent link">&para;</a></h1>
 <h5 id="january_2021_the_http4k_team">january 2021 / the http4k team<a class="headerlink" href="#january_2021_the_http4k_team" title="Permanent link">&para;</a></h5>
-<p>Well, at last it's here - after 3 years - <a href="https://http4k.org">http4k</a> v4! Following on from the <a href="/blog/retrospective_v3">retrospective</a> that we did on version 3, we've been busy polishing, tidying up the edges, and pushing out a bunch of changes to make the project sparkle. Ready? Then let's dive into the good stuff that's been going on at <a href="https://http4k.org">http4k</a> Towers.</p>
+<p>Well, at last it's here - after 3 years - http4k v4! Following on from the <a href="/blog/retrospective_v3">retrospective</a> that we did on version 3, we've been busy polishing, tidying up the edges, and pushing out a bunch of changes to make the project sparkle. Ready? Then let's dive into the good stuff that's been going on at http4k Towers.</p>
 <hr/>
 <h4 id="four_digits_good_three_digits_bad_the_new_http4k_versioning_scheme">Four digits good, three digits bad. The new http4k versioning scheme<a class="headerlink" href="#four_digits_good_three_digits_bad_the_new_http4k_versioning_scheme" title="Permanent link">&para;</a></h4>
-<p>Ah yes - versioning - everyone's favourite topic. Part of the reason that <a href="https://http4k.org">http4k</a> v3 has been around so long is that we've somewhat been abusing the <a href="https://semver.org/">Semantic versioning</a> system, something which we've been unhappy with. Here's how it should work:</p>
+<p>Ah yes - versioning - everyone's favourite topic. Part of the reason that http4k v3 has been around so long is that we've somewhat been abusing the <a href="https://semver.org/">Semantic versioning</a> system, something which we've been unhappy with. Here's how it should work:</p>
 <div class="codehilite"><pre><span></span><code>For Version &lt;A&gt;.&lt;B&gt;.&lt;C&gt;
 
 A = We broke something on purpose. (Breaking API change)
@@ -894,13 +894,13 @@ D = We broke something by accident. (Bug)
 <hr/>
 <h4 id="platforms_guv_thousands_of_em_well_more_than_a_few">"Platforms, Guv! Thousands of 'em!" (well, more than a few...)<a class="headerlink" href="#platforms_guv_thousands_of_em_well_more_than_a_few" title="Permanent link">&para;</a></h4>
 <p><img class="blogImage" src="./backends.png" alt="http4k backends"/></p>
-<p>When <a href="https://http4k.org">http4k</a> v3 was released, we only supported 3 JVM Server backends and 1 Serverless platform. Since then, we've added a bunch, and are now up to a very respectable 17 standard deployment options for http4k apps...</p>
+<p>When http4k v3 was released, we only supported 3 JVM Server backends and 1 Serverless platform. Since then, we've added a bunch, and are now up to a very respectable 17 standard deployment options for http4k apps...</p>
 <div class="codehilite"><pre><span></span><code>10 JVM Backends - Apache 4 &amp; 5, Jetty, Ktor CIO &amp; Netty, Netty, Ratpack, SunHttp and Undertow (+ any Servlet container)
 6 Serverless platforms - Alibaba, AWS Lamba, Azure, Google Cloud, OpenWhisk (IBM/Adobe/Nimbella/Cloudstation), Tencent
 1 Native platform - GraalVM (+ Quarkus)
 </code></pre></div>
 
-<p>Switching between all platforms is super easy - just plug the standard <code>HttpHandler</code> into the the relevant <a href="https://http4k.org">http4k</a> module class with a single line of code. Serverless modules all require just one more line,  plus configuring the Serverless platform to call the relevant function. Here's examples for both:</p>
+<p>Switching between all platforms is super easy - just plug the standard <code>HttpHandler</code> into the the relevant http4k module class with a single line of code. Serverless modules all require just one more line, plus configuring the Serverless platform to call the relevant function. Here's examples for both:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">)</span> <span class="p">}</span>
 
 <span class="k">val</span> <span class="py">jvmApp</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">(</span><span class="m">8080</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
@@ -908,11 +908,11 @@ D = We broke something by accident. (Bug)
 <span class="k">class</span> <span class="nc">MyServerlessFunction</span> <span class="p">:</span> <span class="n">GoogleCloudFunction</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 </code></pre></div>
 
-<p>The even better news is that testing your <a href="https://http4k.org">http4k</a> apps locally (regardless of platform) is simple - and as ever there's no magic involved - just test them entirely in-memory, or bind them to a standard backend Server.</p>
+<p>The even better news is that testing your http4k apps locally (regardless of platform) is simple - and as ever there's no magic involved - just test them entirely in-memory, or bind them to a standard backend Server.</p>
 <hr/>
 <h4 id="http4k_toolbox_your_new_swiss_army_knife">http4k Toolbox: your new Swiss Army Knife<a class="headerlink" href="#http4k_toolbox_your_new_swiss_army_knife" title="Permanent link">&para;</a></h4>
 <p><img class="blogImage" src="./toolbox.png" alt="toolbox"/></p>
-<p>As documented in the <a href="/blog/toolbox">Toolbox announcement post</a>, we've been busy consolidating a bunch of handy tools for generating code to work with <a href="https://http4k.org">http4k</a> projects, and we christened this the <strong>http4k Toolbox</strong> and it's available in both <a href="https://toolbox.http4k.org">online</a> and a CLI flavours (available from Brew and SDKMan!). From <a href="https://toolbox.httpk.org/project">Project Generation</a> to our own more sophisticated <a href="https://toolbox.httpk.org/openapi">OpenAPI3 Generator</a>, we hope that this become an essential tool in every <strong>http4k</strong> developer's pocket.</p>
+<p>As documented in the <a href="/blog/toolbox">Toolbox announcement post</a>, we've been busy consolidating a bunch of handy tools for generating code to work with http4k projects, and we christened this the <strong>http4k Toolbox</strong> and it's available in both <a href="https://toolbox.http4k.org">online</a> and a CLI flavours (available from Brew and SDKMan!). From <a href="https://toolbox.httpk.org/project">Project Generation</a> to our own more sophisticated <a href="https://toolbox.httpk.org/openapi">OpenAPI3 Generator</a>, we hope that this become an essential tool in every <strong>http4k</strong> developer's pocket.</p>
 <hr/>
 <h4 id="infinirouting">Infinirouting<a class="headerlink" href="#infinirouting" title="Permanent link">&para;</a></h4>
 <p><img class="blogImage" src="./routing.png" alt="http4k routing"/></p>
@@ -925,12 +925,12 @@ D = We broke something by accident. (Bug)
 <span class="p">)</span>
 </code></pre></div>
 
-<p>So after a lot of clattering and banging of heads, we cracked it - and in doing so managed to rewrite the entire of the <a href="https://http4k.org">http4k</a> routing layer in terms of these predicate <code>Routers</code>. It's really neat, infinitely(ish) nestable, and makes us feel just a little bit smug for getting it working.</p>
+<p>So after a lot of clattering and banging of heads, we cracked it - and in doing so managed to rewrite the entire of the http4k routing layer in terms of these predicate <code>Routers</code>. It's really neat, infinitely(ish) nestable, and makes us feel just a little bit smug for getting it working.</p>
 <hr/>
 <h4 id="graph_power">Graph power<a class="headerlink" href="#graph_power" title="Permanent link">&para;</a></h4>
 <p><img class="blogImage" src="./graphql.png" alt="http4k graphql"/></p>
-<p>Traditionally, <a href="https://http4k.org">http4k</a> has concentrated on providing routing for REST-style APIs. However, there is this new thing called GraphQL that has suddenly sprung up overnight and seems quite popular. </p>
-<p>Not wanting our users to miss out on anything, we've added support for simply integrating <a href="https://http4k.org">http4k</a> with the official Java implementation of the library, <a href="https://www.graphql-java.com/">GraphQL-Java</a>. This module allows you to both serve and consume GQL APIs, and as per tradition allows you to test your APIs entirely in-memory making for super-fast test suites.</p>
+<p>Traditionally, http4k has concentrated on providing routing for REST-style APIs. However, there is this new thing called GraphQL that has suddenly sprung up overnight and seems quite popular. </p>
+<p>Not wanting our users to miss out on anything, we've added support for simply integrating http4k with the official Java implementation of the library, <a href="https://www.graphql-java.com/">GraphQL-Java</a>. This module allows you to both serve and consume GQL APIs, and as per tradition allows you to test your APIs entirely in-memory making for super-fast test suites.</p>
 <hr/>
 <h4 id="opentelemetry_monitor_all_the_things">OpenTelemetry: Monitor all the things!<a class="headerlink" href="#opentelemetry_monitor_all_the_things" title="Permanent link">&para;</a></h4>
 <p><img class="blogImage" src="./opentelemetry.png" alt="open telemetry"/></p>
@@ -938,16 +938,16 @@ D = We broke something by accident. (Bug)
 <blockquote>
 <p><strong>"... a collection of tools, APIs, and SDKs. You use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) for analysis in order to understand your software's performance and behavior." - OpenTelemetry.io</strong></p>
 </blockquote>
-<p>It's a great project run by the CNCF and very well fits in with the ethos that the <a href="https://http4k.org">http4k</a> team believes in. As with all <a href="https://http4k.org">http4k</a> integration modules, we want to enable <a href="https://http4k.org">http4k</a> developers to be able to plug in their apps as simply as possible - in this case, just configure the OpenTelemetry API or Java-agent, then just add some simple <code>Filters</code> to your code to start collecting Distributed Traces or Metrics. Several tracing schemes are supported, including Amazon XRay, Jaeger and Zipkin.</p>
+<p>It's a great project run by the CNCF and very well fits in with the ethos that the http4k team believes in. As with all http4k integration modules, we want to enable http4k developers to be able to plug in their apps as simply as possible - in this case, just configure the OpenTelemetry API or Java-agent, then just add some simple <code>Filters</code> to your code to start collecting Distributed Traces or Metrics. Several tracing schemes are supported, including Amazon XRay, Jaeger and Zipkin.</p>
 <p>For more docs on how to get it all working, head over to the <a href="/guide/modules/opentelemetry">docs</a>.</p>
 <hr/>
 <h4 id="upgrading_library_api_changes">Upgrading &amp; library API changes<a class="headerlink" href="#upgrading_library_api_changes" title="Permanent link">&para;</a></h4>
-<p>Like the neat little worker bunnies we are, we've also taken the opportunity to clean up the <a href="https://http4k.org">http4k</a> source code. All previously deprecated code has been removed, leaving the codebase nice and tid17 platforms and counting: http4k v4 Unleashedy. If you are upgrading, the best idea is to first upgrade to the last v3 version (v3.285.2), deal with any existing deprecations in place, then simply upgrade again to v4.0.0.0.</p>
+<p>Like the neat little worker bunnies we are, we've also taken the opportunity to clean up the http4k source code. All previously deprecated code has been removed, leaving the codebase nice and tidy. If you are upgrading, the best idea is to first upgrade to the last v3 version (v3.285.2), deal with any existing deprecations in place, then simply upgrade again to v4.0.0.0.</p>
 <hr/>
 <h4 id="http4korg">http4k.org<a class="headerlink" href="#http4korg" title="Permanent link">&para;</a></h4>
-<p>One of the things that our users feedback about was that the structure of the docs in <a href="https://http4k.org">http4k.org</a> could be improved, so we've begun overhauling the site to simplify the content. Expect this to be a continual improvement thing, but on the whole the content will be organised as follows:</p>
+<p>One of the things that our users feedback about was that the structure of the docs in [http4k.org]http4k could be improved, so we've begun overhauling the site to simplify the content. Expect this to be a continual improvement thing, but on the whole the content will be organised as follows:</p>
 <ul>
-<li>The <a href="/guide">Developer guide</a> will contain descriptions of the underlying concepts in and around the libraries. Code in the guide will be snippet-based.</li>
+<li>The <a href="/guide/modules">Developer guide</a> will contain descriptions of the underlying concepts in and around the libraries. Code in the guide will be snippet-based.</li>
 <li>The <a href="/cookbook">Cookbook</a> will contain extended examples of how to accomplish particular tasks. eg. provide a custom <code>ServerConfig</code> implementation. Code here will generally be complete and contain runnable examples.</li>
 <li>The <a href="https://github.com/http4k/examples">Examples repo</a> hosts fully self-contained, runnable projects that can be used as a baseline for particular features - eg. how to write and run an <a href="https://github.com/http4k/examples/tree/master/quarkus">app on Quarkus</a> or use the cloudnative module to enable <a href="https://github.com/http4k/examples/tree/master/typesafe-configuration">typesafe configuration</a></li>
 </ul>
