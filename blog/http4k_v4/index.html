@@ -962,7 +962,7 @@ D = We broke something by accident. (Bug)
 <h4 id="http4k_connect_-_flyweight_3rd_party_adapters">http4k Connect - Flyweight 3rd party adapters<a class="headerlink" href="#http4k_connect_-_flyweight_3rd_party_adapters" title="Permanent link">&para;</a></h4>
 <p><img class="blogImage" src="./connect.png" alt="http4k connect"/></p>
 <p><a href="http://github.com/http4k/http4k-connect">http4k-connect</a> is the team's newest side project, the purpose of which is to eventually standardise patterns for building 3rd party system adapters to various backend services, and for building your own Fakes (backed by data-stores such as InMemory, S3 or Redis). So far (v2.7.1.0), http4k-connect supports:</p>
-<ol>
+<ul>
 <li>AWS KMS: Key Management Service</li>
 <li>AWS Lambda</li>
 <li>AWS S3: Simple Storage Service</li>
@@ -971,7 +971,7 @@ D = We broke something by accident. (Bug)
 <li>AWS SSM: Systems Manager</li>
 <li>AWS STS: Security Token Service</li>
 <li>Google Analytics</li>
-</ol>
+</ul>
 <p>Mostly, the existence of the project is has been driven by 2 factors:
 1. to reduce dependency weight of bringing in SDK modules, especially when in a Serverless context. The AWS service SDKs are especially heavy. Using http4k-connect instead of official SDKs, overall Serverless Function distribution size should be reduced by at least an order of magnitude.
 2. to avoid us having to reinvent the same things again and again! (Because we're very very lazy developers!)</p>
