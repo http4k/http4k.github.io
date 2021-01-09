@@ -874,7 +874,7 @@
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
-<p>Service Virtualisation testing technology provides a way of declaring contracts which can record HTTP conversations to a custom Markdown format and then replaying them later offline. <a href="https://http4k.org">http4k</a> provides a fully featured implementation of the <a href="https://servirtium.dev">Servirtium</a> solution to implement this concept.</p>
+<p>Service Virtualisation testing technology provides a way of declaring contracts which can record HTTP conversations to a custom Markdown format and then replaying them later offline. http4k provides a fully featured implementation of the <a href="https://servirtium.dev">Servirtium</a> solution to implement this concept.</p>
 <p>The basic idea is that you define an abstract contract Class/Interface which describes the expected behaviour for a system using a Client class (aka the <code>Client-Under-Test</code>). This contract is then implemented twice:</p>
 <ol>
 <li>In a <code>Recording</code> contract - using a MiTM proxy which sits between the <code>Client-Under-Test</code> and the real service. This proxy records the HTTP traffic to a custom Markdown format which can be stored in a VCS, and can be configured to remove the dynamic sections of the traffic such as <code>Date</code> headers etc. </li>
@@ -884,10 +884,10 @@
 <p><a href="https://http4k.org">http4k</a> provides a few different pieces of support for [Serviritum]:</p>
 <ol>
 <li>
-<p>[JUnit5] extensions which provide the record/replay behaviour, providing a way to record and replay contracts without the use of a real server. This is only compatible when the <code>Client-Under-Test</code> utilises a <a href="https://http4k.org">http4k</a> Client, since it leverages the Server-as-a-Function paradigm.</p>
+<p>[JUnit5] extensions which provide the record/replay behaviour, providing a way to record and replay contracts without the use of a real server. This is only compatible when the <code>Client-Under-Test</code> utilises a http4k Client, since it leverages the Server-as-a-Function paradigm.</p>
 </li>
 <li>
-<p>MiTM proxy servers for record/replay behaviour, by inserting themselves as a proxy in the HTTP call chain and intercepting the HTTP traffic. This is compatible with HTTP clients using any JVM technology, not just <a href="https://http4k.org">http4k</a> services - so can be used as a general JVM-based solution for implementing <a href="https://servirtium.dev">Servirtium</a>-style tests.</p>
+<p>MiTM proxy servers for record/replay behaviour, by inserting themselves as a proxy in the HTTP call chain and intercepting the HTTP traffic. This is compatible with HTTP clients using any JVM technology, not just http4k services - so can be used as a general JVM-based solution for implementing <a href="https://servirtium.dev">Servirtium</a>-style tests.</p>
 </li>
 <li>
 <p>A Storage Provider abstraction for storing and loading recorded contracts from various locations including disk and directly from <a href="https://github.com">GitHub</a>.</p>

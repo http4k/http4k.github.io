@@ -1006,7 +1006,7 @@ convenient to source parameter values from a variety of contexts when running ap
 which leverages the power of the Lens system already built into the core library to provide a consistent experience to 
 API users. In case you're new to Lenses, here's a recap...</p>
 <h3 id="lenses_-_a_recap">Lenses - a recap<a class="headerlink" href="#lenses_-_a_recap" title="Permanent link">&para;</a></h3>
-<p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
+<p>In http4k, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
 although this concept has been extended within the http4k ecosystem to support that of a form handling and request 
 contexts.</p>
 <p>A Lens is an stateless object responsible for either the one-way (or Bidirectional) transformation of</p>
@@ -1067,11 +1067,11 @@ here we define a bi-directional Lens for custom type <code>Page</code>, extracte
 <span class="k">val</span> <span class="py">updatedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">lens</span><span class="p">(</span><span class="n">pageNumber</span><span class="p">,</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://abc/search&quot;</span><span class="p">))</span>
 </code></pre></div>
 
-<p>In <a href="https://http4k.org">http4k</a>, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
+<p>In http4k, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
 although this concept has been extended within the http4k ecosystem to support that of a form handling and request 
 contexts.</p>
 <h3 id="http4k_environments">http4k Environments<a class="headerlink" href="#http4k_environments" title="Permanent link">&para;</a></h3>
-<p>in <a href="https://http4k.org">http4k</a>, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
+<p>in http4k, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
 <code>Map</code>, in that it can be composed with other <code>Environment</code> objects to provide a consolidated view of all of it's 
 component values. </p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>

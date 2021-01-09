@@ -954,7 +954,7 @@ objects, including custom Lens methods for each library so that JSON node object
 <h3 id="auto-marshalling_capabilities">Auto-marshalling capabilities<a class="headerlink" href="#auto-marshalling_capabilities" title="Permanent link">&para;</a></h3>
 <p>Some of the message libraries (eg. GSON, Jackson, Kotlin serialization, Moshi, XML) provide the mechanism to automatically marshall data objects 
 to/from JSON and XML using reflection.</p>
-<p>We can use this facility in <a href="https://http4k.org">http4k</a> to automatically marshall objects to/from HTTP message bodies using <strong>Lenses</strong>:</p>
+<p>We can use this facility in http4k to automatically marshall objects to/from HTTP message bodies using <strong>Lenses</strong>:</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/json/autoJson.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.json</span>
 
@@ -1007,11 +1007,11 @@ These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</cod
 <p><strong>Q. Using Jackson, Boolean properties with names starting with "is" do not marshall properly</strong></p>
 <p><strong>A.</strong> This is due to the way in which the Jackson <code>ObjectMapper</code> is configured. Annotation of the fields in question should help, or using <code>ObjectMapper.disable(MapperFeature.AUTO_DETECT_IS_GETTERS)</code></p>
 <p><strong>Q. Using Gson, the data class auto-marshalling does not fail when a null is populated in a Kotlin non-nullable field</strong></p>
-<p><strong>A.</strong> This happens because <a href="https://http4k.org">http4k</a> uses straight GSON demarshalling, of JVM objects with no-Kotlin library in the mix. The nullability generally gets checked at compile-type and the lack of a Kotlin sanity check library exposes this flaw. No current fix - apart from to use the Jackson demarshalling instead!</p>
+<p><strong>A.</strong> This happens because http4k uses straight GSON demarshalling, of JVM objects with no-Kotlin library in the mix. The nullability generally gets checked at compile-type and the lack of a Kotlin sanity check library exposes this flaw. No current fix - apart from to use the Jackson demarshalling instead!</p>
 <p><strong>Q. Declared with <code>Body.auto&lt;List&lt;XXX&gt;&gt;().toLens()</code>, my auto-marshalled List doesn't extract properly!</strong></p>
 <p><strong>A.</strong> This occurs in Moshi when serialising bare lists to/from JSON and is to do with the underlying library being lazy in deserialising objects (using LinkedHashTreeMap) ()). Use <code>Body.auto&lt;Array&lt;MyIntWrapper&gt;&gt;().toLens()</code> instead. Yes, it's annoying but we haven't found a way to turn if off.</p>
 <p><strong>Q. Using Kotlin serialization, the standard mappings are not working on my data classes.</strong></p>
-<p><strong>A.</strong> This happens because <a href="https://http4k.org">http4k</a> adds the standard mappings to Kotlin serialization as contextual serializers. This can be solved by marking the fields as <code>@Contextual</code>.</p>
+<p><strong>A.</strong> This happens because http4k adds the standard mappings to Kotlin serialization as contextual serializers. This can be solved by marking the fields as <code>@Contextual</code>.</p>
 <p>This can be demonstrated by the following, where you can see that the output of the auto-unmarshalling a naked JSON is NOT 
 the same as a native Kotlin list of objects. This can make tests break as the unmarshalled list is NOT equal to the native list.</p>
 <p>As shown, a workaround to this is to use <code>Body.auto&lt;Array&lt;MyIntWrapper&gt;&gt;().toLens()</code> instead, and then compare using 

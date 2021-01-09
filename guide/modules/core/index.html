@@ -970,7 +970,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 </code></pre></div>
 
 <h3 id="routers_-_nestable_path-based_routing">Routers - Nestable, path-based Routing<a class="headerlink" href="#routers_-_nestable_path-based_routing" title="Permanent link">&para;</a></h3>
-<p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and <a href="https://http4k.org">http4k</a> will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
+<p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and http4k will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
         <span class="s">&quot;/{name:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.path(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
@@ -1013,7 +1013,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <h3 id="typesafe_parameter_destructuringconstruction_of_http_messages_with_lenses">Typesafe parameter destructuring/construction of HTTP messages with Lenses<a class="headerlink" href="#typesafe_parameter_destructuringconstruction_of_http_messages_with_lenses" title="Permanent link">&para;</a></h3>
 <p>Getting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. 
 For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a>. </p>
-<p>A Lens is a bi-directional entity which can be used to either <strong>get</strong> or <strong>set</strong> a particular value from/onto an HTTP message. <a href="https://http4k.org">http4k</a> provides a DSL 
+<p>A Lens is a bi-directional entity which can be used to either <strong>get</strong> or <strong>set</strong> a particular value from/onto an HTTP message. http4k provides a DSL 
 to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional). </p>
 <p>To utilise a lens, first you have to declare it with the form <code>&lt;Location&gt;.&lt;configuration and mapping operations&gt;.&lt;terminator&gt;</code>.</p>
 <p>There is one "location" type for each part of the message, each with config/mapping operations which are specific to that location:</p>
@@ -1211,7 +1211,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 </code></pre></div>
 
 <h3 id="request_and_response_tostring">Request and Response toString()<a class="headerlink" href="#request_and_response_tostring" title="Permanent link">&para;</a></h3>
-<p>The HttpMessages used by <a href="https://http4k.org">http4k</a> toString in the HTTP wire format, which it simple to capture and replay HTTP message streams later in a similar way to tools like <a href="http://www.mbtest.org/">Mountebank</a>.</p>
+<p>The HttpMessages used by http4k toString in the HTTP wire format, which it simple to capture and replay HTTP message streams later in a similar way to tools like <a href="http://www.mbtest.org/">Mountebank</a>.</p>
 <h3 id="curl_format">CURL format<a class="headerlink" href="#curl_format" title="Permanent link">&para;</a></h3>
 <p>Creates <code>curl</code> command for a given request - this is useful to include in audit logs so exact requests can be replayed if required:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">curl</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span> <span class="n">to</span> <span class="s">&quot;bar&quot;</span><span class="p">).</span><span class="n">toBody</span><span class="p">()).</span><span class="n">toCurl</span><span class="p">()</span>

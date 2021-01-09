@@ -884,7 +884,7 @@ test output - examples of this include JSON, HTML or XML documents.</li>
 <li>The output of a test may change significantly in a short period (this is especially true for HTML 
 content), but we also want to tightly control the contract.</li>
 </ol>
-<p>The general idea for implementing this style of testing in <a href="https://http4k.org">http4k</a> is based on the excellent 
+<p>The general idea for implementing this style of testing in http4k is based on the excellent 
 <a href="https://github.com/dmcg/okey-doke">okeydoke</a> library, and is centered around the idea of comparing 
 the output of an HTTP operation - this is generally the <code>Response</code> content, but it can also be the 
 <code>Request</code> if we are interested in testing construction of request content. </p>
@@ -951,7 +951,7 @@ module also provides Junit 5 extensions that will:</p>
 <ol>
 <li>Check for the presence of the a particular <code>content-type</code> on the <code>HttpMessage</code> under test and fail if it is not valid.</li>
 <li>Validate that the <code>HttpMessage</code> actually contains valid content for the content type.</li>
-<li>Format and compare the approval output as pretty-printed version. Note that by default the <a href="https://http4k.org">http4k</a> format modules use compact printing to conserve message space.</li>
+<li>Format and compare the approval output as pretty-printed version. Note that by default the http4k format modules use compact printing to conserve message space.</li>
 </ol>
 <p>The module also provides the following built-in extensions:</p>
 <ul>
