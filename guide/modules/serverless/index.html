@@ -972,7 +972,7 @@
 
 <h4 id="google_cloud_functions_integration">Google Cloud Functions integration<a class="headerlink" href="#google_cloud_functions_integration" title="Permanent link">&para;</a></h4>
 <p>Google Cloud Functions are triggered in the cloud by calling an entry point class which implements their <code>HttpFunction</code> interface.</p>
-<p>In order to achieve this in <a href="https://http4k.org">http4k</a>, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple extension class needs to be written which accepts this interface.</p>
+<p>In order to achieve this in http4k, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple extension class needs to be written which accepts this interface.</p>
 <p>You can compose filters and handlers as usual and pass them to the constructor of the <code>GoogleCloudFunction</code> and make your entry point class extend from it.
 Here is an example:</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/gcf/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
@@ -1082,7 +1082,7 @@ Applying this plugin <a href="https://imperceptiblethoughts.com/shadow/">shadow 
 Simple example on how to setup <code>pom.xml</code> to run functions locally and deploy Maven project to the cloud is shown <a href="https://cloud.google.com/functions/docs/first-java">here</a></p>
 <h4 id="apache_openwhisk_integration">Apache OpenWhisk integration<a class="headerlink" href="#apache_openwhisk_integration" title="Permanent link">&para;</a></h4>
 <p>OpenWhisk has a Java runtime which is triggered by calling an entry point class which contains a static <code>main()</code> function receiving a GSON <code>JsonObject</code>.</p>
-<p>In order to achieve this in <a href="https://http4k.org">http4k</a>, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple class needs to be written which uses the <code>OpenWhiskFunction</code> wrapper. Because of the OpenWhisk runtime usage of the library, a <code>compileOnly</code> dependency also needs to be added on <a href="https://mvnrepository.com/artifact/com.google.code.gson/gson">GSON</a> to ensure that your function can build correctly.</p>
+<p>In order to achieve this in http4k, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple class needs to be written which uses the <code>OpenWhiskFunction</code> wrapper. Because of the OpenWhisk runtime usage of the library, a <code>compileOnly</code> dependency also needs to be added on <a href="https://mvnrepository.com/artifact/com.google.code.gson/gson">GSON</a> to ensure that your function can build correctly.</p>
 <h4 id="code_2">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/serverless/openwhisk/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.serverless.openwhisk</span>
 
