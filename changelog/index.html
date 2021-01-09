@@ -880,7 +880,7 @@ changes with their rationale when appropriate:</p>
 <li>New versioning scheme! See <a href="https://www.http4k.org/blog/http4k_v4/">announcement</a> for details.</li>
 <li><strong>http4k-</strong>* : Remove all previous deprecations from all modules. To upgrade cleanly, follow the simple instructions in the <a href="https://www.http4k.org/blog/http4k_v4/#upgrading_library_api_changes">announcement</a></li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-testing-webdriver</strong> : Upgrade of APIs to match new v4 Selenium APIs. It is quite safe to continue to use previous versions of the <code>http4k-testing-webdriver</code> JAR if you are unable to upgrade immediately.</li>
+<li><strong>http4k-testing-webdriver</strong> : [Breaking] Upgrade of APIs to match new v4 Selenium APIs. It is quite safe to continue to use previous versions of the <code>http4k-testing-webdriver</code> JAR if you are unable to upgrade immediately. The API is reasonably the same, but some of the imports have changed. The main one is that instead of importing <code>org.openqa.selenium.By</code> you should import <code>org.http4k.webdriver.By</code>, which is the new custom implementation.</li>
 <li><strong>http4k-core</strong> : Replace <code>hostDemux()</code> with <code>reverseProxy()</code>.</li>
 </ul>
 <h3 id="v32852">v3.285.2<a class="headerlink" href="#v32852" title="Permanent link">&para;</a></h3>
