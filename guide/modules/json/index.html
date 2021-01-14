@@ -996,6 +996,41 @@ to/from JSON and XML using reflection.</p>
 <span class="p">}</span>
 </code></pre></div>
 
+<p>serializing an object/class for a Response via <code>Lens.inject()</code> - this properly sets the <code>Content-Type</code> header to <code>application/json</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">kotlinx.serialization.Serializable</span>  <span class="c1">// could use one of many json libraries: Gson, Jackson, Moshi, etc.</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.*</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.KotlinxSerialization.auto</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.BiDiBodyLens</span>
+
+<span class="n">@Serializable</span>  <span class="c1">// required by Kotlinx.Serialization</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="k">val</span> <span class="py">brand</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">model</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">year</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">val</span> <span class="py">miles</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+
+<span class="c1">// &#39;auto&#39; is an extension function of each org.http4k.format.[serialization library]</span>
+<span class="c1">// example: https://github.com/http4k/http4k/blob/master/http4k-format/kotlinx-serialization/src/main/kotlin/org/http4k/format/ConfigurableKotlinxSerialization.kt</span>
+<span class="k">val</span> <span class="py">lensCarResponse</span> <span class="p">:</span> <span class="n">BiDiBodyLens</span><span class="p">&lt;</span><span class="n">Car</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">Car</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span>  <span class="c1">// BiDi allows for outgoing + incoming</span>
+
+<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">val</span> <span class="py">sweetride</span> <span class="p">=</span> <span class="n">Car</span><span class="p">(</span><span class="s">&quot;Porsche&quot;</span><span class="p">,</span> <span class="s">&quot;911 Turbo&quot;</span><span class="p">,</span> <span class="m">1988</span><span class="p">,</span> <span class="m">45000</span><span class="p">)</span>
+
+      <span class="c1">// lens.inject(object, response) serializes the object and sets content-type header to &#39;application/json&#39;</span>
+      <span class="c1">// can be used with any Serializable type (Map, List, etc)</span>
+    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">lensCarResponse</span><span class="p">.</span><span class="n">inject</span><span class="p">(</span><span class="n">sweetride</span><span class="p">,</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="n">OK</span><span class="p">))</span> <span class="p">}</span>
+
+    <span class="k">val</span> <span class="py">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
+    <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    <span class="cm">/* </span>
+<span class="cm">    HTTP/1.1 200 OK</span>
+<span class="cm">    content-type: application/json; charset=utf-8</span>
+
+<span class="cm">    {&quot;brand&quot;:&quot;Porsche&quot;,&quot;model&quot;:&quot;911 Turbo&quot;,&quot;year&quot;:1988,&quot;miles&quot;:45000}</span>
+<span class="cm">    */</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
 <p>There is a utility to generate Kotlin data class code for JSON documents <a href="http://toolbox.http4k.org/dataclasses">here</a>. 
 These data classes are compatible with using the <code>Body.auto&lt;T&gt;()</code> functionality. </p>
 <h4 id="faq_aka_gotchas_regarding_auto-marshalling_capabilities">FAQ (aka gotchas) regarding Auto-marshalling capabilities<a class="headerlink" href="#faq_aka_gotchas_regarding_auto-marshalling_capabilities" title="Permanent link">&para;</a></h4>
