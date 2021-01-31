@@ -583,6 +583,15 @@
             
     
         <a class="dropdown-item "
+           href="../cookbook/sse/"
+           title="Server-Sent Events">Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
            href="../cookbook/structured_logging_with_events/"
            title="Structured Logging with Events">Structured Logging with Events</a>
     
@@ -875,6 +884,11 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
+<h3 id="v4200">v4.2.0.0<a class="headerlink" href="#v4200" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>http4k-server-undertow</strong> : Add WebSocket and SSE support to Undertow.</li>
+<li><strong>http4k-core</strong> : [Breaking] Related to above, <code>WsHandler</code> is now <code>PolyHandler</code>. The old type has been deprecated, but only API users who are implementing their own handlers may notice.</li>
+</ul>
 <h3 id="v4121">v4.1.2.1<a class="headerlink" href="#v4121" title="Permanent link">&para;</a></h3>
 <ul>
 <li>(empty release for testing our automated release process)  </li>
