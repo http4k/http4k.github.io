@@ -888,9 +888,9 @@
                     <h1 id="reassurance_to_http4k_users_regarding_jcenter_shutdown">Reassurance to http4k users regarding JCenter shutdown<a class="headerlink" href="#reassurance_to_http4k_users_regarding_jcenter_shutdown" title="Permanent link">&para;</a></h1>
 <h5 id="feb_2021_the_http4k_team">feb 2021 / the http4k team<a class="headerlink" href="#feb_2021_the_http4k_team" title="Permanent link">&para;</a></h5>
 <p>It was announced this week that the JCenter artifact repository would be <a href="https://jfrog.com/blog/into-the-sunset-bintray-jcenter-gocenter-and-chartcenter/">shutting down in May 2021</a>. As JCenter was a superset of the Maven Central repository, this obviously comes as disappointing and worrying news regarding the future of Open Source software distribution for the JVM. Many builds will undoubtedly break as a result of this move.</p>
-<p>The http4k project currently primarily builds and distributes our 50+ artifacts to Bintray and then syncs them to Maven Central automatically. As a result of this announcement, we have totally removed any dependency on JCenter from our builds and have verified that all of our dependencies resolve correctly without it. Hence we can say with confidence that:</p>
+<p>The http4k project currently primarily builds and distributes our 50+ artifacts to Bintray and then syncs them to Maven Central automatically. As a result of this announcement, we have totally removed any dependency on JCenter from our builds and have verified that all of our dependencies resolve correctly without it. Hence we can say with absolute confidence that:</p>
 <blockquote>
-<p><strong>As of v4.3.0.0, http4k users will be unaffected by the JCenter shutdown</strong></p>
+<p><strong>As of v4.3.0.0, http4k users will be unaffected by the JCenter shutdown.</strong></p>
 </blockquote>
 <p>http4k has always worked on the principle of being as lightweight as possible with respect to dependencies, and this situation has rather vindicated our position. Lots of Open Source projects will not be in such a fortunate position.</p>
 <p>We will be investigating alternatives to JCenter to keep our build pipelines working as efficiently as possible, but the artifacts will always be available in the Maven Central and this is where we will continue to source our dependencies from.</p>
