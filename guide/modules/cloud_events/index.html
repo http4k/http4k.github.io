@@ -12,19 +12,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k Templating Modules">
-<meta name="twitter:title" content="http4k Templating Modules">
-<meta property="og:title" content="http4k Templating Modules" />
+<meta itemprop="name" content="http4k Cloud Events support">
+<meta name="twitter:title" content="http4k Cloud Events support">
+<meta property="og:title" content="http4k Cloud Events support" />
 
 
 
-<meta name="description" content="Feature overview of the http4k-templating modules">
-<meta property="og:description" content="Feature overview of the http4k-templating modules" />
-<meta name="twitter:description" content="Feature overview of the http4k-templating modules">
+<meta name="description" content="Feature overview of the http4k-cloudevents module">
+<meta property="og:description" content="Feature overview of the http4k-cloudevents module" />
+<meta name="twitter:description" content="Feature overview of the http4k-cloudevents module">
 
 
 
-<link rel="canonical" href="https://www.http4k.org/guide/modules/templating/">
+<link rel="canonical" href="https://www.http4k.org/guide/modules/cloud_events/">
 
 
 
@@ -78,7 +78,7 @@
     
     
     
-    <title>http4k Templating Modules</title>
+    <title>http4k Cloud Events support</title>
     
     
     
@@ -250,8 +250,8 @@
             
             
     
-        <a class="dropdown-item active"
-           href="./"
+        <a class="dropdown-item "
+           href="../templating/"
            title="Templating">Templating</a>
     
 
@@ -277,8 +277,8 @@
             
             
     
-        <a class="dropdown-item "
-           href="../cloud_events/"
+        <a class="dropdown-item active"
+           href="./"
            title="Cloud Events">Cloud Events</a>
     
 
@@ -894,81 +894,84 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>Templating</h1>
+                    <h1>Cloud Events</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Dust: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-template-dust&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.3.0.0&quot;</span>
-
-<span class="c1">// Freemarker: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-template-freemarker&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.3.0.0&quot;</span>
-
-<span class="c1">// Handlebars: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-template-handlebars&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.3.0.0&quot;</span>
-
-<span class="c1">// Jade4j: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-template-jade4j&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.3.0.0&quot;</span>
-
-<span class="c1">// Pebble: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-template-pebble&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.3.0.0&quot;</span>
-
-<span class="c1">// Thymeleaf: </span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-template-thymeleaf&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.3.0.0&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-cloudevents&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.3.0.0&quot;</span>
 </code></pre></div>
 
-<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
-<p>The http4k templating API provides a standard mechanism for rendering using common templating libraries. Simply implement the <code>ViewModel</code> interface on a model class and pass it to the renderer to get a string. All of the implementations support view rendering using the following strategies:</p>
-<ul>
-<li>Cached on the classpath</li>
-<li>Cached from the filesystem</li>
-<li>Hot-Reloading from the filesystem</li>
-</ul>
-<p>The examples below are for Handlebars, but the others have the same APIs:</p>
-<h4 id="code">Code  <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/templating/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.templating</span>
+<p>The <a href="https://cloudevents.io/">Cloud Events</a> defines a common specification for Events produced by Cloud services.</p>
+<p>http4k provides simple pluggability into the CloudEvents Java SDKs and custom event format libraries via the Lens system - making it trivial to both receive or send CloudEvents in the standard way.</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<p>In this example we are using the Jackson JSONFormat which is included by default with the <code>http4k-cloudevents</code> module.</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/cloud_events/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.cloud_events</span>
 
+<span class="k">import</span> <span class="nn">io.cloudevents.CloudEventData</span>
+<span class="k">import</span> <span class="nn">io.cloudevents.core.builder.CloudEventBuilder.v03</span>
+<span class="k">import</span> <span class="nn">io.cloudevents.core.builder.withSource</span>
+<span class="k">import</span> <span class="nn">io.cloudevents.core.provider.EventFormatProvider</span>
+<span class="k">import</span> <span class="nn">io.cloudevents.jackson.JsonFormat</span>
+<span class="k">import</span> <span class="nn">io.cloudevents.with</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_HTML</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.HandlebarsTemplates</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.ViewModel</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.viewModel</span>
-<span class="k">import</span> <span class="nn">java.io.File</span>
-
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.debug</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.Jackson</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.cloudEventDataLens</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.cloudEvent</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">java.time.OffsetDateTime</span>
+<span class="k">import</span> <span class="nn">java.util.UUID</span>
 
 <span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Events formats must be registered into a singleton provided by the CloudEvents SDK.</span>
+    <span class="c1">// Here we are using the JSON format.</span>
+    <span class="n">EventFormatProvider</span><span class="p">.</span><span class="n">getInstance</span><span class="p">().</span><span class="n">registerFormat</span><span class="p">(</span><span class="n">JsonFormat</span><span class="p">())</span>
 
-    <span class="c1">// first, create a Renderer - this can be a Caching instance or a HotReload for development</span>
-    <span class="k">val</span> <span class="py">renderer</span> <span class="p">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="n">HotReload</span><span class="p">(</span><span class="s">&quot;src/test/resources&quot;</span><span class="p">)</span>
+    <span class="c1">// We use one lens to get the event envelope and another to get the typed data from the Event</span>
+    <span class="k">val</span> <span class="py">eventLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">cloudEvent</span><span class="p">().</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">dataLens</span> <span class="p">=</span> <span class="n">Jackson</span><span class="p">.</span><span class="n">cloudEventDataLens</span><span class="p">&lt;</span><span class="n">MyCloudEventData</span><span class="p">&gt;()</span>
 
-    <span class="c1">// first example uses a renderer to create a string</span>
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">viewModel</span> <span class="p">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">)</span>
-        <span class="k">val</span> <span class="py">renderedView</span> <span class="p">=</span> <span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">)</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">renderedView</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
+    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">CatchLensFailure</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span>
+            <span class="s">&quot;/foo/bar&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span>
+                <span class="c1">// Our app uses lenses in the normal way to extract the data from the request..</span>
+                <span class="k">val</span> <span class="py">cloudEvent</span> <span class="p">=</span> <span class="n">eventLens</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+                <span class="k">val</span> <span class="py">eventData</span> <span class="p">=</span> <span class="n">dataLens</span><span class="p">(</span><span class="n">cloudEvent</span><span class="p">)</span>
 
-    <span class="c1">// the lens example uses the Body.viewModel to also set the content type, and avoid using Strings</span>
-    <span class="k">val</span> <span class="py">viewLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">TEXT_HTML</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
+                <span class="n">println</span><span class="p">(</span><span class="s">&quot;Event: $cloudEvent&quot;</span><span class="p">)</span>
+                <span class="n">println</span><span class="p">(</span><span class="s">&quot;Event Data: $eventData&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">appUsingLens</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">viewLens</span> <span class="n">of</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">))</span>
-    <span class="p">}</span>
+                <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">)).</span><span class="n">debug</span><span class="p">()</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">appUsingLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
+    <span class="c1">// Create the base CloudEvent without the data...</span>
+    <span class="k">val</span> <span class="py">cloudEvent</span> <span class="p">=</span> <span class="n">v03</span><span class="p">()</span>
+        <span class="p">.</span><span class="n">withId</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="n">randomUUID</span><span class="p">().</span><span class="n">toString</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">withSource</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="n">withTime</span><span class="p">(</span><span class="n">OffsetDateTime</span><span class="p">.</span><span class="n">now</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">withType</span><span class="p">(</span><span class="s">&quot;myEventType&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">build</span><span class="p">()</span>
 
-    <span class="c1">// overwrite the content - this will prove the hot reload works!</span>
-    <span class="n">File</span><span class="p">(</span><span class="s">&quot;src/test/resources/guide/modules/templating/Person.hbs&quot;</span><span class="p">).</span><span class="n">writer</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">use</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;{{name}} is not {{age}} years old&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="c1">// then inject the data into the Event... this sets the content type of the event</span>
+    <span class="k">val</span> <span class="py">with</span> <span class="p">=</span> <span class="n">cloudEvent</span><span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">dataLens</span> <span class="n">of</span> <span class="n">MyCloudEventData</span><span class="p">(</span><span class="m">10</span><span class="p">))</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">appUsingLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
+    <span class="c1">// lastly inject the event into the request and send it to the server</span>
+    <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/foo/bar&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">eventLens</span> <span class="n">of</span> <span class="n">with</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="c1">// define a custom event which will be sent/received in the &quot;data&quot; field of the CloudEvent</span>
+<span class="k">data</span> <span class="k">class</span> <span class="nc">MyCloudEventData</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">CloudEventData</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">toBytes</span><span class="p">()</span> <span class="p">=</span> <span class="n">value</span><span class="p">.</span><span class="n">toString</span><span class="p">().</span><span class="n">toByteArray</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
                     
