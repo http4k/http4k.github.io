@@ -943,8 +943,10 @@
     <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">CatchLensFailure</span><span class="p">()</span>
         <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span>
             <span class="s">&quot;/foo/bar&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span>
-                <span class="c1">// Our app uses lenses in the normal way to extract the data from the request..</span>
+                <span class="c1">// Our app uses lenses in the normal way to extract the event from the request..</span>
                 <span class="k">val</span> <span class="py">cloudEvent</span> <span class="p">=</span> <span class="n">eventLens</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+
+                <span class="c1">// ... and then the typed event data from the event envelope</span>
                 <span class="k">val</span> <span class="py">eventData</span> <span class="p">=</span> <span class="n">dataLens</span><span class="p">(</span><span class="n">cloudEvent</span><span class="p">)</span>
 
                 <span class="n">println</span><span class="p">(</span><span class="s">&quot;Event: $cloudEvent&quot;</span><span class="p">)</span>
@@ -962,10 +964,10 @@
         <span class="p">.</span><span class="n">withType</span><span class="p">(</span><span class="s">&quot;myEventType&quot;</span><span class="p">)</span>
         <span class="p">.</span><span class="n">build</span><span class="p">()</span>
 
-    <span class="c1">// then inject the data into the Event... this sets the content type of the event</span>
+    <span class="c1">// ...then inject the data into the Event... this sets the content type of the event</span>
     <span class="k">val</span> <span class="py">with</span> <span class="p">=</span> <span class="n">cloudEvent</span><span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">dataLens</span> <span class="n">of</span> <span class="n">MyCloudEventData</span><span class="p">(</span><span class="m">10</span><span class="p">))</span>
 
-    <span class="c1">// lastly inject the event into the request and send it to the server</span>
+    <span class="c1">// ...lastly inject the event into the request and send it to the server</span>
     <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/foo/bar&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">eventLens</span> <span class="n">of</span> <span class="n">with</span><span class="p">))</span>
 <span class="p">}</span>
 
