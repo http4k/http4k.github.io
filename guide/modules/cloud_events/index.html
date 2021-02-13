@@ -912,7 +912,7 @@
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.cloud_events</span>
 
 <span class="k">import</span> <span class="nn">io.cloudevents.CloudEventData</span>
-<span class="k">import</span> <span class="nn">io.cloudevents.core.builder.CloudEventBuilder.v03</span>
+<span class="k">import</span> <span class="nn">io.cloudevents.core.builder.CloudEventBuilder</span>
 <span class="k">import</span> <span class="nn">io.cloudevents.core.builder.withSource</span>
 <span class="k">import</span> <span class="nn">io.cloudevents.core.provider.EventFormatProvider</span>
 <span class="k">import</span> <span class="nn">io.cloudevents.jackson.JsonFormat</span>
@@ -961,7 +961,7 @@
         <span class="p">)).</span><span class="n">debug</span><span class="p">()</span>
 
     <span class="c1">// Create the base CloudEvent without the data...</span>
-    <span class="k">val</span> <span class="py">cloudEvent</span> <span class="p">=</span> <span class="n">v03</span><span class="p">()</span>
+    <span class="k">val</span> <span class="py">cloudEvent</span> <span class="p">=</span> <span class="n">CloudEventBuilder</span><span class="p">.</span><span class="n">v1</span><span class="p">()</span>
         <span class="p">.</span><span class="n">withId</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="n">randomUUID</span><span class="p">().</span><span class="n">toString</span><span class="p">())</span>
         <span class="p">.</span><span class="n">withSource</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">))</span>
         <span class="p">.</span><span class="n">withTime</span><span class="p">(</span><span class="n">OffsetDateTime</span><span class="p">.</span><span class="n">now</span><span class="p">())</span>
