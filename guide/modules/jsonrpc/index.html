@@ -919,58 +919,58 @@ exposed as a standard http4k <code>HttpHandler</code>, so it can be composed wit
 <span class="k">import</span> <span class="nn">org.http4k.jsonrpc.JsonRpc</span>
 <span class="k">import</span> <span class="nn">java.util.concurrent.atomic.AtomicInteger</span>
 
-<span class="k">class</span> <span class="nc">Counter</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">value</span> <span class="p">=</span> <span class="n">AtomicInteger</span><span class="p">()</span>
+<span class="kd">class</span> <span class="nc">Counter</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">AtomicInteger</span><span class="p">()</span>
 
-    <span class="k">fun</span> <span class="nf">increment</span><span class="p">(</span><span class="n">amount</span><span class="p">:</span> <span class="n">Increment</span><span class="p">):</span> <span class="n">Int</span> <span class="p">=</span> <span class="k">when</span> <span class="p">{</span>
-        <span class="n">amount</span><span class="p">.</span><span class="n">value</span> <span class="p">==</span> <span class="m">10</span> <span class="p">-&gt;</span> <span class="k">throw</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;Boom!&quot;</span><span class="p">)</span>
-        <span class="n">amount</span><span class="p">.</span><span class="n">value</span> <span class="p">&lt;</span> <span class="m">0</span> <span class="p">-&gt;</span> <span class="k">throw</span> <span class="n">NegativeIncrementException</span><span class="p">()</span>
-        <span class="k">else</span> <span class="p">-&gt;</span> <span class="n">value</span><span class="p">.</span><span class="n">addAndGet</span><span class="p">(</span><span class="n">amount</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="kd">fun</span> <span class="nf">increment</span><span class="p">(</span><span class="n">amount</span><span class="p">:</span> <span class="n">Increment</span><span class="p">):</span> <span class="kt">Int</span> <span class="o">=</span> <span class="k">when</span> <span class="p">{</span>
+        <span class="n">amount</span><span class="p">.</span><span class="na">value</span> <span class="o">==</span> <span class="m">10</span> <span class="o">-&gt;</span> <span class="k">throw</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;Boom!&quot;</span><span class="p">)</span>
+        <span class="n">amount</span><span class="p">.</span><span class="na">value</span> <span class="o">&lt;</span> <span class="m">0</span> <span class="o">-&gt;</span> <span class="k">throw</span> <span class="n">NegativeIncrementException</span><span class="p">()</span>
+        <span class="k">else</span> <span class="o">-&gt;</span> <span class="n">value</span><span class="p">.</span><span class="na">addAndGet</span><span class="p">(</span><span class="n">amount</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="k">fun</span> <span class="nf">currentValue</span><span class="p">():</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">value</span><span class="p">.</span><span class="k">get</span><span class="p">()</span>
+    <span class="kd">fun</span> <span class="nf">currentValue</span><span class="p">():</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">value</span><span class="p">.</span><span class="na">get</span><span class="p">()</span>
 
-    <span class="k">data</span> <span class="k">class</span> <span class="nc">Increment</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+    <span class="kd">data</span> <span class="kd">class</span> <span class="nc">Increment</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
 
-    <span class="k">class</span> <span class="nc">NegativeIncrementException</span> <span class="p">:</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;negative increment not allowed&quot;</span><span class="p">)</span>
+    <span class="kd">class</span> <span class="nc">NegativeIncrementException</span> <span class="p">:</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;negative increment not allowed&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="k">object</span> <span class="nc">CounterErrorHandler</span> <span class="p">:</span> <span class="n">ErrorHandler</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="n">Throwable</span><span class="p">):</span> <span class="n">ErrorMessage</span><span class="p">?</span> <span class="p">=</span> <span class="k">when</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">is</span> <span class="n">Counter</span><span class="p">.</span><span class="n">NegativeIncrementException</span> <span class="p">-&gt;</span> <span class="n">NegativeIncrementExceptionMessage</span><span class="p">()</span>
-        <span class="k">else</span> <span class="p">-&gt;</span> <span class="k">null</span>
+<span class="kd">object</span> <span class="nc">CounterErrorHandler</span> <span class="p">:</span> <span class="n">ErrorHandler</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="n">Throwable</span><span class="p">):</span> <span class="n">ErrorMessage? </span><span class="o">=</span> <span class="k">when</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">is</span> <span class="n">Counter</span><span class="p">.</span><span class="na">NegativeIncrementException</span> <span class="o">-&gt;</span> <span class="n">NegativeIncrementExceptionMessage</span><span class="p">()</span>
+        <span class="k">else</span> <span class="o">-&gt;</span> <span class="kc">null</span>
     <span class="p">}</span>
 
-    <span class="k">private</span> <span class="k">class</span> <span class="nc">NegativeIncrementExceptionMessage</span> <span class="p">:</span> <span class="n">ErrorMessage</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">&quot;Increment by negative&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">override</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="n">NODE</span><span class="p">&gt;</span> <span class="nf">data</span><span class="p">(</span><span class="n">json</span><span class="p">:</span> <span class="n">Json</span><span class="p">&lt;</span><span class="n">NODE</span><span class="p">&gt;)</span> <span class="p">=</span> <span class="n">json</span><span class="p">.</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;cannot increment counter by negative&quot;</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="kd">class</span> <span class="nc">NegativeIncrementExceptionMessage</span> <span class="p">:</span> <span class="n">ErrorMessage</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">&quot;Increment by negative&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">override</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">NODE</span><span class="o">&gt;</span> <span class="nf">data</span><span class="p">(</span><span class="n">json</span><span class="p">:</span> <span class="n">Json</span><span class="o">&lt;</span><span class="n">NODE</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="s">&quot;cannot increment counter by negative&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">counter</span> <span class="p">=</span> <span class="n">Counter</span><span class="p">()</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">rpcHandler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">JsonRpc</span><span class="p">.</span><span class="n">auto</span><span class="p">(</span><span class="n">Jackson</span><span class="p">,</span> <span class="n">CounterErrorHandler</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">rpcHandler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">JsonRpc</span><span class="p">.</span><span class="na">auto</span><span class="p">(</span><span class="n">Jackson</span><span class="p">,</span> <span class="n">CounterErrorHandler</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">method</span><span class="p">(</span><span class="s">&quot;increment&quot;</span><span class="p">,</span> <span class="n">handler</span><span class="p">(</span><span class="n">counter</span><span class="o">::</span><span class="n">increment</span><span class="p">))</span>
         <span class="n">method</span><span class="p">(</span><span class="s">&quot;current&quot;</span><span class="p">,</span> <span class="n">handler</span><span class="p">(</span><span class="n">counter</span><span class="o">::</span><span class="n">currentValue</span><span class="p">))</span>
     <span class="p">}</span>
 
-    <span class="k">fun</span> <span class="nf">runRequest</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">fun</span> <span class="nf">runRequest</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span>
             <span class="n">rpcHandler</span><span class="p">(</span>
                 <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/rpc&quot;</span><span class="p">)</span>
-                    <span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/json&quot;</span><span class="p">)</span>
-                    <span class="p">.</span><span class="n">body</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/json&quot;</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="k">val</span> <span class="py">increment</span> <span class="p">=</span> <span class="s">&quot;&quot;&quot; {&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: &quot;increment&quot;, &quot;params&quot;: {&quot;value&quot;: 3}, &quot;id&quot;: 1} &quot;&quot;&quot;</span>
+    <span class="kd">val</span> <span class="nv">increment</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot; {&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: &quot;increment&quot;, &quot;params&quot;: {&quot;value&quot;: 3}, &quot;id&quot;: 1} &quot;&quot;&quot;</span>
     <span class="n">runRequest</span><span class="p">(</span><span class="n">increment</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">incrementInvalid</span> <span class="p">=</span> <span class="s">&quot;&quot;&quot; {&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: &quot;increment&quot;, &quot;params&quot;: {&quot;value&quot;: -1}, &quot;id&quot;: 2} &quot;&quot;&quot;</span>
+    <span class="kd">val</span> <span class="nv">incrementInvalid</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot; {&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: &quot;increment&quot;, &quot;params&quot;: {&quot;value&quot;: -1}, &quot;id&quot;: 2} &quot;&quot;&quot;</span>
     <span class="n">runRequest</span><span class="p">(</span><span class="n">incrementInvalid</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">current</span> <span class="p">=</span> <span class="s">&quot;&quot;&quot; {&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: &quot;current&quot;, &quot;id&quot;: 3} &quot;&quot;&quot;</span>
+    <span class="kd">val</span> <span class="nv">current</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot; {&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: &quot;current&quot;, &quot;id&quot;: 3} &quot;&quot;&quot;</span>
     <span class="n">runRequest</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>

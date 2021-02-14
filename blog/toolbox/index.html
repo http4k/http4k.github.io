@@ -947,9 +947,9 @@
 </code></pre></div>
 
 <p>... results in these Data Classes:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">data</span> <span class="k">class</span> <span class="nc">JsonRoot</span><span class="p">(</span><span class="k">val</span> <span class="py">child</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;?,</span> <span class="k">val</span> <span class="py">num</span><span class="p">:</span> <span class="n">Number</span><span class="p">?)</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">JsonRoot</span><span class="p">(</span><span class="kd">val</span> <span class="nv">child</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;?</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">num</span><span class="p">:</span> <span class="n">Number?)</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="k">val</span> <span class="py">jsonRoot</span><span class="p">:</span> <span class="n">JsonRoot</span><span class="p">?)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Base</span><span class="p">(</span><span class="kd">val</span> <span class="nv">jsonRoot</span><span class="p">:</span> <span class="n">JsonRoot?)</span>
 </code></pre></div>
 
 <p>Convert your JSON/XML/Yaml <a href="https://toolbox.http4k.org/dataclass">here</a>.</p>
@@ -965,13 +965,13 @@ hello from http4k
 </code></pre></div>
 
 <p>... results in this HTTP message builder code:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">fun</span> <span class="nf">request</span><span class="p">():</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/example/index.html&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;query1&quot;</span><span class="p">,</span> <span class="s">&quot;abc&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;query2&quot;</span><span class="p">,</span> <span class="s">&quot;def&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Host&quot;</span><span class="p">,</span> <span class="s">&quot;toolbox.http4k.org&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Accept&quot;</span><span class="p">,</span> <span class="s">&quot;image/gif, image/jpeg, */*&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;text/plain&quot;</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;hello from http4k&quot;&quot;&quot;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">fun</span> <span class="nf">request</span><span class="p">():</span> <span class="n">Request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">POST</span><span class="p">,</span> <span class="s">&quot;/example/index.html&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;query1&quot;</span><span class="p">,</span> <span class="s">&quot;abc&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;query2&quot;</span><span class="p">,</span> <span class="s">&quot;def&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;Host&quot;</span><span class="p">,</span> <span class="s">&quot;toolbox.http4k.org&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;Accept&quot;</span><span class="p">,</span> <span class="s">&quot;image/gif, image/jpeg, */*&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;text/plain&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;hello from http4k&quot;&quot;&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Build HTTP messages from raw HTTP <a href="https://toolbox.http4k.org/http">here</a>.</p>

@@ -932,80 +932,80 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">java.util.concurrent.CompletableFuture.supplyAsync</span>
 
-<span class="k">object</span> <span class="nc">UserDb</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">userDb</span> <span class="p">=</span> <span class="n">mutableListOf</span><span class="p">(</span>
-        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="p">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;Jim&quot;</span><span class="p">),</span>
-        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="p">=</span> <span class="m">2</span><span class="p">,</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;Bob&quot;</span><span class="p">),</span>
-        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="p">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;Sue&quot;</span><span class="p">),</span>
-        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="p">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;Rita&quot;</span><span class="p">),</span>
-        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="p">=</span> <span class="m">5</span><span class="p">,</span> <span class="n">name</span> <span class="p">=</span> <span class="s">&quot;Charlie&quot;</span><span class="p">)</span>
+<span class="kd">object</span> <span class="nc">UserDb</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">userDb</span> <span class="o">=</span> <span class="n">mutableListOf</span><span class="p">(</span>
+        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Jim&quot;</span><span class="p">),</span>
+        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Bob&quot;</span><span class="p">),</span>
+        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="m">3</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Sue&quot;</span><span class="p">),</span>
+        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="m">4</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Rita&quot;</span><span class="p">),</span>
+        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="m">5</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Charlie&quot;</span><span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="k">fun</span> <span class="nf">search</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Long</span><span class="p">&gt;)</span> <span class="p">=</span> <span class="n">userDb</span><span class="p">.</span><span class="n">filter</span> <span class="p">{</span> <span class="n">ids</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="p">}</span>
-    <span class="k">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Long</span><span class="p">&gt;)</span> <span class="p">=</span> <span class="n">userDb</span><span class="p">.</span><span class="n">removeIf</span> <span class="p">{</span> <span class="n">ids</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">id</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">fun</span> <span class="nf">search</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">userDb</span><span class="p">.</span><span class="na">filter</span> <span class="p">{</span> <span class="n">ids</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">userDb</span><span class="p">.</span><span class="na">removeIf</span> <span class="p">{</span> <span class="n">ids</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="k">val</span> <span class="py">id</span><span class="p">:</span> <span class="n">Long</span><span class="p">,</span> <span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">User</span><span class="p">(</span><span class="kd">val</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Long</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">UserQueries</span> <span class="p">{</span>
-    <span class="k">fun</span> <span class="nf">search</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Params</span><span class="p">)</span> <span class="p">=</span> <span class="n">UserDb</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="n">ids</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">UserQueries</span> <span class="p">{</span>
+    <span class="kd">fun</span> <span class="nf">search</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Params</span><span class="p">)</span> <span class="o">=</span> <span class="n">UserDb</span><span class="p">.</span><span class="na">search</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="na">ids</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="k">class</span> <span class="nc">UserMutations</span> <span class="p">{</span>
-    <span class="k">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Params</span><span class="p">)</span> <span class="p">=</span> <span class="n">UserDb</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="n">ids</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">UserMutations</span> <span class="p">{</span>
+    <span class="kd">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Params</span><span class="p">)</span> <span class="o">=</span> <span class="n">UserDb</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="na">ids</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Params</span><span class="p">(</span><span class="k">val</span> <span class="py">ids</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Long</span><span class="p">&gt;)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Params</span><span class="p">(</span><span class="kd">val</span> <span class="nv">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">UserDbHandler</span> <span class="p">:</span> <span class="n">GraphQLWithContextHandler</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">graphQL</span> <span class="p">=</span> <span class="n">newGraphQL</span><span class="p">(</span>
+<span class="kd">class</span> <span class="nc">UserDbHandler</span> <span class="p">:</span> <span class="n">GraphQLWithContextHandler</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">graphQL</span> <span class="o">=</span> <span class="n">newGraphQL</span><span class="p">(</span>
         <span class="n">toSchema</span><span class="p">(</span>
-            <span class="n">SchemaGeneratorConfig</span><span class="p">(</span><span class="n">supportedPackages</span> <span class="p">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;cookbook.graphql&quot;</span><span class="p">)),</span>
+            <span class="n">SchemaGeneratorConfig</span><span class="p">(</span><span class="n">supportedPackages</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;cookbook.graphql&quot;</span><span class="p">)),</span>
             <span class="n">listOf</span><span class="p">(</span><span class="n">TopLevelObject</span><span class="p">(</span><span class="n">UserQueries</span><span class="p">())),</span>
             <span class="n">listOf</span><span class="p">(</span><span class="n">TopLevelObject</span><span class="p">(</span><span class="n">UserMutations</span><span class="p">()))</span>
-        <span class="p">)).</span><span class="n">build</span><span class="p">()</span>
+        <span class="p">)).</span><span class="na">build</span><span class="p">()</span>
 
-    <span class="k">private</span> <span class="k">val</span> <span class="py">dataLoaderRegistry</span> <span class="p">=</span> <span class="n">DataLoaderRegistry</span><span class="p">().</span><span class="n">apply</span> <span class="p">{</span>
-        <span class="n">register</span><span class="p">(</span><span class="s">&quot;USER_LOADER&quot;</span><span class="p">,</span> <span class="n">DataLoader</span> <span class="p">{</span> <span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Long</span><span class="p">&gt;</span> <span class="p">-&gt;</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">dataLoaderRegistry</span> <span class="o">=</span> <span class="n">DataLoaderRegistry</span><span class="p">().</span><span class="na">apply</span> <span class="p">{</span>
+        <span class="n">register</span><span class="p">(</span><span class="s">&quot;USER_LOADER&quot;</span><span class="p">,</span> <span class="n">DataLoader</span> <span class="p">{</span> <span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span> <span class="o">-&gt;</span>
             <span class="n">supplyAsync</span> <span class="p">{</span>
-                <span class="n">UserQueries</span><span class="p">().</span><span class="n">search</span><span class="p">(</span><span class="n">Params</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span>
+                <span class="n">UserQueries</span><span class="p">().</span><span class="na">search</span><span class="p">(</span><span class="n">Params</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span>
             <span class="p">}</span>
         <span class="p">})</span>
     <span class="p">}</span>
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="n">GraphQLRequest</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">=</span> <span class="n">GraphQLResponse</span><span class="p">.</span><span class="n">from</span><span class="p">(</span>
-        <span class="n">graphQL</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="n">GraphQLRequest</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">=</span> <span class="n">GraphQLResponse</span><span class="p">.</span><span class="na">from</span><span class="p">(</span>
+        <span class="n">graphQL</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span>
             <span class="n">Builder</span><span class="p">()</span>
-                <span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="n">payload</span><span class="p">.</span><span class="n">query</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">variables</span><span class="p">(</span><span class="n">payload</span><span class="p">.</span><span class="n">variables</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">dataLoaderRegistry</span><span class="p">(</span><span class="n">dataLoaderRegistry</span><span class="p">)</span>
-                <span class="p">.</span><span class="n">context</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="n">payload</span><span class="p">.</span><span class="na">query</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">variables</span><span class="p">(</span><span class="n">payload</span><span class="p">.</span><span class="na">variables</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">dataLoaderRegistry</span><span class="p">(</span><span class="n">dataLoaderRegistry</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">context</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
         <span class="p">))</span>
 <span class="p">}</span>
 
-<span class="k">fun</span> <span class="nf">App</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">contexts</span> <span class="p">=</span> <span class="n">RequestContexts</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">user</span> <span class="p">=</span> <span class="n">RequestContextKey</span><span class="p">.</span><span class="n">required</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;(</span><span class="n">contexts</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">App</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">contexts</span> <span class="o">=</span> <span class="n">RequestContexts</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">user</span> <span class="o">=</span> <span class="n">RequestContextKey</span><span class="p">.</span><span class="na">required</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">InitialiseRequestContext</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">AddUserToContext</span><span class="p">(</span><span class="n">user</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/graphql&quot;</span> <span class="n">bind</span> <span class="n">graphQL</span><span class="p">(</span><span class="n">UserDbHandler</span><span class="p">(),</span> <span class="n">user</span><span class="p">)))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AddUserToContext</span><span class="p">(</span><span class="n">user</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/graphql&quot;</span> <span class="n">bind</span> <span class="n">graphQL</span><span class="p">(</span><span class="n">UserDbHandler</span><span class="p">(),</span> <span class="n">user</span><span class="p">)))</span>
 <span class="p">}</span>
 
-<span class="k">private</span> <span class="k">fun</span> <span class="nf">AddUserToContext</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">RequestContextLens</span><span class="p">&lt;</span><span class="n">String</span><span class="p">&gt;)</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="p">-&gt;</span>
+<span class="kd">private</span> <span class="kd">fun</span> <span class="nf">AddUserToContext</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">RequestContextLens</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
     <span class="p">{</span>
-        <span class="n">next</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">user</span> <span class="n">of</span> <span class="n">it</span><span class="p">.</span><span class="n">method</span><span class="p">.</span><span class="n">toString</span><span class="p">()))</span>
+        <span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="n">user</span> <span class="n">of</span> <span class="nb">it</span><span class="p">.</span><span class="na">method</span><span class="p">.</span><span class="na">toString</span><span class="p">()))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">App</span><span class="p">().</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">5000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">App</span><span class="p">().</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">5000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">graphQLClient</span> <span class="p">=</span> <span class="n">JavaHttpClient</span><span class="p">().</span><span class="n">asGraphQLHandler</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:5000/graphql&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">graphQLClient</span> <span class="o">=</span> <span class="n">JavaHttpClient</span><span class="p">().</span><span class="na">asGraphQLHandler</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:5000/graphql&quot;</span><span class="p">))</span>
 
 
-    <span class="k">fun</span> <span class="nf">runAndDisplay</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">graphQLClient</span><span class="p">(</span><span class="n">GraphQLRequest</span><span class="p">(</span><span class="n">query</span><span class="p">)).</span><span class="k">data</span><span class="p">)</span>
+    <span class="kd">fun</span> <span class="nf">runAndDisplay</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">graphQLClient</span><span class="p">(</span><span class="n">GraphQLRequest</span><span class="p">(</span><span class="n">query</span><span class="p">)).</span><span class="na">data</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="n">runAndDisplay</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{</span>

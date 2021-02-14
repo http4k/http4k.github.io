@@ -911,7 +911,7 @@
 </ol>
 <h3 id="websocket_as_a_function">Websocket as a Function<a class="headerlink" href="#websocket_as_a_function" title="Permanent link">&para;</a></h3>
 <p>The simplest possible Websocket can be mounted as a <code>WsConsumer</code> function onto a server with:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span> <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span> <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span> <span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
 
 <h3 id="mixing_http_and_websocket_services">Mixing HTTP and Websocket services <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/websockets/example_polyhandler.kt"><img class="octocat"/></a><a class="headerlink" href="#mixing_http_and_websocket_services" title="Permanent link">&para;</a></h3>
@@ -930,22 +930,22 @@
 <span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">namePath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">namePath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">ws</span> <span class="p">=</span> <span class="n">websockets</span><span class="p">(</span>
-        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-            <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="n">upgradeRequest</span><span class="p">)</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello $name&quot;</span><span class="p">))</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-                <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;$name is responding&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">ws</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
+        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+            <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span> <span class="p">{</span>
+                <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is responding&quot;</span><span class="p">))</span>
             <span class="p">}</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">onClose</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;$name is closing&quot;</span><span class="p">)</span> <span class="p">}</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">onClose</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span> <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">)</span>
-    <span class="k">val</span> <span class="py">http</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hiya world&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hiya world&quot;</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="n">PolyHandler</span><span class="p">(</span><span class="n">http</span><span class="p">,</span> <span class="n">ws</span><span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">PolyHandler</span><span class="p">(</span><span class="n">http</span><span class="p">,</span> <span class="n">ws</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -963,33 +963,33 @@
 <span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Person</span><span class="p">(</span><span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
     <span class="c1">// a lens that will marshall the Person object on and off the wire</span>
-    <span class="k">val</span> <span class="py">personLens</span> <span class="p">=</span> <span class="n">WsMessage</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">personLens</span> <span class="o">=</span> <span class="n">WsMessage</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">websockets</span><span class="p">(</span>
-        <span class="s">&quot;/ageMe&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-                <span class="k">val</span> <span class="py">person</span> <span class="p">=</span> <span class="n">personLens</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
-                <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">personLens</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">age</span> <span class="p">=</span> <span class="n">person</span><span class="p">.</span><span class="n">age</span> <span class="p">+</span> <span class="m">10</span><span class="p">)))</span>
-                <span class="n">ws</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
+        <span class="s">&quot;/ageMe&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span> <span class="p">{</span>
+                <span class="kd">val</span> <span class="nv">person</span> <span class="o">=</span> <span class="n">personLens</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+                <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">personLens</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">age</span> <span class="o">=</span> <span class="n">person</span><span class="p">.</span><span class="na">age</span> <span class="o">+</span> <span class="m">10</span><span class="p">)))</span>
+                <span class="n">ws</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
             <span class="p">}</span>
         <span class="p">}</span>
-    <span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/ageMe&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/ageMe&quot;</span><span class="p">))</span>
 
     <span class="c1">// send a message in &quot;native form&quot; - we could also use the Lens here to auto-marshall</span>
-    <span class="n">client</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{ &quot;name&quot;:&quot;bob&quot;, &quot;age&quot;: 25 }&quot;&quot;&quot;</span><span class="p">))</span>
+    <span class="n">client</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{ &quot;name&quot;:&quot;bob&quot;, &quot;age&quot;: 25 }&quot;&quot;&quot;</span><span class="p">))</span>
 
     <span class="c1">// read all of the messages from the socket until it is closed (by the server).</span>
     <span class="c1">// we expect to get one message back before the stream is closed.</span>
-    <span class="n">client</span><span class="p">.</span><span class="n">received</span><span class="p">().</span><span class="n">toList</span><span class="p">().</span><span class="n">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
+    <span class="n">client</span><span class="p">.</span><span class="na">received</span><span class="p">().</span><span class="na">toList</span><span class="p">().</span><span class="na">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
 
-    <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1018,46 +1018,46 @@
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
 
-<span class="k">val</span> <span class="py">namePath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">namePath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
 
 <span class="c1">// here is our websocket app - it uses dynamic path binding and lenses</span>
-<span class="k">val</span> <span class="py">testApp</span><span class="p">:</span> <span class="n">WsHandler</span> <span class="p">=</span> <span class="n">websockets</span><span class="p">(</span>
-    <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-        <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="n">upgradeRequest</span><span class="p">)</span>
-        <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello $name&quot;</span><span class="p">))</span>
+<span class="kd">val</span> <span class="nv">testApp</span><span class="p">:</span> <span class="n">WsHandler</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
+    <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+        <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
+        <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="c1">// this is the abstract contract that defines the behaviour to be tested</span>
-<span class="k">abstract</span> <span class="k">class</span> <span class="nc">WebsocketContract</span> <span class="p">{</span>
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">WebsocketContract</span> <span class="p">{</span>
     <span class="c1">// subclasses only have to supply a blocking WsClient</span>
-    <span class="k">abstract</span> <span class="k">fun</span> <span class="nf">client</span><span class="p">():</span> <span class="n">WsClient</span>
+    <span class="kd">abstract</span> <span class="kd">fun</span> <span class="nf">client</span><span class="p">():</span> <span class="n">WsClient</span>
 
-    <span class="n">@Test</span>
-    <span class="k">fun</span> <span class="nf">`echoes back connected name`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">().</span><span class="n">received</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">toList</span><span class="p">(),</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello bob&quot;</span><span class="p">))))</span>
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`echoes back connected name`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">().</span><span class="na">received</span><span class="p">().</span><span class="na">take</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="na">toList</span><span class="p">(),</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello bob&quot;</span><span class="p">))))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// a unit test version of the contract - it connects to the websocket in memory with no network</span>
-<span class="k">class</span> <span class="nc">WebsocketUnitTest</span> <span class="p">:</span> <span class="n">WebsocketContract</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">client</span><span class="p">()</span> <span class="p">=</span> <span class="n">testApp</span><span class="p">.</span><span class="n">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/bob&quot;</span><span class="p">))</span><span class="o">!!</span>
+<span class="kd">class</span> <span class="nc">WebsocketUnitTest</span> <span class="p">:</span> <span class="n">WebsocketContract</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">client</span><span class="p">()</span> <span class="o">=</span> <span class="n">testApp</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/bob&quot;</span><span class="p">))</span><span class="o">!!</span>
 <span class="p">}</span>
 
 <span class="c1">// a integration test version of the contract - it starts a server and connects to the websocket over the network</span>
-<span class="k">class</span> <span class="nc">WebsocketServerTest</span> <span class="p">:</span> <span class="n">WebsocketContract</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">client</span><span class="p">()</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
+<span class="kd">class</span> <span class="nc">WebsocketServerTest</span> <span class="p">:</span> <span class="n">WebsocketContract</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">client</span><span class="p">()</span> <span class="o">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
 
-    <span class="k">private</span> <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">testApp</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">testApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
 
-    <span class="n">@BeforeEach</span>
-    <span class="k">fun</span> <span class="nf">before</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="nd">@BeforeEach</span>
+    <span class="kd">fun</span> <span class="nf">before</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="n">@AfterEach</span>
-    <span class="k">fun</span> <span class="nf">after</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="nd">@AfterEach</span>
+    <span class="kd">fun</span> <span class="nf">after</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>

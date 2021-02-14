@@ -925,29 +925,29 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="k">object</span> <span class="nc">MyGraphQLHandler</span> <span class="p">:</span> <span class="n">GraphQLHandler</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">graphQL</span> <span class="p">=</span> <span class="n">newGraphQL</span><span class="p">(</span>
+<span class="kd">object</span> <span class="nc">MyGraphQLHandler</span> <span class="p">:</span> <span class="n">GraphQLHandler</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">graphQL</span> <span class="o">=</span> <span class="n">newGraphQL</span><span class="p">(</span>
         <span class="n">toSchema</span><span class="p">(</span>
-            <span class="n">SchemaGeneratorConfig</span><span class="p">(</span><span class="n">supportedPackages</span> <span class="p">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;guide.modules.graphql&quot;</span><span class="p">)),</span>
+            <span class="n">SchemaGeneratorConfig</span><span class="p">(</span><span class="n">supportedPackages</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;guide.modules.graphql&quot;</span><span class="p">)),</span>
             <span class="n">listOf</span><span class="p">(),</span>
             <span class="n">listOf</span><span class="p">()</span>
-        <span class="p">)).</span><span class="n">build</span><span class="p">()</span>
+        <span class="p">)).</span><span class="na">build</span><span class="p">()</span>
 
 
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">GraphQLRequest</span><span class="p">)</span> <span class="p">=</span> <span class="n">GraphQLResponse</span><span class="p">.</span><span class="n">from</span><span class="p">(</span><span class="n">graphQL</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">query</span><span class="p">))</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">GraphQLRequest</span><span class="p">)</span> <span class="o">=</span> <span class="n">GraphQLResponse</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">graphQL</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">))</span>
 <span class="p">}</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
         <span class="s">&quot;/graphql&quot;</span> <span class="n">bind</span> <span class="n">graphQL</span><span class="p">(</span><span class="n">MyGraphQLHandler</span><span class="p">)</span>
     <span class="p">)</span>
 
     <span class="c1">// serve GQL queries/mutations at /graphql</span>
-    <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
     <span class="c1">// for clients, just convert any app into a GQL handler</span>
-    <span class="k">val</span> <span class="py">gql</span><span class="p">:</span> <span class="n">GraphQLHandler</span> <span class="p">=</span> <span class="n">JavaHttpClient</span><span class="p">().</span><span class="n">asGraphQLHandler</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000/graphql&quot;</span><span class="p">))</span>
-    <span class="k">val</span> <span class="py">response</span><span class="p">:</span> <span class="n">GraphQLResponse</span> <span class="p">=</span> <span class="n">gql</span><span class="p">(</span><span class="n">GraphQLRequest</span><span class="p">(</span><span class="s">&quot;some query goes here..&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">gql</span><span class="p">:</span> <span class="n">GraphQLHandler</span> <span class="o">=</span> <span class="n">JavaHttpClient</span><span class="p">().</span><span class="na">asGraphQLHandler</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000/graphql&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">response</span><span class="p">:</span> <span class="n">GraphQLResponse</span> <span class="o">=</span> <span class="n">gql</span><span class="p">(</span><span class="n">GraphQLRequest</span><span class="p">(</span><span class="s">&quot;some query goes here..&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
                     

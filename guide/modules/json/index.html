@@ -940,42 +940,42 @@ objects, including custom Lens methods for each library so that JSON node object
 <span class="k">import</span> <span class="nn">org.http4k.format.Xml.xml</span>
 <span class="k">import</span> <span class="nn">org.w3c.dom.Node</span>
 
-<span class="k">val</span> <span class="py">json</span> <span class="p">=</span> <span class="n">Jackson</span>
+<span class="kd">val</span> <span class="nv">json</span> <span class="o">=</span> <span class="n">Jackson</span>
 
 <span class="c1">// Extension method API:</span>
 
-<span class="k">val</span> <span class="py">objectUsingExtensionFunctions</span><span class="p">:</span> <span class="n">JsonNode</span> <span class="p">=</span>
+<span class="kd">val</span> <span class="nv">objectUsingExtensionFunctions</span><span class="p">:</span> <span class="n">JsonNode</span> <span class="o">=</span>
     <span class="n">listOf</span><span class="p">(</span>
-        <span class="s">&quot;thisIsAString&quot;</span> <span class="n">to</span> <span class="s">&quot;stringValue&quot;</span><span class="p">.</span><span class="n">asJsonValue</span><span class="p">(),</span>
+        <span class="s">&quot;thisIsAString&quot;</span> <span class="n">to</span> <span class="s">&quot;stringValue&quot;</span><span class="p">.</span><span class="na">asJsonValue</span><span class="p">(),</span>
         <span class="s">&quot;thisIsANumber&quot;</span> <span class="n">to</span> <span class="m">12345.</span><span class="n">asJsonValue</span><span class="p">(),</span>
-        <span class="s">&quot;thisIsAList&quot;</span> <span class="n">to</span> <span class="n">listOf</span><span class="p">(</span><span class="k">true</span><span class="p">.</span><span class="n">asJsonValue</span><span class="p">()).</span><span class="n">asJsonArray</span><span class="p">()</span>
-    <span class="p">).</span><span class="n">asJsonObject</span><span class="p">()</span>
+        <span class="s">&quot;thisIsAList&quot;</span> <span class="n">to</span> <span class="n">listOf</span><span class="p">(</span><span class="kc">true</span><span class="p">.</span><span class="na">asJsonValue</span><span class="p">()).</span><span class="na">asJsonArray</span><span class="p">()</span>
+    <span class="p">).</span><span class="na">asJsonObject</span><span class="p">()</span>
 
-<span class="k">val</span> <span class="py">jsonString</span><span class="p">:</span> <span class="n">String</span> <span class="p">=</span> <span class="n">objectUsingExtensionFunctions</span><span class="p">.</span><span class="n">asPrettyJsonString</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">jsonString</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">objectUsingExtensionFunctions</span><span class="p">.</span><span class="na">asPrettyJsonString</span><span class="p">()</span>
 
 <span class="c1">// Direct JSON library API:</span>
-<span class="k">val</span> <span class="py">objectUsingDirectApi</span><span class="p">:</span> <span class="n">JsonNode</span> <span class="p">=</span> <span class="n">json</span><span class="p">.</span><span class="n">obj</span><span class="p">(</span>
-    <span class="s">&quot;thisIsAString&quot;</span> <span class="n">to</span> <span class="n">json</span><span class="p">.</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;stringValue&quot;</span><span class="p">),</span>
-    <span class="s">&quot;thisIsANumber&quot;</span> <span class="n">to</span> <span class="n">json</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="m">12345</span><span class="p">),</span>
-    <span class="s">&quot;thisIsAList&quot;</span> <span class="n">to</span> <span class="n">json</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="n">boolean</span><span class="p">(</span><span class="k">true</span><span class="p">)))</span>
+<span class="kd">val</span> <span class="nv">objectUsingDirectApi</span><span class="p">:</span> <span class="n">JsonNode</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="na">obj</span><span class="p">(</span>
+    <span class="s">&quot;thisIsAString&quot;</span> <span class="n">to</span> <span class="n">json</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="s">&quot;stringValue&quot;</span><span class="p">),</span>
+    <span class="s">&quot;thisIsANumber&quot;</span> <span class="n">to</span> <span class="n">json</span><span class="p">.</span><span class="na">number</span><span class="p">(</span><span class="m">12345</span><span class="p">),</span>
+    <span class="s">&quot;thisIsAList&quot;</span> <span class="n">to</span> <span class="n">json</span><span class="p">.</span><span class="na">array</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="na">boolean</span><span class="p">(</span><span class="kc">true</span><span class="p">)))</span>
 <span class="p">)</span>
 
 <span class="c1">// DSL JSON library API:</span>
-<span class="k">val</span> <span class="py">objectUsingDslApi</span><span class="p">:</span> <span class="n">JsonNode</span> <span class="p">=</span> <span class="n">json</span> <span class="p">{</span>
+<span class="kd">val</span> <span class="nv">objectUsingDslApi</span><span class="p">:</span> <span class="n">JsonNode</span> <span class="o">=</span> <span class="n">json</span> <span class="p">{</span>
     <span class="n">obj</span><span class="p">(</span>
         <span class="s">&quot;thisIsAString&quot;</span> <span class="n">to</span> <span class="n">string</span><span class="p">(</span><span class="s">&quot;stringValue&quot;</span><span class="p">),</span>
         <span class="s">&quot;thisIsANumber&quot;</span> <span class="n">to</span> <span class="n">number</span><span class="p">(</span><span class="m">12345</span><span class="p">),</span>
-        <span class="s">&quot;thisIsAList&quot;</span> <span class="n">to</span> <span class="n">array</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">boolean</span><span class="p">(</span><span class="k">true</span><span class="p">)))</span>
+        <span class="s">&quot;thisIsAList&quot;</span> <span class="n">to</span> <span class="n">array</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">boolean</span><span class="p">(</span><span class="kc">true</span><span class="p">)))</span>
     <span class="p">)</span>
 <span class="p">}</span>
 
-<span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">with</span><span class="p">(</span>
-    <span class="n">Body</span><span class="p">.</span><span class="n">json</span><span class="p">().</span><span class="n">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">json</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">objectUsingDirectApi</span><span class="p">,</span> <span class="n">objectUsingExtensionFunctions</span><span class="p">,</span> <span class="n">objectUsingDslApi</span><span class="p">))</span>
+<span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span>
+    <span class="n">Body</span><span class="p">.</span><span class="na">json</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">json</span><span class="p">.</span><span class="na">array</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">objectUsingDirectApi</span><span class="p">,</span> <span class="n">objectUsingExtensionFunctions</span><span class="p">,</span> <span class="n">objectUsingDslApi</span><span class="p">))</span>
 <span class="p">)</span>
 
-<span class="k">val</span> <span class="py">xmlLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">xml</span><span class="p">().</span><span class="n">toLens</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">xmlLens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">xml</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
 
-<span class="k">val</span> <span class="py">xmlNode</span><span class="p">:</span> <span class="n">Node</span> <span class="p">=</span> <span class="n">xmlLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;&lt;xml/&gt;&quot;</span><span class="p">))</span>
+<span class="kd">val</span> <span class="nv">xmlNode</span><span class="p">:</span> <span class="n">Node</span> <span class="o">=</span> <span class="n">xmlLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&lt;xml/&gt;&quot;</span><span class="p">))</span>
 </code></pre></div>
 
 <h3 id="auto-marshalling_capabilities">Auto-marshalling capabilities<a class="headerlink" href="#auto-marshalling_capabilities" title="Permanent link">&para;</a></h3>
@@ -990,18 +990,18 @@ to/from JSON and XML using reflection.</p>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.format.Jackson.auto</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Email</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Message</span><span class="p">(</span><span class="k">val</span> <span class="py">subject</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">from</span><span class="p">:</span> <span class="n">Email</span><span class="p">,</span> <span class="k">val</span> <span class="py">to</span><span class="p">:</span> <span class="n">Email</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Email</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Message</span><span class="p">(</span><span class="kd">val</span> <span class="nv">subject</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">from</span><span class="p">:</span> <span class="n">Email</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">to</span><span class="p">:</span> <span class="n">Email</span><span class="p">)</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// We can use the auto method here from either Jackson, Gson or the Xml message format objects.</span>
     <span class="c1">// Note that the auto() method needs to be manually imported as IntelliJ won&#39;t pick it up automatically.</span>
-    <span class="k">val</span> <span class="py">messageLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">Message</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">messageLens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">myMessage</span> <span class="p">=</span> <span class="n">Message</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="n">Email</span><span class="p">(</span><span class="s">&quot;bob@git.com&quot;</span><span class="p">),</span> <span class="n">Email</span><span class="p">(</span><span class="s">&quot;sue@git.com&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">myMessage</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="n">Email</span><span class="p">(</span><span class="s">&quot;bob@git.com&quot;</span><span class="p">),</span> <span class="n">Email</span><span class="p">(</span><span class="s">&quot;sue@git.com&quot;</span><span class="p">))</span>
 
     <span class="c1">// to inject the body into the message - this also works with Response</span>
-    <span class="k">val</span> <span class="py">requestWithEmail</span> <span class="p">=</span> <span class="n">messageLens</span><span class="p">(</span><span class="n">myMessage</span><span class="p">,</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">requestWithEmail</span> <span class="o">=</span> <span class="n">messageLens</span><span class="p">(</span><span class="n">myMessage</span><span class="p">,</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">))</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">requestWithEmail</span><span class="p">)</span>
 
@@ -1012,10 +1012,10 @@ to/from JSON and XML using reflection.</p>
 <span class="c1">//    {&quot;subject&quot;:&quot;hello&quot;,&quot;from&quot;:{&quot;value&quot;:&quot;bob@git.com&quot;},&quot;to&quot;:{&quot;value&quot;:&quot;sue@git.com&quot;}}</span>
 
     <span class="c1">// to extract the body from the message - this also works with Response</span>
-    <span class="k">val</span> <span class="py">extractedMessage</span> <span class="p">=</span> <span class="n">messageLens</span><span class="p">(</span><span class="n">requestWithEmail</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">extractedMessage</span> <span class="o">=</span> <span class="n">messageLens</span><span class="p">(</span><span class="n">requestWithEmail</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">extractedMessage</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">extractedMessage</span> <span class="p">==</span> <span class="n">myMessage</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">extractedMessage</span> <span class="o">==</span> <span class="n">myMessage</span><span class="p">)</span>
 
 <span class="c1">// Produces:</span>
 <span class="c1">//    Message(subject=hello, from=Email(value=bob@git.com), to=Email(value=sue@git.com))</span>
@@ -1029,23 +1029,23 @@ to/from JSON and XML using reflection.</p>
 <span class="k">import</span> <span class="nn">org.http4k.format.KotlinxSerialization.auto</span>
 <span class="k">import</span> <span class="nn">org.http4k.lens.BiDiBodyLens</span>
 
-<span class="n">@Serializable</span>  <span class="c1">// required by Kotlinx.Serialization</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="k">val</span> <span class="py">brand</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">model</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">year</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">val</span> <span class="py">miles</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+<span class="nd">@Serializable</span>  <span class="c1">// required by Kotlinx.Serialization</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Car</span><span class="p">(</span><span class="kd">val</span> <span class="nv">brand</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">year</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">miles</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
 
 <span class="c1">// &#39;auto&#39; is an extension function of each org.http4k.format.[serialization library]</span>
 <span class="c1">// example: https://github.com/http4k/http4k/blob/master/http4k-format/kotlinx-serialization/src/main/kotlin/org/http4k/format/ConfigurableKotlinxSerialization.kt</span>
-<span class="k">val</span> <span class="py">lensCarResponse</span> <span class="p">:</span> <span class="n">BiDiBodyLens</span><span class="p">&lt;</span><span class="n">Car</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">Car</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span>  <span class="c1">// BiDi allows for outgoing + incoming</span>
+<span class="kd">val</span> <span class="nv">lensCarResponse</span> <span class="p">:</span> <span class="n">BiDiBodyLens</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>  <span class="c1">// BiDi allows for outgoing + incoming</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">sweetride</span> <span class="p">=</span> <span class="n">Car</span><span class="p">(</span><span class="s">&quot;Porsche&quot;</span><span class="p">,</span> <span class="s">&quot;911 Turbo&quot;</span><span class="p">,</span> <span class="m">1988</span><span class="p">,</span> <span class="m">45000</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">sweetride</span> <span class="o">=</span> <span class="n">Car</span><span class="p">(</span><span class="s">&quot;Porsche&quot;</span><span class="p">,</span> <span class="s">&quot;911 Turbo&quot;</span><span class="p">,</span> <span class="m">1988</span><span class="p">,</span> <span class="m">45000</span><span class="p">)</span>
 
       <span class="c1">// lens.inject(object, response) serializes the object and sets content-type header to &#39;application/json&#39;</span>
       <span class="c1">// can be used with any Serializable type (Map, List, etc)</span>
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">lensCarResponse</span><span class="p">.</span><span class="n">inject</span><span class="p">(</span><span class="n">sweetride</span><span class="p">,</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="n">OK</span><span class="p">))</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">lensCarResponse</span><span class="p">.</span><span class="na">inject</span><span class="p">(</span><span class="n">sweetride</span><span class="p">,</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="na">OK</span><span class="p">))</span> <span class="p">}</span>
 
-    <span class="k">val</span> <span class="py">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
     <span class="cm">/* </span>
@@ -1086,25 +1086,25 @@ the same as a native Kotlin list of objects. This can make tests break as the un
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.format.Moshi.auto</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">MyIntWrapper</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">MyIntWrapper</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">aListLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">MyIntWrapper</span><span class="p">&gt;&gt;().</span><span class="n">toLens</span><span class="p">()</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">aListLens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">MyIntWrapper</span><span class="o">&gt;&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">req</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot; [ {&quot;value&quot;:1}, {&quot;value&quot;:2} ] &quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">req</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot; [ {&quot;value&quot;:1}, {&quot;value&quot;:2} ] &quot;&quot;&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">extractedList</span> <span class="p">=</span> <span class="n">aListLens</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">extractedList</span> <span class="o">=</span> <span class="n">aListLens</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">nativeList</span> <span class="p">=</span> <span class="n">listOf</span><span class="p">(</span><span class="n">MyIntWrapper</span><span class="p">(</span><span class="m">1</span><span class="p">),</span> <span class="n">MyIntWrapper</span><span class="p">(</span><span class="m">2</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">nativeList</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="n">MyIntWrapper</span><span class="p">(</span><span class="m">1</span><span class="p">),</span> <span class="n">MyIntWrapper</span><span class="p">(</span><span class="m">2</span><span class="p">))</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">nativeList</span><span class="p">)</span>
     <span class="n">println</span><span class="p">(</span><span class="n">extractedList</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">extractedList</span> <span class="p">==</span> <span class="n">nativeList</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">extractedList</span> <span class="o">==</span> <span class="n">nativeList</span><span class="p">)</span>
 
     <span class="c1">//solution:</span>
-    <span class="k">val</span> <span class="py">anArrayLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">Array</span><span class="p">&lt;</span><span class="n">MyIntWrapper</span><span class="p">&gt;&gt;().</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">anArrayLens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">Array</span><span class="o">&lt;</span><span class="n">MyIntWrapper</span><span class="o">&gt;&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">anArrayLens</span><span class="p">(</span><span class="n">req</span><span class="p">).</span><span class="n">contentEquals</span><span class="p">(</span><span class="n">arrayOf</span><span class="p">(</span><span class="n">MyIntWrapper</span><span class="p">(</span><span class="m">1</span><span class="p">),</span> <span class="n">MyIntWrapper</span><span class="p">(</span><span class="m">2</span><span class="p">))))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">anArrayLens</span><span class="p">(</span><span class="n">req</span><span class="p">).</span><span class="na">contentEquals</span><span class="p">(</span><span class="n">arrayOf</span><span class="p">(</span><span class="n">MyIntWrapper</span><span class="p">(</span><span class="m">1</span><span class="p">),</span> <span class="n">MyIntWrapper</span><span class="p">(</span><span class="m">2</span><span class="p">))))</span>
 
 <span class="c1">// produces:</span>
 <span class="c1">//    [MyIntWrapper(value=1), MyIntWrapper(value=2)]</span>

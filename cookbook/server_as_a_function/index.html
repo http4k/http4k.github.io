@@ -910,13 +910,13 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.query(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="na">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="p">}</span>

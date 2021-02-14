@@ -927,8 +927,8 @@
 </div>
 
 <p><a href="https://http4k.org">http4k</a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://http4k.org">http4k</a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
-<div class="codehilite"><pre><span></span><code> <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">body</span><span class="p">)</span> <span class="p">}</span>
- <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code> <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">body</span><span class="p">)</span> <span class="p">}</span>
+ <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
 
 <p><a href="https://http4k.org">http4k</a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
@@ -1148,19 +1148,19 @@ plugging together of services without HTTP container being required.</li>
 <span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// we can bind HttpHandlers (which are just functions from  Request -&gt; Response) to paths/methods to create a Route,</span>
     <span class="c1">// then combine many Routes together to make another HttpHandler</span>
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;pong!&quot;</span><span class="p">)</span> <span class="p">},</span>
-        <span class="s">&quot;/greet/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
-            <span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">?</span> <span class="p">=</span> <span class="n">req</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
-            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello ${name ?: &quot;</span><span class="n">anon</span><span class="p">!</span><span class="s">&quot;}&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;pong!&quot;</span><span class="p">)</span> <span class="p">},</span>
+        <span class="s">&quot;/greet/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+            <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String?</span> <span class="o">=</span> <span class="n">req</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">${</span><span class="n">name</span> <span class="o">?:</span> <span class="s">&quot;</span><span class="n">anon</span><span class="o">!</span><span class="s">&quot;</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">)</span>
 
     <span class="c1">// call the handler in-memory without spinning up a server</span>
-    <span class="k">val</span> <span class="py">inMemoryResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/greet/Bob&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">inMemoryResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/greet/Bob&quot;</span><span class="p">))</span>
     <span class="n">println</span><span class="p">(</span><span class="n">inMemoryResponse</span><span class="p">)</span>
 
 <span class="c1">// Produces:</span>
@@ -1170,29 +1170,29 @@ plugging together of services without HTTP container being required.</li>
 <span class="c1">//    hello Bob</span>
 
     <span class="c1">// this is a Filter - it performs pre/post processing on a request or response</span>
-    <span class="k">val</span> <span class="py">timingFilter</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span>
-        <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span>
+    <span class="kd">val</span> <span class="nv">timingFilter</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span>
+        <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">-&gt;</span>
         <span class="p">{</span>
-            <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
-            <span class="k">val</span> <span class="py">start</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span>
-            <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-            <span class="k">val</span> <span class="py">latency</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span> <span class="p">-</span> <span class="n">start</span>
-            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Request to ${request.uri} took ${latency}ms&quot;</span><span class="p">)</span>
+            <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+            <span class="kd">val</span> <span class="nv">start</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="kd">val</span> <span class="nv">latency</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Request to </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">uri</span><span class="si">}</span><span class="s"> took </span><span class="si">${</span><span class="n">latency</span><span class="si">}</span><span class="s">ms&quot;</span><span class="p">)</span>
             <span class="n">response</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
     <span class="c1">// we can &quot;stack&quot; filters to create reusable units, and then apply them to an HttpHandler</span>
-    <span class="k">val</span> <span class="py">compositeFilter</span> <span class="p">=</span> <span class="n">CachingFilters</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">NoCache</span><span class="p">().</span><span class="n">then</span><span class="p">(</span><span class="n">timingFilter</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">filteredApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">compositeFilter</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">compositeFilter</span> <span class="o">=</span> <span class="n">CachingFilters</span><span class="p">.</span><span class="na">Response</span><span class="p">.</span><span class="na">NoCache</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">timingFilter</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">filteredApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">compositeFilter</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
     <span class="c1">// only 1 LOC to mount an app and start it in a container</span>
-    <span class="n">filteredApp</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">filteredApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
     <span class="c1">// HTTP clients are also HttpHandlers!</span>
-    <span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">networkResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000/greet/Bob&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">networkResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000/greet/Bob&quot;</span><span class="p">))</span>
     <span class="n">println</span><span class="p">(</span><span class="n">networkResponse</span><span class="p">)</span>
 
 <span class="c1">// Produces:</span>

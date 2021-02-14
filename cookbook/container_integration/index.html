@@ -915,19 +915,19 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.query(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="k">val</span> <span class="py">jettyServer</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">jettyServer</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
 
-    <span class="n">jettyServer</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">jettyServer</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
                     

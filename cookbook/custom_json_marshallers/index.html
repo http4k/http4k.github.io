@@ -921,30 +921,30 @@
 <span class="k">import</span> <span class="nn">org.http4k.format.text</span>
 <span class="k">import</span> <span class="nn">org.http4k.format.withStandardMappings</span>
 
-<span class="k">object</span> <span class="nc">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span><span class="n">KotlinModule</span><span class="p">()</span>
-    <span class="p">.</span><span class="n">asConfigurable</span><span class="p">()</span>
-    <span class="p">.</span><span class="n">withStandardMappings</span><span class="p">()</span>
+<span class="kd">object</span> <span class="nc">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span><span class="n">KotlinModule</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">asConfigurable</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span>
     <span class="c1">// declare custom mapping for our own types - this one represents our type as a simple String</span>
-    <span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="o">::</span><span class="n">PublicType</span><span class="p">,</span> <span class="n">PublicType</span><span class="o">::</span><span class="n">value</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">text</span><span class="p">(</span><span class="o">::</span><span class="n">PublicType</span><span class="p">,</span> <span class="n">PublicType</span><span class="o">::</span><span class="n">value</span><span class="p">)</span>
     <span class="c1">// ... and this one shows a masked value and cannot be deserialised (as the mapping is only one way)</span>
-    <span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="n">SecretType</span><span class="o">::</span><span class="n">toString</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">done</span><span class="p">()</span>
-    <span class="p">.</span><span class="n">deactivateDefaultTyping</span><span class="p">()</span>
-    <span class="p">.</span><span class="n">configure</span><span class="p">(</span><span class="n">DeserializationFeature</span><span class="p">.</span><span class="n">FAIL_ON_UNKNOWN_PROPERTIES</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">text</span><span class="p">(</span><span class="n">SecretType</span><span class="o">::</span><span class="n">toString</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">done</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">deactivateDefaultTyping</span><span class="p">()</span>
+    <span class="p">.</span><span class="na">configure</span><span class="p">(</span><span class="n">DeserializationFeature</span><span class="p">.</span><span class="na">FAIL_ON_UNKNOWN_PROPERTIES</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">PublicType</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">SecretType</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">toString</span><span class="p">():</span> <span class="n">String</span> <span class="p">{</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">PublicType</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">SecretType</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">toString</span><span class="p">():</span> <span class="kt">String</span> <span class="p">{</span>
         <span class="k">return</span> <span class="s">&quot;****&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">MyType</span><span class="p">(</span><span class="k">val</span> <span class="py">public</span><span class="p">:</span> <span class="n">PublicType</span><span class="p">,</span> <span class="k">val</span> <span class="py">hidden</span><span class="p">:</span> <span class="n">SecretType</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">MyType</span><span class="p">(</span><span class="kd">val</span> <span class="nv">public</span><span class="p">:</span> <span class="n">PublicType</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">hidden</span><span class="p">:</span> <span class="n">SecretType</span><span class="p">)</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">println</span><span class="p">(</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">Body</span><span class="p">.</span><span class="n">auto</span><span class="p">&lt;</span><span class="n">MyType</span><span class="p">&gt;().</span><span class="n">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">MyType</span><span class="p">(</span><span class="n">PublicType</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">),</span> <span class="n">SecretType</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">)))</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">MyType</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">MyType</span><span class="p">(</span><span class="n">PublicType</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">),</span> <span class="n">SecretType</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">)))</span>
     <span class="p">)</span>
 
     <span class="cm">/** Prints:</span>

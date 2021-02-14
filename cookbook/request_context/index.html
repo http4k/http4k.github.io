@@ -923,32 +923,32 @@ the shared bag of state for each request, and to remove the state after the requ
 <span class="k">import</span> <span class="nn">org.http4k.core.then</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">data</span> <span class="k">class</span> <span class="nc">SharedState</span><span class="p">(</span><span class="k">val</span> <span class="py">message</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">data</span> <span class="kd">class</span> <span class="nc">SharedState</span><span class="p">(</span><span class="kd">val</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
 
-    <span class="k">fun</span> <span class="nf">AddState</span><span class="p">(</span><span class="n">contexts</span><span class="p">:</span> <span class="n">RequestContexts</span><span class="p">)</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="p">-&gt;</span>
+    <span class="kd">fun</span> <span class="nf">AddState</span><span class="p">(</span><span class="n">contexts</span><span class="p">:</span> <span class="n">RequestContexts</span><span class="p">)</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
         <span class="p">{</span>
-            <span class="n">contexts</span><span class="p">[</span><span class="n">it</span><span class="p">][</span><span class="s">&quot;myKey&quot;</span><span class="p">]</span> <span class="p">=</span> <span class="n">SharedState</span><span class="p">(</span><span class="s">&quot;hello there&quot;</span><span class="p">)</span>
-            <span class="n">next</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+            <span class="n">contexts</span><span class="o">[</span><span class="nb">it</span><span class="o">][</span><span class="s">&quot;myKey&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">SharedState</span><span class="p">(</span><span class="s">&quot;hello there&quot;</span><span class="p">)</span>
+            <span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="k">fun</span> <span class="nf">PrintState</span><span class="p">(</span><span class="n">contexts</span><span class="p">:</span> <span class="n">RequestContexts</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
-        <span class="k">val</span> <span class="py">message</span><span class="p">:</span> <span class="n">SharedState</span><span class="p">?</span> <span class="p">=</span> <span class="n">contexts</span><span class="p">[</span><span class="n">request</span><span class="p">][</span><span class="s">&quot;myKey&quot;</span><span class="p">]</span>
+    <span class="kd">fun</span> <span class="nf">PrintState</span><span class="p">(</span><span class="n">contexts</span><span class="p">:</span> <span class="n">RequestContexts</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span> <span class="o">-&gt;</span>
+        <span class="kd">val</span> <span class="nv">message</span><span class="p">:</span> <span class="n">SharedState? </span><span class="o">=</span> <span class="n">contexts</span><span class="o">[</span><span class="n">request</span><span class="o">][</span><span class="s">&quot;myKey&quot;</span><span class="o">]</span>
         <span class="n">println</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
         <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="c1">// this is the shared RequestContexts object - it holds the bag of state for each request and</span>
     <span class="c1">// tidies up afterwards</span>
-    <span class="k">val</span> <span class="py">contexts</span> <span class="p">=</span> <span class="n">RequestContexts</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">contexts</span> <span class="o">=</span> <span class="n">RequestContexts</span><span class="p">()</span>
 
     <span class="c1">// The first Filter is required to initialise the bag of state.</span>
     <span class="c1">// The second Filter modifies the bag</span>
     <span class="c1">// The handler just prints out the state</span>
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">InitialiseRequestContext</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">AddState</span><span class="p">(</span><span class="n">contexts</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">PrintState</span><span class="p">(</span><span class="n">contexts</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">InitialiseRequestContext</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AddState</span><span class="p">(</span><span class="n">contexts</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">PrintState</span><span class="p">(</span><span class="n">contexts</span><span class="p">))</span>
 
     <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/hello&quot;</span><span class="p">))</span>
 <span class="p">}</span>
@@ -971,18 +971,18 @@ the shared bag of state for each request, and to remove the state after the requ
 <span class="k">import</span> <span class="nn">org.http4k.lens.RequestContextLens</span>
 
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">data</span> <span class="k">class</span> <span class="nc">SharedState</span><span class="p">(</span><span class="k">val</span> <span class="py">message</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">data</span> <span class="kd">class</span> <span class="nc">SharedState</span><span class="p">(</span><span class="kd">val</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
 
 
-    <span class="k">fun</span> <span class="nf">AddState</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="n">RequestContextLens</span><span class="p">&lt;</span><span class="n">SharedState</span><span class="p">&gt;)</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="p">-&gt;</span>
+    <span class="kd">fun</span> <span class="nf">AddState</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="n">RequestContextLens</span><span class="o">&lt;</span><span class="n">SharedState</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
         <span class="p">{</span>
             <span class="c1">// &quot;modify&quot; the request like any other Lens</span>
-            <span class="n">next</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">key</span> <span class="n">of</span> <span class="n">SharedState</span><span class="p">(</span><span class="s">&quot;hello there&quot;</span><span class="p">)))</span>
+            <span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="n">key</span> <span class="n">of</span> <span class="n">SharedState</span><span class="p">(</span><span class="s">&quot;hello there&quot;</span><span class="p">)))</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="k">fun</span> <span class="nf">PrintState</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="n">RequestContextLens</span><span class="p">&lt;</span><span class="n">SharedState</span><span class="p">&gt;):</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span> <span class="p">-&gt;</span>
+    <span class="kd">fun</span> <span class="nf">PrintState</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="n">RequestContextLens</span><span class="o">&lt;</span><span class="n">SharedState</span><span class="o">&gt;</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span> <span class="o">-&gt;</span>
         <span class="c1">// we can just extract the Lens state from the request like any other standard Lens</span>
         <span class="n">println</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
         <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
@@ -990,19 +990,19 @@ the shared bag of state for each request, and to remove the state after the requ
 
     <span class="c1">// this is the shared RequestContexts object - it holds the bag of state for each request and</span>
     <span class="c1">// tidies up afterwards.</span>
-    <span class="k">val</span> <span class="py">contexts</span> <span class="p">=</span> <span class="n">RequestContexts</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">contexts</span> <span class="o">=</span> <span class="n">RequestContexts</span><span class="p">()</span>
 
     <span class="c1">// this Lens is the key we use to set and get the type-safe state. By using this, we gain</span>
     <span class="c1">// typesafety and the guarantee that there will be no clash of keys.</span>
     <span class="c1">// RequestContextKeys can be required, optional, or defaulted, as per the standard Lens mechanism.</span>
-    <span class="k">val</span> <span class="py">key</span> <span class="p">=</span> <span class="n">RequestContextKey</span><span class="p">.</span><span class="n">required</span><span class="p">&lt;</span><span class="n">SharedState</span><span class="p">&gt;(</span><span class="n">contexts</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">key</span> <span class="o">=</span> <span class="n">RequestContextKey</span><span class="p">.</span><span class="na">required</span><span class="o">&lt;</span><span class="n">SharedState</span><span class="o">&gt;</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
 
     <span class="c1">// The first Filter is required to initialise the bag of state.</span>
     <span class="c1">// The second Filter modifies the bag.</span>
     <span class="c1">// The handler just prints out the state.</span>
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">InitialiseRequestContext</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">AddState</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">PrintState</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">InitialiseRequestContext</span><span class="p">(</span><span class="n">contexts</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AddState</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">PrintState</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
     <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/hello&quot;</span><span class="p">))</span>
 <span class="p">}</span>

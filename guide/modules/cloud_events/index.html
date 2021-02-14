@@ -935,49 +935,49 @@
 <span class="k">import</span> <span class="nn">java.time.OffsetDateTime</span>
 <span class="k">import</span> <span class="nn">java.util.UUID</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Events formats must be registered into a singleton provided by the CloudEvents SDK.</span>
     <span class="c1">// Here we are using the JSON format.</span>
-    <span class="n">EventFormatProvider</span><span class="p">.</span><span class="n">getInstance</span><span class="p">().</span><span class="n">registerFormat</span><span class="p">(</span><span class="n">JsonFormat</span><span class="p">())</span>
+    <span class="n">EventFormatProvider</span><span class="p">.</span><span class="na">getInstance</span><span class="p">().</span><span class="na">registerFormat</span><span class="p">(</span><span class="n">JsonFormat</span><span class="p">())</span>
 
     <span class="c1">// We use one lens to get the event envelope and another to get the typed data from the Event</span>
-    <span class="k">val</span> <span class="py">eventLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">cloudEvent</span><span class="p">().</span><span class="n">toLens</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">dataLens</span> <span class="p">=</span> <span class="n">Jackson</span><span class="p">.</span><span class="n">cloudEventDataLens</span><span class="p">&lt;</span><span class="n">MyCloudEventData</span><span class="p">&gt;()</span>
+    <span class="kd">val</span> <span class="nv">eventLens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">cloudEvent</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">dataLens</span> <span class="o">=</span> <span class="n">Jackson</span><span class="p">.</span><span class="na">cloudEventDataLens</span><span class="o">&lt;</span><span class="n">MyCloudEventData</span><span class="o">&gt;</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">CatchLensFailure</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">CatchLensFailure</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span>
             <span class="s">&quot;/foo/bar&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span>
                 <span class="c1">// Our app uses lenses in the normal way to extract the event from the request..</span>
-                <span class="k">val</span> <span class="py">cloudEvent</span> <span class="p">=</span> <span class="n">eventLens</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+                <span class="kd">val</span> <span class="nv">cloudEvent</span> <span class="o">=</span> <span class="n">eventLens</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
 
                 <span class="c1">// ... and then the typed event data from the event envelope</span>
-                <span class="k">val</span> <span class="py">eventData</span> <span class="p">=</span> <span class="n">dataLens</span><span class="p">(</span><span class="n">cloudEvent</span><span class="p">)</span>
+                <span class="kd">val</span> <span class="nv">eventData</span> <span class="o">=</span> <span class="n">dataLens</span><span class="p">(</span><span class="n">cloudEvent</span><span class="p">)</span>
 
-                <span class="n">println</span><span class="p">(</span><span class="s">&quot;Event: $cloudEvent&quot;</span><span class="p">)</span>
-                <span class="n">println</span><span class="p">(</span><span class="s">&quot;Event Data: $eventData&quot;</span><span class="p">)</span>
+                <span class="n">println</span><span class="p">(</span><span class="s">&quot;Event: </span><span class="si">$</span><span class="n">cloudEvent</span><span class="s">&quot;</span><span class="p">)</span>
+                <span class="n">println</span><span class="p">(</span><span class="s">&quot;Event Data: </span><span class="si">$</span><span class="n">eventData</span><span class="s">&quot;</span><span class="p">)</span>
 
                 <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
             <span class="p">}</span>
-        <span class="p">)).</span><span class="n">debug</span><span class="p">()</span>
+        <span class="p">)).</span><span class="na">debug</span><span class="p">()</span>
 
     <span class="c1">// Create the base CloudEvent without the data...</span>
-    <span class="k">val</span> <span class="py">cloudEvent</span> <span class="p">=</span> <span class="n">CloudEventBuilder</span><span class="p">.</span><span class="n">v1</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">withId</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="n">randomUUID</span><span class="p">().</span><span class="n">toString</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">withSource</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">withTime</span><span class="p">(</span><span class="n">OffsetDateTime</span><span class="p">.</span><span class="n">now</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">withType</span><span class="p">(</span><span class="s">&quot;myEventType&quot;</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">build</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">cloudEvent</span> <span class="o">=</span> <span class="n">CloudEventBuilder</span><span class="p">.</span><span class="na">v1</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">withId</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">withSource</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">withTime</span><span class="p">(</span><span class="n">OffsetDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">withType</span><span class="p">(</span><span class="s">&quot;myEventType&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">build</span><span class="p">()</span>
 
     <span class="c1">// ...then inject the data into the Event... this sets the content type of the event</span>
-    <span class="k">val</span> <span class="py">with</span> <span class="p">=</span> <span class="n">cloudEvent</span><span class="p">.</span><span class="n">with</span><span class="p">(</span><span class="n">dataLens</span> <span class="n">of</span> <span class="n">MyCloudEventData</span><span class="p">(</span><span class="m">10</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">with</span> <span class="o">=</span> <span class="n">cloudEvent</span><span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="n">dataLens</span> <span class="n">of</span> <span class="n">MyCloudEventData</span><span class="p">(</span><span class="m">10</span><span class="p">))</span>
 
     <span class="c1">// ...lastly inject the event into the request and send it to the server</span>
-    <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/foo/bar&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">eventLens</span> <span class="n">of</span> <span class="n">with</span><span class="p">))</span>
+    <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/foo/bar&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">eventLens</span> <span class="n">of</span> <span class="n">with</span><span class="p">))</span>
 <span class="p">}</span>
 
 <span class="c1">// define a custom event which will be sent/received in the &quot;data&quot; field of the CloudEvent</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">MyCloudEventData</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">CloudEventData</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">toBytes</span><span class="p">()</span> <span class="p">=</span> <span class="n">value</span><span class="p">.</span><span class="n">toString</span><span class="p">().</span><span class="n">toByteArray</span><span class="p">()</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">MyCloudEventData</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">CloudEventData</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">toBytes</span><span class="p">()</span> <span class="o">=</span> <span class="n">value</span><span class="p">.</span><span class="na">toString</span><span class="p">().</span><span class="na">toByteArray</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
                     

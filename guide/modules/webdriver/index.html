@@ -977,21 +977,21 @@ when used).</p>
 <span class="k">import</span> <span class="nn">org.http4k.webdriver.By</span>
 <span class="k">import</span> <span class="nn">org.http4k.webdriver.Http4kWebDriver</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
         <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span>
-            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;&lt;html&gt;&lt;title&gt;hello&lt;/title&gt;&lt;/html&gt;&quot;</span><span class="p">)</span>
+            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&lt;html&gt;&lt;title&gt;hello&lt;/title&gt;&lt;/html&gt;&quot;</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">driver</span> <span class="p">=</span> <span class="n">Http4kWebDriver</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">driver</span> <span class="o">=</span> <span class="n">Http4kWebDriver</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
-    <span class="n">driver</span><span class="p">.</span><span class="n">navigate</span><span class="p">().</span><span class="n">to</span><span class="p">(</span><span class="s">&quot;http://localhost:10000/hello&quot;</span><span class="p">)</span>
+    <span class="n">driver</span><span class="p">.</span><span class="na">navigate</span><span class="p">().</span><span class="na">to</span><span class="p">(</span><span class="s">&quot;http://localhost:10000/hello&quot;</span><span class="p">)</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="na">title</span><span class="p">)</span>
 
     <span class="c1">// Note that we are using `org.http4k.webdriver.By`, as opposed to the ones from `org.openqa.selenium.By`</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">findElement</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="n">tagName</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="na">findElement</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="na">tagName</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)))</span>
 
 <span class="c1">// prints:</span>
 <span class="c1">//</span>

@@ -940,33 +940,33 @@
 <span class="k">import</span> <span class="nn">org.http4k.template.viewModel</span>
 <span class="k">import</span> <span class="nn">java.io.File</span>
 
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Person</span><span class="p">(</span><span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
     <span class="c1">// first, create a Renderer - this can be a Caching instance or a HotReload for development</span>
-    <span class="k">val</span> <span class="py">renderer</span> <span class="p">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="n">HotReload</span><span class="p">(</span><span class="s">&quot;src/test/resources&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">renderer</span> <span class="o">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="na">HotReload</span><span class="p">(</span><span class="s">&quot;src/test/resources&quot;</span><span class="p">)</span>
 
     <span class="c1">// first example uses a renderer to create a string</span>
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">viewModel</span> <span class="p">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">)</span>
-        <span class="k">val</span> <span class="py">renderedView</span> <span class="p">=</span> <span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">)</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">renderedView</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">viewModel</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">renderedView</span> <span class="o">=</span> <span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">)</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">renderedView</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
 
     <span class="c1">// the lens example uses the Body.viewModel to also set the content type, and avoid using Strings</span>
-    <span class="k">val</span> <span class="py">viewLens</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">TEXT_HTML</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">viewLens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">TEXT_HTML</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">appUsingLens</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">viewLens</span> <span class="n">of</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">appUsingLens</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">viewLens</span> <span class="n">of</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">))</span>
     <span class="p">}</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">appUsingLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
 
     <span class="c1">// overwrite the content - this will prove the hot reload works!</span>
-    <span class="n">File</span><span class="p">(</span><span class="s">&quot;src/test/resources/guide/modules/templating/Person.hbs&quot;</span><span class="p">).</span><span class="n">writer</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">use</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;{{name}} is not {{age}} years old&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">File</span><span class="p">(</span><span class="s">&quot;src/test/resources/guide/modules/templating/Person.hbs&quot;</span><span class="p">).</span><span class="na">writer</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">use</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="s">&quot;{{name}} is not {{age}} years old&quot;</span><span class="p">)</span> <span class="p">}</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">appUsingLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
 <span class="p">}</span>

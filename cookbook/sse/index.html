@@ -909,7 +909,7 @@
 </ol>
 <h3 id="sse_as_a_function">SSE as a Function<a class="headerlink" href="#sse_as_a_function" title="Permanent link">&para;</a></h3>
 <p>The simplest possible SSE handler can be mounted as a <code>SseConsumer</code> function onto a server with:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span> <span class="n">sse</span><span class="p">:</span> <span class="n">Sse</span> <span class="p">-&gt;</span> <span class="n">sse</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="n">Data</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span> <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span> <span class="n">sse</span><span class="p">:</span> <span class="n">Sse</span> <span class="o">-&gt;</span> <span class="n">sse</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="na">Data</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span> <span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
 
 <h3 id="mixing_http_and_sse_services">Mixing HTTP and SSE services <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/sse/example_polyhandler.kt"><img class="octocat"/></a><a class="headerlink" href="#mixing_http_and_sse_services" title="Permanent link">&para;</a></h3>
@@ -932,19 +932,19 @@
 <span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">namePath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">namePath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">sse</span> <span class="p">=</span> <span class="n">sse</span><span class="p">(</span>
-        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">sse</span><span class="p">:</span> <span class="n">Sse</span> <span class="p">-&gt;</span>
-            <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">sse</span><span class="p">.</span><span class="n">connectRequest</span><span class="p">)</span>
-            <span class="n">sse</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="n">Data</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span>
-            <span class="n">sse</span><span class="p">.</span><span class="n">onClose</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;$name is closing&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">sse</span> <span class="o">=</span> <span class="n">sse</span><span class="p">(</span>
+        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">sse</span><span class="p">:</span> <span class="n">Sse</span> <span class="o">-&gt;</span>
+            <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">sse</span><span class="p">.</span><span class="na">connectRequest</span><span class="p">)</span>
+            <span class="n">sse</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="na">Data</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span>
+            <span class="n">sse</span><span class="p">.</span><span class="na">onClose</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span> <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">)</span>
-    <span class="k">val</span> <span class="py">http</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hiya world&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hiya world&quot;</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="n">PolyHandler</span><span class="p">(</span><span class="n">http</span><span class="p">,</span> <span class="n">sse</span> <span class="p">=</span> <span class="n">sse</span><span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">PolyHandler</span><span class="p">(</span><span class="n">http</span><span class="p">,</span> <span class="n">sse</span> <span class="o">=</span> <span class="n">sse</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
                     

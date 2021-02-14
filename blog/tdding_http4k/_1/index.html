@@ -919,23 +919,23 @@ documentation, and checking in a high-level way that the business endpoints are 
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
 
-<span class="k">class</span> <span class="nc">EndToEndTest</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">server</span> <span class="p">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">EndToEndTest</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
 
-    <span class="n">@BeforeEach</span>
-    <span class="k">fun</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="nd">@BeforeEach</span>
+    <span class="kd">fun</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="n">@AfterEach</span>
-    <span class="k">fun</span> <span class="nf">teardown</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="nd">@AfterEach</span>
+    <span class="kd">fun</span> <span class="nf">teardown</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="n">@Test</span>
-    <span class="k">fun</span> <span class="nf">`responds to ping`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:${server.port()}/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`responds to ping`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -950,7 +950,7 @@ documentation, and checking in a high-level way that the business endpoints are 
 <span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="k">fun</span> <span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+<span class="kd">fun</span> <span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="kt">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
 </code></pre></div>
                     
                 </div>

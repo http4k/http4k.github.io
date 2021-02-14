@@ -941,23 +941,23 @@ implementations of the provider to be used across environments.</li>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
     <span class="c1">// set these before running this example</span>
-    <span class="k">val</span> <span class="py">googleClientId</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_ID&quot;</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">googleClientSecret</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_SECRET&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">googleClientId</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_ID&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">googleClientSecret</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_SECRET&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">port</span> <span class="p">=</span> <span class="m">9000</span>
+    <span class="kd">val</span> <span class="nv">port</span> <span class="o">=</span> <span class="m">9000</span>
 
     <span class="c1">// the callback uri which is configured in our OAuth provider</span>
-    <span class="k">val</span> <span class="py">callbackUri</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:$port/callback&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">callbackUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">port</span><span class="s">/callback&quot;</span><span class="p">)</span>
 
     <span class="c1">// this is a test implementation of the OAuthPersistence interface, which should be</span>
     <span class="c1">// implemented by application developers</span>
-    <span class="k">val</span> <span class="py">oAuthPersistence</span> <span class="p">=</span> <span class="n">InsecureCookieBasedOAuthPersistence</span><span class="p">(</span><span class="s">&quot;Google&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">oAuthPersistence</span> <span class="o">=</span> <span class="n">InsecureCookieBasedOAuthPersistence</span><span class="p">(</span><span class="s">&quot;Google&quot;</span><span class="p">)</span>
 
     <span class="c1">// pre-defined configuration exist for common OAuth providers</span>
-    <span class="k">val</span> <span class="py">oauthProvider</span> <span class="p">=</span> <span class="n">OAuthProvider</span><span class="p">.</span><span class="n">google</span><span class="p">(</span>
+    <span class="kd">val</span> <span class="nv">oauthProvider</span> <span class="o">=</span> <span class="n">OAuthProvider</span><span class="p">.</span><span class="na">google</span><span class="p">(</span>
         <span class="n">ApacheClient</span><span class="p">(),</span>
         <span class="n">Credentials</span><span class="p">(</span><span class="n">googleClientId</span><span class="p">,</span> <span class="n">googleClientSecret</span><span class="p">),</span>
         <span class="n">callbackUri</span><span class="p">,</span>
@@ -965,15 +965,15 @@ implementations of the provider to be used across environments.</li>
     <span class="p">)</span>
 
     <span class="c1">// the 2 main points here are the callback handler and the authFilter, which protects the root resource</span>
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span>
+    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span>
         <span class="n">routes</span><span class="p">(</span>
-            <span class="n">callbackUri</span><span class="p">.</span><span class="n">path</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="n">callback</span><span class="p">,</span>
-            <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="n">authFilter</span><span class="p">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}</span>
+            <span class="n">callbackUri</span><span class="p">.</span><span class="na">path</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="na">callback</span><span class="p">,</span>
+            <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="na">authFilter</span><span class="p">.</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}</span>
         <span class="p">)</span>
 
-    <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchAll</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">)).</span><span class="n">start</span><span class="p">().</span><span class="n">block</span><span class="p">()</span>
+    <span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchAll</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">block</span><span class="p">()</span>
 <span class="p">}</span>
 
 <span class="c1">// browse to: http://localhost:9000 - you&#39;ll be redirected to google for authentication</span>

@@ -919,19 +919,19 @@
 
 <span class="c1">// this view has the default template path of: cookbook/using_templates/Person.hbs, although that is overridable by</span>
 <span class="c1">// setting the template property from ViewModel</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span> <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Person</span><span class="p">(</span><span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">renderer</span> <span class="p">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="n">HotReload</span><span class="p">(</span><span class="s">&quot;src/docs&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">renderer</span> <span class="o">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="na">HotReload</span><span class="p">(</span><span class="s">&quot;src/docs&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">view</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">TEXT_HTML</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">view</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">TEXT_HTML</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">viewModel</span> <span class="p">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">)</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">viewModel</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">)</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">))</span>
         <span class="c1">// OR:</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">with</span><span class="p">(</span><span class="n">view</span> <span class="n">of</span> <span class="n">viewModel</span><span class="p">)</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">view</span> <span class="n">of</span> <span class="n">viewModel</span><span class="p">)</span>
     <span class="p">}</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>

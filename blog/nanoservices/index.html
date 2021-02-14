@@ -914,17 +914,17 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
 
-<span class="k">fun</span> <span class="nf">`simple proxy`</span><span class="p">()</span> <span class="p">=</span>
+<span class="kd">fun</span> <span class="nf">`simple proxy`</span><span class="p">()</span> <span class="o">=</span>
     <span class="n">JavaHttpClient</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
 
-    <span class="n">`simple proxy`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+    <span class="n">`simple proxy`</span><span class="p">().</span><span class="na">use</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">)))</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -948,19 +948,19 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
 
-<span class="k">fun</span> <span class="nf">`latency reporting proxy`</span><span class="p">()</span> <span class="p">=</span>
+<span class="kd">fun</span> <span class="nf">`latency reporting proxy`</span><span class="p">()</span> <span class="o">=</span>
     <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ReportRouteLatency</span> <span class="p">{</span> <span class="n">req</span><span class="p">,</span> <span class="n">ms</span> <span class="p">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;$req took $ms&quot;</span><span class="p">)</span> <span class="p">})</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ReportRouteLatency</span> <span class="p">{</span> <span class="n">req</span><span class="p">,</span> <span class="n">ms</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">req</span><span class="s"> took </span><span class="si">$</span><span class="n">ms</span><span class="s">&quot;</span><span class="p">)</span> <span class="p">})</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
 
-    <span class="n">`latency reporting proxy`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+    <span class="n">`latency reporting proxy`</span><span class="p">().</span><span class="na">use</span> <span class="p">{</span>
         <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -984,19 +984,19 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
 
-<span class="k">fun</span> <span class="nf">`wire sniffing proxy`</span><span class="p">()</span> <span class="p">=</span>
+<span class="kd">fun</span> <span class="nf">`wire sniffing proxy`</span><span class="p">()</span> <span class="o">=</span>
     <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">PrintRequestAndResponse</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">PrintRequestAndResponse</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
 
-    <span class="n">`wire sniffing proxy`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+    <span class="n">`wire sniffing proxy`</span><span class="p">().</span><span class="na">use</span> <span class="p">{</span>
         <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/http4k&quot;</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -1017,17 +1017,17 @@
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
 <span class="k">import</span> <span class="nn">java.time.Instant</span>
 
-<span class="k">fun</span> <span class="nf">`ticking websocket clock`</span><span class="p">()</span> <span class="p">=</span>
-    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-        <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">Instant</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">toString</span><span class="p">()))</span>
-            <span class="n">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">`ticking websocket clock`</span><span class="p">()</span> <span class="o">=</span>
+    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">Instant</span><span class="p">.</span><span class="na">now</span><span class="p">().</span><span class="na">toString</span><span class="p">()))</span>
+            <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span>
         <span class="p">}</span>
-    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">`ticking websocket clock`</span><span class="p">()</span>
-    <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">)).</span><span class="n">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">WebsocketClient</span><span class="p">.</span><span class="na">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">)).</span><span class="na">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1053,33 +1053,33 @@
 <span class="k">import</span> <span class="nn">org.http4k.traffic.ReadWriteCache</span>
 <span class="k">import</span> <span class="nn">java.io.File</span>
 
-<span class="k">fun</span> <span class="err">`</span><span class="nf">disk</span> <span class="n">cache</span><span class="p">!</span><span class="err">`</span><span class="p">(</span><span class="n">dir</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">cache</span> <span class="p">=</span> <span class="n">ReadWriteCache</span><span class="p">.</span><span class="n">Disk</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">`disk cache!`</span><span class="p">(</span><span class="n">dir</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">cache</span> <span class="o">=</span> <span class="n">ReadWriteCache</span><span class="p">.</span><span class="na">Disk</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">RecordTo</span><span class="p">(</span><span class="n">cache</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ServeCachedFrom</span><span class="p">(</span><span class="n">cache</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">uri</span><span class="p">)</span> <span class="p">})</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">KtorCIO</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">RecordTo</span><span class="p">(</span><span class="n">cache</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ServeCachedFrom</span><span class="p">(</span><span class="n">cache</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">request</span><span class="p">.</span><span class="na">uri</span><span class="p">)</span> <span class="p">})</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">KtorCIO</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
 <span class="p">}</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">System</span><span class="p">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
-    <span class="n">System</span><span class="p">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
-    <span class="n">System</span><span class="p">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">JavaHttpClient</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">dir</span> <span class="p">=</span> <span class="s">&quot;store&quot;</span>
-    <span class="n">File</span><span class="p">(</span><span class="n">dir</span><span class="p">).</span><span class="n">deleteRecursively</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">JavaHttpClient</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">dir</span> <span class="o">=</span> <span class="s">&quot;store&quot;</span>
+    <span class="n">File</span><span class="p">(</span><span class="n">dir</span><span class="p">).</span><span class="na">deleteRecursively</span><span class="p">()</span>
 
-    <span class="err">`</span><span class="n">disk</span> <span class="n">cache</span><span class="p">!</span><span class="err">`</span><span class="p">(</span><span class="n">dir</span><span class="p">).</span><span class="n">use</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://api.github.com/users/http4k&quot;</span><span class="p">)</span>
+    <span class="n">`disk cache!`</span><span class="p">(</span><span class="n">dir</span><span class="p">).</span><span class="na">use</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://api.github.com/users/http4k&quot;</span><span class="p">)</span>
 
-        <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="n">bodyString</span><span class="p">())</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="na">bodyString</span><span class="p">())</span>
 
         <span class="c1">// this request is served from the cache, so will not generate a call</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="n">bodyString</span><span class="p">())</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="na">bodyString</span><span class="p">())</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1103,28 +1103,28 @@
 <span class="k">import</span> <span class="nn">org.http4k.traffic.ReadWriteStream.Companion.Disk</span>
 <span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
 
-<span class="k">fun</span> <span class="nf">`recording traffic to disk proxy`</span><span class="p">()</span> <span class="p">=</span>
+<span class="kd">fun</span> <span class="nf">`recording traffic to disk proxy`</span><span class="p">()</span> <span class="o">=</span>
     <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">RecordTo</span><span class="p">(</span><span class="n">Disk</span><span class="p">(</span><span class="s">&quot;store&quot;</span><span class="p">)))</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">RecordTo</span><span class="p">(</span><span class="n">Disk</span><span class="p">(</span><span class="s">&quot;store&quot;</span><span class="p">)))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">`replay previously recorded traffic from a disk store`</span><span class="p">()</span> <span class="p">=</span>
-    <span class="n">JavaHttpClient</span><span class="p">().</span><span class="n">let</span> <span class="p">{</span> <span class="n">client</span> <span class="p">-&gt;</span>
-        <span class="n">Disk</span><span class="p">(</span><span class="s">&quot;store&quot;</span><span class="p">).</span><span class="n">requests</span><span class="p">()</span>
-            <span class="p">.</span><span class="n">forEach</span> <span class="p">{</span>
-                <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
-                <span class="n">client</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">`replay previously recorded traffic from a disk store`</span><span class="p">()</span> <span class="o">=</span>
+    <span class="n">JavaHttpClient</span><span class="p">().</span><span class="na">let</span> <span class="p">{</span> <span class="n">client</span> <span class="o">-&gt;</span>
+        <span class="n">Disk</span><span class="p">(</span><span class="s">&quot;store&quot;</span><span class="p">).</span><span class="na">requests</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">forEach</span> <span class="p">{</span>
+                <span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+                <span class="n">client</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
             <span class="p">}</span>
     <span class="p">}</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
 
-    <span class="n">`recording traffic to disk proxy`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+    <span class="n">`recording traffic to disk proxy`</span><span class="p">().</span><span class="na">use</span> <span class="p">{</span>
         <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">))</span>
         <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/http4k&quot;</span><span class="p">))</span>
         <span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/http4k/http4k&quot;</span><span class="p">))</span>
@@ -1151,19 +1151,19 @@
 <span class="k">import</span> <span class="nn">java.nio.file.Paths</span>
 <span class="k">import</span> <span class="nn">java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY</span>
 
-<span class="k">fun</span> <span class="nf">`file watcher`</span><span class="p">()</span> <span class="p">=</span>
-    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-        <span class="k">val</span> <span class="py">w</span> <span class="p">=</span> <span class="n">getDefault</span><span class="p">().</span><span class="n">newWatchService</span><span class="p">()</span>
-        <span class="n">Paths</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">register</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">ENTRY_MODIFY</span><span class="p">)</span>
-        <span class="k">val</span> <span class="py">key</span> <span class="p">=</span> <span class="n">w</span><span class="p">.</span><span class="n">take</span><span class="p">()</span>
-        <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-            <span class="n">key</span><span class="p">.</span><span class="n">pollEvents</span><span class="p">()</span>
-                <span class="p">.</span><span class="n">forEach</span> <span class="p">{</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">context</span><span class="p">().</span><span class="n">toString</span><span class="p">()))</span> <span class="p">}</span>
-    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+<span class="kd">fun</span> <span class="nf">`file watcher`</span><span class="p">()</span> <span class="o">=</span>
+    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+        <span class="kd">val</span> <span class="nv">w</span> <span class="o">=</span> <span class="n">getDefault</span><span class="p">().</span><span class="na">newWatchService</span><span class="p">()</span>
+        <span class="n">Paths</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">).</span><span class="na">register</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">ENTRY_MODIFY</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">key</span> <span class="o">=</span> <span class="n">w</span><span class="p">.</span><span class="na">take</span><span class="p">()</span>
+        <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+            <span class="n">key</span><span class="p">.</span><span class="na">pollEvents</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">forEach</span> <span class="p">{</span> <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">context</span><span class="p">().</span><span class="na">toString</span><span class="p">()))</span> <span class="p">}</span>
+    <span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">()).</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">`file watcher`</span><span class="p">()</span>
-    <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">)).</span><span class="n">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">WebsocketClient</span><span class="p">.</span><span class="na">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">)).</span><span class="na">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1182,13 +1182,13 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.Undertow</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="k">fun</span> <span class="nf">`static file server`</span><span class="p">()</span> <span class="p">=</span>
+<span class="kd">fun</span> <span class="nf">`static file server`</span><span class="p">()</span> <span class="o">=</span>
     <span class="n">static</span><span class="p">(</span><span class="n">Directory</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">`static file server`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">`static file server`</span><span class="p">().</span><span class="na">use</span> <span class="p">{</span>
         <span class="c1">// by default, static servers will only serve known file types, or those registered on construction</span>
         <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/version.json&quot;</span><span class="p">)))</span>
     <span class="p">}</span>
@@ -1216,21 +1216,21 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">java.lang.System.setProperty</span>
 
-<span class="k">fun</span> <span class="err">`</span><span class="nf">latency</span> <span class="n">injection</span> <span class="n">proxy</span> <span class="p">(</span><span class="n">between</span> <span class="m">100</span><span class="n">ms</span><span class="p">-</span><span class="m">500</span><span class="n">ms</span><span class="p">)</span><span class="err">`</span><span class="p">()</span> <span class="p">=</span>
+<span class="kd">fun</span> <span class="nf">`latency injection proxy (between 100ms-500ms)`</span><span class="p">()</span> <span class="o">=</span>
     <span class="n">ProxyHost</span><span class="p">(</span><span class="n">Https</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">withChaosApi</span><span class="p">(</span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">Latency</span><span class="p">()).</span><span class="n">enable</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">withChaosApi</span><span class="p">(</span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">Latency</span><span class="p">()).</span><span class="na">enable</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyHost&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.proxyPort&quot;</span><span class="p">,</span> <span class="s">&quot;8000&quot;</span><span class="p">)</span>
     <span class="n">setProperty</span><span class="p">(</span><span class="s">&quot;http.nonProxyHosts&quot;</span><span class="p">,</span> <span class="s">&quot;localhost&quot;</span><span class="p">)</span>
 
-    <span class="err">`</span><span class="n">latency</span> <span class="n">injection</span> <span class="n">proxy</span> <span class="p">(</span><span class="n">between</span> <span class="m">100</span><span class="n">ms</span><span class="p">-</span><span class="m">500</span><span class="n">ms</span><span class="p">)</span><span class="err">`</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+    <span class="n">`latency injection proxy (between 100ms-500ms)`</span><span class="p">().</span><span class="na">use</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/chaos/activate&quot;</span><span class="p">)))</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">)).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;X-http4k-chaos&quot;</span><span class="p">))</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://github.com/&quot;</span><span class="p">)).</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;X-http4k-chaos&quot;</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1252,26 +1252,26 @@
 <span class="k">import</span> <span class="nn">java.lang.Runtime.getRuntime</span>
 <span class="k">import</span> <span class="nn">java.util.*</span>
 
-<span class="k">fun</span> <span class="nf">`websocket terminal`</span><span class="p">()</span> <span class="p">=</span>
-    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="p">-&gt;</span>
-        <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span>
+<span class="kd">fun</span> <span class="nf">`websocket terminal`</span><span class="p">()</span> <span class="o">=</span>
+    <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+        <span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span> <span class="p">{</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span>
                 <span class="n">getRuntime</span><span class="p">()</span>
-                    <span class="p">.</span><span class="n">exec</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span>
-                    <span class="p">.</span><span class="n">inputStream</span><span class="p">.</span><span class="n">reader</span><span class="p">().</span><span class="n">readText</span><span class="p">()</span>
+                    <span class="p">.</span><span class="na">exec</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span>
+                    <span class="p">.</span><span class="na">inputStream</span><span class="p">.</span><span class="na">reader</span><span class="p">().</span><span class="na">readText</span><span class="p">()</span>
             <span class="p">))</span>
         <span class="p">}</span>
-    <span class="p">}.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="n">start</span><span class="p">()</span>
+    <span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="na">start</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">`websocket terminal`</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">ws</span> <span class="p">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="n">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">))</span>
-    <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">ws</span> <span class="o">=</span> <span class="n">WebsocketClient</span><span class="p">.</span><span class="na">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">))</span>
+    <span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span> <span class="p">}</span>
 
-    <span class="k">val</span> <span class="py">scan</span> <span class="p">=</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">`in`</span><span class="p">)</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="n">nextLine</span><span class="p">()))</span>
+    <span class="kd">val</span> <span class="nv">scan</span> <span class="o">=</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">`in`</span><span class="p">)</span>
+    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">scan</span><span class="p">.</span><span class="na">nextLine</span><span class="p">()))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>

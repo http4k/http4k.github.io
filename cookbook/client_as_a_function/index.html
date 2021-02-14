@@ -909,11 +909,11 @@
 <span class="k">import</span> <span class="nn">org.http4k.core.Method</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://xkcd.com/info.0.json&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;https://xkcd.com/info.0.json&quot;</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">JavaHttpClient</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">JavaHttpClient</span><span class="p">()</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
 <span class="p">}</span>

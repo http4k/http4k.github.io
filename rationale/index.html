@@ -924,32 +924,32 @@ server and client sides (eg. logging/metrics/caching...) since they can be compo
 <ul>
 <li>All incoming and outgoing HTTP services are modelled as <code>HttpHandler</code>, which is modelled as <code>(Request) -&gt; Response</code>:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 </code></pre></div>
 
 <ul>
 <li>Pre/post processing is done using a <code>Filter</code>, which is modelled as <code>(HttpHandler) -&gt; HttpHandler</code>. Filters can therefore be composed together to make reusable "stacks" of behaviour which can be applied to a terminating <code>HttpHandler</code> - to yield 
 a decorated <code>HttpHandler</code>:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>    <span class="k">val</span> <span class="py">filter</span><span class="p">:</span> <span class="n">Filter</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span>
-        <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;my response header&quot;</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code>    <span class="kd">val</span> <span class="nv">filter</span><span class="p">:</span> <span class="n">Filter</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">-&gt;</span>
+        <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">).</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;my response header&quot;</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">}</span>
-    <span class="k">val</span> <span class="py">decorated</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">filter</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">decorated</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">filter</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
 </code></pre></div>
 
 <ul>
 <li>Binding an <code>HttpHandler</code> to a path and HTTP verb yields a <code>RoutingHttpHandler</code>, which is both an <code>HttpHandler</code> and a<code>Router</code>:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="s">&quot;/path&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">route</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="o">=</span> <span class="s">&quot;/path&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">}</span>
 </code></pre></div>
 
 <ul>
 <li><code>RoutingHttpHandler</code>s can be grouped together:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
-    <span class="s">&quot;/bob&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
-    <span class="s">&quot;/rita&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you POST rita&quot;</span><span class="p">)</span> <span class="p">},</span>
-    <span class="s">&quot;/sue&quot;</span> <span class="n">bind</span> <span class="n">DELETE</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;you DELETE sue&quot;</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/bob&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;you GET bob&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s">&quot;/rita&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;you POST rita&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s">&quot;/sue&quot;</span> <span class="n">bind</span> <span class="n">DELETE</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;you DELETE sue&quot;</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -957,7 +957,7 @@ a decorated <code>HttpHandler</code>:</li>
 <li>A <code>Router</code> is a selective request handler, which attempts to match a request. If it cannot, processing falls through to the next <code>Router</code> in the list.</li>
 <li><code>Routers</code> can be combined together (under particular context roots) to form another <code>RoutingHttpHandler</code>:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">bigApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">bigApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/this&quot;</span> <span class="n">bind</span> <span class="n">app</span><span class="p">,</span> 
     <span class="s">&quot;/other&quot;</span> <span class="n">bind</span> <span class="n">app</span>
 <span class="p">)</span>
@@ -966,20 +966,20 @@ a decorated <code>HttpHandler</code>:</li>
 <ul>
 <li><code>HttpHandlers</code> can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. The decouples the server implementation from the business logic:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">jettyServer</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">jettyServer</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
 
 <ul>
 <li>An Http client is also a <code>HttpHandler</code>:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
 </code></pre></div>
 
 <ul>
 <li>Because the client and server interfaces are the same, apps can simply be plugged together out-of-container by just injecting one into the other:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>    <span class="k">val</span> <span class="py">app1</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">MyApp1</span><span class="p">()</span>
-    <span class="k">val</span> <span class="py">app2</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">MyApp2</span><span class="p">(</span><span class="n">app1</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code>    <span class="kd">val</span> <span class="nv">app1</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">MyApp1</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">app2</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">MyApp2</span><span class="p">(</span><span class="n">app1</span><span class="p">)</span>
 </code></pre></div>
                     
                 </div>

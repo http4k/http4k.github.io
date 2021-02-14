@@ -1067,19 +1067,19 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
     <span class="c1">// chaos is split into &quot;stages&quot;, which can be triggered by specific request or time-based criteria</span>
-    <span class="k">val</span> <span class="py">doNothingStage</span> <span class="p">=</span> <span class="n">Wait</span><span class="p">.</span><span class="n">until</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">tx</span><span class="p">.</span><span class="n">method</span> <span class="p">==</span> <span class="n">POST</span> <span class="p">}</span>
-    <span class="k">val</span> <span class="py">errorStage</span> <span class="p">=</span> <span class="n">ReturnStatus</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">).</span><span class="n">appliedWhen</span><span class="p">(</span><span class="n">PercentageBased</span><span class="p">(</span><span class="m">50</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">doNothingStage</span> <span class="o">=</span> <span class="n">Wait</span><span class="p">.</span><span class="na">until</span> <span class="p">{</span> <span class="n">tx</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">tx</span><span class="p">.</span><span class="na">method</span> <span class="o">==</span> <span class="n">POST</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">errorStage</span> <span class="o">=</span> <span class="n">ReturnStatus</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">).</span><span class="na">appliedWhen</span><span class="p">(</span><span class="n">PercentageBased</span><span class="p">(</span><span class="m">50</span><span class="p">))</span>
 
     <span class="c1">// chain the stages together with then() and create the Chaos Engine (activated)</span>
-    <span class="k">val</span> <span class="py">engine</span> <span class="p">=</span> <span class="n">ChaosEngine</span><span class="p">(</span><span class="n">doNothingStage</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">errorStage</span><span class="p">)).</span><span class="n">enable</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">engine</span> <span class="o">=</span> <span class="n">ChaosEngine</span><span class="p">(</span><span class="n">doNothingStage</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">errorStage</span><span class="p">)).</span><span class="na">enable</span><span class="p">()</span>
 
-    <span class="k">val</span> <span class="py">svc</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;A normal response&quot;</span><span class="p">)</span> <span class="p">}</span>
-    <span class="n">engine</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">svc</span><span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">().</span><span class="n">use</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">svc</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;A normal response&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">engine</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">svc</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">use</span> <span class="p">{</span>
         <span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span> <span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span> <span class="p">}</span>
 
         <span class="c1">// this triggers the change in behaviour</span>
@@ -1088,13 +1088,13 @@
         <span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span> <span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span> <span class="p">}</span>
 
         <span class="c1">// disable the chaos</span>
-        <span class="n">engine</span><span class="p">.</span><span class="n">disable</span><span class="p">()</span>
+        <span class="n">engine</span><span class="p">.</span><span class="na">disable</span><span class="p">()</span>
 
         <span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span> <span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">fun</span> <span class="nf">performA</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Method</span><span class="p">)</span> <span class="p">=</span> <span class="n">println</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="n">name</span> <span class="p">+</span> <span class="s">&quot; got a &quot;</span> <span class="p">+</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="nf">performA</span><span class="p">(</span><span class="n">method</span><span class="p">:</span> <span class="n">Method</span><span class="p">)</span> <span class="o">=</span> <span class="n">println</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">&quot; got a &quot;</span> <span class="o">+</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 </code></pre></div>
 
 <h3 id="dynamic_behaviour_injection_using_chaos_controls">Dynamic behaviour injection using Chaos Controls<a class="headerlink" href="#dynamic_behaviour_injection_using_chaos_controls" title="Permanent link">&para;</a></h3>
@@ -1153,14 +1153,14 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Cors</span><span class="p">(</span><span class="n">UnsafeGlobalPermissive</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchAll</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;A normal response&quot;</span><span class="p">)</span> <span class="p">}</span>
-        <span class="p">.</span><span class="n">withChaosApi</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="p">.</span><span class="n">also</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;Visit the app at http://localhost:9000 or see the OpenApi at https://www.http4k.org/openapi3/?url=http://localhost:9000/chaos&quot;</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchAll</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;A normal response&quot;</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">withChaosApi</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">also</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;Visit the app at http://localhost:9000 or see the OpenApi at https://www.http4k.org/openapi3/?url=http://localhost:9000/chaos&quot;</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1180,25 +1180,25 @@
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
 
-<span class="k">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}))</span>
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}))</span>
 
-    <span class="k">val</span> <span class="py">appWithChaos</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">withChaosApi</span><span class="p">(</span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">ReturnStatus</span><span class="p">(</span><span class="n">NOT_FOUND</span><span class="p">)))</span>
+    <span class="kd">val</span> <span class="nv">appWithChaos</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">withChaosApi</span><span class="p">(</span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">ReturnStatus</span><span class="p">(</span><span class="n">NOT_FOUND</span><span class="p">)))</span>
 
     <span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;chaos is deactivated by default&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/chaos/status&quot;</span><span class="p">)).</span><span class="n">bodyString</span><span class="p">())</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/chaos/status&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;activate the default chaos&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/chaos/activate&quot;</span><span class="p">)).</span><span class="n">bodyString</span><span class="p">())</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/chaos/activate&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;deactivate the default chaos&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/chaos/deactivate&quot;</span><span class="p">)).</span><span class="n">bodyString</span><span class="p">())</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/chaos/deactivate&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;set the chaos dynamically&quot;</span><span class="p">)</span>
-    <span class="k">val</span> <span class="py">alwaysReturn418</span> <span class="p">=</span> <span class="s">&quot;&quot;&quot;[</span>
+    <span class="kd">val</span> <span class="nv">alwaysReturn418</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;[</span>
 <span class="s">        {</span>
 <span class="s">          &quot;type&quot;: &quot;trigger&quot;,</span>
 <span class="s">          &quot;behaviour&quot;: {</span>
@@ -1209,9 +1209,9 @@
 <span class="s">            &quot;type&quot;: &quot;always&quot;</span>
 <span class="s">          }</span>
 <span class="s">        }]</span>
-<span class="s">        &quot;&quot;&quot;</span><span class="p">.</span><span class="n">trimIndent</span><span class="p">()</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/chaos/activate/new&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">alwaysReturn418</span><span class="p">)).</span><span class="n">bodyString</span><span class="p">())</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="n">status</span><span class="p">)</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">.</span><span class="na">trimIndent</span><span class="p">()</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/chaos/activate/new&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">alwaysReturn418</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
                     

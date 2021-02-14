@@ -915,42 +915,42 @@
 </ul>
 <h4 id="httphandlers">HttpHandlers<a class="headerlink" href="#httphandlers" title="Permanent link">&para;</a></h4>
 <p>In http4k, an HTTP service is just a typealias of a simple function:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">typealias</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Response</span>
+<div class="codehilite"><pre><span></span><code><span class="k">typealias</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span>
 </code></pre></div>
 
 <p>First described in this Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, this abstraction allows us lots of 
 flexibility in a language like Kotlin, since the conceptual barrier to service construction is reduced to effectively nil. Here is the simplest example - note that we don't need any special infrastructure to create an <code>HttpHandler</code>, neither do we 
 need to launch a real HTTP container to exercise it:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">handler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.query(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
-<span class="k">val</span> <span class="py">get</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">handler</span><span class="p">(</span><span class="k">get</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">handler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">val</span> <span class="nv">get</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="k">get</span><span class="p">)</span>
 
-<span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
-<span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">bodyString</span><span class="p">())</span>
+<span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span>
 </code></pre></div>
 
 <p>To mount the <code>HttpHandler</code> in a container, the can simply be converted to a Servlet by calling <code>handler.asServlet()</code></p>
 <h3 id="filters">Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h3>
 <p>Filters add extra processing to either the Request or Response. In http4k, they are modelled as:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">HttpHandler</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpHandler</span>
 </code></pre></div>
 
 <p>Filters are designed to simply compose together (using <code>then()</code>) , creating reusable stacks of behaviour which can then be applied to any <code>HttpHandler</code>. 
 For example, to add Basic Auth and latency reporting to a service:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">handler</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">handler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 
-<span class="k">val</span> <span class="py">myFilter</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span>
-    <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">-&gt;</span> <span class="p">{</span>
-        <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> 
-            <span class="k">val</span> <span class="py">start</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span>
-            <span class="k">val</span> <span class="py">response</span> <span class="p">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-            <span class="k">val</span> <span class="py">latency</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">currentTimeMillis</span><span class="p">()</span> <span class="p">-</span> <span class="n">start</span>
-            <span class="n">println</span><span class="p">(</span><span class="s">&quot;I took $latency ms&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">myFilter</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span>
+    <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> 
+            <span class="kd">val</span> <span class="nv">start</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="kd">val</span> <span class="nv">latency</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+            <span class="n">println</span><span class="p">(</span><span class="s">&quot;I took </span><span class="si">$</span><span class="n">latency</span><span class="s"> ms&quot;</span><span class="p">)</span>
             <span class="n">response</span>
     <span class="p">}</span>
 <span class="p">}</span>
-<span class="k">val</span> <span class="py">latencyAndBasicAuth</span><span class="p">:</span> <span class="n">Filter</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">BasicAuth</span><span class="p">(</span><span class="s">&quot;my realm&quot;</span><span class="p">,</span> <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">).</span><span class="n">then</span><span class="p">(</span><span class="n">myFilter</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">latencyAndBasicAuth</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">latencyAndBasicAuth</span><span class="p">:</span> <span class="n">Filter</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">BasicAuth</span><span class="p">(</span><span class="s">&quot;my realm&quot;</span><span class="p">,</span> <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">myFilter</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">latencyAndBasicAuth</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
 </code></pre></div>
 
 <p>The <code>http4k-core</code> module comes with a set of handy Filters for application to both Server and Client <code>HttpHandlers</code>, covering common things like:</p>
@@ -980,18 +980,18 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
 
-<span class="k">val</span> <span class="py">AddLatency</span> <span class="p">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="p">-&gt;</span>
+<span class="kd">val</span> <span class="nv">AddLatency</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
     <span class="p">{</span>
-        <span class="n">next</span><span class="p">(</span><span class="n">it</span><span class="p">).</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s">&quot;some value&quot;</span><span class="p">)</span>
+        <span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="p">).</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s">&quot;some value&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">class</span> <span class="nc">FilterTest</span> <span class="p">{</span>
-    <span class="n">@Test</span>
-    <span class="k">fun</span> <span class="nf">`adds a special header`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">=</span> <span class="n">AddLatency</span><span class="p">.</span><span class="n">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
-        <span class="k">val</span> <span class="py">response</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">and</span><span class="p">(</span><span class="n">hasHeader</span><span class="p">(</span><span class="s">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s">&quot;some value&quot;</span><span class="p">)))</span>
+<span class="kd">class</span> <span class="nc">FilterTest</span> <span class="p">{</span>
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`adds a special header`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">AddLatency</span><span class="p">.</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+        <span class="kd">val</span> <span class="nv">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasHeader</span><span class="p">(</span><span class="s">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s">&quot;some value&quot;</span><span class="p">)))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1000,10 +1000,10 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and http4k will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
     <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/{name:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;Hello, ${request.path(&quot;</span><span class="n">name</span><span class="s">&quot;)}!&quot;</span><span class="p">)</span> <span class="p">}</span>
+        <span class="s">&quot;/{name:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">),</span>
-    <span class="s">&quot;/fail&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span> <span class="p">}</span>
-<span class="p">).</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+    <span class="s">&quot;/fail&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
 
 <p>Note that the <code>http4k-contract</code> module contains a more typesafe implementation of routing functionality, with runtime-generated live documentation in OpenApi/Swagger format.</p>
@@ -1024,15 +1024,15 @@ For example, to add Basic Auth and latency reporting to a service:</p>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
 
-<span class="k">val</span> <span class="py">EchoPath</span> <span class="p">=</span> <span class="s">&quot;/echo/{message}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">r</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;nothing!&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">val</span> <span class="nv">EchoPath</span> <span class="o">=</span> <span class="s">&quot;/echo/{message}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">r</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;nothing!&quot;</span><span class="p">)</span> <span class="p">}</span>
 
-<span class="k">class</span> <span class="nc">DynamicPathTest</span> <span class="p">{</span>
+<span class="kd">class</span> <span class="nc">DynamicPathTest</span> <span class="p">{</span>
 
-    <span class="n">@Test</span>
-    <span class="k">fun</span> <span class="nf">`echoes body from path`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">route</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="n">EchoPath</span><span class="p">)</span>
-        <span class="k">val</span> <span class="py">response</span><span class="p">:</span> <span class="n">Response</span> <span class="p">=</span> <span class="n">route</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="s">&quot;my great message&quot;</span><span class="p">)))</span>
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`echoes body from path`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">route</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="n">EchoPath</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">route</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="s">&quot;my great message&quot;</span><span class="p">)))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1127,42 +1127,42 @@ to configure these lenses to target particular parts of the message, whilst at t
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
 <span class="k">import</span> <span class="nn">java.time.LocalDate</span>
 
-<span class="k">val</span> <span class="py">pathLocalDate</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">localDate</span><span class="p">().</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">requiredQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;myQueryName&quot;</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">nonEmptyQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">nonEmptyString</span><span class="p">().</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;myNonEmptyQuery&quot;</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">optionalHeader</span> <span class="p">=</span> <span class="n">Header</span><span class="p">.</span><span class="n">int</span><span class="p">().</span><span class="n">optional</span><span class="p">(</span><span class="s">&quot;Content-Length&quot;</span><span class="p">)</span>
-<span class="k">val</span> <span class="py">responseBody</span> <span class="p">=</span> <span class="n">Body</span><span class="p">.</span><span class="n">string</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">pathLocalDate</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">localDate</span><span class="p">().</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">requiredQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myQueryName&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">nonEmptyQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">nonEmptyString</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myNonEmptyQuery&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">optionalHeader</span> <span class="o">=</span> <span class="n">Header</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">optional</span><span class="p">(</span><span class="s">&quot;Content-Length&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">responseBody</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="na">TEXT_PLAIN</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
 
 <span class="c1">// Most of the useful common JDK types are covered. However, if we want to use our own types, we can just use `map()`</span>
-<span class="k">data</span> <span class="k">class</span> <span class="nc">CustomType</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">CustomType</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
 
-<span class="k">val</span> <span class="py">requiredCustomQuery</span> <span class="p">=</span> <span class="n">Query</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">CustomType</span><span class="p">,</span> <span class="p">{</span> <span class="n">it</span><span class="p">.</span><span class="n">value</span> <span class="p">}).</span><span class="n">required</span><span class="p">(</span><span class="s">&quot;myCustomType&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">requiredCustomQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">CustomType</span><span class="p">,</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">value</span> <span class="p">}).</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myCustomType&quot;</span><span class="p">)</span>
 
 <span class="c1">//To use the Lens, simply `invoke() or extract()` it using an HTTP message to extract the value, or alternatively `invoke() or inject()` it with the value if we are modifying (via copy) the message:</span>
-<span class="k">val</span> <span class="py">handler</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span>
-    <span class="s">&quot;/hello/{date:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
-        <span class="k">val</span> <span class="py">pathDate</span><span class="p">:</span> <span class="n">LocalDate</span> <span class="p">=</span> <span class="n">pathLocalDate</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/hello/{date:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+        <span class="kd">val</span> <span class="nv">pathDate</span><span class="p">:</span> <span class="n">LocalDate</span> <span class="o">=</span> <span class="n">pathLocalDate</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="c1">// SAME AS:</span>
         <span class="c1">// val pathDate: LocalDate = pathLocalDate.extract(request)</span>
 
-        <span class="k">val</span> <span class="py">customType</span><span class="p">:</span> <span class="n">CustomType</span> <span class="p">=</span> <span class="n">requiredCustomQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-        <span class="k">val</span> <span class="py">anIntHeader</span><span class="p">:</span> <span class="n">Int</span><span class="p">?</span> <span class="p">=</span> <span class="n">optionalHeader</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">customType</span><span class="p">:</span> <span class="n">CustomType</span> <span class="o">=</span> <span class="n">requiredCustomQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">anIntHeader</span><span class="p">:</span> <span class="kt">Int?</span> <span class="o">=</span> <span class="n">optionalHeader</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
-        <span class="k">val</span> <span class="py">baseResponse</span> <span class="p">=</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
-        <span class="k">val</span> <span class="py">responseWithHeader</span> <span class="p">=</span> <span class="n">optionalHeader</span><span class="p">(</span><span class="n">anIntHeader</span><span class="p">,</span> <span class="n">baseResponse</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">baseResponse</span> <span class="o">=</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">responseWithHeader</span> <span class="o">=</span> <span class="n">optionalHeader</span><span class="p">(</span><span class="n">anIntHeader</span><span class="p">,</span> <span class="n">baseResponse</span><span class="p">)</span>
         <span class="c1">// SAME AS:</span>
         <span class="c1">// val responseWithHeader = optionalHeader.inject(anIntHeader, baseResponse)</span>
 
-        <span class="n">responseBody</span><span class="p">(</span><span class="s">&quot;you sent $pathDate and $customType&quot;</span><span class="p">,</span> <span class="n">responseWithHeader</span><span class="p">)</span>
+        <span class="n">responseBody</span><span class="p">(</span><span class="s">&quot;you sent </span><span class="si">$</span><span class="n">pathDate</span><span class="s"> and </span><span class="si">$</span><span class="n">customType</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">responseWithHeader</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">)</span>
 
 <span class="c1">//With the addition of the `CatchLensFailure` filter, no other validation is required when using Lenses, as http4k will handle invalid requests by returning a BAD_REQUEST (400) response.</span>
-<span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/hello/2000-01-01?myCustomType=someValue&quot;</span><span class="p">))</span>
+<span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/hello/2000-01-01?myCustomType=someValue&quot;</span><span class="p">))</span>
 
 <span class="c1">//More conveniently for construction of HTTP messages, multiple lenses can be used at once to modify a message, which is useful for properly building both requests and responses in a typesafe way without resorting to string values (especially in URLs which should never be constructed using String concatenation):</span>
-<span class="k">val</span> <span class="py">modifiedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://google.com/{pathLocalDate}&quot;</span><span class="p">).</span><span class="n">with</span><span class="p">(</span>
-    <span class="n">pathLocalDate</span> <span class="n">of</span> <span class="n">LocalDate</span><span class="p">.</span><span class="n">now</span><span class="p">(),</span>
+<span class="kd">val</span> <span class="nv">modifiedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://google.com/{pathLocalDate}&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span>
+    <span class="n">pathLocalDate</span> <span class="n">of</span> <span class="n">LocalDate</span><span class="p">.</span><span class="na">now</span><span class="p">(),</span>
     <span class="n">requiredQuery</span> <span class="n">of</span> <span class="s">&quot;myAmazingString&quot;</span><span class="p">,</span>
     <span class="n">optionalHeader</span> <span class="n">of</span> <span class="m">123</span>
 <span class="p">)</span>
@@ -1179,7 +1179,7 @@ to configure these lenses to target particular parts of the message, whilst at t
 <h3 id="single_page_apps">Single Page Apps<a class="headerlink" href="#single_page_apps" title="Permanent link">&para;</a></h3>
 <p>These can be easily activated as below, and default to serving from <code>/public</code> package:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
-    <span class="s">&quot;/api&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="s">&quot;some api content&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="s">&quot;/api&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;some api content&quot;</span><span class="p">)</span> <span class="p">},</span>
     <span class="n">singlePageApp</span><span class="p">()</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -1192,22 +1192,22 @@ to configure these lenses to target particular parts of the message, whilst at t
 <li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the http4k HTTP message model, WsMessages are immutable data classes.</li>
 </ol>
 <p>The routing aspect of Websockets is done using a very similar API to the standard HTTP routing for HTTP messages and dynamic parts of the upgrade request are available when constructing a websocket instance:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">data</span> <span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
 
-<span class="k">val</span> <span class="py">body</span> <span class="p">=</span> <span class="n">WsMessage</span><span class="p">.</span><span class="n">string</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">::</span><span class="n">Wrapper</span><span class="p">,</span> <span class="n">Wrapper</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="n">toLens</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">body</span> <span class="o">=</span> <span class="n">WsMessage</span><span class="p">.</span><span class="na">string</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Wrapper</span><span class="p">,</span> <span class="n">Wrapper</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
 
-<span class="k">val</span> <span class="py">nameLens</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">nameLens</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
 
-<span class="k">val</span> <span class="py">ws</span><span class="p">:</span> <span class="n">WsHandler</span> <span class="p">=</span> <span class="n">websockets</span><span class="p">(</span>
+<span class="kd">val</span> <span class="nv">ws</span><span class="p">:</span> <span class="n">WsHandler</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
     <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">websockets</span><span class="p">(</span>
-        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">WebSocket</span> <span class="p">-&gt;</span>
-            <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="n">nameLens</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="n">upgradeRequest</span><span class="p">)</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello $name&quot;</span><span class="p">))</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">onMessage</span> <span class="p">{</span>
-                <span class="k">val</span> <span class="py">received</span> <span class="p">=</span> <span class="n">body</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
-                <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="p">(</span><span class="n">received</span><span class="p">))</span>
+        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">WebSocket</span> <span class="o">-&gt;</span>
+            <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">nameLens</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span> <span class="p">{</span>
+                <span class="kd">val</span> <span class="nv">received</span> <span class="o">=</span> <span class="n">body</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+                <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">body</span><span class="p">(</span><span class="n">received</span><span class="p">))</span>
             <span class="p">}</span>
-            <span class="n">ws</span><span class="p">.</span><span class="n">onClose</span> <span class="p">{</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">onClose</span> <span class="p">{</span>
                 <span class="n">println</span><span class="p">(</span><span class="s">&quot;closed&quot;</span><span class="p">)</span>
             <span class="p">}</span>
         <span class="p">}</span>
@@ -1216,32 +1216,32 @@ to configure these lenses to target particular parts of the message, whilst at t
 </code></pre></div>
 
 <p>A <code>WsHandler</code> can be combined with an <code>HttpHandler</code> into a <code>PolyHandler</code> and then mounted into a supported backend server using <code>asServer()</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">PolyHandler</span><span class="p">(</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">PolyHandler</span><span class="p">(</span>
     <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+        <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">),</span>
     <span class="n">websockets</span><span class="p">(</span>
-        <span class="s">&quot;/ws&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">WebSocket</span> <span class="p">-&gt;</span> <span class="n">ws</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">))</span>
+        <span class="s">&quot;/ws&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">WebSocket</span> <span class="o">-&gt;</span> <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">))</span>
         <span class="p">}</span>
     <span class="p">)</span>
 <span class="p">)</span>
-<span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+<span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
 
 <p>Alternatively, the <code>WsHandler</code> can be also converted to a synchronous <code>WsClient</code> - this allows testing to be done completely offline, which allows for super-fast tests:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">client</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;ws://localhost:9000/hello/bob&quot;</span><span class="p">))</span><span class="o">!!</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;ws://localhost:9000/hello/bob&quot;</span><span class="p">))</span><span class="o">!!</span>
 
-<span class="n">client</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">))</span>
-<span class="n">client</span><span class="p">.</span><span class="n">close</span><span class="p">(</span><span class="n">Status</span><span class="p">(</span><span class="m">200</span><span class="p">,</span> <span class="s">&quot;bob&quot;</span><span class="p">))</span>
+<span class="n">client</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">))</span>
+<span class="n">client</span><span class="p">.</span><span class="na">close</span><span class="p">(</span><span class="n">Status</span><span class="p">(</span><span class="m">200</span><span class="p">,</span> <span class="s">&quot;bob&quot;</span><span class="p">))</span>
 
-<span class="n">client</span><span class="p">.</span><span class="n">received</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="n">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
+<span class="n">client</span><span class="p">.</span><span class="na">received</span><span class="p">.</span><span class="na">take</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="na">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
 </code></pre></div>
 
 <h3 id="request_and_response_tostring">Request and Response toString()<a class="headerlink" href="#request_and_response_tostring" title="Permanent link">&para;</a></h3>
 <p>The HttpMessages used by http4k toString in the HTTP wire format, which it simple to capture and replay HTTP message streams later in a similar way to tools like <a href="http://www.mbtest.org/">Mountebank</a>.</p>
 <h3 id="curl_format">CURL format<a class="headerlink" href="#curl_format" title="Permanent link">&para;</a></h3>
 <p>Creates <code>curl</code> command for a given request - this is useful to include in audit logs so exact requests can be replayed if required:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">val</span> <span class="py">curl</span> <span class="p">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span> <span class="n">to</span> <span class="s">&quot;bar&quot;</span><span class="p">).</span><span class="n">toBody</span><span class="p">()).</span><span class="n">toCurl</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">curl</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span> <span class="n">to</span> <span class="s">&quot;bar&quot;</span><span class="p">).</span><span class="na">toBody</span><span class="p">()).</span><span class="na">toCurl</span><span class="p">()</span>
 <span class="c1">// curl -X POST --data &quot;foo=bar&quot; &quot;http://httpbin.org/post&quot;</span>
 </code></pre></div>
                     

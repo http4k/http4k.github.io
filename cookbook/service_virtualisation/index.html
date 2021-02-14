@@ -930,16 +930,16 @@
 <span class="cm">/**</span>
 <span class="cm"> * This client wraps the calls to a remote WordCounter service</span>
 <span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">WordCounterClient</span><span class="p">(</span><span class="k">private</span> <span class="k">val</span> <span class="py">http</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">fun</span> <span class="nf">wordCount</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/count&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">name</span><span class="p">)).</span><span class="n">bodyString</span><span class="p">().</span><span class="n">toInt</span><span class="p">()</span>
+<span class="kd">class</span> <span class="nc">WordCounterClient</span><span class="p">(</span><span class="kd">private</span> <span class="kd">val</span> <span class="nv">http</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">fun</span> <span class="nf">wordCount</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/count&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">name</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">().</span><span class="na">toInt</span><span class="p">()</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * This is our producing app</span>
 <span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">WordCounterApp</span> <span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="p">=</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span>
-        <span class="n">req</span><span class="p">.</span><span class="n">bodyString</span><span class="p">().</span><span class="n">run</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">isBlank</span><span class="p">())</span> <span class="m">0</span> <span class="k">else</span> <span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">).</span><span class="n">size</span> <span class="p">}.</span><span class="n">toString</span><span class="p">()</span>
+<span class="kd">class</span> <span class="nc">WordCounterApp</span> <span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">=</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span>
+        <span class="n">req</span><span class="p">.</span><span class="na">bodyString</span><span class="p">().</span><span class="na">run</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">isBlank</span><span class="p">())</span> <span class="m">0</span> <span class="k">else</span> <span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">).</span><span class="na">size</span> <span class="p">}.</span><span class="na">toString</span><span class="p">()</span>
     <span class="p">)</span>
 <span class="p">}</span>
 
@@ -947,18 +947,18 @@
 <span class="cm"> * Defines the test contract which will be recorded and replayed later. The injected HttpHandler</span>
 <span class="cm"> * is provided by the implementations of this interface.</span>
 <span class="cm"> */</span>
-<span class="k">interface</span> <span class="nc">WordCounterContract</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nc">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="n">@Test</span>
-    <span class="n">@JvmDefault</span>
-    <span class="k">fun</span> <span class="nf">`count the number of words`</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">handler</span><span class="p">).</span><span class="n">wordCount</span><span class="p">(</span><span class="s">&quot;A random string with 6 words&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">6</span><span class="p">))</span>
+    <span class="nd">@Test</span>
+    <span class="nd">@JvmDefault</span>
+    <span class="kd">fun</span> <span class="nf">`count the number of words`</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">handler</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="s">&quot;A random string with 6 words&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">6</span><span class="p">))</span>
     <span class="p">}</span>
 
-    <span class="n">@Test</span>
-    <span class="n">@JvmDefault</span>
-    <span class="k">fun</span> <span class="nf">`empty string has zero words`</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">handler</span><span class="p">).</span><span class="n">wordCount</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
+    <span class="nd">@Test</span>
+    <span class="nd">@JvmDefault</span>
+    <span class="kd">fun</span> <span class="nf">`empty string has zero words`</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">handler</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -966,15 +966,15 @@
 <span class="cm"> * For the traditional use-case of a CDC, we use a real Http client to record the traffic against</span>
 <span class="cm"> * a running version of the producing service.</span>
 <span class="cm"> */</span>
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">RemoteHttpRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">RemoteHttpRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="k">private</span> <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://serverundertest:8080&quot;</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://serverundertest:8080&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
-    <span class="n">@JvmField</span>
-    <span class="n">@RegisterExtension</span>
-    <span class="k">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">ServirtiumRecording</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
+    <span class="nd">@JvmField</span>
+    <span class="nd">@RegisterExtension</span>
+    <span class="kd">val</span> <span class="nv">record</span> <span class="o">=</span> <span class="n">ServirtiumRecording</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
@@ -983,19 +983,19 @@
 <span class="cm"> * 2. Is also written in http4k</span>
 <span class="cm"> * ... we can have the Producer implement the contract entirely in-memory without a MiTM.</span>
 <span class="cm"> */</span>
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">InMemoryRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">InMemoryRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="k">private</span> <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">WordCounterApp</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">WordCounterApp</span><span class="p">()</span>
 
-    <span class="n">@JvmField</span>
-    <span class="n">@RegisterExtension</span>
-    <span class="k">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">ServirtiumRecording</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
+    <span class="nd">@JvmField</span>
+    <span class="nd">@RegisterExtension</span>
+    <span class="kd">val</span> <span class="nv">record</span> <span class="o">=</span> <span class="n">ServirtiumRecording</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
 
-    <span class="n">@AfterEach</span>
-    <span class="k">fun</span> <span class="nf">after</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">name</span> <span class="p">=</span> <span class="s">&quot;this traffic is not recorded&quot;</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">name</span> <span class="p">+</span> <span class="s">&quot;: &quot;</span> <span class="p">+</span> <span class="n">WordCounterClient</span><span class="p">(</span><span class="n">handler</span><span class="p">).</span><span class="n">wordCount</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+    <span class="nd">@AfterEach</span>
+    <span class="kd">fun</span> <span class="nf">after</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">&quot;this traffic is not recorded&quot;</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">WordCounterClient</span><span class="p">(</span><span class="n">handler</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -1005,39 +1005,39 @@
 <span class="cm"> * 2. Is *not* written in http4k</span>
 <span class="cm"> * ... we can have the Producer implement the contract by starting up the server and with a MiTM.</span>
 <span class="cm"> */</span>
-<span class="n">@TestInstance</span><span class="p">(</span><span class="n">PER_CLASS</span><span class="p">)</span>
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">PortBoundRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+<span class="nd">@TestInstance</span><span class="p">(</span><span class="n">PER_CLASS</span><span class="p">)</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">PortBoundRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="n">@BeforeAll</span>
-    <span class="k">fun</span> <span class="nf">start</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">@BeforeAll</span>
+    <span class="kd">fun</span> <span class="nf">start</span><span class="p">()</span> <span class="p">{</span>
         <span class="c1">// pretend that this is not an http4k service.. :)</span>
-        <span class="n">WordCounterApp</span><span class="p">().</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8080</span><span class="p">)).</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">WordCounterApp</span><span class="p">().</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8080</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="k">private</span> <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8080&quot;</span><span class="p">))</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8080&quot;</span><span class="p">))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
-    <span class="n">@JvmField</span>
-    <span class="n">@RegisterExtension</span>
-    <span class="k">val</span> <span class="py">record</span> <span class="p">=</span> <span class="n">ServirtiumRecording</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
+    <span class="nd">@JvmField</span>
+    <span class="nd">@RegisterExtension</span>
+    <span class="kd">val</span> <span class="nv">record</span> <span class="o">=</span> <span class="n">ServirtiumRecording</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">ReplayFromDiskTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
-    <span class="n">@JvmField</span>
-    <span class="n">@RegisterExtension</span>
-    <span class="k">val</span> <span class="py">replay</span> <span class="p">=</span> <span class="n">ServirtiumReplay</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span> <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">ReplayFromDiskTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+    <span class="nd">@JvmField</span>
+    <span class="nd">@RegisterExtension</span>
+    <span class="kd">val</span> <span class="nv">replay</span> <span class="o">=</span> <span class="n">ServirtiumReplay</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span> <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
 <span class="p">}</span>
 
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">ReplayFromGitHubTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
-    <span class="n">@JvmField</span>
-    <span class="n">@RegisterExtension</span>
-    <span class="k">val</span> <span class="py">replay</span> <span class="p">=</span> <span class="n">ServirtiumReplay</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">ReplayFromGitHubTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+    <span class="nd">@JvmField</span>
+    <span class="nd">@RegisterExtension</span>
+    <span class="kd">val</span> <span class="nv">replay</span> <span class="o">=</span> <span class="n">ServirtiumReplay</span><span class="p">(</span><span class="s">&quot;WordCounter&quot;</span><span class="p">,</span>
         <span class="n">GitHub</span><span class="p">(</span><span class="s">&quot;http4k&quot;</span><span class="p">,</span> <span class="s">&quot;http4k&quot;</span><span class="p">,</span>
             <span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;&lt;github user&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;personal access token&gt;&quot;</span><span class="p">),</span>
-            <span class="n">Paths</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s">&quot;src/test/resources/cookbook/service_virtualisation&quot;</span><span class="p">)</span>
+            <span class="n">Paths</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;src/test/resources/cookbook/service_virtualisation&quot;</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">)</span>
 <span class="p">}</span>
@@ -1079,109 +1079,109 @@
 <span class="cm">/**</span>
 <span class="cm"> * This is our producing app</span>
 <span class="cm"> */</span>
-<span class="k">fun</span> <span class="nf">WordCounterApp</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="n">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">{</span>
-    <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/count&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="p">-&gt;</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span>
-            <span class="n">req</span><span class="p">.</span><span class="n">bodyString</span><span class="p">().</span><span class="n">run</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">isBlank</span><span class="p">())</span> <span class="m">0</span> <span class="k">else</span> <span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">).</span><span class="n">size</span> <span class="p">}.</span><span class="n">toString</span><span class="p">()</span>
+<span class="kd">fun</span> <span class="nf">WordCounterApp</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="kt">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/count&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span>
+            <span class="n">req</span><span class="p">.</span><span class="na">bodyString</span><span class="p">().</span><span class="na">run</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">isBlank</span><span class="p">())</span> <span class="m">0</span> <span class="k">else</span> <span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">).</span><span class="na">size</span> <span class="p">}.</span><span class="na">toString</span><span class="p">()</span>
         <span class="p">)</span>
     <span class="p">})</span>
-    <span class="k">return</span> <span class="n">app</span><span class="p">.</span><span class="n">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * This client wraps the calls to a remote WordCounter service</span>
 <span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">WordCounterClient</span><span class="p">(</span><span class="n">baseUri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">val</span> <span class="py">http</span> <span class="p">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">baseUri</span><span class="p">)</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="n">HandleRemoteRequestFailed</span><span class="p">())</span>
-        <span class="p">.</span><span class="n">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+<span class="kd">class</span> <span class="nc">WordCounterClient</span><span class="p">(</span><span class="n">baseUri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">baseUri</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">HandleRemoteRequestFailed</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
-    <span class="k">fun</span> <span class="nf">wordCount</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">Int</span> <span class="p">=</span> <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/count&quot;</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">name</span><span class="p">)).</span><span class="n">bodyString</span><span class="p">().</span><span class="n">toInt</span><span class="p">()</span>
+    <span class="kd">fun</span> <span class="nf">wordCount</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/count&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">name</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">().</span><span class="na">toInt</span><span class="p">()</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Defines the test contract which will be recorded and replayed later.</span>
 <span class="cm"> */</span>
-<span class="k">interface</span> <span class="nc">WordCounterContract</span> <span class="p">{</span>
+<span class="kd">interface</span> <span class="nc">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="py">uri</span><span class="p">:</span> <span class="n">Uri</span>
+    <span class="kd">val</span> <span class="nv">uri</span><span class="p">:</span> <span class="n">Uri</span>
 
-    <span class="n">@Test</span>
-    <span class="n">@JvmDefault</span>
-    <span class="k">fun</span> <span class="nf">`count the number of words`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">uri</span><span class="p">).</span><span class="n">wordCount</span><span class="p">(</span><span class="s">&quot;A random string with 6 words&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">6</span><span class="p">))</span>
+    <span class="nd">@Test</span>
+    <span class="nd">@JvmDefault</span>
+    <span class="kd">fun</span> <span class="nf">`count the number of words`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">uri</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="s">&quot;A random string with 6 words&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">6</span><span class="p">))</span>
     <span class="p">}</span>
 
-    <span class="n">@Test</span>
-    <span class="n">@JvmDefault</span>
-    <span class="k">fun</span> <span class="nf">`empty string has zero words`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">uri</span><span class="p">).</span><span class="n">wordCount</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
+    <span class="nd">@Test</span>
+    <span class="nd">@JvmDefault</span>
+    <span class="kd">fun</span> <span class="nf">`empty string has zero words`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">uri</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * This calls the server directly</span>
 <span class="cm"> */</span>
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">DirectHttpWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
-    <span class="k">override</span> <span class="k">val</span> <span class="py">uri</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://serverundertest:8080&quot;</span><span class="p">)</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">DirectHttpWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">val</span> <span class="nv">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://serverundertest:8080&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Proxies traffic to the real service and records it to disk. Both MiTM and Producer start on a random port.</span>
 <span class="cm"> */</span>
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">MiTMRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">MiTMRecordingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="k">override</span> <span class="k">val</span> <span class="py">uri</span> <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:${servirtium.port()}&quot;</span><span class="p">)</span>
+    <span class="kd">override</span> <span class="kd">val</span> <span class="nv">uri</span> <span class="k">get</span><span class="p">()</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">servirtium</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
 
-    <span class="k">private</span> <span class="k">val</span> <span class="py">app</span> <span class="p">=</span> <span class="n">WordCounterApp</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
-    <span class="k">private</span> <span class="k">lateinit</span> <span class="k">var</span> <span class="py">servirtium</span><span class="p">:</span> <span class="n">Http4kServer</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">WordCounterApp</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="kd">lateinit</span> <span class="kd">var</span> <span class="nv">servirtium</span><span class="p">:</span> <span class="n">Http4kServer</span>
 
-    <span class="n">@BeforeEach</span>
-    <span class="k">fun</span> <span class="nf">start</span><span class="p">(</span><span class="n">info</span><span class="p">:</span> <span class="n">TestInfo</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">val</span> <span class="py">appPort</span> <span class="p">=</span> <span class="n">app</span><span class="p">.</span><span class="n">start</span><span class="p">().</span><span class="n">port</span><span class="p">()</span>
-        <span class="n">servirtium</span> <span class="p">=</span> <span class="n">ServirtiumServer</span><span class="p">.</span><span class="n">Recording</span><span class="p">(</span>
-            <span class="n">info</span><span class="p">.</span><span class="n">displayName</span><span class="p">.</span><span class="n">removeSuffix</span><span class="p">(</span><span class="s">&quot;()&quot;</span><span class="p">),</span>
-            <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:$appPort&quot;</span><span class="p">),</span>
+    <span class="nd">@BeforeEach</span>
+    <span class="kd">fun</span> <span class="nf">start</span><span class="p">(</span><span class="n">info</span><span class="p">:</span> <span class="n">TestInfo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">appPort</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">start</span><span class="p">().</span><span class="na">port</span><span class="p">()</span>
+        <span class="n">servirtium</span> <span class="o">=</span> <span class="n">ServirtiumServer</span><span class="p">.</span><span class="na">Recording</span><span class="p">(</span>
+            <span class="n">info</span><span class="p">.</span><span class="na">displayName</span><span class="p">.</span><span class="na">removeSuffix</span><span class="p">(</span><span class="s">&quot;()&quot;</span><span class="p">),</span>
+            <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">appPort</span><span class="s">&quot;</span><span class="p">),</span>
             <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)),</span>
             <span class="k">object</span> <span class="p">:</span> <span class="nc">InteractionOptions</span> <span class="p">{</span>
-                <span class="k">override</span> <span class="k">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">removeHeader</span><span class="p">(</span><span class="s">&quot;Host&quot;</span><span class="p">).</span><span class="n">removeHeader</span><span class="p">(</span><span class="s">&quot;User-agent&quot;</span><span class="p">)</span>
-                <span class="k">override</span> <span class="k">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">)</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">removeHeader</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">)</span>
+                <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="na">removeHeader</span><span class="p">(</span><span class="s">&quot;Host&quot;</span><span class="p">).</span><span class="na">removeHeader</span><span class="p">(</span><span class="s">&quot;User-agent&quot;</span><span class="p">)</span>
+                <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">)</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="na">removeHeader</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">)</span>
             <span class="p">}</span>
-        <span class="p">).</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">).</span><span class="na">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="n">@AfterEach</span>
-    <span class="k">fun</span> <span class="nf">stop</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">app</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
-        <span class="n">servirtium</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="nd">@AfterEach</span>
+    <span class="kd">fun</span> <span class="nf">stop</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">app</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+        <span class="n">servirtium</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Replays incoming traffic from disk. MiTM starts on a random port.</span>
 <span class="cm"> */</span>
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">MiTMReplayingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">MiTMReplayingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="k">override</span> <span class="k">val</span> <span class="py">uri</span> <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:${servirtium.port()}&quot;</span><span class="p">)</span>
+    <span class="kd">override</span> <span class="kd">val</span> <span class="nv">uri</span> <span class="k">get</span><span class="p">()</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">servirtium</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
 
-    <span class="k">private</span> <span class="k">lateinit</span> <span class="k">var</span> <span class="py">servirtium</span><span class="p">:</span> <span class="n">Http4kServer</span>
+    <span class="kd">private</span> <span class="kd">lateinit</span> <span class="kd">var</span> <span class="nv">servirtium</span><span class="p">:</span> <span class="n">Http4kServer</span>
 
-    <span class="n">@BeforeEach</span>
-    <span class="k">fun</span> <span class="nf">start</span><span class="p">(</span><span class="n">info</span><span class="p">:</span> <span class="n">TestInfo</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">servirtium</span> <span class="p">=</span> <span class="n">ServirtiumServer</span><span class="p">.</span><span class="n">Replay</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">displayName</span><span class="p">.</span><span class="n">removeSuffix</span><span class="p">(</span><span class="s">&quot;()&quot;</span><span class="p">),</span>
+    <span class="nd">@BeforeEach</span>
+    <span class="kd">fun</span> <span class="nf">start</span><span class="p">(</span><span class="n">info</span><span class="p">:</span> <span class="n">TestInfo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">servirtium</span> <span class="o">=</span> <span class="n">ServirtiumServer</span><span class="p">.</span><span class="na">Replay</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="na">displayName</span><span class="p">.</span><span class="na">removeSuffix</span><span class="p">(</span><span class="s">&quot;()&quot;</span><span class="p">),</span>
             <span class="n">Disk</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)),</span>
             <span class="k">object</span> <span class="p">:</span> <span class="nc">InteractionOptions</span> <span class="p">{</span>
-                <span class="k">override</span> <span class="k">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">header</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;some overridden date&quot;</span><span class="p">)</span>
+                <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;some overridden date&quot;</span><span class="p">)</span>
             <span class="p">}</span>
-        <span class="p">).</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">).</span><span class="na">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="n">@AfterEach</span>
-    <span class="k">fun</span> <span class="nf">stop</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">servirtium</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="nd">@AfterEach</span>
+    <span class="kd">fun</span> <span class="nf">stop</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">servirtium</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -1189,34 +1189,34 @@
 <span class="cm"> * Replays incoming traffic from GitHub. MiTM starts on a random port. Requires a github username</span>
 <span class="cm"> * and personal access token.</span>
 <span class="cm"> */</span>
-<span class="n">@Disabled</span>
-<span class="k">class</span> <span class="nc">GitHubReplayingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
+<span class="nd">@Disabled</span>
+<span class="kd">class</span> <span class="nc">GitHubReplayingWordCounterTest</span> <span class="p">:</span> <span class="n">WordCounterContract</span> <span class="p">{</span>
 
-    <span class="k">override</span> <span class="k">val</span> <span class="py">uri</span> <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">Uri</span><span class="p">.</span><span class="n">of</span><span class="p">(</span><span class="s">&quot;http://localhost:${servirtium.port()}&quot;</span><span class="p">)</span>
+    <span class="kd">override</span> <span class="kd">val</span> <span class="nv">uri</span> <span class="k">get</span><span class="p">()</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">servirtium</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
 
-    <span class="k">private</span> <span class="k">lateinit</span> <span class="k">var</span> <span class="py">servirtium</span><span class="p">:</span> <span class="n">Http4kServer</span>
+    <span class="kd">private</span> <span class="kd">lateinit</span> <span class="kd">var</span> <span class="nv">servirtium</span><span class="p">:</span> <span class="n">Http4kServer</span>
 
-    <span class="n">@BeforeEach</span>
-    <span class="k">fun</span> <span class="nf">start</span><span class="p">(</span><span class="n">info</span><span class="p">:</span> <span class="n">TestInfo</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">servirtium</span> <span class="p">=</span> <span class="n">ServirtiumServer</span><span class="p">.</span><span class="n">Replay</span><span class="p">(</span><span class="s">&quot;WordCounter.&quot;</span> <span class="p">+</span> <span class="n">info</span><span class="p">.</span><span class="n">displayName</span><span class="p">.</span><span class="n">removeSuffix</span><span class="p">(</span><span class="s">&quot;()&quot;</span><span class="p">),</span>
+    <span class="nd">@BeforeEach</span>
+    <span class="kd">fun</span> <span class="nf">start</span><span class="p">(</span><span class="n">info</span><span class="p">:</span> <span class="n">TestInfo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">servirtium</span> <span class="o">=</span> <span class="n">ServirtiumServer</span><span class="p">.</span><span class="na">Replay</span><span class="p">(</span><span class="s">&quot;WordCounter.&quot;</span> <span class="o">+</span> <span class="n">info</span><span class="p">.</span><span class="na">displayName</span><span class="p">.</span><span class="na">removeSuffix</span><span class="p">(</span><span class="s">&quot;()&quot;</span><span class="p">),</span>
             <span class="n">GitHub</span><span class="p">(</span><span class="s">&quot;http4k&quot;</span><span class="p">,</span> <span class="s">&quot;http4k&quot;</span><span class="p">,</span>
                 <span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;&lt;github user&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;personal access token&gt;&quot;</span><span class="p">),</span>
-                <span class="n">Paths</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s">&quot;src/test/resources/cookbook/service_virtualisation&quot;</span><span class="p">)</span>
+                <span class="n">Paths</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&quot;src/test/resources/cookbook/service_virtualisation&quot;</span><span class="p">)</span>
             <span class="p">),</span>
             <span class="k">object</span> <span class="p">:</span> <span class="nc">InteractionOptions</span> <span class="p">{</span>
-                <span class="k">override</span> <span class="k">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="p">=</span> <span class="n">request</span>
-                    <span class="p">.</span><span class="n">removeHeader</span><span class="p">(</span><span class="s">&quot;Accept-encoding&quot;</span><span class="p">)</span>
-                    <span class="p">.</span><span class="n">removeHeader</span><span class="p">(</span><span class="s">&quot;Connection&quot;</span><span class="p">)</span>
-                    <span class="p">.</span><span class="n">removeHeader</span><span class="p">(</span><span class="s">&quot;Host&quot;</span><span class="p">)</span>
-                    <span class="p">.</span><span class="n">removeHeader</span><span class="p">(</span><span class="s">&quot;User-agent&quot;</span><span class="p">)</span>
-                    <span class="p">.</span><span class="n">removeHeader</span><span class="p">(</span><span class="s">&quot;Content-length&quot;</span><span class="p">)</span>
+                <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">modify</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">=</span> <span class="n">request</span>
+                    <span class="p">.</span><span class="na">removeHeader</span><span class="p">(</span><span class="s">&quot;Accept-encoding&quot;</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">removeHeader</span><span class="p">(</span><span class="s">&quot;Connection&quot;</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">removeHeader</span><span class="p">(</span><span class="s">&quot;Host&quot;</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">removeHeader</span><span class="p">(</span><span class="s">&quot;User-agent&quot;</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">removeHeader</span><span class="p">(</span><span class="s">&quot;Content-length&quot;</span><span class="p">)</span>
             <span class="p">}</span>
-        <span class="p">).</span><span class="n">start</span><span class="p">()</span>
+        <span class="p">).</span><span class="na">start</span><span class="p">()</span>
     <span class="p">}</span>
 
-    <span class="n">@AfterEach</span>
-    <span class="k">fun</span> <span class="nf">stop</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">servirtium</span><span class="p">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="nd">@AfterEach</span>
+    <span class="kd">fun</span> <span class="nf">stop</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">servirtium</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
