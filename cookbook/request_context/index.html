@@ -970,10 +970,8 @@ the shared bag of state for each request, and to remove the state after the requ
 <span class="k">import</span> <span class="nn">org.http4k.lens.RequestContextKey</span>
 <span class="k">import</span> <span class="nn">org.http4k.lens.RequestContextLens</span>
 
-
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">data</span> <span class="kd">class</span> <span class="nc">SharedState</span><span class="p">(</span><span class="kd">val</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
-
 
     <span class="kd">fun</span> <span class="nf">AddState</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="n">RequestContextLens</span><span class="o">&lt;</span><span class="n">SharedState</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
         <span class="p">{</span>

@@ -929,7 +929,6 @@ will inject the <code>Approver</code> automatically into test methods.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/modules/approvaltests/example_standard.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.approvaltests</span>
 
-
 <span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
 <span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
@@ -1037,7 +1036,6 @@ module also provides Junit 5 extensions that will:</p>
     <span class="kd">fun</span> <span class="nf">`combine approval with hamkrest matcher`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">assertThat</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">approver</span><span class="p">.</span><span class="na">hasApprovedContent</span><span class="p">()))</span>
     <span class="p">}</span>
-
 <span class="p">}</span>
 </code></pre></div>
 

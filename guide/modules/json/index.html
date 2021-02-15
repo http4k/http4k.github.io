@@ -1024,17 +1024,17 @@ to/from JSON and XML using reflection.</p>
 </code></pre></div>
 
 <p>serializing an object/class for a Response via <code>Lens.inject()</code> - this properly sets the <code>Content-Type</code> header to <code>application/json</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">kotlinx.serialization.Serializable</span>  <span class="c1">// could use one of many json libraries: Gson, Jackson, Moshi, etc.</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">kotlinx.serialization.Serializable</span> <span class="c1">// could use one of many json libraries: Gson, Jackson, Moshi, etc.</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.*</span>
 <span class="k">import</span> <span class="nn">org.http4k.format.KotlinxSerialization.auto</span>
 <span class="k">import</span> <span class="nn">org.http4k.lens.BiDiBodyLens</span>
 
-<span class="nd">@Serializable</span>  <span class="c1">// required by Kotlinx.Serialization</span>
+<span class="nd">@Serializable</span> <span class="c1">// required by Kotlinx.Serialization</span>
 <span class="kd">data</span> <span class="kd">class</span> <span class="nc">Car</span><span class="p">(</span><span class="kd">val</span> <span class="nv">brand</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">year</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">miles</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
 
 <span class="c1">// &#39;auto&#39; is an extension function of each org.http4k.format.[serialization library]</span>
 <span class="c1">// example: https://github.com/http4k/http4k/blob/master/http4k-format/kotlinx-serialization/src/main/kotlin/org/http4k/format/ConfigurableKotlinxSerialization.kt</span>
-<span class="kd">val</span> <span class="nv">lensCarResponse</span> <span class="p">:</span> <span class="n">BiDiBodyLens</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>  <span class="c1">// BiDi allows for outgoing + incoming</span>
+<span class="kd">val</span> <span class="nv">lensCarResponse</span> <span class="p">:</span> <span class="n">BiDiBodyLens</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span> <span class="c1">// BiDi allows for outgoing + incoming</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
@@ -1054,7 +1054,6 @@ to/from JSON and XML using reflection.</p>
 
 <span class="cm">    {&quot;brand&quot;:&quot;Porsche&quot;,&quot;model&quot;:&quot;911 Turbo&quot;,&quot;year&quot;:1988,&quot;miles&quot;:45000}</span>
 <span class="cm">    */</span>
-
 <span class="p">}</span>
 </code></pre></div>
 

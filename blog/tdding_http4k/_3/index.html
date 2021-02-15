@@ -918,7 +918,6 @@
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
 
-
 <span class="kd">object</span> <span class="nc">Matchers</span> <span class="p">{</span>
     <span class="kd">fun</span> <span class="n">Response</span><span class="p">.</span><span class="nf">answerShouldBe</span><span class="p">(</span><span class="n">expected</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">assertThat</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="n">expected</span><span class="p">.</span><span class="na">toString</span><span class="p">())))</span>

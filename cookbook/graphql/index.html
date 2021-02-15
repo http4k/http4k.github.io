@@ -1003,7 +1003,6 @@
 
     <span class="kd">val</span> <span class="nv">graphQLClient</span> <span class="o">=</span> <span class="n">JavaHttpClient</span><span class="p">().</span><span class="na">asGraphQLHandler</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:5000/graphql&quot;</span><span class="p">))</span>
 
-
     <span class="kd">fun</span> <span class="nf">runAndDisplay</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span><span class="n">graphQLClient</span><span class="p">(</span><span class="n">GraphQLRequest</span><span class="p">(</span><span class="n">query</span><span class="p">)).</span><span class="na">data</span><span class="p">)</span>
     <span class="p">}</span>
