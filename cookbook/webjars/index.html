@@ -12,19 +12,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k Server-As-A-Function">
-<meta name="twitter:title" content="http4k Server-As-A-Function">
-<meta property="og:title" content="http4k Server-As-A-Function" />
+<meta itemprop="name" content="http4k GraphQL support">
+<meta name="twitter:title" content="http4k GraphQL support">
+<meta property="og:title" content="http4k GraphQL support" />
 
 
 
-<meta name="description" content="The simplest example of an http4k application">
-<meta property="og:description" content="The simplest example of an http4k application" />
-<meta name="twitter:description" content="The simplest example of an http4k application">
+<meta name="description" content="Recipe for using GraphQL plugins">
+<meta property="og:description" content="Recipe for using GraphQL plugins" />
+<meta name="twitter:description" content="Recipe for using GraphQL plugins">
 
 
 
-<link rel="canonical" href="https://www.http4k.org/cookbook/server_as_a_function/">
+<link rel="canonical" href="https://www.http4k.org/cookbook/webjars/">
 
 
 
@@ -78,7 +78,7 @@
     
     
     
-    <title>http4k Server-As-A-Function</title>
+    <title>http4k GraphQL support</title>
     
     
     
@@ -472,8 +472,8 @@
             
             
     
-        <a class="dropdown-item active"
-           href="./"
+        <a class="dropdown-item "
+           href="../server_as_a_function/"
            title="Server as a function">Server as a function</a>
     
 
@@ -580,8 +580,8 @@
             
             
     
-        <a class="dropdown-item "
-           href="../webjars/"
+        <a class="dropdown-item active"
+           href="./"
            title="WebJars">WebJars</a>
     
 
@@ -903,31 +903,46 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>Server as a function</h1>
+                    <h1>WebJars</h1>
                     
-                    <p>This example is the simplest possible "server" implementation. Note that we are not spinning up a server-backend here - but the entire application(!) is testable by firing HTTP requests at it as if it were.</p>
-<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
+                    <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.3.4.1&quot;</span>
+
+<span class="c1">// for the example...</span>
+<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.webjars&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;swagger-ui&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;3.43.0&quot;</span>
 </code></pre></div>
 
-<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/server_as_a_function/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.server_as_a_function</span>
+<p><a href="https://www.webjars.org/">WebJars</a> is a library to ship pre-packaged Web assets on your classpath by just adding the dependency. The assets are rehoused under the META-INF directory and end up with URLs such as: </p>
+<p>http://localhost:8080/webjars/swagger-ui/3.43.0/index.html</p>
+<p>http4k integrates this functionality into the core library and ships with the <code>webJars()</code> router plugin to activate. As the plugin is just an <code>HttpHandler</code>, the simplest example is just to launch WebJars directly as a Server:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">webJars</span><span class="p">().</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8080</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+</code></pre></div>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<p>... or a more standard use-case is to mix it into your application routing as in the example below:</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/cookbook/webjars/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">cookbook.webjars</span>
+
 <span class="k">import</span> <span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.webJars</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// mix the WebJars routing into your app...</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/myGreatRoute&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
+        <span class="n">webJars</span><span class="p">()</span>
+    <span class="p">)</span>
 
-    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="na">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8080</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
-    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
-
-    <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-
-    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    <span class="c1">// then browse to: http://localhost:8080/webjars/swagger-ui/3.43.0/index.html</span>
 <span class="p">}</span>
 </code></pre></div>
                     
