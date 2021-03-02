@@ -913,6 +913,8 @@
 changes with their rationale when appropriate:</p>
 <h3 id="v4400_uncut">v4.4.0.0 (uncut)<a class="headerlink" href="#v4400_uncut" title="Permanent link">&para;</a></h3>
 <ul>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
+<li><strong>http4k-server-jetty</strong> : We have been alerted to some runtime changes around how Jetty parses paths containing . or /. Workaround is to use <code>For the record, I can confirm that HttpConfiguration.httpCompliance = HttpCompliance.RFC7230_LEGACY</code>, but this is marked as legacy and will be deprecated sooner or later. See details at: https://github.com/eclipse/jetty.project/issues/6001#issuecomment-786611040</li>
 <li><strong>http4k-format-moshi</strong> : Moshi now supports AutoMarshallingEvents out of the box.</li>
 <li><strong>http4k-format-core</strong> : [Break/Repackage] Format <code>value()</code> extension functions are now packaged properly.</li>
 </ul>
