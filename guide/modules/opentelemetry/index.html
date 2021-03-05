@@ -916,9 +916,9 @@
 <p>OpenTelemetry provides a pluggable interface for tracing propagation, so you can easily switch between different implementations such as AWS X-Ray, B3 and Jaeger etc.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.opentelemetry</span>
 
-<span class="k">import</span> <span class="nn">io.opentelemetry.api.OpenTelemetry</span>
-<span class="k">import</span> <span class="nn">io.opentelemetry.context.propagation.ContextPropagators</span>
-<span class="k">import</span> <span class="nn">io.opentelemetry.extension.trace.propagation.AwsXRayPropagator</span>
+<span class="k">import</span> <span class="nn">io.opentelemetry.context.propagation.ContextPropagators.create</span>
+<span class="k">import</span> <span class="nn">io.opentelemetry.extension.aws.AwsXrayPropagator</span>
+<span class="k">import</span> <span class="nn">io.opentelemetry.sdk.OpenTelemetrySdk</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
@@ -935,7 +935,9 @@
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// configure OpenTelemetry using the Amazon XRAY tracing scheme</span>
-    <span class="n">OpenTelemetry</span><span class="p">.</span><span class="na">setGlobalPropagators</span><span class="p">(</span><span class="n">ContextPropagators</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">AwsXRayPropagator</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()))</span>
+    <span class="kd">val</span> <span class="nv">openTelemetry</span> <span class="o">=</span> <span class="n">OpenTelemetrySdk</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">setPropagators</span><span class="p">(</span><span class="n">create</span><span class="p">(</span><span class="n">AwsXrayPropagator</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()))</span>
+        <span class="p">.</span><span class="na">buildAndRegisterGlobal</span><span class="p">()</span>
 
     <span class="c1">// this HttpHandler represents a 3rd party service, and will repeat the request body</span>
     <span class="kd">val</span> <span class="nv">repeater</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
@@ -944,10 +946,10 @@
     <span class="p">}</span>
 
     <span class="c1">// we will propagate the tracing headers using the tracer instance</span>
-    <span class="kd">val</span> <span class="nv">repeaterClient</span> <span class="o">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="na">OpenTelemetryTracing</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">repeater</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">repeaterClient</span> <span class="o">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="na">OpenTelemetryTracing</span><span class="p">(</span><span class="n">openTelemetry</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">repeater</span><span class="p">)</span>
 
     <span class="c1">// this is the server app which will add tracing spans to incoming requests</span>
-    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">OpenTelemetryTracing</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">OpenTelemetryTracing</span><span class="p">(</span><span class="n">openTelemetry</span><span class="p">)</span>
         <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/echo/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span>
             <span class="kd">val</span> <span class="nv">remoteResponse</span> <span class="o">=</span> <span class="n">repeaterClient</span><span class="p">(</span>
                 <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://aRemoteServer/endpoint&quot;</span><span class="p">)</span>
@@ -964,8 +966,9 @@
 <p>Both Server and Client filters are available for recording request counts and latency, optionally overriding values for the metric names, descriptions and request identification.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.opentelemetry</span>
 
+<span class="k">import</span> <span class="nn">io.opentelemetry.api.metrics.GlobalMetricsProvider</span>
 <span class="k">import</span> <span class="nn">io.opentelemetry.exporters.inmemory.InMemoryMetricExporter</span>
-<span class="k">import</span> <span class="nn">io.opentelemetry.sdk.OpenTelemetrySdk</span>
+<span class="k">import</span> <span class="nn">io.opentelemetry.sdk.metrics.SdkMeterProvider</span>
 <span class="k">import</span> <span class="nn">io.opentelemetry.sdk.metrics.data.MetricData</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -980,6 +983,9 @@
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// test only: this sets up the metrics provider to something we can read</span>
+    <span class="n">GlobalMetricsProvider</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">SdkMeterProvider</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">buildAndRegisterGlobal</span><span class="p">())</span>
+
     <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
 
     <span class="c1">// apply metrics filters to a server...</span>
@@ -1001,12 +1007,14 @@
 
     <span class="c1">// see some results</span>
     <span class="n">exportMetricsFromOpenTelemetry</span><span class="p">().</span><span class="na">forEach</span> <span class="p">{</span>
-        <span class="n">println</span><span class="p">(</span><span class="s">&quot;metric: &quot;</span> <span class="o">+</span> <span class="nb">it</span><span class="p">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">&quot;, value: &quot;</span> <span class="o">+</span> <span class="nb">it</span><span class="p">.</span><span class="na">points</span><span class="p">)</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;metric: &quot;</span> <span class="o">+</span> <span class="nb">it</span><span class="p">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">&quot;, value: &quot;</span> <span class="o">+</span>
+            <span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">longSumData</span><span class="p">.</span><span class="na">points</span><span class="p">.</span><span class="na">takeIf</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">isNotEmpty</span><span class="p">()</span> <span class="p">}</span> <span class="o">?:</span> <span class="nb">it</span><span class="p">.</span><span class="na">doubleSummaryData</span><span class="p">.</span><span class="na">points</span><span class="p">)</span>
+        <span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kd">private</span> <span class="kd">fun</span> <span class="nf">exportMetricsFromOpenTelemetry</span><span class="p">():</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MetricData</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">InMemoryMetricExporter</span><span class="p">.</span><span class="na">create</span><span class="p">().</span><span class="na">apply</span> <span class="p">{</span>
-    <span class="n">export</span><span class="p">(</span><span class="n">OpenTelemetrySdk</span><span class="p">.</span><span class="na">getGlobalMeterProvider</span><span class="p">().</span><span class="na">metricProducer</span><span class="p">.</span><span class="na">collectAllMetrics</span><span class="p">())</span>
+    <span class="n">export</span><span class="p">((</span><span class="n">GlobalMetricsProvider</span><span class="p">.</span><span class="na">get</span><span class="p">()</span> <span class="k">as</span> <span class="n">SdkMeterProvider</span><span class="p">).</span><span class="na">collectAllMetrics</span><span class="p">())</span>
 <span class="p">}.</span><span class="na">finishedMetricItems</span>
 </code></pre></div>
                     
