@@ -916,6 +916,27 @@
 <li>Serving of static content using a <code>Classpath</code> resource loader</li>
 <li>Support for Single Page Applications using a <code>singlePageApp()</code> block - resources loaded from here are loaded from the underlying <code>ResourceLoader</code> or fallback to <code>/</code> (and passed to the SPA code)</li>
 </ul>
+<h3 id="dynamic_paths_path_variables">Dynamic Paths / Path Variables<a class="headerlink" href="#dynamic_paths_path_variables" title="Permanent link">&para;</a></h3>
+<p>As you would expect, http4k allows routes to include dynamic or variable elements in the matching path, and allows you to reference the variable in the Handler. For example:</p>
+<div class="codehilite"><pre><span></span><code><span class="s">&quot;/book/{title}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">GetBookDetails</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">))</span> <span class="p">}</span>
+<span class="s">&quot;/author/{name}/latest&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="n">OK</span><span class="p">).</span><span class="n">body</span><span class="p">(</span><span class="n">GetAllBooks</span><span class="p">(</span><span class="n">author</span> <span class="o">=</span> <span class="n">req</span><span class="p">.</span><span class="n">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)).</span><span class="kr">last</span><span class="p">())</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>By default, the variable(s) will match anything. However you can append the variable name with a RegEx expression to limit the matches.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// will match /book/978-3-16-148410-0 (i.e. only digits and dashes)</span>
+<span class="c1">// /book/A%20Confederacy%20Of%20Dunces would return a 404 (Not Found)</span>
+<span class="s">&quot;/book/{isbn:[</span><span class="se">\\</span><span class="s">d-]+}&quot;</span>
+
+<span class="c1">// will NOT match /sales/south or /sales/usa</span>
+<span class="s">&quot;/sales/{region:(?:northeast|southeast|west|international)}&quot;</span> 
+</code></pre></div>
+
+<p>Unlike some frameworks, there are no pre-defined types such as <code>int</code> or <code>path</code> but these are easy to replicate with RegEx's:
+- string (excluding slashes) : <code>[^\\/]+</code> (note that Kotlin requires backslashes to be escaped, so <code>\w</code> in RegEx is expressed as <code>\\w</code> in Kotlin)
+- int : <code>\\d+</code>
+- float : <code>[+-]?([0-9]*[.])?[0-9]+</code> (this will match basic floats. Does not match exponents, or scientific notation)
+- path : <code>.*</code></p>
+<p>Note that paths, not strings, will match by default. <code>"/news/{date}"</code> will match <code>www.example.com/news/2018/05/26</code>, making <code>request.path("date")</code> equal to <code>2018/05/26</code>. This may be exactly what you want, or it may produce unexpected results, depending on how your URLs are structured.</p>
 <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.4.2.0&quot;</span>
 </code></pre></div>
