@@ -931,7 +931,7 @@
 <span class="s">&quot;/sales/{region:(?:northeast|southeast|west|international)}&quot;</span> 
 </code></pre></div>
 
-<p>Unlike some frameworks, there are no pre-defined types such as <code>int</code> or <code>path</code> but these are easy to replicate with RegEx's:
+<p>There are no pre-defined types such as <code>int</code> or <code>path</code> for matching but these are easy to replicate with RegEx's:
 - string (excluding slashes) : <code>[^\\/]+</code> (note that Kotlin requires backslashes to be escaped, so <code>\w</code> in RegEx is expressed as <code>\\w</code> in Kotlin)
 - int : <code>\\d+</code>
 - float : <code>[+-]?([0-9]*[.])?[0-9]+</code> (this will match basic floats. Does not match exponents, or scientific notation)
