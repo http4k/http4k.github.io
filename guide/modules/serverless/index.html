@@ -959,7 +959,7 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.ApiGatewayV1LambdaFunction</span>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
-<span class="k">import</span> <span class="nn">org.http4k.util.proxy</span>
+<span class="k">import</span> <span class="nn">java.lang.reflect.Proxy</span>
 
 <span class="c1">// This AppLoader is responsible for building our HttpHandler which is supplied to AWS</span>
 <span class="c1">// It is the only actual piece of code that needs to be written.</span>
@@ -1004,6 +1004,9 @@
     <span class="n">runLambdaLocally</span><span class="p">()</span>
     <span class="n">runLambdaAsAwsWould</span><span class="p">()</span>
 <span class="p">}</span>
+
+<span class="c1">// helper method to stub the Lambda Context</span>
+<span class="kd">private</span> <span class="kd">inline</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="k">reified</span> <span class="n">T</span><span class="o">&gt;</span> <span class="nf">proxy</span><span class="p">():</span> <span class="n">T</span> <span class="o">=</span> <span class="n">Proxy</span><span class="p">.</span><span class="na">newProxyInstance</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">.</span><span class="na">classLoader</span><span class="p">,</span> <span class="n">arrayOf</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">))</span> <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;not implemented&quot;</span><span class="p">)</span> <span class="p">}</span> <span class="k">as</span> <span class="n">T</span>
 </code></pre></div>
 
 <h4 id="google_cloud_functions_integration">Google Cloud Functions integration<a class="headerlink" href="#google_cloud_functions_integration" title="Permanent link">&para;</a></h4>
