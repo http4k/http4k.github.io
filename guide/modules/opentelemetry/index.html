@@ -966,7 +966,7 @@
 <p>Both Server and Client filters are available for recording request counts and latency, optionally overriding values for the metric names, descriptions and request identification.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.modules.opentelemetry</span>
 
-<span class="k">import</span> <span class="nn">io.opentelemetry.api.metrics.GlobalMetricsProvider</span>
+<span class="k">import</span> <span class="nn">io.opentelemetry.api.metrics.GlobalMeterProvider</span>
 <span class="k">import</span> <span class="nn">io.opentelemetry.exporters.inmemory.InMemoryMetricExporter</span>
 <span class="k">import</span> <span class="nn">io.opentelemetry.sdk.metrics.SdkMeterProvider</span>
 <span class="k">import</span> <span class="nn">io.opentelemetry.sdk.metrics.data.MetricData</span>
@@ -984,7 +984,7 @@
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// test only: this sets up the metrics provider to something we can read</span>
-    <span class="n">GlobalMetricsProvider</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">SdkMeterProvider</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">buildAndRegisterGlobal</span><span class="p">())</span>
+    <span class="n">GlobalMeterProvider</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">SdkMeterProvider</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">buildAndRegisterGlobal</span><span class="p">())</span>
 
     <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
 
@@ -1014,7 +1014,7 @@
 <span class="p">}</span>
 
 <span class="kd">private</span> <span class="kd">fun</span> <span class="nf">exportMetricsFromOpenTelemetry</span><span class="p">():</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MetricData</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">InMemoryMetricExporter</span><span class="p">.</span><span class="na">create</span><span class="p">().</span><span class="na">apply</span> <span class="p">{</span>
-    <span class="n">export</span><span class="p">((</span><span class="n">GlobalMetricsProvider</span><span class="p">.</span><span class="na">get</span><span class="p">()</span> <span class="k">as</span> <span class="n">SdkMeterProvider</span><span class="p">).</span><span class="na">collectAllMetrics</span><span class="p">())</span>
+    <span class="n">export</span><span class="p">((</span><span class="n">GlobalMeterProvider</span><span class="p">.</span><span class="na">get</span><span class="p">()</span> <span class="k">as</span> <span class="n">SdkMeterProvider</span><span class="p">).</span><span class="na">collectAllMetrics</span><span class="p">())</span>
 <span class="p">}.</span><span class="na">finishedMetricItems</span>
 </code></pre></div>
                     
