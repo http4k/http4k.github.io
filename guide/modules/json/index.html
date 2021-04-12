@@ -1033,8 +1033,13 @@ to/from JSON and XML using reflection.</p>
 </code></pre></div>
 
 <p>serializing an object/class for a Response via <code>Lens.inject()</code> - this properly sets the <code>Content-Type</code> header to <code>application/json</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">kotlinx.serialization.Serializable</span> <span class="c1">// could use one of many json libraries: Gson, Jackson, Moshi, etc.</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.*</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">kotlinx.serialization.Serializable</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status</span>
 <span class="k">import</span> <span class="nn">org.http4k.format.KotlinxSerialization.auto</span>
 <span class="k">import</span> <span class="nn">org.http4k.lens.BiDiBodyLens</span>
 
@@ -1057,7 +1062,7 @@ to/from JSON and XML using reflection.</p>
     <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
     <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-    <span class="cm">/* </span>
+    <span class="cm">/*</span>
 <span class="cm">    HTTP/1.1 200 OK</span>
 <span class="cm">    content-type: application/json; charset=utf-8</span>
 
