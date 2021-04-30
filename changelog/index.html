@@ -913,10 +913,12 @@
 changes with their rationale when appropriate:</p>
 <h3 id="v4800_uncut">v4.8.0.0 (uncut)<a class="headerlink" href="#v4800_uncut" title="Permanent link">&para;</a></h3>
 <ul>
+<li><strong>http4k-format-moshi</strong> : [Breaking] Add mappings for Map-type and List-like classes to use default serialisers. To get around this, create your own Moshi configuration, omitting the <code>CollectionEdgeCasesAdapter</code></li>
+<li><strong>http4k-websocket-</strong>* : [Breaking] Added support for filters with <code>WsFilter</code>, which can be wrapped around a <code>WsHandler</code> or <code>WsConsumer</code> to decorate them with behaviour. This has involved changing <code>WsHandler</code> to always return a <code>WsConsumer</code> even if it doesn't match - in the case of a non-match, the socket is closed immediately.</li>
+<li><strong>http4k-sse-</strong>* : [Breaking] Added support for filters with <code>SseFilter</code>, which can be wrapped around a <code>SseHandler</code> or <code>SseConsumer</code> to decorate them with behaviour. This has involved changing <code>SseHandler</code> to always return a <code>SseConsumer</code> even if it doesn't match - in the case of a non-match, the socket is closed immediately.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Repackaging of non-core classes for SSE/WebSockets into new <code>http4k-realtime-core</code> module. No action required unless these classes are needed without an implementation.</li>
 <li><strong>http4k-core</strong> : Repackaging of non-core classes for Serverless into new <code>http4k-serverless-core</code> module. No action required unless these classes are needed without an implementation.</li>
-<li><strong>http4k-format-moshi</strong> :[Breaking] Add mappings for Map-type and List-like classes to use default serialisers. To get around this, create your own Moshi configuration, omitting the <code>CollectionEdgeCasesAdapter</code></li>
 </ul>
 <h3 id="v4710">v4.7.1.0<a class="headerlink" href="#v4710" title="Permanent link">&para;</a></h3>
 <ul>

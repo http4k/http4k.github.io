@@ -1093,7 +1093,7 @@
 
 <span class="c1">// a unit test version of the contract - it connects to the websocket in memory with no network</span>
 <span class="kd">class</span> <span class="nc">WebsocketUnitTest</span> <span class="p">:</span> <span class="n">WebsocketContract</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">client</span><span class="p">()</span> <span class="o">=</span> <span class="n">cookbook</span><span class="p">.</span><span class="na">websockets</span><span class="p">.</span><span class="na">testApp</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/bob&quot;</span><span class="p">))</span><span class="o">!!</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">client</span><span class="p">()</span> <span class="o">=</span> <span class="n">cookbook</span><span class="p">.</span><span class="na">websockets</span><span class="p">.</span><span class="na">testApp</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/bob&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 
 <span class="c1">// a integration test version of the contract - it starts a server and connects to the websocket over the network</span>
