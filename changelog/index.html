@@ -911,7 +911,7 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v4800_uncut">v4.8.0.0 (uncut)<a class="headerlink" href="#v4800_uncut" title="Permanent link">&para;</a></h3>
+<h3 id="v4800">v4.8.0.0<a class="headerlink" href="#v4800" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-format-moshi</strong> : [Breaking] Add mappings for Map-type and List-like classes to use default serialisers. To get around this, create your own Moshi configuration, omitting the <code>CollectionEdgeCasesAdapter</code></li>
 <li><strong>http4k-websocket-</strong>* : [Breaking] Added support for filters with <code>WsFilter</code>, which can be wrapped around a <code>WsHandler</code> or <code>WsConsumer</code> to decorate them with behaviour. This has involved changing <code>WsHandler</code> to always return a <code>WsConsumer</code> even if it doesn't match - in the case of a non-match, the socket is closed immediately.</li>
