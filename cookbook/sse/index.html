@@ -912,9 +912,10 @@
 
 <p><strong>http4k</strong> provides SSE (Server Sent Events) support using a simple, consistent, typesafe, and testable API on supported server backends (see above). SSE communication consists of 3 main concepts:</p>
 <ol>
-<li><code>SseHandler</code> - represented as a typealias: <code>SseHandler =  (Request) -&gt; SseConsumer?</code>. This is responsible for matching an HTTP request to an SSE handler.</li>
+<li><code>SseHandler</code> - represented as a typealias: <code>SseHandler =  (Request) -&gt; SseConsumer</code>. This is responsible for matching an HTTP request to an SSE handler.</li>
 <li><code>SseConsumer</code> - represented as a typealias: <code>SseConsumer = (Sse) -&gt; Unit</code>. This function is called on connection of a Sse and allow the API user to receive to events coming from the connected SSE handler.</li>
 <li><code>SseMessage</code> - a message which is sent from the SSE handler SseMessages are immutable data classes.</li>
+<li><code>SseFilter</code> - represented as a interface: <code>SseFilter = (SseConsumer) -&gt; SseConsumer</code>. This allows for the decoration of <code>SseConsumers</code> to add pre or post matching behaviour in the same way as a standard <code>Filter</code>.</li>
 </ol>
 <h3 id="sse_as_a_function">SSE as a Function<a class="headerlink" href="#sse_as_a_function" title="Permanent link">&para;</a></h3>
 <p>The simplest possible SSE handler can be mounted as a <code>SseConsumer</code> function onto a server with:</p>
@@ -935,18 +936,31 @@
 <span class="k">import</span> <span class="nn">org.http4k.server.Undertow</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span> <span class="nn">org.http4k.sse.Sse</span>
+<span class="k">import</span> <span class="nn">org.http4k.sse.SseFilter</span>
 <span class="k">import</span> <span class="nn">org.http4k.sse.SseMessage</span>
+<span class="k">import</span> <span class="nn">org.http4k.sse.then</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="nv">namePath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
 
-    <span class="kd">val</span> <span class="nv">sse</span> <span class="o">=</span> <span class="n">sse</span><span class="p">(</span>
-        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">sse</span><span class="p">:</span> <span class="n">Sse</span> <span class="o">-&gt;</span>
-            <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">sse</span><span class="p">.</span><span class="na">connectRequest</span><span class="p">)</span>
-            <span class="n">sse</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="na">Data</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span>
-            <span class="n">sse</span><span class="p">.</span><span class="na">onClose</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="c1">// a filter allows us to intercept the call to the sse and do logging etc...</span>
+    <span class="kd">val</span> <span class="nv">sayHello</span> <span class="o">=</span> <span class="n">SseFilter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
+        <span class="p">{</span>
+            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello from the sse!&quot;</span><span class="p">)</span>
+            <span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
         <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="nv">sse</span> <span class="o">=</span> <span class="n">sayHello</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+        <span class="n">sse</span><span class="p">(</span>
+            <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">sse</span><span class="p">:</span> <span class="n">Sse</span> <span class="o">-&gt;</span>
+                <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">sse</span><span class="p">.</span><span class="na">connectRequest</span><span class="p">)</span>
+                <span class="n">sse</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="na">Data</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span>
+                <span class="n">sse</span><span class="p">.</span><span class="na">onClose</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
     <span class="p">)</span>
+
     <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hiya world&quot;</span><span class="p">)</span> <span class="p">}</span>
 
     <span class="n">PolyHandler</span><span class="p">(</span><span class="n">http</span><span class="p">,</span> <span class="n">sse</span> <span class="o">=</span> <span class="n">sse</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>

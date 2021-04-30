@@ -912,11 +912,12 @@
 <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-jackson&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.7.1.0&quot;</span>
 </code></pre></div>
 
-<p><strong>http4k</strong> provides Websocket support using a simple, consistent, typesafe, and testable API on supported server backends (see above). Websocket communication consists of 3 main concepts:</p>
+<p><strong>http4k</strong> provides Websocket support using a simple, consistent, typesafe, and testable API on supported server backends (see above). Websocket communication consists of 4 main concepts:</p>
 <ol>
-<li><code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsConsumer?</code>. This is responsible for matching an HTTP request to a websocket.</li>
+<li><code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsConsumer</code>. This is responsible for matching an HTTP request to a websocket.</li>
 <li><code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.</li>
 <li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the <a href="https://github.com/http4k/http4k"><strong>http4k</strong></a> HTTP message model, WsMessages are immutable data classes.</li>
+<li><code>WsFilter</code> - represented as a interface: <code>WsFilter = (WsConsumer) -&gt; WsConsumer</code>. This allows for the decoration of <code>WsConsumers</code> to add pre or post matching behaviour in the same way as a standard <code>Filter</code>.</li>
 </ol>
 <h3 id="websocket_as_a_function">Websocket as a Function<a class="headerlink" href="#websocket_as_a_function" title="Permanent link">&para;</a></h3>
 <p>The simplest possible Websocket can be mounted as a <code>WsConsumer</code> function onto a server with:</p>
@@ -1021,20 +1022,32 @@
 <span class="k">import</span> <span class="nn">org.http4k.testing.testWsClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.WsFilter</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span> <span class="nn">org.http4k.websocket.then</span>
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
 <span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
 
 <span class="kd">val</span> <span class="nv">namePath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
 
-<span class="c1">// here is our websocket app - it uses dynamic path binding and lenses</span>
-<span class="kd">val</span> <span class="nv">testApp</span><span class="p">:</span> <span class="n">WsHandler</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
-    <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
-        <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
-        <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="c1">// a filter allows us to intercept the call to the websocket and do logging etc...</span>
+<span class="kd">val</span> <span class="nv">sayHello</span> <span class="o">=</span> <span class="n">WsFilter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
+    <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="s">&quot;Hello from the websocket!&quot;</span><span class="p">)</span>
+        <span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
     <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// here is our websocket app - it uses dynamic path binding and lenses</span>
+<span class="kd">val</span> <span class="nv">testApp</span><span class="p">:</span> <span class="n">WsHandler</span> <span class="o">=</span> <span class="n">sayHello</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+    <span class="n">websockets</span><span class="p">(</span>
+        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">Websocket</span> <span class="o">-&gt;</span>
+            <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1">// this is the abstract contract that defines the behaviour to be tested</span>
