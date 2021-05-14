@@ -990,15 +990,17 @@
     <span class="kd">fun</span> <span class="nf">runLambdaAsAwsWould</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">println</span><span class="p">(</span><span class="s">&quot;RUNNING AS LAMBDA:&quot;</span><span class="p">)</span>
 
-        <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">FunctionsExampleEntryClass</span><span class="p">().</span><span class="na">handleRequest</span><span class="p">(</span><span class="n">mapOf</span><span class="p">(</span>
-            <span class="s">&quot;path&quot;</span> <span class="n">to</span> <span class="s">&quot;/&quot;</span><span class="p">,</span>
-            <span class="s">&quot;queryStringParameters&quot;</span> <span class="n">to</span> <span class="n">emptyMap</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="o">&gt;</span><span class="p">(),</span>
-            <span class="s">&quot;body&quot;</span> <span class="n">to</span> <span class="s">&quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;</span><span class="p">,</span>
-            <span class="s">&quot;headers&quot;</span> <span class="n">to</span> <span class="n">emptyMap</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">String</span><span class="o">&gt;</span><span class="p">(),</span>
-            <span class="s">&quot;isBase64Encoded&quot;</span> <span class="n">to</span> <span class="kc">false</span><span class="p">,</span>
-            <span class="s">&quot;httpMethod&quot;</span> <span class="n">to</span> <span class="s">&quot;GET&quot;</span>
-        <span class="p">),</span> <span class="n">proxy</span><span class="p">())</span>
-        <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c1">//        val response = FunctionsExampleEntryClass().handleRequest(ServerlessMoshi.asInputStream(</span>
+<span class="c1">//            mapOf(</span>
+<span class="c1">//                &quot;path&quot; to &quot;/&quot;,</span>
+<span class="c1">//                &quot;queryStringParameters&quot; to emptyMap&lt;String, String&gt;(),</span>
+<span class="c1">//                &quot;body&quot; to &quot;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&quot;,</span>
+<span class="c1">//                &quot;headers&quot; to emptyMap&lt;String, String&gt;(),</span>
+<span class="c1">//                &quot;isBase64Encoded&quot; to false,</span>
+<span class="c1">//                &quot;httpMethod&quot; to &quot;GET&quot;</span>
+<span class="c1">//            )</span>
+<span class="c1">//        ), proxy())</span>
+<span class="c1">//        println(response)</span>
     <span class="p">}</span>
 
     <span class="n">runLambdaLocally</span><span class="p">()</span>
