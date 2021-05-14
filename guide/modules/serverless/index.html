@@ -1034,7 +1034,7 @@ Here is an example:</p>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.AppLoader</span>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.FakeGCFRequest</span>
 <span class="k">import</span> <span class="nn">org.http4k.serverless.FakeGCFResponse</span>
-<span class="k">import</span> <span class="nn">org.http4k.serverless.GoogleCloudFunction</span>
+<span class="k">import</span> <span class="nn">org.http4k.serverless.GoogleCloudHttpFunction</span>
 
 <span class="c1">// This AppLoader is responsible for building our HttpHandler which is supplied to GCF</span>
 <span class="c1">// Along with the extension class below, is the only actual piece of code that needs to be written.</span>
@@ -1059,7 +1059,7 @@ Here is an example:</p>
 <span class="p">}</span>
 
 <span class="c1">// This class is the entry-point for the function call - configure it when deploying</span>
-<span class="kd">class</span> <span class="nc">FunctionsExampleEntryClass</span> <span class="p">:</span> <span class="n">GoogleCloudFunction</span><span class="p">(</span><span class="n">TweetEchoLambda</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">FunctionsExampleEntryClass</span> <span class="p">:</span> <span class="n">GoogleCloudHttpFunction</span><span class="p">(</span><span class="n">TweetEchoLambda</span><span class="p">)</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 

@@ -911,6 +911,22 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
+<h3 id="v4900">v4.9.0.0<a class="headerlink" href="#v4900" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>http4k-serverless-</strong> : Reworking of Serverless infrastructure to support calling Serverless Functions using automarshalled event classes. New concepts of FnHandler and FnLoader (analogues to existing HttpHandler and AppLoader). Docs and examples coming soon!</li>
+<li><strong>http4k-serverless-lambda</strong>* : Support for FnHandlers, with super lightweight unmarshalling of event classes via Moshi. Conversion of all AWS functions to use RequestStreamHandlers under the covers instead of slow marshalling via Jackson. New FnHandlers should extend <code>AwsLambdaEventFunction</code> for events, or the existing <code>ApiGateway*Function</code> classes for HTTP functions. Automarshalling support for the following AWS event types, extensible by providing own Moshi adapter:<ul>
+<li>DynamodbEvent</li>
+<li>KinesisEvent</li>
+<li>KinesisFirehoseEvent</li>
+<li>S3Event</li>
+<li>ScheduledEvent</li>
+<li>SNSEvent</li>
+<li>SQSEvent</li>
+</ul>
+</li>
+<li><strong>http4k-serverless-alibaba</strong> : [Breaking] Support for FnHandlers. Old style HTTP Handlers should now extend <code>AlibabaCloudHttpFunction</code>. Event functions should extend <code>AlibabaCloudEventFunction</code>. Extensible automarshalling support for event types using Moshi.</li>
+<li><strong>http4k-serverless-gcf</strong>* : Support for FnHandlers. Old style HTTP Handlers should now extend <code>GoogleCloudHttpFunction</code>. Event functions should extend <code>GoogleCloudEventFunction</code>. Extensible automarshalling support for event types using Moshi.</li>
+</ul>
 <h3 id="v4820">v4.8.2.0<a class="headerlink" href="#v4820" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions. Remove excess dependency on alibaba libraries which depend on vulnerable libs.</li>
