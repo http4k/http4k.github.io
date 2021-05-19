@@ -1,0 +1,1163 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="http4k How-to: Configure an OAuth_Server">
+<meta name="twitter:title" content="http4k How-to: Configure an OAuth_Server">
+<meta property="og:title" content="http4k How-to: Configure an OAuth_Server" />
+
+
+
+<meta name="description" content="Recipe for using http4k to create an authorization server that provides an *authorization code* access flow">
+<meta property="og:description" content="Recipe for using http4k to create an authorization server that provides an *authorization code* access flow" />
+<meta name="twitter:description" content="Recipe for using http4k to create an authorization server that provides an *authorization code* access flow">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/guide/howto/configure_an_oauth_server/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>http4k How-to: Configure an OAuth_Server</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#4051b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../../css/site.css">
+    
+    
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../.."
+               title="About the docs">About the docs</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Concepts</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/rationale/"
+           title="Rationale">Rationale</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/http/"
+           title="HTTP">HTTP</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/serverless/"
+           title="Serverless">Serverless</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/lens/"
+           title="Lens">Lens</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/websockets/"
+           title="WebSockets">WebSockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/server-sent-events/"
+           title="Server-Sent Events">Server-Sent Events</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Tutorials</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/your_first_http4k_app/"
+           title="Your first http4k app">Your first http4k app</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/tdding_http4k/"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown active show">
+            <a class="nav-link dropdown-toggle active"
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="true">How-to guides</a>
+            <div class="dropdown-menu show">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../server_as_a_function/"
+           title="Basic: Server as a function">Basic: Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../client_as_a_function/"
+           title="Basic: Client as a function">Basic: Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_server_backend/"
+           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../write_different_test_types/"
+           title="Basic: Different test-types">Basic: Different test-types</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../simple_routing/"
+           title="Basic: Simple routing">Basic: Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../nestable_routes/"
+           title="Basic: Nestable routes">Basic: Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../attach_context_to_a_request/"
+           title="Attach context to a request">Attach context to a request</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item active"
+           href="./"
+           title="Configure an OAuth Server">Configure an OAuth Server</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../create_a_custom_json_marshaller/"
+           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../customise_a_server_backend/"
+           title="Customise a Server backend">Customise a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../deploy_webjars/"
+           title="Deploy WebJars">Deploy WebJars</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../integrate_with_openapi/"
+           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../leverage_graphql/"
+           title="Leverage GraphQL">Leverage GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../lookup_a_user_principal/"
+           title="Lookup a User Principal">Lookup a User Principal</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../monitor_http4k/"
+           title="Monitor http4k">Monitor http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../record_and_replay_http_traffic/"
+           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../serve_sse/"
+           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../serve_websockets/"
+           title="Serve Websockets">Serve Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../structure_your_logs_with_events/"
+           title="Structure your logs with Events">Structure your logs with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../test_using_service_virtualisation/"
+           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../typesafe_your_api_with_lenses/"
+           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_custom_oauth_provider/"
+           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_templating_engine/"
+           title="Use a templating engines">Use a templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_html_forms/"
+           title="Use HTML forms">Use HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_multipart_forms/"
+           title="Use Multipart forms">Use Multipart forms</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Reference</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/api/"
+           title="API docs">API docs</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/cloud_native/"
+           title="Cloud Native Configuration">Cloud Native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/cloud_events/"
+           title="Cloud Events">Cloud Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/graphql/"
+           title="GraphQL">GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Testing</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/testing/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/servicevirtualisation/"
+           title="Service Virtualisaion">Service Virtualisaion</a>
+    
+
+            
+        </div>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_configuration/"
+           title="Typesafe 12-factor config">Typesafe 12-factor config</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/toolbox/"
+           title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/http4k_v4/"
+           title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/regarding_jcenter/"
+           title="JCenter Shutdown">JCenter Shutdown</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+            <div class="container">
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1>Configure an OAuth Server</h1>
+                    
+                    <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.9.1.0&quot;</span>
+<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-security-oauth&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.9.1.0&quot;</span>
+</code></pre></div>
+
+<p>For this example, you need to configure <code>OAuthServer</code> instance with the correct implementations of your login pages, generation of authentication codes and access tokens.</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/configure_an_oauth_server/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">dev.forkhandles.result4k.Failure</span>
+<span class="k">import</span> <span class="nn">dev.forkhandles.result4k.Success</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.Jackson</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.RoutingHttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.AccessToken</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.InsecureCookieBasedOAuthPersistence</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProvider</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProviderConfig</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.AccessTokens</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.AuthRequest</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.AuthorizationCode</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.AuthorizationCodeDetails</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.AuthorizationCodes</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.ClientId</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.ClientValidator</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.InsecureCookieBasedAuthRequestTracking</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.OAuthServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.TokenRequest</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.UnsupportedGrantType</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.server.accesstoken.AuthorizationCodeAccessTokenRequest</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">java.time.Clock</span>
+<span class="k">import</span> <span class="nn">java.time.temporal.ChronoUnit.DAYS</span>
+<span class="k">import</span> <span class="nn">java.util.UUID</span>
+
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">fun</span> <span class="nf">authorizationServer</span><span class="p">():</span> <span class="n">RoutingHttpHandler</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">OAuthServer</span><span class="p">(</span>
+            <span class="n">tokenPath</span> <span class="o">=</span> <span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span>
+            <span class="n">authRequestTracking</span> <span class="o">=</span> <span class="n">InsecureCookieBasedAuthRequestTracking</span><span class="p">(),</span>
+            <span class="n">clientValidator</span> <span class="o">=</span> <span class="n">InsecureClientValidator</span><span class="p">(),</span>
+            <span class="n">authorizationCodes</span> <span class="o">=</span> <span class="n">InsecureAuthorizationCodes</span><span class="p">(),</span>
+            <span class="n">accessTokens</span> <span class="o">=</span> <span class="n">InsecureAccessTokens</span><span class="p">(),</span>
+            <span class="n">json</span> <span class="o">=</span> <span class="n">Jackson</span><span class="p">,</span>
+            <span class="n">clock</span> <span class="o">=</span> <span class="n">Clock</span><span class="p">.</span><span class="na">systemUTC</span><span class="p">(),</span>
+            <span class="n">documentationUri</span> <span class="o">=</span> <span class="s">&quot;See the full API docs at https://example.com/docs/access_token&quot;</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">routes</span><span class="p">(</span>
+            <span class="n">server</span><span class="p">.</span><span class="na">tokenRoute</span><span class="p">,</span>
+            <span class="s">&quot;/my-login-page&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">server</span><span class="p">.</span><span class="na">authenticationStart</span><span class="p">.</span><span class="na">then</span> <span class="p">{</span>
+                <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;&lt;html&gt;&lt;form method=&quot;POST&quot;&gt;&lt;button type=&quot;submit&quot;&gt;Please authenticate&lt;/button&gt;&lt;/form&gt;&lt;/html&gt;&quot;&quot;&quot;</span><span class="p">)</span>
+            <span class="p">},</span>
+            <span class="s">&quot;/my-login-page&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="n">server</span><span class="p">.</span><span class="na">authenticationComplete</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">fun</span> <span class="nf">oAuthClientApp</span><span class="p">(</span><span class="n">tokenClient</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">):</span> <span class="n">RoutingHttpHandler</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">persistence</span> <span class="o">=</span> <span class="n">InsecureCookieBasedOAuthPersistence</span><span class="p">(</span><span class="s">&quot;oauthTest&quot;</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">authorizationServer</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)</span>
+
+        <span class="kd">val</span> <span class="nv">oauthProvider</span> <span class="o">=</span> <span class="n">OAuthProvider</span><span class="p">(</span>
+            <span class="n">OAuthProviderConfig</span><span class="p">(</span><span class="n">authorizationServer</span><span class="p">,</span>
+                <span class="s">&quot;/my-login-page&quot;</span><span class="p">,</span> <span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span>
+                <span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;my-app&quot;</span><span class="p">,</span> <span class="s">&quot;somepassword&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">tokenClient</span><span class="p">,</span>
+            <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000/my-callback&quot;</span><span class="p">),</span>
+            <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;age&quot;</span><span class="p">),</span>
+            <span class="n">persistence</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">routes</span><span class="p">(</span>
+            <span class="s">&quot;/my-callback&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="na">callback</span><span class="p">,</span>
+            <span class="s">&quot;/a-protected-resource&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="na">authFilter</span><span class="p">.</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;user&#39;s protected resource&quot;</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">oAuthClientApp</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">()).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+    <span class="n">authorizationServer</span><span class="p">().</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">block</span><span class="p">()</span>
+
+    <span class="c1">// Go to http://localhost:8000/a-protected-resource to start the authorization flow</span>
+<span class="p">}</span>
+
+<span class="c1">// This class allow you to make extra checks about the oauth client during the flow</span>
+<span class="kd">class</span> <span class="nc">InsecureClientValidator</span> <span class="p">:</span> <span class="n">ClientValidator</span> <span class="p">{</span>
+    <span class="c1">// the client id should be a registered one</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">validateClientId</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">clientId</span><span class="p">:</span> <span class="n">ClientId</span><span class="p">):</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span>
+
+    <span class="c1">// one should only redirect to URLs registered against a particular client</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">validateRedirection</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">clientId</span><span class="p">:</span> <span class="n">ClientId</span><span class="p">,</span> <span class="n">redirectionUri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">):</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span>
+
+    <span class="c1">// one should validate the scopes are correct for that client</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">validateScopes</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">clientId</span><span class="p">:</span> <span class="n">ClientId</span><span class="p">,</span> <span class="n">scopes</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">):</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span>
+
+    <span class="c1">// certain operations can only be performed by fully authenticated clients (e.g. generate access tokens)</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">validateCredentials</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">clientId</span><span class="p">:</span> <span class="n">ClientId</span><span class="p">,</span> <span class="n">clientSecret</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">InsecureAuthorizationCodes</span> <span class="p">:</span> <span class="n">AuthorizationCodes</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">clock</span> <span class="o">=</span> <span class="n">Clock</span><span class="p">.</span><span class="na">systemUTC</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">codes</span> <span class="o">=</span> <span class="n">mutableMapOf</span><span class="o">&lt;</span><span class="n">AuthorizationCode</span><span class="p">,</span> <span class="n">AuthorizationCodeDetails</span><span class="o">&gt;</span><span class="p">()</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">detailsFor</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">AuthorizationCode</span><span class="p">)</span> <span class="o">=</span>
+        <span class="n">codes</span><span class="o">[</span><span class="n">code</span><span class="o">]</span> <span class="o">?:</span> <span class="n">error</span><span class="p">(</span><span class="s">&quot;code not stored&quot;</span><span class="p">)</span>
+
+    <span class="c1">// Authorization codes should be associated to a particular user (who can be identified in the Response)</span>
+    <span class="c1">// so they can be checked in various stages of the authorization flow</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">create</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">authRequest</span><span class="p">:</span> <span class="n">AuthRequest</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">)</span> <span class="o">=</span>
+        <span class="n">Success</span><span class="p">(</span><span class="n">AuthorizationCode</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()).</span><span class="na">also</span> <span class="p">{</span>
+            <span class="n">codes</span><span class="o">[</span><span class="nb">it</span><span class="o">]</span> <span class="o">=</span> <span class="n">AuthorizationCodeDetails</span><span class="p">(</span><span class="n">authRequest</span><span class="p">.</span><span class="na">client</span><span class="p">,</span> <span class="n">authRequest</span><span class="p">.</span><span class="na">redirectUri</span><span class="o">!!</span><span class="p">,</span> <span class="n">clock</span><span class="p">.</span><span class="na">instant</span><span class="p">().</span><span class="na">plus</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">DAYS</span><span class="p">),</span> <span class="n">authRequest</span><span class="p">.</span><span class="na">state</span><span class="p">,</span> <span class="n">authRequest</span><span class="p">.</span><span class="na">isOIDC</span><span class="p">())</span>
+        <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">InsecureAccessTokens</span> <span class="p">:</span> <span class="n">AccessTokens</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">create</span><span class="p">(</span><span class="n">clientId</span><span class="p">:</span> <span class="n">ClientId</span><span class="p">,</span> <span class="n">tokenRequest</span><span class="p">:</span> <span class="n">TokenRequest</span><span class="p">)</span> <span class="o">=</span> <span class="n">Failure</span><span class="p">(</span><span class="n">UnsupportedGrantType</span><span class="p">(</span><span class="s">&quot;client_credentials&quot;</span><span class="p">))</span>
+
+    <span class="c1">// an access token should be associated with a particular authorization flow</span>
+    <span class="c1">// (i.e. limited to the requested scopes), and contain an expiration date</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">create</span><span class="p">(</span><span class="n">clientId</span><span class="p">:</span> <span class="n">ClientId</span><span class="p">,</span> <span class="n">tokenRequest</span><span class="p">:</span> <span class="n">AuthorizationCodeAccessTokenRequest</span><span class="p">,</span> <span class="n">authorizationCode</span><span class="p">:</span> <span class="n">AuthorizationCode</span><span class="p">)</span> <span class="o">=</span>
+        <span class="n">Success</span><span class="p">(</span><span class="n">AccessToken</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()))</span>
+<span class="p">}</span>
+</code></pre></div>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+
+      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+
+
+
+
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+</body>
+</html>

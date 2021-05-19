@@ -1,0 +1,1131 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="http4k How-to: Typesafe your API with lenses">
+<meta name="twitter:title" content="http4k How-to: Typesafe your API with lenses">
+<meta property="og:title" content="http4k How-to: Typesafe your API with lenses" />
+
+
+
+<meta name="description" content="Recipes for using the inbuilt http4k Lens API to marshall HTTP messages on and off the wire in a typesafe fashion">
+<meta property="og:description" content="Recipes for using the inbuilt http4k Lens API to marshall HTTP messages on and off the wire in a typesafe fashion" />
+<meta name="twitter:description" content="Recipes for using the inbuilt http4k Lens API to marshall HTTP messages on and off the wire in a typesafe fashion">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/guide/howto/typesafe_your_api_with_lenses/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>http4k How-to: Typesafe your API with lenses</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#4051b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../../css/site.css">
+    
+    
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../.."
+               title="About the docs">About the docs</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Concepts</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/rationale/"
+           title="Rationale">Rationale</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/http/"
+           title="HTTP">HTTP</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/serverless/"
+           title="Serverless">Serverless</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/lens/"
+           title="Lens">Lens</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/websockets/"
+           title="WebSockets">WebSockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/server-sent-events/"
+           title="Server-Sent Events">Server-Sent Events</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Tutorials</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/your_first_http4k_app/"
+           title="Your first http4k app">Your first http4k app</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/tdding_http4k/"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown active show">
+            <a class="nav-link dropdown-toggle active"
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="true">How-to guides</a>
+            <div class="dropdown-menu show">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../server_as_a_function/"
+           title="Basic: Server as a function">Basic: Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../client_as_a_function/"
+           title="Basic: Client as a function">Basic: Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_server_backend/"
+           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../write_different_test_types/"
+           title="Basic: Different test-types">Basic: Different test-types</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../simple_routing/"
+           title="Basic: Simple routing">Basic: Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../nestable_routes/"
+           title="Basic: Nestable routes">Basic: Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../attach_context_to_a_request/"
+           title="Attach context to a request">Attach context to a request</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../configure_an_oauth_server/"
+           title="Configure an OAuth Server">Configure an OAuth Server</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../create_a_custom_json_marshaller/"
+           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../customise_a_server_backend/"
+           title="Customise a Server backend">Customise a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../deploy_webjars/"
+           title="Deploy WebJars">Deploy WebJars</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../integrate_with_openapi/"
+           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../leverage_graphql/"
+           title="Leverage GraphQL">Leverage GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../lookup_a_user_principal/"
+           title="Lookup a User Principal">Lookup a User Principal</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../monitor_http4k/"
+           title="Monitor http4k">Monitor http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../record_and_replay_http_traffic/"
+           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../serve_sse/"
+           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../serve_websockets/"
+           title="Serve Websockets">Serve Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../structure_your_logs_with_events/"
+           title="Structure your logs with Events">Structure your logs with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../test_using_service_virtualisation/"
+           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item active"
+           href="./"
+           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_custom_oauth_provider/"
+           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_templating_engine/"
+           title="Use a templating engines">Use a templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_html_forms/"
+           title="Use HTML forms">Use HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_multipart_forms/"
+           title="Use Multipart forms">Use Multipart forms</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Reference</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/api/"
+           title="API docs">API docs</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/cloud_native/"
+           title="Cloud Native Configuration">Cloud Native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/cloud_events/"
+           title="Cloud Events">Cloud Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/graphql/"
+           title="GraphQL">GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Testing</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/testing/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/servicevirtualisation/"
+           title="Service Virtualisaion">Service Virtualisaion</a>
+    
+
+            
+        </div>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_configuration/"
+           title="Typesafe 12-factor config">Typesafe 12-factor config</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/toolbox/"
+           title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/http4k_v4/"
+           title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/regarding_jcenter/"
+           title="JCenter Shutdown">JCenter Shutdown</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+            <div class="container">
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1>Typesafe your API with lenses</h1>
+                    
+                    <p>Example showing how to create and apply lenses to requests and responses to both extract and inject typesafe values out of and into HTTP messages. Note that since the <strong>http4k</strong> <code>Request/Response</code> objects are immutable, all injection occurs via copy.</p>
+<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.9.1.0&quot;</span>
+</code></pre></div>
+
+<h3 id="standard_exception_based_approach">Standard (exception based) approach <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/typesafe_your_api_with_lenses/example.kt"><img class="octocat"/></a><a class="headerlink" href="#standard_exception_based_approach" title="Permanent link">&para;</a></h3>
+<p>Errors in extracting Lenses are propagated as exceptions which are caught and handled by the <code>CatchLensFailure</code> Filter.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.typesafe_your_api_with_lenses</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_PLAIN</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Header</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.boolean</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.composite</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.string</span>
+
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">data</span> <span class="kd">class</span> <span class="nc">Child</span><span class="p">(</span><span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="kd">data</span> <span class="kd">class</span> <span class="nc">Pageable</span><span class="p">(</span><span class="kd">val</span> <span class="nv">sortAscending</span><span class="p">:</span> <span class="kt">Boolean</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">page</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">maxResults</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
+
+    <span class="kd">val</span> <span class="nv">nameHeader</span> <span class="o">=</span> <span class="n">Header</span><span class="p">.</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">ageQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">optional</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">childrenBody</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="na">map</span><span class="p">({</span> <span class="nb">it</span><span class="p">.</span><span class="na">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Child</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">joinToString</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">name</span> <span class="p">}</span> <span class="p">}).</span><span class="na">toLens</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">pageable</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">composite</span> <span class="p">{</span>
+        <span class="n">Pageable</span><span class="p">(</span>
+            <span class="n">boolean</span><span class="p">().</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;sortAscending&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)(</span><span class="nb">it</span><span class="p">),</span>
+            <span class="n">int</span><span class="p">().</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;page&quot;</span><span class="p">,</span> <span class="m">1</span><span class="p">)(</span><span class="nb">it</span><span class="p">),</span>
+            <span class="n">int</span><span class="p">().</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;maxResults&quot;</span><span class="p">,</span> <span class="m">20</span><span class="p">)(</span><span class="nb">it</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="nv">endpoint</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+
+        <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">nameHeader</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int?</span> <span class="o">=</span> <span class="n">ageQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">children</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Child</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">childrenBody</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">pagination</span> <span class="o">=</span> <span class="n">pageable</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="kd">val</span> <span class="nv">msg</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="si">$</span><span class="n">name</span><span class="s"> is </span><span class="si">${</span><span class="n">age</span> <span class="o">?:</span> <span class="s">&quot;</span><span class="n">unknown</span><span class="s">&quot;</span><span class="si">}</span><span class="s"> years old and has </span>
+<span class="si">${</span><span class="n">children</span><span class="p">.</span><span class="na">size</span><span class="si">}</span><span class="s"> children (</span><span class="si">${</span><span class="n">children</span><span class="p">.</span><span class="na">joinToString</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">name</span> <span class="p">}</span><span class="si">}</span><span class="s">)</span>
+<span class="s">Pagination: </span><span class="si">$</span><span class="n">pagination</span><span class="s"></span>
+<span class="s">            &quot;&quot;&quot;</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span>
+            <span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span> <span class="n">of</span> <span class="n">msg</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span>
+
+    <span class="kd">val</span> <span class="nv">goodRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span>
+        <span class="n">nameHeader</span> <span class="n">of</span> <span class="s">&quot;Jane Doe&quot;</span><span class="p">,</span>
+        <span class="n">ageQuery</span> <span class="n">of</span> <span class="m">25</span><span class="p">,</span>
+        <span class="n">childrenBody</span> <span class="n">of</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Child</span><span class="p">(</span><span class="s">&quot;Rita&quot;</span><span class="p">),</span> <span class="n">Child</span><span class="p">(</span><span class="s">&quot;Sue&quot;</span><span class="p">)))</span>
+
+    <span class="n">println</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Request:&quot;</span><span class="p">,</span> <span class="n">goodRequest</span><span class="p">,</span> <span class="n">app</span><span class="p">(</span><span class="n">goodRequest</span><span class="p">)).</span><span class="na">joinToString</span><span class="p">(</span><span class="s">&quot;\n&quot;</span><span class="p">))</span>
+
+    <span class="kd">val</span> <span class="nv">badRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="n">nameHeader</span> <span class="n">of</span> <span class="s">&quot;Jane Doe&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span> <span class="s">&quot;some illegal age!&quot;</span><span class="p">)</span>
+
+    <span class="n">println</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Request:&quot;</span><span class="p">,</span> <span class="n">badRequest</span><span class="p">,</span> <span class="n">app</span><span class="p">(</span><span class="n">badRequest</span><span class="p">)).</span><span class="na">joinToString</span><span class="p">(</span><span class="s">&quot;\n&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="using_result_adt">Using "Result" ADT<a class="headerlink" href="#using_result_adt" title="Permanent link">&para;</a></h3>
+<p>An alternative approach to using Exceptions to automatically produce <code>BadRequests</code> is to use an Either-type structure, and this would be easy to implement - but the lack of an usable Result/Either type in the standard Kotlin library means that we have chosen to use <code>Result4k</code> as an optional dependency. If it is on the classpath you will gain support for it.</p>
+<p>Additionally, the lack of Higher Kinded Types in Kotlin means that we are unable to provide a generic method for converting standard lenses. However, it is easy to implement an extension method to use in specific use cases - you can follow the example in the http4k source to implement your own version of the one we supply for Result4k. Below is an example which uses that Result4k ADT:</p>
+<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/typesafe_your_api_with_lenses/example_result4k.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.typesafe_your_api_with_lenses</span>
+
+<span class="k">import</span> <span class="nn">com.fasterxml.jackson.databind.JsonNode</span>
+<span class="k">import</span> <span class="nn">dev.forkhandles.result4k.Result</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.format.Jackson.json</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.LensFailure</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.asResult</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">queryResultLens</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="na">asResult</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">intResult</span><span class="p">:</span> <span class="n">Result</span><span class="o">&lt;</span><span class="kt">Int</span><span class="p">,</span> <span class="n">LensFailure</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">queryResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/?foo=123&quot;</span><span class="p">))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">intResult</span><span class="p">)</span>
+
+    <span class="kd">val</span> <span class="nv">jsonResultLens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">json</span><span class="p">().</span><span class="na">toLens</span><span class="p">().</span><span class="na">asResult</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">jsonResult</span><span class="p">:</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">JsonNode</span><span class="p">,</span> <span class="n">LensFailure</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">jsonResultLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/foo&quot;</span><span class="p">))</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">jsonResult</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+
+      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+
+
+
+
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+</body>
+</html>

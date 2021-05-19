@@ -1,0 +1,1270 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="Part 4: Adding an external dependency">
+<meta name="twitter:title" content="Part 4: Adding an external dependency">
+<meta property="og:title" content="Part 4: Adding an external dependency" />
+
+
+
+<meta name="description" content="The Functional toolkit for Kotlin HTTP applications">
+<meta property="og:description" content="The Functional toolkit for Kotlin HTTP applications" />
+<meta name="twitter:description" content="The Functional toolkit for Kotlin HTTP applications">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/guide/tutorials/tdding_http4k/_4/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>Part 4: Adding an external dependency</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#4051b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../../../css/site.css">
+    
+    
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../.."
+               title="About the docs">About the docs</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Concepts</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../concepts/rationale/"
+           title="Rationale">Rationale</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../concepts/http/"
+           title="HTTP">HTTP</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../concepts/serverless/"
+           title="Serverless">Serverless</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../concepts/lens/"
+           title="Lens">Lens</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../concepts/websockets/"
+           title="WebSockets">WebSockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../concepts/server-sent-events/"
+           title="Server-Sent Events">Server-Sent Events</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Tutorials</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../your_first_http4k_app/"
+           title="Your first http4k app">Your first http4k app</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">How-to guides</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/server_as_a_function/"
+           title="Basic: Server as a function">Basic: Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/client_as_a_function/"
+           title="Basic: Client as a function">Basic: Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/use_a_server_backend/"
+           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/write_different_test_types/"
+           title="Basic: Different test-types">Basic: Different test-types</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/simple_routing/"
+           title="Basic: Simple routing">Basic: Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/nestable_routes/"
+           title="Basic: Nestable routes">Basic: Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/attach_context_to_a_request/"
+           title="Attach context to a request">Attach context to a request</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/configure_an_oauth_server/"
+           title="Configure an OAuth Server">Configure an OAuth Server</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/create_a_custom_json_marshaller/"
+           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/customise_a_server_backend/"
+           title="Customise a Server backend">Customise a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/deploy_webjars/"
+           title="Deploy WebJars">Deploy WebJars</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/integrate_with_openapi/"
+           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/leverage_graphql/"
+           title="Leverage GraphQL">Leverage GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/lookup_a_user_principal/"
+           title="Lookup a User Principal">Lookup a User Principal</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/monitor_http4k/"
+           title="Monitor http4k">Monitor http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/record_and_replay_http_traffic/"
+           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/serve_sse/"
+           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/serve_websockets/"
+           title="Serve Websockets">Serve Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/structure_your_logs_with_events/"
+           title="Structure your logs with Events">Structure your logs with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/test_using_service_virtualisation/"
+           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/typesafe_your_api_with_lenses/"
+           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/use_a_custom_oauth_provider/"
+           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/use_a_templating_engine/"
+           title="Use a templating engines">Use a templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/use_html_forms/"
+           title="Use HTML forms">Use HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../howto/use_multipart_forms/"
+           title="Use Multipart forms">Use Multipart forms</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Reference</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/api/"
+           title="API docs">API docs</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/cloud_native/"
+           title="Cloud Native Configuration">Cloud Native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/cloud_events/"
+           title="Cloud Events">Cloud Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/graphql/"
+           title="GraphQL">GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Testing</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/testing/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../reference/servicevirtualisation/"
+           title="Service Virtualisaion">Service Virtualisaion</a>
+    
+
+            
+        </div>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/typesafe_configuration/"
+           title="Typesafe 12-factor config">Typesafe 12-factor config</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/toolbox/"
+           title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/http4k_v4/"
+           title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../../blog/regarding_jcenter/"
+           title="JCenter Shutdown">JCenter Shutdown</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+            <div class="container">
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1>Part 4: Adding an external dependency</h1>
+                    
+                    <ul>
+<li><a href="../_1">Part 1: Building a walking skeleton</a></li>
+<li><a href="../_2">Part 2: Adding an endpoint</a></li>
+<li><a href="../_3">Part 3: Adding another endpoint</a></li>
+</ul>
+<p>At this point, the separation of the layers starts to become clear:
+- The server layer is responsible for taking external configuration and instantiating the app layer.
+- The application layer API is only in terms of HTTP transports - it constructs business level abstractions
+  which are passed down into to the individual endpoints</p>
+<p>The process here is to create fake versions of the dependency which can be tested against through the business interface.
+This requires another style of testing, CDCs (Consumer Driven Contracts), to be created. These contract tests ensure that our
+interactions with the external service are valid.</p>
+<h3 id="requirements">Requirements:<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Results from calculations should be POSTed via HTTP to another "answer recording" service.</li>
+</ul>
+<h3 id="implementation_notes">Implementation Notes:<a class="headerlink" href="#implementation_notes" title="Permanent link">&para;</a></h3>
+<p>The following process is followed to us to the final state, whilst always allowing us to keep the build green:</p>
+<ol>
+<li>Determine the HTTP contract required by the Recorder (in this case an HTTP POST to /{answer}</li>
+<li>Create RecorderCdc and RealRecorderTest and make it pass for the real dependency by implementing the Recorder</li>
+<li>Create FakeRecorderTest and FakeRecorderHttp and make it pass for the fake. We can now use the Fake to implement our requirement</li>
+<li>Include the FakeRecorderHttp in the setup of EndToEndTest, starting and stopping the server (even though it's not doing anything)</li>
+<li>Pass the configuration of the Recorder (baseUri) into the MyMathServer, which uses it to create the recorder HttpHandler</li>
+<li>Factor AppEnvironment out of the functional tests. This is where all the setup of the functional testing environment will be done</li>
+<li>Introduce the recorder HttpHandler to MyMathApp, creating a FakeRecorderHttp in the AppEnvironment</li>
+<li>Alter the AddFunctionalTest and MultiplyFunctionalTest to set the expectations on the interactions recorder in FakeRecorderHttp</li>
+<li>In MyMathApp, create the Recorder business implementation (Recorder) and pass it to calculate(), then implement the call to record()</li>
+</ol>
+<h3 id="tests">Tests:<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.tdding_http4k._4</span>
+
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.equalTo</span>
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.ACCEPTED</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters.SetHostFrom</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Path</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Disabled</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+<span class="k">import</span> <span class="nn">guide.tutorials.tdding_http4k._4.Matchers.answerShouldBe</span>
+<span class="k">import</span> <span class="nn">java.util.Random</span>
+
+<span class="kd">object</span> <span class="nc">Matchers</span> <span class="p">{</span>
+    <span class="kd">fun</span> <span class="n">Response</span><span class="p">.</span><span class="nf">answerShouldBe</span><span class="p">(</span><span class="n">expected</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="n">expected</span><span class="p">.</span><span class="na">toString</span><span class="p">())))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">RecorderCdc</span> <span class="p">{</span>
+    <span class="kd">abstract</span> <span class="kd">val</span> <span class="nv">client</span><span class="p">:</span> <span class="n">HttpHandler</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`records answer`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">Recorder</span><span class="p">(</span><span class="n">client</span><span class="p">).</span><span class="na">record</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+        <span class="n">checkAnswerRecorded</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="kd">open</span> <span class="kd">fun</span> <span class="nf">checkAnswerRecorded</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">FakeRecorderHttp</span> <span class="p">:</span> <span class="n">HttpHandler</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">calls</span> <span class="o">=</span> <span class="n">mutableListOf</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">()</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">answer</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;answer&quot;</span><span class="p">)</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+        <span class="n">routes</span><span class="p">(</span>
+            <span class="s">&quot;/{answer}&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span> <span class="o">-&gt;</span> <span class="n">calls</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">answer</span><span class="p">(</span><span class="n">request</span><span class="p">));</span> <span class="n">Response</span><span class="p">(</span><span class="n">ACCEPTED</span><span class="p">)</span> <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">FakeRecorderTest</span> <span class="p">:</span> <span class="n">RecorderCdc</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">FakeRecorderHttp</span><span class="p">()</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">checkAnswerRecorded</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">123</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@Disabled</span> <span class="c1">// this obviously doesn&#39;t exist, so we ignore it here</span>
+<span class="kd">class</span> <span class="nc">RealRecorderTest</span> <span class="p">:</span> <span class="n">RecorderCdc</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://realrecorder&quot;</span><span class="p">)).</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">EndToEndTest</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">port</span> <span class="o">=</span> <span class="n">Random</span><span class="p">().</span><span class="na">nextInt</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span> <span class="o">+</span> <span class="m">8000</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">recorderPort</span> <span class="o">=</span> <span class="n">port</span> <span class="o">+</span> <span class="m">1</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">recorder</span> <span class="o">=</span> <span class="n">FakeRecorderHttp</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">recorderPort</span><span class="s">&quot;</span><span class="p">))</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">recorderServer</span> <span class="o">=</span> <span class="n">recorder</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">recorderPort</span><span class="p">))</span>
+
+    <span class="nd">@BeforeEach</span>
+    <span class="kd">fun</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">recorderServer</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
+        <span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="nd">@AfterEach</span>
+    <span class="kd">fun</span> <span class="nf">teardown</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+        <span class="n">recorderServer</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`all endpoints are mounted correctly`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/multiply?value=2&amp;value=4&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">8</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AppEnvironment</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">recorder</span> <span class="o">=</span> <span class="n">FakeRecorderHttp</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">MyMathsApp</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AddFunctionalTest</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">env</span> <span class="o">=</span> <span class="n">AppEnvironment</span><span class="p">()</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`adds values together`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">3</span><span class="p">)))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`answer is zero when no values`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">0</span><span class="p">)))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/add?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(),</span> <span class="n">equalTo</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">MultiplyFunctionalTest</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">env</span> <span class="o">=</span> <span class="n">AppEnvironment</span><span class="p">()</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`products values together`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/multiply?value=2&amp;value=4&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">8</span><span class="p">)</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">8</span><span class="p">)))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`answer is zero when no values`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/multiply&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">0</span><span class="p">)))</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/multiply?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(),</span> <span class="n">equalTo</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="production">Production:<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.tdding_http4k._4</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.ACCEPTED</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters.SetHostFrom</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+
+<span class="kd">class</span> <span class="nc">Recorder</span><span class="p">(</span><span class="kd">private</span> <span class="kd">val</span> <span class="nv">client</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">fun</span> <span class="nf">record</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/</span><span class="si">$</span><span class="n">value</span><span class="s">&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">status</span> <span class="o">!=</span> <span class="n">ACCEPTED</span><span class="p">)</span> <span class="k">throw</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;recorder returned </span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span> <span class="nf">MyMathsApp</span><span class="p">(</span><span class="n">recorderHttp</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">recorder</span> <span class="o">=</span> <span class="n">Recorder</span><span class="p">(</span><span class="n">recorderHttp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+        <span class="n">routes</span><span class="p">(</span>
+            <span class="s">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">},</span>
+            <span class="s">&quot;/add&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">sum</span><span class="p">()</span> <span class="p">},</span>
+            <span class="s">&quot;/multiply&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">fold</span><span class="p">(</span><span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="n">memo</span><span class="p">,</span> <span class="n">next</span> <span class="o">-&gt;</span> <span class="n">memo</span> <span class="o">*</span> <span class="n">next</span> <span class="p">}</span> <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">fun</span> <span class="nf">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">:</span> <span class="n">Recorder</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">):</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">values</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">multi</span><span class="p">.</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span> <span class="n">listOf</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+        <span class="kd">val</span> <span class="nv">valuesToCalc</span> <span class="o">=</span> <span class="n">values</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">answer</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">valuesToCalc</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="m">0</span> <span class="k">else</span> <span class="n">fn</span><span class="p">(</span><span class="n">valuesToCalc</span><span class="p">)</span>
+        <span class="n">recorder</span><span class="p">.</span><span class="na">record</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">answer</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span> <span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">recorderBaseUri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="o">=</span>
+    <span class="n">MyMathsApp</span><span class="p">(</span><span class="n">SetHostFrom</span><span class="p">(</span><span class="n">recorderBaseUri</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+</code></pre></div>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+
+      <script src="../../../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+
+
+
+
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,1379 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="http4k Core Module">
+<meta name="twitter:title" content="http4k Core Module">
+<meta property="og:title" content="http4k Core Module" />
+
+
+
+<meta name="description" content="Feature overview of the http4k-core module, including the Lens system for typesafe HTTP">
+<meta property="og:description" content="Feature overview of the http4k-core module, including the Lens system for typesafe HTTP" />
+<meta name="twitter:description" content="Feature overview of the http4k-core module, including the Lens system for typesafe HTTP">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/guide/reference/core/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>http4k Core Module</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#4051b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../../css/site.css">
+    
+    
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../.."
+               title="About the docs">About the docs</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Concepts</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/rationale/"
+           title="Rationale">Rationale</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/http/"
+           title="HTTP">HTTP</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/serverless/"
+           title="Serverless">Serverless</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/lens/"
+           title="Lens">Lens</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/websockets/"
+           title="WebSockets">WebSockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/server-sent-events/"
+           title="Server-Sent Events">Server-Sent Events</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Tutorials</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/your_first_http4k_app/"
+           title="Your first http4k app">Your first http4k app</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/tdding_http4k/"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">How-to guides</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/server_as_a_function/"
+           title="Basic: Server as a function">Basic: Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/client_as_a_function/"
+           title="Basic: Client as a function">Basic: Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_server_backend/"
+           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/write_different_test_types/"
+           title="Basic: Different test-types">Basic: Different test-types</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/simple_routing/"
+           title="Basic: Simple routing">Basic: Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/nestable_routes/"
+           title="Basic: Nestable routes">Basic: Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/attach_context_to_a_request/"
+           title="Attach context to a request">Attach context to a request</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/configure_an_oauth_server/"
+           title="Configure an OAuth Server">Configure an OAuth Server</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/create_a_custom_json_marshaller/"
+           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/customise_a_server_backend/"
+           title="Customise a Server backend">Customise a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/deploy_webjars/"
+           title="Deploy WebJars">Deploy WebJars</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/integrate_with_openapi/"
+           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/leverage_graphql/"
+           title="Leverage GraphQL">Leverage GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/lookup_a_user_principal/"
+           title="Lookup a User Principal">Lookup a User Principal</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/monitor_http4k/"
+           title="Monitor http4k">Monitor http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/record_and_replay_http_traffic/"
+           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/serve_sse/"
+           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/serve_websockets/"
+           title="Serve Websockets">Serve Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/structure_your_logs_with_events/"
+           title="Structure your logs with Events">Structure your logs with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/test_using_service_virtualisation/"
+           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/typesafe_your_api_with_lenses/"
+           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_custom_oauth_provider/"
+           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_templating_engine/"
+           title="Use a templating engines">Use a templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_html_forms/"
+           title="Use HTML forms">Use HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_multipart_forms/"
+           title="Use Multipart forms">Use Multipart forms</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown active show">
+            <a class="nav-link dropdown-toggle active"
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="true">Reference</a>
+            <div class="dropdown-menu show">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../api/"
+           title="API docs">API docs</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item active"
+           href="./"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cloud_native/"
+           title="Cloud Native Configuration">Cloud Native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cloud_events/"
+           title="Cloud Events">Cloud Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../graphql/"
+           title="GraphQL">GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Testing</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../testing/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../servicevirtualisation/"
+           title="Service Virtualisaion">Service Virtualisaion</a>
+    
+
+            
+        </div>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_configuration/"
+           title="Typesafe 12-factor config">Typesafe 12-factor config</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/toolbox/"
+           title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/http4k_v4/"
+           title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/regarding_jcenter/"
+           title="JCenter Shutdown">JCenter Shutdown</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+            <div class="container">
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1>Core</h1>
+                    
+                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.9.1.0&quot;</span>
+</code></pre></div>
+
+<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
+<p>Apart from Kotlin StdLib, the core module has ZERO dependencies and provides the following:</p>
+<ul>
+<li>Immutable versions of the HTTP spec objects (Request, Response, Cookies etc).</li>
+<li>HTTP handler and filter abstractions which models services as simple, composable functions.</li>
+<li>Simple routing implementation, plus <code>HttpHandlerServlet</code> to enable plugging into any Servlet engine. </li>
+<li><a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a> mechanism for typesafe destructuring and construction of HTTP messages.</li>
+<li>Typesafe Request Context operations using Lenses.</li>
+<li>Abstractions for Servers, Clients, JSON Message formats, Templating, Websockets etc.</li>
+<li><code>SunHttp</code> Ultra-fast single-LOC development server-backend</li>
+<li>Static file-serving capability with <strong>Caching</strong> and <strong>Hot-Reload</strong></li>
+<li>Single Page App routing for React and co. See <a href="/guide//howto/nestable_routes/">how-to guides</a> for an example.</li>
+<li>Bundled <a href="https://www.webjars.org/">WebJars</a> routing - activate in single-LOC. See the <a href="/guide/howto/deploy_webjars/">how-to guides</a> for an example.</li>
+<li>APIs to <strong>record and replay</strong> HTTP traffic to disk or memory</li>
+</ul>
+<h4 id="httphandlers">HttpHandlers<a class="headerlink" href="#httphandlers" title="Permanent link">&para;</a></h4>
+<p>In http4k, an HTTP service is just a typealias of a simple function:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">typealias</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span>
+</code></pre></div>
+
+<p>First described in this Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, this abstraction allows us lots of 
+flexibility in a language like Kotlin, since the conceptual barrier to service construction is reduced to effectively nil. Here is the simplest example - note that we don't need any special infrastructure to create an <code>HttpHandler</code>, neither do we 
+need to launch a real HTTP container to exercise it:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">handler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">val</span> <span class="nv">get</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">).</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="k">get</span><span class="p">)</span>
+
+<span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span>
+</code></pre></div>
+
+<p>To mount the <code>HttpHandler</code> in a container, the can simply be converted to a Servlet by calling <code>handler.asServlet()</code></p>
+<h3 id="filters">Filters<a class="headerlink" href="#filters" title="Permanent link">&para;</a></h3>
+<p>Filters add extra processing to either the Request or Response. In http4k, they are modelled as:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Filter</span> <span class="p">:</span> <span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpHandler</span>
+</code></pre></div>
+
+<p>Filters are designed to simply compose together (using <code>then()</code>) , creating reusable stacks of behaviour which can then be applied to any <code>HttpHandler</code>. 
+For example, to add Basic Auth and latency reporting to a service:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">handler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="kd">val</span> <span class="nv">myFilter</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span>
+    <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> 
+            <span class="kd">val</span> <span class="nv">start</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="kd">val</span> <span class="nv">latency</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+            <span class="n">println</span><span class="p">(</span><span class="s">&quot;I took </span><span class="si">$</span><span class="n">latency</span><span class="s"> ms&quot;</span><span class="p">)</span>
+            <span class="n">response</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">val</span> <span class="nv">latencyAndBasicAuth</span><span class="p">:</span> <span class="n">Filter</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">BasicAuth</span><span class="p">(</span><span class="s">&quot;my realm&quot;</span><span class="p">,</span> <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">myFilter</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">latencyAndBasicAuth</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The <code>http4k-core</code> module comes with a set of handy Filters for application to both Server and Client <code>HttpHandlers</code>, covering common things like:</p>
+<ul>
+<li>Request tracing headers (x-b3-traceid etc)</li>
+<li>Basic Auth</li>
+<li>Cache Control</li>
+<li>CORS</li>
+<li>Cookie handling</li>
+<li>Debugging request and responses</li>
+</ul>
+<p>Check out the <code>org.http4k.filter</code> package for the exact list.</p>
+<h4 id="testing_filters">Testing Filters <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/core/FilterTest.kt"><img class="octocat"/></a><a class="headerlink" href="#testing_filters" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.core</span>
+
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasHeader</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+<span class="kd">val</span> <span class="nv">AddLatency</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
+    <span class="p">{</span>
+        <span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="p">).</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s">&quot;some value&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">FilterTest</span> <span class="p">{</span>
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`adds a special header`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">AddLatency</span><span class="p">.</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+        <span class="kd">val</span> <span class="nv">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasHeader</span><span class="p">(</span><span class="s">&quot;x-extra-header&quot;</span><span class="p">,</span> <span class="s">&quot;some value&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="routers_-_nestable_path-based_routing">Routers - Nestable, path-based Routing<a class="headerlink" href="#routers_-_nestable_path-based_routing" title="Permanent link">&para;</a></h3>
+<p>Create a Router using routes() to bind a static or dynamic path to either an HttpHandler, or to another sub-Router. These Routers can be nested infinitely deep and http4k will search for a matching route using a depth-first search algorithm, before falling back finally to a 404:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/{name:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">),</span>
+    <span class="s">&quot;/fail&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Note that the <code>http4k-contract</code> module contains a more typesafe implementation of routing functionality, with runtime-generated live documentation in OpenApi/Swagger format.</p>
+<h4 id="testing_routers">Testing Routers <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/core/RoutingTest.kt"><img class="octocat"/></a><a class="headerlink" href="#testing_routers" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.testing</span>
+
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.RoutingHttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+
+<span class="kd">val</span> <span class="nv">EchoPath</span> <span class="o">=</span> <span class="s">&quot;/echo/{message}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">r</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;nothing!&quot;</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">DynamicPathTest</span> <span class="p">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">fun</span> <span class="nf">`echoes body from path`</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">route</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="n">EchoPath</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">route</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
+        <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="s">&quot;my great message&quot;</span><span class="p">)))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="typesafe_parameter_destructuringconstruction_of_http_messages_with_lenses">Typesafe parameter destructuring/construction of HTTP messages with Lenses<a class="headerlink" href="#typesafe_parameter_destructuringconstruction_of_http_messages_with_lenses" title="Permanent link">&para;</a></h3>
+<p>Getting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. 
+For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a>. </p>
+<p>A Lens is a bi-directional entity which can be used to either <strong>get</strong> or <strong>set</strong> a particular value from/onto an HTTP message. http4k provides a DSL 
+to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional). </p>
+<p>To utilise a lens, first you have to declare it with the form <code>&lt;Location&gt;.&lt;configuration and mapping operations&gt;.&lt;terminator&gt;</code>.</p>
+<p>There is one "location" type for each part of the message, each with config/mapping operations which are specific to that location:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Starting type</th>
+<th>Applicable to</th>
+<th>Multiplicity</th>
+<th>Requirement terminator</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query</td>
+<td><code>String</code></td>
+<td><code>Request</code></td>
+<td>Singular or multiple</td>
+<td>Optional or Required</td>
+<td><code>Query.optional("name")</code><br/><code>Query.required("name")</code><br/><code>Query.int().required("name")</code><br/><code>Query.localDate().multi.required("name")</code><br/><code>Query.map(::CustomType, { it.value }).required("name")</code></td>
+</tr>
+<tr>
+<td>Header</td>
+<td><code>String</code></td>
+<td><code>Request</code> or <code>Response</code></td>
+<td>Singular or multiple</td>
+<td>Optional or Required</td>
+<td><code>Header.optional("name")</code><br/><code>Header.required("name")</code><br/><code>Header.int().required("name")</code><br/><code>Header.localDate().multi.required("name")</code><br/><code>Header.map(::CustomType, { it.value }).required("name")</code></td>
+</tr>
+<tr>
+<td>Path</td>
+<td><code>String</code></td>
+<td><code>Request</code></td>
+<td>Singular</td>
+<td>Required</td>
+<td><code>Path.of("name")</code><br/><code>Path.int().of("name")</code><br/><code>Path.map(::CustomType, { it.value }).of("name")</code></td>
+</tr>
+<tr>
+<td>FormField</td>
+<td><code>String</code></td>
+<td><code>WebForm</code></td>
+<td>Singular or multiple</td>
+<td>Optional or Required</td>
+<td><code>FormField.optional("name")</code><br/><code>FormField.required("name")</code><br/><code>FormField.int().required("name")</code><br/><code>FormField.localDate().multi.required("name")</code><br/><code>FormField.map(::CustomType, { it.value }).required("name")</code></td>
+</tr>
+<tr>
+<td>Body</td>
+<td><code>ByteBuffer</code></td>
+<td><code>Request</code> or <code>Response</code></td>
+<td>Singular</td>
+<td>Required</td>
+<td><code>Body.string(ContentType.TEXT_PLAIN).toLens()</code><br/><code>Body.json().toLens()</code><br/><code>Body.webForm(Validator.Strict, FormField.required("name")).toLens()</code></td>
+</tr>
+</tbody>
+</table>
+<p>Once the lens is declared, you can use it on a target object to either get or set the value:</p>
+<ul>
+<li>Retrieving a value: use <code>&lt;lens&gt;.extract(&lt;target&gt;)</code>, or the more concise invoke form: <code>&lt;lens&gt;(&lt;target&gt;)</code></li>
+<li>Setting a value: use <code>&lt;lens&gt;.inject(&lt;value&gt;, &lt;target&gt;)</code>, or the more concise invoke form: <code>&lt;lens&gt;(&lt;value&gt;, &lt;target&gt;)</code></li>
+</ul>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/core/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.core</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Header</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Path</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.localDate</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.nonEmptyString</span>
+<span class="k">import</span> <span class="nn">org.http4k.lens.string</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.RoutingHttpHandler</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">java.time.LocalDate</span>
+
+<span class="kd">val</span> <span class="nv">pathLocalDate</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">localDate</span><span class="p">().</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">requiredQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myQueryName&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">nonEmptyQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">nonEmptyString</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myNonEmptyQuery&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">optionalHeader</span> <span class="o">=</span> <span class="n">Header</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">optional</span><span class="p">(</span><span class="s">&quot;Content-Length&quot;</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">responseBody</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="na">TEXT_PLAIN</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
+
+<span class="c1">// Most of the useful common JDK types are covered. However, if we want to use our own types, we can just use `map()`</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">CustomType</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+
+<span class="kd">val</span> <span class="nv">requiredCustomQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">CustomType</span><span class="p">,</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">value</span> <span class="p">}).</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myCustomType&quot;</span><span class="p">)</span>
+
+<span class="c1">//To use the Lens, simply `invoke() or extract()` it using an HTTP message to extract the value, or alternatively `invoke() or inject()` it with the value if we are modifying (via copy) the message:</span>
+<span class="kd">val</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/hello/{date:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+        <span class="kd">val</span> <span class="nv">pathDate</span><span class="p">:</span> <span class="n">LocalDate</span> <span class="o">=</span> <span class="n">pathLocalDate</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="c1">// SAME AS:</span>
+        <span class="c1">// val pathDate: LocalDate = pathLocalDate.extract(request)</span>
+
+        <span class="kd">val</span> <span class="nv">customType</span><span class="p">:</span> <span class="n">CustomType</span> <span class="o">=</span> <span class="n">requiredCustomQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">anIntHeader</span><span class="p">:</span> <span class="kt">Int?</span> <span class="o">=</span> <span class="n">optionalHeader</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="kd">val</span> <span class="nv">baseResponse</span> <span class="o">=</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">responseWithHeader</span> <span class="o">=</span> <span class="n">optionalHeader</span><span class="p">(</span><span class="n">anIntHeader</span><span class="p">,</span> <span class="n">baseResponse</span><span class="p">)</span>
+        <span class="c1">// SAME AS:</span>
+        <span class="c1">// val responseWithHeader = optionalHeader.inject(anIntHeader, baseResponse)</span>
+
+        <span class="n">responseBody</span><span class="p">(</span><span class="s">&quot;you sent </span><span class="si">$</span><span class="n">pathDate</span><span class="s"> and </span><span class="si">$</span><span class="n">customType</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">responseWithHeader</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1">//With the addition of the `CatchLensFailure` filter, no other validation is required when using Lenses, as http4k will handle invalid requests by returning a BAD_REQUEST (400) response.</span>
+<span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/hello/2000-01-01?myCustomType=someValue&quot;</span><span class="p">))</span>
+
+<span class="c1">//More conveniently for construction of HTTP messages, multiple lenses can be used at once to modify a message, which is useful for properly building both requests and responses in a typesafe way without resorting to string values (especially in URLs which should never be constructed using String concatenation):</span>
+<span class="kd">val</span> <span class="nv">modifiedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://google.com/{pathLocalDate}&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span>
+    <span class="n">pathLocalDate</span> <span class="n">of</span> <span class="n">LocalDate</span><span class="p">.</span><span class="na">now</span><span class="p">(),</span>
+    <span class="n">requiredQuery</span> <span class="n">of</span> <span class="s">&quot;myAmazingString&quot;</span><span class="p">,</span>
+    <span class="n">optionalHeader</span> <span class="n">of</span> <span class="m">123</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h3 id="serving_static_assets">Serving static assets<a class="headerlink" href="#serving_static_assets" title="Permanent link">&para;</a></h3>
+<p>For serving static assets, just bind a path to a Static block as below, using either a Classpath or Directory (Hot reloading) based ResourceLoader instance (find these on the <code>ResourceLoader</code> companion object). Typically, Directory is used during development and the Classpath strategy is used to serve assets in production from an UberJar. This is usually based on a "devmode" flag when constructing your app". <strong>Note</strong> that you should avoid setting the Classpath value to the root because otherwise it will serve anything from your classpath (including Java class files!)!:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/static&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Classpath</span><span class="p">(</span><span class="s">&quot;/org/http4k/some/package/name&quot;</span><span class="p">)),</span>
+    <span class="s">&quot;/hotreload&quot;</span> <span class="n">bind</span> <span class="n">static</span><span class="p">(</span><span class="n">Directory</span><span class="p">(</span><span class="s">&quot;path/to/static/dir/goes/here&quot;</span><span class="p">))</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h3 id="single_page_apps">Single Page Apps<a class="headerlink" href="#single_page_apps" title="Permanent link">&para;</a></h3>
+<p>These can be easily activated as below, and default to serving from <code>/public</code> package:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/reference/api&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;some api content&quot;</span><span class="p">)</span> <span class="p">},</span>
+    <span class="n">singlePageApp</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h3 id="typesafe_websockets">Typesafe Websockets.<a class="headerlink" href="#typesafe_websockets" title="Permanent link">&para;</a></h3>
+<p>Websockets have been modeled using the same methodology as standard HTTP endpoints - ie. with both simplicity and testability as a first class concern, as well as benefiting from Lens-based typesafety. Websocket communication consists of 3 main concepts:</p>
+<ol>
+<li><code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsConsumer?</code>. This is responsible for matching an HTTP request to a websocket.</li>
+<li><code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.</li>
+<li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the http4k HTTP message model, WsMessages are immutable data classes.</li>
+</ol>
+<p>The routing aspect of Websockets is done using a very similar API to the standard HTTP routing for HTTP messages and dynamic parts of the upgrade request are available when constructing a websocket instance:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+
+<span class="kd">val</span> <span class="nv">body</span> <span class="o">=</span> <span class="n">WsMessage</span><span class="p">.</span><span class="na">string</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Wrapper</span><span class="p">,</span> <span class="n">Wrapper</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
+
+<span class="kd">val</span> <span class="nv">nameLens</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+
+<span class="kd">val</span> <span class="nv">ws</span><span class="p">:</span> <span class="n">WsHandler</span> <span class="o">=</span> <span class="n">websockets</span><span class="p">(</span>
+    <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">websockets</span><span class="p">(</span>
+        <span class="s">&quot;/{name}&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">WebSocket</span> <span class="o">-&gt;</span>
+            <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">nameLens</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span> <span class="p">{</span>
+                <span class="kd">val</span> <span class="nv">received</span> <span class="o">=</span> <span class="n">body</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+                <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">body</span><span class="p">(</span><span class="n">received</span><span class="p">))</span>
+            <span class="p">}</span>
+            <span class="n">ws</span><span class="p">.</span><span class="na">onClose</span> <span class="p">{</span>
+                <span class="n">println</span><span class="p">(</span><span class="s">&quot;closed&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>A <code>WsHandler</code> can be combined with an <code>HttpHandler</code> into a <code>PolyHandler</code> and then mounted into a supported backend server using <code>asServer()</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">PolyHandler</span><span class="p">(</span>
+    <span class="n">routes</span><span class="p">(</span>
+        <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">r</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">),</span>
+    <span class="n">websockets</span><span class="p">(</span>
+        <span class="s">&quot;/ws&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">ws</span><span class="p">:</span> <span class="n">WebSocket</span> <span class="o">-&gt;</span> <span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Alternatively, the <code>WsHandler</code> can be also converted to a synchronous <code>WsClient</code> - this allows testing to be done completely offline, which allows for super-fast tests:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;ws://localhost:9000/hello/bob&quot;</span><span class="p">))</span><span class="o">!!</span>
+
+<span class="n">client</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">))</span>
+<span class="n">client</span><span class="p">.</span><span class="na">close</span><span class="p">(</span><span class="n">Status</span><span class="p">(</span><span class="m">200</span><span class="p">,</span> <span class="s">&quot;bob&quot;</span><span class="p">))</span>
+
+<span class="n">client</span><span class="p">.</span><span class="na">received</span><span class="p">.</span><span class="na">take</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="na">forEach</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="request_and_response_tostring">Request and Response toString()<a class="headerlink" href="#request_and_response_tostring" title="Permanent link">&para;</a></h3>
+<p>The HttpMessages used by http4k toString in the HTTP wire format, which it simple to capture and replay HTTP message streams later in a similar way to tools like <a href="http://www.mbtest.org/">Mountebank</a>.</p>
+<h3 id="curl_format">CURL format<a class="headerlink" href="#curl_format" title="Permanent link">&para;</a></h3>
+<p>Creates <code>curl</code> command for a given request - this is useful to include in audit logs so exact requests can be replayed if required:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">curl</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;foo&quot;</span> <span class="n">to</span> <span class="s">&quot;bar&quot;</span><span class="p">).</span><span class="na">toBody</span><span class="p">()).</span><span class="na">toCurl</span><span class="p">()</span>
+<span class="c1">// curl -X POST --data &quot;foo=bar&quot; &quot;http://httpbin.org/post&quot;</span>
+</code></pre></div>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+
+      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+
+
+
+
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+</body>
+</html>
