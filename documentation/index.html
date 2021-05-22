@@ -1054,7 +1054,7 @@ plugging together of services without HTTP container being required.</li>
 <p>Alternatively, read the <a href="https://www.http4k.org/quickstart/">quickstart</a> or take a look at the <a href="https://github.com/http4k/examples">examples repo</a>, which showcases a variety of <a href="https://http4k.org">http4k</a> use-cases and features.</p>
 <h2 id="module_feature_overview">Module feature overview<a class="headerlink" href="#module_feature_overview" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://http4k.org/guide/modules/core">Core:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/core">Core:</a> <ul>
 <li>Base HTTP handler and <strong>immutable HTTP message</strong> objects, cookie handling. </li>
 <li>Commonly used HTTP functionalities provided as reusable Filters (caching, debugging, <strong>Zipkin request tracing</strong>)</li>
 <li><strong>Path-based routing</strong>, including nestable contexts</li>
@@ -1070,7 +1070,7 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>WebJars</strong> support in <strong>1LOC</strong>`</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/clients">Client:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/clients">Client:</a> <ul>
 <li><strong>1LOC</strong> client adapters <ul>
 <li><strong>Apache</strong> sync + async HTTP</li>
 <li><strong>Java</strong> (bundled with <code>http4k-core</code>)</li>
@@ -1082,7 +1082,7 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>GraphQL</strong> client (bundled with GraphQL module)</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/servers">Server:</a><ul>
+<li><a href="https://http4k.org/guide/reference/servers">Server:</a><ul>
 <li><strong>1LOC</strong> server backend spin-up for:<ul>
 <li><strong>Apache v4 &amp; v5</strong> (from httpcore)</li>
 <li><strong>Jetty</strong> (including WebSocket support)</li>
@@ -1096,7 +1096,7 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>Native Friendly</strong> Several of the supported backends can be compiled with <strong>GraalVM</strong> and <strong>Quarkus</strong> with zero configuration.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/serverless">Serverless:</a><ul>
+<li><a href="https://http4k.org/guide/reference/serverless">Serverless:</a><ul>
 <li><strong>AWS Lambda</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to AWS Lambda to be called directly or via API Gateway/AppLoadBalancer. </li>
 <li><strong>Google Cloud Functions</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Google Cloud Functions with <code>GCloud</code>. </li>
 <li><strong>Apache OpenWhisk</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to IBM Cloud/OpenWhisk installations.</li>
@@ -1105,14 +1105,14 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>Tencent Serverless Cloud Functions</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to SCF. </li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/contracts">Contracts:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/contracts">Contracts:</a> <ul>
 <li>Define <strong>Typesafe</strong> HTTP contracts, with required and optional path/query/header/bodies</li>
 <li><strong>Typesafe</strong> path matching</li>
 <li><strong>Auto-validation</strong> of incoming requests == <strong>zero boilerplate validation code</strong></li>
 <li>Self-documenting for all routes - eg. Built in support for live <strong>OpenApi v2 and v3</strong> description endpoints including <strong>JSON Schema</strong> model breakdown. </li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/templating">Templating:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/templating">Templating:</a> <ul>
 <li><strong>Pluggable</strong> templating system support for:<ul>
 <li><strong>Dust</strong> </li>
 <li><strong>Freemarker</strong></li>
@@ -1127,21 +1127,21 @@ plugging together of services without HTTP container being required.</li>
 </li>
 <li><strong>Message formats:</strong> <ul>
 <li>Consistent API provides first class support for marshalling formats to/from HTTP messages for:<ul>
-<li><strong><a href="https://www.http4k.org/guide/modules/json/">JSON</a></strong> - with support for: <ul>
-<li><strong>Jackson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
-<li><strong>Gson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
-<li><strong>Klaxon</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
-<li><strong>Moshi</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/modules/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
+<li><strong><a href="https://www.http4k.org/guide/reference/json/">JSON</a></strong> - with support for: <ul>
+<li><strong>Jackson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/reference/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
+<li><strong>Gson</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/reference/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
+<li><strong>Klaxon</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/reference/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
+<li><strong>Moshi</strong> - includes support for <strong>fully <a href="https://http4k.org/guide/reference/json/#auto-marshalling-capabilities">automatic marshalling</a> of Data classes</strong></li>
 <li><strong>KotlinX Serialization</strong> - official Kotlin JSON API. </li>
 <li><strong>Argo</strong> - lightweight Java JSON API with zero dependencies.            </li>
 </ul>
 </li>
-<li><strong><a href="https://www.http4k.org/guide/modules/xml/">XML</a></strong> - includes support for:<ul>
+<li><strong><a href="https://www.http4k.org/guide/reference/xml/">XML</a></strong> - includes support for:<ul>
 <li><strong>Jackson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong></li>
 <li><strong>Xml</strong> - includes support for <strong>one way automatic marshalling of Data classes</strong></li>
 </ul>
 </li>
-<li><strong><a href="https://www.http4k.org/guide/modules/yaml/">YAML</a></strong> - includes support for:<ul>
+<li><strong><a href="https://www.http4k.org/guide/reference/yaml/">YAML</a></strong> - includes support for:<ul>
 <li><strong>Jackson</strong> - includes support for <strong>fully automatic marshalling of Data classes</strong></li>
 </ul>
 </li>
@@ -1149,36 +1149,36 @@ plugging together of services without HTTP container being required.</li>
 </li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/resilience4j">Resilience4J:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/resilience4j">Resilience4J:</a> <ul>
 <li>Circuits, Retrying, Rate-Limiting, Bulkheading via Resilience4J integration</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/micrometer">Micrometer:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/micrometer">Micrometer:</a> <ul>
 <li>Support for plugging http4k apps into Micrometer.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/cloud_events">Cloud Events:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/cloud_events">Cloud Events:</a> <ul>
 <li>Consume and produce CloudEvents using typesafe lenses.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/opentelemetry">OpenTelemetry:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/opentelemetry">OpenTelemetry:</a> <ul>
 <li>Instrument http4k apps with OpenTelemetry tooling.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/multipart">Multipart:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/multipart">Multipart:</a> <ul>
 <li>Support for Multipart HTML forms, including Lens extensions for type-safe marshalling of fields.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/graphql">GraphQL:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/graphql">GraphQL:</a> <ul>
 <li>Integration with GraphQL Java library to route and serve Graph-based apps. Plus conversion of any HttpHandler to be a GraphQL client.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/aws">AWS:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/aws">AWS:</a> <ul>
 <li>Plug a standard <code>HttpHandler</code> into the AWS v2 SDKs. This massively simplifies testing and allows for sniffing of the exact traffic going to AWS - brilliant for debugging and building fakes.</li>
 <li>Client filter to allow super-simple interaction with AWS services (via request signing)</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/oauth">OAuth Security</a> <ul>
+<li><a href="https://http4k.org/guide/reference/oauth">OAuth Security</a> <ul>
 <li>Implement OAuth Authorisation Code Grant flow with a single Interface</li>
 <li><strong>Pre-configured</strong> OAuth for following providers:<ul>
 <li><strong>Auth0</strong> </li>
@@ -1189,31 +1189,31 @@ plugging together of services without HTTP container being required.</li>
 </li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/cloud_native">Cloud Native:</a><ul>
+<li><a href="https://http4k.org/guide/reference/cloud_native">Cloud Native:</a><ul>
 <li>Tooling to support operating <a href="https://http4k.org">http4k</a> applications in orchestrated cloud environments such as Kubernetes and CloudFoundry. 12-factor configuration, dual-port servers and health checks such as liveness and readiness checking. </li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/webdriver">WebDriver:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/webdriver">WebDriver:</a> <ul>
 <li>Ultra-lightweight Selenium WebDriver implementation for <a href="https://http4k.org">http4k</a> application.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/hamkrest">Hamkrest:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/hamkrest">Hamkrest:</a> <ul>
 <li>A set of Hamkrest matchers for testing <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/kotest">Kotest:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/kotest">Kotest:</a> <ul>
 <li>A set of Kotest matchers for testing <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/approvaltests">Approval Testing:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/approvaltests">Approval Testing:</a> <ul>
 <li>JUnit 5 extensions for <a href="http://approvaltests.com/">Approval testing</a> of <a href="https://http4k.org">http4k</a> Request and Response messages.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/chaos">Chaos:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/chaos">Chaos:</a> <ul>
 <li>API for declaring and injecting failure modes into <a href="https://http4k.org">http4k</a> applications, allowing modelling and hence answering of "what if" style questions to help understand how code fares under failure conditions such as latency and dying processes.</li>
 </ul>
 </li>
-<li><a href="https://http4k.org/guide/modules/servicevirtualisation">Service Virtualisation:</a> <ul>
+<li><a href="https://http4k.org/guide/reference/servicevirtualisation">Service Virtualisation:</a> <ul>
 <li>Record and replay versioned HTTP contracts to/from <code>Servirtium</code> Markdown format. Includes Servirtium MiTM server and simple JUnit extensions.</li>
 </ul>
 </li>
