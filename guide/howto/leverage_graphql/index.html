@@ -275,6 +275,15 @@
             
     
         <a class="dropdown-item "
+           href="../"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
            href="../server_as_a_function/"
            title="Basic: Server as a function">Basic: Server as a function</a>
     
@@ -1056,7 +1065,7 @@
 <span class="kd">class</span> <span class="nc">UserDbHandler</span> <span class="p">:</span> <span class="n">GraphQLWithContextHandler</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="kd">private</span> <span class="kd">val</span> <span class="nv">graphQL</span> <span class="o">=</span> <span class="n">newGraphQL</span><span class="p">(</span>
         <span class="n">toSchema</span><span class="p">(</span>
-            <span class="n">SchemaGeneratorConfig</span><span class="p">(</span><span class="n">supportedPackages</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;cookbook.graphql&quot;</span><span class="p">)),</span>
+            <span class="n">SchemaGeneratorConfig</span><span class="p">(</span><span class="n">supportedPackages</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;guide.howto.leverage_graphql&quot;</span><span class="p">)),</span>
             <span class="n">listOf</span><span class="p">(</span><span class="n">TopLevelObject</span><span class="p">(</span><span class="n">UserQueries</span><span class="p">())),</span>
             <span class="n">listOf</span><span class="p">(</span><span class="n">TopLevelObject</span><span class="p">(</span><span class="n">UserMutations</span><span class="p">()))</span>
         <span class="p">)</span>
