@@ -1040,12 +1040,12 @@
 
 </div>
 
-<p><a href="https://http4k.org">http4k</a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://http4k.org">http4k</a> applications are <em>just</em> Kotlin functions which can be mounted into a running backend. For example, here's a simple echo server:</p>
+<p><a href="https://http4k.org">http4k</a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://http4k.org">http4k</a> applications are <em>just</em> Kotlin functions. For example, here's a simple echo server:</p>
 <div class="codehilite"><pre><span></span><code> <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">body</span><span class="p">)</span> <span class="p">}</span>
  <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
 
-<p><a href="https://http4k.org">http4k</a> consists of a core library, <code>http4k-core</code>, providing a base HTTP implementation + a number of capability abstractions (such as servers, clients, templating, websockets etc). These capabilities are then implemented in add-on modules.</p>
+<p><a href="https://http4k.org">http4k</a> consists of a lightweight core library, <code>http4k-core</code>, providing a base HTTP implementation and Server/Client implementations based on the JDK classes. Further servers, clients, serverless, templating, websockets capabilities are then implemented in add-on modules. <a href="https://http4k.org">http4k</a> apps can be simply mounted into a running Server, Serverless platform, or compiled to GraalVM and run as a super-lightweight binary.</p>
 <p>The principles of <a href="https://http4k.org">http4k</a> are:</p>
 <ul>
 <li><strong>Application as a Function:</strong> Based on the Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, all HTTP services can be composed 
@@ -1059,16 +1059,17 @@ then be applied to an <code>HttpHandler</code>.</li>
 <li><strong>Symmetric:</strong> The <code>HttpHandler</code> interface is identical for both HTTP services and clients. This allows for simple offline testability of applications, as well as 
 plugging together of services without HTTP container being required.</li>
 <li><strong>Dependency-lite:</strong> Apart the from Kotlin StdLib, <code>http4k-core</code> module has <strong>ZERO</strong> dependencies and weighs in at ~1mb. Add-on modules only have dependencies required for specific implementation.</li>
-<li><strong>Testability</strong> Built by <strong>TDD</strong> enthusiasts, so supports <strong>super-easy</strong> mechanisms for both In and Out of Container testing of:<ul>
+<li><strong>Testability</strong> Built by <strong>TDD</strong> enthusiasts, so supports <strong>super-easy</strong> mechanisms for both in-memory and port-based testing of:<ul>
 <li>individual endpoints</li>
 <li>applications</li>
 <li>websockets/sse</li>
 <li>full suites of microservices</li>
 </ul>
 </li>
+<li><strong>Portable</strong> Apps are completely portable across deployment platform in either a Server-based, Serverless or Native binaries.</li>
 </ul>
 <h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
-<p>Bored with reading already and just want to get coding? For the impatient, visit the <a href="https://toolbox.http4k.org">http4k toolbox</a> to generate a complete project from whe wide variety of http4k modules.</p>
+<p>Bored with reading already and just want to get coding? For the impatient, visit the <a href="https://toolbox.http4k.org">http4k toolbox</a> to generate a complete project from the wide variety of http4k modules.</p>
 <p>Alternatively, read the <a href="https://www.http4k.org/quickstart/">quickstart</a> or take a look at the <a href="https://github.com/http4k/examples">examples repo</a>, which showcases a variety of <a href="https://http4k.org">http4k</a> use-cases and features.</p>
 <h2 id="module_feature_overview">Module feature overview<a class="headerlink" href="#module_feature_overview" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1076,13 +1077,13 @@ plugging together of services without HTTP container being required.</li>
 <li>Base HTTP handler and <strong>immutable HTTP message</strong> objects, cookie handling. </li>
 <li>Commonly used HTTP functionalities provided as reusable Filters (caching, debugging, <strong>Zipkin request tracing</strong>)</li>
 <li><strong>Path-based routing</strong>, including nestable contexts</li>
-<li><strong>Typesafe HTTP message construction/desconstruction and Request Contexts</strong> using Lenses</li>
+<li><strong>Typesafe HTTP message construction/deconstruction and Request Contexts</strong> using Lenses</li>
 <li>Servlet implementation to allow <strong>plugin to any Servlet container</strong></li>
 <li>Launch applications in <strong>1LOC</strong> with an embedded <strong>SunHttp</strong> server backend (recommended for development use only)</li>
+<li>Lightweight <strong>JavaHttpClient</strong> implementation - perfect for Serverless contexts where binary size is a factor.</li>
 <li><strong>Path-based WebSockets</strong> including typesafe message marshalling using Lenses, which are <strong>testable without a running container</strong></li>
 <li><strong>Path-based Server-Sent Events</strong> which are <strong>testable without a running container</strong></li>
 <li>APIs to <strong>record and replay</strong> HTTP traffic to disk or memory</li>
-<li>Core <strong>abstraction APIs</strong> implemented by the other modules </li>
 <li><strong>Static file-serving</strong> capability with <strong>Caching and Hot-Reload</strong></li>
 <li><strong>Single Page Application</strong> support with <strong>Caching and Hot-Reload</strong></li>
 <li><strong>WebJars</strong> support in <strong>1LOC</strong>`</li>
@@ -1115,12 +1116,14 @@ plugging together of services without HTTP container being required.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/reference/serverless">Serverless:</a><ul>
-<li><strong>AWS Lambda</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to AWS Lambda to be called directly or via API Gateway/AppLoadBalancer. </li>
-<li><strong>Google Cloud Functions</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Google Cloud Functions with <code>GCloud</code>. </li>
-<li><strong>Apache OpenWhisk</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to IBM Cloud/OpenWhisk installations.</li>
-<li><strong>Azure Functions</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to the MS Cloud. </li>
-<li><strong>Alibaba Function Compute</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to Alibaba. </li>
-<li><strong>Tencent Serverless Cloud Functions</strong> Implement a single Factory method, then upload your <a href="https://http4k.org">http4k</a> applications to SCF. </li>
+<li><strong>Function-based support for both HTTP and Event-based applications</strong> via adapters, using the simple and testable <code>HttpHandler</code> and <code>FnHandler</code> types.</li>
+<li><strong>AWS Lambda</strong> Extend custom adapters to serve HTTP apps from APIGateway or use react to AWS events (without using the heavyweight AWS serialisation).</li>
+<li><strong>Custom AWS Lambda Runtime</strong> Avoid the heavyweight AWS runtime, or simply compile your <a href="https://http4k.org">http4k</a> app to GraalVM and get cold-starts in a few milliseconds! </li>
+<li><strong>Google Cloud Functions</strong> Extend custom adapters to serve HTTP apps from Google Cloud Functions or use react to GCloud events. </li>
+<li><strong>Apache OpenWhisk</strong> Extend custom adapters to serve HTTP apps or react to JSON events in IBM Cloud/OpenWhisk installations.</li>
+<li><strong>Azure Functions</strong> Extend custom adapters to serve HTTP apps from AzureCloud. </li>
+<li><strong>Alibaba Function Compute</strong> Extend custom adapters to serve HTTP apps from Alibaba.</li>
+<li><strong>Tencent Serverless Cloud Functions</strong> Extend custom adapters to serve HTTP apps from SCF.</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/reference/contracts">Contracts:</a> <ul>
