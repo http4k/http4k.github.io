@@ -1035,9 +1035,14 @@ implementations DO NOT have any facility for Cache Control or eviction, or respe
     <span class="kd">val</span> <span class="nv">storage</span> <span class="o">=</span> <span class="n">ReadWriteCache</span><span class="p">.</span><span class="na">Disk</span><span class="p">()</span>
 
     <span class="c1">// wrap any HTTP Handler in a Recording Filter and play traffic through it</span>
-    <span class="kd">val</span> <span class="nv">withCachedContent</span> <span class="o">=</span> <span class="n">TrafficFilters</span><span class="p">.</span><span class="na">ServeCachedFrom</span><span class="p">(</span><span class="n">storage</span><span class="p">).</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">withCachedContent</span> <span class="o">=</span>
+        <span class="n">TrafficFilters</span><span class="p">.</span><span class="na">ServeCachedFrom</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">TrafficFilters</span><span class="p">.</span><span class="na">RecordTo</span><span class="p">(</span><span class="n">storage</span><span class="p">))</span>
+            <span class="p">.</span><span class="na">then</span> <span class="p">{</span>
+                <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
     <span class="kd">val</span> <span class="nv">aRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)</span>
-    <span class="n">withCachedContent</span><span class="p">(</span><span class="n">aRequest</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">withCachedContent</span><span class="p">(</span><span class="n">aRequest</span><span class="p">))</span>
 
     <span class="c1">// repeated requests are intercepted by the cache and the responses provided without hitting the original handler</span>
     <span class="n">println</span><span class="p">(</span><span class="n">withCachedContent</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)))</span>
