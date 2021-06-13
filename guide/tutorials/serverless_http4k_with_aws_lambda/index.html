@@ -12,9 +12,9 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k Tutorial: Developing for Serverless platforms: AWS Lambda">
-<meta name="twitter:title" content="http4k Tutorial: Developing for Serverless platforms: AWS Lambda">
-<meta property="og:title" content="http4k Tutorial: Developing for Serverless platforms: AWS Lambda" />
+<meta itemprop="name" content="http4k Tutorial: Serverless http4k with AWS Lambda">
+<meta name="twitter:title" content="http4k Tutorial: Serverless http4k with AWS Lambda">
+<meta property="og:title" content="http4k Tutorial: Serverless http4k with AWS Lambda" />
 
 
 
@@ -24,7 +24,7 @@
 
 
 
-<link rel="canonical" href="https://www.http4k.org/guide/tutorials/serverless_http_with_aws_lambda/">
+<link rel="canonical" href="https://www.http4k.org/guide/tutorials/serverless_http4k_with_aws_lambda/">
 
 
 
@@ -78,7 +78,7 @@
     
     
     
-    <title>http4k Tutorial: Developing for Serverless platforms: AWS Lambda</title>
+    <title>http4k Tutorial: Serverless http4k with AWS Lambda</title>
     
     
     
@@ -250,6 +250,15 @@
         <a class="dropdown-item active"
            href="./"
            title="Deploying an http4k app to AWS Lambda">Deploying an http4k app to AWS Lambda</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../going_native_with_graal_on_aws_lambda/"
+           title="Going native with Graal on AWS Lambda">Going native with Graal on AWS Lambda</a>
     
 
             
@@ -1019,7 +1028,7 @@
                     
                     <h1>Deploying an http4k app to AWS Lambda</h1>
                     
-                    <p>In this guide, we'll run you through the steps required to get an http4k application deployed and running on AWS Lambda and available to call over the internet using AWS ApiGateway. If you're not familiar with the http4k concepts for HTTP apps, then we advise you read them <a href="/guide/concepts/http/">here</a>, or to follow the <a href="/guide/tutorials/your_first_http4k_app">Your first http4k app</a> tutorial before tackling this guide.</p>
+                    <p>In this guide, we'll run you through the steps required to get an http4k application deployed and running on AWS Lambda and available to call over the internet using AWS ApiGateway. If you're not familiar with the http4k concepts for HTTP and Serverless apps, then we advise you read them <a href="/guide/concepts/http/">here</a> and <a href="/guide/concepts/serverless/">here</a>. To make an app you can follow the <a href="/guide/tutorials/your_first_http4k_app">Your first http4k app</a> tutorial before tackling this guide.</p>
 <p>We'll take an existing http4k application built with Gradle, add the bits that are important to Serverless HTTP apps then deploy it to AWS Lambda and API Gateway using Pulumi.</p>
 <h2 id="pre-requisites">Pre-requisites:<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1038,7 +1047,7 @@
 <h4 id="step_2">Step 2<a class="headerlink" href="#step_2" title="Permanent link">&para;</a></h4>
 <p>The AWS Lambda runtime works by implementing an AWS supplied interface <code>Request/StreamHandler</code> and configuring that class to be loaded on an invocation on the lambda. The invocation requests themselves are transmitted as JSON which normally is unmarshalled by Jackson in the AWS runtime into the relevant AWS Event class.</p>
 <p>http4k supplies pre-built StreamHandler adapters (they are faster) using the lightweight Moshi library to convert the invocations to standard http4k Request/Responses. We need to decide which version of the <a href="https://aws.amazon.com/api-gateway/">ApiGateway</a> binding to use and then use the correct http4k class. For this example we're going to use ApiGateway HTTP Version 1, so we simply create a class <code>HelloServerlessHttp4k</code> extending the relevant http4k class and pass our app <code>HttpHandler</code> to it's constructor:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.serverless_http_with_aws_lambda</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.serverless_http4k_with_aws_lambda</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
@@ -1076,7 +1085,7 @@
 <div class="codehilite"><pre><span></span><code>./gradlew buildLambdaZip
 </code></pre></div>
 
-<p>and then take a note of the ZIP file that appears in <code>build/distributions</code>.</p>
+<p>... and then take a note of the ZIP file that appears in <code>build/distributions</code>.</p>
 <h4 id="step_4">Step 4<a class="headerlink" href="#step_4" title="Permanent link">&para;</a></h4>
 <p>The next step is to configure the AWS resources to send requests to our Lambda function. This is quite involved as far as setup is concerned, but for this we're using <a href="https://www.pulumi.com/docs/get-started/install/">Pulumi</a> as it provides a simple way to get started. The concept here is that you configure a "stack" in your chosen language (we're choosing TypeScript).</p>
 <p>On the command line, generate a new Pulumi configuration by running:</p>
@@ -1115,7 +1124,7 @@
 
 <span class="n">const</span> <span class="n">lambdaFunction</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">lambda</span><span class="p">.</span><span class="na">Function</span><span class="p">(</span><span class="s">&quot;hello-http4k&quot;</span><span class="p">,</span> <span class="p">{</span>
     <span class="n">code</span><span class="p">:</span> <span class="n">new</span> <span class="n">pulumi</span><span class="p">.</span><span class="na">asset</span><span class="p">.</span><span class="na">FileArchive</span><span class="p">(</span><span class="s">&quot;build/distributions/HelloWorld.zip&quot;</span><span class="p">),</span>
-    <span class="n">handler</span><span class="p">:</span> <span class="s">&quot;guide.tutorials.serverless_http_with_aws_lambda.HelloServerlessHttp4k&quot;</span><span class="p">,</span>
+    <span class="n">handler</span><span class="p">:</span> <span class="s">&quot;guide.tutorials.serverless_http4k_with_aws_lambda.HelloServerlessHttp4k&quot;</span><span class="p">,</span>
     <span class="n">role</span><span class="p">:</span> <span class="n">defaultRole</span><span class="p">.</span><span class="na">arn</span><span class="p">,</span>
     <span class="n">runtime</span><span class="p">:</span> <span class="s">&quot;java11&quot;</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="m">15</span>
@@ -1173,16 +1182,18 @@
 </code></pre></div>
 
 <p>Pulumi will churn for a bit and all being well will display the URL at the end of the process.</p>
+<p><img class="blogImage" src="step6.png" alt="pulumi output"/></p>
 <h4 id="step_7">Step 7<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
 <p>You can now call your deployed lambda by visiting: <code>https://{publishedUrl}/echo/helloHttp4k</code>. You should see <code>helloHttp4k</code> in the response body.</p>
 <h4 id="step_8">Step 8<a class="headerlink" href="#step_8" title="Permanent link">&para;</a></h4>
-<p>To avoid any unwanted AWS charges, don't forget to delete all of the resources in your stack when you've finished y running:</p>
+<p>To avoid any unwanted AWS charges, don't forget to delete all of the resources in your stack when you've finished by running:</p>
 <div class="codehilite"><pre><span></span><code>pulumi destroy --stack dev --yes
 </code></pre></div>
 
 <h4 id="congratulations">Congratulations!<a class="headerlink" href="#congratulations" title="Permanent link">&para;</a></h4>
 <p>You have successfully deployed and invoked an http4k Lambda to AWS!</p>
 <p>To see a complete example of a similar setup, you can check out the complete <a href="https://github.com/http4k/examples/tree/master/aws-lambda">AWS Lambda</a> app from the <a href="https://github.com/http4k/examples/">http4k Examples repo</a></p>
+<p>(Ready for more? Let's move on to <a href="/guide/tutorials/going_native_with_graal_on_aws_lambda">deploying a native http4k GraalVM Lambda to AWS</a>)</p>
                     
                 </div>
             </div>
