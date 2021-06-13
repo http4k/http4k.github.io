@@ -1029,7 +1029,7 @@
 
 <h4 id="step_2">Step 2<a class="headerlink" href="#step_2" title="Permanent link">&para;</a></h4>
 <p>The AWS Lambda runtime works by implementing an AWS supplied interface <code>Request/StreamHandler</code> and configuring that class to be loaded on an invocation on the lambda. The invocation requests themselves are transmitted as JSON which normally is unmarshalled by Jackson in the AWS runtime into the relevant AWS Event class.</p>
-<p>http4k supplies pre-built StreamHandler adapters (they are faster) using the lightweight Moshi library to convert the invocations to standard http4k Request/Responses. We need to decide which version of the <a href="https://aws.amazon.com/api-gateway/">ApiGateway</a> binding to use and then use the correct http4k class. For this example we're going to use ApiGateway HTTP Version 1, so we simply create a class extending the relevant http4k class and pass our app <code>HttpHandler</code> to it's constructor:</p>
+<p>http4k supplies pre-built StreamHandler adapters (they are faster) using the lightweight Moshi library to convert the invocations to standard http4k Request/Responses. We need to decide which version of the <a href="https://aws.amazon.com/api-gateway/">ApiGateway</a> binding to use and then use the correct http4k class. For this example we're going to use ApiGateway HTTP Version 1, so we simply create a class <code>HelloServerlessHttp4k</code> extending the relevant http4k class and pass our app <code>HttpHandler</code> to it's constructor:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.serverless_http_with_aws_lambda</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
@@ -1161,13 +1161,11 @@
 <li>(line 30) - the name of the input ZIP file - ensure this is correct from the last step.</li>
 <li>(line 70) - the <code>publishedUrl</code> - this latter value in used by Pulumi to bind the URL of our Lambda to once it has been deployed and will be displayed upon deployment.</li>
 </ul>
-<h4 id="step_5">Step 4<a class="headerlink" href="#step_5" title="Permanent link">&para;</a></h4>
-<p>If you haven't already done so, run <code>npm install</code> to read</p>
-<h4 id="step_6">Step 5<a class="headerlink" href="#step_6" title="Permanent link">&para;</a></h4>
+<h4 id="step_5">Step 5<a class="headerlink" href="#step_5" title="Permanent link">&para;</a></h4>
 <p>Deploy your ZIP file to AWS with <code>pulumi up --stack dev</code>. Pulumi will churn for a bit and all being well will display the URL at the end of the process.</p>
-<h4 id="step_7">Step 6<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
+<h4 id="step_6">Step 6<a class="headerlink" href="#step_6" title="Permanent link">&para;</a></h4>
 <p>You can now call your deployed lambda with <code>curl https://{publishedUrl}/echo/helloHttp4k</code>. You should see <code>helloHttp4k</code> in the response body.</p>
-<h4 id="step_8">Step 7<a class="headerlink" href="#step_8" title="Permanent link">&para;</a></h4>
+<h4 id="step_7">Step 7<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
 <p>To avoid any unwanted AWS charges, don't forget to delete all of the resources in your stack with: <code>pulumi destroy --stack dev</code></p>
 <h4 id="congratulations">Congratulations!<a class="headerlink" href="#congratulations" title="Permanent link">&para;</a></h4>
 <p>You have successfully deployed and invoked an http4k Lambda to AWS!</p>
