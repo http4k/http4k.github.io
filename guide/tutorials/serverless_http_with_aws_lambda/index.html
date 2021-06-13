@@ -1,0 +1,1200 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="http4k Tutorial: Developing for Serverless platforms: AWS Lambda">
+<meta name="twitter:title" content="http4k Tutorial: Developing for Serverless platforms: AWS Lambda">
+<meta property="og:title" content="http4k Tutorial: Developing for Serverless platforms: AWS Lambda" />
+
+
+
+<meta name="description" content="A step-by-step guide to deploying an HTTP app to AWS Lambda">
+<meta property="og:description" content="A step-by-step guide to deploying an HTTP app to AWS Lambda" />
+<meta name="twitter:description" content="A step-by-step guide to deploying an HTTP app to AWS Lambda">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/guide/tutorials/serverless_http_with_aws_lambda/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.1.2, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>http4k Tutorial: Developing for Serverless platforms: AWS Lambda</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#4051b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../../css/site.css">
+    
+    
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../"
+               title="About the docs">About the docs</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Concepts</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/rationale/"
+           title="Rationale">Rationale</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/http/"
+           title="HTTP">HTTP</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/serverless/"
+           title="Serverless">Serverless</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/websockets/"
+           title="WebSockets">WebSockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/server-sent-events/"
+           title="Server-Sent Events">Server-Sent Events</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Tutorials</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../your_first_http4k_app/"
+           title="Your first http4k app">Your first http4k app</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../tdding_http4k/"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">How-to guides</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/server_as_a_function/"
+           title="Basic: Server as a function">Basic: Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/client_as_a_function/"
+           title="Basic: Client as a function">Basic: Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_server_backend/"
+           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/write_different_test_types/"
+           title="Basic: Different test-types">Basic: Different test-types</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/simple_routing/"
+           title="Basic: Simple routing">Basic: Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/nestable_routes/"
+           title="Basic: Nestable routes">Basic: Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/attach_context_to_a_request/"
+           title="Attach context to a request">Attach context to a request</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/configure_an_oauth_server/"
+           title="Configure an OAuth Server">Configure an OAuth Server</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/create_a_custom_json_marshaller/"
+           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/customise_a_server_backend/"
+           title="Customise a Server backend">Customise a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/deploy_webjars/"
+           title="Deploy WebJars">Deploy WebJars</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/integrate_with_openapi/"
+           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/leverage_graphql/"
+           title="Leverage GraphQL">Leverage GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/lookup_a_user_principal/"
+           title="Lookup a User Principal">Lookup a User Principal</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/monitor_http4k/"
+           title="Monitor http4k">Monitor http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/record_and_replay_http_traffic/"
+           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/serve_sse/"
+           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/serve_websockets/"
+           title="Serve Websockets">Serve Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/structure_your_logs_with_events/"
+           title="Structure your logs with Events">Structure your logs with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/test_using_service_virtualisation/"
+           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/typesafe_your_api_with_lenses/"
+           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_custom_oauth_provider/"
+           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_templating_engine/"
+           title="Use a templating engines">Use a templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_html_forms/"
+           title="Use HTML forms">Use HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_multipart_forms/"
+           title="Use Multipart forms">Use Multipart forms</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Reference</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../api/"
+           title="API docs">API docs</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/cloud_native/"
+           title="Cloud Native Configuration">Cloud Native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/cloud_events/"
+           title="Cloud Events">Cloud Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/graphql/"
+           title="GraphQL">GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Testing</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/testing/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/servicevirtualisation/"
+           title="Service Virtualisaion">Service Virtualisaion</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/strikt/"
+           title="Strikt">Strikt</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+        </div>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_configuration/"
+           title="Typesafe 12-factor config">Typesafe 12-factor config</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/toolbox/"
+           title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/http4k_v4/"
+           title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/regarding_jcenter/"
+           title="JCenter Shutdown">JCenter Shutdown</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+            <div class="container">
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1>http4k Tutorial: Developing for Serverless platforms: AWS Lambda</h1>
+                    
+                    <p>In this guide, we'll run you through the steps required to get an http4k application deployed and running on AWS Lambda and available to call over the internet using AWS ApiGateway. If you're not familiar with the http4k concepts for HTTP apps, then we advise you read them <a href="/guide/concepts/http/">here</a>, or to follow the <a href="/guide/tutorials/your_first_http4k_app">Your first http4k app</a> tutorial before tackling this guide.</p>
+<p>We'll take an existing http4k application built with Gradle, add the bits that are important to Serverless HTTP apps then deploy it to AWS Lambda and API Gateway using Pulumi.</p>
+<h2 id="pre-requisites">Pre-requisites:<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>All the pre-requisites from the <a href="/guide/tutorials/your_first_http4k_app">Your first http4k app</a> tutorial.</li>
+<li>The AWS CLI installed and an AWS profile set up to use. See <a href="https://docs.aws.amazon.com/cli/index.html">here</a>.</li>
+<li>Pulumi CLI installed and configured for your system and AWS profile. See <a href="https://www.pulumi.com/docs/get-started/install/">here</a>.</li>
+<li>Pulumi dependencies installed by running <code>npm install</code>.</li>
+<li>A working http4k application, built with Gradle. You can generate one from the <a href="https://toolbox.http4k.org">http4k Toolbox</a> if required. For this example, we're going to assume a simple "echo" HttpHandler which responds to <code>GET /echo/{message:.*}"</code>.</li>
+</ul>
+<hr/>
+
+<h4 id="step_1">Step 1<a class="headerlink" href="#step_1" title="Permanent link">&para;</a></h4>
+<p>We need to add the AWS Lambda Serverless module to our project. Install it into your <code>build.gradle</code> file with:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-serverless-lambda:4.9.7.0&quot;</span><span class="o">)</span>
+</code></pre></div>
+
+<h4 id="step_2">Step 2<a class="headerlink" href="#step_2" title="Permanent link">&para;</a></h4>
+<p>The AWS Lambda runtime works by implementing an AWS supplied interface <code>Request/StreamHandler</code> and configuring that class to be loaded on an invocation on the lambda. The invocation requests themselves are transmitted as JSON which normally is unmarshalled by Jackson in the AWS runtime into the relevant AWS Event class.</p>
+<p>http4k supplies pre-built StreamHandler adapters (they are faster) using the lightweight Moshi library to convert the invocations to standard http4k Request/Responses. We need to decide which version of the <a href="https://aws.amazon.com/api-gateway/">ApiGateway</a> binding to use and then use the correct http4k class. For this example we're going to use ApiGateway HTTP Version 1, so we simply create a class extending the relevant http4k class and pass our app <code>HttpHandler</code> to it's constructor:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.serverless_http_with_aws_lambda</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.serverless.ApiGatewayV1LambdaFunction</span>
+
+<span class="kd">val</span> <span class="nv">http4kApp</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
+    <span class="s">&quot;/echo/{message:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span>
+        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span>
+            <span class="nb">it</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;(nothing to echo, use /echo/&lt;message&gt;)&quot;</span>
+        <span class="p">)</span>
+    <span class="p">},</span>
+    <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;ok&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nd">@Suppress</span><span class="p">(</span><span class="s">&quot;unused&quot;</span><span class="p">)</span>
+<span class="kd">class</span> <span class="nc">HelloServerlessHttp4k</span> <span class="p">:</span> <span class="n">ApiGatewayV1LambdaFunction</span><span class="p">(</span><span class="n">http4kApp</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="step_3">Step 3<a class="headerlink" href="#step_3" title="Permanent link">&para;</a></h4>
+<p>To build the Lambda code into a ZIP file, we need to add a task to our <code>build.gradle</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">task</span> <span class="nf">buildZip</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Zip</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">from</span> <span class="n">compileKotlin</span>
+    <span class="n">from</span> <span class="n">processResources</span>
+    <span class="n">into</span><span class="o">(</span><span class="s1">&#39;lib&#39;</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">from</span> <span class="n">configurations</span><span class="o">.</span><span class="na">compileClasspath</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>Run the new task with <code>./gradlew buildZip</code> and then take a note of the ZIP file that appears in <code>build/distributions</code>.</p>
+<h4 id="step_4">Step 4<a class="headerlink" href="#step_4" title="Permanent link">&para;</a></h4>
+<p>The next step is to configure the AWS resources to send requests to our Lambda function. This is quite involved as far as setup is concerned, but for this we're using <a href="https://www.pulumi.com/docs/get-started/install/">Pulumi</a> as it provides a simple way to get started. The concept here is that you configure a "stack" in your chosen language (we're choosing TypeScript).</p>
+<p>We need to configure the credentials which Pulumi will use in <code>Pulumi.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">name</span><span class="p">:</span> <span class="n">serverless</span><span class="o">-</span><span class="n">http4k</span>
+<span class="n">runtime</span><span class="p">:</span> <span class="n">nodejs</span>
+<span class="n">description</span><span class="p">:</span> <span class="n">http4k</span> <span class="n">tutorial</span> <span class="k">for</span> <span class="n">deploying</span> <span class="n">HTTP</span> <span class="n">apps</span> <span class="n">to</span> <span class="n">AWS</span> <span class="n">lambda</span>
+</code></pre></div>
+
+<p>... and the definition for our "dev" stack <code>Pulumi-dev.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">config</span><span class="p">:</span>
+  <span class="n">aws</span><span class="p">:</span><span class="n">profile</span><span class="p">:</span> <span class="n">serverless</span><span class="o">-</span><span class="n">http4k</span>
+  <span class="n">aws</span><span class="p">:</span><span class="n">region</span><span class="p">:</span> <span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="m">1</span>
+</code></pre></div>
+
+<p>... and the AWS resources to expose our Lambda in our stack <code>index.ts</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">*</span> <span class="k">as</span> <span class="n">pulumi</span> <span class="n">from</span> <span class="s">&quot;@pulumi/pulumi&quot;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nn">*</span> <span class="k">as</span> <span class="n">aws</span> <span class="n">from</span> <span class="s">&quot;@pulumi/aws&quot;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nn">{RolePolicyAttachment}</span> <span class="n">from</span> <span class="s">&quot;@pulumi/aws/iam&quot;</span><span class="p">;</span>
+
+<span class="n">const</span> <span class="n">defaultRole</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">iam</span><span class="p">.</span><span class="na">Role</span><span class="p">(</span><span class="s">&quot;serverless-http4k-default-role&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">assumeRolePolicy</span><span class="p">:</span> <span class="err">`</span><span class="p">{</span>
+  <span class="s">&quot;Version&quot;</span><span class="p">:</span> <span class="s">&quot;2012-10-17&quot;</span><span class="p">,</span>
+  <span class="s">&quot;Statement&quot;</span><span class="p">:</span> <span class="o">[</span>
+    <span class="p">{</span>
+      <span class="s">&quot;Action&quot;</span><span class="p">:</span> <span class="s">&quot;sts:AssumeRole&quot;</span><span class="p">,</span>
+      <span class="s">&quot;Principal&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;Service&quot;</span><span class="p">:</span> <span class="s">&quot;lambda.amazonaws.com&quot;</span>
+      <span class="p">},</span>
+      <span class="s">&quot;Effect&quot;</span><span class="p">:</span> <span class="s">&quot;Allow&quot;</span><span class="p">,</span>
+      <span class="s">&quot;Sid&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+    <span class="p">}</span>
+  <span class="o">]</span>
+<span class="p">}</span>
+<span class="err">`</span>
+<span class="p">});</span>
+
+<span class="n">new</span> <span class="n">RolePolicyAttachment</span><span class="p">(</span><span class="s">&quot;serverless-http4k-default-role-policy&quot;</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="n">role</span><span class="p">:</span> <span class="n">defaultRole</span><span class="p">,</span>
+        <span class="n">policyArn</span><span class="p">:</span> <span class="n">aws</span><span class="p">.</span><span class="na">iam</span><span class="p">.</span><span class="na">ManagedPolicies</span><span class="p">.</span><span class="na">AWSLambdaBasicExecutionRole</span>
+    <span class="p">});</span>
+
+<span class="n">const</span> <span class="n">lambdaFunction</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">lambda</span><span class="p">.</span><span class="na">Function</span><span class="p">(</span><span class="s">&quot;serverless-http4k&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">code</span><span class="p">:</span> <span class="n">new</span> <span class="n">pulumi</span><span class="p">.</span><span class="na">asset</span><span class="p">.</span><span class="na">FileArchive</span><span class="p">(</span><span class="s">&quot;build/distributions/&lt;ZIP name&gt;.zip&quot;</span><span class="p">),</span>
+    <span class="n">handler</span><span class="p">:</span> <span class="s">&quot; guide.tutorials.serverless_http.HelloServerlessHttp4k&quot;</span><span class="p">,</span>
+    <span class="n">role</span><span class="p">:</span> <span class="n">defaultRole</span><span class="p">.</span><span class="na">arn</span><span class="p">,</span>
+    <span class="n">runtime</span><span class="p">:</span> <span class="s">&quot;java11&quot;</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="m">15</span>
+<span class="p">});</span>
+
+<span class="n">const</span> <span class="n">logGroupApi</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">cloudwatch</span><span class="p">.</span><span class="na">LogGroup</span><span class="p">(</span><span class="s">&quot;serverless-http4k-api-route&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s">&quot;serverless-http4k&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="n">const</span> <span class="n">apiGatewayPermission</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">lambda</span><span class="p">.</span><span class="na">Permission</span><span class="p">(</span><span class="s">&quot;serverless-http4k-gateway-permission&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">action</span><span class="p">:</span> <span class="s">&quot;lambda:InvokeFunction&quot;</span><span class="p">,</span>
+    <span class="s">&quot;function&quot;</span><span class="p">:</span> <span class="n">lambdaFunction</span><span class="p">.</span><span class="na">name</span><span class="p">,</span>
+    <span class="n">principal</span><span class="p">:</span> <span class="s">&quot;apigateway.amazonaws.com&quot;</span>
+<span class="p">});</span>
+
+<span class="n">const</span> <span class="n">api</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Api</span><span class="p">(</span><span class="s">&quot;serverless-http4k-api&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">protocolType</span><span class="p">:</span> <span class="s">&quot;HTTP&quot;</span>
+<span class="p">});</span>
+
+<span class="n">const</span> <span class="n">apiDefaultStage</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Stage</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">apiId</span><span class="p">:</span> <span class="n">api</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
+    <span class="n">autoDeploy</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">default</span><span class="s">&quot;</span><span class="p">,</span>
+    <span class="n">accessLogSettings</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">destinationArn</span><span class="p">:</span> <span class="n">logGroupApi</span><span class="p">.</span><span class="na">arn</span><span class="p">,</span>
+        <span class="n">format</span><span class="p">:</span> <span class="err">`</span><span class="p">{</span><span class="s">&quot;requestId&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">context</span><span class="s">.requestId&quot;</span><span class="p">,</span> <span class="s">&quot;requestTime&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">context</span><span class="s">.requestTime&quot;</span><span class="p">,</span> <span class="s">&quot;httpMethod&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">context</span><span class="s">.httpMethod&quot;</span><span class="p">,</span> <span class="s">&quot;httpPath&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">context</span><span class="s">.path&quot;</span><span class="p">,</span> <span class="s">&quot;status&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">context</span><span class="s">.status&quot;</span><span class="p">,</span> <span class="s">&quot;integrationError&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">context</span><span class="s">.integrationErrorMessage&quot;</span><span class="p">}</span><span class="err">`</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="n">const</span> <span class="n">lambdaIntegration</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Integration</span><span class="p">(</span><span class="s">&quot;serverless-http4k-api-lambda-integration&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">apiId</span><span class="p">:</span> <span class="n">api</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
+    <span class="n">integrationType</span><span class="p">:</span> <span class="s">&quot;AWS_PROXY&quot;</span><span class="p">,</span>
+    <span class="n">integrationUri</span><span class="p">:</span> <span class="n">lambdaFunction</span><span class="p">.</span><span class="na">arn</span><span class="p">,</span>
+    <span class="n">payloadFormatVersion</span><span class="p">:</span> <span class="s">&quot;1.0&quot;</span>
+<span class="p">});</span>
+
+<span class="n">let</span> <span class="n">serverlessHttp4kApiRoute</span> <span class="o">=</span> <span class="s">&quot;serverless-http4k&quot;</span><span class="p">;</span>
+<span class="n">const</span> <span class="n">apiDefaultRole</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Route</span><span class="p">(</span><span class="n">serverlessHttp4kApiRoute</span> <span class="o">+</span> <span class="s">&quot;-api-route&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">apiId</span><span class="p">:</span> <span class="n">api</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
+    <span class="n">routeKey</span><span class="p">:</span> <span class="err">`$</span><span class="n">default</span><span class="err">`</span><span class="p">,</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">pulumi</span><span class="p">.</span><span class="na">interpolate</span> <span class="err">`</span><span class="n">integrations</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">lambdaIntegration</span><span class="p">.</span><span class="na">id</span><span class="p">}</span><span class="err">`</span>
+<span class="p">});</span>
+
+<span class="n">export</span> <span class="n">const</span> <span class="n">publishedUrl</span> <span class="o">=</span> <span class="n">apiDefaultStage</span><span class="p">.</span><span class="na">invokeUrl</span><span class="p">;</span>
+</code></pre></div>
+
+<p>The most important things to note in the above file are:</p>
+<ul>
+<li>(line 30) - the name of the input ZIP file - ensure this is correct from the last step.</li>
+<li>(line 70) - the <code>publishedUrl</code> - this latter value in used by Pulumi to bind the URL of our Lambda to once it has been deployed and will be displayed upon deployment.</li>
+</ul>
+<h4 id="step_5">Step 4<a class="headerlink" href="#step_5" title="Permanent link">&para;</a></h4>
+<p>If you haven't already done so, run <code>npm install</code> to read</p>
+<h4 id="step_6">Step 5<a class="headerlink" href="#step_6" title="Permanent link">&para;</a></h4>
+<p>Deploy your ZIP file to AWS with <code>pulumi up --stack dev</code>. Pulumi will churn for a bit and all being well will display the URL at the end of the process.</p>
+<h4 id="step_7">Step 6<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
+<p>You can now call your deployed lambda with <code>curl https://{publishedUrl}/echo/helloHttp4k</code>. You should see <code>helloHttp4k</code> in the response body.</p>
+<h4 id="step_8">Step 7<a class="headerlink" href="#step_8" title="Permanent link">&para;</a></h4>
+<p>To avoid any unwanted AWS charges, don't forget to delete all of the resources in your stack with: <code>pulumi destroy --stack dev</code></p>
+<h4 id="congratulations">Congratulations!<a class="headerlink" href="#congratulations" title="Permanent link">&para;</a></h4>
+<p>You have successfully deployed and invoked an http4k Lambda to AWS!</p>
+<p>To see a complete example of a similar setup, you can check out the complete <a href="https://github.com/http4k/examples/tree/master/aws-lambda">AWS Lambda</a> app from the <a href="https://github.com/http4k/examples/">http4k Examples repo</a></p>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+
+      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+
+
+
+
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+</body>
+</html>
