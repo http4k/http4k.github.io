@@ -226,14 +226,14 @@
         
         
     
-        <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle "
+        <li class="nav-item dropdown active show">
+            <a class="nav-link dropdown-toggle active"
                data-toggle="dropdown"
                href="#"
                role="button"
                aria-haspopup="true"
-               aria-expanded="false">Tutorials</a>
-            <div class="dropdown-menu ">
+               aria-expanded="true">Tutorials</a>
+            <div class="dropdown-menu show">
             
             
             
@@ -241,6 +241,15 @@
         <a class="dropdown-item "
            href="../your_first_http4k_app/"
            title="Your first http4k app">Your first http4k app</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item active"
+           href="./"
+           title="Deploying an http4k app to AWS Lambda">Deploying an http4k app to AWS Lambda</a>
     
 
             
@@ -1008,7 +1017,7 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>http4k Tutorial: Developing for Serverless platforms: AWS Lambda</h1>
+                    <h1>Deploying an http4k app to AWS Lambda</h1>
                     
                     <p>In this guide, we'll run you through the steps required to get an http4k application deployed and running on AWS Lambda and available to call over the internet using AWS ApiGateway. If you're not familiar with the http4k concepts for HTTP apps, then we advise you read them <a href="/guide/concepts/http/">here</a>, or to follow the <a href="/guide/tutorials/your_first_http4k_app">Your first http4k app</a> tutorial before tackling this guide.</p>
 <p>We'll take an existing http4k application built with Gradle, add the bits that are important to Serverless HTTP apps then deploy it to AWS Lambda and API Gateway using Pulumi.</p>
@@ -1063,10 +1072,18 @@
 <span class="o">}</span>
 </code></pre></div>
 
-<p>Run the new task with <code>./gradlew buildLambdaZip</code> and then take a note of the ZIP file that appears in <code>build/distributions</code>.</p>
+<p>Run the new task with:</p>
+<div class="codehilite"><pre><span></span><code>./gradlew buildLambdaZip
+</code></pre></div>
+
+<p>and then take a note of the ZIP file that appears in <code>build/distributions</code>.</p>
 <h4 id="step_4">Step 4<a class="headerlink" href="#step_4" title="Permanent link">&para;</a></h4>
 <p>The next step is to configure the AWS resources to send requests to our Lambda function. This is quite involved as far as setup is concerned, but for this we're using <a href="https://www.pulumi.com/docs/get-started/install/">Pulumi</a> as it provides a simple way to get started. The concept here is that you configure a "stack" in your chosen language (we're choosing TypeScript).</p>
-<p>On the command line, generate a new Pulumi configuration by running <code>pulumi new --name hello-http4k --force</code> followed by selecting <code>aws-typescript</code> and then all the default options until Pulumi has completed.</p>
+<p>On the command line, generate a new Pulumi configuration by running:</p>
+<div class="codehilite"><pre><span></span><code>pulumi new --name hello-http4k --force
+</code></pre></div>
+
+<p>... followed by selecting <code>aws-typescript</code> and then all the default options until Pulumi has completed.</p>
 <h4 id="step_5">Step 5<a class="headerlink" href="#step_5" title="Permanent link">&para;</a></h4>
 <p>Pulumi creates a few files in the directory, but the most interesting one is <code>index.ts</code>, which is where we will configure our AWS resources for exposing the Lambda. Overwrite the content of <code>index.ts</code> with:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">*</span> <span class="k">as</span> <span class="n">pulumi</span> <span class="n">from</span> <span class="s">&quot;@pulumi/pulumi&quot;</span><span class="p">;</span>
@@ -1151,11 +1168,18 @@
 <li>(line 70) - the <code>publishedUrl</code> - this latter value in used by Pulumi to bind the URL of our Lambda to once it has been deployed and will be displayed upon deployment.</li>
 </ul>
 <h4 id="step_6">Step 6<a class="headerlink" href="#step_6" title="Permanent link">&para;</a></h4>
-<p>Deploy your ZIP file to AWS with <code>pulumi up --stack dev --yes</code>. Pulumi will churn for a bit and all being well will display the URL at the end of the process.</p>
-<h4 id="step_7">Step 6<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
-<p>You can now call your deployed lambda with <code>curl https://{publishedUrl}/echo/helloHttp4k</code>. You should see <code>helloHttp4k</code> in the response body.</p>
-<h4 id="step_8">Step 7<a class="headerlink" href="#step_8" title="Permanent link">&para;</a></h4>
-<p>To avoid any unwanted AWS charges, don't forget to delete all of the resources in your stack with: <code>pulumi destroy --stack dev</code></p>
+<p>Deploy your ZIP file to AWS with:</p>
+<div class="codehilite"><pre><span></span><code>pulumi up --stack dev --yes
+</code></pre></div>
+
+<p>Pulumi will churn for a bit and all being well will display the URL at the end of the process.</p>
+<h4 id="step_7">Step 7<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
+<p>You can now call your deployed lambda by visiting: <code>https://{publishedUrl}/echo/helloHttp4k</code>. You should see <code>helloHttp4k</code> in the response body.</p>
+<h4 id="step_8">Step 8<a class="headerlink" href="#step_8" title="Permanent link">&para;</a></h4>
+<p>To avoid any unwanted AWS charges, don't forget to delete all of the resources in your stack when you've finished y running:</p>
+<div class="codehilite"><pre><span></span><code>pulumi destroy --stack dev --yes
+</code></pre></div>
+
 <h4 id="congratulations">Congratulations!<a class="headerlink" href="#congratulations" title="Permanent link">&para;</a></h4>
 <p>You have successfully deployed and invoked an http4k Lambda to AWS!</p>
 <p>To see a complete example of a similar setup, you can check out the complete <a href="https://github.com/http4k/examples/tree/master/aws-lambda">AWS Lambda</a> app from the <a href="https://github.com/http4k/examples/">http4k Examples repo</a></p>
