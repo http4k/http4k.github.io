@@ -1016,8 +1016,7 @@
 <ul>
 <li>All the pre-requisites from the <a href="/guide/tutorials/your_first_http4k_app">Your first http4k app</a> tutorial.</li>
 <li>The AWS CLI installed and an AWS profile set up to use. See <a href="https://docs.aws.amazon.com/cli/index.html">here</a>.</li>
-<li>Pulumi CLI installed and configured for your system and AWS profile. See <a href="https://www.pulumi.com/docs/get-started/install/">here</a>.</li>
-<li>Pulumi dependencies installed by running <code>npm install</code>.</li>
+<li>Pulumi CLI installed and configured for your system. See <a href="https://www.pulumi.com/docs/get-started/install/">here</a>.</li>
 <li>A working http4k application, built with Gradle. You can generate one from the <a href="https://toolbox.http4k.org">http4k Toolbox</a> if required. For this example, we're going to assume a simple "echo" HttpHandler which responds to <code>GET /echo/{message:.*}"</code>.</li>
 </ul>
 <hr/>
@@ -1055,7 +1054,7 @@
 
 <h4 id="step_3">Step 3<a class="headerlink" href="#step_3" title="Permanent link">&para;</a></h4>
 <p>To build the Lambda code into a ZIP file, we need to add a task to our <code>build.gradle</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">task</span> <span class="nf">buildZip</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Zip</span><span class="o">)</span> <span class="o">{</span>
+<div class="codehilite"><pre><span></span><code><span class="n">task</span> <span class="nf">buildLambdaZip</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Zip</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">from</span> <span class="n">compileKotlin</span>
     <span class="n">from</span> <span class="n">processResources</span>
     <span class="n">into</span><span class="o">(</span><span class="s1">&#39;lib&#39;</span><span class="o">)</span> <span class="o">{</span>
@@ -1064,27 +1063,17 @@
 <span class="o">}</span>
 </code></pre></div>
 
-<p>Run the new task with <code>./gradlew buildZip</code> and then take a note of the ZIP file that appears in <code>build/distributions</code>.</p>
+<p>Run the new task with <code>./gradlew buildLambdaZip</code> and then take a note of the ZIP file that appears in <code>build/distributions</code>.</p>
 <h4 id="step_4">Step 4<a class="headerlink" href="#step_4" title="Permanent link">&para;</a></h4>
 <p>The next step is to configure the AWS resources to send requests to our Lambda function. This is quite involved as far as setup is concerned, but for this we're using <a href="https://www.pulumi.com/docs/get-started/install/">Pulumi</a> as it provides a simple way to get started. The concept here is that you configure a "stack" in your chosen language (we're choosing TypeScript).</p>
-<p>We need to configure the credentials which Pulumi will use in <code>Pulumi.yaml</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">name</span><span class="p">:</span> <span class="n">serverless</span><span class="o">-</span><span class="n">http4k</span>
-<span class="n">runtime</span><span class="p">:</span> <span class="n">nodejs</span>
-<span class="n">description</span><span class="p">:</span> <span class="n">http4k</span> <span class="n">tutorial</span> <span class="k">for</span> <span class="n">deploying</span> <span class="n">HTTP</span> <span class="n">apps</span> <span class="n">to</span> <span class="n">AWS</span> <span class="n">lambda</span>
-</code></pre></div>
-
-<p>... and the definition for our "dev" stack <code>Pulumi-dev.yaml</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">config</span><span class="p">:</span>
-  <span class="n">aws</span><span class="p">:</span><span class="n">profile</span><span class="p">:</span> <span class="n">serverless</span><span class="o">-</span><span class="n">http4k</span>
-  <span class="n">aws</span><span class="p">:</span><span class="n">region</span><span class="p">:</span> <span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="m">1</span>
-</code></pre></div>
-
-<p>... and the AWS resources to expose our Lambda in our stack <code>index.ts</code>:</p>
+<p>On the command line, generate a new Pulumi configuration by running <code>pulumi new --name hello-http4k --force</code> followed by selecting <code>aws-typescript</code> and then all the default options until Pulumi has completed.</p>
+<h4 id="step_5">Step 5<a class="headerlink" href="#step_5" title="Permanent link">&para;</a></h4>
+<p>Pulumi creates a few files in the directory, but the most interesting one is <code>index.ts</code>, which is where we will configure our AWS resources for exposing the Lambda. Overwrite the content of <code>index.ts</code> with:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">*</span> <span class="k">as</span> <span class="n">pulumi</span> <span class="n">from</span> <span class="s">&quot;@pulumi/pulumi&quot;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nn">*</span> <span class="k">as</span> <span class="n">aws</span> <span class="n">from</span> <span class="s">&quot;@pulumi/aws&quot;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nn">{RolePolicyAttachment}</span> <span class="n">from</span> <span class="s">&quot;@pulumi/aws/iam&quot;</span><span class="p">;</span>
 
-<span class="n">const</span> <span class="n">defaultRole</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">iam</span><span class="p">.</span><span class="na">Role</span><span class="p">(</span><span class="s">&quot;serverless-http4k-default-role&quot;</span><span class="p">,</span> <span class="p">{</span>
+<span class="n">const</span> <span class="n">defaultRole</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">iam</span><span class="p">.</span><span class="na">Role</span><span class="p">(</span><span class="s">&quot;hello-http4k-default-role&quot;</span><span class="p">,</span> <span class="p">{</span>
     <span class="n">assumeRolePolicy</span><span class="p">:</span> <span class="err">`</span><span class="p">{</span>
   <span class="s">&quot;Version&quot;</span><span class="p">:</span> <span class="s">&quot;2012-10-17&quot;</span><span class="p">,</span>
   <span class="s">&quot;Statement&quot;</span><span class="p">:</span> <span class="o">[</span>
@@ -1101,31 +1090,31 @@
 <span class="err">`</span>
 <span class="p">});</span>
 
-<span class="n">new</span> <span class="n">RolePolicyAttachment</span><span class="p">(</span><span class="s">&quot;serverless-http4k-default-role-policy&quot;</span><span class="p">,</span>
+<span class="n">new</span> <span class="n">RolePolicyAttachment</span><span class="p">(</span><span class="s">&quot;hello-http4k-default-role-policy&quot;</span><span class="p">,</span>
     <span class="p">{</span>
         <span class="n">role</span><span class="p">:</span> <span class="n">defaultRole</span><span class="p">,</span>
         <span class="n">policyArn</span><span class="p">:</span> <span class="n">aws</span><span class="p">.</span><span class="na">iam</span><span class="p">.</span><span class="na">ManagedPolicies</span><span class="p">.</span><span class="na">AWSLambdaBasicExecutionRole</span>
     <span class="p">});</span>
 
-<span class="n">const</span> <span class="n">lambdaFunction</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">lambda</span><span class="p">.</span><span class="na">Function</span><span class="p">(</span><span class="s">&quot;serverless-http4k&quot;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="n">code</span><span class="p">:</span> <span class="n">new</span> <span class="n">pulumi</span><span class="p">.</span><span class="na">asset</span><span class="p">.</span><span class="na">FileArchive</span><span class="p">(</span><span class="s">&quot;build/distributions/&lt;ZIP name&gt;.zip&quot;</span><span class="p">),</span>
-    <span class="n">handler</span><span class="p">:</span> <span class="s">&quot; guide.tutorials.serverless_http.HelloServerlessHttp4k&quot;</span><span class="p">,</span>
+<span class="n">const</span> <span class="n">lambdaFunction</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">lambda</span><span class="p">.</span><span class="na">Function</span><span class="p">(</span><span class="s">&quot;hello-http4k&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">code</span><span class="p">:</span> <span class="n">new</span> <span class="n">pulumi</span><span class="p">.</span><span class="na">asset</span><span class="p">.</span><span class="na">FileArchive</span><span class="p">(</span><span class="s">&quot;build/distributions/HelloWorld.zip&quot;</span><span class="p">),</span>
+    <span class="n">handler</span><span class="p">:</span> <span class="s">&quot;guide.tutorials.serverless_http_with_aws_lambda.HelloServerlessHttp4k&quot;</span><span class="p">,</span>
     <span class="n">role</span><span class="p">:</span> <span class="n">defaultRole</span><span class="p">.</span><span class="na">arn</span><span class="p">,</span>
     <span class="n">runtime</span><span class="p">:</span> <span class="s">&quot;java11&quot;</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="m">15</span>
 <span class="p">});</span>
 
-<span class="n">const</span> <span class="n">logGroupApi</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">cloudwatch</span><span class="p">.</span><span class="na">LogGroup</span><span class="p">(</span><span class="s">&quot;serverless-http4k-api-route&quot;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="n">name</span><span class="p">:</span> <span class="s">&quot;serverless-http4k&quot;</span><span class="p">,</span>
+<span class="n">const</span> <span class="n">logGroupApi</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">cloudwatch</span><span class="p">.</span><span class="na">LogGroup</span><span class="p">(</span><span class="s">&quot;hello-http4k-api-route&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="s">&quot;hello-http4k&quot;</span><span class="p">,</span>
 <span class="p">});</span>
 
-<span class="n">const</span> <span class="n">apiGatewayPermission</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">lambda</span><span class="p">.</span><span class="na">Permission</span><span class="p">(</span><span class="s">&quot;serverless-http4k-gateway-permission&quot;</span><span class="p">,</span> <span class="p">{</span>
+<span class="n">const</span> <span class="n">apiGatewayPermission</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">lambda</span><span class="p">.</span><span class="na">Permission</span><span class="p">(</span><span class="s">&quot;hello-http4k-gateway-permission&quot;</span><span class="p">,</span> <span class="p">{</span>
     <span class="n">action</span><span class="p">:</span> <span class="s">&quot;lambda:InvokeFunction&quot;</span><span class="p">,</span>
     <span class="s">&quot;function&quot;</span><span class="p">:</span> <span class="n">lambdaFunction</span><span class="p">.</span><span class="na">name</span><span class="p">,</span>
     <span class="n">principal</span><span class="p">:</span> <span class="s">&quot;apigateway.amazonaws.com&quot;</span>
 <span class="p">});</span>
 
-<span class="n">const</span> <span class="n">api</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Api</span><span class="p">(</span><span class="s">&quot;serverless-http4k-api&quot;</span><span class="p">,</span> <span class="p">{</span>
+<span class="n">const</span> <span class="n">api</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Api</span><span class="p">(</span><span class="s">&quot;hello-http4k-api&quot;</span><span class="p">,</span> <span class="p">{</span>
     <span class="n">protocolType</span><span class="p">:</span> <span class="s">&quot;HTTP&quot;</span>
 <span class="p">});</span>
 
@@ -1139,14 +1128,14 @@
     <span class="p">}</span>
 <span class="p">})</span>
 
-<span class="n">const</span> <span class="n">lambdaIntegration</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Integration</span><span class="p">(</span><span class="s">&quot;serverless-http4k-api-lambda-integration&quot;</span><span class="p">,</span> <span class="p">{</span>
+<span class="n">const</span> <span class="n">lambdaIntegration</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Integration</span><span class="p">(</span><span class="s">&quot;hello-http4k-api-lambda-integration&quot;</span><span class="p">,</span> <span class="p">{</span>
     <span class="n">apiId</span><span class="p">:</span> <span class="n">api</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
     <span class="n">integrationType</span><span class="p">:</span> <span class="s">&quot;AWS_PROXY&quot;</span><span class="p">,</span>
     <span class="n">integrationUri</span><span class="p">:</span> <span class="n">lambdaFunction</span><span class="p">.</span><span class="na">arn</span><span class="p">,</span>
     <span class="n">payloadFormatVersion</span><span class="p">:</span> <span class="s">&quot;1.0&quot;</span>
 <span class="p">});</span>
 
-<span class="n">let</span> <span class="n">serverlessHttp4kApiRoute</span> <span class="o">=</span> <span class="s">&quot;serverless-http4k&quot;</span><span class="p">;</span>
+<span class="n">let</span> <span class="n">serverlessHttp4kApiRoute</span> <span class="o">=</span> <span class="s">&quot;hello-http4k&quot;</span><span class="p">;</span>
 <span class="n">const</span> <span class="n">apiDefaultRole</span> <span class="o">=</span> <span class="n">new</span> <span class="n">aws</span><span class="p">.</span><span class="na">apigatewayv2</span><span class="p">.</span><span class="na">Route</span><span class="p">(</span><span class="n">serverlessHttp4kApiRoute</span> <span class="o">+</span> <span class="s">&quot;-api-route&quot;</span><span class="p">,</span> <span class="p">{</span>
     <span class="n">apiId</span><span class="p">:</span> <span class="n">api</span><span class="p">.</span><span class="na">id</span><span class="p">,</span>
     <span class="n">routeKey</span><span class="p">:</span> <span class="err">`$</span><span class="n">default</span><span class="err">`</span><span class="p">,</span>
@@ -1161,11 +1150,11 @@
 <li>(line 30) - the name of the input ZIP file - ensure this is correct from the last step.</li>
 <li>(line 70) - the <code>publishedUrl</code> - this latter value in used by Pulumi to bind the URL of our Lambda to once it has been deployed and will be displayed upon deployment.</li>
 </ul>
-<h4 id="step_5">Step 5<a class="headerlink" href="#step_5" title="Permanent link">&para;</a></h4>
-<p>Deploy your ZIP file to AWS with <code>pulumi up --stack dev</code>. Pulumi will churn for a bit and all being well will display the URL at the end of the process.</p>
 <h4 id="step_6">Step 6<a class="headerlink" href="#step_6" title="Permanent link">&para;</a></h4>
+<p>Deploy your ZIP file to AWS with <code>pulumi up --stack dev --yes</code>. Pulumi will churn for a bit and all being well will display the URL at the end of the process.</p>
+<h4 id="step_7">Step 6<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
 <p>You can now call your deployed lambda with <code>curl https://{publishedUrl}/echo/helloHttp4k</code>. You should see <code>helloHttp4k</code> in the response body.</p>
-<h4 id="step_7">Step 7<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
+<h4 id="step_8">Step 7<a class="headerlink" href="#step_8" title="Permanent link">&para;</a></h4>
 <p>To avoid any unwanted AWS charges, don't forget to delete all of the resources in your stack with: <code>pulumi destroy --stack dev</code></p>
 <h4 id="congratulations">Congratulations!<a class="headerlink" href="#congratulations" title="Permanent link">&para;</a></h4>
 <p>You have successfully deployed and invoked an http4k Lambda to AWS!</p>

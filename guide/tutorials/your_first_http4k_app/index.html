@@ -1070,16 +1070,17 @@
 <li><code>Request</code> and <code>Response</code> objects are immutable data classes, and can therefore be compared safely in tests.</li>
 </ol>
 <h4 id="step_8">Step 8<a class="headerlink" href="#step_8" title="Permanent link">&para;</a></h4>
-<p>Let's package our app into a runnable Application. From the IDE or command line, run <code>./gradlew distZip</code>. This will create an standard application ZIP file with scripts to run the app and deposit it in the <code>build/distributions</code> directory.</p>
+<p>Let's package our app into a runnable Application. From the IDE run  the <code>distZip</code> task. This will create an standard application ZIP file with scripts to run the app and deposit it in the <code>build/distributions</code> directory. You'll find the task in the <code>Gradle</code> tab under: <code>HelloWorld -&gt; Tasks -&gt; Dstribution -&gt; distZip</code>.</p>
 <h4 id="congratulations">Congratulations!<a class="headerlink" href="#congratulations" title="Permanent link">&para;</a></h4>
 <p>You have successfully:</p>
 <ol>
 <li>Created an working http4k project using the http4k Toolbox. </li>
 <li>Bound a simple <code>HttpHandler</code> function to particular HTTP endpoint.</li>
 <li>Seen how the http4k <code>HttpHandler</code> and <code>Filter</code> model provide a simple set of composable building blocks to construct HTTP applications.  </li>
-<li>Tested the application entirely in-meory with no custom libraries or code.</li>
+<li>Tested the application entirely in-memory with no custom libraries or code.</li>
 <li>Packaged your http4k app into a ZIP file.</li>
 </ol>
+<p>To see a similar application, you can check out the complete <a href="https://github.com/http4k/examples/tree/master/hello-world">Hello World</a> app from the <a href="https://github.com/http4k/examples/">http4k Examples repo</a></p>
                     
                 </div>
             </div>
