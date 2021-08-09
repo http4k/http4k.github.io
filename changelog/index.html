@@ -1042,11 +1042,12 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v41020_uncut">v4.10.2.0 (uncut)<a class="headerlink" href="#v41020_uncut" title="Permanent link">&para;</a></h3>
+<h3 id="v41100_uncut">v4.11.0.0 (uncut)<a class="headerlink" href="#v41100_uncut" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-format-jackson</strong> : Fix #646 - Boolean field can escape lens check without throwing MissingKotlinParameterException.</li>
 <li><strong>http4k-aws</strong> : Set the query parameter to empty string if it's value is null, instead of "null". H/T @raelg for the PR.</li>
+<li><strong>http4k-contract</strong> : [Possible (small) Break] Fix #644 - Lazy init contract without path params: Type mismatch. Contract routes with 0 parameters are now able to be constructed lazily - which has added (for consistency) a secondary <code>to(fn: () -&gt; HttpHandler)</code> function to the construction DSL. This may cause overload ambiguity when routes are defined withtout the request input parameter. To fix, un-ambiguate you bindings! (eg. <code>to { Response(OK) }</code> becomes <code>to { _ -&gt; Response(OK) }</code>). H/T @dbacinski for the investigation.</li>
 </ul>
 <h3 id="v41010">v4.10.1.0<a class="headerlink" href="#v41010" title="Permanent link">&para;</a></h3>
 <ul>
