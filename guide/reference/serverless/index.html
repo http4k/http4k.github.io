@@ -1146,6 +1146,7 @@
 </code></pre></div>
 
 <p>Similarly to HttpHandler, for event processing in a functional style, the main body of the Lambda function is encapsulated in a single interface <code>FnHandler</code>. This typesafe class is created by an <code>FnLoader</code> function and simply passed into an extension of <code>AwsLambdaEventFunction</code> - which is the class configured as the entry point of your AWS lambda.</p>
+<p>The process of configuration is the same as for HTTP apps above.</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/http4k-serverless/lambda/src/examples/kotlin/example_event_handling.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.Context</span>
 <span class="k">import</span> <span class="nn">com.amazonaws.services.lambda.runtime.events.SQSEvent</span>
