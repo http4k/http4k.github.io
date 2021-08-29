@@ -1068,10 +1068,10 @@
 <li>Building your http4k application into a standard UberJar.</li>
 <li>Optionally using Proguard to minify the JAR.</li>
 <li>Package up the (minified) JAR into a standard Zip distribution.</li>
-<li>Create and configure the Lambda function, and at the same time:<ol>
+<li>Create and configure the Lambda function, and at the same time:<ul>
 <li>Upload the standard Zip file to S3.</li>
 <li>Set the function execution to call the main http4k entry point: <code>guide.modules.serverless.lambda.FunctionsExampleEntryClass</code></li>
-</ol>
+</ul>
 </li>
 </ol>
 <p>We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the <code>AppLoader</code> is created and how to launch the app locally:</p>
