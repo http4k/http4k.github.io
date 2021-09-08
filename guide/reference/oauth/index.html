@@ -1042,10 +1042,12 @@
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>Support for using integrating with external OAuth2 providers for authentication purposes and to provide access to external APIs of entities such as Auth0, Google etc. </p>
-<p>Specifically, http4k supports the popular <code>OAuth2 Authorization Code Grant</code>. This flow provides a callback mechanism that plays out like this:</p>
+<p>Specifically, http4k supports the popular OAuth2 <code>Authorization Code</code> and <code>Refresh Token</code> Grants.</p>
+<h3 id="authorization_code_grant">Authorization Code Grant<a class="headerlink" href="#authorization_code_grant" title="Permanent link">&para;</a></h3>
+<p>This flow requires user interaction; it uses a callback mechanism that plays out like this:</p>
 <ol>
 <li>App developer (you!) creates an application on the OAuth provider and receives a <code>Client Id</code> and a <code>Client Secret</code>. You also provide a "callback" URL to the provider which will be used later.</li>
-<li>When accessing a protected resource, your app checks for an <code>Access Token</code> from the user (via cookie or similar)</li>
+<li>When accessing a protected resource, your app checks for an <code>AccessToken</code> from the user (via cookie or similar)</li>
 <li>If the user has no token, the app redirects the user browser back to the OAuth provider site, along with the "state" of the user - containing a generated <code>CrossSiteRequestForgeryToken</code> (CSRF - which is also stored by the app) and the original URI the user was trying to access.</li>
 <li>The user logs in on the OAuth provider site, which generates a code that is returned as a query parameter in a redirect back to the registered callback URL in your app, along with the CSRF token.</li>
 <li>Your app checks the content of the CSRF token to determine that the redirect is genuine, then sends the received code back to the OAuth provider in exchange for a valid <code>AccessToken</code>. This completes the flow</li>
@@ -1059,7 +1061,7 @@
 <li>A fully configured API client (which populated the Host on the URI) - this allows different
 implementations of the provider to be used across environments.</li>
 </ol>
-<h3 id="example_provider">Example provider <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/oauth/example_provider_oauth.kt"><img class="octocat"/></a><a class="headerlink" href="#example_provider" title="Permanent link">&para;</a></h3>
+<h4 id="example_provider">Example provider <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/oauth/example_provider_oauth.kt"><img class="octocat"/></a><a class="headerlink" href="#example_provider" title="Permanent link">&para;</a></h4>
 <p>Out of the box, http4k provides implementations for several OAuth providers.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.oauth</span>
 
@@ -1119,6 +1121,54 @@ implementations of the provider to be used across environments.</li>
 </code></pre></div>
 
 <p>See the <a href="/guide/howto/use_a_custom_oauth_provider/">how-to guides</a> for a custom implementation.</p>
+<h3 id="refresh_token_grant">Refresh Token Grant<a class="headerlink" href="#refresh_token_grant" title="Permanent link">&para;</a></h3>
+<p>This flow can be performed "offline", i.e. once a user has given their consent via the <code>Authorization Code</code> grant, your server can continue to access protected resources on behalf of the user after the original <code>AccessToken</code> expires.</p>
+<p>The flow plays out like this:</p>
+<ol>
+<li>After the user performs the <code>Authorization Code</code> grant, your server will store the <code>RefreshToken</code></li>
+<li>The next time you need to access a protected resource on behalf of the user, your server retrieves the user's <code>RefreshToken</code>, then uses the preconfigured <code>Client Id</code> and <code>Client Secret</code> to exchange the <code>RefreshToken</code> for a new <code>AccessToken</code>.</li>
+<li>[Optional] Your server can cache the refreshed <code>AccessToken</code> if several calls need to be made in a short period of time</li>
+</ol>
+<h4 id="example_filter">Example Filter <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/oauth/example_offline_oauth.kt"><img class="octocat"/></a><a class="headerlink" href="#example_filter" title="Permanent link">&para;</a></h4>
+<p>Http4k provides a filter that can be attached to your client to authorize requests to the OAuth resource server.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.oauth</span>
+
+<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProviderConfig</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.client.oAuthOffline</span>
+
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// set these before running example</span>
+    <span class="kd">val</span> <span class="nv">refreshToken</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;REFRESH_TOKEN&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">clientCredentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_ID&quot;</span><span class="p">),</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_SECRET&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">authServerBase</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;OAUTH_AUTH_SERVER_HOST&quot;</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">resourceServerHost</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;OAUTH_RESOURCE_SERVER_HOST&quot;</span><span class="p">))</span>
+
+    <span class="c1">// all the configuration we need to talk to our OAuth Auth Server (Google, Auth0, Okta, etc.)</span>
+    <span class="kd">val</span> <span class="nv">config</span> <span class="o">=</span> <span class="n">OAuthProviderConfig</span><span class="p">(</span>
+        <span class="n">authBase</span> <span class="o">=</span> <span class="n">authServerBase</span><span class="p">,</span>
+        <span class="n">authPath</span> <span class="o">=</span> <span class="s">&quot;/oauth2/authorize&quot;</span><span class="p">,</span>
+        <span class="n">tokenPath</span> <span class="o">=</span> <span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span>
+        <span class="n">credentials</span> <span class="o">=</span> <span class="n">clientCredentials</span>
+    <span class="p">)</span>
+
+    <span class="c1">// construct a client with a filter to authorize our requests to the OAuth Resource server</span>
+    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="na">SetHostFrom</span><span class="p">(</span><span class="n">resourceServerHost</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">oAuthOffline</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">refreshToken</span><span class="p">,</span> <span class="n">JavaHttpClient</span><span class="p">()))</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+
+    <span class="c1">// Make a request to the OAuth Resource server</span>
+    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/v1/secure/resource&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
                     
                 </div>
             </div>
