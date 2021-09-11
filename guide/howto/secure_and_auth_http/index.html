@@ -1057,21 +1057,28 @@
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.secure_and_auth_http</span>
 
 <span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.AccessTokenResponse</span>
 <span class="k">import</span> <span class="nn">org.http4k.security.CredentialsProvider</span>
 <span class="k">import</span> <span class="nn">org.http4k.security.ExpiringCredentials</span>
 <span class="k">import</span> <span class="nn">org.http4k.security.RefreshCredentials</span>
 <span class="k">import</span> <span class="nn">org.http4k.security.Refreshing</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.accessTokenResponseBody</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.client.OAuthClientCredentials</span>
+<span class="k">import</span> <span class="nn">org.http4k.security.oauth.client.RefreshingOAuthToken</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
 <span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
@@ -1118,19 +1125,46 @@
         <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">2000</span><span class="p">)</span>
     <span class="p">}</span>
 
+    <span class="cm">/**</span>
+<span class="cm">     * auth against OAuth ClientCredentials flow using refreshing credentials</span>
+<span class="cm">     */</span>
+    <span class="kd">val</span> <span class="nv">clientCredentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="s">&quot;secret&quot;</span><span class="p">)</span>
+
+    <span class="kd">val</span> <span class="nv">refreshingOAuthClient</span> <span class="o">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="na">RefreshingOAuthToken</span><span class="p">(</span>
+        <span class="n">clientCredentials</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;/oauth&quot;</span><span class="p">),</span> <span class="n">baseHttp</span><span class="p">,</span>
+        <span class="n">ClientFilters</span><span class="p">.</span><span class="na">OAuthClientCredentials</span><span class="p">(</span><span class="n">clientCredentials</span><span class="p">),</span> <span class="n">Duration</span><span class="p">.</span><span class="na">ofSeconds</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+    <span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">baseHttp</span><span class="p">)</span>
+
+    <span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span><span class="p">(</span><span class="n">refreshingOAuthClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/bearer&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span>
+        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">2000</span><span class="p">)</span>
+    <span class="p">}</span>
+
     <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
 <span class="p">}</span>
 
 <span class="kd">private</span> <span class="kd">fun</span> <span class="nf">AuthServer</span><span class="p">():</span> <span class="n">Http4kServer</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">endpoint</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">uri</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">endpoint</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;Authorization&quot;</span><span class="p">).</span><span class="na">toString</span><span class="p">())</span> <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">routes</span><span class="p">(</span>
+        <span class="c1">// statically check the user creds</span>
         <span class="s">&quot;basic&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span>
-            <span class="c1">// statically check the user creds</span>
             <span class="n">ServerFilters</span><span class="p">.</span><span class="na">BasicAuth</span><span class="p">(</span><span class="s">&quot;realm&quot;</span><span class="p">,</span> <span class="s">&quot;username&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">endpoint</span><span class="p">),</span>
+        <span class="c1">// dynamically check the token</span>
         <span class="s">&quot;bearer&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span>
-            <span class="c1">// dynamically check the token</span>
-            <span class="n">ServerFilters</span><span class="p">.</span><span class="na">BearerAuth</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;bearerToken&quot;</span><span class="p">)</span> <span class="p">}.</span><span class="na">then</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span>
+            <span class="n">ServerFilters</span><span class="p">.</span><span class="na">BearerAuth</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;bearerToken&quot;</span><span class="p">)</span> <span class="p">}.</span><span class="na">then</span><span class="p">(</span><span class="n">endpoint</span><span class="p">),</span>
+        <span class="c1">// fake oauth token endpoint</span>
+        <span class="s">&quot;oauth&quot;</span> <span class="n">bind</span> <span class="n">POST</span> <span class="n">to</span> <span class="p">{</span>
+            <span class="n">println</span><span class="p">(</span><span class="s">&quot;refreshing oauth token (was &quot;</span> <span class="o">+</span> <span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span><span class="p">)</span>
+
+            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span>
+                <span class="n">accessTokenResponseBody</span> <span class="n">of</span> <span class="n">AccessTokenResponse</span><span class="p">(</span>
+                    <span class="n">access_token</span> <span class="o">=</span> <span class="s">&quot;bearerTokenOAuth&quot;</span> <span class="o">+</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">(),</span>
+                    <span class="n">expires_in</span> <span class="o">=</span> <span class="m">5</span><span class="p">,</span>
+                    <span class="n">refresh_token</span> <span class="o">=</span> <span class="s">&quot;refreshToken&quot;</span> <span class="o">+</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">(),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
     <span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
