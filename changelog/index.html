@@ -1055,6 +1055,7 @@ changes with their rationale when appropriate:</p>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Rename AsyncHttpClient to AsyncHttpHandler (deprecation).</li>
+<li><strong>http4k-contract</strong> : Fix #644 - Introduce OpenAPIJackson to not serialize nulls by default into OpenAPI specs. If you use your own Jackson instance, you can replicate this behaviour by using <code>.setSerializationInclusion(NON_NULL)</code> on your custom <code>ObjectMapper</code> implementation.</li>
 </ul>
 <h3 id="v41300">v4.13.0.0<a class="headerlink" href="#v41300" title="Permanent link">&para;</a></h3>
 <ul>
