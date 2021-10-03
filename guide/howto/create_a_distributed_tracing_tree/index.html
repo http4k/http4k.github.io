@@ -1118,7 +1118,7 @@
 
     <span class="k">return</span> <span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
         <span class="p">.</span><span class="na">then</span><span class="p">(</span>
-            <span class="n">routes</span><span class="p">(</span><span class="s">&quot;int1&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+            <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int1&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
                 <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://external1/ext1&quot;</span><span class="p">))</span>
                 <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://internal2/int2&quot;</span><span class="p">))</span>
             <span class="p">})</span>
@@ -1132,7 +1132,7 @@
 
     <span class="k">return</span> <span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
         <span class="p">.</span><span class="na">then</span><span class="p">(</span>
-            <span class="n">routes</span><span class="p">(</span><span class="s">&quot;int2&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+            <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int2&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
                 <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://external2/ext2&quot;</span><span class="p">))</span>
             <span class="p">})</span>
         <span class="p">)</span>
