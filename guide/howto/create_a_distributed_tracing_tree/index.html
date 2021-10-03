@@ -15,19 +15,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k How-to: Use a Server backend">
-<meta name="twitter:title" content="http4k How-to: Use a Server backend">
-<meta property="og:title" content="http4k How-to: Use a Server backend" />
+<meta itemprop="name" content="http4k How-to: Create a Distributed Tracing Tree">
+<meta name="twitter:title" content="http4k How-to: Create a Distributed Tracing Tree">
+<meta property="og:title" content="http4k How-to: Create a Distributed Tracing Tree" />
 
 
 
-<meta name="description" content="Recipes for using http4k with the various Server backends">
-<meta property="og:description" content="Recipes for using http4k with the various Server backends" />
-<meta name="twitter:description" content="Recipes for using http4k with the various Server backends">
+<meta name="description" content="Recipes for creating a Distributed Tracing Tree">
+<meta property="og:description" content="Recipes for creating a Distributed Tracing Tree" />
+<meta name="twitter:description" content="Recipes for creating a Distributed Tracing Tree">
 
 
 
-<link rel="canonical" href="https://www.http4k.org/guide/howto/use_a_server_backend/">
+<link rel="canonical" href="https://www.http4k.org/guide/howto/create_a_distributed_tracing_tree/">
 
 
 
@@ -81,7 +81,7 @@
     
     
     
-    <title>http4k How-to: Use a Server backend</title>
+    <title>http4k How-to: Create a Distributed Tracing Tree</title>
     
     
     
@@ -323,8 +323,8 @@
             
             
     
-        <a class="dropdown-item active"
-           href="./"
+        <a class="dropdown-item "
+           href="../use_a_server_backend/"
            title="Basic: Use a Server backend">Basic: Use a Server backend</a>
     
 
@@ -539,8 +539,8 @@
             
             
     
-        <a class="dropdown-item "
-           href="../create_a_distributed_tracing_tree/"
+        <a class="dropdown-item active"
+           href="./"
            title="Create a Distributed Tracing tree">Create a Distributed Tracing tree</a>
     
 
@@ -1052,41 +1052,152 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>Basic: Use a Server backend</h1>
+                    <h1>Create a Distributed Tracing tree</h1>
                     
-                    <p>This example shows how to both how to serve an application HttpHandler using an embedded an HTTP server and to query it using an HTTP client. All server-backend implementations are launched in an identical manner (in 1LOC) using implementations of the <code>ServerConfig</code> interface - and a base implementation of this interface is provided for each server backend.</p>
-<p>Alternatively, any http4k application can be mounted into any Servlet container using the <code>asServlet()</code> extension method. This is the mechanism used in the Jetty implementation.</p>
-<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
+                    <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.13.3.0&quot;</span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-apache&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.13.3.0&quot;</span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.13.3.0&quot;</span>
 </code></pre></div>
 
-<h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/use_a_server_backend/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.use_a_server_backend</span>
+<p>When composing several http4k services together and talking to Fakes representing external systems, we can create a tree of Distributed Trace calls by adding RequestTracing filters to our HTTP services and then tracking these trace calls through Events.</p>
+<p>This tree can then be used to show the flow of traffic through the various services and to be used for things like documentation.</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/create_a_distributed_tracing_tree/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.create_a_distributed_tracing_tree</span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.equalTo</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Status</span>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.EventFilters.AddServiceName</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.EventFilters.AddZipkinTraces</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.Events</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.HttpEvent</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.HttpEvent.Incoming</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.HttpEvent.Outgoing</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.MetadataEvent</span>
+<span class="k">import</span> <span class="nn">org.http4k.events.then</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters.ReportHttpTransaction</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.RequestTracing</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ZipkinTraces</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.reverseProxy</span>
+<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span> <span class="nn">org.http4k.testing.RecordingEvents</span>
+
+<span class="kd">fun</span> <span class="nf">TraceEvents</span><span class="p">(</span><span class="n">actorName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">=</span> <span class="n">AddZipkinTraces</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">AddServiceName</span><span class="p">(</span><span class="n">actorName</span><span class="p">))</span>
+
+<span class="kd">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span> <span class="n">Events</span><span class="p">,</span> <span class="n">rawHttp</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">events</span> <span class="o">=</span> <span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="na">RequestTracing</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">events</span><span class="p">(</span><span class="n">Outgoing</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span> <span class="p">})</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
+
+    <span class="kd">fun</span> <span class="nf">initiateCall</span><span class="p">()</span> <span class="o">=</span> <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://internal1/int1&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span> <span class="nf">Internal1</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span> <span class="n">Events</span><span class="p">,</span> <span class="n">rawHttp</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">events</span> <span class="o">=</span> <span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">events</span><span class="p">(</span><span class="n">Outgoing</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">RequestTracing</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">events</span><span class="p">(</span><span class="n">Incoming</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">RequestTracing</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span>
+            <span class="n">routes</span><span class="p">(</span><span class="s">&quot;int1&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+                <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://external1/ext1&quot;</span><span class="p">))</span>
+                <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://internal2/int2&quot;</span><span class="p">))</span>
+            <span class="p">})</span>
+        <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span> <span class="nf">Internal2</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span> <span class="n">Events</span><span class="p">,</span> <span class="n">rawHttp</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">events</span> <span class="o">=</span> <span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">events</span><span class="p">(</span><span class="n">Outgoing</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">RequestTracing</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ReportHttpTransaction</span> <span class="p">{</span> <span class="n">events</span><span class="p">(</span><span class="n">Incoming</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">RequestTracing</span><span class="p">())</span>
+        <span class="p">.</span><span class="na">then</span><span class="p">(</span>
+            <span class="n">routes</span><span class="p">(</span><span class="s">&quot;int2&quot;</span> <span class="n">bind</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
+                <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://external2/ext2&quot;</span><span class="p">))</span>
+            <span class="p">})</span>
+        <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span> <span class="nf">FakeExternal1</span><span class="p">()</span> <span class="o">=</span> <span class="n">RequestTracing</span><span class="p">().</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="kd">fun</span> <span class="nf">FakeExternal2</span><span class="p">()</span> <span class="o">=</span> <span class="n">RequestTracing</span><span class="p">().</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">events</span> <span class="o">=</span> <span class="n">RecordingEvents</span><span class="p">()</span>
 
-    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">internalApp</span> <span class="o">=</span> <span class="n">Internal1</span><span class="p">(</span>
+        <span class="n">events</span><span class="p">,</span>
+        <span class="n">reverseProxy</span><span class="p">(</span>
+            <span class="s">&quot;external1&quot;</span> <span class="n">to</span> <span class="n">FakeExternal1</span><span class="p">(),</span>
+            <span class="s">&quot;internal2&quot;</span> <span class="n">to</span> <span class="n">Internal2</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">FakeExternal2</span><span class="p">())</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">User</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">internalApp</span><span class="p">).</span><span class="na">initiateCall</span><span class="p">()</span>
 
-    <span class="kd">val</span> <span class="nv">jettyServer</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">outbound</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="na">filterIsInstance</span><span class="o">&lt;</span><span class="n">MetadataEvent</span><span class="o">&gt;</span><span class="p">().</span><span class="na">filter</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">event</span> <span class="k">is</span> <span class="n">Outgoing</span> <span class="p">}</span>
 
-    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">callTree</span> <span class="o">=</span> <span class="n">outbound</span>
+        <span class="p">.</span><span class="na">filter</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">traces</span><span class="p">().</span><span class="na">parentSpanId</span> <span class="o">==</span> <span class="kc">null</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">map</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">toCallTree</span><span class="p">(</span><span class="n">outbound</span> <span class="o">-</span> <span class="nb">it</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">callTree</span><span class="p">)</span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
-
-    <span class="n">jettyServer</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+    <span class="n">assertThat</span><span class="p">(</span>
+        <span class="n">callTree</span><span class="p">,</span>
+        <span class="n">equalTo</span><span class="p">(</span>
+            <span class="n">listOf</span><span class="p">(</span>
+                <span class="n">HttpCallTree</span><span class="p">(</span>
+                    <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://internal1/int1&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span>
+                    <span class="n">listOf</span><span class="p">(</span>
+                        <span class="n">HttpCallTree</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://external1/ext1&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">emptyList</span><span class="p">()),</span>
+                        <span class="n">HttpCallTree</span><span class="p">(</span>
+                            <span class="s">&quot;internal1&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://internal2/int2&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">listOf</span><span class="p">(</span>
+                                <span class="n">HttpCallTree</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://external2/ext2&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">emptyList</span><span class="p">()),</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
 <span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">fun</span> <span class="n">MetadataEvent</span><span class="p">.</span><span class="nf">toCallTree</span><span class="p">(</span><span class="n">calls</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MetadataEvent</span><span class="o">&gt;</span><span class="p">):</span> <span class="n">HttpCallTree</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">httpEvent</span> <span class="o">=</span> <span class="n">event</span> <span class="k">as</span> <span class="n">HttpEvent</span>
+    <span class="k">return</span> <span class="n">HttpCallTree</span><span class="p">(</span>
+        <span class="n">service</span><span class="p">(),</span>
+        <span class="n">httpEvent</span><span class="p">.</span><span class="na">uri</span><span class="p">,</span> <span class="n">httpEvent</span><span class="p">.</span><span class="na">method</span><span class="p">,</span> <span class="n">httpEvent</span><span class="p">.</span><span class="na">status</span><span class="p">,</span> <span class="n">calls</span>
+            <span class="p">.</span><span class="na">filter</span> <span class="p">{</span> <span class="n">httpEvent</span><span class="p">.</span><span class="na">uri</span><span class="p">.</span><span class="na">host</span> <span class="o">==</span> <span class="nb">it</span><span class="p">.</span><span class="na">service</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">traces</span><span class="p">().</span><span class="na">spanId</span> <span class="o">==</span> <span class="nb">it</span><span class="p">.</span><span class="na">traces</span><span class="p">().</span><span class="na">parentSpanId</span> <span class="p">}</span>
+            <span class="p">.</span><span class="na">map</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">toCallTree</span><span class="p">(</span><span class="n">calls</span> <span class="o">-</span> <span class="nb">it</span><span class="p">)</span> <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">fun</span> <span class="n">MetadataEvent</span><span class="p">.</span><span class="nf">service</span><span class="p">()</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">[</span><span class="s">&quot;service&quot;</span><span class="o">]</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span>
+
+<span class="kd">private</span> <span class="kd">fun</span> <span class="n">MetadataEvent</span><span class="p">.</span><span class="nf">traces</span><span class="p">()</span> <span class="o">=</span> <span class="p">(</span><span class="n">metadata</span><span class="o">[</span><span class="s">&quot;traces&quot;</span><span class="o">]</span> <span class="k">as</span> <span class="n">ZipkinTraces</span><span class="p">)</span>
+
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">HttpCallTree</span><span class="p">(</span>
+    <span class="kd">val</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">uri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">method</span><span class="p">:</span> <span class="n">Method</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">status</span><span class="p">:</span> <span class="n">Status</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">children</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">HttpCallTree</span><span class="o">&gt;</span>
+<span class="p">)</span>
 </code></pre></div>
                     
                 </div>
