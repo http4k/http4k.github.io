@@ -1139,10 +1139,10 @@
 <span class="p">}</span>
 
 <span class="c1">// an external fake system</span>
-<span class="kd">fun</span> <span class="nf">FakeExternal1</span><span class="p">()</span> <span class="o">=</span> <span class="n">RequestTracing</span><span class="p">().</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">fun</span> <span class="nf">FakeExternal1</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 
 <span class="c1">// another external fake system</span>
-<span class="kd">fun</span> <span class="nf">FakeExternal2</span><span class="p">()</span> <span class="o">=</span> <span class="n">RequestTracing</span><span class="p">().</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">fun</span> <span class="nf">FakeExternal2</span><span class="p">():</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="nv">events</span> <span class="o">=</span> <span class="n">RecordingEvents</span><span class="p">()</span>
@@ -1165,7 +1165,7 @@
     <span class="n">println</span><span class="p">(</span><span class="n">callTree</span><span class="p">)</span>
 
     <span class="c1">// check that we created the correct thing</span>
-    <span class="n">assertThat</span><span class="p">(</span><span class="n">callTree</span><span class="p">,</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">expectedCallTree</span><span class="p">())))</span>
+    <span class="n">assertThat</span><span class="p">(</span><span class="n">callTree</span><span class="p">,</span> <span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">expectedCallTree</span><span class="p">)))</span>
 <span class="p">}</span>
 
 <span class="kd">private</span> <span class="kd">fun</span> <span class="n">RecordingEvents</span><span class="p">.</span><span class="nf">createCallTree</span><span class="p">():</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">HttpCallTree</span><span class="o">&gt;</span> <span class="p">{</span>
@@ -1174,18 +1174,6 @@
         <span class="p">.</span><span class="na">filter</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">traces</span><span class="p">().</span><span class="na">parentSpanId</span> <span class="o">==</span> <span class="kc">null</span> <span class="p">}</span>
         <span class="p">.</span><span class="na">map</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">toCallTree</span><span class="p">(</span><span class="n">outbound</span> <span class="o">-</span> <span class="nb">it</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
-
-<span class="kd">private</span> <span class="kd">fun</span> <span class="nf">expectedCallTree</span><span class="p">()</span> <span class="o">=</span> <span class="n">HttpCallTree</span><span class="p">(</span>
-    <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://internal1/int1&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span>
-    <span class="n">listOf</span><span class="p">(</span>
-        <span class="n">HttpCallTree</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://external1/ext1&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">emptyList</span><span class="p">()),</span>
-        <span class="n">HttpCallTree</span><span class="p">(</span>
-            <span class="s">&quot;internal1&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://internal2/int2&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">listOf</span><span class="p">(</span>
-                <span class="n">HttpCallTree</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://external2/ext2&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">emptyList</span><span class="p">()),</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span>
 
 <span class="c1">// recursively create the call tree from the event list</span>
 <span class="kd">private</span> <span class="kd">fun</span> <span class="n">MetadataEvent</span><span class="p">.</span><span class="nf">toCallTree</span><span class="p">(</span><span class="n">calls</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MetadataEvent</span><span class="o">&gt;</span><span class="p">):</span> <span class="n">HttpCallTree</span> <span class="p">{</span>
@@ -1207,6 +1195,18 @@
     <span class="kd">val</span> <span class="nv">method</span><span class="p">:</span> <span class="n">Method</span><span class="p">,</span>
     <span class="kd">val</span> <span class="nv">status</span><span class="p">:</span> <span class="n">Status</span><span class="p">,</span>
     <span class="kd">val</span> <span class="nv">children</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">HttpCallTree</span><span class="o">&gt;</span>
+<span class="p">)</span>
+
+<span class="kd">val</span> <span class="nv">expectedCallTree</span> <span class="o">=</span> <span class="n">HttpCallTree</span><span class="p">(</span>
+    <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://internal1/int1&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span>
+    <span class="n">listOf</span><span class="p">(</span>
+        <span class="n">HttpCallTree</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://external1/ext1&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">emptyList</span><span class="p">()),</span>
+        <span class="n">HttpCallTree</span><span class="p">(</span>
+            <span class="s">&quot;internal1&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://internal2/int2&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">listOf</span><span class="p">(</span>
+                <span class="n">HttpCallTree</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">,</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://external2/ext2&quot;</span><span class="p">),</span> <span class="n">GET</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">emptyList</span><span class="p">()),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 </code></pre></div>
                     
