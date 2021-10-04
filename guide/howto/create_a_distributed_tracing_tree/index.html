@@ -1083,9 +1083,11 @@
 <span class="k">import</span> <span class="nn">org.http4k.events.MetadataEvent</span>
 <span class="k">import</span> <span class="nn">org.http4k.events.then</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters.ResetRequestTracing</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters.ReportHttpTransaction</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters.RequestTracing</span>
 <span class="k">import</span> <span class="nn">org.http4k.filter.ZipkinTraces</span>
+<span class="k">import</span> <span class="nn">org.http4k.filter.debug</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.reverseProxy</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
@@ -1106,7 +1108,8 @@
 <span class="kd">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span> <span class="n">Events</span><span class="p">,</span> <span class="n">rawHttp</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">private</span> <span class="kd">val</span> <span class="nv">events</span> <span class="o">=</span> <span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
 
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
+    <span class="c1">// as the user is the initiator of requests, we need to reset the tracing for each call.</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">http</span> <span class="o">=</span> <span class="n">ResetRequestTracing</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">)).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
 
     <span class="kd">fun</span> <span class="nf">initiateCall</span><span class="p">()</span> <span class="o">=</span> <span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://internal1/int1&quot;</span><span class="p">))</span>
 <span class="p">}</span>
