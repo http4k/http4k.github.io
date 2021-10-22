@@ -1079,7 +1079,7 @@
 <span class="k">import</span> <span class="nn">org.http4k.format.text</span>
 <span class="k">import</span> <span class="nn">org.http4k.format.withStandardMappings</span>
 
-<span class="kd">object</span> <span class="nc">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span><span class="n">KotlinModule</span><span class="p">()</span>
+<span class="kd">object</span> <span class="nc">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span><span class="n">KotlinModule</span><span class="p">.</span><span class="na">Builder</span><span class="p">().</span><span class="na">build</span><span class="p">()</span>
     <span class="p">.</span><span class="na">asConfigurable</span><span class="p">()</span>
     <span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span>
     <span class="c1">// declare custom mapping for our own types - this one represents our type as a simple String</span>
