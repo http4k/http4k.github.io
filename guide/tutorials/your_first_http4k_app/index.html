@@ -1064,7 +1064,7 @@
 <hr/>
 
 <h4 id="step_1">Step 1<a class="headerlink" href="#step_1" title="Permanent link">&para;</a></h4>
-<p>First, we'll generate and download a project template from the http4k Toolbox. Point your browser at <a href="https://toolbox.http4k.org">toolbox.http4k.org</a> and select the <strong>Project Wizard</strong> from the menu.</p>
+<p>First, we'll generate and download a project template from the http4k Toolbox. Point your browser at <a href="https://toolbox.http4k.org">toolbox.http4k.org</a> and select the <strong>Project Wizard</strong> from the menu (alternatively, you can use the CLI to run through the same process using the command <code>http4k generate project</code>).</p>
 <p>The Toolbox is designed as a questionnaire which will help you configure a working project from all of the available http4k modules. There are several stages, but for this guide we're just going to generate the project using the defaults. </p>
 <p>We explain each of the parts in the remainder of this step, but if you just want to skip to the end, just keep hitting <strong>Next</strong> until the progress bar hits 100% then go to <strong>step 2</strong>:</p>
 <p><img class="blogImage" src="step1.png" alt="toolbox"/></p>
@@ -1103,9 +1103,15 @@
 </ul>
 <p>Try running the client by hitting the little green arrow on <strong>line 11</strong>. You'll see the <code>Response</code> printed to the console by the <code>Filter</code>, followed by a repeat of the body content, which is printed by <strong>line 18</strong>.</p>
 <h4 id="step_6">Step 6<a class="headerlink" href="#step_6" title="Permanent link">&para;</a></h4>
-<p>Modify the request in <code>/src/main/kotlin/HelloWorldClient.kt</code> to point at <code>http://localhost:9000/pong</code> instead. Run the client program again and note that a 404 is printed. This happens because we have not bound an <code>HttpHandler</code> to that endpoint.</p>
+<p>Modify the request in <code>/src/test/kotlin/HelloWorldClient.kt</code> to point at <code>http://localhost:9000/pong</code> instead. Run the client program again and note that a 404 is printed. This happens because we have not bound an <code>HttpHandler</code> to that endpoint.</p>
+<p>To bind an <code>HttpHandler</code> to the <code>pong</code> endpoint, modify <code>/src/main/kotlin/HelloWorld.kt</code> by adding lines 18-20 below:</p>
+<p><img class="blogImage" src="step6.png" alt="client code"/></p>
+<ul>
+<li><strong>Lines 18-20</strong> add an HTTP endpoint binding all HTTP <code>GET</code> requests on the path <code>/pong</code> to an <code>HttpHandler</code> function.</li>
+</ul>
+<p>To see this update in action, first rerun the main application by hitting the green arrow now on <strong>line 23</strong> in <code>/src/main/kotlin/HelloWorld.kt</code>, and then running the client again using the green arrow on <strong>line 11</strong> in <code>/src/test/kotlin/HelloWorldClient.kt</code>. You should see the new "ping" response printed to the console.</p>
 <h4 id="step_7">Step 7<a class="headerlink" href="#step_7" title="Permanent link">&para;</a></h4>
-<p>A test for our app is found in <code>/src/main/kotlin/HelloWorldTest.kt</code>. Run it with the green arrow on <strong>line 10</strong> and it should pass.</p>
+<p>A test for our app is found in <code>/src/test/kotlin/HelloWorldTest.kt</code>. Run it with the green arrow on <strong>line 10</strong> and it should pass.</p>
 <p><img class="blogImage" src="step7.png" alt="client code"/></p>
 <p>Cool things to notice about the test:</p>
 <ol>
