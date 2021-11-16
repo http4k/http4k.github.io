@@ -1108,13 +1108,11 @@
 <span class="kd">interface</span> <span class="nc">WordCounterContract</span> <span class="p">{</span>
 
     <span class="nd">@Test</span>
-    <span class="nd">@JvmDefault</span>
     <span class="kd">fun</span> <span class="nf">`count the number of words`</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">handler</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="s">&quot;A random string with 6 words&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">6</span><span class="p">))</span>
     <span class="p">}</span>
 
     <span class="nd">@Test</span>
-    <span class="nd">@JvmDefault</span>
     <span class="kd">fun</span> <span class="nf">`empty string has zero words`</span><span class="p">(</span><span class="n">handler</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">handler</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
     <span class="p">}</span>
@@ -1265,13 +1263,11 @@
     <span class="kd">val</span> <span class="nv">uri</span><span class="p">:</span> <span class="n">Uri</span>
 
     <span class="nd">@Test</span>
-    <span class="nd">@JvmDefault</span>
     <span class="kd">fun</span> <span class="nf">`count the number of words`</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">uri</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="s">&quot;A random string with 6 words&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">6</span><span class="p">))</span>
     <span class="p">}</span>
 
     <span class="nd">@Test</span>
-    <span class="nd">@JvmDefault</span>
     <span class="kd">fun</span> <span class="nf">`empty string has zero words`</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">assertThat</span><span class="p">(</span><span class="n">WordCounterClient</span><span class="p">(</span><span class="n">uri</span><span class="p">).</span><span class="na">wordCount</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">),</span> <span class="n">equalTo</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
     <span class="p">}</span>
