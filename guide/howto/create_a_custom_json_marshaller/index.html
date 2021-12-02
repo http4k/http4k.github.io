@@ -1060,9 +1060,96 @@
 </code></pre></div>
 
 <h3 id="custom_auto-mapping_json_configurations">Custom auto-mapping JSON configurations<a class="headerlink" href="#custom_auto-mapping_json_configurations" title="Permanent link">&para;</a></h3>
-<p><strong>http4k</strong> declares an extended set of "primitive" types which it can marshall out of the box - this includes the various http4k primitives (Uri, Status), as well as a bunch of common types from the JDK such as the DateTime classes and Exceptions. These primitives types cannot be marshalled as top-level JSON structures on their own so should be contained in a custom wrapper class before transmission.</p>
-<p>You can declare your own custom marshaller by reimplementing the Json instance and adding mappings for your own types - either uni or bi-directional.</p>
-<p>This ability to render custom types through different JSON marshallers allows API users to provide different "views" for different purposes - for example we may wish to hide the values of some fields in the output, as below:</p>
+<p><strong>http4k</strong> declares an extended set of "primitive" types which it can marshall out of the box - this includes the
+various http4k primitives (Uri, Status), as well as a bunch of common types from the JDK such as the DateTime classes
+and Exceptions. These primitives types cannot be marshalled as top-level JSON structures on their own so should be
+contained in a custom wrapper class before transmission.</p>
+<p>You can declare your own custom marshaller by reimplementing the Json instance and adding mappings for your own types -
+either uni or bi-directional.</p>
+<p>This ability to render custom types through different JSON marshallers allows API users to provide different "views" for
+different purposes - for example we may wish to hide the values of some fields in the output, as below:</p>
+<h3 id="example_-_representing_microtypestinytypes_as_strings_in_json">Example - Representing MicroTypes/TinyTypes as Strings in JSON<a class="headerlink" href="#example_-_representing_microtypestinytypes_as_strings_in_json" title="Permanent link">&para;</a></h3>
+<p>MicroTypes (aka Tiny Types) are popular in Kotlin providing type-safety throughout a codebase, ensuring amongst other things that method 
+parameters are not accidentally permuted. An example of a simple microtype might be:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">CustomerName</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="n">CustomerName</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Using the standard mapper, a <code>Customer</code> "Bob", would be represented as the json</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Customer</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="n">CustomerName</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>However, it might be preferable to represent <code>CustomerName</code> as a plain string:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>To achieve this, there are a few simple steps - this example uses Jackson, but there are equivalent configuration
+schemes for the other supported JSON libraries</p>
+<ol>
+<li>Use the http4k <code>ConfigurableJackson</code> to get a base configuration</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="kd">object</span> <span class="nc">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span>
+    <span class="c1">// to be filled in</span>
+<span class="p">)</span> 
+</code></pre></div>
+
+<ol>
+<li>Modify it to meet your needs, registering type adapters for your types</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="kd">object</span> <span class="nc">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span>
+    <span class="n">KotlinModule</span><span class="p">.</span><span class="na">Builder</span><span class="p">.</span><span class="na">Build</span><span class="p">()</span>              <span class="c1">// register kotlin types</span>
+        <span class="p">.</span><span class="na">asConfigurable</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span>               <span class="c1">// http4k out-of-the box extras</span>
+        <span class="p">.</span><span class="na">text</span><span class="p">(</span><span class="o">::</span><span class="n">CustomerName</span><span class="p">,</span> <span class="n">CustomerName</span><span class="o">::</span><span class="n">value</span><span class="p">)</span>    <span class="c1">// here is the registration of custom type</span>
+        <span class="c1">// .text(...) - repeat the registration for each type</span>
+        <span class="p">.</span><span class="na">done</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">deactivateDefaultTyping</span><span class="p">()</span>  <span class="c1">// other Jackson config...</span>
+        <span class="p">.</span><span class="na">configure</span><span class="p">(</span><span class="n">DeserializationFeature</span><span class="p">.</span><span class="na">FAIL_ON_UNKNOWN_PROPERTIES</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<ol>
+<li>Reference this configuration in your code - particularly where using the <code>Body.auto&lt;xxx&gt;</code> pattern</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nn">guide.howto.create_a_custom_json_marshaller.MyJackson.auto</span>
+
+<span class="kd">val</span> <span class="nv">lens</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">Customer</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>  <span class="c1">// ... continue as before</span>
+</code></pre></div>
+
+<h3 id="example_-_representing_microtypes_using_values4k_as_strings_in_json">Example - Representing MicroTypes using Values4k as Strings in JSON<a class="headerlink" href="#example_-_representing_microtypes_using_values4k_as_strings_in_json" title="Permanent link">&para;</a></h3>
+<p>This example uses value types from <a href="https://github.com/fork-handles/forkhandles/tree/trunk/values4k">Values4k</a></p>
+<p>Firstly, define a value type using the standard values4k mechanism - note that the companion
+object extends ValueFactory - this will be referenced in the type adapter later. The ValueFactory
+also provides a number of convenience methods <code>CustomerName.of()</code>, <code>parse()</code>, <code>unwrap()</code>, and a mechanism
+to validate the format of strings - very convenient to ensure that values are semantically valid throughout the entire system.</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">CustomerName</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">:</span> <span class="n">StringValue</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">companion</span> <span class="kd">object</span> <span class="err">: </span><span class="nc">StringValueFactory</span><span class="o">&lt;</span><span class="n">CustomerName</span><span class="o">&gt;</span><span class="p">(</span><span class="o">::</span><span class="n">CustomerName</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Then, define a <code>ConfigurableJackson</code> (Moshi...) with a type adaptor for your type</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">object</span> <span class="nc">MyJackson</span> <span class="p">:</span> <span class="n">ConfigurableJackson</span><span class="p">(</span>
+    <span class="n">KotlinModule</span><span class="p">.</span><span class="na">Builder</span><span class="p">.</span><span class="na">Build</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">asConfigurable</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">value</span><span class="p">(</span><span class="n">CustomerName</span><span class="p">)</span> <span class="c1">// this references the CustomerName companion object</span>
+        <span class="c1">// .value(...) - repeat the registration for each type</span>
+        <span class="p">.</span><span class="na">done</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">deactivateDefaultTyping</span><span class="p">()</span>  <span class="c1">// other Jackson config...</span>
+        <span class="p">.</span><span class="na">configure</span><span class="p">(</span><span class="n">DeserializationFeature</span><span class="p">.</span><span class="na">FAIL_ON_UNKNOWN_PROPERTIES</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>A full worked example is shown below.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/create_a_custom_json_marshaller/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.create_a_custom_json_marshaller</span>
 
