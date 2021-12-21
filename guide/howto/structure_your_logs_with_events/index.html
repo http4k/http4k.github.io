@@ -1070,7 +1070,8 @@
     <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">16</span>
   <span class="p">},</span>
   <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T17:32:27.297448Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T17:32:27.297448Z&quot;</span><span class="p">,</span> 
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;IncomingHttpRequest&quot;</span><span class="p">,</span>
     <span class="nt">&quot;traces&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;traceId&quot;</span><span class="p">:</span> <span class="s2">&quot;e35304c95b704c7d&quot;</span><span class="p">,</span>
       <span class="nt">&quot;spanId&quot;</span><span class="p">:</span> <span class="s2">&quot;0e46f7b3cb5bcf2e&quot;</span><span class="p">,</span>
@@ -1108,6 +1109,7 @@
     <span class="c1">// We use AutoMarshallingEvents (here with Jackson) to handle the final serialisation process.</span>
     <span class="kd">val</span> <span class="nv">events</span> <span class="o">=</span>
         <span class="n">EventFilters</span><span class="p">.</span><span class="na">AddTimestamp</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="na">AddEventName</span><span class="p">())</span>
             <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="na">AddZipkinTraces</span><span class="p">())</span>
             <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AddRequestCount</span><span class="p">())</span>
             <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AutoMarshallingEvents</span><span class="p">(</span><span class="n">Jackson</span><span class="p">))</span>
