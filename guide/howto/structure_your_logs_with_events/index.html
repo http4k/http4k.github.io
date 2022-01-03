@@ -1063,24 +1063,24 @@
 <p><strong>http4k</strong> supports Structured Logging using a simple yet powerful concept - an <code>Event</code> is simply a marker interface that can be attached to any class, which we then send to an instance of <code>Events</code> (a "sink" for sending <code>Event</code> instances to). As with the <code>HttpHandler</code>, <code>Events</code> is just a typealias of <code>(Event) -&gt; Unit</code>, and similarly to the <code>HttpHandler</code>, an Event can be transformed or decorated with metadata using an <code>EventFilter</code> (modelled as <code>(Events) -&gt; Events</code>)).</p>
 <p>Support for leveraging auto "object to JSON" transformational capabilities is included for the libraries that have it (eg. Jackson and GSON). This allows custom <code>Json</code> instances to be used (for instance) to avoid PII information being spat out to log aggregation platforms where they could be masked using the configuration of the JSON renderer.</p>
 <p>Attaching metadata to an <code>Event</code> results in (compactified) JSON similar to this:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;event&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;/path1&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-    <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">16</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T17:32:27.297448Z&quot;</span><span class="p">,</span> 
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;IncomingHttpRequest&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;traces&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;traceId&quot;</span><span class="p">:</span> <span class="s2">&quot;e35304c95b704c7d&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;spanId&quot;</span><span class="p">:</span> <span class="s2">&quot;0e46f7b3cb5bcf2e&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;parentSpanId&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-      <span class="nt">&quot;samplingDecision&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;requestCount&quot;</span><span class="p">:</span> <span class="mi">1234</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;event&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-11-05T17:32:27.297448Z&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;IncomingHttpRequest&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;traces&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;traceId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;e35304c95b704c7d&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;spanId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0e46f7b3cb5bcf2e&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;parentSpanId&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;samplingDecision&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;requestCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>In harmony with the ethos of <strong>http4k</strong> there is no need to bring in a custom logging library such as SL4J, although they would be very simple to integrate if required by implementing a custom <code>Events</code> instance.</p>

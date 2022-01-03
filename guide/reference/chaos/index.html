@@ -1264,38 +1264,38 @@
 <li>Always return an HTTP 404 (Not Found) status for 10 requests</li>
 <li>Repeat the above until Big Ben strikes in the New Year 2020.</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;repeat&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;stages&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;wait&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;until&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;delay&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;period&quot;</span><span class="p">:</span> <span class="s2">&quot;PT100S&quot;</span>
-        <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;trigger&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;behaviour&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;status&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="mi">404</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;trigger&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;always&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;until&quot;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;countdown&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;until&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;deadline&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;endTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-01T00:00:00Z&quot;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">]</span>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;repeat&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;stages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wait&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delay&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;period&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PT100S&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trigger&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;behaviour&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;trigger&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;always&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;countdown&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deadline&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;endTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-01T00:00:00Z&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">]</span><span class="w"></span>
 </code></pre></div>
 
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/chaos/example_chaos_controls_openapi.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>

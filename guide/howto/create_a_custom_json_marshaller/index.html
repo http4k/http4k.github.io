@@ -1079,17 +1079,17 @@ parameters are not accidentally permuted. An example of a simple microtype might
 <div class="codehilite"><pre><span></span><code><span class="n">Customer</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="n">CustomerName</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">))</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bob&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>However, it might be preferable to represent <code>CustomerName</code> as a plain string:</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bob&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>To achieve this, there are a few simple steps - this example uses Jackson, but there are equivalent configuration

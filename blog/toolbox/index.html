@@ -1093,15 +1093,15 @@
 <hr/>
 <h5 id="generating_data_classes_from_json_xml_and_yaml">Generating Data Classes from JSON, XML and YAML<a class="headerlink" href="#generating_data_classes_from_json_xml_and_yaml" title="Permanent link">&para;</a></h5>
 <p>Most of the time when working with API models in http4k, you have example messages in the native format which need to be auto-marshalled into Kotlin using Jackson or one of the other supported format libraries. This results in a very boring exercise in conversion, so we wrote this <a href="https://toolbox.http4k.org/dataclass">converter</a> that will generate Data Classes to support reading/writing of JSON, XML and YAML messages. For example, this JSON...</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;jsonRoot&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;child&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;there&quot;</span>
-        <span class="p">],</span>
-        <span class="nt">&quot;num&quot;</span><span class="p">:</span> <span class="mi">123</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;jsonRoot&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;child&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;hello&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;there&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>... results in these Data Classes:</p>
