@@ -1065,7 +1065,7 @@
 </code></pre></div>
 
 <p>A simple function representing all incoming and outgoing HTTP calls.</p>
-<p>HttpHandlers can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. The decouples the server
+<p>HttpHandlers can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. This decouples the server
 implementation from the business logic:</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">val</span> <span class="nv">jettyServer</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
