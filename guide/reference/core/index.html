@@ -1191,7 +1191,7 @@ For example, to add Basic Auth and latency reporting to a service:</p>
     <span class="nd">@Test</span>
     <span class="kd">fun</span> <span class="nf">`echoes body from path`</span><span class="p">()</span> <span class="p">{</span>
         <span class="kd">val</span> <span class="nv">route</span><span class="p">:</span> <span class="n">RoutingHttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="n">EchoPath</span><span class="p">)</span>
-        <span class="kd">val</span> <span class="nv">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">route</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my+great+message&quot;</span><span class="p">))</span>
+        <span class="kd">val</span> <span class="nv">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">route</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/echo/my%20great%20message&quot;</span><span class="p">))</span>
         <span class="n">assertThat</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="s">&quot;my great message&quot;</span><span class="p">)))</span>
     <span class="p">}</span>
 <span class="p">}</span>
