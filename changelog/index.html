@@ -1060,12 +1060,11 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v41900_uncut">v4.19.0.0 (uncut)<a class="headerlink" href="#v41900_uncut" title="Permanent link">&para;</a></h3>
+<h3 id="v41900">v4.19.0.0<a class="headerlink" href="#v41900" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-core</strong> : [Potential Break] Fix #693 Cookie implementation uses LocalDateTime val which is implicitly turned into GMT time for cookie. Break is that Cookies now run from Instant instead of LocalDateTime. Thanks to @maedjyuk-ghoti for alerting us to chase down this 5y+ standing bug!</li>
 <li><strong>http4k-security-oauth</strong> : Fixes to the <code>InsecureCookieBasedOAuthPersistence</code> to make it more user-friendly.</li>
 <li><strong>http4k-server-netty</strong> : Keep-alive for Netty when not streaming. H/T @jakubjanecek for the contrib!</li>
-<li></li>
 </ul>
 <h3 id="v41800">v4.18.0.0<a class="headerlink" href="#v41800" title="Permanent link">&para;</a></h3>
 <ul>
