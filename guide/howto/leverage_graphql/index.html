@@ -1068,6 +1068,8 @@
 <span class="k">import</span> <span class="nn">graphql.ExecutionInput.Builder</span>
 <span class="k">import</span> <span class="nn">graphql.GraphQL.newGraphQL</span>
 <span class="k">import</span> <span class="nn">org.dataloader.DataLoader</span>
+<span class="k">import</span> <span class="nn">org.dataloader.DataLoaderFactory</span>
+<span class="k">import</span> <span class="nn">org.dataloader.DataLoaderFactory.newDataLoader</span>
 <span class="k">import</span> <span class="nn">org.dataloader.DataLoaderRegistry</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.asGraphQLHandler</span>
@@ -1125,7 +1127,7 @@
     <span class="p">).</span><span class="na">build</span><span class="p">()</span>
 
     <span class="kd">private</span> <span class="kd">val</span> <span class="nv">dataLoaderRegistry</span> <span class="o">=</span> <span class="n">DataLoaderRegistry</span><span class="p">().</span><span class="na">apply</span> <span class="p">{</span>
-        <span class="n">register</span><span class="p">(</span><span class="s">&quot;USER_LOADER&quot;</span><span class="p">,</span> <span class="n">DataLoader</span> <span class="p">{</span> <span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span> <span class="o">-&gt;</span>
+        <span class="n">register</span><span class="p">(</span><span class="s">&quot;USER_LOADER&quot;</span><span class="p">,</span> <span class="n">newDataLoader</span> <span class="p">{</span> <span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span> <span class="o">-&gt;</span>
             <span class="n">supplyAsync</span> <span class="p">{</span>
                 <span class="n">UserQueries</span><span class="p">().</span><span class="na">search</span><span class="p">(</span><span class="n">Params</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span>
             <span class="p">}</span>
