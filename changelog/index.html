@@ -1060,9 +1060,10 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v42030_uncut">v4.20.3.0 (uncut)<a class="headerlink" href="#v42030_uncut" title="Permanent link">&para;</a></h3>
+<h3 id="v42100">v4.21.0.0<a class="headerlink" href="#v42100" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-core</strong>: [Breaking] All metrics now include <code>path</code> when labelled and routed. For consistency, <code>.</code> in path names are now convert to underscores as well. Regexes are also removed from paths on both client and server. H/T @hektorKS</li>
 <li><strong>http4k-testing-strikt</strong>: Fix #709 - Strikt assertion builder for Uri.path H/T @michaelbannister</li>
 </ul>
 <h3 id="v42020">v4.20.2.0<a class="headerlink" href="#v42020" title="Permanent link">&para;</a></h3>
@@ -1073,7 +1074,6 @@ changes with their rationale when appropriate:</p>
 <ul>
 <li><strong>http4k-contract</strong>: Fix #706: Form "multi" lens's do not render an items field in contracts.</li>
 <li><strong>http4k-testing-chaos</strong>: ChaoticHttpHandler disables Chaos API when reflection not available.</li>
-<li></li>
 </ul>
 <h3 id="v42000">v4.20.0.0<a class="headerlink" href="#v42000" title="Permanent link">&para;</a></h3>
 <ul>
