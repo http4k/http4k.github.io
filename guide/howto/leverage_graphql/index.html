@@ -1067,8 +1067,6 @@
 <span class="k">import</span> <span class="nn">com.expediagroup.graphql.generator.toSchema</span>
 <span class="k">import</span> <span class="nn">graphql.ExecutionInput.Builder</span>
 <span class="k">import</span> <span class="nn">graphql.GraphQL.newGraphQL</span>
-<span class="k">import</span> <span class="nn">org.dataloader.DataLoader</span>
-<span class="k">import</span> <span class="nn">org.dataloader.DataLoaderFactory</span>
 <span class="k">import</span> <span class="nn">org.dataloader.DataLoaderFactory.newDataLoader</span>
 <span class="k">import</span> <span class="nn">org.dataloader.DataLoaderRegistry</span>
 <span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
@@ -1101,11 +1099,11 @@
         <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="m">5</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Charlie&quot;</span><span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="kd">fun</span> <span class="nf">search</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">userDb</span><span class="p">.</span><span class="na">filter</span> <span class="p">{</span> <span class="n">ids</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="p">)</span> <span class="p">}</span>
-    <span class="kd">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">userDb</span><span class="p">.</span><span class="na">removeIf</span> <span class="p">{</span> <span class="n">ids</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">fun</span> <span class="nf">search</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">userDb</span><span class="p">.</span><span class="na">filter</span> <span class="p">{</span> <span class="n">ids</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">=</span> <span class="n">userDb</span><span class="p">.</span><span class="na">removeIf</span> <span class="p">{</span> <span class="n">ids</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">User</span><span class="p">(</span><span class="kd">val</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Long</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">User</span><span class="p">(</span><span class="kd">val</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
 
 <span class="kd">class</span> <span class="nc">UserQueries</span> <span class="p">{</span>
     <span class="kd">fun</span> <span class="nf">search</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Params</span><span class="p">)</span> <span class="o">=</span> <span class="n">UserDb</span><span class="p">.</span><span class="na">search</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="na">ids</span><span class="p">)</span>
@@ -1115,7 +1113,7 @@
     <span class="kd">fun</span> <span class="nf">delete</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Params</span><span class="p">)</span> <span class="o">=</span> <span class="n">UserDb</span><span class="p">.</span><span class="na">delete</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="na">ids</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Params</span><span class="p">(</span><span class="kd">val</span> <span class="nv">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Params</span><span class="p">(</span><span class="kd">val</span> <span class="nv">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span>
 
 <span class="kd">class</span> <span class="nc">UserDbHandler</span> <span class="p">:</span> <span class="n">GraphQLWithContextHandler</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="kd">private</span> <span class="kd">val</span> <span class="nv">graphQL</span> <span class="o">=</span> <span class="n">newGraphQL</span><span class="p">(</span>
@@ -1127,7 +1125,7 @@
     <span class="p">).</span><span class="na">build</span><span class="p">()</span>
 
     <span class="kd">private</span> <span class="kd">val</span> <span class="nv">dataLoaderRegistry</span> <span class="o">=</span> <span class="n">DataLoaderRegistry</span><span class="p">().</span><span class="na">apply</span> <span class="p">{</span>
-        <span class="n">register</span><span class="p">(</span><span class="s">&quot;USER_LOADER&quot;</span><span class="p">,</span> <span class="n">newDataLoader</span> <span class="p">{</span> <span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span> <span class="o">-&gt;</span>
+        <span class="n">register</span><span class="p">(</span><span class="s">&quot;USER_LOADER&quot;</span><span class="p">,</span> <span class="n">newDataLoader</span> <span class="p">{</span> <span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span> <span class="o">-&gt;</span>
             <span class="n">supplyAsync</span> <span class="p">{</span>
                 <span class="n">UserQueries</span><span class="p">().</span><span class="na">search</span><span class="p">(</span><span class="n">Params</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span>
             <span class="p">}</span>
