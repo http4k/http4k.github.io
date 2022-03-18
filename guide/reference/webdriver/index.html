@@ -1132,8 +1132,8 @@ when used).</p>
 <span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.webdriver.By</span>
 <span class="k">import</span> <span class="nn">org.http4k.webdriver.Http4kWebDriver</span>
+<span class="k">import</span> <span class="nn">org.openqa.selenium.By</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
@@ -1148,7 +1148,6 @@ when used).</p>
 
     <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="na">title</span><span class="p">)</span>
 
-    <span class="c1">// Note that we are using `org.http4k.webdriver.By`, as opposed to the ones from `org.openqa.selenium.By`</span>
     <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="na">findElement</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="na">tagName</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)))</span>
 
 <span class="c1">// prints:</span>
