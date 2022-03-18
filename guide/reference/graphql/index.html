@@ -1058,7 +1058,7 @@
 <div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-graphql&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.23.0.0&quot;</span>
 
 <span class="c1">// for the example below you will also need this dependency...</span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;com.expediagroup&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;graphql-kotlin-schema-generator&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;5.1.1&quot;</span>
+<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;com.expediagroup&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;graphql-kotlin-schema-generator&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;5.3.2&quot;</span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1095,8 +1095,8 @@
     <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">GraphQLRequest</span><span class="p">)</span> <span class="o">=</span> <span class="n">GraphQLResponse</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">graphQL</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">))</span>
 <span class="p">}</span>
 
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">User</span><span class="p">(</span><span class="kd">val</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Long</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Params</span><span class="p">(</span><span class="kd">val</span> <span class="nv">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Long</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">User</span><span class="p">(</span><span class="kd">val</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Params</span><span class="p">(</span><span class="kd">val</span> <span class="nv">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span>
 
 <span class="kd">class</span> <span class="nc">UserQueries</span> <span class="p">{</span>
     <span class="kd">private</span> <span class="kd">val</span> <span class="nv">userDb</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span>
