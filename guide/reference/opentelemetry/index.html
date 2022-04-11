@@ -1129,7 +1129,6 @@
 <span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">java.time.Duration</span>
 
 <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// test only: this sets up the metrics provider to something we can read</span>
@@ -1139,7 +1138,7 @@
         <span class="p">.</span><span class="na">setMeterProvider</span><span class="p">(</span>
             <span class="n">SdkMeterProvider</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
                 <span class="p">.</span><span class="na">registerMetricReader</span><span class="p">(</span><span class="n">inMemoryMetricReader</span><span class="p">)</span>
-                <span class="p">.</span><span class="na">setMinimumCollectionInterval</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofMillis</span><span class="p">(</span><span class="m">1</span><span class="p">)).</span><span class="na">build</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">build</span><span class="p">()</span>
         <span class="p">)</span>
         <span class="p">.</span><span class="na">buildAndRegisterGlobal</span><span class="p">()</span>
 
