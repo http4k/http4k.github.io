@@ -1055,7 +1055,7 @@
                     <h1>WebDriver</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-testing-webdriver&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-testing-webdriver&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1125,36 +1125,36 @@
 http4k ships with a custom set of JSoup <code>By</code> implementations, so be sure to import <code>org.http4k.webdriver.By</code> instead of the old <code>org.openqa.selenium.By</code> ones (which will fail with a <code>ClassCastException</code> 
 when used).</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/webdriver/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.webdriver</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.webdriver</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.webdriver.Http4kWebDriver</span>
-<span class="k">import</span> <span class="nn">org.openqa.selenium.By</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.webdriver.Http4kWebDriver</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.openqa.selenium.By</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/hello&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span>
-            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&lt;html&gt;&lt;title&gt;hello&lt;/title&gt;&lt;/html&gt;&quot;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;/hello&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&lt;html&gt;&lt;title&gt;hello&lt;/title&gt;&lt;/html&gt;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">driver</span> <span class="o">=</span> <span class="n">Http4kWebDriver</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">driver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Http4kWebDriver</span><span class="p">(</span><span class="n">app</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">driver</span><span class="p">.</span><span class="na">navigate</span><span class="p">().</span><span class="na">to</span><span class="p">(</span><span class="s">&quot;http://localhost:10000/hello&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">driver</span><span class="p">.</span><span class="na">navigate</span><span class="p">().</span><span class="na">to</span><span class="p">(</span><span class="s">&quot;http://localhost:10000/hello&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="na">title</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="na">title</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="na">findElement</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="na">tagName</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)))</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="na">findElement</span><span class="p">(</span><span class="n">By</span><span class="p">.</span><span class="na">tagName</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)))</span><span class="w"></span>
 
-<span class="c1">// prints:</span>
-<span class="c1">//</span>
-<span class="c1">// hello</span>
-<span class="c1">// &lt;title&gt;hello&lt;/title&gt;</span>
-<span class="p">}</span>
+<span class="c1">// prints:</span><span class="w"></span>
+<span class="c1">//</span><span class="w"></span>
+<span class="c1">// hello</span><span class="w"></span>
+<span class="c1">// &lt;title&gt;hello&lt;/title&gt;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>

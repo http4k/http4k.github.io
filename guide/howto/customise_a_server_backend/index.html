@@ -1057,73 +1057,73 @@
                     <h3 id="how_to_write_a_custom_server_implmentation">How to write a custom server implmentation<a class="headerlink" href="#how_to_write_a_custom_server_implmentation" title="Permanent link">&para;</a></h3>
 <p>Whilst the http4k server modules ship with a sensibly configured standard server-backend setup, a lot of projects will require specialised implementations of the underlying server backend. http4k makes this easy with the <code>ServerConfig</code> interface.</p>
 <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
+<span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <p>The example below shows a customised Jetty setup which enables HTTPS traffic by reimplementing the <code>ServerConfig</code> interface. The idea is that this single class will encapsulate the usage of the Server platform API behind the http4k abstraction and provide a simple way to reuse it across different applications.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/customise_a_server_backend/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.customise_a_server_backend</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.customise_a_server_backend</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.eclipse.jetty.server.HttpConfiguration</span>
-<span class="k">import</span> <span class="nn">org.eclipse.jetty.server.HttpConnectionFactory</span>
-<span class="k">import</span> <span class="nn">org.eclipse.jetty.server.SecureRequestCustomizer</span>
-<span class="k">import</span> <span class="nn">org.eclipse.jetty.server.Server</span>
-<span class="k">import</span> <span class="nn">org.eclipse.jetty.server.ServerConnector</span>
-<span class="k">import</span> <span class="nn">org.eclipse.jetty.server.SslConnectionFactory</span>
-<span class="k">import</span> <span class="nn">org.eclipse.jetty.util.ssl.SslContextFactory</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.DebuggingFilters.PrintRequestAndResponse</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.ServerConfig</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.toJettyHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.server.HttpConfiguration</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.server.HttpConnectionFactory</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.server.SecureRequestCustomizer</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.server.Server</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.server.ServerConnector</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.server.SslConnectionFactory</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.eclipse.jetty.util.ssl.SslContextFactory</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.DebuggingFilters.PrintRequestAndResponse</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Http4kServer</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.ServerConfig</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.toJettyHandler</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nc">SecureJetty</span><span class="p">(</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">sslPort</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">localKeyStorePath</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">localKeystorePassword</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">locakKeyManagerPassword</span><span class="p">:</span> <span class="kt">String</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">SecureJetty</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">sslPort</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">localKeyStorePath</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">localKeystorePassword</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">locakKeyManagerPassword</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"></span>
 
-<span class="p">)</span> <span class="p">:</span> <span class="n">ServerConfig</span> <span class="p">{</span>
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">toServer</span><span class="p">(</span><span class="n">http</span><span class="p">:</span> <span class="n">HttpHandler</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="p">{</span>
-        <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">().</span><span class="na">apply</span> <span class="p">{</span>
-            <span class="kd">val</span> <span class="nv">https</span> <span class="o">=</span> <span class="n">HttpConfiguration</span><span class="p">().</span><span class="na">apply</span> <span class="p">{</span>
-                <span class="n">addCustomizer</span><span class="p">(</span><span class="n">SecureRequestCustomizer</span><span class="p">())</span>
-            <span class="p">}</span>
+<span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ServerConfig</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">toServer</span><span class="p">(</span><span class="n">http</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Server</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">https</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HttpConfiguration</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">addCustomizer</span><span class="p">(</span><span class="n">SecureRequestCustomizer</span><span class="p">())</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
 
-            <span class="kd">val</span> <span class="nv">sslContextFactory</span> <span class="o">=</span> <span class="n">SslContextFactory</span><span class="p">.</span><span class="na">Server</span><span class="p">().</span><span class="na">apply</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="na">keyStorePath</span> <span class="o">=</span> <span class="n">localKeyStorePath</span>
-                <span class="n">setKeyStorePassword</span><span class="p">(</span><span class="n">localKeystorePassword</span><span class="p">)</span>
-                <span class="n">setKeyManagerPassword</span><span class="p">(</span><span class="n">locakKeyManagerPassword</span><span class="p">)</span>
-            <span class="p">}</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">sslContextFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SslContextFactory</span><span class="p">.</span><span class="na">Server</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">this</span><span class="p">.</span><span class="na">keyStorePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localKeyStorePath</span><span class="w"></span>
+<span class="w">                </span><span class="n">setKeyStorePassword</span><span class="p">(</span><span class="n">localKeystorePassword</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">setKeyManagerPassword</span><span class="p">(</span><span class="n">locakKeyManagerPassword</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
 
-            <span class="n">connectors</span> <span class="o">=</span> <span class="n">arrayOf</span><span class="p">(</span>
-                <span class="n">ServerConnector</span><span class="p">(</span><span class="n">server</span><span class="p">,</span>
-                    <span class="n">SslConnectionFactory</span><span class="p">(</span><span class="n">sslContextFactory</span><span class="p">,</span> <span class="s">&quot;http/1.1&quot;</span><span class="p">),</span>
-                    <span class="n">HttpConnectionFactory</span><span class="p">(</span><span class="n">https</span><span class="p">)).</span><span class="na">apply</span> <span class="p">{</span> <span class="n">port</span> <span class="o">=</span> <span class="n">sslPort</span> <span class="p">}</span>
-            <span class="p">)</span>
+<span class="w">            </span><span class="n">connectors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arrayOf</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">ServerConnector</span><span class="p">(</span><span class="n">server</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="n">SslConnectionFactory</span><span class="p">(</span><span class="n">sslContextFactory</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http/1.1&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">                    </span><span class="n">HttpConnectionFactory</span><span class="p">(</span><span class="n">https</span><span class="p">)).</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sslPort</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">insertHandler</span><span class="p">(</span><span class="n">http</span><span class="p">.</span><span class="na">toJettyHandler</span><span class="p">())</span>
-        <span class="p">}</span>
+<span class="w">            </span><span class="n">insertHandler</span><span class="p">(</span><span class="n">http</span><span class="p">.</span><span class="na">toJettyHandler</span><span class="p">())</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="k">object</span> <span class="p">:</span> <span class="nc">Http4kServer</span> <span class="p">{</span>
-            <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">start</span><span class="p">():</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="n">apply</span> <span class="p">{</span> <span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span> <span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">object</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">Http4kServer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">start</span><span class="p">():</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-            <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">stop</span><span class="p">():</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="n">apply</span> <span class="p">{</span> <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span> <span class="p">}</span>
+<span class="w">            </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">stop</span><span class="p">():</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-            <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">port</span><span class="p">():</span> <span class="kt">Int</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">sslPort</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="n">sslPort</span> <span class="k">else</span> <span class="n">server</span><span class="p">.</span><span class="na">uri</span><span class="p">.</span><span class="na">port</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">            </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">port</span><span class="p">():</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sslPort</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="n">sslPort</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">uri</span><span class="p">.</span><span class="na">port</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">PrintRequestAndResponse</span><span class="p">().</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="na">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello from secure jetty!&quot;</span><span class="p">)</span> <span class="p">}</span>
-        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SecureJetty</span><span class="p">(</span><span class="m">9000</span><span class="p">,</span> <span class="s">&quot;keystore.jks&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">PrintRequestAndResponse</span><span class="p">().</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="na">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello from secure jetty!&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SecureJetty</span><span class="p">(</span><span class="m">9000</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;keystore.jks&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;password&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;password&quot;</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>

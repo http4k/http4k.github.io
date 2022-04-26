@@ -1055,78 +1055,78 @@
                     <h1>GraphQL</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-graphql&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-graphql&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 
-<span class="c1">// for the example below you will also need this dependency...</span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;com.expediagroup&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;graphql-kotlin-schema-generator&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;5.3.2&quot;</span>
+<span class="c1">// for the example below you will also need this dependency...</span><span class="w"></span>
+<span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;com.expediagroup&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;graphql-kotlin-schema-generator&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;5.3.2&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>This module provides http4k integration for the excellent <a href="https://www.graphql-java.com/">GraphQL-java</a> library, allowing you to either serve or consume <a href="https://graphql.org">GraphQL</a> services using a simple adapter API.</p>
 <p>As with the ethos of http4k, the uniform Server/Client GraphQLHandler model means that you can test applications entirely in-memory without binding to a port.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/graphql/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.graphql</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.graphql</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">com.expediagroup.graphql.generator.SchemaGeneratorConfig</span>
-<span class="k">import</span> <span class="nn">com.expediagroup.graphql.generator.TopLevelObject</span>
-<span class="k">import</span> <span class="nn">com.expediagroup.graphql.generator.toSchema</span>
-<span class="k">import</span> <span class="nn">graphql.GraphQL.newGraphQL</span>
-<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.client.asGraphQLHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span> <span class="nn">org.http4k.graphql.GraphQLHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.graphql.GraphQLRequest</span>
-<span class="k">import</span> <span class="nn">org.http4k.graphql.GraphQLResponse</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.graphQL</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.expediagroup.graphql.generator.SchemaGeneratorConfig</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.expediagroup.graphql.generator.TopLevelObject</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.expediagroup.graphql.generator.toSchema</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">graphql.GraphQL.newGraphQL</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.JavaHttpClient</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.asGraphQLHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.graphql.GraphQLHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.graphql.GraphQLRequest</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.graphql.GraphQLResponse</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.graphQL</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
 
-<span class="kd">object</span> <span class="nc">MyGraphQLHandler</span> <span class="p">:</span> <span class="n">GraphQLHandler</span> <span class="p">{</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">graphQL</span> <span class="o">=</span> <span class="n">newGraphQL</span><span class="p">(</span>
-        <span class="n">toSchema</span><span class="p">(</span>
-            <span class="n">SchemaGeneratorConfig</span><span class="p">(</span><span class="n">supportedPackages</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="s">&quot;guide.reference.graphql&quot;</span><span class="p">)),</span>
-            <span class="n">listOf</span><span class="p">(</span><span class="n">TopLevelObject</span><span class="p">(</span><span class="n">UserQueries</span><span class="p">())),</span>
-            <span class="n">listOf</span><span class="p">()</span>
-        <span class="p">)).</span><span class="na">build</span><span class="p">()</span>
+<span class="kd">object</span><span class="w"> </span><span class="nc">MyGraphQLHandler</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">GraphQLHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">graphQL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newGraphQL</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">toSchema</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">SchemaGeneratorConfig</span><span class="p">(</span><span class="n">supportedPackages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;guide.reference.graphql&quot;</span><span class="p">)),</span><span class="w"></span>
+<span class="w">            </span><span class="n">listOf</span><span class="p">(</span><span class="n">TopLevelObject</span><span class="p">(</span><span class="n">UserQueries</span><span class="p">())),</span><span class="w"></span>
+<span class="w">            </span><span class="n">listOf</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">)).</span><span class="na">build</span><span class="p">()</span><span class="w"></span>
 
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">GraphQLRequest</span><span class="p">)</span> <span class="o">=</span> <span class="n">GraphQLResponse</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">graphQL</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">GraphQLRequest</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GraphQLResponse</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">graphQL</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">User</span><span class="p">(</span><span class="kd">val</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Params</span><span class="p">(</span><span class="kd">val</span> <span class="nv">ids</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"></span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Params</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">ids</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nc">UserQueries</span> <span class="p">{</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">userDb</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span>
-        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Jim&quot;</span><span class="p">),</span>
-        <span class="n">User</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Bob&quot;</span><span class="p">),</span>
-    <span class="p">)</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">UserQueries</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">userDb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">User</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Jim&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="n">User</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Bob&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="kd">fun</span> <span class="nf">search</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Params</span><span class="p">)</span> <span class="o">=</span> <span class="n">userDb</span><span class="p">.</span><span class="na">firstOrNull</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">id</span> <span class="k">in</span> <span class="n">params</span><span class="p">.</span><span class="na">ids</span> <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="n">Params</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userDb</span><span class="p">.</span><span class="na">firstOrNull</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">params</span><span class="p">.</span><span class="na">ids</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/graphql&quot;</span> <span class="n">bind</span> <span class="n">graphQL</span><span class="p">(</span><span class="n">MyGraphQLHandler</span><span class="p">)</span>
-    <span class="p">)</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;/graphql&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">graphQL</span><span class="p">(</span><span class="n">MyGraphQLHandler</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// serve GQL queries/mutations at /graphql</span>
-    <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// serve GQL queries/mutations at /graphql</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
 
-    <span class="c1">// for clients, just convert any app into a GQL handler</span>
-    <span class="kd">val</span> <span class="nv">gql</span><span class="p">:</span> <span class="n">GraphQLHandler</span> <span class="o">=</span> <span class="n">JavaHttpClient</span><span class="p">().</span><span class="na">asGraphQLHandler</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000/graphql&quot;</span><span class="p">))</span>
-    <span class="kd">val</span> <span class="nv">response</span><span class="p">:</span> <span class="n">GraphQLResponse</span> <span class="o">=</span> <span class="n">gql</span><span class="p">(</span><span class="n">GraphQLRequest</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{</span>
+<span class="w">    </span><span class="c1">// for clients, just convert any app into a GQL handler</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">gql</span><span class="p">:</span><span class="w"> </span><span class="n">GraphQLHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JavaHttpClient</span><span class="p">().</span><span class="na">asGraphQLHandler</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000/graphql&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="p">:</span><span class="w"> </span><span class="n">GraphQLResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gql</span><span class="p">(</span><span class="n">GraphQLRequest</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{</span>
 <span class="s">        search(params: { ids: [1]}) {</span>
 <span class="s">            id</span>
 <span class="s">            name</span>
 <span class="s">        }</span>
-<span class="s">    }&quot;&quot;&quot;</span><span class="p">))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="s">    }&quot;&quot;&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>

@@ -1055,8 +1055,8 @@
                     <h1>Structure your logs with Events</h1>
                     
                     <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-jackson&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
+<span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-format-jackson&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <p>In order to leverage modern log aggregation platforms, we should move away from logging arbitrary strings into the StdOut of our applications, and move towards <a href="https://www.thoughtworks.com/radar/techniques/structured-logging">Structured Logging</a> instead, which allows us to treat logs as data which can be mined to give us better observability of our systems. This also encourages the move for developers to think about which events happening in your apps are actually important and what data is appropriate to be attached to each one.</p>
@@ -1086,58 +1086,58 @@
 <p>In harmony with the ethos of <strong>http4k</strong> there is no need to bring in a custom logging library such as SL4J, although they would be very simple to integrate if required by implementing a custom <code>Events</code> instance.</p>
 <p>The example below shows a simple application that outputs structured logs to StdOut which can be analysed by an aggregator, along with the attachment of extra <code>Event</code> metadata via a custom <code>EventFilter</code>.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/structure_your_logs_with_events/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.structure_your_logs_with_events</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.structure_your_logs_with_events</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.events.AutoMarshallingEvents</span>
-<span class="k">import</span> <span class="nn">org.http4k.events.Event</span>
-<span class="k">import</span> <span class="nn">org.http4k.events.EventFilter</span>
-<span class="k">import</span> <span class="nn">org.http4k.events.EventFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.events.plus</span>
-<span class="k">import</span> <span class="nn">org.http4k.events.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ResponseFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.format.Jackson</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.AutoMarshallingEvents</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.Event</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.plus</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ResponseFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.Jackson</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Stack filters for Events in the same way as HttpHandlers to transform or add metadata to the Events.</span>
-    <span class="c1">// We use AutoMarshallingEvents (here with Jackson) to handle the final serialisation process.</span>
-    <span class="kd">val</span> <span class="nv">events</span> <span class="o">=</span>
-        <span class="n">EventFilters</span><span class="p">.</span><span class="na">AddTimestamp</span><span class="p">()</span>
-            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="na">AddEventName</span><span class="p">())</span>
-            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="na">AddZipkinTraces</span><span class="p">())</span>
-            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AddRequestCount</span><span class="p">())</span>
-            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AutoMarshallingEvents</span><span class="p">(</span><span class="n">Jackson</span><span class="p">))</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Stack filters for Events in the same way as HttpHandlers to transform or add metadata to the Events.</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// We use AutoMarshallingEvents (here with Jackson) to handle the final serialisation process.</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">EventFilters</span><span class="p">.</span><span class="na">AddTimestamp</span><span class="p">()</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="na">AddEventName</span><span class="p">())</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">EventFilters</span><span class="p">.</span><span class="na">AddZipkinTraces</span><span class="p">())</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AddRequestCount</span><span class="p">())</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">AutoMarshallingEvents</span><span class="p">(</span><span class="n">Jackson</span><span class="p">))</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">appWithEvents</span> <span class="o">=</span>
-        <span class="n">ResponseFilters</span><span class="p">.</span><span class="na">ReportHttpTransaction</span> <span class="p">{</span>
-            <span class="c1">// to &quot;emit&quot; an event, just invoke() the Events!</span>
-            <span class="n">events</span><span class="p">(</span><span class="n">IncomingHttpRequest</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">request</span><span class="p">.</span><span class="na">uri</span><span class="p">,</span> <span class="nb">it</span><span class="p">.</span><span class="na">response</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">code</span><span class="p">,</span> <span class="nb">it</span><span class="p">.</span><span class="na">duration</span><span class="p">.</span><span class="na">toMillis</span><span class="p">()))</span>
-        <span class="p">}.</span><span class="na">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">appWithEvents</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">ResponseFilters</span><span class="p">.</span><span class="na">ReportHttpTransaction</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// to &quot;emit&quot; an event, just invoke() the Events!</span><span class="w"></span>
+<span class="w">            </span><span class="n">events</span><span class="p">(</span><span class="n">IncomingHttpRequest</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">request</span><span class="p">.</span><span class="na">uri</span><span class="p">,</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">response</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">code</span><span class="p">,</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">duration</span><span class="p">.</span><span class="na">toMillis</span><span class="p">()))</span><span class="w"></span>
+<span class="w">        </span><span class="p">}.</span><span class="na">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">appWithEvents</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/path1&quot;</span><span class="p">))</span>
-    <span class="n">appWithEvents</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/path2&quot;</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">appWithEvents</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/path1&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">appWithEvents</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/path2&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// this is our custom event which will be printed in a structured way</span>
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">IncomingHttpRequest</span><span class="p">(</span><span class="kd">val</span> <span class="nv">uri</span><span class="p">:</span> <span class="n">Uri</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">status</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">duration</span><span class="p">:</span> <span class="kt">Long</span><span class="p">)</span> <span class="p">:</span> <span class="n">Event</span>
+<span class="c1">// this is our custom event which will be printed in a structured way</span><span class="w"></span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">IncomingHttpRequest</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">uri</span><span class="p">:</span><span class="w"> </span><span class="n">Uri</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">status</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">duration</span><span class="p">:</span><span class="w"> </span><span class="kt">Long</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Event</span><span class="w"></span>
 
-<span class="c1">// here is a new EventFilter that adds custom metadata to the emitted events</span>
-<span class="kd">fun</span> <span class="nf">AddRequestCount</span><span class="p">():</span> <span class="n">EventFilter</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nv">requestCount</span> <span class="o">=</span> <span class="m">0</span>
-    <span class="k">return</span> <span class="n">EventFilter</span> <span class="p">{</span> <span class="n">next</span> <span class="o">-&gt;</span>
-        <span class="p">{</span>
-            <span class="n">next</span><span class="p">(</span><span class="nb">it</span> <span class="o">+</span> <span class="p">(</span><span class="s">&quot;requestCount&quot;</span> <span class="n">to</span> <span class="n">requestCount</span><span class="o">++</span><span class="p">))</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="c1">// here is a new EventFilter that adds custom metadata to the emitted events</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">AddRequestCount</span><span class="p">():</span><span class="w"> </span><span class="n">EventFilter</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">requestCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">EventFilter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;requestCount&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">requestCount</span><span class="o">++</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>

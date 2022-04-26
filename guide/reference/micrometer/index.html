@@ -1055,55 +1055,55 @@
                     <h1>Micrometer</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-metrics-micrometer&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-metrics-micrometer&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>This module provides configurable Filters to provide metrics for http4k apps, plugging into the awesome <a href="http://micrometer.io/">Micrometer</a> library.</p>
 <h3 id="micrometer">Micrometer <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/micrometer/example.kt"><img class="octocat"/></a><a class="headerlink" href="#micrometer" title="Permanent link">&para;</a></h3>
 <p>Both Server and Client filters are available for recording request counts and latency, optionally overriding values for the metric names, descriptions and request identification.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.micrometer</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.micrometer</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">io.micrometer.core.instrument.simple.SimpleMeterRegistry</span>
-<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.MicrometerMetrics</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.micrometer.core.instrument.simple.SimpleMeterRegistry</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.MicrometerMetrics</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="c1">// this is a micrometer registry used mostly for testing - substitute the correct implementation.</span>
-    <span class="kd">val</span> <span class="nv">registry</span> <span class="o">=</span> <span class="n">SimpleMeterRegistry</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// this is a micrometer registry used mostly for testing - substitute the correct implementation.</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">registry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SimpleMeterRegistry</span><span class="p">()</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">})</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="w"></span>
 
-    <span class="c1">// apply filters to a server...</span>
-    <span class="kd">val</span> <span class="nv">app</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
-        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// apply filters to a server...</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// ... or to a client</span>
-    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span>
-        <span class="n">ClientFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span>
-            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
+<span class="w">    </span><span class="c1">// ... or to a client</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span><span class="w"></span>
 
-    <span class="c1">// make some calls</span>
-    <span class="n">repeat</span><span class="p">((</span><span class="m">0.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="na">count</span><span class="p">())</span> <span class="p">{</span>
-        <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/metrics&quot;</span><span class="p">))</span>
-        <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://http4k.org&quot;</span><span class="p">))</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// make some calls</span><span class="w"></span>
+<span class="w">    </span><span class="n">repeat</span><span class="p">((</span><span class="m">0.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="na">count</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/metrics&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://http4k.org&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// see some results</span>
-    <span class="n">registry</span><span class="p">.</span><span class="na">forEachMeter</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="si">}</span><span class="s"> </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">measure</span><span class="p">().</span><span class="na">joinToString</span><span class="p">(</span><span class="s">&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span> <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// see some results</span><span class="w"></span>
+<span class="w">    </span><span class="n">registry</span><span class="p">.</span><span class="na">forEachMeter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="si">}</span><span class="s"> </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">measure</span><span class="p">().</span><span class="na">joinToString</span><span class="p">(</span><span class="s">&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>

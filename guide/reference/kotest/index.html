@@ -1055,59 +1055,59 @@
                     <h1>Kotest</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-testing-kotest&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-testing-kotest&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>A set of <a href="https://github.com/kotest/kotest">Kotest</a> matchers for use when testing http4k apps.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/kotest/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.kotest</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.kotest</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">io.kotest.matchers.and</span>
-<span class="k">import</span> <span class="nn">io.kotest.matchers.be</span>
-<span class="k">import</span> <span class="nn">io.kotest.matchers.should</span>
-<span class="k">import</span> <span class="nn">io.kotest.matchers.string.startWith</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.ContentType</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.kotest.haveBody</span>
-<span class="k">import</span> <span class="nn">org.http4k.kotest.haveHeader</span>
-<span class="k">import</span> <span class="nn">org.http4k.kotest.haveQuery</span>
-<span class="k">import</span> <span class="nn">org.http4k.kotest.haveStatus</span>
-<span class="k">import</span> <span class="nn">org.http4k.kotest.shouldHaveBody</span>
-<span class="k">import</span> <span class="nn">org.http4k.kotest.shouldHaveHeader</span>
-<span class="k">import</span> <span class="nn">org.http4k.kotest.shouldHaveQuery</span>
-<span class="k">import</span> <span class="nn">org.http4k.kotest.shouldHaveStatus</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.string</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.kotest.matchers.and</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.kotest.matchers.be</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.kotest.matchers.should</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.kotest.matchers.string.startWith</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Body</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.ContentType</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.kotest.haveBody</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.kotest.haveHeader</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.kotest.haveQuery</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.kotest.haveStatus</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.kotest.shouldHaveBody</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.kotest.shouldHaveHeader</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.kotest.shouldHaveQuery</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.kotest.shouldHaveStatus</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.string</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/?a=b&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">).</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;my header&quot;</span><span class="p">,</span> <span class="s">&quot;a value&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/?a=b&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">).</span><span class="na">header</span><span class="p">(</span><span class="s">&quot;my header&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a value&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// status</span>
-    <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="n">should</span> <span class="n">haveStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
-    <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="n">shouldHaveStatus</span> <span class="n">OK</span>
+<span class="w">    </span><span class="c1">// status</span><span class="w"></span>
+<span class="w">    </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">haveStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="n">shouldHaveStatus</span><span class="w"> </span><span class="n">OK</span><span class="w"></span>
 
-    <span class="c1">// query</span>
-    <span class="n">request</span> <span class="n">should</span> <span class="n">haveQuery</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">)</span>
-    <span class="n">request</span><span class="p">.</span><span class="na">shouldHaveQuery</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// query</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">haveQuery</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="na">shouldHaveQuery</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// header</span>
-    <span class="n">request</span> <span class="n">should</span> <span class="n">haveHeader</span><span class="p">(</span><span class="s">&quot;my header&quot;</span><span class="p">,</span> <span class="s">&quot;a value&quot;</span><span class="p">)</span>
-    <span class="n">request</span><span class="p">.</span><span class="na">shouldHaveHeader</span><span class="p">(</span><span class="s">&quot;my header&quot;</span><span class="p">,</span> <span class="s">&quot;a value&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// header</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">haveHeader</span><span class="p">(</span><span class="s">&quot;my header&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a value&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="na">shouldHaveHeader</span><span class="p">(</span><span class="s">&quot;my header&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a value&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// body</span>
-    <span class="n">request</span> <span class="n">should</span> <span class="n">haveBody</span><span class="p">(</span><span class="n">startWith</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">))</span>
-    <span class="n">request</span> <span class="n">should</span> <span class="n">haveBody</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">)</span>
-    <span class="n">request</span> <span class="n">should</span> <span class="n">haveBody</span><span class="p">(</span><span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="na">TEXT_HTML</span><span class="p">).</span><span class="na">toLens</span><span class="p">(),</span> <span class="n">be</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">))</span>
-    <span class="n">request</span> <span class="n">shouldHaveBody</span> <span class="s">&quot;http4k is cool&quot;</span>
+<span class="w">    </span><span class="c1">// body</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">haveBody</span><span class="p">(</span><span class="n">startWith</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">haveBody</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">haveBody</span><span class="p">(</span><span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="na">TEXT_HTML</span><span class="p">).</span><span class="na">toLens</span><span class="p">(),</span><span class="w"> </span><span class="n">be</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="w"> </span><span class="n">shouldHaveBody</span><span class="w"> </span><span class="s">&quot;http4k is cool&quot;</span><span class="w"></span>
 
-    <span class="c1">// composite</span>
-    <span class="n">request</span> <span class="n">should</span> <span class="p">(</span><span class="n">haveQuery</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">)</span> <span class="n">and</span> <span class="n">haveBody</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// composite</span><span class="w"></span>
+<span class="w">    </span><span class="n">request</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="p">(</span><span class="n">haveQuery</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">haveBody</span><span class="p">(</span><span class="s">&quot;http4k is cool&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>

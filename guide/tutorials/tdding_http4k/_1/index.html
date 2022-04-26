@@ -1064,50 +1064,50 @@ documentation, and checking in a high-level way that the business endpoints are 
 <li>The service can be pinged over HTTP to prove that is still alive.</li>
 </ul>
 <h3 id="tests">Tests:<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.tdding_http4k._1</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.tutorials.tdding_http4k._1</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
-<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.AfterEach</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.BeforeEach</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.assertion.assertThat</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasStatus</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.AfterEach</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.BeforeEach</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nc">EndToEndTest</span> <span class="p">{</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">EndToEndTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OkHttp</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w"></span>
 
-    <span class="nd">@BeforeEach</span>
-    <span class="kd">fun</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nd">@BeforeEach</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@AfterEach</span>
-    <span class="kd">fun</span> <span class="nf">teardown</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nd">@AfterEach</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">teardown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`responds to ping`</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`responds to ping`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="production">Production:<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.tdding_http4k._1</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.tutorials.tdding_http4k._1</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Http4kServer</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Http4kServer</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="kt">Int</span><span class="p">):</span> <span class="n">Http4kServer</span> <span class="o">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span> <span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 <ul>

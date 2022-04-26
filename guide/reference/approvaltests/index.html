@@ -1055,7 +1055,7 @@
                     <h1>Approval Testing</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-testing-approval&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-testing-approval&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1085,48 +1085,48 @@ will inject the <code>Approver</code> automatically into test methods.</p>
 <h3 id="standard_approval_tests">Standard Approval tests<a class="headerlink" href="#standard_approval_tests" title="Permanent link">&para;</a></h3>
 <p>By using the <code>ApprovalTest</code> extension, an instance of an <code>Approver</code> is injected into each test.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/approvaltests/example_standard.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.approvaltests</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.approvaltests</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
-<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
-<span class="k">import</span> <span class="nn">org.http4k.testing.ApprovalTest</span>
-<span class="k">import</span> <span class="nn">org.http4k.testing.Approver</span>
-<span class="k">import</span> <span class="nn">org.http4k.testing.assertApproved</span>
-<span class="k">import</span> <span class="nn">org.http4k.testing.hasApprovedContent</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.extension.ExtendWith</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.and</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.assertion.assertThat</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasStatus</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.ApprovalTest</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.Approver</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.assertApproved</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.hasApprovedContent</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.extension.ExtendWith</span><span class="w"></span>
 
-<span class="nd">@ExtendWith</span><span class="p">(</span><span class="n">ApprovalTest</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
-<span class="kd">class</span> <span class="nc">ExampleApprovalTest</span> <span class="p">{</span>
+<span class="nd">@ExtendWith</span><span class="p">(</span><span class="n">ApprovalTest</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">ExampleApprovalTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`check response content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">)))</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`check response content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span><span class="w"> </span><span class="n">Approver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/url&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`check response content with expected status`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">)),</span> <span class="n">OK</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`check response content with expected status`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span><span class="w"> </span><span class="n">Approver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/url&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`check request content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;foobar&quot;</span><span class="p">))</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`check request content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span><span class="w"> </span><span class="n">Approver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/url&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;foobar&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`combine approval with hamkrest matcher`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">approver</span><span class="p">.</span><span class="na">hasApprovedContent</span><span class="p">()))</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`combine approval with hamkrest matcher`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span><span class="w"> </span><span class="n">Approver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/url&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">approver</span><span class="p">.</span><span class="na">hasApprovedContent</span><span class="p">()))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="content-type_specific_approval_tests">Content-type specific Approval tests<a class="headerlink" href="#content-type_specific_approval_tests" title="Permanent link">&para;</a></h3>
@@ -1144,57 +1144,57 @@ module also provides Junit 5 extensions that will:</p>
 <li><code>XmlApprovalTest</code></li>
 </ul>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/approvaltests/example_json.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.approvaltests</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.approvaltests</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.and</span>
-<span class="k">import</span> <span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.ContentType.Companion.APPLICATION_JSON</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="k">import</span> <span class="nn">org.http4k.hamkrest.hasStatus</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Header.CONTENT_TYPE</span>
-<span class="k">import</span> <span class="nn">org.http4k.testing.Approver</span>
-<span class="k">import</span> <span class="nn">org.http4k.testing.JsonApprovalTest</span>
-<span class="k">import</span> <span class="nn">org.http4k.testing.assertApproved</span>
-<span class="k">import</span> <span class="nn">org.http4k.testing.hasApprovedContent</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.Test</span>
-<span class="k">import</span> <span class="nn">org.junit.jupiter.api.extension.ExtendWith</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.and</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.assertion.assertThat</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.ContentType.Companion.APPLICATION_JSON</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasStatus</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Header.CONTENT_TYPE</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.Approver</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.JsonApprovalTest</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.assertApproved</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.hasApprovedContent</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.extension.ExtendWith</span><span class="w"></span>
 
-<span class="nd">@ExtendWith</span><span class="p">(</span><span class="n">JsonApprovalTest</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
-<span class="kd">class</span> <span class="nc">ExampleJsonApprovalTest</span> <span class="p">{</span>
+<span class="nd">@ExtendWith</span><span class="p">(</span><span class="n">JsonApprovalTest</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">ExampleJsonApprovalTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="n">CONTENT_TYPE</span> <span class="n">of</span> <span class="n">APPLICATION_JSON</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{&quot;message&quot;:&quot;value&quot;}&quot;&quot;&quot;</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="n">CONTENT_TYPE</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">APPLICATION_JSON</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{&quot;message&quot;:&quot;value&quot;}&quot;&quot;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`check response content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">)))</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`check response content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span><span class="w"> </span><span class="n">Approver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/url&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`check response content with expected status`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">)),</span> <span class="n">OK</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`check response content with expected status`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span><span class="w"> </span><span class="n">Approver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/url&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`check request content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span>
-            <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">CONTENT_TYPE</span> <span class="n">of</span> <span class="n">APPLICATION_JSON</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{&quot;message&quot;:&quot;value&quot;}&quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`check request content`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span><span class="w"> </span><span class="n">Approver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">approver</span><span class="p">.</span><span class="na">assertApproved</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/url&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">CONTENT_TYPE</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">APPLICATION_JSON</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{&quot;message&quot;:&quot;value&quot;}&quot;&quot;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nd">@Test</span>
-    <span class="kd">fun</span> <span class="nf">`combine approval with hamkrest matcher`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span> <span class="n">Approver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">assertThat</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/url&quot;</span><span class="p">)),</span> <span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">approver</span><span class="p">.</span><span class="na">hasApprovedContent</span><span class="p">()))</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`combine approval with hamkrest matcher`</span><span class="p">(</span><span class="n">approver</span><span class="p">:</span><span class="w"> </span><span class="n">Approver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/url&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">approver</span><span class="p">.</span><span class="na">hasApprovedContent</span><span class="p">()))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="implementing_custom_junit_extensions">Implementing custom JUnit Extensions<a class="headerlink" href="#implementing_custom_junit_extensions" title="Permanent link">&para;</a></h3>

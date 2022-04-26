@@ -1059,36 +1059,36 @@
 <h3 id="ssemessage">SseMessage<a class="headerlink" href="#ssemessage" title="Permanent link">&para;</a></h3>
 <p>As per the <strong>http4k</strong> ethos, an immutable message object to be pushed from the server to the connected client. There are 2 types of SseMessage - Events (for sending known constructs), and Data (for sending byte streams). <a href="/guide/concepts/lens">Lenses</a> can be used to provide typesafe object marshalling with SseMessages. </p>
 <h3 id="sse">Sse<a class="headerlink" href="#sse" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Sse</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">connectRequest</span><span class="p">:</span> <span class="n">Request</span>
-    <span class="kd">fun</span> <span class="nf">send</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="n">SseMessage</span><span class="p">)</span>
-    <span class="kd">fun</span> <span class="nf">close</span><span class="p">()</span>
-    <span class="kd">fun</span> <span class="nf">onClose</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nc">Sse</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">connectRequest</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="n">SseMessage</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">close</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onClose</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>An interface representing the available server callback API to the Server-Sent Event channel. Sse objects can <code>send()</code> SseMessages to the client, or <code>close()</code> the connection. The Sse has a reference to the incoming <a href="/guide/concepts/http#HttpMessage">HTTP Request</a> which was used during connection.</p>
 <h3 id="sseconsumer">SseConsumer<a class="headerlink" href="#sseconsumer" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">typealias</span> <span class="n">SseConsumer</span> <span class="o">=</span> <span class="p">(</span><span class="n">Sse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<div class="codehilite"><pre><span></span><code><span class="k">typealias</span><span class="w"> </span><span class="n">SseConsumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Sse</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="w"></span>
 </code></pre></div>
 
 <p>The primary callback received when an Sse server is connected to a client. API user behaviour is configured here.</p>
 <h3 id="ssehandler">SseHandler<a class="headerlink" href="#ssehandler" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">typelias</span> <span class="n">SseHandler</span> <span class="o">=</span>  <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SseConsumer</span>
+<div class="codehilite"><pre><span></span><code><span class="n">typelias</span><span class="w"> </span><span class="n">SseHandler</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="p">(</span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">SseConsumer</span><span class="w"></span>
 </code></pre></div>
 
 <p>Provides the route mapping of an <a href="/guide/concepts/http#HttpMessage">HTTP Request</a> to a particular SseConsumer.</p>
 <h3 id="ssefilter">SseFilter<a class="headerlink" href="#ssefilter" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kd">fun</span> <span class="kd">interface</span> <span class="nc">SseFilter</span> <span class="p">:</span> <span class="p">(</span><span class="n">SseConsumer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SseConsumer</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">SseFilter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">SseConsumer</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">SseConsumer</span><span class="w"></span>
 </code></pre></div>
 
 <p>Applies decoration to a matched SseConsumer before it is invoked. SseFilters can be used to apply tangental effects to the matched SseConsumer such as logging/security, or to modify the incoming <a href="/guide/concepts/http#HttpMessage">HTTP Request</a>.</p>
 <h3 id="sserouter">SseRouter<a class="headerlink" href="#sserouter" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kd">interface</span> <span class="nc">SseRouter</span> <span class="p">{</span>
-    <span class="kd">fun</span> <span class="nf">match</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">SseRouterMatch</span>
-    <span class="kd">fun</span> <span class="nf">withBasePath</span><span class="p">(</span><span class="n">new</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="n">SseRouter</span>
-    <span class="kd">fun</span> <span class="nf">withFilter</span><span class="p">(</span><span class="n">new</span><span class="p">:</span> <span class="n">SseFilter</span><span class="p">):</span> <span class="n">SseRouter</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nc">SseRouter</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">match</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">):</span><span class="w"> </span><span class="n">SseRouterMatch</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">withBasePath</span><span class="p">(</span><span class="n">new</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">SseRouter</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">withFilter</span><span class="p">(</span><span class="n">new</span><span class="p">:</span><span class="w"> </span><span class="n">SseFilter</span><span class="p">):</span><span class="w"> </span><span class="n">SseRouter</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>Applies the route matching functionality when requests for Sse connections are received by the server.</p>

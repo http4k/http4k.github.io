@@ -1055,7 +1055,7 @@
                     <h1>http4k Digest security Module</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-security-digest&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-security-digest&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1079,66 +1079,66 @@ then transmits them to the server, along with the plaintext <code>username</code
 <h3 id="example_provider">Example Provider <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/digest/example_provider_digest.kt"><img class="octocat"/></a><a class="headerlink" href="#example_provider" title="Permanent link">&para;</a></h3>
 <p>This example has an integrated username/password store; you will want to come up with your own version, with credentials encrypted at rest.</p>
 <p>The server accepts a path parameter, and parrots back the value provided by the client.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.digest</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.digest</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.DigestAuth</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.DigestAuth</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.path</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">users</span> <span class="o">=</span> <span class="n">mapOf</span><span class="p">(</span>
-        <span class="s">&quot;admin&quot;</span> <span class="n">to</span> <span class="s">&quot;password&quot;</span><span class="p">,</span>
-        <span class="s">&quot;user&quot;</span> <span class="n">to</span> <span class="s">&quot;hunter2&quot;</span>
-    <span class="p">)</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;admin&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;password&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;user&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;hunter2&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">routes</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/hello/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">request</span> <span class="o">-&gt;</span>
-            <span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
-            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">routes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;/hello/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">authFilter</span> <span class="o">=</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">DigestAuth</span><span class="p">(</span><span class="n">realm</span> <span class="o">=</span> <span class="s">&quot;http4k&quot;</span><span class="p">,</span> <span class="n">passwordLookup</span> <span class="o">=</span> <span class="p">{</span> <span class="n">username</span> <span class="o">-&gt;</span> <span class="n">users</span><span class="o">[</span><span class="n">username</span><span class="o">]</span> <span class="p">})</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">authFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">DigestAuth</span><span class="p">(</span><span class="n">realm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;http4k&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">passwordLookup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">users</span><span class="o">[</span><span class="n">username</span><span class="o">]</span><span class="w"> </span><span class="p">})</span><span class="w"></span>
 
-    <span class="n">authFilter</span>
-        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">routes</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
-        <span class="p">.</span><span class="na">start</span><span class="p">()</span>
-        <span class="p">.</span><span class="na">block</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">authFilter</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">routes</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">block</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="example_client">Example Client  <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/digest/example_client_digest.kt"><img class="octocat"/></a><a class="headerlink" href="#example_client" title="Permanent link">&para;</a></h3>
 <p>This example integrates with the provider above, sending a request with a value to be parroted back.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.digest</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.digest</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.DigestAuth</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.JavaHttpClient</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Credentials</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.DigestAuth</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">)</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">credentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;password&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="na">DigestAuth</span><span class="p">(</span><span class="n">credentials</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">DigestAuth</span><span class="p">(</span><span class="n">credentials</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/hello/http4k&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/hello/http4k&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>

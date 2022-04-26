@@ -1055,8 +1055,8 @@
                     <h1>Typesafe contracts (OpenAPI3)</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-contract&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-format-&lt;insert json lib&gt;&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-contract&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
+<span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-format-&lt;insert json lib&gt;&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1069,110 +1069,110 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <li><strong>Security:</strong> to secure the <code>Routes</code> against unauthorised access. Current implementations include <code>ApiKey</code>, <code>BasicAuth</code>, <code>BearerAuth</code> and <code>OAuth</code>.</li>
 </ul>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/contracts/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.contracts</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.contracts</span><span class="w"></span>
 
-<span class="c1">// for this example we&#39;re using Jackson - note that the auto method imported is an extension</span>
-<span class="c1">// function that is defined on the Jackson instance</span>
+<span class="c1">// for this example we&#39;re using Jackson - note that the auto method imported is an extension</span><span class="w"></span>
+<span class="c1">// function that is defined on the Jackson instance</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.contract.ContractRoute</span>
-<span class="k">import</span> <span class="nn">org.http4k.contract.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.contract.contract</span>
-<span class="k">import</span> <span class="nn">org.http4k.contract.div</span>
-<span class="k">import</span> <span class="nn">org.http4k.contract.meta</span>
-<span class="k">import</span> <span class="nn">org.http4k.contract.openapi.ApiInfo</span>
-<span class="k">import</span> <span class="nn">org.http4k.contract.openapi.v3.OpenApi3</span>
-<span class="k">import</span> <span class="nn">org.http4k.contract.security.ApiKeySecurity</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_PLAIN</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.POST</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="k">import</span> <span class="nn">org.http4k.format.Jackson</span>
-<span class="k">import</span> <span class="nn">org.http4k.format.Jackson.auto</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Path</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.string</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.ContractRoute</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.bind</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.contract</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.div</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.meta</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.openapi.ApiInfo</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.openapi.v3.OpenApi3</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.security.ApiKeySecurity</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Body</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.ContentType.Companion.TEXT_PLAIN</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.Jackson</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.Jackson.auto</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Query</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.string</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
 
-<span class="c1">// this route has a dynamic path segment</span>
-<span class="kd">fun</span> <span class="nf">greetRoute</span><span class="p">():</span> <span class="n">ContractRoute</span> <span class="p">{</span>
+<span class="c1">// this route has a dynamic path segment</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">greetRoute</span><span class="p">():</span><span class="w"> </span><span class="n">ContractRoute</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="c1">// these lenses define the dynamic parts of the request that will be used in processing</span>
-    <span class="kd">val</span> <span class="nv">ageQuery</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="nv">stringBody</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// these lenses define the dynamic parts of the request that will be used in processing</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ageQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">stringBody</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span><span class="w"></span>
 
-    <span class="c1">// this specifies the route contract, with the desired contract of path, headers, queries and body parameters.</span>
-    <span class="kd">val</span> <span class="nv">spec</span> <span class="o">=</span> <span class="s">&quot;/greet&quot;</span> <span class="o">/</span> <span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span> <span class="n">meta</span> <span class="p">{</span>
-        <span class="n">summary</span> <span class="o">=</span> <span class="s">&quot;tells the user hello!&quot;</span>
-        <span class="n">queries</span> <span class="o">+=</span> <span class="n">ageQuery</span>
-        <span class="n">receiving</span><span class="p">(</span><span class="n">stringBody</span><span class="p">)</span>
-    <span class="p">}</span> <span class="n">bindContract</span> <span class="n">GET</span>
+<span class="w">    </span><span class="c1">// this specifies the route contract, with the desired contract of path, headers, queries and body parameters.</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/greet&quot;</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">meta</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;tells the user hello!&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">queries</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">ageQuery</span><span class="w"></span>
+<span class="w">        </span><span class="n">receiving</span><span class="p">(</span><span class="n">stringBody</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">bindContract</span><span class="w"> </span><span class="n">GET</span><span class="w"></span>
 
-    <span class="c1">// the this function will dynamically supply a new HttpHandler for each call. The number of parameters</span>
-    <span class="c1">// matches the number of dynamic sections in the path (1)</span>
-    <span class="kd">fun</span> <span class="nf">greet</span><span class="p">(</span><span class="n">nameFromPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
-        <span class="kd">val</span> <span class="nv">age</span> <span class="o">=</span> <span class="n">ageQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-        <span class="kd">val</span> <span class="nv">sentMessage</span> <span class="o">=</span> <span class="n">stringBody</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// the this function will dynamically supply a new HttpHandler for each call. The number of parameters</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// matches the number of dynamic sections in the path (1)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">greet</span><span class="p">(</span><span class="n">nameFromPath</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ageQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">sentMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stringBody</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">stringBody</span> <span class="n">of</span> <span class="s">&quot;hello </span><span class="si">$</span><span class="n">nameFromPath</span><span class="s"> you are </span><span class="si">$</span><span class="n">age</span><span class="s">. You sent </span><span class="si">$</span><span class="n">sentMessage</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">stringBody</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">nameFromPath</span><span class="s"> you are </span><span class="si">$</span><span class="n">age</span><span class="s">. You sent </span><span class="si">$</span><span class="n">sentMessage</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">spec</span> <span class="n">to</span> <span class="o">::</span><span class="n">greet</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">spec</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">::</span><span class="n">greet</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">NameAndMessage</span><span class="p">(</span><span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">NameAndMessage</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">message</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"></span>
 
-<span class="c1">// this route uses auto-marshalling to convert the JSON body directly to/from a data class instance</span>
-<span class="kd">fun</span> <span class="nf">echoRoute</span><span class="p">():</span> <span class="n">ContractRoute</span> <span class="p">{</span>
+<span class="c1">// this route uses auto-marshalling to convert the JSON body directly to/from a data class instance</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">echoRoute</span><span class="p">():</span><span class="w"> </span><span class="n">ContractRoute</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="c1">// the body lens here is imported as an extension function from the Jackson instance</span>
-    <span class="kd">val</span> <span class="nv">body</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">NameAndMessage</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// the body lens here is imported as an extension function from the Jackson instance</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">NameAndMessage</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span><span class="w"></span>
 
-    <span class="c1">// this specifies the route contract, including examples of the input and output body objects - they will</span>
-    <span class="c1">// get exploded into JSON schema in the OpenAPI docs</span>
-    <span class="kd">val</span> <span class="nv">spec</span> <span class="o">=</span> <span class="s">&quot;/echo&quot;</span> <span class="n">meta</span> <span class="p">{</span>
-        <span class="n">summary</span> <span class="o">=</span> <span class="s">&quot;echoes the name and message sent to it&quot;</span>
-        <span class="n">receiving</span><span class="p">(</span><span class="n">body</span> <span class="n">to</span> <span class="n">NameAndMessage</span><span class="p">(</span><span class="s">&quot;jim&quot;</span><span class="p">,</span> <span class="s">&quot;hello!&quot;</span><span class="p">))</span>
-        <span class="n">returning</span><span class="p">(</span><span class="n">OK</span><span class="p">,</span> <span class="n">body</span> <span class="n">to</span> <span class="n">NameAndMessage</span><span class="p">(</span><span class="s">&quot;jim&quot;</span><span class="p">,</span> <span class="s">&quot;hello!&quot;</span><span class="p">))</span>
-    <span class="p">}</span> <span class="n">bindContract</span> <span class="n">POST</span>
+<span class="w">    </span><span class="c1">// this specifies the route contract, including examples of the input and output body objects - they will</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// get exploded into JSON schema in the OpenAPI docs</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/echo&quot;</span><span class="w"> </span><span class="n">meta</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;echoes the name and message sent to it&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">receiving</span><span class="p">(</span><span class="n">body</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">NameAndMessage</span><span class="p">(</span><span class="s">&quot;jim&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hello!&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="n">returning</span><span class="p">(</span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">NameAndMessage</span><span class="p">(</span><span class="s">&quot;jim&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;hello!&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">bindContract</span><span class="w"> </span><span class="n">POST</span><span class="w"></span>
 
-    <span class="c1">// note that because we don&#39;t have any dynamic parameters, we can use a HttpHandler instance instead of a function</span>
-    <span class="kd">val</span> <span class="nv">echo</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
-        <span class="kd">val</span> <span class="nv">received</span><span class="p">:</span> <span class="n">NameAndMessage</span> <span class="o">=</span> <span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">body</span> <span class="n">of</span> <span class="n">received</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// note that because we don&#39;t have any dynamic parameters, we can use a HttpHandler instance instead of a function</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">echo</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">received</span><span class="p">:</span><span class="w"> </span><span class="n">NameAndMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">body</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">received</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">spec</span> <span class="n">to</span> <span class="n">echo</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">spec</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">echo</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// use another Lens to set up the API-key - the answer is 42!</span>
-<span class="kd">val</span> <span class="nv">mySecurity</span> <span class="o">=</span> <span class="n">ApiKeySecurity</span><span class="p">(</span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;reference/api&quot;</span><span class="p">),</span> <span class="p">{</span> <span class="nb">it</span> <span class="o">==</span> <span class="m">42</span> <span class="p">})</span>
+<span class="c1">// use another Lens to set up the API-key - the answer is 42!</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">mySecurity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApiKeySecurity</span><span class="p">(</span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;reference/api&quot;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="p">})</span><span class="w"></span>
 
-<span class="c1">// Combine the Routes into a contract and bind to a context, defining a renderer (in this example</span>
-<span class="c1">// OpenApi/Swagger) and a security model (in this case an API-Key):</span>
-<span class="kd">val</span> <span class="nv">contract</span> <span class="o">=</span> <span class="n">contract</span> <span class="p">{</span>
-    <span class="n">renderer</span> <span class="o">=</span> <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;My great API&quot;</span><span class="p">,</span> <span class="s">&quot;v1.0&quot;</span><span class="p">),</span> <span class="n">Jackson</span><span class="p">)</span>
-    <span class="n">descriptionPath</span> <span class="o">=</span> <span class="s">&quot;/swagger.json&quot;</span>
-    <span class="n">security</span> <span class="o">=</span> <span class="n">mySecurity</span>
-    <span class="n">routes</span> <span class="o">+=</span> <span class="n">greetRoute</span><span class="p">()</span>
-    <span class="n">routes</span> <span class="o">+=</span> <span class="n">echoRoute</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="c1">// Combine the Routes into a contract and bind to a context, defining a renderer (in this example</span><span class="w"></span>
+<span class="c1">// OpenApi/Swagger) and a security model (in this case an API-Key):</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">contract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contract</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">renderer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;My great API&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;v1.0&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Jackson</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">descriptionPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/swagger.json&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mySecurity</span><span class="w"></span>
+<span class="w">    </span><span class="n">routes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">greetRoute</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">routes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">echoRoute</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">handler</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span><span class="s">&quot;/reference/api/v1&quot;</span> <span class="n">bind</span> <span class="n">contract</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">handler</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/reference/api/v1&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">contract</span><span class="p">)</span><span class="w"></span>
 
-<span class="c1">// by default, the OpenAPI docs live at the root of the contract context, but we can override it..</span>
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/reference/api/v1/swagger.json&quot;</span><span class="p">)))</span>
+<span class="c1">// by default, the OpenAPI docs live at the root of the contract context, but we can override it..</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/reference/api/v1/swagger.json&quot;</span><span class="p">)))</span><span class="w"></span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span> <span class="s">&quot;/reference/api/v1/echo&quot;</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;reference/api&quot;</span><span class="p">,</span> <span class="s">&quot;42&quot;</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{&quot;name&quot;:&quot;Bob&quot;,&quot;message&quot;:&quot;Hello&quot;}&quot;&quot;&quot;</span><span class="p">)))</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/reference/api/v1/echo&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;reference/api&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;42&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{&quot;name&quot;:&quot;Bob&quot;,&quot;message&quot;:&quot;Hello&quot;}&quot;&quot;&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>When launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.</p>
@@ -1187,7 +1187,7 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <li><em>OpenApi v2 &amp; v3:</em> The standard mechanism can be used with any of the supported http4k JSON modules. It generates 
 anonymous JSON schema definition names that are then listed in the <code>schema</code> section of the OpenApi docs.</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>    <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;1.2&quot;</span><span class="p">,</span> <span class="s">&quot;module description&quot;</span><span class="p">),</span> <span class="n">Argo</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;module description&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Argo</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 <p>... generates definitions like the following in the schema definitions:</p>
@@ -1212,7 +1212,7 @@ anonymous JSON schema definition names that are then listed in the <code>schema<
 the names of the definitions are generated based on the Kotlin class instances provided to the Contract Route DSL. Note that 
 an overloaded OpenApi function automatically provides the default Jackson instance, so we can remove it from the renderer creation:</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>    <span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;1.2&quot;</span><span class="p">,</span> <span class="s">&quot;module description&quot;</span><span class="p">),</span> <span class="n">Jackson</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;module description&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Jackson</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 <p>... generates definitions like the following in the schema definitions:</p>

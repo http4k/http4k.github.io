@@ -1065,55 +1065,55 @@
 
 <h4 id="step_1">Step 1<a class="headerlink" href="#step_1" title="Permanent link">&para;</a></h4>
 <p>We need to add the AWS Lambda Serverless Runtime module to our project. Install it into your <code>build.gradle</code> file with:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-serverless-lambda-runtime:4.25.10.1&quot;</span><span class="o">)</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-serverless-lambda-runtime:4.25.10.1&quot;</span><span class="o">)</span><span class="w"></span>
 </code></pre></div>
 
 <p>This custom runtime is a lightweight, zero-reflection module which allows you to deploy both Java and GraalVN based binaries to AWS.</p>
 <h4 id="step_2">Step 2<a class="headerlink" href="#step_2" title="Permanent link">&para;</a></h4>
 <p>Lambdas working from a native binary have to supply their own <code>main</code> function to launch the runtime, instead of implementing the standard <code>Request/StreamHandler</code> interfaces. To use it on our app, we simply create a launcher and wrap our http4k <code>HttpHandler</code> with the appropriate FnHandler class before starting the Runtime:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.tutorials.going_native_with_graal_on_aws_lambda</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.tutorials.going_native_with_graal_on_aws_lambda</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.serverless.ApiGatewayV1FnLoader</span>
-<span class="k">import</span> <span class="nn">org.http4k.serverless.AwsLambdaRuntime</span>
-<span class="k">import</span> <span class="nn">org.http4k.serverless.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.path</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.ApiGatewayV1FnLoader</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.AwsLambdaRuntime</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.asServer</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">http4kApp</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
-    <span class="s">&quot;/echo/{message:.*}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span>
-            <span class="nb">it</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;(nothing to echo, use /echo/&lt;message&gt;)&quot;</span>
-        <span class="p">)</span>
-    <span class="p">},</span>
-    <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;ok&quot;</span><span class="p">)</span> <span class="p">}</span>
-<span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">http4kApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;/echo/{message:.*}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="nb">it</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="s">&quot;(nothing to echo, use /echo/&lt;message&gt;)&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;ok&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">ApiGatewayV1FnLoader</span><span class="p">(</span><span class="n">http4kApp</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">AwsLambdaRuntime</span><span class="p">()).</span><span class="na">start</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">ApiGatewayV1FnLoader</span><span class="p">(</span><span class="n">http4kApp</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">AwsLambdaRuntime</span><span class="p">()).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h4 id="step_3">Step 3<a class="headerlink" href="#step_3" title="Permanent link">&para;</a></h4>
 <p>Compile the Lambda code into a GraalVM file is a 2 stage process. First, install and configure the ShadowJar plugin into <code>build.gradle</code> to merge the entire application into a single JAR file with a known main class. Add the following sections:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">buildScript</span> <span class="o">{</span>
-    <span class="n">dependencies</span> <span class="o">{</span>
-        <span class="n">classpath</span> <span class="s1">&#39;com.github.jengelman.gradle.plugins:shadow:6.1.0&#39;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<div class="codehilite"><pre><span></span><code><span class="n">buildScript</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">classpath</span><span class="w"> </span><span class="s1">&#39;com.github.jengelman.gradle.plugins:shadow:6.1.0&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="o">}</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
 
-<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">&#39;com.github.johnrengelman.shadow&#39;</span>
+<span class="n">apply</span><span class="w"> </span><span class="nl">plugin:</span><span class="w"> </span><span class="s1">&#39;com.github.johnrengelman.shadow&#39;</span><span class="w"></span>
 
-<span class="n">shadowJar</span> <span class="o">{</span>
-    <span class="n">manifest</span><span class="o">.</span><span class="na">attributes</span><span class="o">[</span><span class="s1">&#39;Main-Class&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;guide.tutorials.going_native_with_graal_on_aws_lambda.HelloServerlessHttp4kKt&#39;</span>
-    <span class="n">archiveBaseName</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">project</span><span class="o">.</span><span class="na">name</span><span class="o">)</span>
-    <span class="n">archiveClassifier</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="kc">null</span><span class="o">)</span>
-    <span class="n">archiveVersion</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="kc">null</span><span class="o">)</span>
-    <span class="n">mergeServiceFiles</span><span class="o">()</span>
-<span class="o">}</span>
+<span class="n">shadowJar</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">manifest</span><span class="o">.</span><span class="na">attributes</span><span class="o">[</span><span class="s1">&#39;Main-Class&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;guide.tutorials.going_native_with_graal_on_aws_lambda.HelloServerlessHttp4kKt&#39;</span><span class="w"></span>
+<span class="w">    </span><span class="n">archiveBaseName</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">project</span><span class="o">.</span><span class="na">name</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">archiveClassifier</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="kc">null</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">archiveVersion</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="kc">null</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">mergeServiceFiles</span><span class="o">()</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>Run the new task with:</p>
@@ -1133,12 +1133,12 @@
 <p><img class="blogImage" src="step4.png" alt="graalvm output"/></p>
 <h4 id="step_5">Step 5<a class="headerlink" href="#step_5" title="Permanent link">&para;</a></h4>
 <p>We need to update our Pulumi configuration to upload the new binary. This is pretty simple and just involves changing the runtime, ZIP target and handler in our <code>index.ts</code>. We can also remove the <code>timeout</code> as the native binary will startup in milliseconds:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">lambdaFunction</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">aws</span><span class="p">.</span><span class="nx">lambda</span><span class="p">.</span><span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;hello-http4k&quot;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">code</span>: <span class="kt">new</span> <span class="nx">pulumi</span><span class="p">.</span><span class="nx">asset</span><span class="p">.</span><span class="nx">FileArchive</span><span class="p">(</span><span class="s2">&quot;HelloHttp4k.zip&quot;</span><span class="p">),</span>
-    <span class="nx">handler</span><span class="o">:</span> <span class="s2">&quot;unused&quot;</span><span class="p">,</span>
-    <span class="nx">role</span>: <span class="kt">defaultRole.arn</span><span class="p">,</span>
-    <span class="nx">runtime</span><span class="o">:</span> <span class="s2">&quot;provided.al2&quot;</span>
-<span class="p">});</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">lambdaFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nx">lambda</span><span class="p">.</span><span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;hello-http4k&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">code</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nx">pulumi</span><span class="p">.</span><span class="nx">asset</span><span class="p">.</span><span class="nx">FileArchive</span><span class="p">(</span><span class="s2">&quot;HelloHttp4k.zip&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nx">handler</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;unused&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="kt">defaultRole.arn</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">runtime</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;provided.al2&quot;</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
 </code></pre></div>
 
 <h4 id="step_6">Step 6<a class="headerlink" href="#step_6" title="Permanent link">&para;</a></h4>

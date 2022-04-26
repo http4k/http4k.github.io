@@ -1068,11 +1068,11 @@ values to check them as soon as possible in the application bootstrap phase.</p>
 <h4 id="1_optionality">1. Optionality<a class="headerlink" href="#1_optionality" title="Permanent link">&para;</a></h4>
 <p>Kotlin's type system guards us against missing values being injected - for instance the following code will throw a 
 <code>IllegalStateException</code> due to a typo in the parameter name:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.pre</span><span class="w"></span>
 
-<span class="c1">// export ANTIDISESTABLISHMENTARIANISM=opposition to the disestablishment of the Church of England</span>
+<span class="c1">// export ANTIDISESTABLISHMENTARIANISM=opposition to the disestablishment of the Church of England</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">definition</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;ANTIDISESTABLISHMENTARIAMISM&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">definition</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;ANTIDISESTABLISHMENTARIAMISM&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 <p>However not all configuration values will be required. We can define that there are 3 distinct modes of optionality 
@@ -1098,34 +1098,34 @@ standard types, including:</p>
 <p>But handling these raw types alone is not enough to guarantee safety - it is best to marshall the values into a 
 suitable operational/domain type that can validate the input and avoid confusion. Kotlin gives us a simple way to do this 
 using <code>require</code> as a guard:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.pre</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nc">Port</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">init</span> <span class="p">{</span>
-        <span class="n">require</span><span class="p">((</span><span class="m">1.</span><span class="p">.</span><span class="m">65535</span><span class="p">).</span><span class="na">contains</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="p">{</span> <span class="s">&quot;Out of range Port: &#39;</span><span class="si">$</span><span class="n">value</span><span class="s">&#39;&quot;</span> <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">init</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">require</span><span class="p">((</span><span class="m">1.</span><span class="p">.</span><span class="m">65535</span><span class="p">).</span><span class="na">contains</span><span class="p">(</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Out of range Port: &#39;</span><span class="si">$</span><span class="n">value</span><span class="s">&#39;&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// export PORT=8000</span>
-<span class="kd">val</span> <span class="nv">port</span> <span class="o">=</span> <span class="n">Port</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;PORT&quot;</span><span class="p">).</span><span class="na">toInt</span><span class="p">())</span>
+<span class="c1">// export PORT=8000</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Port</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;PORT&quot;</span><span class="p">).</span><span class="na">toInt</span><span class="p">())</span><span class="w"></span>
 </code></pre></div>
 
 <p>Additionally to the above, it is important to represent those values in a form that cannot be misinterpreted. A good 
 example of this is the passing of temporal values as integers - timeouts defined this way could be easily be 
 parsed into the wrong time unit (seconds instead of milliseconds). Using a higher level primitive such as <code>Duration</code> 
 will help us here:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.pre</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">java.time.Duration</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.time.Duration</span><span class="w"></span>
 
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Timeout</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="n">Duration</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">init</span> <span class="p">{</span>
-        <span class="n">require</span><span class="p">(</span><span class="o">!</span><span class="n">value</span><span class="p">.</span><span class="na">isNegative</span><span class="p">)</span> <span class="p">{</span> <span class="s">&quot;Cannot have negative timeout&quot;</span> <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Timeout</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">Duration</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">init</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">require</span><span class="p">(</span><span class="o">!</span><span class="n">value</span><span class="p">.</span><span class="na">isNegative</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Cannot have negative timeout&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// export TIMEOUT=PT30S</span>
-<span class="kd">val</span> <span class="nv">timeout</span> <span class="o">=</span> <span class="n">Timeout</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;TIMEOUT&quot;</span><span class="p">)))</span>
+<span class="c1">// export TIMEOUT=PT30S</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Timeout</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;TIMEOUT&quot;</span><span class="p">)))</span><span class="w"></span>
 </code></pre></div>
 
 <p>Obviously, the above is still not very safe - and what's more, a coercion could now fail with one of 3 different 
@@ -1135,13 +1135,13 @@ for each value that we wish to parse.</p>
 <h4 id="3_multiplicity">3. Multiplicity<a class="headerlink" href="#3_multiplicity" title="Permanent link">&para;</a></h4>
 <p>Configuration parameters may have one or many values and need to be converted safely from the injected string 
 representation (usually comma-separated) and into their internally represented types at application startup: </p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.pre</span><span class="w"></span>
 
-<span class="kd">class</span> <span class="nc">Host</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">Host</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"></span>
 
-<span class="c1">// export HOSTNAMES=eu-west1.aws.com,eu-west2.aws.com,eu-west3.aws.com</span>
+<span class="c1">// export HOSTNAMES=eu-west1.aws.com,eu-west2.aws.com,eu-west3.aws.com</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">hosts</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;HOSTNAMES&quot;</span><span class="p">).</span><span class="na">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">).</span><span class="na">map</span> <span class="p">{</span> <span class="n">Host</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">trim</span><span class="p">())</span> <span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">hosts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;HOSTNAMES&quot;</span><span class="p">).</span><span class="na">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">).</span><span class="na">map</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Host</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">trim</span><span class="p">())</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>Once again, the splitting code will need to be repeated for each config value, or extracted to a library function.</p>
@@ -1150,22 +1150,22 @@ representation (usually comma-separated) and into their internally represented t
 application secrets, DB passwords or API keys should be handled in a way that avoid storing directly in memory in a 
 readable format or long lived fashion, where they may be inadvertently inspected or outputted into a log file.</p>
 <p>Dangling code situations such as in the code below are common, and are asking for trouble...</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.pre</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">java.nio.ByteBuffer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.nio.ByteBuffer</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">s3</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">s3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OkHttp</span><span class="p">()</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">readFile</span><span class="p">(</span><span class="n">secretKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">bucketKey</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="n">ByteBuffer</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">s3</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;https://mybucket.s3.amazonaws.com/</span><span class="si">$</span><span class="n">bucketKey</span><span class="s">&quot;</span><span class="p">)).</span><span class="na">body</span><span class="p">.</span><span class="na">payload</span>
-<span class="p">}</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">readFile</span><span class="p">(</span><span class="n">secretKey</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">bucketKey</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">ByteBuffer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">s3</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://mybucket.s3.amazonaws.com/</span><span class="si">$</span><span class="n">bucketKey</span><span class="s">&quot;</span><span class="p">)).</span><span class="na">body</span><span class="p">.</span><span class="na">payload</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// export AWS_SECRET_KEY=someSuperSecretValueThatOpsReallyDoNotWantYouToKnow</span>
+<span class="c1">// export AWS_SECRET_KEY=someSuperSecretValueThatOpsReallyDoNotWantYouToKnow</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">file</span> <span class="o">=</span> <span class="n">readFile</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;AWS_SECRET_KEY&quot;</span><span class="p">),</span> <span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readFile</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;AWS_SECRET_KEY&quot;</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 <h4 id="5_configuration_context_overriding">5. Configuration Context &amp; Overriding<a class="headerlink" href="#5_configuration_context_overriding" title="Permanent link">&para;</a></h4>
@@ -1180,9 +1180,9 @@ convenient to source parameter values from a variety of contexts when running ap
 <li>Source code defined environmental configuration</li>
 </ul>
 <p>Implementing this kind of fallback logic manually, you'd end up with code like the below: </p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.pre</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.pre</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">name</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;DEFAULT_USER&quot;</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;USERNAME&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="s">&quot;DEFAULT_USER&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="the_http4k_approach">The http4k approach...<a class="headerlink" href="#the_http4k_approach" title="Permanent link">&para;</a></h3>
@@ -1202,19 +1202,19 @@ one (for a <code>Lens</code>) or both (for a <code>BiDiLens</code>) of the follo
 <li><strong>LensInjector</strong> - takes a value of type <code>IN</code> and a value of type <code>OUT</code> and returns a modified value of type <code>IN</code> 
 with the value injected into it.</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.post</span><span class="w"></span>
 
-<span class="kd">interface</span> <span class="nc">LensExtractor</span><span class="o">&lt;</span><span class="k">in</span> <span class="n">IN</span><span class="p">,</span> <span class="k">out</span> <span class="n">OUT</span><span class="o">&gt;</span> <span class="p">:</span> <span class="p">(</span><span class="n">IN</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OUT</span> <span class="p">{</span>
-    <span class="kd">override</span> <span class="kd">operator</span> <span class="kd">fun</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">IN</span><span class="p">):</span> <span class="n">OUT</span>
-<span class="p">}</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nc">LensExtractor</span><span class="o">&lt;</span><span class="k">in</span><span class="w"> </span><span class="n">IN</span><span class="p">,</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="n">OUT</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">IN</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">OUT</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">target</span><span class="p">:</span><span class="w"> </span><span class="n">IN</span><span class="p">):</span><span class="w"> </span><span class="n">OUT</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">interface</span> <span class="nc">LensInjector</span><span class="o">&lt;</span><span class="k">in</span> <span class="n">IN</span><span class="p">,</span> <span class="k">in</span> <span class="n">OUT</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="kd">operator</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">R</span> <span class="p">:</span> <span class="n">OUT</span><span class="o">&gt;</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">IN</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">R</span><span class="p">):</span> <span class="n">R</span>
-<span class="p">}</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nc">LensInjector</span><span class="o">&lt;</span><span class="k">in</span><span class="w"> </span><span class="n">IN</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">OUT</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="n">R</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">OUT</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">IN</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">:</span><span class="w"> </span><span class="n">R</span><span class="p">):</span><span class="w"> </span><span class="n">R</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">interface</span> <span class="nc">Lens</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="o">&gt;</span> <span class="p">:</span> <span class="n">LensExtractor</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="o">&gt;</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nc">Lens</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span><span class="w"> </span><span class="n">OUT</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">LensExtractor</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span><span class="w"> </span><span class="n">OUT</span><span class="o">&gt;</span><span class="w"></span>
 
-<span class="kd">interface</span> <span class="nc">BiDiLens</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="o">&gt;</span> <span class="p">:</span> <span class="n">Lens</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">LensInjector</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span> <span class="n">OUT</span><span class="o">&gt;</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nc">BiDiLens</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span><span class="w"> </span><span class="n">OUT</span><span class="o">&gt;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Lens</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span><span class="w"> </span><span class="n">OUT</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">LensInjector</span><span class="o">&lt;</span><span class="n">IN</span><span class="p">,</span><span class="w"> </span><span class="n">OUT</span><span class="o">&gt;</span><span class="w"></span>
 </code></pre></div>
 
 <p>The creation of a Lens consists of 4 main concerns:</p>
@@ -1231,25 +1231,25 @@ This is done in code using the <code>map()</code> method defined on the Lens.</l
 by deciding it's optionality.</p>
 <p>It sounds involved, but it is consistent and the fluent API has been designed to make it simpler. By way of an example, 
 here we define a bi-directional Lens for custom type <code>Page</code>, extracted from a querystring value and defaulting to Page 1.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.post</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.BiDiLens</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Query</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.BiDiLens</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Query</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span><span class="w"></span>
 
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Page</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">init</span> <span class="p">{</span>
-        <span class="n">require</span><span class="p">(</span><span class="n">value</span> <span class="o">&gt;</span> <span class="m">1</span><span class="p">)</span> <span class="p">{</span> <span class="s">&quot;Page number must be positive&quot;</span> <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Page</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">init</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">require</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Page number must be positive&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">lens</span><span class="p">:</span> <span class="n">BiDiLens</span><span class="o">&lt;</span><span class="n">Request</span><span class="p">,</span> <span class="n">Page</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Page</span><span class="p">,</span> <span class="n">Page</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;pageNumber&quot;</span><span class="p">,</span> <span class="n">Page</span><span class="p">(</span><span class="m">1</span><span class="p">))</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">lens</span><span class="p">:</span><span class="w"> </span><span class="n">BiDiLens</span><span class="o">&lt;</span><span class="n">Request</span><span class="p">,</span><span class="w"> </span><span class="n">Page</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Page</span><span class="p">,</span><span class="w"> </span><span class="n">Page</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;pageNumber&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Page</span><span class="p">(</span><span class="m">1</span><span class="p">))</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">pageNumber</span><span class="p">:</span> <span class="n">Page</span> <span class="o">=</span> <span class="n">lens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://abc/search?pageNumber=55&quot;</span><span class="p">))</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">pageNumber</span><span class="p">:</span><span class="w"> </span><span class="n">Page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://abc/search?pageNumber=55&quot;</span><span class="p">))</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">updatedRequest</span><span class="p">:</span> <span class="n">Request</span> <span class="o">=</span> <span class="n">lens</span><span class="p">(</span><span class="n">pageNumber</span><span class="p">,</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://abc/search&quot;</span><span class="p">))</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">updatedRequest</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lens</span><span class="p">(</span><span class="n">pageNumber</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://abc/search&quot;</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 <p>In http4k, Lenses are typically used to provide typesafe conversion of typed values into and out of HTTP messages, 
@@ -1259,50 +1259,50 @@ contexts.</p>
 <p>in http4k, an <code>Environment</code> object is a context which holds configuration values. It effectively behaves like a 
 <code>Map</code>, in that it can be composed with other <code>Environment</code> objects to provide a consolidated view of all of it's 
 component values. </p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.post</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
-<span class="k">import</span> <span class="nn">java.io.File</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Environment</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.io.File</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">systemEnv</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span>
-<span class="kd">val</span> <span class="nv">jvmFlags</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">.</span><span class="na">JVM_PROPERTIES</span>
-<span class="kd">val</span> <span class="nv">jar</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">.</span><span class="na">fromResource</span><span class="p">(</span><span class="s">&quot;jar.properties&quot;</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">filesystem</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;fs.properties&quot;</span><span class="p">))</span>
-<span class="kd">val</span> <span class="nv">codeBased</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="s">&quot;key1&quot;</span> <span class="n">to</span> <span class="s">&quot;value1&quot;</span><span class="p">,</span> <span class="s">&quot;key2&quot;</span> <span class="n">to</span> <span class="s">&quot;value2&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">systemEnv</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">jvmFlags</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">JVM_PROPERTIES</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">jar</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">fromResource</span><span class="p">(</span><span class="s">&quot;jar.properties&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">filesystem</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;fs.properties&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">codeBased</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="s">&quot;key1&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;value1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key2&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="s">&quot;value2&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">consolidated</span><span class="p">:</span> <span class="n">Environment</span> <span class="o">=</span> <span class="n">jvmFlags</span> <span class="n">overrides</span> <span class="n">systemEnv</span> <span class="n">overrides</span> <span class="n">codeBased</span> <span class="n">overrides</span> <span class="n">filesystem</span> <span class="n">overrides</span> <span class="n">jar</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">consolidated</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jvmFlags</span><span class="w"> </span><span class="n">overrides</span><span class="w"> </span><span class="n">systemEnv</span><span class="w"> </span><span class="n">overrides</span><span class="w"> </span><span class="n">codeBased</span><span class="w"> </span><span class="n">overrides</span><span class="w"> </span><span class="n">filesystem</span><span class="w"> </span><span class="n">overrides</span><span class="w"> </span><span class="n">jar</span><span class="w"></span>
 </code></pre></div>
 
 <p>If you're using any of the other Kotlin-based configuration libraries, the above should look pretty familiar. The 
 difference starts to become apparent when attempting to retrieve values from the <code>Environment</code> instance. This is done 
 using <code>EnviromentKey</code> Lenses, which are an extension of the http4k Lens system that specifically targets <code>Environment</code> 
 objects. </p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.post</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
-<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Lens</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.duration</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.int</span>
-<span class="k">import</span> <span class="nn">java.time.Duration</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Environment</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Lens</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.duration</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.time.Duration</span><span class="w"></span>
 
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Timeout</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="n">Duration</span><span class="p">)</span>
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Port</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Host</span><span class="p">(</span><span class="kd">val</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Timeout</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">Duration</span><span class="p">)</span><span class="w"></span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Port</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"></span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Host</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"></span>
 
-<span class="c1">// export TIMEOUT=PT30S</span>
-<span class="c1">// export PORT=8080</span>
-<span class="c1">// export HOSTNAMES=eu-west1.aws.com,eu-west2.aws.com,eu-west3.aws.com</span>
+<span class="c1">// export TIMEOUT=PT30S</span><span class="w"></span>
+<span class="c1">// export PORT=8080</span><span class="w"></span>
+<span class="c1">// export HOSTNAMES=eu-west1.aws.com,eu-west2.aws.com,eu-west3.aws.com</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">portLens</span><span class="p">:</span> <span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Port</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Port</span><span class="p">).</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;PORT&quot;</span><span class="p">,</span> <span class="n">Port</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
-<span class="kd">val</span> <span class="nv">timeoutLens</span><span class="p">:</span> <span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Timeout?&gt;</span> <span class="o">=</span> <span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">duration</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Timeout</span><span class="p">).</span><span class="na">optional</span><span class="p">(</span><span class="s">&quot;TIMEOUT&quot;</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">hostsLens</span><span class="p">:</span> <span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Host</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Host</span><span class="p">).</span><span class="na">multi</span><span class="p">.</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;HOSTNAMES&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">portLens</span><span class="p">:</span><span class="w"> </span><span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span><span class="w"> </span><span class="n">Port</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Port</span><span class="p">).</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;PORT&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Port</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">timeoutLens</span><span class="p">:</span><span class="w"> </span><span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span><span class="w"> </span><span class="n">Timeout?&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">duration</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Timeout</span><span class="p">).</span><span class="na">optional</span><span class="p">(</span><span class="s">&quot;TIMEOUT&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">hostsLens</span><span class="p">:</span><span class="w"> </span><span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Host</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Host</span><span class="p">).</span><span class="na">multi</span><span class="p">.</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;HOSTNAMES&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">timeout</span><span class="p">:</span> <span class="n">Timeout? </span><span class="o">=</span> <span class="n">timeoutLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">port</span><span class="p">:</span> <span class="n">Port</span> <span class="o">=</span> <span class="n">portLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-<span class="kd">val</span> <span class="nv">hosts</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Host</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">hostsLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">timeout</span><span class="p">:</span><span class="w"> </span><span class="n">Timeout? </span><span class="o">=</span><span class="w"> </span><span class="n">timeoutLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">port</span><span class="p">:</span><span class="w"> </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">portLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">hosts</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Host</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hostsLens</span><span class="p">(</span><span class="n">env</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 <h5 id="handling_failure">Handling failure<a class="headerlink" href="#handling_failure" title="Permanent link">&para;</a></h5>
@@ -1317,27 +1317,27 @@ specific <code>use()</code> block, after which the underlying value is internall
 an <code>IllegalStateException</code>. </p>
 <p>The typical use-case for this block is to set-up a SQL <code>Datasource</code> or to create a <code>Filter</code> which adds authentication to 
 all outbound requests, as in the example below:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">blog.typesafe_configuration.post</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.post</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Environment</span>
-<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span>
-<span class="k">import</span> <span class="nn">org.http4k.cloudnative.env.Secret</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.Lens</span>
-<span class="k">import</span> <span class="nn">org.http4k.lens.secret</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Environment</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Secret</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Filter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Lens</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.secret</span><span class="w"></span>
 
-<span class="c1">// export USER_PASSWORD=12345</span>
-<span class="kd">val</span> <span class="nv">accessToken</span><span class="p">:</span> <span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span> <span class="n">Secret</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">secret</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;USER_PASSWORD&quot;</span><span class="p">)</span>
+<span class="c1">// export USER_PASSWORD=12345</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">accessToken</span><span class="p">:</span><span class="w"> </span><span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span><span class="w"> </span><span class="n">Secret</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">secret</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;USER_PASSWORD&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">secret</span><span class="p">:</span> <span class="n">Secret</span> <span class="o">=</span> <span class="n">accessToken</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">secret</span><span class="p">:</span><span class="w"> </span><span class="n">Secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accessToken</span><span class="p">(</span><span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">authFilter</span><span class="p">:</span> <span class="n">Filter</span> <span class="o">=</span> <span class="n">secret</span><span class="p">.</span><span class="na">use</span> <span class="p">{</span> <span class="n">value</span><span class="p">:</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="n">ServerFilters</span><span class="p">.</span><span class="na">BearerAuth</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">authFilter</span><span class="p">:</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">secret</span><span class="p">.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">BearerAuth</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-<span class="kd">val</span> <span class="nv">authedHttp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">authFilter</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">authedHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authFilter</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span><span class="w"></span>
 </code></pre></div>
 
 <p>As with other supported primitives, <code>Secret</code> is available by default in all supported Lens Locations.</p>

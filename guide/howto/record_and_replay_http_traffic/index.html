@@ -1056,77 +1056,77 @@
                     
                     <p>A set of classes to provide simple recording/replaying of HTTP traffic. This is perfect for testing purposes, or in short lived, low traffic environments where no proper caches are available.</p>
 <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="caching_http_traffic">Caching HTTP Traffic<a class="headerlink" href="#caching_http_traffic" title="Permanent link">&para;</a></h3>
 <p>Using <code>Filters</code> it's possible to record traffic and then return recorded content instead of making repeated calls. Note that the provided storage 
 implementations DO NOT have any facility for Cache Control or eviction, or respect any response headers around caching. Requests are indexed in a way optimised for retrieval.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/record_and_replay_http_traffic/example_cache.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.record_and_replay_http_traffic</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.record_and_replay_http_traffic</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.TrafficFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.traffic.ReadWriteCache</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.TrafficFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.traffic.ReadWriteCache</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="c1">// set up storage to cache a set of HTTP traffic. Disk and Memory implementations are provided.</span>
-    <span class="kd">val</span> <span class="nv">storage</span> <span class="o">=</span> <span class="n">ReadWriteCache</span><span class="p">.</span><span class="na">Disk</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// set up storage to cache a set of HTTP traffic. Disk and Memory implementations are provided.</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadWriteCache</span><span class="p">.</span><span class="na">Disk</span><span class="p">()</span><span class="w"></span>
 
-    <span class="c1">// wrap any HTTP Handler in a Recording Filter and play traffic through it</span>
-    <span class="kd">val</span> <span class="nv">withCachedContent</span> <span class="o">=</span>
-        <span class="n">TrafficFilters</span><span class="p">.</span><span class="na">ServeCachedFrom</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">TrafficFilters</span><span class="p">.</span><span class="na">RecordTo</span><span class="p">(</span><span class="n">storage</span><span class="p">))</span>
-            <span class="p">.</span><span class="na">then</span> <span class="p">{</span>
-                <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span>
-            <span class="p">}</span>
-    <span class="kd">val</span> <span class="nv">aRequest</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">withCachedContent</span><span class="p">(</span><span class="n">aRequest</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// wrap any HTTP Handler in a Recording Filter and play traffic through it</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">withCachedContent</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">TrafficFilters</span><span class="p">.</span><span class="na">ServeCachedFrom</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">TrafficFilters</span><span class="p">.</span><span class="na">RecordTo</span><span class="p">(</span><span class="n">storage</span><span class="p">))</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">aRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">withCachedContent</span><span class="p">(</span><span class="n">aRequest</span><span class="p">))</span><span class="w"></span>
 
-    <span class="c1">// repeated requests are intercepted by the cache and the responses provided without hitting the original handler</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">withCachedContent</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)))</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// repeated requests are intercepted by the cache and the responses provided without hitting the original handler</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">withCachedContent</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="recording_streams_of_http_traffic">Recording Streams of HTTP Traffic<a class="headerlink" href="#recording_streams_of_http_traffic" title="Permanent link">&para;</a></h3>
 <p>Using <code>Filters</code> it's possible to record a stream traffic and then replay recorded content instead. Requests are indexed in a way optimised for iteration.</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/record_and_replay_http_traffic/example_stream.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.record_and_replay_http_traffic</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.record_and_replay_http_traffic</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.TrafficFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.traffic.ReadWriteStream</span>
-<span class="k">import</span> <span class="nn">org.http4k.traffic.Responder</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.TrafficFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.traffic.ReadWriteStream</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.traffic.Responder</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="c1">// set up storage to stash a stream of HTTP traffic. Disk and Memory implementations are provided.</span>
-    <span class="kd">val</span> <span class="nv">storage</span> <span class="o">=</span> <span class="n">ReadWriteStream</span><span class="p">.</span><span class="na">Memory</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// set up storage to stash a stream of HTTP traffic. Disk and Memory implementations are provided.</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadWriteStream</span><span class="p">.</span><span class="na">Memory</span><span class="p">()</span><span class="w"></span>
 
-    <span class="c1">// wrap any HTTP Handler in a Recording Filter and play traffic through it</span>
-    <span class="kd">val</span> <span class="nv">recording</span> <span class="o">=</span> <span class="n">TrafficFilters</span><span class="p">.</span><span class="na">RecordTo</span><span class="p">(</span><span class="n">storage</span><span class="p">).</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span> <span class="p">}</span>
-    <span class="n">recording</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="c1">// wrap any HTTP Handler in a Recording Filter and play traffic through it</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">recording</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TrafficFilters</span><span class="p">.</span><span class="na">RecordTo</span><span class="p">(</span><span class="n">storage</span><span class="p">).</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">recording</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">))</span><span class="w"></span>
 
-    <span class="c1">// now set up a responder</span>
-    <span class="kd">val</span> <span class="nv">handler</span> <span class="o">=</span> <span class="n">Responder</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// now set up a responder</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Responder</span><span class="p">.</span><span class="na">from</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// the responder will replay the responses in order</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)))</span>
+<span class="w">    </span><span class="c1">// the responder will replay the responses in order</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)))</span><span class="w"></span>
 
-    <span class="c1">// we can also replay a series of requests through a real HTTP client</span>
-    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">ApacheClient</span><span class="p">()</span>
-    <span class="n">storage</span><span class="p">.</span><span class="na">requests</span><span class="p">().</span><span class="na">forEach</span> <span class="p">{</span> <span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span> <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// we can also replay a series of requests through a real HTTP client</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApacheClient</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">storage</span><span class="p">.</span><span class="na">requests</span><span class="p">().</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h3>

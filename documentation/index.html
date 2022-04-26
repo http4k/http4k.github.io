@@ -1086,8 +1086,8 @@
 </div>
 
 <p><a href="https://http4k.org">http4k</a> is a lightweight but fully-featured HTTP toolkit written in pure <a href="https://kotlinlang.org/">Kotlin</a> that enables the serving and consuming of HTTP services in a functional and consistent way. <a href="https://http4k.org">http4k</a> applications are <em>just</em> Kotlin functions. For example, here's a simple echo server:</p>
-<div class="codehilite"><pre><span></span><code> <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">body</span><span class="p">)</span> <span class="p">}</span>
- <span class="kd">val</span> <span class="nv">server</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">body</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
 </code></pre></div>
 
 <p><a href="https://http4k.org">http4k</a> consists of a lightweight core library, <code>http4k-core</code>, providing a base HTTP implementation and Server/Client implementations based on the JDK classes. Further servers, clients, serverless, templating, websockets capabilities are then implemented in add-on modules. <a href="https://http4k.org">http4k</a> apps can be simply mounted into a running Server, Serverless platform, or compiled to GraalVM and run as a super-lightweight binary.</p>
@@ -1303,88 +1303,88 @@ plugging together of services without HTTP container being required.</li>
 <h2 id="example">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/howz/readme/example.kt"><img class="octocat" src="https://www.http4k.org/img/octocat-32.png"/></a><a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>This quick example is designed to convey the simplicity &amp; features of <a href="https://http4k.org">http4k</a> . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point and demonstrates how to serve and consume HTTP services with dynamic routing.</p>
 <p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
-    <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
-    <span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
-<span class="o">}</span>
+<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.readme</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.readme</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.OkHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Filter</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.CachingFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.path</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.Jetty</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Filter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.CachingFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.path</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// we can bind HttpHandlers (which are just functions from  Request -&gt; Response) to paths/methods to create a Route,</span>
-    <span class="c1">// then combine many Routes together to make another HttpHandler</span>
-    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">routes</span><span class="p">(</span>
-        <span class="s">&quot;/ping&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">_</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;pong!&quot;</span><span class="p">)</span> <span class="p">},</span>
-        <span class="s">&quot;/greet/{name}&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="p">{</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
-            <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String?</span> <span class="o">=</span> <span class="n">req</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
-            <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">${</span><span class="n">name</span> <span class="o">?:</span> <span class="s">&quot;</span><span class="n">anon</span><span class="o">!</span><span class="s">&quot;</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// we can bind HttpHandlers (which are just functions from  Request -&gt; Response) to paths/methods to create a Route,</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// then combine many Routes together to make another HttpHandler</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;/ping&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;pong!&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;/greet/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">${</span><span class="n">name</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="s">&quot;</span><span class="n">anon</span><span class="o">!</span><span class="s">&quot;</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// call the handler in-memory without spinning up a server</span>
-    <span class="kd">val</span> <span class="nv">inMemoryResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/greet/Bob&quot;</span><span class="p">))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">inMemoryResponse</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// call the handler in-memory without spinning up a server</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">inMemoryResponse</span><span class="p">:</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/greet/Bob&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">inMemoryResponse</span><span class="p">)</span><span class="w"></span>
 
-<span class="c1">// Produces:</span>
-<span class="c1">//    HTTP/1.1 200 OK</span>
-<span class="c1">//</span>
-<span class="c1">//</span>
-<span class="c1">//    hello Bob</span>
+<span class="c1">// Produces:</span><span class="w"></span>
+<span class="c1">//    HTTP/1.1 200 OK</span><span class="w"></span>
+<span class="c1">//</span><span class="w"></span>
+<span class="c1">//</span><span class="w"></span>
+<span class="c1">//    hello Bob</span><span class="w"></span>
 
-    <span class="c1">// this is a Filter - it performs pre/post processing on a request or response</span>
-    <span class="kd">val</span> <span class="nv">timingFilter</span> <span class="o">=</span> <span class="n">Filter</span> <span class="p">{</span>
-        <span class="n">next</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">-&gt;</span>
-        <span class="p">{</span>
-            <span class="n">request</span><span class="p">:</span> <span class="n">Request</span> <span class="o">-&gt;</span>
-            <span class="kd">val</span> <span class="nv">start</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span>
-            <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-            <span class="kd">val</span> <span class="nv">latency</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
-            <span class="n">println</span><span class="p">(</span><span class="s">&quot;Request to </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">uri</span><span class="si">}</span><span class="s"> took </span><span class="si">${</span><span class="n">latency</span><span class="si">}</span><span class="s">ms&quot;</span><span class="p">)</span>
-            <span class="n">response</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// this is a Filter - it performs pre/post processing on a request or response</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">timingFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">next</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span><span class="w"></span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">latency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="w"></span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Request to </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">uri</span><span class="si">}</span><span class="s"> took </span><span class="si">${</span><span class="n">latency</span><span class="si">}</span><span class="s">ms&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">response</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// we can &quot;stack&quot; filters to create reusable units, and then apply them to an HttpHandler</span>
-    <span class="kd">val</span> <span class="nv">compositeFilter</span> <span class="o">=</span> <span class="n">CachingFilters</span><span class="p">.</span><span class="na">Response</span><span class="p">.</span><span class="na">NoCache</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">timingFilter</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="nv">filteredApp</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">compositeFilter</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// we can &quot;stack&quot; filters to create reusable units, and then apply them to an HttpHandler</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">compositeFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CachingFilters</span><span class="p">.</span><span class="na">Response</span><span class="p">.</span><span class="na">NoCache</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">timingFilter</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">filteredApp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compositeFilter</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// only 1 LOC to mount an app and start it in a container</span>
-    <span class="n">filteredApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// only 1 LOC to mount an app and start it in a container</span><span class="w"></span>
+<span class="w">    </span><span class="n">filteredApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
 
-    <span class="c1">// HTTP clients are also HttpHandlers!</span>
-    <span class="kd">val</span> <span class="nv">client</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="n">OkHttp</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// HTTP clients are also HttpHandlers!</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OkHttp</span><span class="p">()</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">networkResponse</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;http://localhost:9000/greet/Bob&quot;</span><span class="p">))</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">networkResponse</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">networkResponse</span><span class="p">:</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:9000/greet/Bob&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">networkResponse</span><span class="p">)</span><span class="w"></span>
 
-<span class="c1">// Produces:</span>
-<span class="c1">//    Request to /api/greet/Bob took 1ms</span>
-<span class="c1">//    HTTP/1.1 200</span>
-<span class="c1">//    cache-control: private, must-revalidate</span>
-<span class="c1">//    content-length: 9</span>
-<span class="c1">//    date: Thu, 08 Jun 2017 13:01:13 GMT</span>
-<span class="c1">//    expires: 0</span>
-<span class="c1">//    server: Jetty(9.3.16.v20170120)</span>
-<span class="c1">//</span>
-<span class="c1">//    hello Bob</span>
-<span class="p">}</span>
+<span class="c1">// Produces:</span><span class="w"></span>
+<span class="c1">//    Request to /api/greet/Bob took 1ms</span><span class="w"></span>
+<span class="c1">//    HTTP/1.1 200</span><span class="w"></span>
+<span class="c1">//    cache-control: private, must-revalidate</span><span class="w"></span>
+<span class="c1">//    content-length: 9</span><span class="w"></span>
+<span class="c1">//    date: Thu, 08 Jun 2017 13:01:13 GMT</span><span class="w"></span>
+<span class="c1">//    expires: 0</span><span class="w"></span>
+<span class="c1">//    server: Jetty(9.3.16.v20170120)</span><span class="w"></span>
+<span class="c1">//</span><span class="w"></span>
+<span class="c1">//    hello Bob</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <h2 id="acknowledgments">Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permanent link">&para;</a></h2>

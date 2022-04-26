@@ -1055,7 +1055,7 @@
                     <h1>OAuth</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-security-oauth&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-security-oauth&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1081,61 +1081,61 @@ implementations of the provider to be used across environments.</li>
 </ol>
 <h4 id="example_provider">Example provider <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/oauth/example_provider_oauth.kt"><img class="octocat"/></a><a class="headerlink" href="#example_provider" title="Permanent link">&para;</a></h4>
 <p>Out of the box, http4k provides implementations for several OAuth providers.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.oauth</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.oauth</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.ApacheClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.bind</span>
-<span class="k">import</span> <span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.InsecureCookieBasedOAuthPersistence</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProvider</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.google</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.SunHttp</span>
-<span class="k">import</span> <span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Credentials</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.InsecureCookieBasedOAuthPersistence</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.OAuthProvider</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.google</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="c1">// set these before running this example</span>
-    <span class="kd">val</span> <span class="nv">googleClientId</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_ID&quot;</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="nv">googleClientSecret</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_SECRET&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// set these before running this example</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">googleClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_ID&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">googleClientSecret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_SECRET&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">port</span> <span class="o">=</span> <span class="m">9000</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">9000</span><span class="w"></span>
 
-    <span class="c1">// the callback uri which is configured in our OAuth provider</span>
-    <span class="kd">val</span> <span class="nv">callbackUri</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">port</span><span class="s">/callback&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// the callback uri which is configured in our OAuth provider</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">callbackUri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">port</span><span class="s">/callback&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// this is a test implementation of the OAuthPersistence interface, which should be</span>
-    <span class="c1">// implemented by application developers</span>
-    <span class="kd">val</span> <span class="nv">oAuthPersistence</span> <span class="o">=</span> <span class="n">InsecureCookieBasedOAuthPersistence</span><span class="p">(</span><span class="s">&quot;Google&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// this is a test implementation of the OAuthPersistence interface, which should be</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// implemented by application developers</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">oAuthPersistence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureCookieBasedOAuthPersistence</span><span class="p">(</span><span class="s">&quot;Google&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// pre-defined configuration exist for common OAuth providers</span>
-    <span class="kd">val</span> <span class="nv">oauthProvider</span> <span class="o">=</span> <span class="n">OAuthProvider</span><span class="p">.</span><span class="na">google</span><span class="p">(</span>
-        <span class="n">ApacheClient</span><span class="p">(),</span>
-        <span class="n">Credentials</span><span class="p">(</span><span class="n">googleClientId</span><span class="p">,</span> <span class="n">googleClientSecret</span><span class="p">),</span>
-        <span class="n">callbackUri</span><span class="p">,</span>
-        <span class="n">oAuthPersistence</span>
-    <span class="p">)</span>
+<span class="w">    </span><span class="c1">// pre-defined configuration exist for common OAuth providers</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">oauthProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OAuthProvider</span><span class="p">.</span><span class="na">google</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">ApacheClient</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">Credentials</span><span class="p">(</span><span class="n">googleClientId</span><span class="p">,</span><span class="w"> </span><span class="n">googleClientSecret</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="n">callbackUri</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">oAuthPersistence</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// the 2 main points here are the callback handler and the authFilter, which protects the root resource</span>
-    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span>
-        <span class="n">routes</span><span class="p">(</span>
-            <span class="n">callbackUri</span><span class="p">.</span><span class="na">path</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="na">callback</span><span class="p">,</span>
-            <span class="s">&quot;/&quot;</span> <span class="n">bind</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">oauthProvider</span><span class="p">.</span><span class="na">authFilter</span><span class="p">.</span><span class="na">then</span> <span class="p">{</span> <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span> <span class="p">}</span>
-        <span class="p">)</span>
+<span class="w">    </span><span class="c1">// the 2 main points here are the callback handler and the authFilter, which protects the root resource</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">callbackUri</span><span class="p">.</span><span class="na">path</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">oauthProvider</span><span class="p">.</span><span class="na">callback</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">oauthProvider</span><span class="p">.</span><span class="na">authFilter</span><span class="p">.</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchAll</span><span class="p">()</span>
-        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">block</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchAll</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">app</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">block</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// browse to: http://localhost:9000 - you&#39;ll be redirected to google for authentication</span>
+<span class="c1">// browse to: http://localhost:9000 - you&#39;ll be redirected to google for authentication</span><span class="w"></span>
 </code></pre></div>
 
 <p>See the <a href="/guide/howto/use_a_custom_oauth_provider/">how-to guides</a> for a custom implementation.</p>
@@ -1149,44 +1149,44 @@ implementations of the provider to be used across environments.</li>
 </ol>
 <h4 id="example_filter">Example Filter <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/oauth/example_offline_oauth.kt"><img class="octocat"/></a><a class="headerlink" href="#example_filter" title="Permanent link">&para;</a></h4>
 <p>Http4k provides a filter that can be attached to your client to authorize requests to the OAuth resource server.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.reference.oauth</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.oauth</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.client.JavaHttpClient</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Credentials</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.then</span>
-<span class="k">import</span> <span class="nn">org.http4k.filter.ClientFilters</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.OAuthProviderConfig</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.oauth.client.OAuthOffline</span>
-<span class="k">import</span> <span class="nn">org.http4k.security.oauth.core.RefreshToken</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.JavaHttpClient</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Credentials</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.OAuthProviderConfig</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.client.OAuthOffline</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.core.RefreshToken</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// set these before running example</span>
-    <span class="kd">val</span> <span class="nv">refreshToken</span> <span class="o">=</span> <span class="n">RefreshToken</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;REFRESH_TOKEN&quot;</span><span class="p">))</span>
-    <span class="kd">val</span> <span class="nv">clientCredentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_ID&quot;</span><span class="p">),</span> <span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_SECRET&quot;</span><span class="p">))</span>
-    <span class="kd">val</span> <span class="nv">authServerBase</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;OAUTH_AUTH_SERVER_HOST&quot;</span><span class="p">))</span>
-    <span class="kd">val</span> <span class="nv">resourceServerHost</span> <span class="o">=</span> <span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;OAUTH_RESOURCE_SERVER_HOST&quot;</span><span class="p">))</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// set these before running example</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">refreshToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefreshToken</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;REFRESH_TOKEN&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">clientCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Credentials</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_ID&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;CLIENT_SECRET&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">authServerBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;OAUTH_AUTH_SERVER_HOST&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">resourceServerHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getenv</span><span class="p">(</span><span class="s">&quot;OAUTH_RESOURCE_SERVER_HOST&quot;</span><span class="p">))</span><span class="w"></span>
 
-    <span class="c1">// all the configuration we need to talk to our OAuth Auth Server (Google, Auth0, Okta, etc.)</span>
-    <span class="kd">val</span> <span class="nv">config</span> <span class="o">=</span> <span class="n">OAuthProviderConfig</span><span class="p">(</span>
-        <span class="n">authBase</span> <span class="o">=</span> <span class="n">authServerBase</span><span class="p">,</span>
-        <span class="n">authPath</span> <span class="o">=</span> <span class="s">&quot;/oauth2/authorize&quot;</span><span class="p">,</span>
-        <span class="n">tokenPath</span> <span class="o">=</span> <span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span>
-        <span class="n">credentials</span> <span class="o">=</span> <span class="n">clientCredentials</span>
-    <span class="p">)</span>
+<span class="w">    </span><span class="c1">// all the configuration we need to talk to our OAuth Auth Server (Google, Auth0, Okta, etc.)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OAuthProviderConfig</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">authBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authServerBase</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">authPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/oauth2/authorize&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">tokenPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">credentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clientCredentials</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1">// construct a client with a filter to authorize our requests to the OAuth Resource server</span>
-    <span class="kd">val</span> <span class="nv">client</span> <span class="o">=</span> <span class="n">ClientFilters</span><span class="p">.</span><span class="na">SetHostFrom</span><span class="p">(</span><span class="n">resourceServerHost</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">OAuthOffline</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">refreshToken</span><span class="p">,</span> <span class="n">JavaHttpClient</span><span class="p">()))</span>
-        <span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+<span class="w">    </span><span class="c1">// construct a client with a filter to authorize our requests to the OAuth Resource server</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">SetHostFrom</span><span class="p">(</span><span class="n">resourceServerHost</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">OAuthOffline</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">refreshToken</span><span class="p">,</span><span class="w"> </span><span class="n">JavaHttpClient</span><span class="p">()))</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span><span class="w"></span>
 
-    <span class="c1">// Make a request to the OAuth Resource server</span>
-    <span class="kd">val</span> <span class="nv">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/v1/secure/resource&quot;</span><span class="p">)</span>
-    <span class="kd">val</span> <span class="nv">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// Make a request to the OAuth Resource server</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/v1/secure/resource&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>

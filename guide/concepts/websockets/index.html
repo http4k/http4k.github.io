@@ -1059,38 +1059,38 @@
 <h3 id="wsmessage">WsMessage<a class="headerlink" href="#wsmessage" title="Permanent link">&para;</a></h3>
 <p>As per the <strong>http4k</strong> ethos, an immutable message object providing duplex communication between the server to the connected client. <a href="/guide/concepts/lens">Lenses</a> can be used to provide typesafe object marshalling with WsMessages.</p>
 <h3 id="websocket">WebSocket<a class="headerlink" href="#websocket" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Websocket</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">upgradeRequest</span><span class="p">:</span> <span class="n">Request</span>
-    <span class="kd">fun</span> <span class="nf">send</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="n">WsMessage</span><span class="p">)</span>
-    <span class="kd">fun</span> <span class="nf">close</span><span class="p">(</span><span class="n">status</span><span class="p">:</span> <span class="n">WsStatus</span> <span class="o">=</span> <span class="n">NORMAL</span><span class="p">)</span>
-    <span class="kd">fun</span> <span class="nf">onError</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">Throwable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span>
-    <span class="kd">fun</span> <span class="nf">onClose</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">WsStatus</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span>
-    <span class="kd">fun</span> <span class="nf">onMessage</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="p">(</span><span class="n">WsMessage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nc">Websocket</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">upgradeRequest</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="n">WsMessage</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="n">status</span><span class="p">:</span><span class="w"> </span><span class="n">WsStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NORMAL</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onError</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">Throwable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onClose</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">WsStatus</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onMessage</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">WsMessage</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>An interface representing the available server callback API to the WebSocket channel. WebSocket objects can <code>send()</code> WsMessages to the client, or react to incoming events by binding behaviour with <code>onMessage()</code>, <code>onError()</code> or  <code>onClose()</code>. The WebSocket has a reference to the incoming <a href="/guide/concepts/http#HttpMessage">HTTP Request</a> which was used during connection.</p>
 <h3 id="wsconsumer">WsConsumer<a class="headerlink" href="#wsconsumer" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">typealias</span> <span class="n">WsConsumer</span> <span class="o">=</span> <span class="p">(</span><span class="n">WebSocket</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<div class="codehilite"><pre><span></span><code><span class="k">typealias</span><span class="w"> </span><span class="n">WsConsumer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">WebSocket</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="w"></span>
 </code></pre></div>
 
 <p>The primary callback received when an WebSocket server is connected to a client. API user behaviour is configured here.</p>
 <h3 id="wshandler">WsHandler<a class="headerlink" href="#wshandler" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">typealias</span> <span class="n">WsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WsConsumer</span>
+<div class="codehilite"><pre><span></span><code><span class="k">typealias</span><span class="w"> </span><span class="n">WsHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">WsConsumer</span><span class="w"></span>
 </code></pre></div>
 
 <p>Provides the route mapping of an <a href="/guide/concepts/http#HttpMessage">HTTP Request</a> to a particular WsConsumer.</p>
 <h3 id="wsfilter">WsFilter<a class="headerlink" href="#wsfilter" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kd">fun</span> <span class="kd">interface</span> <span class="nc">WsFilter</span> <span class="p">:</span> <span class="p">(</span><span class="n">WsConsumer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WsConsumer</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">WsFilter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">WsConsumer</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">WsConsumer</span><span class="w"></span>
 </code></pre></div>
 
 <p>Applies decoration to a matched WsConsumer before it is invoked. WsFilters can be used to apply tangental effects to the matched WsConsumer such as logging/security, or to modify the incoming <a href="/guide/concepts/http#HttpMessage">HTTP Request</a>.</p>
 <h3 id="wsrouter">WsRouter<a class="headerlink" href="#wsrouter" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kd">interface</span> <span class="nc">WsRouter</span> <span class="p">{</span>
-    <span class="kd">fun</span> <span class="nf">match</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span> <span class="n">WsRouterMatch</span>
-    <span class="kd">fun</span> <span class="nf">withBasePath</span><span class="p">(</span><span class="n">new</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="n">WsRouter</span>
-    <span class="kd">fun</span> <span class="nf">withFilter</span><span class="p">(</span><span class="n">new</span><span class="p">:</span> <span class="n">WsFilter</span><span class="p">):</span> <span class="n">WsRouter</span>
-<span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nc">WsRouter</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">match</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">):</span><span class="w"> </span><span class="n">WsRouterMatch</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">withBasePath</span><span class="p">(</span><span class="n">new</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">WsRouter</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">withFilter</span><span class="p">(</span><span class="n">new</span><span class="p">:</span><span class="w"> </span><span class="n">WsFilter</span><span class="p">):</span><span class="w"> </span><span class="n">WsRouter</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
 <p>Applies the route matching functionality when requests for WebSocket connections are received by the server.</p>

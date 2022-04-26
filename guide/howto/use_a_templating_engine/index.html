@@ -1056,44 +1056,44 @@
                     
                     <p>Example showing how to use the Templating modules - in this case Handlebars, both by standard response manipulation and via a typesafe view lens.</p>
 <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
-<span class="n">implementation</span> <span class="nl">group:</span> <span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">&quot;http4k-template-handlebars&quot;</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">&quot;4.25.10.1&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
+<span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-template-handlebars&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.25.10.1&quot;</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/use_a_templating_engine/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span> <span class="nn">guide.howto.use_a_templating_engine</span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.use_a_templating_engine</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nn">org.http4k.core.Body</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.ContentType.Companion.TEXT_HTML</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.HttpHandler</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Response</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.Status.Companion.OK</span>
-<span class="k">import</span> <span class="nn">org.http4k.core.with</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.HandlebarsTemplates</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.ViewModel</span>
-<span class="k">import</span> <span class="nn">org.http4k.template.viewModel</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Body</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.ContentType.Companion.TEXT_HTML</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.template.HandlebarsTemplates</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.template.ViewModel</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.template.viewModel</span><span class="w"></span>
 
-<span class="c1">// this view has the default template path of: guide/howto/using_templates/Person.hbs, although that is overridable by</span>
-<span class="c1">// setting the template property from ViewModel</span>
-<span class="kd">data</span> <span class="kd">class</span> <span class="nc">Person</span><span class="p">(</span><span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span>
+<span class="c1">// this view has the default template path of: guide/howto/using_templates/Person.hbs, although that is overridable by</span><span class="w"></span>
+<span class="c1">// setting the template property from ViewModel</span><span class="w"></span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">age</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ViewModel</span><span class="w"></span>
 
-<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">renderer</span> <span class="o">=</span> <span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="na">HotReload</span><span class="p">(</span><span class="s">&quot;src/docs&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">renderer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HandlebarsTemplates</span><span class="p">().</span><span class="na">HotReload</span><span class="p">(</span><span class="s">&quot;src/docs&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">view</span> <span class="o">=</span> <span class="n">Body</span><span class="p">.</span><span class="na">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">TEXT_HTML</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Body</span><span class="p">.</span><span class="na">viewModel</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">TEXT_HTML</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span><span class="w"></span>
 
-    <span class="kd">val</span> <span class="nv">app</span><span class="p">:</span> <span class="n">HttpHandler</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="kd">val</span> <span class="nv">viewModel</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span> <span class="m">45</span><span class="p">)</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">))</span>
-        <span class="c1">// OR:</span>
-        <span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">view</span> <span class="n">of</span> <span class="n">viewModel</span><span class="p">)</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">viewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Person</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span><span class="w"> </span><span class="m">45</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">renderer</span><span class="p">(</span><span class="n">viewModel</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// OR:</span><span class="w"></span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">view</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">viewModel</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span> <span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
                 </div>
