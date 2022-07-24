@@ -1063,7 +1063,7 @@
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>This module provides http4k integration for the excellent <a href="https://www.graphql-java.com/">GraphQL-java</a> library, allowing you to either serve or consume <a href="https://graphql.org">GraphQL</a> services using a simple adapter API.</p>
-<p>As with the ethos of http4k, the uniform Server/Client GraphQLHandler model means that you can test applications entirely in-memory without binding to a port.</p>
+<p>As with the ethos of http4k, the uniform Server/Client GraphQLHandler model means that you can test applications entirely in-memory without binding to a port. Http4k also ships with a page serving the GraphQL playground which can be added as a simple route.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/graphql/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.graphql</span><span class="w"></span>
 
@@ -1080,6 +1080,7 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.graphql.GraphQLResponse</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.graphQL</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.graphQLPlayground</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
@@ -1109,7 +1110,8 @@
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="s">&quot;/graphql&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">graphQL</span><span class="p">(</span><span class="n">MyGraphQLHandler</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;/graphql&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">graphQL</span><span class="p">(</span><span class="n">MyGraphQLHandler</span><span class="p">),</span><span class="w"></span>
+<span class="w">        </span><span class="n">graphQLPlayground</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;/graphql&quot;</span><span class="p">))</span><span class="w"></span>
 <span class="w">    </span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// serve GQL queries/mutations at /graphql</span><span class="w"></span>
@@ -1125,7 +1127,7 @@
 <span class="s">    }&quot;&quot;&quot;</span><span class="p">))</span><span class="w"></span>
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;You can visit the GraphQL playground at: http://localhost:8000&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
