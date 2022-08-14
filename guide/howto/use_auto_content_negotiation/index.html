@@ -1088,13 +1088,14 @@ but there are scenarios where you may want to offer the user their choice of for
 <p>While it is possible to use the <code>ACCEPT</code> and <code>CONTENT_TYPE</code> lenses to manually select the inbound and outbound body lenses,
 the <code>AutoContentNegotiator</code> can do this for you.</p>
 <h3 id="using_auto_content_negotiation">Using Auto Content Negotiation <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/typesafe_your_api_with_lenses/example_result4k.kt"><img class="octocat"/></a><a class="headerlink" href="#using_auto_content_negotiation" title="Permanent link">&para;</a></h3>
-<p>The <code>AutoContentNegotiator starts with your selection of body lenses, and wraps them together.
+<p>The <code>AutoContentNegotiator</code> starts with your selection of body lenses, and wraps them together.
 It can then be used to:
-- Unmarshall</code>Request<code>bodies based on the</code>CONTENT_TYPE<code>header
-- Select an outbound</code>BodyLens<code>, based on the</code>ACCEPT` header
+- Unmarshall <code>Request</code> bodies based on the <code>CONTENT_TYPE</code> header
+- Select an outbound <code>BodyLens</code>, based on the <code>ACCEPT</code> header
 - Add all the request and body formats to your contract</p>
 <p>If the <code>CONTENT_TYPE</code> and <code>ACCEPT</code> headers are not present, or if there is no lens for the requested format,
 then a default lens is used.</p>
+<h3 id="example">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/use_auto_content_negotiation/example.kt"><img class="octocat"/></a><a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.use_auto_content_negotiation</span><span class="w"></span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.ContractRoute</span><span class="w"></span>
