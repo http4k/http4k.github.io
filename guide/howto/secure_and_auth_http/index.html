@@ -1084,6 +1084,7 @@
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.secure_and_auth_http</span><span class="w"></span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Body</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Credentials</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
@@ -1103,9 +1104,9 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.ExpiringCredentials</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.RefreshCredentials</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.Refreshing</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.accessTokenResponseBody</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.client.OAuthClientCredentials</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.client.RefreshingOAuthToken</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.OAuthServerMoshi.auto</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Http4kServer</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
@@ -1185,7 +1186,7 @@
 <span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;refreshing oauth token (was &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;)&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">            </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">accessTokenResponseBody</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">AccessTokenResponse</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">AccessTokenResponse</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">AccessTokenResponse</span><span class="p">(</span><span class="w"></span>
 <span class="w">                    </span><span class="n">access_token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bearerTokenOAuth&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">(),</span><span class="w"></span>
 <span class="w">                    </span><span class="n">expires_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"></span>
 <span class="w">                    </span><span class="n">refresh_token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;refreshToken&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">(),</span><span class="w"></span>
