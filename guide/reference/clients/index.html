@@ -1272,7 +1272,8 @@
 <span class="w">        </span><span class="n">guide</span><span class="p">.</span><span class="na">howto</span><span class="p">.</span><span class="na">serve_websockets</span><span class="p">.</span><span class="na">testApp</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/bob&quot;</span><span class="p">))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
-<span class="c1">// a integration test version of the contract - it starts a server and connects to the websocket over the network</span><span class="w"></span>
+<span class="c1">// a integration test version of the contract -</span><span class="w"></span>
+<span class="c1">// it starts a server and connects to the websocket over the network</span><span class="w"></span>
 <span class="kd">class</span><span class="w"> </span><span class="nc">WebsocketServerTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WebsocketContract</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span><span class="w"></span>
 

@@ -1136,10 +1136,15 @@
 <span class="w">        </span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="n">port</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">block</span><span class="p">()</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
-<span class="c1">// this interface allows us to provide custom logic for storing and verifying the CSRF and AccessTokens.</span><span class="w"></span>
-<span class="c1">// to be maximally secure, never let the end-user see the access token!</span><span class="w"></span>
-<span class="c1">// also avoid allowing third parties set the original uri as this might allow phishing attacks</span><span class="w"></span>
-<span class="c1">// on strategy is might be to use an enum to map to a set of know uris</span><span class="w"></span>
+<span class="c1">// This interface allows us to provide custom logic for storing and</span><span class="w"></span>
+<span class="c1">// verifying the CSRF and AccessTokens.</span><span class="w"></span>
+<span class="c1">//</span><span class="w"></span>
+<span class="c1">// To be maximally secure, never let the end-user see the access token!</span><span class="w"></span>
+<span class="c1">//</span><span class="w"></span>
+<span class="c1">// Also avoid allowing third parties set the original uri as this might</span><span class="w"></span>
+<span class="c1">// allow phishing attacks.</span><span class="w"></span>
+<span class="c1">//</span><span class="w"></span>
+<span class="c1">// One strategy might be to use an enum to map to a set of know uris</span><span class="w"></span>
 <span class="c1">// e.g. shoppingCart -&gt; /cart</span><span class="w"></span>
 <span class="kd">class</span><span class="w"> </span><span class="nc">CustomOAuthPersistence</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">OAuthPersistence</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">nonce</span><span class="p">:</span><span class="w"> </span><span class="n">Nonce? </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>

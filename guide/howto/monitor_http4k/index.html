@@ -1108,10 +1108,9 @@
 <span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// ... or to a client</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">        </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">MicrometerMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">(</span><span class="n">registry</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// make some calls</span><span class="w"></span>
 <span class="w">    </span><span class="p">(</span><span class="m">0.</span><span class="p">.</span><span class="m">10</span><span class="p">).</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"></span>

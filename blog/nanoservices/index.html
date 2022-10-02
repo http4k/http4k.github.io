@@ -1362,7 +1362,8 @@
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">`static file server`</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// by default, static servers will only serve known file types, or those registered on construction</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// by default, static servers will only serve known file types,</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// or those registered on construction</span><span class="w"></span>
 <span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">()(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/version.json&quot;</span><span class="p">)))</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>

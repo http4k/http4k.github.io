@@ -1093,7 +1093,8 @@ implementations DO NOT have any facility for Cache Control or eviction, or respe
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-<span class="w">    </span><span class="c1">// set up storage to cache a set of HTTP traffic. Disk and Memory implementations are provided.</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// set up storage to cache a set of HTTP traffic.</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Disk and Memory implementations are provided.</span><span class="w"></span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadWriteCache</span><span class="p">.</span><span class="na">Disk</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// wrap any HTTP Handler in a Recording Filter and play traffic through it</span><span class="w"></span>
@@ -1106,7 +1107,8 @@ implementations DO NOT have any facility for Cache Control or eviction, or respe
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">aRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">withCachedContent</span><span class="p">(</span><span class="n">aRequest</span><span class="p">))</span><span class="w"></span>
 
-<span class="w">    </span><span class="c1">// repeated requests are intercepted by the cache and the responses provided without hitting the original handler</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// repeated requests are intercepted by the cache and</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// the responses provided without hitting the original handler</span><span class="w"></span>
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">withCachedContent</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000/&quot;</span><span class="p">)))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
@@ -1128,7 +1130,8 @@ implementations DO NOT have any facility for Cache Control or eviction, or respe
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-<span class="w">    </span><span class="c1">// set up storage to stash a stream of HTTP traffic. Disk and Memory implementations are provided.</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// set up storage to stash a stream of HTTP traffic.</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Disk and Memory implementations are provided.</span><span class="w"></span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadWriteStream</span><span class="p">.</span><span class="na">Memory</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// wrap any HTTP Handler in a Recording Filter and play traffic through it</span><span class="w"></span>
