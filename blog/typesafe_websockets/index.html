@@ -1187,7 +1187,10 @@
 
 <span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`echoes back connected name`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">().</span><span class="na">received</span><span class="p">().</span><span class="na">take</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="na">toList</span><span class="p">(),</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello bob&quot;</span><span class="p">))))</span><span class="w"></span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">client</span><span class="p">().</span><span class="na">received</span><span class="p">().</span><span class="na">take</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="na">toList</span><span class="p">(),</span><span class="w"></span>
+<span class="w">            </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello bob&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 

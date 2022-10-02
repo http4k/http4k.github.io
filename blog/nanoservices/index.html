@@ -1428,11 +1428,12 @@
 <span class="kd">fun</span><span class="w"> </span><span class="nf">`websocket terminal`</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
 <span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
 <span class="w">        </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">getRuntime</span><span class="p">()</span><span class="w"></span>
-<span class="w">                    </span><span class="p">.</span><span class="na">exec</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
-<span class="w">                    </span><span class="p">.</span><span class="na">inputStream</span><span class="p">.</span><span class="na">reader</span><span class="p">().</span><span class="na">readText</span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="p">))</span><span class="w"></span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getRuntime</span><span class="p">().</span><span class="na">exec</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="na">inputStream</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="na">reader</span><span class="p">()</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="na">readText</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="n">text</span><span class="p">))</span><span class="w"></span>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Netty</span><span class="p">()).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
 

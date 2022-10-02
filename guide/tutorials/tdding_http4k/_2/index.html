@@ -1122,8 +1122,16 @@ also been converted to reusable extension methods on Response.</p>
 
 <span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`all endpoints are mounted correctly`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span><span class="w"></span>
-<span class="w">        </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span><span class="w"></span>
+<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">client</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">Request</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">GET</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/add?value=1&amp;value=2&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
@@ -1142,7 +1150,10 @@ also been converted to reusable extension methods on Response.</p>
 
 <span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/add?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/add?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span><span class="w"></span>
+<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>

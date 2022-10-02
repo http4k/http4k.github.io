@@ -1150,10 +1150,12 @@
 
 <span class="w">    </span><span class="c1">// custom configured client</span><span class="w"></span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">customClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApacheClient</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HttpClients</span><span class="p">.</span><span class="na">custom</span><span class="p">().</span><span class="na">setDefaultRequestConfig</span><span class="p">(</span><span class="n">RequestConfig</span><span class="p">.</span><span class="na">custom</span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">setRedirectsEnabled</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">setCookieSpec</span><span class="p">(</span><span class="n">StandardCookieSpec</span><span class="p">.</span><span class="na">IGNORE</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">())</span><span class="w"></span>
+<span class="w">        </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HttpClients</span><span class="p">.</span><span class="na">custom</span><span class="p">().</span><span class="na">setDefaultRequestConfig</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">RequestConfig</span><span class="p">.</span><span class="na">custom</span><span class="p">()</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="na">setRedirectsEnabled</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="na">setCookieSpec</span><span class="p">(</span><span class="n">StandardCookieSpec</span><span class="p">.</span><span class="na">IGNORE</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 <span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">()</span><span class="w"></span>
 <span class="w">    </span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
@@ -1257,13 +1259,17 @@
 
 <span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`echoes back connected name`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">().</span><span class="na">received</span><span class="p">().</span><span class="na">take</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="na">toList</span><span class="p">(),</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello bob&quot;</span><span class="p">))))</span><span class="w"></span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">client</span><span class="p">().</span><span class="na">received</span><span class="p">().</span><span class="na">take</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="na">toList</span><span class="p">(),</span><span class="w"></span>
+<span class="w">            </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello bob&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
 <span class="c1">// a unit test version of the contract - it connects to the websocket in memory with no network</span><span class="w"></span>
 <span class="kd">class</span><span class="w"> </span><span class="nc">WebsocketUnitTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WebsocketContract</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guide</span><span class="p">.</span><span class="na">howto</span><span class="p">.</span><span class="na">serve_websockets</span><span class="p">.</span><span class="na">testApp</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/bob&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">guide</span><span class="p">.</span><span class="na">howto</span><span class="p">.</span><span class="na">serve_websockets</span><span class="p">.</span><span class="na">testApp</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/bob&quot;</span><span class="p">))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
 <span class="c1">// a integration test version of the contract - it starts a server and connects to the websocket over the network</span><span class="w"></span>

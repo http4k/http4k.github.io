@@ -1270,7 +1270,8 @@
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">performA</span><span class="p">(</span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="n">Method</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; got a &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">performA</span><span class="p">(</span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="n">Method</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; got a &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 <h3 id="dynamic_behaviour_injection_using_chaos_controls">Dynamic behaviour injection using Chaos Controls<a class="headerlink" href="#dynamic_behaviour_injection_using_chaos_controls" title="Permanent link">&para;</a></h3>
@@ -1386,7 +1387,14 @@
 <span class="s">          }</span>
 <span class="s">        }]</span>
 <span class="s">        &quot;&quot;&quot;</span><span class="p">.</span><span class="na">trimIndent</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/chaos/activate/new&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">alwaysReturn418</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">appWithChaos</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">Request</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">POST</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="s">&quot;/chaos/activate/new&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">alwaysReturn418</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">).</span><span class="na">bodyString</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>

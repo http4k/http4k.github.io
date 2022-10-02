@@ -1187,9 +1187,13 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/reference/api/v1/swagger.json&quot;</span><span class="p">)))</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/reference/api/v1/echo&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;reference/api&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;42&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{&quot;name&quot;:&quot;Bob&quot;,&quot;message&quot;:&quot;Hello&quot;}&quot;&quot;&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">handler</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/reference/api/v1/echo&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;reference/api&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;42&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;&quot;&quot;{&quot;name&quot;:&quot;Bob&quot;,&quot;message&quot;:&quot;Hello&quot;}&quot;&quot;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 

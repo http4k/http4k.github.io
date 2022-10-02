@@ -1110,7 +1110,10 @@ documentation, and checking in a high-level way that the business endpoints are 
 
 <span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`responds to ping`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span><span class="w"></span>
+<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
@@ -1125,7 +1128,8 @@ documentation, and checking in a high-level way that the business endpoints are 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 <ul>
