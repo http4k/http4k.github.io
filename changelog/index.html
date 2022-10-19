@@ -1078,12 +1078,13 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API 
 changes with their rationale when appropriate:</p>
-<h3 id="v43240_uncut">v4.32.4.0 (uncut)<a class="headerlink" href="#v43240_uncut" title="Permanent link">&para;</a></h3>
+<h3 id="v43240">v4.32.4.0<a class="headerlink" href="#v43240" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Move Jakarta Servlet code from Jetty as is now shared.</li>
 <li><strong>http4k-contract</strong> : Add <code>UserCredentialsOAuthSecurity</code>.  This allows the OpenApi spec to define a Resource Owner Password Credentials grant.  It also includes a shortcut to load the principal into a <code>RequestContextLens</code>.  H/T @oharaandrew314</li>
 <li><strong>http4k-core</strong>: Add <code>StringBiDiMappings.csv</code> to map between string and list, with a configurable delimiter and element mapping.  H/T @oharaandrew314 </li>
+<li><strong>http4k-multipart</strong>: Add <code>DiskLocation</code> and the ability to keep uploaded files permanently stored on disk. H/T @jippeholwerda</li>
 </ul>
 <h3 id="v43230">v4.32.3.0<a class="headerlink" href="#v43230" title="Permanent link">&para;</a></h3>
 <ul>
