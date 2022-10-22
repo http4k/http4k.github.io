@@ -15,19 +15,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k extension modules and integrations">
-<meta name="twitter:title" content="http4k extension modules and integrations">
-<meta property="og:title" content="http4k extension modules and integrations" />
+<meta itemprop="name" content="http4k How-to: Use Moshi with "lite" Reflection">
+<meta name="twitter:title" content="http4k How-to: Use Moshi with "lite" Reflection">
+<meta property="og:title" content="http4k How-to: Use Moshi with "lite" Reflection" />
 
 
 
-<meta name="description" content="Details about the various http4k integration libraries">
-<meta property="og:description" content="Details about the various http4k integration libraries" />
-<meta name="twitter:description" content="Details about the various http4k integration libraries">
+<meta name="description" content="Recipe to use Moshi AutoMarshalling with a "lite" reflection backend">
+<meta property="og:description" content="Recipe to use Moshi AutoMarshalling with a "lite" reflection backend" />
+<meta name="twitter:description" content="Recipe to use Moshi AutoMarshalling with a "lite" reflection backend">
 
 
 
-<link rel="canonical" href="https://www.http4k.org/guide/reference/">
+<link rel="canonical" href="https://www.http4k.org/guide/howto/moshi_lite/">
 
 
 
@@ -81,7 +81,7 @@
     
     
     
-    <title>http4k extension modules and integrations</title>
+    <title>http4k How-to: Use Moshi with "lite" Reflection</title>
     
     
     
@@ -102,7 +102,7 @@
     
     <link rel="stylesheet" href="/css/main.css"/>
     
-    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../../css/site.css">
     
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
@@ -133,7 +133,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../documentation/"
+               href="../../../documentation/"
                title="Introduction">Introduction</a>
         </li>
     
@@ -145,7 +145,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../quickstart/"
+               href="../../../quickstart/"
                title="Quickstart">Quickstart</a>
         </li>
     
@@ -157,7 +157,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../"
+               href="../../"
                title="About the docs">About the docs</a>
         </li>
     
@@ -180,7 +180,7 @@
             
     
         <a class="dropdown-item "
-           href="../concepts/rationale/"
+           href="../../concepts/rationale/"
            title="Rationale">Rationale</a>
     
 
@@ -189,7 +189,7 @@
             
     
         <a class="dropdown-item "
-           href="../concepts/http/"
+           href="../../concepts/http/"
            title="HTTP">HTTP</a>
     
 
@@ -198,7 +198,7 @@
             
     
         <a class="dropdown-item "
-           href="../concepts/serverless/"
+           href="../../concepts/serverless/"
            title="Serverless">Serverless</a>
     
 
@@ -207,7 +207,7 @@
             
     
         <a class="dropdown-item "
-           href="../concepts/websockets/"
+           href="../../concepts/websockets/"
            title="WebSockets">WebSockets</a>
     
 
@@ -216,7 +216,7 @@
             
     
         <a class="dropdown-item "
-           href="../concepts/server-sent-events/"
+           href="../../concepts/server-sent-events/"
            title="Server-Sent Events">Server-Sent Events</a>
     
 
@@ -243,7 +243,7 @@
             
     
         <a class="dropdown-item "
-           href="../tutorials/your_first_http4k_app/"
+           href="../../tutorials/your_first_http4k_app/"
            title="Your first http4k app">Your first http4k app</a>
     
 
@@ -252,7 +252,7 @@
             
     
         <a class="dropdown-item "
-           href="../tutorials/serverless_http4k_with_aws_lambda/"
+           href="../../tutorials/serverless_http4k_with_aws_lambda/"
            title="Deploying an http4k app to AWS Lambda">Deploying an http4k app to AWS Lambda</a>
     
 
@@ -261,7 +261,7 @@
             
     
         <a class="dropdown-item "
-           href="../tutorials/going_native_with_graal_on_aws_lambda/"
+           href="../../tutorials/going_native_with_graal_on_aws_lambda/"
            title="Going native with Graal on AWS Lambda">Going native with Graal on AWS Lambda</a>
     
 
@@ -270,305 +270,8 @@
             
     
         <a class="dropdown-item "
-           href="../tutorials/tdding_http4k/"
+           href="../../tutorials/tdding_http4k/"
            title="TDDing http4k">TDDing http4k</a>
-    
-
-            
-            </div>
-        </li>
-    
-
-        
-        
-        
-        
-    
-        <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle "
-               data-toggle="dropdown"
-               href="#"
-               role="button"
-               aria-haspopup="true"
-               aria-expanded="false">How-to guides</a>
-            <div class="dropdown-menu ">
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/"
-           title="Overview">Overview</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/server_as_a_function/"
-           title="Basic: Server as a function">Basic: Server as a function</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/client_as_a_function/"
-           title="Basic: Client as a function">Basic: Client as a function</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/use_a_server_backend/"
-           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/write_different_test_types/"
-           title="Basic: Different test-types">Basic: Different test-types</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/simple_routing/"
-           title="Basic: Simple routing">Basic: Simple routing</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/nestable_routes/"
-           title="Basic: Nestable routes">Basic: Nestable routes</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/attach_context_to_a_request/"
-           title="Attach context to a request">Attach context to a request</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/configure_an_oauth_server/"
-           title="Configure an OAuth Server">Configure an OAuth Server</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/create_a_custom_json_marshaller/"
-           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/customise_a_server_backend/"
-           title="Customise a Server backend">Customise a Server backend</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/deploy_webjars/"
-           title="Deploy WebJars">Deploy WebJars</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/integrate_with_openapi/"
-           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/leverage_graphql/"
-           title="Leverage GraphQL">Leverage GraphQL</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/lookup_a_user_principal/"
-           title="Lookup a User Principal">Lookup a User Principal</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/monitor_http4k/"
-           title="Monitor http4k">Monitor http4k</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/record_and_replay_http_traffic/"
-           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/serve_sse/"
-           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/serve_websockets/"
-           title="Serve Websockets">Serve Websockets</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/structure_your_logs_with_events/"
-           title="Structure your logs with Events">Structure your logs with Events</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/test_using_service_virtualisation/"
-           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/typesafe_your_api_with_lenses/"
-           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/secure_and_auth_http/"
-           title="Secure and auth HTTP services">Secure and auth HTTP services</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/use_a_custom_oauth_provider/"
-           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/use_a_templating_engine/"
-           title="Use a templating engines">Use a templating engines</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/use_html_forms/"
-           title="Use HTML forms">Use HTML forms</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/use_multipart_forms/"
-           title="Use Multipart forms">Use Multipart forms</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/create_a_distributed_tracing_tree/"
-           title="Create a Distributed Tracing tree">Create a Distributed Tracing tree</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/use_auto_content_negotiation/"
-           title="Use Auto Content Negotiation">Use Auto Content Negotiation</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/create_a_swagger_ui/"
-           title="Create a Swagger UI">Create a Swagger UI</a>
-    
-
-            
-            
-            
-    
-        <a class="dropdown-item "
-           href="../howto/moshi_lite/"
-           title="Use Moshi with "lite" Reflection">Use Moshi with "lite" Reflection</a>
     
 
             
@@ -587,14 +290,14 @@
                href="#"
                role="button"
                aria-haspopup="true"
-               aria-expanded="true">Reference</a>
+               aria-expanded="true">How-to guides</a>
             <div class="dropdown-menu show">
             
             
             
     
-        <a class="dropdown-item active"
-           href="./"
+        <a class="dropdown-item "
+           href="../"
            title="Overview">Overview</a>
     
 
@@ -603,7 +306,304 @@
             
     
         <a class="dropdown-item "
-           href="../../api/"
+           href="../server_as_a_function/"
+           title="Basic: Server as a function">Basic: Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../client_as_a_function/"
+           title="Basic: Client as a function">Basic: Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_server_backend/"
+           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../write_different_test_types/"
+           title="Basic: Different test-types">Basic: Different test-types</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../simple_routing/"
+           title="Basic: Simple routing">Basic: Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../nestable_routes/"
+           title="Basic: Nestable routes">Basic: Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../attach_context_to_a_request/"
+           title="Attach context to a request">Attach context to a request</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../configure_an_oauth_server/"
+           title="Configure an OAuth Server">Configure an OAuth Server</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../create_a_custom_json_marshaller/"
+           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../customise_a_server_backend/"
+           title="Customise a Server backend">Customise a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../deploy_webjars/"
+           title="Deploy WebJars">Deploy WebJars</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../integrate_with_openapi/"
+           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../leverage_graphql/"
+           title="Leverage GraphQL">Leverage GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../lookup_a_user_principal/"
+           title="Lookup a User Principal">Lookup a User Principal</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../monitor_http4k/"
+           title="Monitor http4k">Monitor http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../record_and_replay_http_traffic/"
+           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../serve_sse/"
+           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../serve_websockets/"
+           title="Serve Websockets">Serve Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../structure_your_logs_with_events/"
+           title="Structure your logs with Events">Structure your logs with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../test_using_service_virtualisation/"
+           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../typesafe_your_api_with_lenses/"
+           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../secure_and_auth_http/"
+           title="Secure and auth HTTP services">Secure and auth HTTP services</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_custom_oauth_provider/"
+           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_a_templating_engine/"
+           title="Use a templating engines">Use a templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_html_forms/"
+           title="Use HTML forms">Use HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_multipart_forms/"
+           title="Use Multipart forms">Use Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../create_a_distributed_tracing_tree/"
+           title="Create a Distributed Tracing tree">Create a Distributed Tracing tree</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../use_auto_content_negotiation/"
+           title="Use Auto Content Negotiation">Use Auto Content Negotiation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../create_a_swagger_ui/"
+           title="Create a Swagger UI">Create a Swagger UI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item active"
+           href="./"
+           title="Use Moshi with "lite" Reflection">Use Moshi with "lite" Reflection</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Reference</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../reference/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../api/"
            title="API docs">API docs</a>
     
 
@@ -612,7 +612,7 @@
             
     
         <a class="dropdown-item "
-           href="core/"
+           href="../../reference/core/"
            title="Core">Core</a>
     
 
@@ -621,7 +621,7 @@
             
     
         <a class="dropdown-item "
-           href="servers/"
+           href="../../reference/servers/"
            title="Server backend">Server backend</a>
     
 
@@ -630,7 +630,7 @@
             
     
         <a class="dropdown-item "
-           href="serverless/"
+           href="../../reference/serverless/"
            title="Serverless backend">Serverless backend</a>
     
 
@@ -639,7 +639,7 @@
             
     
         <a class="dropdown-item "
-           href="clients/"
+           href="../../reference/clients/"
            title="HTTP & Websocket clients">HTTP & Websocket clients</a>
     
 
@@ -648,7 +648,7 @@
             
     
         <a class="dropdown-item "
-           href="contracts/"
+           href="../../reference/contracts/"
            title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
     
 
@@ -657,7 +657,7 @@
             
     
         <a class="dropdown-item "
-           href="json/"
+           href="../../reference/json/"
            title="JSON handling">JSON handling</a>
     
 
@@ -666,7 +666,7 @@
             
     
         <a class="dropdown-item "
-           href="templating/"
+           href="../../reference/templating/"
            title="Templating">Templating</a>
     
 
@@ -675,7 +675,7 @@
             
     
         <a class="dropdown-item "
-           href="multipart/"
+           href="../../reference/multipart/"
            title="Multipart forms">Multipart forms</a>
     
 
@@ -684,7 +684,7 @@
             
     
         <a class="dropdown-item "
-           href="cloud_native/"
+           href="../../reference/cloud_native/"
            title="Cloud Native Configuration">Cloud Native Configuration</a>
     
 
@@ -693,7 +693,7 @@
             
     
         <a class="dropdown-item "
-           href="cloud_events/"
+           href="../../reference/cloud_events/"
            title="Cloud Events">Cloud Events</a>
     
 
@@ -702,7 +702,7 @@
             
     
         <a class="dropdown-item "
-           href="micrometer/"
+           href="../../reference/micrometer/"
            title="Micrometer">Micrometer</a>
     
 
@@ -711,7 +711,7 @@
             
     
         <a class="dropdown-item "
-           href="opentelemetry/"
+           href="../../reference/opentelemetry/"
            title="OpenTelemetry">OpenTelemetry</a>
     
 
@@ -720,7 +720,7 @@
             
     
         <a class="dropdown-item "
-           href="resilience4j/"
+           href="../../reference/resilience4j/"
            title="Resilience4J">Resilience4J</a>
     
 
@@ -729,7 +729,7 @@
             
     
         <a class="dropdown-item "
-           href="aws/"
+           href="../../reference/aws/"
            title="AWS">AWS</a>
     
 
@@ -738,7 +738,7 @@
             
     
         <a class="dropdown-item "
-           href="oauth/"
+           href="../../reference/oauth/"
            title="OAuth">OAuth</a>
     
 
@@ -747,7 +747,7 @@
             
     
         <a class="dropdown-item "
-           href="graphql/"
+           href="../../reference/graphql/"
            title="GraphQL">GraphQL</a>
     
 
@@ -756,7 +756,7 @@
             
     
         <a class="dropdown-item "
-           href="jsonrpc/"
+           href="../../reference/jsonrpc/"
            title="JSON RPC">JSON RPC</a>
     
 
@@ -765,7 +765,7 @@
             
     
         <a class="dropdown-item "
-           href="xml/"
+           href="../../reference/xml/"
            title="XML handling">XML handling</a>
     
 
@@ -774,7 +774,7 @@
             
     
         <a class="dropdown-item "
-           href="yaml/"
+           href="../../reference/yaml/"
            title="YAML handling">YAML handling</a>
     
 
@@ -794,7 +794,7 @@
             
     
         <a class="dropdown-item "
-           href="testing/"
+           href="../../reference/testing/"
            title="Overview">Overview</a>
     
 
@@ -803,7 +803,7 @@
             
     
         <a class="dropdown-item "
-           href="approvaltests/"
+           href="../../reference/approvaltests/"
            title="Approval Testing">Approval Testing</a>
     
 
@@ -812,7 +812,7 @@
             
     
         <a class="dropdown-item "
-           href="chaos/"
+           href="../../reference/chaos/"
            title="Chaos Testing">Chaos Testing</a>
     
 
@@ -821,7 +821,7 @@
             
     
         <a class="dropdown-item "
-           href="hamkrest/"
+           href="../../reference/hamkrest/"
            title="Hamkrest">Hamkrest</a>
     
 
@@ -830,7 +830,7 @@
             
     
         <a class="dropdown-item "
-           href="kotest/"
+           href="../../reference/kotest/"
            title="Kotest">Kotest</a>
     
 
@@ -839,7 +839,7 @@
             
     
         <a class="dropdown-item "
-           href="servicevirtualisation/"
+           href="../../reference/servicevirtualisation/"
            title="Service Virtualisation">Service Virtualisation</a>
     
 
@@ -848,7 +848,7 @@
             
     
         <a class="dropdown-item "
-           href="strikt/"
+           href="../../reference/strikt/"
            title="Strikt">Strikt</a>
     
 
@@ -857,7 +857,7 @@
             
     
         <a class="dropdown-item "
-           href="webdriver/"
+           href="../../reference/webdriver/"
            title="WebDriver">WebDriver</a>
     
 
@@ -888,7 +888,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/"
+           href="../../../blog/"
            title="Overview">Overview</a>
     
 
@@ -897,7 +897,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/meet_http4k/"
+           href="../../../blog/meet_http4k/"
            title="Meet http4k">Meet http4k</a>
     
 
@@ -906,7 +906,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/typesafe_websockets/"
+           href="../../../blog/typesafe_websockets/"
            title="Typesafe Websockets">Typesafe Websockets</a>
     
 
@@ -915,7 +915,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/typesafe_configuration/"
+           href="../../../blog/typesafe_configuration/"
            title="Typesafe 12-factor config">Typesafe 12-factor config</a>
     
 
@@ -924,7 +924,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/documenting_apis_with_openapi/"
+           href="../../../blog/documenting_apis_with_openapi/"
            title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
     
 
@@ -933,7 +933,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/retrospective_v3/"
+           href="../../../blog/retrospective_v3/"
            title="Retrospective on v3">Retrospective on v3</a>
     
 
@@ -942,7 +942,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/nanoservices/"
+           href="../../../blog/nanoservices/"
            title="Nanoservices">Nanoservices</a>
     
 
@@ -951,7 +951,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/toolbox/"
+           href="../../../blog/toolbox/"
            title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
     
 
@@ -960,7 +960,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/http4k_v4/"
+           href="../../../blog/http4k_v4/"
            title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
     
 
@@ -969,7 +969,7 @@
             
     
         <a class="dropdown-item "
-           href="../../blog/regarding_jcenter/"
+           href="../../../blog/regarding_jcenter/"
            title="JCenter Shutdown">JCenter Shutdown</a>
     
 
@@ -985,7 +985,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../changelog/"
+               href="../../../changelog/"
                title="Changelog">Changelog</a>
         </li>
     
@@ -997,7 +997,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../in_action/"
+               href="../../../in_action/"
                title="http4k in action">http4k in action</a>
         </li>
     
@@ -1009,7 +1009,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../performance/"
+               href="../../../performance/"
                title="Performance">Performance</a>
         </li>
     
@@ -1021,7 +1021,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../faq/"
+               href="../../../faq/"
                title="FAQ">FAQ</a>
         </li>
     
@@ -1033,7 +1033,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../support/"
+               href="../../../support/"
                title="Getting support">Getting support</a>
         </li>
     
@@ -1045,7 +1045,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../contributing/"
+               href="../../../contributing/"
                title="Contribute/support http4k">Contribute/support http4k</a>
         </li>
     
@@ -1057,7 +1057,7 @@
     
         <li class="nav-item">
             <a class="nav-link "
-               href="../../code-of-conduct/"
+               href="../../../code-of-conduct/"
                title="Code of Conduct">Code of Conduct</a>
         </li>
     
@@ -1079,69 +1079,81 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1 id="http4k_modules_overview">http4k Modules overview<a class="headerlink" href="#http4k_modules_overview" title="Permanent link">&para;</a></h1>
-<h3 id="core_functionality">Core functionality<a class="headerlink" href="#core_functionality" title="Permanent link">&para;</a></h3>
-<p><a href="/guide/reference/core"><span class="pill">Core</span></a>
-<a href="/guide/reference/contracts"><span class="pill">OpenAPI Contracts</span></a>
-<a href="/guide/reference/multipart"><span class="pill">Multipart Forms</span></a>
-<a href="/guide/reference/graphql"><span class="pill">GraphQL</span></a></p>
-<h3 id="http_server_backends">HTTP Server Backends<a class="headerlink" href="#http_server_backends" title="Permanent link">&para;</a></h3>
-<p><a href="/guide/reference/servers"><span class="pill">Apache 4 &amp; 5</span></a>
-<a href="/guide/reference/servers"><span class="pill">Jetty</span></a>
-<a href="/guide/reference/servers"><span class="pill">Ktor CIO &amp; Netty</span></a>
-<a href="/guide/reference/servers"><span class="pill">Netty</span></a>
-<a href="/guide/reference/servers"><span class="pill">Ratpack</span></a>
-<a href="/guide/reference/servers"><span class="pill">SunHttp</span></a>
-<a href="/guide/reference/servers"><span class="pill">Undertow</span></a></p>
-<h3 id="http_serverless_backends">HTTP Serverless Backends<a class="headerlink" href="#http_serverless_backends" title="Permanent link">&para;</a></h3>
-<p><a href="/guide/reference/servers"><span class="pill">Alibaba Function Compute</span></a>
-<a href="/guide/reference/servers"><span class="pill">Apache OpenWhisk</span></a>
-<a href="/guide/reference/servers"><span class="pill">AWS Lambda</span></a>
-<a href="/guide/reference/servers"><span class="pill">Azure Functions</span></a>
-<a href="/guide/reference/servers"><span class="pill">Google Cloud Functions</span></a>
-<a href="/guide/reference/servers"><span class="pill">Tencent Serverless Cloud Functions</span></a></p>
-<h3 id="http_clients">HTTP Clients<a class="headerlink" href="#http_clients" title="Permanent link">&para;</a></h3>
-<p><a href="/guide/reference/clients"><span class="pill">Apache4 Sync &amp; Async</span></a>
-<a href="/guide/reference/clients"><span class="pill">Apache5 Sync &amp; Async</span></a>
-<a href="/guide/reference/clients"><span class="pill">Java</span></a>
-<a href="/guide/reference/clients"><span class="pill">Fuel</span></a>
-<a href="/guide/reference/clients"><span class="pill">Jetty</span></a>
-<a href="/guide/reference/clients"><span class="pill">OkHttp</span></a>
-<a href="/guide/reference/clients"><span class="pill">Websocket</span></a></p>
-<h3 id="messaging_formats">Messaging formats<a class="headerlink" href="#messaging_formats" title="Permanent link">&para;</a></h3>
-<p><a href="/guide/reference/json"><span class="pill">Argo</span></a>
-<a href="/guide/reference/json"><span class="pill">Gson</span></a>
-<a href="/guide/reference/xml"><span class="pill">Gson XML</span></a>
-<a href="/guide/reference/json"><span class="pill">Jackson</span></a>
-<a href="/guide/reference/xml"><span class="pill">Jackson XML</span></a>
-<a href="/guide/reference/yaml"><span class="pill">Jackson YAML</span></a>
-<a href="/guide/reference/jsonrpc"><span class="pill">JSON RPC</span></a>
-<a href="/guide/reference/json"><span class="pill">KotlinX Serialisation
-<a href="/guide/reference/json"><span class="pill">Klaxon</span></a>
-<a href="/guide/reference/json"><span class="pill">Moshi</span></a></p>
-<h3 id="templating_libraries">Templating libraries<a class="headerlink" href="#templating_libraries" title="Permanent link">&para;</a></h3>
-<p><a href="/guide/reference/templating"><span class="pill">Dust</span></a>
-<a href="/guide/reference/templating"><span class="pill">Freemarker</span></a>
-<a href="/guide/reference/templating"><span class="pill">Handlebars</span></a>
-<a href="/guide/reference/templating"><span class="pill">Jade4j</span></a>
-<a href="/guide/reference/templating"><span class="pill">Pebble</span></a>
-<a href="/guide/reference/templating"><span class="pill">Thymeleaf</span></a></p>
-<h3 id="cloud-native_observability">Cloud-Native &amp; Observability<a class="headerlink" href="#cloud-native_observability" title="Permanent link">&para;</a></h3>
-<p><a href="/guide/reference/aws"><span class="pill">AWS</span></a>
-<a href="/guide/reference/cloud_native"><span class="pill">Cloud Native Configuration</span></a>
-<a href="/guide/reference/cloud_events"><span class="pill">Cloud Events</span></a>
-<a href="/guide/reference/digest"><span class="pill">Digest Auth</span></a>
-<a href="/guide/reference/oauth"><span class="pill">OAuth</span></a>
-<a href="/guide/reference/micrometer"><span class="pill">Micrometer</span></a>
-<a href="/guide/reference/opentelemetry"><span class="pill">OpenTelemetry</span></a>
-<a href="/guide/reference/resilience4j"><span class="pill">Resilience4J</span></a></p>
-<h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
-<p><a href="/guide/reference/approvaltests"><span class="pill">Approval Testing</span></a>
-<a href="/guide/reference/chaos"><span class="pill">Chaos Monkey</span></a>
-<a href="/guide/reference/hamkrest"><span class="pill">Hamkrest</span></a>
-<a href="/guide/reference/kotest"><span class="pill">Kotest</span></a>
-<a href="/guide/reference/servicevirtualisation"><span class="pill">Servirtium</span></a>
-<a href="/guide/reference/webdriver"><span class="pill">WebDriver</span></a></p>
+                    <h1>Use Moshi with "lite" Reflection</h1>
+                    
+                    <p>This recipe will teach you how to replace Moshi's default <code>kotlin-reflect</code> backend with the lightweight <code>kotlinx-metadata</code> variant.</p>
+<p>By default, the <code>moshi-kotlin</code> module uses <code>kotlin-reflect</code>, which is perfectly fine for most uses.
+However, at 3 MB, the relatively large JAR size of <code>kotlin-reflect</code> can have a meaningful performance impact in some scenarios:
+such as AWS Lambda cold-starts.</p>
+<p>Moshi is likely to adopt <code>kotlinx-metadata</code> in the future, as you can see in <a href="https://github.com/square/moshi/pull/1183">this approved pull request</a>.
+But until then, you can use this recipe to take advantage of the performance gains.</p>
+<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
+<p>This recipe uses the 3rd-party <a href="https://github.com/ZacSweers/MoshiX/tree/main/moshi-metadata-reflect">moshi-metadata-reflect</a> module.</p>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-moshi:4.33.0.0&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">exclude</span><span class="p">(</span><span class="s">&quot;com.squareup.moshi&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;moshi-kotlin&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;dev.zacsweers.moshix:moshi-metadata-reflect:0.19.0&quot;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p>If you wish to take full advantage of the performance benefits, you need to ensure <code>kotlin-reflect</code> isn't bundled into your final jar.
+You must:</p>
+<ol>
+<li>Exclude the original <code>moshi-kotlin</code> module from <code>http4k-format-moshi</code></li>
+<li>Ensure you don't have other 3rd-party libraries that depend on <code>kotlin-reflect</code></li>
+</ol>
+<h3 id="recipe">Recipe<a class="headerlink" href="#recipe" title="Permanent link">&para;</a></h3>
+<p>The first step is to define a "lite" version of <code>ConfigurableMoshi</code>.
+This is done by overriding the default <code>kotlin-reflect</code> backend with the <code>kotlinx-metadata</code> backend, via the 3rd-party <a href="https://github.com/ZacSweers/MoshiX/tree/main/moshi-metadata-reflect">moshi-metadata-reflect</a> module.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.moshi_lite</span><span class="w"></span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">com.squareup.moshi.Moshi</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.zacsweers.moshix.reflect.MetadataKotlinJsonAdapterFactory</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ConfigurableMoshi</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.EventAdapter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ListAdapter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.MapAdapter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ThrowableAdapter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.asConfigurable</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.withStandardMappings</span><span class="w"></span>
+
+<span class="kd">object</span><span class="w"> </span><span class="nc">MoshiLite</span><span class="p">:</span><span class="w"> </span><span class="n">ConfigurableMoshi</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">Moshi</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">EventAdapter</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ThrowableAdapter</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ListAdapter</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">MapAdapter</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">asConfigurable</span><span class="p">(</span><span class="n">MetadataKotlinJsonAdapterFactory</span><span class="p">())</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">done</span><span class="p">()</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p>Then you can use this new <code>ConfigurableMoshi</code> instance for auto-marshalling and lens creation, like normal.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.moshi_lite</span><span class="w"></span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span><span class="w"></span>
+
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MoshiCat</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"></span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiCat</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Tigger&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// serialize</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">asFormatString</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// deserialize</span><span class="w"></span>
+<span class="w">    </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">asA</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// make a lens</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">lens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">autoBody</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">lens</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">cat</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
                     
                 </div>
             </div>
@@ -1152,7 +1164,7 @@
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/index-min.js"></script>
 
-      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
 
 
 
