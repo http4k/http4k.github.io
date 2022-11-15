@@ -1090,6 +1090,7 @@ changes with their rationale when appropriate:</p>
 <h3 id="v43400">v4.34.0.0<a class="headerlink" href="#v43400" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.7.21.</li>
+<li><strong>http4k-format-</strong>* : Added <code>auto()</code> methods to arbitrary lenses (so Query, Header, FormField etc..)</li>
 <li><strong>http4k-core</strong>* : [Unlikely break] <code>reverseProxy()</code> now takes the authority into account instead of just the hostname from the request. This should only impact you if you are doing reverse proxy operational on client side and using localhost without a port as a proxy. To fix - simply add the port to your proxying setup and all should be good.</li>
 <li><strong>http4k-contract</strong>* : Fix: Remove duplicate content type header.</li>
 </ul>
