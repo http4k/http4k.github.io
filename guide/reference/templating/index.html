@@ -1097,6 +1097,9 @@
 <span class="c1">// Pebble: </span><span class="w"></span>
 <span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-template-pebble&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.34.0.4&quot;</span><span class="w"></span>
 
+<span class="c1">// Rocker: </span><span class="w"></span>
+<span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-template-rocker&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.34.0.4&quot;</span><span class="w"></span>
+
 <span class="c1">// Thymeleaf: </span><span class="w"></span>
 <span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-template-thymeleaf&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.34.0.4&quot;</span><span class="w"></span>
 </code></pre></div>
@@ -1156,6 +1159,9 @@
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appUsingLens</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/someUrl&quot;</span><span class="p">)))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
+
+<h3 id="notes_for_rocker">Notes for Rocker<a class="headerlink" href="#notes_for_rocker" title="Permanent link">&para;</a></h3>
+<p>Rocker differs slightly from the dynamic templating engines in that it generates Java classes at compile time. In order to fit this into the http4k model, we have created a special superclass <code>RockerViewModel</code> (which combines the Rocker and the http4k <code>ViewModel</code> interfaces into a common supertype). This should be used as the <code>extendsModelClass</code> property in the generation process by configuration. Note that as the generated classes are Java and NOT Kotlin, Java syntax should be used inside the view files (which need to be named <code>Xyz.rocker.html</code>).</p>
                     
                 </div>
             </div>
