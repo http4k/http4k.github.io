@@ -1133,7 +1133,7 @@ schemes for the other supported JSON libraries</p>
 <li>Modify it to meet your needs, registering type adapters for your types</li>
 </ol>
 <div class="codehilite"><pre><span></span><code><span class="kd">object</span><span class="w"> </span><span class="nc">MyJackson</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ConfigurableJackson</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="n">KotlinModule</span><span class="p">.</span><span class="na">Builder</span><span class="p">.</span><span class="na">Build</span><span class="p">()</span><span class="w">              </span><span class="c1">// register kotlin types</span><span class="w"></span>
+<span class="w">    </span><span class="n">KotlinModule</span><span class="p">.</span><span class="na">Builder</span><span class="p">().</span><span class="na">build</span><span class="p">()</span><span class="w">              </span><span class="c1">// register kotlin types</span><span class="w"></span>
 <span class="w">        </span><span class="p">.</span><span class="na">asConfigurable</span><span class="p">()</span><span class="w"></span>
 <span class="w">        </span><span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span><span class="w">               </span><span class="c1">// http4k out-of-the box extras</span><span class="w"></span>
 <span class="w">        </span><span class="p">.</span><span class="na">text</span><span class="p">(</span><span class="o">::</span><span class="n">CustomerName</span><span class="p">,</span><span class="w"> </span><span class="n">CustomerName</span><span class="o">::</span><span class="n">value</span><span class="p">)</span><span class="w">    </span><span class="c1">// here is the registration of custom type</span><span class="w"></span>
@@ -1165,7 +1165,7 @@ to validate the format of strings - very convenient to ensure that values are se
 
 <p>Then, define a <code>ConfigurableJackson</code> (Moshi...) with a type adaptor for your type</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">object</span><span class="w"> </span><span class="nc">MyJackson</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ConfigurableJackson</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="n">KotlinModule</span><span class="p">.</span><span class="na">Builder</span><span class="p">.</span><span class="na">Build</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">KotlinModule</span><span class="p">.</span><span class="na">Builder</span><span class="p">().</span><span class="na">build</span><span class="p">()</span><span class="w"></span>
 <span class="w">        </span><span class="p">.</span><span class="na">asConfigurable</span><span class="p">()</span><span class="w"></span>
 <span class="w">        </span><span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span><span class="w"></span>
 <span class="w">        </span><span class="p">.</span><span class="na">value</span><span class="p">(</span><span class="n">CustomerName</span><span class="p">)</span><span class="w"> </span><span class="c1">// this references the CustomerName companion object</span><span class="w"></span>
