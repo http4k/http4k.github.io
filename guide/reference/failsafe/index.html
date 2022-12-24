@@ -15,19 +15,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k Cloud Native tooling">
-<meta name="twitter:title" content="http4k Cloud Native tooling">
-<meta property="og:title" content="http4k Cloud Native tooling" />
+<meta itemprop="name" content="http4k Failsafe Module">
+<meta name="twitter:title" content="http4k Failsafe Module">
+<meta property="og:title" content="http4k Failsafe Module" />
 
 
 
-<meta name="description" content="Feature overview of the http4k-cloudnative module">
-<meta property="og:description" content="Feature overview of the http4k-cloudnative module" />
-<meta name="twitter:description" content="Feature overview of the http4k-cloudnative module">
+<meta name="description" content="Feature overview of the http4k-failsafe module">
+<meta property="og:description" content="Feature overview of the http4k-failsafe module" />
+<meta name="twitter:description" content="Feature overview of the http4k-failsafe module">
 
 
 
-<link rel="canonical" href="https://www.http4k.org/guide/reference/cloud_native/">
+<link rel="canonical" href="https://www.http4k.org/guide/reference/failsafe/">
 
 
 
@@ -81,7 +81,7 @@
     
     
     
-    <title>http4k Cloud Native tooling</title>
+    <title>http4k Failsafe Module</title>
     
     
     
@@ -683,8 +683,8 @@
             
             
     
-        <a class="dropdown-item active"
-           href="./"
+        <a class="dropdown-item "
+           href="../cloud_native/"
            title="Cloud Native Configuration">Cloud Native Configuration</a>
     
 
@@ -719,13 +719,13 @@
             
             
     
-        <a class="dropdown-item nav-link dropdown-toggle  "
+        <a class="dropdown-item nav-link dropdown-toggle  active"
             data-toggle="dropdown"
             href="#"
             role="button"
             aria-haspopup="true"
-            aria-expanded="false"> Fault Tolerance</a>
-        <div class="dropdown-menu ">
+            aria-expanded="true"> Fault Tolerance</a>
+        <div class="dropdown-menu show">
             
             
             
@@ -739,8 +739,8 @@
             
             
     
-        <a class="dropdown-item "
-           href="../failsafe/"
+        <a class="dropdown-item active"
+           href="./"
            title="Failsafe">Failsafe</a>
     
 
@@ -1103,161 +1103,102 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>Cloud Native Configuration</h1>
+                    <h1>Failsafe</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-cloudnative&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.34.4.0&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-failsafe&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.34.4.0&quot;</span><span class="w"></span>
 </code></pre></div>
 
-<p>http4k applications are naturally at home operating in distributed, Cloud Native environments. Whilst simple to create, this module 
-provides requisite tooling to get apps up and running with the minimum of effort to enable the following operational aspects:</p>
-<h4 id="quick_start">Quick start<a class="headerlink" href="#quick_start" title="Permanent link">&para;</a></h4>
-<p>Because http4k does not use reflection or annotation process for application startup, all of the supported Server-backends 
-start up and shutdown very quickly - this is crucial for cloud-based environments where an orchestration framework might move 
-instances around to redistribute load or avoid problematic server/rack/DCs.</p>
-<h4 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h4>
-<p>All application configuration should be injected via environmental variables. http4k provides an <code>Environment</code> object, along with 
-typesafe variable binding using the in-built Lenses mechanism. This typesafe API is consistent with the other usages of Lenses 
-throughout http4k, so should have a near-zero learning curve. Also provided are a set of extension methods for retrieving standard 
-environmental config for service ports from Kubernetes.</p>
-<h4 id="observability">Observability<a class="headerlink" href="#observability" title="Permanent link">&para;</a></h4>
-<p>Orchestration software such as Kubernetes and CloudFoundry regularly query a set of diagnostic endpoints to monitor the state of an 
-application. This module provides standardised <code>HttpHandler</code> implementations to model the following endpoints:</p>
-<ul>
-<li>Liveness - used to determine if the application is actually alive.</li>
-<li>Readiness - used to determine if the application is available to receive production traffic from the cloud Load Balancer. This 
-endpoint performs a series of diagnostic checks against it's dependencies (such as database connectivity) and collates the 
-results to report back to the orchestrator. http4k provides the <code>ReadinessCheck</code> interface which can be implementaed as required 
-and plugged into the endpoint.</li>
-</ul>
-<p>In Kubernetes, this set of endpoints is generally hosted on a second port to avoid the API clashes, so http4k provides the machinery to 
-easily start these services on a different port to the main application API via the <code>Http4kK8sServer</code> object.</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/cloud_native/example_k8s.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.cloud_native</span><span class="w"></span>
+<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
+<p>This module provides a configurable Filter to provide fault tolerance (CircuitBreaking, RateLimiting, Retrying, Bulkheading, Timeouts etc.),
+by integrating with the <a href="https://failsafe.dev/">Failsafe</a> library.</p>
+<h3 id="basic_example">Basic example <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/failsafe/example_bulkheading.kt"><img class="octocat"/></a><a class="headerlink" href="#basic_example" title="Permanent link">&para;</a></h3>
+<p>Here's an example that uses BulkHeading to demonstrate how easy it is to use the filter with configured Failsafe policies.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.failsafe</span><span class="w"></span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.JavaHttpClient</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.Http4kK8sServer</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.asK8sServer</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Environment</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Secret</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.health.Completed</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.health.Health</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.health.ReadinessCheck</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.health.ReadinessCheckResult</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Filter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Bulkhead</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Failsafe</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.DebuggingFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Lens</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.secret</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">kotlin.random.Random</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.FailsafeFilter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlin.concurrent.thread</span><span class="w"></span>
 
-<span class="c1">// the entire k8s application consists of 2 servers - the main and the health</span><span class="w"></span>
-<span class="kd">object</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// settings</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">otherServiceUri</span><span class="p">:</span><span class="w"> </span><span class="n">Lens</span><span class="o">&lt;</span><span class="n">Environment</span><span class="p">,</span><span class="w"> </span><span class="n">Uri</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">        </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">k8s</span><span class="p">.</span><span class="na">serviceUriFor</span><span class="p">(</span><span class="s">&quot;otherservice&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">dbRole</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;database.user.role&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">dbPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">secret</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;database.user.password&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Configure a Failsafe policy</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">failsafeExecutor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Failsafe</span><span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">Bulkhead</span><span class="p">.</span><span class="na">of</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">env</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kK8sServer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// define the main app API - it proxies to the &quot;other&quot; service</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">mainApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">SetHostFrom</span><span class="p">(</span><span class="n">otherServiceUri</span><span class="p">(</span><span class="n">env</span><span class="p">))</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">rewriteUriToLocalhostAsWeDoNotHaveDns</span><span class="p">)</span><span class="w"> </span><span class="c1">// this line only here to make the example work!</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span><span class="w"></span>
-
-<span class="w">        </span><span class="c1">// define the health app API</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">healthApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Health</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/config&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="n">checks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">DatabaseCheck</span><span class="p">(</span><span class="w"></span>
-<span class="w">                    </span><span class="n">RandomlyFailingDatabase</span><span class="p">(</span><span class="w"></span>
-<span class="w">                        </span><span class="n">dbRole</span><span class="p">(</span><span class="n">env</span><span class="p">),</span><span class="w"> </span><span class="n">dbPassword</span><span class="p">(</span><span class="n">env</span><span class="p">)</span><span class="w"></span>
-<span class="w">                    </span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mainApp</span><span class="p">.</span><span class="na">asK8sServer</span><span class="p">(</span><span class="o">::</span><span class="n">SunHttp</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="p">,</span><span class="w"> </span><span class="n">healthApp</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Use the filter in a filter chain</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FailsafeFilter</span><span class="p">(</span><span class="n">failsafeExecutor</span><span class="p">).</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">100</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">rewriteUriToLocalhostAsWeDoNotHaveDns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Rewriting </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">uri</span><span class="si">}</span><span class="s"> so we can proxy properly&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="n">next</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">uri</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">uri</span><span class="p">.</span><span class="na">authority</span><span class="p">(</span><span class="s">&quot;localhost:9000&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Throw a bunch of requests at the filter - only 5 should pass</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">thread</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
+</code></pre></div>
 
-<span class="c1">// this is a database client that we are going to health check</span><span class="w"></span>
-<span class="kd">class</span><span class="w"> </span><span class="nc">RandomlyFailingDatabase</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="n">Secret</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">init</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// the secret is a single-shot value whose value will be discarded after use</span><span class="w"></span>
-<span class="w">        </span><span class="n">password</span><span class="p">.</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;setting up the database connection with creds: </span><span class="si">$</span><span class="n">user</span><span class="s">/</span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<h3 id="example_of_using_multiple_policies">Example of using multiple policies <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/failsafe/example_multiple_policies.kt"><img class="octocat"/></a><a class="headerlink" href="#example_of_using_multiple_policies" title="Permanent link">&para;</a></h3>
+<p>Using multiple Failsafe policies in the filter is just as easy, as the following example shows.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.failsafe</span><span class="w"></span>
 
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">insertARecord</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Random</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="na">nextBoolean</span><span class="p">())</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">Exception</span><span class="p">(</span><span class="s">&quot;oh no! </span><span class="si">$</span><span class="n">user</span><span class="s"> has no access&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="c1">// implements the check which will determine if this service is ready to go</span><span class="w"></span>
-<span class="kd">class</span><span class="w"> </span><span class="nc">DatabaseCheck</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">db</span><span class="p">:</span><span class="w"> </span><span class="n">RandomlyFailingDatabase</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ReadinessCheck</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;database&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">():</span><span class="w"> </span><span class="n">ReadinessCheckResult</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">db</span><span class="p">.</span><span class="na">insertARecord</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Completed</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="cm">/** file app.properties contains</span>
-<span class="cm">database.user.role=admin</span>
-<span class="cm">database.user.password=myPassword</span>
-<span class="cm"> */</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.CircuitBreaker</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Failsafe</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Fallback</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.RetryPolicy</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Timeout</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.FailsafeFilter</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.time.Duration</span><span class="w"></span>
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">defaultConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">defaults</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">k8s</span><span class="p">.</span><span class="na">SERVICE_PORT</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">8000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">k8s</span><span class="p">.</span><span class="na">HEALTH_PORT</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">8001</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">k8s</span><span class="p">.</span><span class="na">serviceUriFor</span><span class="p">(</span><span class="s">&quot;otherservice&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;https://localhost:8000&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Configure multiple Failsafe policies</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">failsafeExecutor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Failsafe</span><span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">Fallback</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Fallback&quot;</span><span class="p">)),</span><span class="w"></span>
+<span class="w">        </span><span class="n">RetryPolicy</span><span class="p">.</span><span class="na">builder</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">()</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">withMaxAttempts</span><span class="p">(</span><span class="m">2</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">handleResultIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">!</span><span class="nb">it</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">successful</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">CircuitBreaker</span><span class="p">.</span><span class="na">builder</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">()</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">withFailureThreshold</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">handleResultIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">serverError</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">Timeout</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofMillis</span><span class="p">(</span><span class="m">100</span><span class="p">))</span><span class="w"></span>
 <span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="c1">// standard chaining order for properties is local file -&gt; JVM -&gt; Environment -&gt; defaults -&gt; boom!</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">k8sPodEnv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">fromResource</span><span class="p">(</span><span class="s">&quot;app.properties&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">overrides</span><span class="w"></span>
-<span class="w">        </span><span class="n">Environment</span><span class="p">.</span><span class="na">JVM_PROPERTIES</span><span class="w"> </span><span class="n">overrides</span><span class="w"></span>
-<span class="w">        </span><span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span><span class="w"> </span><span class="n">overrides</span><span class="w"></span>
-<span class="w">        </span><span class="n">defaultConfig</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// We then create a very unstable client using the filter</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">requestCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FailsafeFilter</span><span class="p">(</span><span class="n">failsafeExecutor</span><span class="p">).</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">requestCount</span><span class="o">++</span><span class="w"></span>
 
-<span class="w">    </span><span class="c1">// the end-server that we will proxy to</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">upstream</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;HELLO!&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">requestCount</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;All good - </span><span class="si">$</span><span class="n">requestCount</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="m">0</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">App</span><span class="p">(</span><span class="n">k8sPodEnv</span><span class="p">).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">performHealthChecks</span><span class="p">()</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">upstream</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">performHealthChecks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DebuggingFilters</span><span class="p">.</span><span class="na">PrintResponse</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span><span class="w"></span>
-
-<span class="w">    </span><span class="c1">// health checks</span><span class="w"></span>
-<span class="w">    </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8001/liveness&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8001/readiness&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8001/config&quot;</span><span class="p">))</span><span class="w"></span>
-
-<span class="w">    </span><span class="c1">// proxied call</span><span class="w"></span>
-<span class="w">    </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Throw a bunch of request at the filter - some will fail and be retried until</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// the circuit breaker opens and the fallback value will be used after that.</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="si">}</span><span class="s"> - </span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">bodyString</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
                     
