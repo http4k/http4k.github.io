@@ -1116,38 +1116,38 @@
 </ul>
 <h1 id="im_already_set_up_and_just_need_to_integrate">I'm already set up and just need to integrate!<a class="headerlink" href="#im_already_set_up_and_just_need_to_integrate" title="Permanent link">&para;</a></h1>
 <p><strong>Add http4k into an existing project</strong>: This simple example demonstrates how to serve and consume HTTP services using <strong>http4k</strong>. To install, add these dependencies to your <strong>Gradle</strong> file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="n">platform</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-bom:4.35.2.0&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-core&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-server-undertow&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-client-apache&quot;</span><span class="w"></span>
-<span class="o">}</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="n">platform</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-bom:4.35.2.0&quot;</span><span class="o">)</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-core&quot;</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-server-undertow&quot;</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-client-apache&quot;</span>
+<span class="o">}</span>
 </code></pre></div>
 
 <p>The following creates a simple endpoint, binds it to a Undertow server then starts, queries, and stops it.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">quickstart</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">quickstart</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Undertow</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Undertow</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Hello, </span><span class="si">${</span><span class="n">request</span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;</span><span class="n">name</span><span class="s">&quot;</span><span class="p">)</span><span class="si">}</span><span class="s">!&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApacheClient</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApacheClient</span><span class="p">()</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;John Doe&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">).</span><span class="na">query</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;John Doe&quot;</span><span class="p">)</span>
 
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
 
-<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <h1 id="i_want_to_see_what_http4k_can_do">I want to see what http4k can do!<a class="headerlink" href="#i_want_to_see_what_http4k_can_do" title="Permanent link">&para;</a></h1>

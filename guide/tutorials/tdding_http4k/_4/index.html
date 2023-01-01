@@ -1135,235 +1135,235 @@ interactions with the external service are valid.</p>
 <li>In MyMathApp, create the Recorder business implementation (Recorder) and pass it to calculate(), then implement the call to record()</li>
 </ol>
 <h3 id="tests">Tests:<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.tutorials.tdding_http4k._4</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.tutorials.tdding_http4k._4</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.and</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.assertion.assertThat</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.equalTo</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.ACCEPTED</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.SetHostFrom</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasBody</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasStatus</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.AfterEach</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.BeforeEach</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Disabled</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">guide.tutorials.tdding_http4k._4.Matchers.answerShouldBe</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.util.Random</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.and</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.equalTo</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.ACCEPTED</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.SetHostFrom</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasBody</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.AfterEach</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.BeforeEach</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Disabled</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">guide.tutorials.tdding_http4k._4.Matchers.answerShouldBe</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.Random</span>
 
-<span class="kd">object</span><span class="w"> </span><span class="nc">Matchers</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="n">Response</span><span class="p">.</span><span class="nf">answerShouldBe</span><span class="p">(</span><span class="n">expected</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="n">expected</span><span class="p">.</span><span class="na">toString</span><span class="p">())))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">object</span><span class="w"> </span><span class="nc">Matchers</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="n">Response</span><span class="p">.</span><span class="nf">answerShouldBe</span><span class="p">(</span><span class="n">expected</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">hasBody</span><span class="p">(</span><span class="n">expected</span><span class="p">.</span><span class="na">toString</span><span class="p">())))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RecorderCdc</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"></span>
+<span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">RecorderCdc</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`records answer`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">Recorder</span><span class="p">(</span><span class="n">client</span><span class="p">).</span><span class="na">record</span><span class="p">(</span><span class="m">123</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">checkAnswerRecorded</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`records answer`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Recorder</span><span class="p">(</span><span class="n">client</span><span class="p">).</span><span class="na">record</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+<span class="w">        </span><span class="n">checkAnswerRecorded</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kd">open</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">checkAnswerRecorded</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">open</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">checkAnswerRecorded</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">FakeRecorderHttp</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">calls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">()</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">FakeRecorderHttp</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">calls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">()</span>
 
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;answer&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;answer&quot;</span><span class="p">)</span>
 
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/{answer}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">calls</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">answer</span><span class="p">(</span><span class="n">request</span><span class="p">));</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">ACCEPTED</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+<span class="w">        </span><span class="n">routes</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;/{answer}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">calls</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">answer</span><span class="p">(</span><span class="n">request</span><span class="p">));</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">ACCEPTED</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
 
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">):</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">):</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">FakeRecorderTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">RecorderCdc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FakeRecorderHttp</span><span class="p">()</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">FakeRecorderTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">RecorderCdc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FakeRecorderHttp</span><span class="p">()</span>
 
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">checkAnswerRecorded</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">123</span><span class="p">)))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">checkAnswerRecorded</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">123</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="nd">@Disabled</span><span class="w"> </span><span class="c1">// this obviously doesn&#39;t exist, so we ignore it here</span><span class="w"></span>
-<span class="kd">class</span><span class="w"> </span><span class="nc">RealRecorderTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">RecorderCdc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://realrecorder&quot;</span><span class="p">)).</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="nd">@Disabled</span><span class="w"> </span><span class="c1">// this obviously doesn&#39;t exist, so we ignore it here</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">RealRecorderTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">RecorderCdc</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SetHostFrom</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://realrecorder&quot;</span><span class="p">)).</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span>
+<span class="p">}</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">EndToEndTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="p">().</span><span class="na">nextInt</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">8000</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorderPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OkHttp</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FakeRecorderHttp</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">recorderPort</span><span class="s">&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorderServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recorder</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">recorderPort</span><span class="p">))</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">EndToEndTest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="p">().</span><span class="na">nextInt</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">8000</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorderPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OkHttp</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FakeRecorderHttp</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyMathServer</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">recorderPort</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorderServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recorder</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">recorderPort</span><span class="p">))</span>
 
-<span class="w">    </span><span class="nd">@BeforeEach</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">recorderServer</span><span class="p">.</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@BeforeEach</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">recorderServer</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
+<span class="w">        </span><span class="n">server</span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nd">@AfterEach</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">teardown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="n">recorderServer</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@AfterEach</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">teardown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+<span class="w">        </span><span class="n">recorderServer</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`all endpoints are mounted correctly`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span><span class="w"></span>
-<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">client</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">Request</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">GET</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/add?value=1&amp;value=2&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">client</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">Request</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">GET</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/multiply?value=2&amp;value=4&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">8</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`all endpoints are mounted correctly`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span>
+<span class="w">            </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/ping&quot;</span><span class="p">)),</span>
+<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="n">client</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Request</span><span class="p">(</span>
+<span class="w">                </span><span class="n">GET</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/add?value=1&amp;value=2&quot;</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+<span class="w">        </span><span class="n">client</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Request</span><span class="p">(</span>
+<span class="w">                </span><span class="n">GET</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;http://localhost:</span><span class="si">${</span><span class="n">server</span><span class="p">.</span><span class="na">port</span><span class="p">()</span><span class="si">}</span><span class="s">/multiply?value=2&amp;value=4&quot;</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">8</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">AppEnvironment</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FakeRecorderHttp</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyMathsApp</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">AppEnvironment</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FakeRecorderHttp</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyMathsApp</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">AddFunctionalTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AppEnvironment</span><span class="p">()</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">AddFunctionalTest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AppEnvironment</span><span class="p">()</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`adds values together`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">3</span><span class="p">)))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`adds values together`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/add?value=1&amp;value=2&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">3</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`answer is zero when no values`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/add&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">0</span><span class="p">)))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`answer is zero when no values`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/add&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">0</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/add?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span><span class="w"></span>
-<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(),</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span>
+<span class="w">            </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/add?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span>
+<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(),</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">MultiplyFunctionalTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AppEnvironment</span><span class="p">()</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">MultiplyFunctionalTest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AppEnvironment</span><span class="p">()</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`products values together`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/multiply?value=2&amp;value=4&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">8</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">8</span><span class="p">)))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`products values together`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/multiply?value=2&amp;value=4&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">8</span><span class="p">)</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">8</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`answer is zero when no values`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/multiply&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">0</span><span class="p">)))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`answer is zero when no values`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/multiply&quot;</span><span class="p">)).</span><span class="na">answerShouldBe</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">,</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="n">listOf</span><span class="p">(</span><span class="m">0</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/multiply?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span><span class="w"></span>
-<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(),</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`bad request when some values are not numbers`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span>
+<span class="w">            </span><span class="n">env</span><span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/multiply?value=1&amp;value=notANumber&quot;</span><span class="p">)),</span>
+<span class="w">            </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">recorder</span><span class="p">.</span><span class="na">calls</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(),</span><span class="w"> </span><span class="n">equalTo</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <h3 id="production">Production:<a class="headerlink" href="#production" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.tutorials.tdding_http4k._4</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.tutorials.tdding_http4k._4</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.ACCEPTED</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.SetHostFrom</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Query</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Http4kServer</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.ACCEPTED</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.SetHostFrom</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.CatchLensFailure</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Http4kServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">Recorder</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/</span><span class="si">$</span><span class="n">value</span><span class="s">&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ACCEPTED</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;recorder returned </span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">Recorder</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/</span><span class="si">$</span><span class="n">value</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ACCEPTED</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;recorder returned </span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">MyMathsApp</span><span class="p">(</span><span class="n">recorderHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Recorder</span><span class="p">(</span><span class="n">recorderHttp</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/ping&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/add&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">sum</span><span class="p">()</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/multiply&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">fold</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">memo</span><span class="p">,</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">memo</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyMathsApp</span><span class="p">(</span><span class="n">recorderHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">recorder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Recorder</span><span class="p">(</span><span class="n">recorderHttp</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+<span class="w">        </span><span class="n">routes</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;/ping&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">            </span><span class="s">&quot;/add&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">sum</span><span class="p">()</span><span class="w"> </span><span class="p">},</span>
+<span class="w">            </span><span class="s">&quot;/multiply&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">fold</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">memo</span><span class="p">,</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">memo</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">:</span><span class="w"> </span><span class="n">Recorder</span><span class="p">,</span><span class="w"> </span><span class="n">fn</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="p">(</span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">multi</span><span class="p">.</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">listOf</span><span class="p">())</span><span class="w"></span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">calculate</span><span class="p">(</span><span class="n">recorder</span><span class="p">:</span><span class="w"> </span><span class="n">Recorder</span><span class="p">,</span><span class="w"> </span><span class="n">fn</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="p">):</span><span class="w"> </span><span class="p">(</span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">multi</span><span class="p">.</span><span class="na">defaulted</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">listOf</span><span class="p">())</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">valuesToCalc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">values</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">valuesToCalc</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">fn</span><span class="p">(</span><span class="n">valuesToCalc</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">recorder</span><span class="p">.</span><span class="na">record</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">answer</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">valuesToCalc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">values</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">valuesToCalc</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">fn</span><span class="p">(</span><span class="n">valuesToCalc</span><span class="p">)</span>
+<span class="w">        </span><span class="n">recorder</span><span class="p">.</span><span class="na">record</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">answer</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">recorderBaseUri</span><span class="p">:</span><span class="w"> </span><span class="n">Uri</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="n">MyMathsApp</span><span class="p">(</span><span class="n">SetHostFrom</span><span class="p">(</span><span class="n">recorderBaseUri</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyMathServer</span><span class="p">(</span><span class="n">port</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">recorderBaseUri</span><span class="p">:</span><span class="w"> </span><span class="n">Uri</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">MyMathsApp</span><span class="p">(</span><span class="n">SetHostFrom</span><span class="p">(</span><span class="n">recorderBaseUri</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
 </code></pre></div>
                     
                 </div>

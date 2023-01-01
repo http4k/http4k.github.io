@@ -1106,7 +1106,7 @@
                     <h1>Chaos Testing</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-testing-chaos&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-testing-chaos&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1254,57 +1254,57 @@
 <h3 id="manually_injecting_chaos">Manually injecting Chaos<a class="headerlink" href="#manually_injecting_chaos" title="Permanent link">&para;</a></h3>
 <p>For use in automated test suites, it is simple to define the Chaos behaviour programmatically using the API and then use the <code>ChaosEngine</code> to add it onto an existing application.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/chaos/example_chaos.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.chaos</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.chaos</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosBehaviours.ReturnStatus</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosEngine</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosStages.Wait</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosTriggers.PercentageBased</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.appliedWhen</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.until</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosBehaviours.ReturnStatus</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosEngine</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosStages.Wait</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosTriggers.PercentageBased</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.appliedWhen</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.until</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 
-<span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OkHttp</span><span class="p">()</span><span class="w"></span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OkHttp</span><span class="p">()</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="c1">// chaos is split into &quot;stages&quot;, which can be triggered by specific request or time-based criteria</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">doNothingStage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Wait</span><span class="p">.</span><span class="na">until</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">tx</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tx</span><span class="p">.</span><span class="na">method</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">errorStage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReturnStatus</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">).</span><span class="na">appliedWhen</span><span class="p">(</span><span class="n">PercentageBased</span><span class="p">(</span><span class="m">50</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// chaos is split into &quot;stages&quot;, which can be triggered by specific request or time-based criteria</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">doNothingStage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Wait</span><span class="p">.</span><span class="na">until</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">tx</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tx</span><span class="p">.</span><span class="na">method</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">errorStage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReturnStatus</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">).</span><span class="na">appliedWhen</span><span class="p">(</span><span class="n">PercentageBased</span><span class="p">(</span><span class="m">50</span><span class="p">))</span>
 
-<span class="w">    </span><span class="c1">// chain the stages together with then() and create the Chaos Engine (activated)</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">doNothingStage</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">errorStage</span><span class="p">)).</span><span class="na">enable</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// chain the stages together with then() and create the Chaos Engine (activated)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">doNothingStage</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">errorStage</span><span class="p">)).</span><span class="na">enable</span><span class="p">()</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">svc</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;A normal response&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">engine</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">svc</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">svc</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;A normal response&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="n">engine</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">svc</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">use</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">        </span><span class="c1">// this triggers the change in behaviour</span><span class="w"></span>
-<span class="w">        </span><span class="n">performA</span><span class="p">(</span><span class="n">POST</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// this triggers the change in behaviour</span>
+<span class="w">        </span><span class="n">performA</span><span class="p">(</span><span class="n">POST</span><span class="p">)</span>
 
-<span class="w">        </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">        </span><span class="c1">// disable the chaos</span><span class="w"></span>
-<span class="w">        </span><span class="n">engine</span><span class="p">.</span><span class="na">disable</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// disable the chaos</span>
+<span class="w">        </span><span class="n">engine</span><span class="p">.</span><span class="na">disable</span><span class="p">()</span>
 
-<span class="w">        </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performA</span><span class="p">(</span><span class="n">GET</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">performA</span><span class="p">(</span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="n">Method</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; got a &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">performA</span><span class="p">(</span><span class="n">method</span><span class="p">:</span><span class="w"> </span><span class="n">Method</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; got a &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 </code></pre></div>
 
 <h3 id="dynamic_behaviour_injection_using_chaos_controls">Dynamic behaviour injection using Chaos Controls<a class="headerlink" href="#dynamic_behaviour_injection_using_chaos_controls" title="Permanent link">&para;</a></h3>
@@ -1316,98 +1316,98 @@
 <li>Always return an HTTP 404 (Not Found) status for 10 requests</li>
 <li>Repeat the above until Big Ben strikes in the New Year 2020.</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="w"></span>
-<span class="w">  </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;repeat&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;stages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">      </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wait&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delay&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="nt">&quot;period&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PT100S&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trigger&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;behaviour&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;trigger&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;always&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;countdown&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deadline&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;endTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-01T00:00:00Z&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">]</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;repeat&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;stages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wait&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delay&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;period&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PT100S&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trigger&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;behaviour&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;trigger&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;always&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;countdown&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;until&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deadline&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;endTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-01T00:00:00Z&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
 </code></pre></div>
 
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/chaos/example_chaos_controls_openapi.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.chaos</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.chaos</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.withChaosApi</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.CorsPolicy.Companion.UnsafeGlobalPermissive</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.Cors</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.withChaosApi</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.CorsPolicy.Companion.UnsafeGlobalPermissive</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.Cors</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Cors</span><span class="p">(</span><span class="n">UnsafeGlobalPermissive</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchAll</span><span class="p">())</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;A normal response&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">withChaosApi</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Visit the app at http://localhost:9000 or see the OpenApi at https://www.http4k.org/openapi3/?url=http://localhost:9000/chaos&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Cors</span><span class="p">(</span><span class="n">UnsafeGlobalPermissive</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchAll</span><span class="p">())</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;A normal response&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">.</span><span class="na">withChaosApi</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Visit the app at http://localhost:9000 or see the OpenApi at https://www.http4k.org/openapi3/?url=http://localhost:9000/chaos&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <h3 id="interacting_with_chaosengine_using_an_http_client">Interacting with ChaosEngine using an HTTP client<a class="headerlink" href="#interacting_with_chaosengine_using_an_http_client" title="Permanent link">&para;</a></h3>
 <h4 id="code_2">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/chaos/example_chaos_controls_client.kt"><img class="octocat"/></a><a class="headerlink" href="#code_2" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.chaos</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.chaos</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosBehaviours.ReturnStatus</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosEngine</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.withChaosApi</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.NOT_FOUND</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosBehaviours.ReturnStatus</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.ChaosEngine</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.chaos.withChaosApi</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.NOT_FOUND</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}))</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}))</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">appWithChaos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">withChaosApi</span><span class="p">(</span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">ReturnStatus</span><span class="p">(</span><span class="n">NOT_FOUND</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">appWithChaos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">withChaosApi</span><span class="p">(</span><span class="n">ChaosEngine</span><span class="p">(</span><span class="n">ReturnStatus</span><span class="p">(</span><span class="n">NOT_FOUND</span><span class="p">)))</span>
 
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;chaos is deactivated by default&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/chaos/status&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;chaos is deactivated by default&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/chaos/status&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;activate the default chaos&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/chaos/activate&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;activate the default chaos&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/chaos/activate&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;deactivate the default chaos&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/chaos/deactivate&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;deactivate the default chaos&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/chaos/deactivate&quot;</span><span class="p">)).</span><span class="na">bodyString</span><span class="p">())</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
 
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;set the chaos dynamically&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;&gt;&gt;set the chaos dynamically&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">alwaysReturn418</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;&quot;[</span>
 <span class="s">        {</span>
 <span class="s">          &quot;type&quot;: &quot;trigger&quot;,</span>
@@ -1419,17 +1419,17 @@
 <span class="s">            &quot;type&quot;: &quot;always&quot;</span>
 <span class="s">          }</span>
 <span class="s">        }]</span>
-<span class="s">        &quot;&quot;&quot;</span><span class="p">.</span><span class="na">trimIndent</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">appWithChaos</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">Request</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">POST</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s">&quot;/chaos/activate/new&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">alwaysReturn418</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">).</span><span class="na">bodyString</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">.</span><span class="na">trimIndent</span><span class="p">()</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span>
+<span class="w">        </span><span class="n">appWithChaos</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Request</span><span class="p">(</span>
+<span class="w">                </span><span class="n">POST</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;/chaos/activate/new&quot;</span>
+<span class="w">            </span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">alwaysReturn418</span><span class="p">)</span>
+<span class="w">        </span><span class="p">).</span><span class="na">bodyString</span><span class="p">()</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">appWithChaos</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
                     
                 </div>

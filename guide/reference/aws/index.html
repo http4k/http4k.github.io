@@ -1106,35 +1106,35 @@
                     <h1>AWS</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-aws&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-aws&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
 <p>This module provides 2 things:
 1. a http4k compatible <code>SdkHttpClient</code>. This is so you can use the standard Amazon SDKs libraries by plugging in a standard <code>HttpHandler</code>. This simplifies fault testing and means that you can print out the exact traffic which is going to AWS - which is brilliant for both debugging and writing Fakes. :)</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/aws/example_sdk.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.aws</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.aws</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.aws.AwsSdkClient</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.DebuggingFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">software.amazon.awssdk.auth.credentials.AwsBasicCredentials</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">software.amazon.awssdk.regions.Region.EU_WEST_1</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">software.amazon.awssdk.services.s3.S3Client</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">software.amazon.awssdk.services.s3.model.CreateBucketRequest</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.aws.AwsSdkClient</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.DebuggingFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">software.amazon.awssdk.auth.credentials.AwsBasicCredentials</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">software.amazon.awssdk.regions.Region.EU_WEST_1</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">software.amazon.awssdk.services.s3.S3Client</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">software.amazon.awssdk.services.s3.model.CreateBucketRequest</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">fakeS3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DebuggingFilters</span><span class="p">.</span><span class="na">PrintRequestAndResponse</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">fakeS3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DebuggingFilters</span><span class="p">.</span><span class="na">PrintRequestAndResponse</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">s3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S3Client</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">region</span><span class="p">(</span><span class="n">EU_WEST_1</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">credentialsProvider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">AwsBasicCredentials</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&quot;accessKey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;secret&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">httpClient</span><span class="p">(</span><span class="n">AwsSdkClient</span><span class="p">(</span><span class="n">fakeS3</span><span class="p">))</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">s3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S3Client</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">region</span><span class="p">(</span><span class="n">EU_WEST_1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">credentialsProvider</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">AwsBasicCredentials</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&quot;accessKey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;secret&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">.</span><span class="na">httpClient</span><span class="p">(</span><span class="n">AwsSdkClient</span><span class="p">(</span><span class="n">fakeS3</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
 
-<span class="w">    </span><span class="n">s3</span><span class="p">.</span><span class="na">createBucket</span><span class="p">(</span><span class="n">CreateBucketRequest</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">bucket</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">).</span><span class="na">build</span><span class="p">())</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">s3</span><span class="p">.</span><span class="na">createBucket</span><span class="p">(</span><span class="n">CreateBucketRequest</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">bucket</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">).</span><span class="na">build</span><span class="p">())</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <ol>
@@ -1142,59 +1142,59 @@
 </ol>
 <p>http4k provides a <code>Filter</code> which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/aws/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.aws</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.aws</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.aws.AwsCredentialScope</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.aws.AwsCredentials</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.PUT</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.AwsAuth</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.aws.AwsCredentialScope</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.aws.AwsCredentials</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.PUT</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.AwsAuth</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;us-east-1&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;s3&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">accessKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;myGreatAwsAccessKey&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">secretKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;myGreatAwsSecretKey&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;us-east-1&quot;</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;s3&quot;</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">accessKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;myGreatAwsAccessKey&quot;</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">secretKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;myGreatAwsSecretKey&quot;</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">AwsAuth</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">AwsCredentialScope</span><span class="p">(</span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="n">service</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="n">AwsCredentials</span><span class="p">(</span><span class="n">accessKey</span><span class="p">,</span><span class="w"> </span><span class="n">secretKey</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">AwsAuth</span><span class="p">(</span>
+<span class="w">        </span><span class="n">AwsCredentialScope</span><span class="p">(</span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="n">service</span><span class="p">),</span>
+<span class="w">        </span><span class="n">AwsCredentials</span><span class="p">(</span><span class="n">accessKey</span><span class="p">,</span><span class="w"> </span><span class="n">secretKey</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
-<span class="w">    </span><span class="c1">// create a bucket</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">bucketName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">bucketUri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;https://</span><span class="si">$</span><span class="n">bucketName</span><span class="s">.s3.amazonaws.com/&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">PUT</span><span class="p">,</span><span class="w"> </span><span class="n">bucketUri</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// create a bucket</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">bucketName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">bucketUri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;https://</span><span class="si">$</span><span class="n">bucketName</span><span class="s">.s3.amazonaws.com/&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">PUT</span><span class="p">,</span><span class="w"> </span><span class="n">bucketUri</span><span class="p">)))</span>
 
-<span class="w">    </span><span class="c1">// get list of buckets with the new bucket in it</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;https://s3.amazonaws.com/&quot;</span><span class="p">))).</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// get list of buckets with the new bucket in it</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;https://s3.amazonaws.com/&quot;</span><span class="p">))).</span><span class="na">bodyString</span><span class="p">())</span>
 
-<span class="w">    </span><span class="c1">// create a key into the bucket</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// create a key into the bucket</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">keyUri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;https://</span><span class="si">$</span><span class="n">bucketName</span><span class="s">.s3.amazonaws.com/</span><span class="si">$</span><span class="n">key</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">PUT</span><span class="p">,</span><span class="w"> </span><span class="n">keyUri</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;some amazing content that I want stored on S3&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">keyUri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;https://</span><span class="si">$</span><span class="n">bucketName</span><span class="s">.s3.amazonaws.com/</span><span class="si">$</span><span class="n">key</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">PUT</span><span class="p">,</span><span class="w"> </span><span class="n">keyUri</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;some amazing content that I want stored on S3&quot;</span><span class="p">)))</span>
 
-<span class="w">    </span><span class="c1">// get the keys in the bucket</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">bucketUri</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// get the keys in the bucket</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">bucketUri</span><span class="p">)))</span>
 
-<span class="w">    </span><span class="c1">// get the contents of the key in the bucket</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">keyUri</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// get the contents of the key in the bucket</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">keyUri</span><span class="p">)))</span>
 
-<span class="w">    </span><span class="c1">// delete the key in the bucket</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">keyUri</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// delete the key in the bucket</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">keyUri</span><span class="p">)))</span>
 
-<span class="w">    </span><span class="c1">// delete the bucket</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">bucketUri</span><span class="p">)))</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// delete the bucket</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="n">bucketUri</span><span class="p">)))</span>
+<span class="p">}</span>
 </code></pre></div>
                     
                 </div>

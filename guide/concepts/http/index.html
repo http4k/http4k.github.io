@@ -1118,30 +1118,30 @@
 <p>A simple function representing all incoming and outgoing HTTP calls.</p>
 <p>HttpHandlers can be bound to a container (to create an <code>Http4kServer</code>) with 1 LOC. This decouples the server
 implementation from the business logic:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">jettyServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">jettyServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 </code></pre></div>
 
 <p>An Http client is also a <code>HttpHandler</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApacheClient</span><span class="p">()</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApacheClient</span><span class="p">()</span>
 </code></pre></div>
 
 <p>Because the client and server interfaces are the same, apps can simply be plugged together out-of-container by just
 injecting one into the other:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">app1</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyApp1</span><span class="p">()</span><span class="w"></span>
-<span class="kd">val</span><span class="w"> </span><span class="nv">app2</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyApp2</span><span class="p">(</span><span class="n">app1</span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">app1</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyApp1</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">app2</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MyApp2</span><span class="p">(</span><span class="n">app1</span><span class="p">)</span>
 </code></pre></div>
 
 <h3 id="filter">Filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">Filter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">Filter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">HttpHandler</span>
 </code></pre></div>
 
 <p>A function which decorates an HttpHandler to perform pre/post request processing. Filters can be composed together to
 make reusable "stacks" of behaviour which can be applied to a terminating HttpHandler - to yield another, decorated,
 HttpHandler.</p>
 <h3 id="router">Router<a class="headerlink" href="#router" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nc">Router</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">match</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">):</span><span class="w"> </span><span class="n">RouterMatch</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nc">Router</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">match</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">):</span><span class="w"> </span><span class="n">RouterMatch</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <p>A selective request handler, which attempts to match an incoming call against a bound HttpHandler. </p>

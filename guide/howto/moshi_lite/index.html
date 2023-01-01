@@ -1113,10 +1113,10 @@ such as AWS Lambda cold-starts.</p>
 But until then, you can use this recipe to take advantage of the performance gains.</p>
 <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
 <p>This recipe uses the 3rd-party <a href="https://github.com/ZacSweers/MoshiX/tree/main/moshi-metadata-reflect">moshi-metadata-reflect</a> module.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-moshi:4.35.2.0&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">exclude</span><span class="p">(</span><span class="s">&quot;com.squareup.moshi&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;moshi-kotlin&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;dev.zacsweers.moshix:moshi-metadata-reflect:0.19.0&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-moshi:4.35.2.0&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">exclude</span><span class="p">(</span><span class="s">&quot;com.squareup.moshi&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;moshi-kotlin&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;dev.zacsweers.moshix:moshi-metadata-reflect:0.19.0&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>If you wish to take full advantage of the performance benefits, you need to ensure <code>kotlin-reflect</code> isn't bundled into your final jar.
@@ -1128,55 +1128,55 @@ You must:</p>
 <h3 id="recipe">Recipe<a class="headerlink" href="#recipe" title="Permanent link">&para;</a></h3>
 <p>The first step is to define a "lite" version of <code>ConfigurableMoshi</code>.
 This is done by overriding the default <code>kotlin-reflect</code> backend with the <code>kotlinx-metadata</code> backend, via the 3rd-party <a href="https://github.com/ZacSweers/MoshiX/tree/main/moshi-metadata-reflect">moshi-metadata-reflect</a> module.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.moshi_lite</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.moshi_lite</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">com.squareup.moshi.Moshi</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.zacsweers.moshix.reflect.MetadataKotlinJsonAdapterFactory</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ConfigurableMoshi</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.EventAdapter</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ListAdapter</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.MapAdapter</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ThrowableAdapter</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.asConfigurable</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.withStandardMappings</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.squareup.moshi.Moshi</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.zacsweers.moshix.reflect.MetadataKotlinJsonAdapterFactory</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ConfigurableMoshi</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.EventAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ListAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.MapAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ThrowableAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.asConfigurable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.withStandardMappings</span>
 
-<span class="kd">object</span><span class="w"> </span><span class="nc">MoshiLite</span><span class="p">:</span><span class="w"> </span><span class="n">ConfigurableMoshi</span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="n">Moshi</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">EventAdapter</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ThrowableAdapter</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ListAdapter</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">MapAdapter</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">asConfigurable</span><span class="p">(</span><span class="n">MetadataKotlinJsonAdapterFactory</span><span class="p">())</span><span class="w"> </span><span class="c1">// &lt;-- moshi-metadata-reflect</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">done</span><span class="p">()</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kd">object</span><span class="w"> </span><span class="nc">MoshiLite</span><span class="p">:</span><span class="w"> </span><span class="n">ConfigurableMoshi</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Moshi</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">EventAdapter</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ThrowableAdapter</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ListAdapter</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">MapAdapter</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">asConfigurable</span><span class="p">(</span><span class="n">MetadataKotlinJsonAdapterFactory</span><span class="p">())</span><span class="w"> </span><span class="c1">// &lt;-- moshi-metadata-reflect</span>
+<span class="w">        </span><span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">done</span><span class="p">()</span>
+<span class="p">)</span>
 </code></pre></div>
 
 <p>Then you can use this new <code>ConfigurableMoshi</code> instance for auto-marshalling and lens creation, like normal.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.moshi_lite</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.moshi_lite</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span>
 
-<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MoshiCat</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"></span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MoshiCat</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiCat</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Tigger&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiCat</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Tigger&quot;</span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// serialize</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">asFormatString</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// serialize</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">asFormatString</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// deserialize</span><span class="w"></span>
-<span class="w">    </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">asA</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// deserialize</span>
+<span class="w">    </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">asA</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// make a lens</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">lens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">autoBody</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">lens</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">cat</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// make a lens</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">lens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">autoBody</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
+<span class="w">    </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">lens</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">cat</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
                     
                 </div>

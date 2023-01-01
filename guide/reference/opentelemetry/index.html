@@ -1106,7 +1106,7 @@
                     <h1>OpenTelemetry</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-opentelemetry&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-opentelemetry&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1114,111 +1114,111 @@
 <p><code>OpenTelemetry is a collection of tools, APIs, and SDKs. You use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) for analysis in order to understand your software's performance and behavior.</code></p>
 <h3 id="tracing">Tracing <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/opentelemetry/example_tracing.kt"><img class="octocat"/></a><a class="headerlink" href="#tracing" title="Permanent link">&para;</a></h3>
 <p>OpenTelemetry provides a pluggable interface for tracing propagation, so you can easily switch between different implementations such as AWS X-Ray, B3 and Jaeger etc.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.opentelemetry</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.opentelemetry</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.context.propagation.ContextPropagators.create</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.extension.aws.AwsXrayPropagator</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.sdk.OpenTelemetrySdk</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.OpenTelemetryTracing</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.path</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.context.propagation.ContextPropagators.create</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.extension.aws.AwsXrayPropagator</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.sdk.OpenTelemetrySdk</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.OpenTelemetryTracing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.path</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// configure OpenTelemetry using the Amazon XRAY tracing scheme</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">openTelemetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OpenTelemetrySdk</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">setPropagators</span><span class="p">(</span><span class="n">create</span><span class="p">(</span><span class="n">AwsXrayPropagator</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()))</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">buildAndRegisterGlobal</span><span class="p">()</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// configure OpenTelemetry using the Amazon XRAY tracing scheme</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">openTelemetry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OpenTelemetrySdk</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">setPropagators</span><span class="p">(</span><span class="n">create</span><span class="p">(</span><span class="n">AwsXrayPropagator</span><span class="p">.</span><span class="na">getInstance</span><span class="p">()))</span>
+<span class="w">        </span><span class="p">.</span><span class="na">buildAndRegisterGlobal</span><span class="p">()</span>
 
-<span class="w">    </span><span class="c1">// this HttpHandler represents a 3rd party service, and will repeat the request body</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">repeater</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;REMOTE REQUEST WITH TRACING HEADERS: </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// this HttpHandler represents a 3rd party service, and will repeat the request body</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">repeater</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;REMOTE REQUEST WITH TRACING HEADERS: </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// we will propagate the tracing headers using the tracer instance</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">repeaterClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">OpenTelemetryTracing</span><span class="p">(</span><span class="n">openTelemetry</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">repeater</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// we will propagate the tracing headers using the tracer instance</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">repeaterClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">OpenTelemetryTracing</span><span class="p">(</span><span class="n">openTelemetry</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">repeater</span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// this is the server app which will add tracing spans to incoming requests</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">OpenTelemetryTracing</span><span class="p">(</span><span class="n">openTelemetry</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/echo/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">remoteResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repeaterClient</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://aRemoteServer/endpoint&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">                    </span><span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span><span class="o">!!</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">remoteResponse</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span><span class="w"></span>
-<span class="w">        </span><span class="p">}))</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// this is the server app which will add tracing spans to incoming requests</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">OpenTelemetryTracing</span><span class="p">(</span><span class="n">openTelemetry</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/echo/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">remoteResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repeaterClient</span><span class="p">(</span>
+<span class="w">                </span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://aRemoteServer/endpoint&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">body</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">path</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span><span class="o">!!</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">remoteResponse</span><span class="p">.</span><span class="na">bodyString</span><span class="p">())</span>
+<span class="w">        </span><span class="p">}))</span>
 
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;RETURNED TO CALLER: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8080/echo/david&quot;</span><span class="p">)))</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;RETURNED TO CALLER: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8080/echo/david&quot;</span><span class="p">)))</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <h3 id="metrics">Metrics <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/opentelemetry/example_metrics.kt"><img class="octocat"/></a><a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h3>
 <p>Both Server and Client filters are available for recording request counts and latency, optionally overriding values for the metric names, descriptions and request identification.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.opentelemetry</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.opentelemetry</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.sdk.OpenTelemetrySdk</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.sdk.metrics.SdkMeterProvider</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.sdk.testing.exporter.InMemoryMetricReader</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.OpenTelemetryMetrics</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.sdk.OpenTelemetrySdk</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.sdk.metrics.SdkMeterProvider</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.opentelemetry.sdk.testing.exporter.InMemoryMetricReader</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.ApacheClient</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.OpenTelemetryMetrics</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// test only: this sets up the metrics provider to something we can read</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">inMemoryMetricReader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InMemoryMetricReader</span><span class="p">.</span><span class="na">create</span><span class="p">()</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// test only: this sets up the metrics provider to something we can read</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">inMemoryMetricReader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InMemoryMetricReader</span><span class="p">.</span><span class="na">create</span><span class="p">()</span>
 
-<span class="w">    </span><span class="n">OpenTelemetrySdk</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">setMeterProvider</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">SdkMeterProvider</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="na">registerMetricReader</span><span class="p">(</span><span class="n">inMemoryMetricReader</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">buildAndRegisterGlobal</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">OpenTelemetrySdk</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">setMeterProvider</span><span class="p">(</span>
+<span class="w">            </span><span class="n">SdkMeterProvider</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">registerMetricReader</span><span class="p">(</span><span class="n">inMemoryMetricReader</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">()</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">buildAndRegisterGlobal</span><span class="p">()</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/metrics&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">})</span>
 
-<span class="w">    </span><span class="c1">// apply metrics filters to a server...</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">OpenTelemetryMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">OpenTelemetryMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">())</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// apply metrics filters to a server...</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">OpenTelemetryMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">OpenTelemetryMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">())</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// ... or to a client</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">        </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">OpenTelemetryMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">OpenTelemetryMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">())</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// ... or to a client</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">OpenTelemetryMetrics</span><span class="p">.</span><span class="na">RequestCounter</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">OpenTelemetryMetrics</span><span class="p">.</span><span class="na">RequestTimer</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ApacheClient</span><span class="p">())</span>
 
-<span class="w">    </span><span class="c1">// make some calls</span><span class="w"></span>
-<span class="w">    </span><span class="n">repeat</span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/metrics&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">        </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://http4k.org&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// make some calls</span>
+<span class="w">    </span><span class="n">repeat</span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/metrics&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://http4k.org&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// see some results</span><span class="w"></span>
-<span class="w">    </span><span class="n">inMemoryMetricReader</span><span class="p">.</span><span class="na">collectAllMetrics</span><span class="p">().</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;metric: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, value: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">            </span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">longSumData</span><span class="p">.</span><span class="na">points</span><span class="p">.</span><span class="na">takeIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isNotEmpty</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">doubleSumData</span><span class="p">.</span><span class="na">points</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// see some results</span>
+<span class="w">    </span><span class="n">inMemoryMetricReader</span><span class="p">.</span><span class="na">collectAllMetrics</span><span class="p">().</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;metric: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, value: &quot;</span><span class="w"> </span><span class="o">+</span>
+<span class="w">            </span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">longSumData</span><span class="p">.</span><span class="na">points</span><span class="p">.</span><span class="na">takeIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isNotEmpty</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">doubleSumData</span><span class="p">.</span><span class="na">points</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
                     
                 </div>

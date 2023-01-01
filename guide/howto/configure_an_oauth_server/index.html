@@ -1106,176 +1106,176 @@
                     <h1>Configure an OAuth Server</h1>
                     
                     <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span><span class="w"></span>
-<span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-security-oauth&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span>
+<span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-security-oauth&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span>
 </code></pre></div>
 
 <p>For this example, you need to configure <code>OAuthServer</code> instance with the correct implementations of your login pages, generation of authentication codes and access tokens.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/configure_an_oauth_server/example.kt"><img class="octocat" src="/img/octocat-32.png"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dev.forkhandles.result4k.Failure</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.forkhandles.result4k.Success</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Credentials</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.Jackson</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.RoutingHttpHandler</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.AccessToken</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.InsecureCookieBasedOAuthPersistence</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.OAuthProvider</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.OAuthProviderConfig</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AccessTokens</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AuthRequest</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AuthorizationCode</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AuthorizationCodeDetails</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AuthorizationCodes</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.ClientId</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.ClientValidator</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.InsecureCookieBasedAuthRequestTracking</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.OAuthServer</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.TokenRequest</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.UnsupportedGrantType</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.accesstoken.AuthorizationCodeAccessTokenRequest</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.time.Clock</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.time.temporal.ChronoUnit.DAYS</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dev.forkhandles.result4k.Failure</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.forkhandles.result4k.Success</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Credentials</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.Jackson</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.RoutingHttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.AccessToken</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.InsecureCookieBasedOAuthPersistence</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.OAuthProvider</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.OAuthProviderConfig</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AccessTokens</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AuthRequest</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AuthorizationCode</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AuthorizationCodeDetails</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.AuthorizationCodes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.ClientId</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.ClientValidator</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.InsecureCookieBasedAuthRequestTracking</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.OAuthServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.TokenRequest</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.UnsupportedGrantType</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.security.oauth.server.accesstoken.AuthorizationCodeAccessTokenRequest</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.time.Clock</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.time.temporal.ChronoUnit.DAYS</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">authorizationServer</span><span class="p">():</span><span class="w"> </span><span class="n">RoutingHttpHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OAuthServer</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">tokenPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">authRequestTracking</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureCookieBasedAuthRequestTracking</span><span class="p">(),</span><span class="w"></span>
-<span class="w">            </span><span class="n">clientValidator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureClientValidator</span><span class="p">(),</span><span class="w"></span>
-<span class="w">            </span><span class="n">authorizationCodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureAuthorizationCodes</span><span class="p">(),</span><span class="w"></span>
-<span class="w">            </span><span class="n">accessTokens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureAccessTokens</span><span class="p">(),</span><span class="w"></span>
-<span class="w">            </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Jackson</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="p">.</span><span class="na">systemUTC</span><span class="p">(),</span><span class="w"></span>
-<span class="w">            </span><span class="n">documentationUri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;See the full API docs at https://example.com/docs/access_token&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">authorizationServer</span><span class="p">():</span><span class="w"> </span><span class="n">RoutingHttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OAuthServer</span><span class="p">(</span>
+<span class="w">            </span><span class="n">tokenPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">authRequestTracking</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureCookieBasedAuthRequestTracking</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">clientValidator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureClientValidator</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">authorizationCodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureAuthorizationCodes</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">accessTokens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureAccessTokens</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Jackson</span><span class="p">,</span>
+<span class="w">            </span><span class="n">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="p">.</span><span class="na">systemUTC</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">documentationUri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;See the full API docs at https://example.com/docs/access_token&quot;</span>
+<span class="w">        </span><span class="p">)</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">server</span><span class="p">.</span><span class="na">tokenRoute</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/my-login-page&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">authenticationStart</span><span class="p">.</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span>
+<span class="w">            </span><span class="n">server</span><span class="p">.</span><span class="na">tokenRoute</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;/my-login-page&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">authenticationStart</span><span class="p">.</span><span class="na">then</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span>
 <span class="w">                    </span><span class="s">&quot;&quot;&quot;</span>
 <span class="s">                    &lt;html&gt;</span>
 <span class="s">                        &lt;form method=&quot;POST&quot;&gt;</span>
 <span class="s">                            &lt;button type=&quot;submit&quot;&gt;Please authenticate&lt;/button&gt;</span>
 <span class="s">                        &lt;/form&gt;</span>
 <span class="s">                    &lt;/html&gt;</span>
-<span class="s">                    &quot;&quot;&quot;</span><span class="p">.</span><span class="na">trimIndent</span><span class="p">()</span><span class="w"></span>
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/my-login-page&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">authenticationComplete</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="s">                    &quot;&quot;&quot;</span><span class="p">.</span><span class="na">trimIndent</span><span class="p">()</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="s">&quot;/my-login-page&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="na">authenticationComplete</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">oAuthClientApp</span><span class="p">(</span><span class="n">tokenClient</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">RoutingHttpHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">persistence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureCookieBasedOAuthPersistence</span><span class="p">(</span><span class="s">&quot;oauthTest&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">authorizationServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">oAuthClientApp</span><span class="p">(</span><span class="n">tokenClient</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">RoutingHttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">persistence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InsecureCookieBasedOAuthPersistence</span><span class="p">(</span><span class="s">&quot;oauthTest&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">authorizationServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">)</span>
 
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">oauthProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OAuthProvider</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">OAuthProviderConfig</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">authorizationServer</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s">&quot;/my-login-page&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;my-app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;somepassword&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">),</span><span class="w"></span>
-<span class="w">            </span><span class="n">tokenClient</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000/my-callback&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">            </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;age&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">            </span><span class="n">persistence</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">oauthProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OAuthProvider</span><span class="p">(</span>
+<span class="w">            </span><span class="n">OAuthProviderConfig</span><span class="p">(</span>
+<span class="w">                </span><span class="n">authorizationServer</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;/my-login-page&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/oauth2/token&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">Credentials</span><span class="p">(</span><span class="s">&quot;my-app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;somepassword&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">),</span>
+<span class="w">            </span><span class="n">tokenClient</span><span class="p">,</span>
+<span class="w">            </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:8000/my-callback&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="n">listOf</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;age&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="n">persistence</span>
+<span class="w">        </span><span class="p">)</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/my-callback&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">oauthProvider</span><span class="p">.</span><span class="na">callback</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s">&quot;/a-protected-resource&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">oauthProvider</span><span class="p">.</span><span class="na">authFilter</span><span class="p">.</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="w"></span>
-<span class="w">                    </span><span class="s">&quot;user&#39;s protected resource&quot;</span><span class="w"></span>
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;/my-callback&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">oauthProvider</span><span class="p">.</span><span class="na">callback</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;/a-protected-resource&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">oauthProvider</span><span class="p">.</span><span class="na">authFilter</span><span class="p">.</span><span class="na">then</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span>
+<span class="w">                    </span><span class="s">&quot;user&#39;s protected resource&quot;</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">oAuthClientApp</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">()).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">authorizationServer</span><span class="p">().</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">block</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">oAuthClientApp</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">()).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
+<span class="w">    </span><span class="n">authorizationServer</span><span class="p">().</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">().</span><span class="na">block</span><span class="p">()</span>
 
-<span class="w">    </span><span class="c1">// Go to http://localhost:8000/a-protected-resource to start the authorization flow</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Go to http://localhost:8000/a-protected-resource to start the authorization flow</span>
+<span class="p">}</span>
 
-<span class="c1">// This class allow you to make extra checks about the oauth client during the flow</span><span class="w"></span>
-<span class="kd">class</span><span class="w"> </span><span class="nc">InsecureClientValidator</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ClientValidator</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// the client id should be a registered one</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">validateClientId</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"> </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="c1">// This class allow you to make extra checks about the oauth client during the flow</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">InsecureClientValidator</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ClientValidator</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// the client id should be a registered one</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">validateClientId</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"> </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 
-<span class="w">    </span><span class="c1">// one should only redirect to URLs registered against a particular client</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">validateRedirection</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">redirectionUri</span><span class="p">:</span><span class="w"> </span><span class="n">Uri</span><span class="w"></span>
-<span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// one should only redirect to URLs registered against a particular client</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">validateRedirection</span><span class="p">(</span>
+<span class="w">        </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span>
+<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span>
+<span class="w">        </span><span class="n">redirectionUri</span><span class="p">:</span><span class="w"> </span><span class="n">Uri</span>
+<span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 
-<span class="w">    </span><span class="c1">// one should validate the scopes are correct for that client</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">validateScopes</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">scopes</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// one should validate the scopes are correct for that client</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">validateScopes</span><span class="p">(</span>
+<span class="w">        </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span>
+<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span>
+<span class="w">        </span><span class="n">scopes</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 
-<span class="w">    </span><span class="c1">// certain operations can only be performed by fully authenticated clients</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// e.g. generate access tokens</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">validateCredentials</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="w"></span>
-<span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// certain operations can only be performed by fully authenticated clients</span>
+<span class="w">    </span><span class="c1">// e.g. generate access tokens</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">validateCredentials</span><span class="p">(</span>
+<span class="w">        </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span>
+<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span>
+<span class="w">        </span><span class="n">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
+<span class="w">    </span><span class="p">):</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">InsecureAuthorizationCodes</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthorizationCodes</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="p">.</span><span class="na">systemUTC</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">codes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableMapOf</span><span class="o">&lt;</span><span class="n">AuthorizationCode</span><span class="p">,</span><span class="w"> </span><span class="n">AuthorizationCodeDetails</span><span class="o">&gt;</span><span class="p">()</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">InsecureAuthorizationCodes</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthorizationCodes</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="p">.</span><span class="na">systemUTC</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">codes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableMapOf</span><span class="o">&lt;</span><span class="n">AuthorizationCode</span><span class="p">,</span><span class="w"> </span><span class="n">AuthorizationCodeDetails</span><span class="o">&gt;</span><span class="p">()</span>
 
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">detailsFor</span><span class="p">(</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="n">AuthorizationCode</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">        </span><span class="n">codes</span><span class="o">[</span><span class="n">code</span><span class="o">]</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">error</span><span class="p">(</span><span class="s">&quot;code not stored&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">detailsFor</span><span class="p">(</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="n">AuthorizationCode</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">codes</span><span class="o">[</span><span class="n">code</span><span class="o">]</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">error</span><span class="p">(</span><span class="s">&quot;code not stored&quot;</span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// Authorization codes should be associated</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// to a particular user (who can be identified in the Response)</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// so they can be checked in various stages of the authorization flow</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"> </span><span class="n">authRequest</span><span class="p">:</span><span class="w"> </span><span class="n">AuthRequest</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">:</span><span class="w"> </span><span class="n">Response</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">        </span><span class="n">Success</span><span class="p">(</span><span class="n">AuthorizationCode</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()).</span><span class="na">also</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">codes</span><span class="o">[</span><span class="nb">it</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AuthorizationCodeDetails</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="n">authRequest</span><span class="p">.</span><span class="na">client</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="n">authRequest</span><span class="p">.</span><span class="na">redirectUri</span><span class="o">!!</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="n">clock</span><span class="p">.</span><span class="na">instant</span><span class="p">().</span><span class="na">plus</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">DAYS</span><span class="p">),</span><span class="w"></span>
-<span class="w">                </span><span class="n">authRequest</span><span class="p">.</span><span class="na">state</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="n">authRequest</span><span class="p">.</span><span class="na">isOIDC</span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">})</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Authorization codes should be associated</span>
+<span class="w">    </span><span class="c1">// to a particular user (who can be identified in the Response)</span>
+<span class="w">    </span><span class="c1">// so they can be checked in various stages of the authorization flow</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="p">,</span><span class="w"> </span><span class="n">authRequest</span><span class="p">:</span><span class="w"> </span><span class="n">AuthRequest</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">:</span><span class="w"> </span><span class="n">Response</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">Success</span><span class="p">(</span><span class="n">AuthorizationCode</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()).</span><span class="na">also</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">codes</span><span class="o">[</span><span class="nb">it</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AuthorizationCodeDetails</span><span class="p">(</span>
+<span class="w">                </span><span class="n">authRequest</span><span class="p">.</span><span class="na">client</span><span class="p">,</span>
+<span class="w">                </span><span class="n">authRequest</span><span class="p">.</span><span class="na">redirectUri</span><span class="o">!!</span><span class="p">,</span>
+<span class="w">                </span><span class="n">clock</span><span class="p">.</span><span class="na">instant</span><span class="p">().</span><span class="na">plus</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">DAYS</span><span class="p">),</span>
+<span class="w">                </span><span class="n">authRequest</span><span class="p">.</span><span class="na">state</span><span class="p">,</span>
+<span class="w">                </span><span class="n">authRequest</span><span class="p">.</span><span class="na">isOIDC</span><span class="p">()</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">})</span>
+<span class="p">}</span>
 
-<span class="kd">class</span><span class="w"> </span><span class="nc">InsecureAccessTokens</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AccessTokens</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">tokenRequest</span><span class="p">:</span><span class="w"> </span><span class="n">TokenRequest</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Failure</span><span class="p">(</span><span class="n">UnsupportedGrantType</span><span class="p">(</span><span class="s">&quot;client_credentials&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">InsecureAccessTokens</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AccessTokens</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
+<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span>
+<span class="w">        </span><span class="n">tokenRequest</span><span class="p">:</span><span class="w"> </span><span class="n">TokenRequest</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Failure</span><span class="p">(</span><span class="n">UnsupportedGrantType</span><span class="p">(</span><span class="s">&quot;client_credentials&quot;</span><span class="p">))</span>
 
-<span class="w">    </span><span class="c1">// an access token should be associated with a particular authorization flow</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// (i.e. limited to the requested scopes), and contain an expiration date</span><span class="w"></span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">tokenRequest</span><span class="p">:</span><span class="w"> </span><span class="n">AuthorizationCodeAccessTokenRequest</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">authorizationCode</span><span class="p">:</span><span class="w"> </span><span class="n">AuthorizationCode</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="n">AccessToken</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()))</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// an access token should be associated with a particular authorization flow</span>
+<span class="w">    </span><span class="c1">// (i.e. limited to the requested scopes), and contain an expiration date</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
+<span class="w">        </span><span class="n">clientId</span><span class="p">:</span><span class="w"> </span><span class="n">ClientId</span><span class="p">,</span>
+<span class="w">        </span><span class="n">tokenRequest</span><span class="p">:</span><span class="w"> </span><span class="n">AuthorizationCodeAccessTokenRequest</span><span class="p">,</span>
+<span class="w">        </span><span class="n">authorizationCode</span><span class="p">:</span><span class="w"> </span><span class="n">AuthorizationCode</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="n">AccessToken</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">()))</span>
+<span class="p">}</span>
 </code></pre></div>
                     
                 </div>

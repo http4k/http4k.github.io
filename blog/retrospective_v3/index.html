@@ -1109,19 +1109,19 @@
 <p><img class="blogImage" src="./mask_black.png" alt="mask"/></p>
 <p>The eagle-eyed amongst you may have noticed that the project branding has undergone a bit of cosmetic surgery - we thought we'd treat ourselves to a professional job as opposed to the one we knocked up on the cheap way back at the start of the project. We're planning to do an entire refit of the content over the next few months, hopefully to make everything a little easier to find and to provide a few more pointers about where to start with the library. Stay tuned...</p>
 <p>Anyway, I digress. We thought that we'd do a bit of a retrospective on our version 3 journey. But first off, here are some numbers about what has gone on in those 1000 days in the http4k codebase:</p>
-<div class="codehilite"><pre><span></span><code>over <span class="m">2500</span> commits!
-<span class="m">268</span> releases
-<span class="m">257</span> PRs merged
-<span class="m">139</span> issues fixed
-<span class="m">71</span> new amazing contributors
-<span class="m">28</span> new http4k library modules
-<span class="m">5</span> newly supported HTTP client libraries
-<span class="m">5</span> new server engines
-<span class="m">4</span> new messaging format modules
-<span class="m">4</span> new testing integrations
-<span class="m">2</span> new serverless backends 
-<span class="m">2</span> new templating libraries supported
-<span class="m">0</span> new dependencies added to the core module 😉
+<div class="codehilite"><pre><span></span><code>over<span class="w"> </span><span class="m">2500</span><span class="w"> </span>commits!
+<span class="m">268</span><span class="w"> </span>releases
+<span class="m">257</span><span class="w"> </span>PRs<span class="w"> </span>merged
+<span class="m">139</span><span class="w"> </span>issues<span class="w"> </span>fixed
+<span class="m">71</span><span class="w"> </span>new<span class="w"> </span>amazing<span class="w"> </span>contributors
+<span class="m">28</span><span class="w"> </span>new<span class="w"> </span>http4k<span class="w"> </span>library<span class="w"> </span>modules
+<span class="m">5</span><span class="w"> </span>newly<span class="w"> </span>supported<span class="w"> </span>HTTP<span class="w"> </span>client<span class="w"> </span>libraries
+<span class="m">5</span><span class="w"> </span>new<span class="w"> </span>server<span class="w"> </span>engines
+<span class="m">4</span><span class="w"> </span>new<span class="w"> </span>messaging<span class="w"> </span>format<span class="w"> </span>modules
+<span class="m">4</span><span class="w"> </span>new<span class="w"> </span>testing<span class="w"> </span>integrations
+<span class="m">2</span><span class="w"> </span>new<span class="w"> </span>serverless<span class="w"> </span>backends<span class="w"> </span>
+<span class="m">2</span><span class="w"> </span>new<span class="w"> </span>templating<span class="w"> </span>libraries<span class="w"> </span>supported
+<span class="m">0</span><span class="w"> </span>new<span class="w"> </span>dependencies<span class="w"> </span>added<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>core<span class="w"> </span>module<span class="w"> </span>😉
 </code></pre></div>
 
 <p>If you'd like to check out the old version in the GitHub time machine, <a href="https://github.com/http4k/http4k/tree/6639c964abf43c265591e3f70eb59467e60cd089">here</a> is how the code looked all that time ago.</p>
@@ -1158,11 +1158,11 @@
 <hr/>
 <h4 id="enter_the_platform">Enter the platform!<a class="headerlink" href="#enter_the_platform" title="Permanent link">&para;</a></h4>
 <p>When we conceived http4k, it was a simple 40 line shim over the top of another Java-based framework, bashed together on a HackDay. Never did we realise that a few years later it would be a very popular library with over 40 modules! For this reason (and to save on typing), we introduced the <code>http4k-bom</code> module (learn more about BOM <a href="https://medium.com/java-user-group-malta/maven-s-bill-of-materials-bom-b430ede60599">here</a>, allowing users to use a single version of all http4k libraries and then just import the modules they need.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="n">platform</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-bom:3.259.0&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-core&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-server-undertow&quot;</span><span class="w"></span>
-<span class="o">}</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="n">platform</span><span class="o">(</span><span class="s2">&quot;org.http4k:http4k-bom:3.259.0&quot;</span><span class="o">)</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-core&quot;</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;org.http4k:http4k-server-undertow&quot;</span>
+<span class="o">}</span>
 </code></pre></div>
 
 <hr/>

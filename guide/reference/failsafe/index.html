@@ -1106,7 +1106,7 @@
                     <h1>Failsafe</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-failsafe&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-failsafe&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span>
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
@@ -1114,92 +1114,92 @@
 by integrating with the <a href="https://failsafe.dev/">Failsafe</a> library.</p>
 <h3 id="basic_example">Basic example <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/failsafe/example_bulkheading.kt"><img class="octocat"/></a><a class="headerlink" href="#basic_example" title="Permanent link">&para;</a></h3>
 <p>Here's an example that uses BulkHeading to demonstrate how easy it is to use the filter with configured Failsafe policies.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.failsafe</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.failsafe</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Bulkhead</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Failsafe</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.FailsafeFilter</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">kotlin.concurrent.thread</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Bulkhead</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Failsafe</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.FailsafeFilter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlin.concurrent.thread</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Configure a Failsafe policy</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">failsafeExecutor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Failsafe</span><span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">Bulkhead</span><span class="p">.</span><span class="na">of</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Configure a Failsafe policy</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">failsafeExecutor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Failsafe</span><span class="p">.</span><span class="na">with</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Bulkhead</span><span class="p">.</span><span class="na">of</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">(</span><span class="m">5</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// Use the filter in a filter chain</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FailsafeFilter</span><span class="p">(</span><span class="n">failsafeExecutor</span><span class="p">).</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">100</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Use the filter in a filter chain</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FailsafeFilter</span><span class="p">(</span><span class="n">failsafeExecutor</span><span class="p">).</span><span class="na">then</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Throw a bunch of requests at the filter - only 5 should pass</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">thread</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Throw a bunch of requests at the filter - only 5 should pass</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">thread</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">println</span><span class="p">(</span><span class="n">app</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)).</span><span class="na">status</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <h3 id="example_of_using_multiple_policies">Example of using multiple policies <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/failsafe/example_multiple_policies.kt"><img class="octocat"/></a><a class="headerlink" href="#example_of_using_multiple_policies" title="Permanent link">&para;</a></h3>
 <p>Using multiple Failsafe policies in the filter is just as easy, as the following example shows.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.failsafe</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.failsafe</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.CircuitBreaker</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Failsafe</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Fallback</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.RetryPolicy</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Timeout</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.FailsafeFilter</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.time.Duration</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.CircuitBreaker</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Failsafe</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Fallback</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.RetryPolicy</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.failsafe.Timeout</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.BAD_REQUEST</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.FailsafeFilter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.time.Duration</span>
 
-<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Configure multiple Failsafe policies</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">failsafeExecutor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Failsafe</span><span class="p">.</span><span class="na">with</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">Fallback</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Fallback&quot;</span><span class="p">)),</span><span class="w"></span>
-<span class="w">        </span><span class="n">RetryPolicy</span><span class="p">.</span><span class="na">builder</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">withMaxAttempts</span><span class="p">(</span><span class="m">2</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">handleResultIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">!</span><span class="nb">it</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">successful</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">(),</span><span class="w"></span>
-<span class="w">        </span><span class="n">CircuitBreaker</span><span class="p">.</span><span class="na">builder</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">()</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">withFailureThreshold</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">handleResultIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">serverError</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">(),</span><span class="w"></span>
-<span class="w">        </span><span class="n">Timeout</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofMillis</span><span class="p">(</span><span class="m">100</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Configure multiple Failsafe policies</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">failsafeExecutor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Failsafe</span><span class="p">.</span><span class="na">with</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Fallback</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;Fallback&quot;</span><span class="p">)),</span>
+<span class="w">        </span><span class="n">RetryPolicy</span><span class="p">.</span><span class="na">builder</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">withMaxAttempts</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">handleResultIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">!</span><span class="nb">it</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">successful</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">CircuitBreaker</span><span class="p">.</span><span class="na">builder</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">withFailureThreshold</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">handleResultIf</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">serverError</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">Timeout</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofMillis</span><span class="p">(</span><span class="m">100</span><span class="p">))</span>
+<span class="w">    </span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// We then create a very unstable client using the filter</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">requestCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FailsafeFilter</span><span class="p">(</span><span class="n">failsafeExecutor</span><span class="p">).</span><span class="na">then</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">requestCount</span><span class="o">++</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// We then create a very unstable client using the filter</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">requestCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FailsafeFilter</span><span class="p">(</span><span class="n">failsafeExecutor</span><span class="p">).</span><span class="na">then</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">requestCount</span><span class="o">++</span>
 
-<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">requestCount</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;All good - </span><span class="si">$</span><span class="n">requestCount</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="m">0</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span><span class="w"></span>
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">requestCount</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;All good - </span><span class="si">$</span><span class="n">requestCount</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="m">0</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">BAD_REQUEST</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Throw a bunch of request at the filter - some will fail and be retried until</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// the circuit breaker opens and the fallback value will be used after that.</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="si">}</span><span class="s"> - </span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">bodyString</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Throw a bunch of request at the filter - some will fail and be retried until</span>
+<span class="w">    </span><span class="c1">// the circuit breaker opens and the fallback value will be used after that.</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1.</span><span class="p">.</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">status</span><span class="si">}</span><span class="s"> - </span><span class="si">${</span><span class="n">response</span><span class="p">.</span><span class="na">bodyString</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
                     
                 </div>

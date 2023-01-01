@@ -1106,128 +1106,128 @@
                     <h1>Self document systems with tests</h1>
                     
                     <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-incubator&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-incubator&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.2.0&quot;</span>
 </code></pre></div>
 
 <p>When composing several http4k services together and talking to Fakes representing external systems, we can use a combination of request tracing filters (utilising distributed tracing headers) and the http4k event stream to capture and record events. This stream can be stored to disk or outputted to various rendered formats such as <a href="https://plantuml.com/">PlantUML</a> or <a href="https://mermaid.js.org/">Mermaid</a>. </p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/self_document_systems_with_tests/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.self_document_systems_with_tests</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.self_document_systems_with_tests</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilters.AddServiceName</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilters.AddZipkinTraces</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.Events</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.HttpEvent.Incoming</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.HttpEvent.Outgoing</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.then</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.ResetRequestTracing</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ResponseFilters.ReportHttpTransaction</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.RequestTracing</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.reverseProxy</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorResolver</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.Actor</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorType</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.TraceRenderPersistence</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.junit.TracerBulletEvents</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.persistence.Printing</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.renderer.MermaidSequenceDiagram</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.tracer.HttpTracer</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.extension.RegisterExtension</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilters.AddServiceName</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilters.AddZipkinTraces</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.Events</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.HttpEvent.Incoming</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.HttpEvent.Outgoing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.ResetRequestTracing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ResponseFilters.ReportHttpTransaction</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.RequestTracing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.reverseProxy</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorResolver</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.Actor</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorType</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.TraceRenderPersistence</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.junit.TracerBulletEvents</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.persistence.Printing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.renderer.MermaidSequenceDiagram</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.tracer.HttpTracer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.extension.RegisterExtension</span>
 
-<span class="c1">// standardised events stack which records the service name and adds tracing</span><span class="w"></span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">TraceEvents</span><span class="p">(</span><span class="n">actorName</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AddZipkinTraces</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">AddServiceName</span><span class="p">(</span><span class="n">actorName</span><span class="p">))</span><span class="w"></span>
+<span class="c1">// standardised events stack which records the service name and adds tracing</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">TraceEvents</span><span class="p">(</span><span class="n">actorName</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AddZipkinTraces</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">AddServiceName</span><span class="p">(</span><span class="n">actorName</span><span class="p">))</span>
 
-<span class="c1">// standardised client filter stack which adds tracing and records traffic events</span><span class="w"></span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReportHttpTransaction</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">events</span><span class="p">(</span><span class="n">Outgoing</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">RequestTracing</span><span class="p">())</span><span class="w"></span>
+<span class="c1">// standardised client filter stack which adds tracing and records traffic events</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReportHttpTransaction</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">events</span><span class="p">(</span><span class="n">Outgoing</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">RequestTracing</span><span class="p">())</span>
 
-<span class="c1">// standardised server filter stack which adds tracing and records traffic events</span><span class="w"></span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReportHttpTransaction</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">events</span><span class="p">(</span><span class="n">Incoming</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">RequestTracing</span><span class="p">())</span><span class="w"></span>
+<span class="c1">// standardised server filter stack which adds tracing and records traffic events</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReportHttpTransaction</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">events</span><span class="p">(</span><span class="n">Incoming</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">RequestTracing</span><span class="p">())</span>
 
-<span class="c1">// Our &quot;User&quot; object who will send a request to our system</span><span class="w"></span>
-<span class="kd">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// Our &quot;User&quot; object who will send a request to our system</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
 
-<span class="w">    </span><span class="c1">// as the user is the initiator of requests, we need to reset the tracing for each call.</span><span class="w"></span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ResetRequestTracing</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">)).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// as the user is the initiator of requests, we need to reset the tracing for each call.</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ResetRequestTracing</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">)).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
 
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initiateCall</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://internal1/int1&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initiateCall</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://internal1/int1&quot;</span><span class="p">))</span>
+<span class="p">}</span>
 
-<span class="c1">// the first internal app</span><span class="w"></span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">Internal1</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// the first internal app</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Internal1</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int1&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
-<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://external1/ext1&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://internal2/int2&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">            </span><span class="p">})</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+<span class="w">            </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int1&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://external1/ext1&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://internal2/int2&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">})</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="c1">// the second internal app</span><span class="w"></span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">Internal2</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// the second internal app</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Internal2</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int2&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
-<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://external2/ext2&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">            </span><span class="p">})</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+<span class="w">            </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int2&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://external2/ext2&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">})</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="c1">// an external fake system</span><span class="w"></span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">FakeExternal1</span><span class="p">():</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="c1">// an external fake system</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">FakeExternal1</span><span class="p">():</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 
-<span class="c1">// another external fake system</span><span class="w"></span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">FakeExternal2</span><span class="p">():</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="c1">// another external fake system</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">FakeExternal2</span><span class="p">():</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 
-<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">actor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActorResolver</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Actor</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">metadata</span><span class="o">[</span><span class="s">&quot;service&quot;</span><span class="o">]</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="n">ActorType</span><span class="p">.</span><span class="na">System</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">actor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActorResolver</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Actor</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">metadata</span><span class="o">[</span><span class="s">&quot;service&quot;</span><span class="o">]</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="n">ActorType</span><span class="p">.</span><span class="na">System</span><span class="p">)</span>
+<span class="p">}</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Our test will capture the traffic and render it to the console</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="kd">class</span><span class="w"> </span><span class="nc">RenderingTest</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nd">@RegisterExtension</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// this events implementation will automatically capture the HTTP traffic</span><span class="w"></span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TracerBulletEvents</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">HttpTracer</span><span class="p">(</span><span class="n">actor</span><span class="p">)),</span><span class="w"> </span><span class="c1">// A tracer to capture HTTP calls</span><span class="w"></span>
-<span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">MermaidSequenceDiagram</span><span class="p">),</span><span class="w"> </span><span class="c1">// Render the HTTP traffic as a Mermaid diagram</span><span class="w"></span>
-<span class="w">        </span><span class="n">TraceRenderPersistence</span><span class="p">.</span><span class="na">Printing</span><span class="p">()</span><span class="w"> </span><span class="c1">// Print the result to the screen</span><span class="w"></span>
-<span class="w">    </span><span class="p">)</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">RenderingTest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@RegisterExtension</span>
+<span class="w">    </span><span class="c1">// this events implementation will automatically capture the HTTP traffic</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TracerBulletEvents</span><span class="p">(</span>
+<span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">HttpTracer</span><span class="p">(</span><span class="n">actor</span><span class="p">)),</span><span class="w"> </span><span class="c1">// A tracer to capture HTTP calls</span>
+<span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">MermaidSequenceDiagram</span><span class="p">),</span><span class="w"> </span><span class="c1">// Render the HTTP traffic as a Mermaid diagram</span>
+<span class="w">        </span><span class="n">TraceRenderPersistence</span><span class="p">.</span><span class="na">Printing</span><span class="p">()</span><span class="w"> </span><span class="c1">// Print the result to the screen</span>
+<span class="w">    </span><span class="p">)</span>
 
-<span class="w">    </span><span class="nd">@Test</span><span class="w"></span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`render diagram`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="c1">// compose our application(s) together</span><span class="w"></span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">internalApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Internal1</span><span class="p">(</span><span class="w"></span>
-<span class="w">            </span><span class="n">events</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="n">reverseProxy</span><span class="p">(</span><span class="w"></span>
-<span class="w">                </span><span class="s">&quot;external1&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">FakeExternal1</span><span class="p">(),</span><span class="w"></span>
-<span class="w">                </span><span class="s">&quot;internal2&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Internal2</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">FakeExternal2</span><span class="p">())</span><span class="w"></span>
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`render diagram`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// compose our application(s) together</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">internalApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Internal1</span><span class="p">(</span>
+<span class="w">            </span><span class="n">events</span><span class="p">,</span>
+<span class="w">            </span><span class="n">reverseProxy</span><span class="p">(</span>
+<span class="w">                </span><span class="s">&quot;external1&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">FakeExternal1</span><span class="p">(),</span>
+<span class="w">                </span><span class="s">&quot;internal2&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Internal2</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">FakeExternal2</span><span class="p">())</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
 
-<span class="w">        </span><span class="c1">// make a request to the composed stack</span><span class="w"></span>
-<span class="w">        </span><span class="n">User</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">internalApp</span><span class="p">).</span><span class="na">initiateCall</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// make a request to the composed stack</span>
+<span class="w">        </span><span class="n">User</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">internalApp</span><span class="p">).</span><span class="na">initiateCall</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
                     
                 </div>
