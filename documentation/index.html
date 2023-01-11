@@ -1192,18 +1192,18 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>OkHttp</strong> HTTP (supports sync and async HTTP)</li>
 </ul>
 </li>
-<li><strong>1LOC</strong> WebSocket client, with blocking and non-blocking modes</li>
+<li><strong>1LOC</strong> Websocket client, with blocking and non-blocking modes</li>
 <li><strong>GraphQL</strong> client (bundled with GraphQL module)</li>
 </ul>
 </li>
 <li><a href="https://http4k.org/guide/reference/servers">Server:</a><ul>
 <li><strong>1LOC</strong> server backend spin-up for:<ul>
 <li><strong>Apache v4 &amp; v5</strong> (from httpcore)</li>
-<li><strong>Jetty</strong> (including SSE and WebSocket support)</li>
+<li><strong>Jetty</strong> (including SSE and Websocket support)</li>
 <li><strong>Ktor CIO &amp; Netty</strong></li>
-<li><strong>Netty</strong> (including WebSocket support)</li>
+<li><strong>Netty</strong> (including Websocket support)</li>
 <li><strong>SunHttp</strong> (bundled with <code>http4k-core</code>)</li>
-<li><strong>Undertow</strong> (including SSE and WebSocket support)</li>
+<li><strong>Undertow</strong> (including SSE and Websocket support)</li>
 </ul>
 </li>
 <li>API design allows for simple customization of underying backend.</li>
@@ -1358,9 +1358,9 @@ plugging together of services without HTTP container being required.</li>
 <p>This quick example is designed to convey the simplicity &amp; features of <a href="https://http4k.org">http4k</a> . See also the <a href="https://http4k.org/quickstart/">quickstart</a> for the simplest possible starting point and demonstrates how to serve and consume HTTP services with dynamic routing.</p>
 <p>To install, add these dependencies to your <strong>Gradle</strong> file:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.4.0&quot;</span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.4.0&quot;</span>
-<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.35.4.0&quot;</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-core&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.36.0.0&quot;</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-server-jetty&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.36.0.0&quot;</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-client-okhttp&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.36.0.0&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
 
