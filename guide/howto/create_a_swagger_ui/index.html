@@ -1123,10 +1123,13 @@ For more detail on generating contracts, see:</p>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.meta</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.openapi.ApiInfo</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.openapi.v3.OpenApi3</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.security.OpenIdConnectSecurity</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.ui.swaggerUi</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Body</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Filter</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.NoOp</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
@@ -1149,6 +1152,12 @@ For more detail on generating contracts, see:</p>
 <span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">greetingLens</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="s">&quot;HI!&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
+<span class="w">    </span><span class="c1">// Define an OpenId Connect Security scheme</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">openIdConnectSecurity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OpenIdConnectSecurity</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;https://accounts.google.com/.well-known/openid-configuration&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="n">Filter</span><span class="p">.</span><span class="na">NoOp</span>
+<span class="w">    </span><span class="p">)</span>
+
 <span class="w">    </span><span class="c1">// Define a contract, and render an OpenApi 3 spec at &quot;/spec&quot;</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">v1Api</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contract</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">routes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">helloHandler</span>
@@ -1156,6 +1165,7 @@ For more detail on generating contracts, see:</p>
 <span class="w">            </span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;Hello Server - Developer UI&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;99.3.4&quot;</span><span class="p">)</span>
 <span class="w">        </span><span class="p">)</span>
 <span class="w">        </span><span class="n">descriptionPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;spec&quot;</span>
+<span class="w">        </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">openIdConnectSecurity</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// Build a Swagger UI based on the OpenApi spec defined at &quot;/spec&quot;</span>
