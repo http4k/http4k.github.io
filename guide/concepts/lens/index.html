@@ -1105,7 +1105,139 @@
                     
                     <h1>http4k Lenses</h1>
                     
-                    
+                    <p>Lenses provide typesafe parameter destructuring/construction of HTTP messages. Getting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. For this purpose, we can use a <a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens</a>.</p>
+<p>A Lens is a bi-directional entity which can be used to either <strong>get</strong> or <strong>set</strong> a particular value from/onto an HTTP message. http4k provides a DSL
+to configure these lenses to target particular parts of the message, whilst at the same time specifying the requirement for those parts (i.e. mandatory or optional).</p>
+<p>To utilise a lens, first you have to declare it with the form <code>&lt;Location&gt;.&lt;configuration and mapping operations&gt;.&lt;terminator&gt;</code>.</p>
+<p>There is one "location" type for each part of the message, each with config/mapping operations which are specific to that location:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Starting type</th>
+<th>Applicable to</th>
+<th>Multiplicity</th>
+<th>Requirement terminator</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query</td>
+<td><code>String</code></td>
+<td><code>Request</code></td>
+<td>Singular or multiple</td>
+<td>Optional or Required</td>
+<td><code>Query.optional("name")</code><br/><code>Query.required("name")</code><br/><code>Query.int().required("name")</code><br/><code>Query.localDate().multi.required("name")</code><br/><code>Query.map(::CustomType, { it.value }).required("name")</code></td>
+</tr>
+<tr>
+<td>Header</td>
+<td><code>String</code></td>
+<td><code>Request</code> or <code>Response</code></td>
+<td>Singular or multiple</td>
+<td>Optional or Required</td>
+<td><code>Header.optional("name")</code><br/><code>Header.required("name")</code><br/><code>Header.int().required("name")</code><br/><code>Header.localDate().multi.required("name")</code><br/><code>Header.map(::CustomType, { it.value }).required("name")</code></td>
+</tr>
+<tr>
+<td>Path</td>
+<td><code>String</code></td>
+<td><code>Request</code></td>
+<td>Singular</td>
+<td>Required</td>
+<td><code>Path.of("name")</code><br/><code>Path.int().of("name")</code><br/><code>Path.map(::CustomType, { it.value }).of("name")</code></td>
+</tr>
+<tr>
+<td>FormField</td>
+<td><code>String</code></td>
+<td><code>WebForm</code></td>
+<td>Singular or multiple</td>
+<td>Optional or Required</td>
+<td><code>FormField.optional("name")</code><br/><code>FormField.required("name")</code><br/><code>FormField.int().required("name")</code><br/><code>FormField.localDate().multi.required("name")</code><br/><code>FormField.map(::CustomType, { it.value }).required("name")</code></td>
+</tr>
+<tr>
+<td>Body</td>
+<td><code>ByteBuffer</code></td>
+<td><code>Request</code> or <code>Response</code></td>
+<td>Singular</td>
+<td>Required</td>
+<td><code>Body.string(ContentType.TEXT_PLAIN).toLens()</code><br/><code>Body.json().toLens()</code><br/><code>Body.webForm(Validator.Strict, FormField.required("name")).toLens()</code></td>
+</tr>
+</tbody>
+</table>
+<p>Once the lens is declared, you can use it on a target object to either get or set the value:</p>
+<ul>
+<li>Retrieving a value: use <code>&lt;lens&gt;.extract(&lt;target&gt;)</code>, or the more concise invoke form: <code>&lt;lens&gt;(&lt;target&gt;)</code></li>
+<li>Setting a value: use <code>&lt;lens&gt;.inject(&lt;value&gt;, &lt;target&gt;)</code>, or the more concise invoke form: <code>&lt;lens&gt;(&lt;value&gt;, &lt;target&gt;)</code></li>
+</ul>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/core/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.core</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Body</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.ContentType</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Header</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Query</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.localDate</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.nonEmptyString</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.string</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.RoutingHttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.time.LocalDate</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">pathLocalDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">localDate</span><span class="p">().</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">requiredQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myQueryName&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">nonEmptyQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">nonEmptyString</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myNonEmptyQuery&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">optionalHeader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Header</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">optional</span><span class="p">(</span><span class="s">&quot;Content-Length&quot;</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">responseBody</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">ContentType</span><span class="p">.</span><span class="na">TEXT_PLAIN</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
+
+<span class="c1">// Most of the useful common JDK types are covered. However, if we want to use our own types, we can just use `map()`</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">CustomType</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">requiredCustomQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">CustomType</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="p">}).</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;myCustomType&quot;</span><span class="p">)</span>
+
+<span class="c1">//To use the Lens, simply `invoke() or extract()` it using an HTTP message to extract the value, or alternatively `invoke() or inject()` it with the value if we are modifying (via copy) the message:</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">handler</span><span class="p">:</span><span class="w"> </span><span class="n">RoutingHttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;/hello/{date:.*}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">pathDate</span><span class="p">:</span><span class="w"> </span><span class="n">LocalDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pathLocalDate</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">// SAME AS:</span>
+<span class="w">        </span><span class="c1">// val pathDate: LocalDate = pathLocalDate.extract(request)</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">customType</span><span class="p">:</span><span class="w"> </span><span class="n">CustomType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">requiredCustomQuery</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">anIntHeader</span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionalHeader</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">baseResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">responseWithHeader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optionalHeader</span><span class="p">(</span><span class="n">anIntHeader</span><span class="p">,</span><span class="w"> </span><span class="n">baseResponse</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">// SAME AS:</span>
+<span class="w">        </span><span class="c1">// val responseWithHeader = optionalHeader.inject(anIntHeader, baseResponse)</span>
+
+<span class="w">        </span><span class="n">responseBody</span><span class="p">(</span><span class="s">&quot;you sent </span><span class="si">$</span><span class="n">pathDate</span><span class="s"> and </span><span class="si">$</span><span class="n">customType</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">responseWithHeader</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1">//With the addition of the `CatchLensFailure` filter, no other validation is required when using Lenses, as http4k will handle invalid requests by returning a BAD_REQUEST (400) response.</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ServerFilters</span><span class="p">.</span><span class="na">CatchLensFailure</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">handler</span><span class="p">)(</span>
+<span class="w">    </span><span class="n">Request</span><span class="p">(</span>
+<span class="w">        </span><span class="n">GET</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;/hello/2000-01-01?myCustomType=someValue&quot;</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1">//More conveniently for construction of HTTP messages, multiple lenses can be used at once to modify a message, which is useful for properly building both requests and responses in a typesafe way without resorting to string values (especially in URLs which should never be constructed using String concatenation):</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">modifiedRequest</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://google.com/{pathLocalDate}&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span>
+<span class="w">    </span><span class="n">pathLocalDate</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">LocalDate</span><span class="p">.</span><span class="na">now</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">requiredQuery</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="s">&quot;myAmazingString&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">optionalHeader</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">123</span>
+<span class="p">)</span>
+</code></pre></div>
                     
                 </div>
             </div>
