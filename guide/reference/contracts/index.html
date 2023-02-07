@@ -1115,9 +1115,10 @@
 to declare server-side <code>Routes</code> in a completely typesafe way, leveraging the Lens functionality from the core. These <code>Routes</code> are combined into <code>Contracts</code>, which have the following features:</p>
 <ul>
 <li><strong>Auto-validating</strong> - the <code>Route</code> contract is automatically validated on each call for required-fields and type conversions, removing the requirement  for any validation code to be written by the API user. Invalid calls result in a <code>HTTP 400 (BAD_REQUEST)</code> response.     </li>
-<li><strong>Self-describing:</strong> - a generated endpoint is provided which describes all of the <code>Routes</code> in that module. Implementations include <a href="http://swagger.io/">OpenApi v2 &amp; v3/Swagger</a> documentation, including generation of <a href="http://json-schema.org/">JSON schema</a>. These documents can then be used to generate HTTP client and server code in various languages using the <a href="https://openapi-generator.tech/">OpenAPI generator</a>.
+<li><strong>Self-describing:</strong> - a generated endpoint is provided which describes all of the <code>Routes</code> in that module. Implementations include <a href="http://swagger.io/">OpenApi v2 &amp; v3</a> documentation, including generation of <a href="http://json-schema.org/">JSON schema</a>. These documents can then be used to generate HTTP client and server code in various languages using the <a href="https://openapi-generator.tech/">OpenAPI generator</a>.
  models for messages.</li>
-<li><strong>Security:</strong> to secure the <code>Routes</code> against unauthorised access. Current implementations include <code>ApiKey</code>, <code>BasicAuth</code>, <code>BearerAuth</code> and <code>OAuth</code>.</li>
+<li><strong>Security:</strong> to secure the <code>Routes</code> against unauthorised access. Current implementations include <code>ApiKey</code>, <code>BasicAuth</code>, <code>BearerAuth</code>, <code>OpenIdConnect</code> and <code>OAuth</code>.</li>
+<li><strong>Callbacks and Webhooks</strong> can be declared, which give the same level of documentation and model generation</li>
 </ul>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/contracts/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.contracts</span>
@@ -1127,6 +1128,7 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.ContractRoute</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.bindCallback</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.contract</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.div</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.meta</span>
@@ -1141,6 +1143,7 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.Jackson</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.Jackson.auto</span>
@@ -1201,6 +1204,36 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">spec</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">echo</span>
 <span class="p">}</span>
 
+<span class="c1">// this route has a callback registered, so can be used when processes have asynchronous updates</span>
+<span class="c1">// they will be POSTed back to callbackUrl received in the request</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">routeWithCallback</span><span class="p">():</span><span class="w"> </span><span class="n">ContractRoute</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Body</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">StartProcess</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/callback&quot;</span><span class="w"> </span><span class="n">meta</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;kick off a process with an async callback&quot;</span>
+
+<span class="w">        </span><span class="c1">// register the callback for later updates. The syntax of the callback URL comes</span>
+<span class="w">        </span><span class="c1">// from the OpenApi spec</span>
+<span class="w">        </span><span class="n">callback</span><span class="p">(</span><span class="s">&quot;update&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="s">&quot;&quot;&quot;{</span><span class="si">${</span><span class="s">&quot;</span><span class="err">$</span><span class="s">&quot;</span><span class="si">}</span><span class="s">request.body#/callbackUrl}&quot;&quot;&quot;</span><span class="w"> </span><span class="n">meta</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">receiving</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">body</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">StartProcess</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://caller&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="n">bindCallback</span><span class="w"> </span><span class="n">POST</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">bindContract</span><span class="w"> </span><span class="n">POST</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">echo</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">request</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="n">body</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+<span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">spec</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">echo</span>
+<span class="p">}</span>
+
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">StartProcess</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">callbackUrl</span><span class="p">:</span><span class="w"> </span><span class="n">Uri</span><span class="p">)</span>
+
 <span class="c1">// use another Lens to set up the API-key - the answer is 42!</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">mySecurity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ApiKeySecurity</span><span class="p">(</span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;reference/api&quot;</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="p">})</span>
 
@@ -1208,17 +1241,18 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <span class="c1">// OpenApi/Swagger) and a security model (in this case an API-Key):</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">contract</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contract</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">renderer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OpenApi3</span><span class="p">(</span><span class="n">ApiInfo</span><span class="p">(</span><span class="s">&quot;My great API&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;v1.0&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Jackson</span><span class="p">)</span>
-<span class="w">    </span><span class="n">descriptionPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/swagger.json&quot;</span>
+<span class="w">    </span><span class="n">descriptionPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/openapi.json&quot;</span>
 <span class="w">    </span><span class="n">security</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mySecurity</span>
 <span class="w">    </span><span class="n">routes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">greetRoute</span><span class="p">()</span>
 <span class="w">    </span><span class="n">routes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">echoRoute</span><span class="p">()</span>
+<span class="w">    </span><span class="n">routes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">routeWithCallback</span><span class="p">()</span>
 <span class="p">}</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">handler</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/reference/api/v1&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">contract</span><span class="p">)</span>
 
 <span class="c1">// by default, the OpenAPI docs live at the root of the contract context, but we can override it..</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/reference/api/v1/swagger.json&quot;</span><span class="p">)))</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">handler</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/reference/api/v1/openapi.json&quot;</span><span class="p">)))</span>
 
 <span class="w">    </span><span class="n">println</span><span class="p">(</span>
 <span class="w">        </span><span class="n">handler</span><span class="p">(</span>
@@ -1230,7 +1264,7 @@ to declare server-side <code>Routes</code> in a completely typesafe way, leverag
 <span class="p">}</span>
 </code></pre></div>
 
-<p>When launched, OpenApi/Swagger format documentation (including JSON schema models) can be found at the route of the module.</p>
+<p>When launched, OpenApi format documentation (including JSON schema models) can be found at the route of the module.</p>
 <p>For a more extended example, see the following example apps: </p>
 <ul>
 <li><a href="https://github.com/http4k/http4k-by-example">TDD'd example application</a></li>

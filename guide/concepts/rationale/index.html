@@ -1105,7 +1105,7 @@
                     
                     <h1>Rationale</h1>
                     
-                    <p><strong>http4k</strong> was created as the distillation of 15 years worth of experience of using various server-side libraries and we've stolen good ideas from everywhere we can. For instance - the routing module is inspired by <a href="https://github.com/bodar/utterlyidle">UtterlyIdle</a>, the "Server as a function" and filter model is stolen from <a href="https://twitter.github.io/finagle/">Finagle</a>, and the contract module OpenApi/Swagger generator is ported from <a href="http://fintrospect.github.io">Fintrospect</a>. With the growing adoption of Kotlin, we wanted something that would fully leverage the features of the language and it felt like a good time to start something from scratch.</p>
+                    <p><strong>http4k</strong> was created as the distillation of 15 years worth of experience of using various server-side libraries and we've stolen good ideas from everywhere we can. For instance - the routing module is inspired by <a href="https://github.com/bodar/utterlyidle">UtterlyIdle</a>, the "Server as a function" and filter model is stolen from <a href="https://twitter.github.io/finagle/">Finagle</a>, and the contract module OpenApi generator is ported from <a href="http://fintrospect.github.io">Fintrospect</a>. With the growing adoption of Kotlin, we wanted something that would fully leverage the features of the language and it felt like a good time to start something from scratch.</p>
 <p>For our purposes, we wanted something that:</p>
 <ol>
 <li>Was based on simple functional concepts and embraced immutability.</li>
@@ -1116,7 +1116,7 @@
 <li>Starts/stops ultra quickly.</li>
 <li>Provides typesafe HTTP message deconstruction/construction.</li>
 <li>Automatically dealt with contract breaches to remove boilerplate.</li>
-<li>Automatic generation of OpenApi/Swagger documentation (including JSON Schema models).</li>
+<li>Automatic generation of OpenApi documentation (including JSON Schema models).</li>
 </ol>
 <p><strong>http4k</strong> ticks all of these boxes. </p>
 <p>It allow us to construct entire suites of services which can be tested either wired together without HTTP, or spun up in containers using a single line of code. The symmetric HTTP API also allows Filter chains (often called "Middleware" or "Interceptors" in other frameworks) to be constructed into reusable units/stacks for both server and client sides (eg. logging/metrics/caching...) since they can be composed together for later use. </p>
