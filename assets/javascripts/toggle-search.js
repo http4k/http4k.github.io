@@ -6,9 +6,3 @@ $(window).keydown(function(event) {
         $("#search").focus();
     }
 });
-
-$(window).keyup(function(event) {
-    if (event.metaKey && (event.keyCode === 75)) {
-        $("#search").focus();
-    }
-});
