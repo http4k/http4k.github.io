@@ -1105,17 +1105,20 @@
                     
                     <h1>Create a Swagger UI</h1>
                     
-                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-contract&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.41.0.0&quot;</span>
-</code></pre></div>
-
-<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
-<p>Http4k's contract module has a built-in method to render a Swagger UI for your <strong>OpenApi</strong> v2 or v3 description.
+                    <p>Http4k's contract module has a few built-in options to render a Swagger UI for your <strong>OpenApi</strong> v2 or v3 description.
 For more detail on generating contracts, see:</p>
 <ul>
 <li><a href="/guide/reference/contracts">Http4k Reference: Contracts</a></li>
 <li><a href="/guide/howto/integrate_with_openapi">http4k How-to: Integrate with OpenAPI</a></li>
 </ul>
+<h2 id="thin_ui">Thin UI<a class="headerlink" href="#thin_ui" title="Permanent link">&para;</a></h2>
+<p>Rather than host the Swagger UI assets locally, a minimal wrapper will load them from a public CDN.
+This is excellent for applications requiring a minimal footprint (such as serverless functions).
+However, you have less control over the availability and performance of the distribution.</p>
+<h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-contract&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.41.0.0&quot;</span>
+</code></pre></div>
+
 <h3 id="example">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/create_a_swagger_ui/example.kt"><img class="octocat"/></a><a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.create_a_swagger_ui</span>
 
@@ -1181,6 +1184,35 @@ For more detail on generating contracts, see:</p>
 <span class="w">        </span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8080</span><span class="p">))</span>
 <span class="w">        </span><span class="p">.</span><span class="na">start</span><span class="p">()</span>
 <span class="w">        </span><span class="p">.</span><span class="na">block</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="bundled_ui">Bundled UI<a class="headerlink" href="#bundled_ui" title="Permanent link">&para;</a></h2>
+<p>Http4k will bundle the Swagger UI distribution into your server.
+This option can be more reliable, but will contribute to a larger jar size.</p>
+<h3 id="installation_gradle_1">Installation (Gradle)<a class="headerlink" href="#installation_gradle_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="nl">group:</span><span class="w"> </span><span class="s2">&quot;org.http4k&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;http4k-contract-ui-swagger&quot;</span><span class="o">,</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s2">&quot;4.40.2.0&quot;</span>
+</code></pre></div>
+
+<h3 id="example_1">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/create_a_swagger_ui/webjarExample.kt"><img class="octocat"/></a><a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.create_a_swagger_ui</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.contract.ui.swagger.swaggerUiWebjar</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Build a Swagger UI for the sample PetStore API</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ui</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">swaggerUiWebjar</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Provide your own OpenApi spec by overriding the &quot;url&quot; property</span>
+<span class="w">        </span><span class="n">pageTitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My PetStore UI&quot;</span>
+<span class="w">        </span><span class="n">displayOperationId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// The Swagger UI will be available at http://localhost:8080</span>
+<span class="w">    </span><span class="n">ui</span>
+<span class="w">        </span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8080</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="na">start</span><span class="p">().</span><span class="na">block</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
                     
