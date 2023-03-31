@@ -1116,10 +1116,12 @@
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/self_document_systems_with_tests/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.self_document_systems_with_tests</span>
 
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilters.AddServiceName</span>
@@ -1132,6 +1134,7 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.ResetRequestTracing</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ResponseFilters.ReportHttpTransaction</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.RequestTracing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasStatus</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.reverseProxy</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
@@ -1140,11 +1143,13 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorType</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.TraceRenderPersistence</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.junit.TracerBulletEvents</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.persistence.Printing</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.renderer.MermaidSequenceDiagram</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.persistence.FileSystem</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.renderer.PumlSequenceDiagram</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.tracer.HttpTracer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Disabled</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.extension.RegisterExtension</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.io.File</span>
 
 <span class="c1">// standardised events stack which records the service name and adds tracing</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">TraceEvents</span><span class="p">(</span><span class="n">actorName</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AddZipkinTraces</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">AddServiceName</span><span class="p">(</span><span class="n">actorName</span><span class="p">))</span>
@@ -1175,8 +1180,11 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
 <span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
 <span class="w">            </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int1&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://external1/ext1&quot;</span><span class="p">))</span>
-<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://internal2/int2&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://external1/ext1&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="k">when</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">first</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">successful</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://internal2/int2&quot;</span><span class="p">))</span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">first</span>
+<span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">})</span>
 <span class="w">        </span><span class="p">)</span>
 <span class="p">}</span>
@@ -1212,12 +1220,12 @@
 <span class="w">    </span><span class="c1">// this events implementation will automatically capture the HTTP traffic</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TracerBulletEvents</span><span class="p">(</span>
 <span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">HttpTracer</span><span class="p">(</span><span class="n">actor</span><span class="p">)),</span><span class="w"> </span><span class="c1">// A tracer to capture HTTP calls</span>
-<span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">MermaidSequenceDiagram</span><span class="p">),</span><span class="w"> </span><span class="c1">// Render the HTTP traffic as a Mermaid diagram</span>
-<span class="w">        </span><span class="n">TraceRenderPersistence</span><span class="p">.</span><span class="na">Printing</span><span class="p">()</span><span class="w"> </span><span class="c1">// Print the result to the screen</span>
+<span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">PumlSequenceDiagram</span><span class="p">),</span><span class="w"> </span><span class="c1">// Render the HTTP traffic as a PUML diagram</span>
+<span class="w">        </span><span class="n">TraceRenderPersistence</span><span class="p">.</span><span class="na">FileSystem</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">))</span><span class="w"> </span><span class="c1">// Store the result</span>
 <span class="w">    </span><span class="p">)</span>
 
 <span class="w">    </span><span class="nd">@Test</span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`render diagram`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`render successful trace`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// compose our application(s) together</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">internalApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Internal1</span><span class="p">(</span>
 <span class="w">            </span><span class="n">events</span><span class="p">,</span>
@@ -1228,7 +1236,23 @@
 <span class="w">        </span><span class="p">)</span>
 
 <span class="w">        </span><span class="c1">// make a request to the composed stack</span>
-<span class="w">        </span><span class="n">User</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">internalApp</span><span class="p">).</span><span class="na">initiateCall</span><span class="p">()</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">User</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">internalApp</span><span class="p">).</span><span class="na">initiateCall</span><span class="p">(),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="nd">@Disabled</span><span class="p">(</span><span class="s">&quot;Remove this to run the failing test!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`render failure trace`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// compose our application(s) together</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">internalApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Internal1</span><span class="p">(</span>
+<span class="w">            </span><span class="n">events</span><span class="p">,</span>
+<span class="w">            </span><span class="n">reverseProxy</span><span class="p">(</span>
+<span class="w">                </span><span class="s">&quot;external1&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="s">&quot;internal2&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Internal2</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">FakeExternal2</span><span class="p">())</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+
+<span class="w">        </span><span class="c1">// make a request to the composed stack</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">User</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">internalApp</span><span class="p">).</span><span class="na">initiateCall</span><span class="p">(),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
