@@ -1127,6 +1127,14 @@
 <p><strong>A.</strong> Please see the <a href="/guide/reference/json/">custom FAQ</a> for JSON handling questions.</p>
 <p><strong>Q. My application uses Lenses, but when they fail I get an HTTP 500 instead of the promised 400.</strong></p>
 <p><strong>A.</strong> You forgot to add the <code>ServerFilters.CatchLensFailure</code> filter to your Server stack.</p>
+<h3 id="openapi_contracts">OpenAPI Contracts<a class="headerlink" href="#openapi_contracts" title="Permanent link">&para;</a></h3>
+<p><strong>Q. When I use binary uploads, my OpenAPI endpoint receives no data.</strong></p>
+<p><strong>A.</strong> With binary attachments, you need to turn ensure that the pre-flight validation does not eat the stream. You can 
+do this by instruction http4k to ignore the incoming body for validation purposes:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">routes</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;/api/document-upload&quot;</span><span class="w"> </span><span class="n">meta</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">preFlightExtraction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PreFlightExtraction</span><span class="p">.</span><span class="na">IgnoreBody</span>
+<span class="p">}</span><span class="w"> </span><span class="n">bindContract</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
                     
                 </div>
             </div>
