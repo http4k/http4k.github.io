@@ -1122,9 +1122,7 @@
 
 <h3 id="mixing_http_and_sse_services">Mixing HTTP and SSE services <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/serve_sse/example_polyhandler.kt"><img class="octocat"/></a><a class="headerlink" href="#mixing_http_and_sse_services" title="Permanent link">&para;</a></h3>
 <p>Both SSE and Http handlers in <strong>http4k</strong> are routed using a similar path-based API. We combine them into a single <code>PolyHandler</code>. SSE handlers react to HTTP traffic which send an <code>Accept</code> header with <code>text/event-stream</code> value:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.serve_sse</span>
-
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span>
@@ -1137,6 +1135,7 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.sse.SseFilter</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.sse.SseMessage</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.sse.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlin.concurrent.thread</span>
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">namePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
@@ -1153,7 +1152,13 @@
 <span class="w">        </span><span class="n">sse</span><span class="p">(</span>
 <span class="w">            </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">sse</span><span class="p">:</span><span class="w"> </span><span class="n">Sse</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">sse</span><span class="p">.</span><span class="na">connectRequest</span><span class="p">)</span>
-<span class="w">                </span><span class="n">sse</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="na">Data</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="n">thread</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">sse</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="na">Data</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">                        </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="n">sse</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">                </span><span class="p">}</span>
 <span class="w">                </span><span class="n">sse</span><span class="p">.</span><span class="na">onClose</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">)</span>
