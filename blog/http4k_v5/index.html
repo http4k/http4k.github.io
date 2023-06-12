@@ -1,0 +1,1205 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <script language="JavaScript">
+  ak = "Y2JjZDg5MzE5YTUwYjYzMTYyNzFmNGMzZDc5OWM2NTc="
+</script>
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="http4k blog: http4k v5: The platform expands: New Servers, Loom, TracerBullet, OpenAI plugin SDK and more">
+<meta name="twitter:title" content="http4k blog: http4k v5: The platform expands: New Servers, Loom, TracerBullet, OpenAI plugin SDK and more">
+<meta property="og:title" content="http4k blog: http4k v5: The platform expands: New Servers, Loom, TracerBullet, OpenAI plugin SDK and more" />
+
+
+
+<meta name="description" content="There's a new major http4k release! Read about all the new things the team have been working on for http4k v5.">
+<meta property="og:description" content="There's a new major http4k release! Read about all the new things the team have been working on for http4k v5." />
+<meta name="twitter:description" content="There's a new major http4k release! Read about all the new things the team have been working on for http4k v5.">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/blog/http4k_v5/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.2.3, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>http4k blog: http4k v5: The platform expands: New Servers, Loom, TracerBullet, OpenAI plugin SDK and more</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#4051b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../css/site.css">
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../guide/"
+               title="About the docs">About the docs</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Concepts</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/concepts/rationale/"
+           title="Rationale">Rationale</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/concepts/http/"
+           title="HTTP">HTTP</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/concepts/serverless/"
+           title="Serverless">Serverless</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/concepts/websockets/"
+           title="WebSockets">WebSockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/concepts/server-sent-events/"
+           title="Server-Sent Events">Server-Sent Events</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Tutorials</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/tutorials/your_first_http4k_app/"
+           title="Your first http4k app">Your first http4k app</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/tutorials/serverless_http4k_with_aws_lambda/"
+           title="Deploying an http4k app to AWS Lambda">Deploying an http4k app to AWS Lambda</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/tutorials/going_native_with_graal_on_aws_lambda/"
+           title="Going native with Graal on AWS Lambda">Going native with Graal on AWS Lambda</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/tutorials/tdding_http4k/"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">How-to guides</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/server_as_a_function/"
+           title="Basic: Server as a function">Basic: Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/client_as_a_function/"
+           title="Basic: Client as a function">Basic: Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/use_a_server_backend/"
+           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/write_different_test_types/"
+           title="Basic: Different test-types">Basic: Different test-types</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/simple_routing/"
+           title="Basic: Simple routing">Basic: Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/nestable_routes/"
+           title="Basic: Nestable routes">Basic: Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/attach_context_to_a_request/"
+           title="Attach context to a request">Attach context to a request</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/configure_an_oauth_server/"
+           title="Configure an OAuth Server">Configure an OAuth Server</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/create_a_custom_json_marshaller/"
+           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/customise_a_server_backend/"
+           title="Customise a Server backend">Customise a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/deploy_webjars/"
+           title="Deploy WebJars">Deploy WebJars</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/integrate_with_openapi/"
+           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/leverage_graphql/"
+           title="Leverage GraphQL">Leverage GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/lookup_a_user_principal/"
+           title="Lookup a User Principal">Lookup a User Principal</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/monitor_http4k/"
+           title="Monitor http4k">Monitor http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/record_and_replay_http_traffic/"
+           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/serve_sse/"
+           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/serve_websockets/"
+           title="Serve Websockets">Serve Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/structure_your_logs_with_events/"
+           title="Structure your logs with Events">Structure your logs with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/test_using_service_virtualisation/"
+           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/typesafe_your_api_with_lenses/"
+           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/secure_and_auth_http/"
+           title="Secure and auth HTTP services">Secure and auth HTTP services</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/use_a_custom_oauth_provider/"
+           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/use_a_templating_engine/"
+           title="Use a templating engines">Use a templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/use_html_forms/"
+           title="Use HTML forms">Use HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/use_multipart_forms/"
+           title="Use Multipart forms">Use Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/self_document_systems_with_tests/"
+           title="Self document systems with tests">Self document systems with tests</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/use_auto_content_negotiation/"
+           title="Use Auto Content Negotiation">Use Auto Content Negotiation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/create_a_swagger_ui/"
+           title="Redoc and Swagger UI">Redoc and Swagger UI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/howto/moshi_lite/"
+           title="Use Moshi with "lite" Reflection">Use Moshi with "lite" Reflection</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Reference</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../api/"
+           title="API docs">API docs</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/cloud_native/"
+           title="Cloud Native Configuration">Cloud Native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/cloud_events/"
+           title="Cloud Events">Cloud Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/failsafe/"
+           title="Failsafe">Failsafe</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/digest/"
+           title="Digest">Digest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/graphql/"
+           title="GraphQL">GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  "
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"> Testing</a>
+        <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/testing/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/servicevirtualisation/"
+           title="Service Virtualisation">Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/strikt/"
+           title="Strikt">Strikt</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/tracerbullet/"
+           title="Tracer Bullet">Tracer Bullet</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../guide/reference/webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+        </div>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown active show">
+            <a class="nav-link dropdown-toggle active"
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="true">Blog</a>
+            <div class="dropdown-menu show">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../typesafe_configuration/"
+           title="Typesafe 12-factor config">Typesafe 12-factor config</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../toolbox/"
+           title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../http4k_v4/"
+           title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item active"
+           href="./"
+           title="http4k v5 - New Servers, More Modules, TracerBullet, and More...">http4k v5 - New Servers, More Modules, TracerBullet, and More...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../regarding_jcenter/"
+           title="JCenter Shutdown">JCenter Shutdown</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+          <div class="container">
+                <div class="searchBox">
+                  <img class="searchBoxIcon" src="/img/search-icon.svg" width="20" alt="" srcset=""/>
+                  <input id="search" type="text" placeholder="Ctrl/⌘ K"/>
+                </div>
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1 id="http4k_v5_the_platform_expands_new_servers_loom_tracerbullet_openai_plugin_sdk_and_more">http4k v5: The platform expands: New Servers, Loom, TracerBullet, OpenAI plugin SDK and more<a class="headerlink" href="#http4k_v5_the_platform_expands_new_servers_loom_tracerbullet_openai_plugin_sdk_and_more" title="Permanent link">&para;</a></h1>
+<h5 id="june_2023_the_http4k_team">june 2023 / the http4k team<a class="headerlink" href="#june_2023_the_http4k_team" title="Permanent link">&para;</a></h5>
+<p><img class="blogImage" src="./lego.png" alt="http4k lego"/></p>
+<p>We’re thrilled to announce the next major release of http4k! Since the last major release, the team has been busy enhancing existing features and adding new capabilities from the amazing community, things that we've needed on real world projects and a sprinkling of new magic to keep pushing the boundaries of what's possible with the http4k technologies.</p>
+<p>The first thing to tell you is that we've hit a significant milestone and are now getting about 1 million downloads per month from Maven Central. From these numbers and our interactions with the global http4k community, it makes the us very happy that so many teams are seeing the power of the Server-as-a-Function model.</p>
+<h2 id="introducing_the_http4k_platform_v5">Introducing the http4k Platform v5<a class="headerlink" href="#introducing_the_http4k_platform_v5" title="Permanent link">&para;</a></h2>
+<p>Before we dive into the details of the library updates themselves, we're announcing today that for the simplicity (to both the http4k community and the team!), we are unifying all http4k ecosystem projects under a single major platform version number - starting with v5.</p>
+<p>In addition, to keep pace with Java's own rapidly evolving ecosystem, we're going to be switching to aligning major releases of "the Platform"  with every JDK release - currently scheduled for every 6 months. This will allow us to track major-version support as features are added and removed from Java and provide an easy way for our users to track the this compatibility. For the moment, http4k and http4k Connect will still have different release cadence and individual release numbers and which are now developed using Java 20 as a base.</p>
+<p>In terms of Java compatibility - for the foreseeable future, we are still going to compile http4k for older Java versions (we still target Java 8 as a base). Over time though, we plan to adjust our standard of support for ancient versions and introduce a paid support program for those who still need to run http4k against legacy versions of Java and require updates such as security patches. If that’s already the case for your team or project, be sure to <a href="mailto:contact@http4k.org?subject=Support for legacy JVM version">get in touch with the http4k team</a> to discuss your particular needs.</p>
+<h2 id="http4k">http4k<a class="headerlink" href="#http4k" title="Permanent link">&para;</a></h2>
+<p>In v4, we shipped a massive 197 releases (an average of 1.5 per week!) and introduced 12 new modules in a variety of areas: deployment (<a href="/guide/tutorials/going_native_with_graal_on_aws_lambda">serverless-lambda-runtime</a>), wire formats (moshi-yaml, jackson-csv), security (<a href="/guide/reference/digest">digest</a>), testing (<a href="/guide/reference/strikt/">strikt</a>), and around simpler usages of OpenAPI (Redoc/SwaggerUI). http4k 5 introduces 5 new modules and tidies up the decks for future developments.</p>
+<h3 id="loom_support">Loom support<a class="headerlink" href="#loom_support" title="Permanent link">&para;</a></h3>
+<p>We’re excited to see the re-introduction of virtual threads in Java and the performance improvements that can bring to well-established servers. Loom goes gold in Java 21 and we're going to be ready for our users to use it straight away.</p>
+<p>For this new major version, we’re introducing three new server backends taking advantage of Java Loom virtual threads: the SDK built-in SunHttp, <a href="https://github.com/eclipse/jetty.project/issues/8007">Jetty</a>, and <a href="https://helidon.io/nima">Helidon Nima</a>.</p>
+<p><img class="blogImage" src="./threads.png" alt="Threads"/></p>
+<p>Servers are only half of the story though - http4k will also add support for Loom-friendy HTTP clients as they get released, and is introducing support for the Loom-native Helidon client in this release. We'll be sure to keep up-to-date with the other major HTTP client libraries as they update to support Loom.</p>
+<h3 id="tracerbullet_a_brand_new_way_of_getting_test_feedback_and_documenting_your_systems">TracerBullet: a brand new way of getting test feedback and documenting your systems<a class="headerlink" href="#tracerbullet_a_brand_new_way_of_getting_test_feedback_and_documenting_your_systems" title="Permanent link">&para;</a></h3>
+<p>We're incredibly proud to be introducing <a href="/guide/reference/tracerbullet/">TracerBullet</a>, an innovative testing add-on that integrates with the http4k events system. TracerBullet enables teams to focus on <strong>how</strong> their services work, not just <strong>if</strong> they work. This powerful tool will change how you approach testing and help you gain deeper insights into your services.</p>
+<p>As a side-effect of introducing TracerBullet, http4k can <a href="/guide/howto/self_document_systems_with_tests">automatically generate sequence and interaction diagrams</a>, taking advantage of existing tools such as <a href="https://plantuml.com/">PlantUML</a>, <a href="https://mermaid.live/">Mermaid</a>, and <a href="https://d2lang.com/">d2</a> to create living documentation for your services after each test run!</p>
+<p><img class="blogImage" src="./tracerbullet.png" alt="http4k TracerBullet"/></p>
+<p>The http4k team were excited to be invited back to <a href="https://kotlinconf.com/">KotlinConf 2023</a>, where we presented how we used the TracerBullet along with Hexagonal Design to visually document multi-service tests. You can check out the video of the presentation <a href="https://bit.ly/hyperpyramid-kotlinconf">here</a> or see a full example of how it works in the <a href="https://github.com/http4k/exploring-the-testing-hyperpyramid">demo repo</a>.</p>
+<h3 id="removal_of_deprecated_and_unsupported_features">Removal of deprecated and unsupported features<a class="headerlink" href="#removal_of_deprecated_and_unsupported_features" title="Permanent link">&para;</a></h3>
+<p>As part of the major release cycle, we’re removing all code marked as deprecated in v4 of http4k.</p>
+<p>We're also removed the http4k-templates-dust module due to the removal of Nashorn from the Java distribution. We understand this may impact some users, and we recommend seeking alternative solutions in the long term, but you can continue to use the existing <code>http4k-template-dust</code> assets which are still binary compatible  with v5 of http4k.</p>
+<h3 id="upgrading_from_http4k_v4">Upgrading from http4k v4<a class="headerlink" href="#upgrading_from_http4k_v4" title="Permanent link">&para;</a></h3>
+<p>If you are upgrading, the best idea is to first upgrade to the last v4 version, deal with any existing deprecations in place, then simply upgrade again to v5.0.0.0 and repeat.</p>
+<h2 id="http4k-connect">http4k-connect<a class="headerlink" href="#http4k-connect" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/http4k/http4k-connect">http4k-connect</a> was conceived as a library of providing client adapters for popular cloud services based on the innovative <a href="https://dentondav.id/posts/2021/02/smash-your-adapter-monolith">Connect pattern</a>. v3 of the library added 20 different modules, and covered a number of popular AWS services, as well as integrating with Kafka via HTTP.</p>
+<p>The power of http4k-connect is it's ability to leverage Kotlin to provide modular adapters based around a common core. Each client endpoint is modeled as a separate "Action"? Is the action you want not supported by the core library, or do you want less information to be parsed?  Simple - just write your own endpoint adapter and plug it in!</p>
+<p>Today with the v5 release, we're expanding the focus slightly - http4k-connect will now be the home of all official http4k platform integrations with third party services, to cover:</p>
+<ul>
+<li>Featherweight, zero-reflection adapters, for HTTP integrations with cloud services (eg. AWS, Confluent)</li>
+<li>Fake implementations of cloud services, which allow lightning-fast in-memory testing or local testing without Docker/LocalStack.</li>
+<li>A pluggable unified Storage interface with five different storage backends - including in-memory, Redis and S3, as well as a StorageExplorer that provides an OpenAPI UI to allow interaction with the storage via browser.</li>
+<li>Plugin SDKs for building integrations with popular platforms - starting with...</li>
+</ul>
+<h3 id="openaichatgpt_support">OpenAI/ChatGPT support<a class="headerlink" href="#openaichatgpt_support" title="Permanent link">&para;</a></h3>
+<p>It's 2023, and the new hotness that everyone is talking about is AI - and who are we to go against the weight of the hypemachine? After playing with GPT-4, one of the most frustrating things we found was the slowness of the responses and the effect that had on our testing-cycle, so the http4k team started to build a client adapter and fake OpenAI server so that Kotlin developer teams could integrate and test with OpenAI APIs quickly without waiting ages for the model to respond, and burning through those precious GPT-4 tokens and API limits. And thus <a href="https://github.com/http4k/http4k-connect/tree/master/openai">http4k-connect-openai</a> was born. The Fake server even allows you to generate images.</p>
+<p>A little later, the team received an early access invite to the <a href="https://openai.com/blog/chatgpt-plugins">ChatGPT plugin programme</a> and it immediately occured that the requirements for developing plugins were all already supported within existing http4k libraries. So we set out to develop a plugin SDK, and <a href="https://mvnrepository.com/artifact/org.http4k/http4k-connect-openai-plugin">http4k-connect-openai-plugin</a> was born.</p>
+<p>The SDK provides a simple API for developers to simply compose their plugins by supplying come config and a standard <code>http4k-contract</code> endpoints, which generate the required OpenAPI specifications. The SDK does the rest for you, providing the required OpenAI plugin manifest, and then protects the API with one of 4 security models - including the ability to "login with ChatGPT" and OAuth into your plugin.</p>
+<p><img class="blogImage" src="./chatgpt.png" alt="http4k openapi ChatGPT plugin"/></p>
+<p>Once created, plugins can be installed into the <code>FakeOpenAI</code> server, and expose a standard http4k <code>HttpHandler</code> which means they can be tested in memory, run locally standalone, or composed into part of a larger http4k application. It's pretty neat and we can't wait to see what the community uses it for!</p>
+<p>There's a full example of how to build a plugin with the http4k-connect-openai-plugin SDK and deploy it to AWS Lambda with Pulumi - see <a href="https://github.com/http4k/http4k-connect-examples/tree/master/developing-openai-plugins">the repo</a> for details.</p>
+<h3 id="removal_of_deprecated_and_unsupported_features_1">Removal of deprecated and unsupported features<a class="headerlink" href="#removal_of_deprecated_and_unsupported_features_1" title="Permanent link">&para;</a></h3>
+<p>As part of the major release cycle, we’re removing all code marked as deprecated in v3 of http4k-connect.</p>
+<h3 id="upgrading_from_http4k-connect_v3">Upgrading from http4k-connect v3<a class="headerlink" href="#upgrading_from_http4k-connect_v3" title="Permanent link">&para;</a></h3>
+<p>If you are upgrading, the best idea is to first upgrade to the last v3 version, deal with any existing deprecations in place, then simply upgrade again to v5.0.0.0 and repeat.</p>
+<hr>
+
+<p>And that's it (for now!). We hope you're as excited about these updates to the http4k platform as we are! This release brings a wealth of new features and improvements, and we believe it will make your experience using http4k technologies even better.</p>
+<p>Here's to an amazing 2023 with http4k!</p>
+<p>Cheers,</p>
+<h4 id="the_http4k_team">// the http4k team<a class="headerlink" href="#the_http4k_team" title="Permanent link">&para;</a></h4>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+<script src="/js/toggle-search.js"></script>
+
+      <script src="../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+
+
+
+
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: atob(ak),
+  indexName: 'http4k',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+</body>
+</html>

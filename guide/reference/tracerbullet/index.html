@@ -1,0 +1,1337 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    
+    <script language="JavaScript">
+  ak = "Y2JjZDg5MzE5YTUwYjYzMTYyNzFmNGMzZDc5OWM2NTc="
+</script>
+    <meta charset="utf-8">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+<meta itemprop="name" content="http4k TracerBullet Module">
+<meta name="twitter:title" content="http4k TracerBullet Module">
+<meta property="og:title" content="http4k TracerBullet Module" />
+
+
+
+<meta name="description" content="Feature overview of the http4k-tracerbullet module">
+<meta property="og:description" content="Feature overview of the http4k-tracerbullet module" />
+<meta name="twitter:description" content="Feature overview of the http4k-tracerbullet module">
+
+
+
+<link rel="canonical" href="https://www.http4k.org/guide/reference/tracerbullet/">
+
+
+
+<meta name="author" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+<meta name="twitter:creator" content="David Denton (@daviddenton), Ivan Sanchez (@s4nchez)">
+
+
+
+
+<meta name="lang:clipboard.copy" content="en">
+
+<meta name="lang:clipboard.copied" content="en">
+
+<meta name="lang:search.language" content="en">
+
+<meta name="lang:search.pipeline.stopwords" content="en">
+
+<meta name="lang:search.pipeline.trimmer" content="en">
+
+<meta name="lang:search.result.none" content="en">
+
+<meta name="lang:search.result.one" content="en">
+
+<meta name="lang:search.result.other" content="en">
+
+<meta name="lang:search.tokenizer" content="en">
+
+<!-- ****** faviconit.com favicons ****** -->
+<link rel="shortcut icon" href="/img/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="/img/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="/img/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/img/favicon-144.png">
+<meta name="msapplication-config" content="/img/browserconfig.xml">
+<!-- ****** faviconit.com favicons ****** -->
+<meta name="generator" content="mkdocs-1.2.3, mkdocs-material-3.0.4">
+    
+    
+    
+    <title>http4k TracerBullet Module</title>
+    
+    
+    
+    
+    
+    
+    <meta name="theme-color" content="#4051b5">
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/codehilite.css"/>
+    
+    
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+    
+    
+    <link rel="stylesheet" href="/css/main.css"/>
+    
+    <link rel="stylesheet" href="../../../css/site.css">
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+</head>
+
+
+
+<body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="blue">
+
+
+
+
+
+
+
+<div class="intro">
+    <div class="row no-gutters justify-content-center">
+        <div class="aside col-auto">
+    <img class="mb-3 sideToggle d-inline-block d-md-none" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+    <a href="/">
+        <div class="logo"><img src="/img/logo-intro.png" width="185" alt="logo" srcset=""/></div>
+    </a>
+    <ul class="nav flex-column">
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../documentation/"
+               title="Introduction">Introduction</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../quickstart/"
+               title="Quickstart">Quickstart</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../"
+               title="About the docs">About the docs</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Concepts</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/rationale/"
+           title="Rationale">Rationale</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/http/"
+           title="HTTP">HTTP</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/serverless/"
+           title="Serverless">Serverless</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/websockets/"
+           title="WebSockets">WebSockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../concepts/server-sent-events/"
+           title="Server-Sent Events">Server-Sent Events</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Tutorials</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/your_first_http4k_app/"
+           title="Your first http4k app">Your first http4k app</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/serverless_http4k_with_aws_lambda/"
+           title="Deploying an http4k app to AWS Lambda">Deploying an http4k app to AWS Lambda</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/going_native_with_graal_on_aws_lambda/"
+           title="Going native with Graal on AWS Lambda">Going native with Graal on AWS Lambda</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../tutorials/tdding_http4k/"
+           title="TDDing http4k">TDDing http4k</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">How-to guides</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/server_as_a_function/"
+           title="Basic: Server as a function">Basic: Server as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/client_as_a_function/"
+           title="Basic: Client as a function">Basic: Client as a function</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_server_backend/"
+           title="Basic: Use a Server backend">Basic: Use a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/write_different_test_types/"
+           title="Basic: Different test-types">Basic: Different test-types</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/simple_routing/"
+           title="Basic: Simple routing">Basic: Simple routing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/nestable_routes/"
+           title="Basic: Nestable routes">Basic: Nestable routes</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/attach_context_to_a_request/"
+           title="Attach context to a request">Attach context to a request</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/configure_an_oauth_server/"
+           title="Configure an OAuth Server">Configure an OAuth Server</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/create_a_custom_json_marshaller/"
+           title="Create a custom JSON marshaller">Create a custom JSON marshaller</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/customise_a_server_backend/"
+           title="Customise a Server backend">Customise a Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/deploy_webjars/"
+           title="Deploy WebJars">Deploy WebJars</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/integrate_with_openapi/"
+           title="Integrate with OpenAPI">Integrate with OpenAPI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/leverage_graphql/"
+           title="Leverage GraphQL">Leverage GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/lookup_a_user_principal/"
+           title="Lookup a User Principal">Lookup a User Principal</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/monitor_http4k/"
+           title="Monitor http4k">Monitor http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/record_and_replay_http_traffic/"
+           title="Record & replay HTTP traffic">Record & replay HTTP traffic</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/serve_sse/"
+           title="Serve Server-Sent Events">Serve Server-Sent Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/serve_websockets/"
+           title="Serve Websockets">Serve Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/structure_your_logs_with_events/"
+           title="Structure your logs with Events">Structure your logs with Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/test_using_service_virtualisation/"
+           title="Test using Service Virtualisation">Test using Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/typesafe_your_api_with_lenses/"
+           title="Typesafe your API with lenses">Typesafe your API with lenses</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/secure_and_auth_http/"
+           title="Secure and auth HTTP services">Secure and auth HTTP services</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_custom_oauth_provider/"
+           title="Use a custom OAuth Provider">Use a custom OAuth Provider</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_a_templating_engine/"
+           title="Use a templating engines">Use a templating engines</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_html_forms/"
+           title="Use HTML forms">Use HTML forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_multipart_forms/"
+           title="Use Multipart forms">Use Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/self_document_systems_with_tests/"
+           title="Self document systems with tests">Self document systems with tests</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/use_auto_content_negotiation/"
+           title="Use Auto Content Negotiation">Use Auto Content Negotiation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/create_a_swagger_ui/"
+           title="Redoc and Swagger UI">Redoc and Swagger UI</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../howto/moshi_lite/"
+           title="Use Moshi with "lite" Reflection">Use Moshi with "lite" Reflection</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown active show">
+            <a class="nav-link dropdown-toggle active"
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="true">Reference</a>
+            <div class="dropdown-menu show">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../api/"
+           title="API docs">API docs</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../core/"
+           title="Core">Core</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../servers/"
+           title="Server backend">Server backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../serverless/"
+           title="Serverless backend">Serverless backend</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../clients/"
+           title="HTTP & Websocket clients">HTTP & Websocket clients</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../contracts/"
+           title="Typesafe contracts (OpenAPI3)">Typesafe contracts (OpenAPI3)</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../json/"
+           title="JSON handling">JSON handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../templating/"
+           title="Templating">Templating</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../multipart/"
+           title="Multipart forms">Multipart forms</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cloud_native/"
+           title="Cloud Native Configuration">Cloud Native Configuration</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../cloud_events/"
+           title="Cloud Events">Cloud Events</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../micrometer/"
+           title="Micrometer">Micrometer</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../opentelemetry/"
+           title="OpenTelemetry">OpenTelemetry</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../resilience4j/"
+           title="Resilience4J">Resilience4J</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../failsafe/"
+           title="Failsafe">Failsafe</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../aws/"
+           title="AWS">AWS</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../oauth/"
+           title="OAuth">OAuth</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../digest/"
+           title="Digest">Digest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../graphql/"
+           title="GraphQL">GraphQL</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../jsonrpc/"
+           title="JSON RPC">JSON RPC</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../xml/"
+           title="XML handling">XML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../yaml/"
+           title="YAML handling">YAML handling</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item nav-link dropdown-toggle  active"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="true"> Testing</a>
+        <div class="dropdown-menu show">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../testing/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../approvaltests/"
+           title="Approval Testing">Approval Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../chaos/"
+           title="Chaos Testing">Chaos Testing</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../hamkrest/"
+           title="Hamkrest">Hamkrest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../kotest/"
+           title="Kotest">Kotest</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../servicevirtualisation/"
+           title="Service Virtualisation">Service Virtualisation</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../strikt/"
+           title="Strikt">Strikt</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item active"
+           href="./"
+           title="Tracer Bullet">Tracer Bullet</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../webdriver/"
+           title="WebDriver">WebDriver</a>
+    
+
+            
+        </div>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle "
+               data-toggle="dropdown"
+               href="#"
+               role="button"
+               aria-haspopup="true"
+               aria-expanded="false">Blog</a>
+            <div class="dropdown-menu ">
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/"
+           title="Overview">Overview</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/meet_http4k/"
+           title="Meet http4k">Meet http4k</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_websockets/"
+           title="Typesafe Websockets">Typesafe Websockets</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/typesafe_configuration/"
+           title="Typesafe 12-factor config">Typesafe 12-factor config</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/documenting_apis_with_openapi/"
+           title="Documenting http4k apps with OpenApi3">Documenting http4k apps with OpenApi3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/retrospective_v3/"
+           title="Retrospective on v3">Retrospective on v3</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/nanoservices/"
+           title="Nanoservices">Nanoservices</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/toolbox/"
+           title="Toolbox: Guns for show, knives for a pro">Toolbox: Guns for show, knives for a pro</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/http4k_v4/"
+           title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/http4k_v5/"
+           title="http4k v5 - New Servers, More Modules, TracerBullet, and More...">http4k v5 - New Servers, More Modules, TracerBullet, and More...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../../../blog/regarding_jcenter/"
+           title="JCenter Shutdown">JCenter Shutdown</a>
+    
+
+            
+            </div>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../changelog/"
+               title="Changelog">Changelog</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../in_action/"
+               title="http4k in action">http4k in action</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../performance/"
+               title="Performance">Performance</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../faq/"
+               title="FAQ">FAQ</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../support/"
+               title="Getting support">Getting support</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../contributing/"
+               title="Contribute/support http4k">Contribute/support http4k</a>
+        </li>
+    
+
+        
+        
+        
+        
+    
+        <li class="nav-item">
+            <a class="nav-link "
+               href="../../../code-of-conduct/"
+               title="Code of Conduct">Code of Conduct</a>
+        </li>
+    
+
+        
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/http4k/http4k">
+                <img src="/img/GitHub-Mark-black.png" width="28" alt="See source on GitHub">&nbsp;&nbsp;Source Code</a>
+        </li>
+    </ul>
+</div>
+        <main class="col">
+          <div class="container">
+                <div class="searchBox">
+                  <img class="searchBoxIcon" src="/img/search-icon.svg" width="20" alt="" srcset=""/>
+                  <input id="search" type="text" placeholder="Ctrl/⌘ K"/>
+                </div>
+                <div class="content">
+                    <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
+                    
+                    
+                    <h1>Tracer Bullet</h1>
+                    
+                    <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
+<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:4.41.4.0&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-testing-tracerbullet&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>The http4k TracerBullet module brings together a lot of http4k innovations to help you to self-document your system and
+let's you answer questions about your system with your tests apart from the obvious one - "Does it work?".</p>
+<p>The essential idea is that the application uses the <code>Events</code>  interface to send interesting information to a collector
+during the running of tests through a JUnit extension. At the end of the test run, the <code>TracerBullet</code> collates these
+Events using a distributed tracing mechanism (X-B3 headers) and a set of <code>Tracers</code> to create a tree of what exactly
+happened during the test - these events can be anything, but good examples are:</p>
+<ol>
+<li>HTTP traffic in and out of the application</li>
+<li>Database calls</li>
+<li>Business events</li>
+</ol>
+<p>Once we have the "Trace tree", we can use it to extract information about our applications and then use <code>Renderers</code> to
+use it to document HOW our system behaves as well as if it works. Examples of these renders are:</p>
+<ol>
+<li>PUML/Mermaid Sequence or Interaction diagrams</li>
+<li>Analysis of the number of outbound calls that a particular application is making.</li>
+<li>Eliminating duplicate database calls or inefficient logic.</li>
+<li>When testing multiple apps together using the Server-as-a-Function/Hexagonal techniques, we can also see the entire
+   timeline of every call, so we can also determine maximum hop distance.</li>
+</ol>
+<p>And here is an example of a multi-service test and the type of visual documentation that is created:</p>
+<p><img src="./trace_diagram_success.png" alt="trace diagram success"></p>
+<p>Additionally, in the case of the test failing, the extension still auto-generates the trace diagram for the traffic 
+which did occur - this provides excellent feedback as to where the system went wrong:</p>
+<p><img src="./trace_diagram_failure.png" alt="trace diagram failure"></p>
+<p>One of the best things about the TracerBullet plugin is that it fits in seamlessly with the rest of the http4k stack.
+Once your applications have been designed to send data to the Events stream, just install the plugin and the diagramming
+comes for free!</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/self_document_systems_with_tests/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
+<p>Here's an example of making this work - note the use of the filters to use RequestTracing on the Events and the servers
+and clients. This is required to make the TracerBullet work.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.self_document_systems_with_tests</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.INTERNAL_SERVER_ERROR</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilters.AddServiceName</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.EventFilters.AddZipkinTraces</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.Events</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.HttpEvent.Incoming</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.HttpEvent.Outgoing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.ResetRequestTracing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ResponseFilters.ReportHttpTransaction</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters.RequestTracing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.hamkrest.hasStatus</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.reverseProxy</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorResolver</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.Actor</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorType</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.TraceRenderPersistence</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.junit.TracerBulletEvents</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.persistence.FileSystem</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.renderer.PumlSequenceDiagram</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.tracer.HttpTracer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Disabled</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.extension.RegisterExtension</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.io.File</span>
+
+<span class="c1">// standardised events stack which records the service name and adds tracing</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">TraceEvents</span><span class="p">(</span><span class="n">actorName</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AddZipkinTraces</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">AddServiceName</span><span class="p">(</span><span class="n">actorName</span><span class="p">))</span>
+
+<span class="c1">// standardised client filter stack which adds tracing and records traffic events</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReportHttpTransaction</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">events</span><span class="p">(</span><span class="n">Outgoing</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">ClientFilters</span><span class="p">.</span><span class="na">RequestTracing</span><span class="p">())</span>
+
+<span class="c1">// standardised server filter stack which adds tracing and records traffic events</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReportHttpTransaction</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">events</span><span class="p">(</span><span class="n">Incoming</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">RequestTracing</span><span class="p">())</span>
+
+<span class="c1">// Our &quot;User&quot; object who will send a request to our system</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// as the user is the initiator of requests, we need to reset the tracing for each call.</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ResetRequestTracing</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">)).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">initiateCall</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://internal1/int1&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="c1">// the first internal app</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Internal1</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+<span class="w">            </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int1&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://external1/ext1&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="k">when</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">first</span><span class="p">.</span><span class="na">status</span><span class="p">.</span><span class="na">successful</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://internal2/int2&quot;</span><span class="p">))</span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">first</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">})</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// the second internal app</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Internal2</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+<span class="w">            </span><span class="n">routes</span><span class="p">(</span><span class="s">&quot;/int2&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://external2/ext2&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">})</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// an external fake system</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">FakeExternal1</span><span class="p">():</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// another external fake system</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">FakeExternal2</span><span class="p">():</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">actor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ActorResolver</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Actor</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">metadata</span><span class="o">[</span><span class="s">&quot;service&quot;</span><span class="o">]</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="n">ActorType</span><span class="p">.</span><span class="na">System</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Our test will capture the traffic and render it to the console</span>
+<span class="cm"> */</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">RenderingTest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@RegisterExtension</span>
+<span class="w">    </span><span class="c1">// this events implementation will automatically capture the HTTP traffic</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TracerBulletEvents</span><span class="p">(</span>
+<span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">HttpTracer</span><span class="p">(</span><span class="n">actor</span><span class="p">)),</span><span class="w"> </span><span class="c1">// A tracer to capture HTTP calls</span>
+<span class="w">        </span><span class="n">listOf</span><span class="p">(</span><span class="n">PumlSequenceDiagram</span><span class="p">),</span><span class="w"> </span><span class="c1">// Render the HTTP traffic as a PUML diagram</span>
+<span class="w">        </span><span class="n">TraceRenderPersistence</span><span class="p">.</span><span class="na">FileSystem</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">))</span><span class="w"> </span><span class="c1">// Store the result</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`render successful trace`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// compose our application(s) together</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">internalApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Internal1</span><span class="p">(</span>
+<span class="w">            </span><span class="n">events</span><span class="p">,</span>
+<span class="w">            </span><span class="n">reverseProxy</span><span class="p">(</span>
+<span class="w">                </span><span class="s">&quot;external1&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">FakeExternal1</span><span class="p">(),</span>
+<span class="w">                </span><span class="s">&quot;internal2&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Internal2</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">FakeExternal2</span><span class="p">())</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+
+<span class="w">        </span><span class="c1">// make a request to the composed stack</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">User</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">internalApp</span><span class="p">).</span><span class="na">initiateCall</span><span class="p">(),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="nd">@Disabled</span><span class="p">(</span><span class="s">&quot;Remove this to run the failing test!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">`render failure trace`</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// compose our application(s) together</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">internalApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Internal1</span><span class="p">(</span>
+<span class="w">            </span><span class="n">events</span><span class="p">,</span>
+<span class="w">            </span><span class="n">reverseProxy</span><span class="p">(</span>
+<span class="w">                </span><span class="s">&quot;external1&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">INTERNAL_SERVER_ERROR</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="s">&quot;internal2&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Internal2</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">FakeExternal2</span><span class="p">())</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+
+<span class="w">        </span><span class="c1">// make a request to the composed stack</span>
+<span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">User</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">internalApp</span><span class="p">).</span><span class="na">initiateCall</span><span class="p">(),</span><span class="w"> </span><span class="n">hasStatus</span><span class="p">(</span><span class="n">OK</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>An extended example of this technique can be found at the <a href="https://github.com/http4k/exploring-the-testing-hyperpyramid">this repository</a>.</p>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/index-min.js"></script>
+<script src="/js/toggle-search.js"></script>
+
+      <script src="../../../assets/javascripts/application.583bbe55.js"></script>
+
+
+
+
+
+
+
+
+
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-125143867-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+  apiKey: atob(ak),
+  indexName: 'http4k',
+  inputSelector: '#search',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+</body>
+</html>

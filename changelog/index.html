@@ -877,6 +877,15 @@
             
     
         <a class="dropdown-item "
+           href="../guide/reference/tracerbullet/"
+           title="Tracer Bullet">Tracer Bullet</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
            href="../guide/reference/webdriver/"
            title="WebDriver">WebDriver</a>
     
@@ -982,6 +991,15 @@
         <a class="dropdown-item "
            href="../blog/http4k_v4/"
            title="http4k v4 - 17 platforms and counting...">http4k v4 - 17 platforms and counting...</a>
+    
+
+            
+            
+            
+    
+        <a class="dropdown-item "
+           href="../blog/http4k_v5/"
+           title="http4k v5 - New Servers, More Modules, TracerBullet, and More...">http4k v5 - New Servers, More Modules, TracerBullet, and More...</a>
     
 
             
@@ -1105,6 +1123,20 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API
 changes with their rationale when appropriate:</p>
+<h3 id="v5000_uncut">v5.0.0.0 (uncut)<a class="headerlink" href="#v5000_uncut" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.8.22.</li>
+<li><strong>http4k-</strong>* : [Breaking] Remove all previous deprecations from all modules for v4. To upgrade cleanly, first upgrade to <code>v4.41.4.0</code> and then re-upgrade to <code>v5.0.0.0</code>. This will ensure that you only have to deal with Deprecations between the major versions.</li>
+<li><strong>http4k-templates-dust</strong>: [Breaking] Nashorn is finally removed, so we are dropping support for this module. If you are on-pre Java 19 you can continue to use the old module version with no breaking changes.</li>
+<li><strong>http4k-</strong>*: [Breaking] http4k is now built with Java 20. We are still compiling for older Java versions. New major versions will now be incoming with every major JDK release in order to track new and retired JVM features (6 month cycle).</li>
+<li><strong>http4k-server-jetty</strong>: New Server Backend <code>JettyLoom</code>, based on Loom VirtualThreads. Requires Java &gt;=19 to use. Standard <code>Jetty</code> remains usable with any Java version.</li>
+<li><strong>http4k-core</strong>: New Server Backend <code>SunHttpLoom</code>, based on Loom VirtualThreads. Requires Java &gt;=19 to use. Standard <code>SunHttp</code> remains usable with any Java version.</li>
+<li><strong>http4k-server-helidon</strong>: [New Module] Helidon is a Loom-first rewrite of the popular server. Requires Java &gt;= 19 to use.</li>
+<li><strong>http4k-server-websocket</strong>: [New Module] A lightweight Websocket server built on  <a href="https://github.com/TooTallNate/Java-WebSocket">TooTallNate/Java-Websocket</a>. H/T @oharaandrew314</li>
+<li><strong>http4k-client-helidon</strong>: [New Module] An HTTP client build from the ground up to take advantage of project Loom. Requires Java &gt;= 19 to use.</li>
+<li><strong>http4k-format-kondor-json</strong>: [New Module] Support for <a href="https://github.com/uberto/kondor-json">KondorJson</a> , the reflection-free JSON library.</li>
+<li><strong>http4k-testing-tracerbullet</strong>: [New Module] TracerBullet allows you to hook into the http4k <code>Events</code> implementation to visually document your applications through testing. See example in reference guide.</li>
+</ul>
 <h3 id="v44800">v4.48.0.0<a class="headerlink" href="#v44800" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.8.22.</li>
@@ -1125,8 +1157,7 @@ changes with their rationale when appropriate:</p>
 <li><strong>http4k-core</strong> : Added status lookup by code. H/T @jhult</li>
 <li><strong>http4k-core</strong> : [Unlikely break] Client request tracing now sets and resets the ThreadLocal containing the current Zipkin traces. Possible break
 if you were relying on Zipkin state in a downstream handler. This change will allow better in-memory testing as traces will be reported correctly inside the context of the filter.</li>
-<li><strong>http4k-incubator</strong> : [Break] Changes to improve how we create Tracing trees, and this the signature of the Tracer to take EventNode which is a tree node.
-<strong>http4k-server-format-kondor-json</strong>: [New Module] Support for <a href="https://github.com/uberto/kondor-json">KondorJson</a>~~~~</li>
+<li><strong>http4k-incubator</strong> : [Break] Changes to improve how we create Tracing trees, and this the signature of the Tracer to take EventNode which is a tree node.</li>
 </ul>
 <h3 id="v44500">v4.45.0.0<a class="headerlink" href="#v44500" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1174,8 +1205,6 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v44140">v4.41.4.0<a class="headerlink" href="#v44140" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-server-websocket</strong>: [New Module] A lightweight Websocket server built
-  on  <a href="https://github.com/TooTallNate/Java-WebSocket">TooTallNate/Java-Websocket</a>. H/T @oharaandrew314</li>
 <li><strong>http4k-contract-ui-redoc</strong>: [New Module] Serve Redoc with the <code>redocUiWebjar</code> function.</li>
 <li><strong>http4k-contract</strong>: [New Feature] Serve Redoc with the <code>redocUiLite</code> function.</li>
 <li><strong>http4k-contract-ui-swagger</strong>: [Fix] #880. <code>swaggerUiWebjar</code> now works properly with a non-root path. Plus
@@ -1280,7 +1309,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v43500">v4.35.0.0<a class="headerlink" href="#v43500" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-failsafe</strong> : [New Module Alert!] Failsafe is a lightweight, zero-dependency library for handling failures.
+<li><strong>http4k-failsafe</strong> : [New Module!] Failsafe is a lightweight, zero-dependency library for handling failures.
   H/T @FredNordin</li>
 <li><strong>http4k-incubator</strong> : [Breaking] Rewrite of infrastructure for generating tracing diagrams, including new interfaces
   and support for rendering to various formats. Initial support for PUML and Mermaid.</li>
@@ -1307,7 +1336,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v43410">v4.34.1.0<a class="headerlink" href="#v43410" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-template-rocker</strong> : New module! Compile-time templating with Rocker!</li>
+<li><strong>http4k-template-rocker</strong> : [New module] Compile-time templating with Rocker!</li>
 </ul>
 <h3 id="v43404">v4.34.0.4<a class="headerlink" href="#v43404" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1393,7 +1422,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v43210">v4.32.1.0<a class="headerlink" href="#v43210" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-format-moshi</strong>* : Added ability to make Automarshallers strictness.</li>
+<li><strong>http4k-format-moshi</strong>* : Added ability to make Automarshallers strict.</li>
 </ul>
 <h3 id="v43200">v4.32.0.0<a class="headerlink" href="#v43200" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1485,7 +1514,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <li><strong>http4k-contract</strong> : [Unlikely break] Remove direct dependency on kotlin-reflect JAR, as it is brought in
   my <code>http4k-format-jackson</code> anyway. This builds ok but we have bumped the version number just to be sure. H/T
   @oharaandrew314 for the inspiration.</li>
-<li><strong>http4k-format-auto</strong> : Add <code>ContentNegotiator</code> and auto versions to be plugged into <code>http4k-format-*</code> modules. H/T
+<li><strong>http4k-format-core</strong> : Add <code>ContentNegotiator</code> and auto versions to be plugged into <code>http4k-format-*</code> modules. H/T
   @oharaandrew314</li>
 <li><strong>http4k-core</strong>: Add cors exposed headers property. H/T @oharaandrew314</li>
 </ul>
@@ -1588,7 +1617,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v42590">v4.25.9.0<a class="headerlink" href="#v42590" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions, including Ktor to v2.0.0</li>
-<li><strong>http4k-format-jackson-csv</strong>* : New module! H/T @oharaandrew314 for the contribution.</li>
+<li><strong>http4k-format-jackson-csv</strong>* : [New module] H/T @oharaandrew314 for the contribution.</li>
 <li><strong>http4k-core</strong>: New standard mappings for Time primitives. H/T @oharaandrew314</li>
 </ul>
 <h3 id="v42580">v4.25.8.0<a class="headerlink" href="#v42580" title="Permanent link">&para;</a></h3>
@@ -1599,7 +1628,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 </ul>
 <h3 id="v42570">v4.25.7.0<a class="headerlink" href="#v42570" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-client-fuel</strong>: New Module! An http4k client based on <a href="https://github.com/kittinunf/Fuel">Fuel</a> with both sync
+<li><strong>http4k-client-fuel</strong>: [New module] An http4k client based on <a href="https://github.com/kittinunf/Fuel">Fuel</a> with both sync
   and async support.</li>
 </ul>
 <h3 id="v42560">v4.25.6.0<a class="headerlink" href="#v42560" title="Permanent link">&para;</a></h3>
@@ -1764,7 +1793,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v41760">v4.17.6.0<a class="headerlink" href="#v41760" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-format-moshi-yaml</strong> : New module! YAML marshalling with zero-reflection is now possible due to a combination
+<li><strong>http4k-format-moshi-yaml</strong> : [New module] YAML marshalling with zero-reflection is now possible due to a combination
   of Moshi and SnakeYaml</li>
 <li><strong>http4k-core</strong> : Fix to HttpEvent to use correct value in xUriTemplate instead of full path.</li>
 <li><strong>http4k-format-jackson-xml</strong> : Add autoBody for ConfigurableJacksonXml. H/T @oharaandrew314</li>
@@ -1942,7 +1971,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v49100">v4.9.10.0<a class="headerlink" href="#v49100" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-security-digest</strong>* : New module! H/T @oharaandrew314 for the contribution!</li>
+<li><strong>http4k-security-digest</strong>* : [New module] H/T @oharaandrew314 for the contribution!</li>
 </ul>
 <h3 id="v4990">v4.9.9.0<a class="headerlink" href="#v4990" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1963,7 +1992,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v4960">v4.9.6.0<a class="headerlink" href="#v4960" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-testing-strikt</strong> : New module! Matchers for Strikt assertion library.</li>
+<li><strong>http4k-testing-strikt</strong> : [New module] Matchers for Strikt assertion library.</li>
 <li><strong>http4k-core</strong> : no longer exposing <code>UriTemplate.trimSlashes()</code> . H/T @PaulienVa</li>
 </ul>
 <h3 id="v4950">v4.9.5.0<a class="headerlink" href="#v4950" title="Permanent link">&para;</a></h3>
@@ -1973,7 +2002,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 </ul>
 <h3 id="v4940">v4.9.4.0<a class="headerlink" href="#v4940" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-serverless-lambda-runtime</strong> : New module! Sidestep the AWS Lambda Runtime with the super lightweight http4k
+<li><strong>http4k-serverless-lambda-runtime</strong> : [New module] Sidestep the AWS Lambda Runtime with the super lightweight http4k
   version!</li>
 </ul>
 <h3 id="v4931">v4.9.3.1<a class="headerlink" href="#v4931" title="Permanent link">&para;</a></h3>
@@ -2124,8 +2153,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 </ul>
 <h3 id="v4354">v4.3.5.4<a class="headerlink" href="#v4354" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-</strong>* : Disable publishing of gradle module metadata files to Maven Central.
-  0 (</li>
+<li><strong>http4k-</strong>* : Disable publishing of gradle module metadata files to Maven Central.</li>
 </ul>
 <h3 id="v4353">v4.3.5.3<a class="headerlink" href="#v4353" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2142,7 +2170,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v4350">v4.3.5.0<a class="headerlink" href="#v4350" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
-<li><strong>http4k-core</strong> : Add WebJars support. Activate WebJars with 1LOC!</li>
+<li><strong>http4k-core</strong> : [New module] Add WebJars support. Activate WebJars with 1LOC!</li>
 </ul>
 <h3 id="v4341">v4.3.4.1<a class="headerlink" href="#v4341" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2173,7 +2201,7 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 <h3 id="v4320">v4.3.2.0<a class="headerlink" href="#v4320" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
-<li><strong>http4k-cloudevents</strong> : New module! Support for CloudEvents using Jackson and pluggable event formats.</li>
+<li><strong>http4k-cloudevents</strong> : [New module] Support for CloudEvents using Jackson and pluggable event formats.</li>
 </ul>
 <h3 id="v4300">v4.3.0.0<a class="headerlink" href="#v4300" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2314,7 +2342,7 @@ data class MyDto(val field: String? = null)</code></p>
 </ul>
 <h3 id="v32760">v3.276.0<a class="headerlink" href="#v32760" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-graphql</strong> : New module! Adds integration with <code>GraphQL-Java</code> and the ability to serve/consume GQL using the
+<li><strong>http4k-graphql</strong> : [New module] Adds integration with <code>GraphQL-Java</code> and the ability to serve/consume GQL using the
   standard routing patterns.</li>
 </ul>
 <h3 id="v32750">v3.275.0<a class="headerlink" href="#v32750" title="Permanent link">&para;</a></h3>
@@ -2432,7 +2460,7 @@ data class MyDto(val field: String? = null)</code></p>
 </ul>
 <h3 id="v32580">v3.258.0<a class="headerlink" href="#v32580" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-testing-kotest</strong> : New module! A set of matchers for use with the <code>kotest</code> library. H/T @nlochschmidt for the
+<li><strong>http4k-testing-kotest</strong> : [New module] A set of matchers for use with the <code>kotest</code> library. H/T @nlochschmidt for the
   PR.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
@@ -2516,7 +2544,7 @@ data class MyDto(val field: String? = null)</code></p>
 <h3 id="v32480">v3.248.0<a class="headerlink" href="#v32480" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-server-ratpack</strong> : New backend module!</li>
-<li><strong>http4k-format-jackson-yaml</strong> : New module!</li>
+<li><strong>http4k-format-jackson-yaml</strong> : [New module]</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-cloudnative</strong> : - Fix #418 - Fix separator propagation when adding values to an existing MapEnvironment. H/T
   @jshiell</li>
@@ -2871,7 +2899,7 @@ data class MyDto(val field: String? = null)</code></p>
 </ul>
 <h3 id="v31920">v3.192.0<a class="headerlink" href="#v31920" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-template-jade4j</strong> : New module! H/T @RichyHBM for the contribution! :)</li>
+<li><strong>http4k-template-jade4j</strong> : [New module] H/T @RichyHBM for the contribution! :)</li>
 </ul>
 <h3 id="v31910">v3.191.0<a class="headerlink" href="#v31910" title="Permanent link">&para;</a></h3>
 <ul>
