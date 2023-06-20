@@ -1116,13 +1116,18 @@
 <p><a href="https://springernature.com"><img  class="blogImageSmall" src="/img/SN_Technology_simple_black_resized.png" alt="Springer Nature Technology"/></a></p>
 <p>If your organisation is using the http4k platform and would like to explore potential partnership options - including access to priority support channels, training opportunities, and input into the development plan, then please <a href="mailto:contact@http4k.org?subject=Partnership opportunities">reach out</a> and we'll be in touch to see how we can work together.</p>
 <p>With those things out of the way, let's get on to what you really came for - features!</p>
+<hr/>
+
 <h2 id="introducing_the_http4k_platform_127_modules_and_counting">Introducing the http4k Platform: 127 modules and counting<a class="headerlink" href="#introducing_the_http4k_platform_127_modules_and_counting" title="Permanent link">&para;</a></h2>
 <p>Before we dive into the details of the library updates themselves, we're announcing today that for the simplicity (to both the http4k community and the team!), we are unifying all http4k ecosystem projects (currently http4k and http4k-connect) under a single major platform version number - starting with v5. </p>
 <p>In addition, to keep pace with Java's own rapidly evolving ecosystem, we're going to be switching to aligning major releases of "the Platform"  with every JDK release - currently scheduled for every 6 months. This will allow us to track major-version support as features are added and removed from Java and provide an easy way for our users to track the this compatibility. For the moment, http4k and http4k Connect will still have different release cadence and individual release numbers and which are now developed using Java 20 as a base, but in the future there are plans to consolidate the projects under a single platform version.</p>
 <p>In terms of Java compatibility - for the foreseeable future, we are still going to compile http4k for older Java versions (we still target Java 8 as a base). Over time though, we plan to adjust our standard of support for ancient versions and introduce a paid support program for those who still need to run http4k against legacy versions of Java and require updates such as security patches. If that’s already the case for your team or project, be sure to <a href="mailto:contact@http4k.org?subject=Support for legacy JVM version">get in touch with the http4k team</a> to discuss your particular needs.</p>
 <p>Now - 127 is a pretty big number of modules, especially for what started out with a modest <a href="https://bit.ly/BarelyMagical">43 line spike</a>. But we're definitely not done yet - http4k is a solid foundation - it's arguably one of the simplest and most test-driven web libraries on the planet. We've also proven in http4k-connect that those parts can be composed into an powerful integration layer. Now the http4k team intend to continue that journey - and v5 is just the start.</p>
+<hr/>
+
 <h2 id="http4k">http4k<a class="headerlink" href="#http4k" title="Permanent link">&para;</a></h2>
-<p>In v4, we shipped a massive 197 releases (an average of 1.5 per week!) and introduced 12 new modules in a variety of areas: deployment (<a href="/guide/tutorials/going_native_with_graal_on_aws_lambda">serverless-lambda-runtime</a>), wire formats (moshi-yaml, jackson-csv, kondor-json), security (<a href="/guide/reference/digest">digest</a>), testing (<a href="/guide/reference/strikt/">strikt</a>), and around simpler usages of OpenAPI (Redoc/SwaggerUI). http4k 5 introduces 5 new modules and tidies up the decks for future developments.</p>
+<p>to
+In v4, we shipped a massive 197 releases (an average of 1.5 per week!) and introduced 12 new modules in a variety of areas: deployment (<a href="/guide/tutorials/going_native_with_graal_on_aws_lambda">serverless-lambda-runtime</a>), wire formats (moshi-yaml, jackson-csv, kondor-json), security (<a href="/guide/reference/digest">digest</a>), testing (<a href="/guide/reference/strikt/">strikt</a>), and around simpler usages of OpenAPI (Redoc/SwaggerUI). http4k 5 introduces 5 new modules and tidies up the decks for future developments.</p>
 <h4 id="loom_support">Loom support<a class="headerlink" href="#loom_support" title="Permanent link">&para;</a></h4>
 <p>We’re excited to see the re-introduction of virtual threads in Java and the performance improvements that can bring to well-established servers. Loom goes gold in Java 21 and we're going to be ready for our users to use it straight away.</p>
 <p>For this new major version, we’re introducing three new server backends taking advantage of Java Loom virtual threads: the SDK built-in SunHttp, <a href="https://github.com/eclipse/jetty.project/issues/8007">Jetty</a>, and <a href="https://helidon.io/nima">Helidon Nima</a>.</p>
@@ -1138,6 +1143,8 @@
 <p>We have also removed the http4k-templates-dust module due to the removal of Nashorn from the Java distribution. We understand this may impact some users, and we recommend seeking alternative solutions in the long term, but you can continue to use the existing http4k-template-dust assets which are still binary compatible  with v5 of http4k.</p>
 <h4 id="upgrading_from_http4k_v4">Upgrading from http4k v4<a class="headerlink" href="#upgrading_from_http4k_v4" title="Permanent link">&para;</a></h4>
 <p>If you are upgrading, the best idea is to first upgrade to the last v4 version, deal with any existing deprecations in place, then simply upgrade again to v5.0.0.0 and repeat.</p>
+<hr/>
+
 <h2 id="http4k-connect">http4k-connect<a class="headerlink" href="#http4k-connect" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/http4k/http4k-connect">http4k-connect</a> was conceived as a library of providing client adapters for popular cloud services based on the innovative <a href="https://dentondav.id/posts/2021/02/smash-your-adapter-monolith">Connect pattern</a>. v3 of the library added 20 different modules, and covered a number of popular AWS services, as well as integrating with Kafka via HTTP.</p>
 <p>The power of http4k-connect is it's ability to leverage Kotlin to provide modular adapters based around a common core. Each client endpoint is modeled as a separate "Action"? Is the action you want not supported by the core library, or do you want less information to be parsed?  Simple - just write your own endpoint adapter and plug it in!</p>
@@ -1159,7 +1166,7 @@
 <p>As part of the major release cycle, we’re removing all code marked as deprecated in v3 of http4k-connect.</p>
 <h4 id="upgrading_from_http4k-connect_v3">Upgrading from http4k-connect v3<a class="headerlink" href="#upgrading_from_http4k-connect_v3" title="Permanent link">&para;</a></h4>
 <p>If you are upgrading, the best idea is to first upgrade to the last v3 version, deal with any existing deprecations in place, then simply upgrade again to v5.0.0.0 and repeat.</p>
-<hr>
+<hr/>
 
 <p>And that's it (for now!). We hope you're as excited about these updates to the http4k platform as we are! This release brings a wealth of new features and improvements, and we believe it will make your experience using http4k technologies even better.</p>
 <p>Cheers,</p>
