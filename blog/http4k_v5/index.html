@@ -1125,9 +1125,8 @@
 <p>Now - 127 is a pretty big number of modules, especially for what started out with a modest <a href="https://bit.ly/BarelyMagical">43 line spike</a>. But we're definitely not done yet - http4k is a solid foundation - it's arguably one of the simplest and most test-driven web libraries on the planet. We've also proven in http4k-connect that those parts can be composed into an powerful integration layer. Now the http4k team intend to continue that journey - and v5 is just the start.</p>
 <hr/>
 
-<h2 id="http4k">http4k<a class="headerlink" href="#http4k" title="Permanent link">&para;</a></h2>
-<p>to
-In v4, we shipped a massive 197 releases (an average of 1.5 per week!) and introduced 12 new modules in a variety of areas: deployment (<a href="/guide/tutorials/going_native_with_graal_on_aws_lambda">serverless-lambda-runtime</a>), wire formats (moshi-yaml, jackson-csv, kondor-json), security (<a href="/guide/reference/digest">digest</a>), testing (<a href="/guide/reference/strikt/">strikt</a>), and around simpler usages of OpenAPI (Redoc/SwaggerUI). http4k 5 introduces 5 new modules and tidies up the decks for future developments.</p>
+<h2 id="http4k_updates">http4k Updates<a class="headerlink" href="#http4k_updates" title="Permanent link">&para;</a></h2>
+<p>In v4, we shipped a massive 197 releases (an average of 1.5 per week!) and introduced 12 new modules in a variety of areas: deployment (<a href="/guide/tutorials/going_native_with_graal_on_aws_lambda">serverless-lambda-runtime</a>), wire formats (moshi-yaml, jackson-csv, kondor-json), security (<a href="/guide/reference/digest">digest</a>), testing (<a href="/guide/reference/strikt/">strikt</a>), and around simpler usages of OpenAPI (Redoc/SwaggerUI). http4k 5 introduces 5 new modules and tidies up the decks for future developments.</p>
 <h4 id="loom_support">Loom support<a class="headerlink" href="#loom_support" title="Permanent link">&para;</a></h4>
 <p>We’re excited to see the re-introduction of virtual threads in Java and the performance improvements that can bring to well-established servers. Loom goes gold in Java 21 and we're going to be ready for our users to use it straight away.</p>
 <p>For this new major version, we’re introducing three new server backends taking advantage of Java Loom virtual threads: the SDK built-in SunHttp, <a href="https://github.com/eclipse/jetty.project/issues/8007">Jetty</a>, and <a href="https://helidon.io/nima">Helidon Nima</a>.</p>
@@ -1145,7 +1144,7 @@ In v4, we shipped a massive 197 releases (an average of 1.5 per week!) and intro
 <p>If you are upgrading, the best idea is to first upgrade to the last v4 version, deal with any existing deprecations in place, then simply upgrade again to v5.0.0.0 and repeat.</p>
 <hr/>
 
-<h2 id="http4k-connect">http4k-connect<a class="headerlink" href="#http4k-connect" title="Permanent link">&para;</a></h2>
+<h2 id="http4k-connect_updates">http4k-connect Updates<a class="headerlink" href="#http4k-connect_updates" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/http4k/http4k-connect">http4k-connect</a> was conceived as a library of providing client adapters for popular cloud services based on the innovative <a href="https://dentondav.id/posts/2021/02/smash-your-adapter-monolith">Connect pattern</a>. v3 of the library added 20 different modules, and covered a number of popular AWS services, as well as integrating with Kafka via HTTP.</p>
 <p>The power of http4k-connect is it's ability to leverage Kotlin to provide modular adapters based around a common core. Each client endpoint is modeled as a separate "Action"? Is the action you want not supported by the core library, or do you want less information to be parsed?  Simple - just write your own endpoint adapter and plug it in!</p>
 <p>Today with the v5 release, we're expanding the focus slightly - http4k-connect will now be the home of all official http4k platform integrations with third party services, to cover:</p>
