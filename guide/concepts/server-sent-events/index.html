@@ -1137,10 +1137,10 @@
 
 <p>The primary callback received when an Sse server is connected to a client. API user behaviour is configured here.</p>
 <h3 id="ssehandler">SseHandler<a class="headerlink" href="#ssehandler" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">typelias</span><span class="w"> </span><span class="n">SseHandler</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="p">(</span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">SseConsumer</span>
+<div class="codehilite"><pre><span></span><code><span class="n">typelias</span><span class="w"> </span><span class="n">SseHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">SseResponse</span>
 </code></pre></div>
 
-<p>Provides the route mapping of an <a href="/guide/concepts/http#HttpMessage">HTTP Request</a> to a particular SseConsumer.</p>
+<p>Provides the route mapping of an <a href="/guide/concepts/http#HttpMessage">HTTP Request</a> to a particular SseResponse (which contains a SseConsumer).</p>
 <h3 id="ssefilter">SseFilter<a class="headerlink" href="#ssefilter" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">SseFilter</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">SseConsumer</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">SseConsumer</span>
 </code></pre></div>

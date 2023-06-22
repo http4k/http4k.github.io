@@ -1147,25 +1147,28 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.ws.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.websockets</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.PolyHandler</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsResponse</span>
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">namePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">)</span>
 
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ws</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">websockets</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is responding&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">WsResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is responding&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">onClose</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">onClose</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="s">&quot;hiya world&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
@@ -1179,14 +1182,16 @@
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.serve_websockets</span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.WebsocketClient</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.Jackson.auto</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.ws.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.websockets</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsResponse</span>
 
 <span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">age</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span>
 
@@ -1196,11 +1201,13 @@
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">personLens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WsMessage</span><span class="p">.</span><span class="na">auto</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
 
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">websockets</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;/ageMe&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">personLens</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
-<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">personLens</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">10</span><span class="p">)))</span>
-<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">        </span><span class="s">&quot;/ageMe&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">WsResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">personLens</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">personLens</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">person</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">10</span><span class="p">)))</span>
+<span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
@@ -1230,16 +1237,16 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.websockets</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.ws.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.testWsClient</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsClient</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsFilter</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsHandler</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsResponse</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.then</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.AfterEach</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.BeforeEach</span>
@@ -1258,9 +1265,11 @@
 <span class="c1">// here is our websocket app - it uses dynamic path binding and lenses</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">testApp</span><span class="p">:</span><span class="w"> </span><span class="n">WsHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sayHello</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
 <span class="w">    </span><span class="n">websockets</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">WsResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">)</span>
@@ -1287,7 +1296,8 @@
 <span class="c1">// a integration test version of the contract -</span>
 <span class="c1">// it starts a server and connects to the websocket over the network</span>
 <span class="kd">class</span><span class="w"> </span><span class="nc">WebsocketServerTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WebsocketContract</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
 
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
 

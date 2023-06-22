@@ -1419,12 +1419,12 @@ to configure these lenses to target particular parts of the message, whilst at t
 <h3 id="typesafe_websockets">Typesafe Websockets.<a class="headerlink" href="#typesafe_websockets" title="Permanent link">&para;</a></h3>
 <p>Websockets have been modeled using the same methodology as standard HTTP endpoints - ie. with both simplicity and testability as a first class concern, as well as benefiting from Lens-based typesafety. Websocket communication consists of 3 main concepts:</p>
 <ol>
-<li><code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsConsumer?</code>. This is responsible for matching an HTTP request to a websocket.</li>
+<li><code>WsHandler</code> - represented as a typealias: <code>WsHandler =  (Request) -&gt; WsResponse</code>. This is responsible for matching an HTTP request to a websocket.</li>
 <li><code>WsConsumer</code> - represented as a typealias: <code>WsConsumer = (WebSocket) -&gt; Unit</code>. This function is called on connection of a websocket and allow the API user to react to events coming from the connected websocket.</li>
 <li><code>WsMessage</code> - a message which is sent or received on a websocket. This message can take advantage of the typesafety accorded to other entities in http4k by using the Lens API. Just like the http4k HTTP message model, WsMessages are immutable data classes.</li>
 </ol>
 <p>The routing aspect of Websockets is done using a very similar API to the standard HTTP routing for HTTP messages and dynamic parts of the upgrade request are available when constructing a websocket instance:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Wrapper</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="nn">java.nio.file.Pathdata</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Wrapper</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WsMessage</span><span class="p">.</span><span class="na">string</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="o">::</span><span class="n">Wrapper</span><span class="p">,</span><span class="w"> </span><span class="n">Wrapper</span><span class="o">::</span><span class="n">value</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span>
 
@@ -1432,16 +1432,18 @@ to configure these lenses to target particular parts of the message, whilst at t
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">ws</span><span class="p">:</span><span class="w"> </span><span class="n">WsHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">websockets</span><span class="p">(</span>
 <span class="w">    </span><span class="s">&quot;/hello&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">websockets</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">WebSocket</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nameLens</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">received</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">body</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
-<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">body</span><span class="p">(</span><span class="n">received</span><span class="p">))</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">onClose</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;closed&quot;</span><span class="p">)</span>
-<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">WsResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nameLens</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="kd">val</span><span class="w"> </span><span class="nv">received</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">body</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+<span class="w">                        </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">body</span><span class="p">(</span><span class="n">received</span><span class="p">))</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">onClose</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;closed&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">)</span>
@@ -1453,7 +1455,10 @@ to configure these lenses to target particular parts of the message, whilst at t
 <span class="w">        </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">r</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="n">websockets</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;/ws&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">WebSocket</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="s">&quot;/ws&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="n">WsResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello!&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">)</span>

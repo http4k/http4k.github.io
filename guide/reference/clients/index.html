@@ -1217,41 +1217,48 @@
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.clients</span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.WebsocketClient</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.websockets</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.ws.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsResponse</span>
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
 <span class="w">    </span><span class="c1">// a standard websocket app</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">websockets</span><span class="p">(</span>
-<span class="w">        </span><span class="s">&quot;/bob&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;bob&quot;</span><span class="p">))</span>
-<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;server received: </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">                </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+<span class="w">        </span><span class="s">&quot;/bob&quot;</span><span class="w"> </span><span class="n">bind</span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">WsResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;bob&quot;</span><span class="p">))</span>
+<span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;server received: </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">                        </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
 <span class="w">    </span><span class="c1">// blocking client - connection is done on construction</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">blockingClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">blockingClient</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
 <span class="w">    </span><span class="n">blockingClient</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;server sent on connection&quot;</span><span class="p">))</span>
-<span class="w">    </span><span class="n">blockingClient</span><span class="p">.</span><span class="na">received</span><span class="p">().</span><span class="na">take</span><span class="p">(</span><span class="m">2</span><span class="p">).</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;blocking client received: </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="n">blockingClient</span><span class="p">.</span><span class="na">received</span><span class="p">().</span><span class="na">take</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;blocking client received: </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="n">blockingClient</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
 
 <span class="w">    </span><span class="c1">// non-blocking client - exposes a Websocket interface for attaching listeners,</span>
 <span class="w">    </span><span class="c1">// and connection is done on construction, but doesn&#39;t block - the (optional) handler</span>
 <span class="w">    </span><span class="c1">// passed to the construction is called on connection.</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">nonBlockingClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nb">it</span><span class="p">.</span><span class="na">run</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;client sent on connection&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">nonBlockingClient</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">nonBlocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nb">it</span><span class="p">.</span><span class="na">run</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;client sent on connection&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">nonBlockingClient</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;non-blocking client received:</span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">)</span>
@@ -1272,21 +1279,20 @@
 
 <span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.assertion.assertThat</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">com.natpryce.hamkrest.equalTo</span>
-
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.WebsocketClient</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.websockets</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.ws.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.testWsClient</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.Websocket</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsClient</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsHandler</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsMessage</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsResponse</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.AfterEach</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.BeforeEach</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.junit.jupiter.api.Test</span>
@@ -1295,9 +1301,11 @@
 
 <span class="c1">// here is our websocket app - it uses dynamic path binding and lenses</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">testApp</span><span class="p">:</span><span class="w"> </span><span class="n">WsHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">websockets</span><span class="p">(</span>
-<span class="w">    </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="p">:</span><span class="w"> </span><span class="n">Websocket</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">ws</span><span class="p">.</span><span class="na">upgradeRequest</span><span class="p">)</span>
-<span class="w">        </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">WsResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="w">            </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">)</span>
 
@@ -1318,7 +1326,7 @@
 <span class="c1">// a unit test version of the contract - it connects to the websocket in memory with no network</span>
 <span class="kd">class</span><span class="w"> </span><span class="nc">WebsocketUnitTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WebsocketContract</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span><span class="w"> </span><span class="o">=</span>
-<span class="w">        </span><span class="n">guide</span><span class="p">.</span><span class="na">howto</span><span class="p">.</span><span class="na">serve_websockets</span><span class="p">.</span><span class="na">testApp</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/bob&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="n">testApp</span><span class="p">.</span><span class="na">testWsClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/bob&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 
 <span class="c1">// a integration test version of the contract -</span>
@@ -1326,7 +1334,7 @@
 <span class="kd">class</span><span class="w"> </span><span class="nc">WebsocketServerTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WebsocketContract</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
 
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guide</span><span class="p">.</span><span class="na">howto</span><span class="p">.</span><span class="na">serve_websockets</span><span class="p">.</span><span class="na">testApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
 
 <span class="w">    </span><span class="nd">@BeforeEach</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">before</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>

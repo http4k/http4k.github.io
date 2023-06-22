@@ -1144,14 +1144,15 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.sse</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.sse.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.PolyHandler</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Undertow</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.sse.Sse</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.sse.SseFilter</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.sse.SseMessage</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.sse.SseResponse</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.sse.then</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">kotlin.concurrent.thread</span>
 
@@ -1168,16 +1169,18 @@
 
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">sse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sayHello</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
 <span class="w">        </span><span class="n">sse</span><span class="p">(</span>
-<span class="w">            </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">sse</span><span class="p">:</span><span class="w"> </span><span class="n">Sse</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">sse</span><span class="p">.</span><span class="na">connectRequest</span><span class="p">)</span>
-<span class="w">                </span><span class="n">thread</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="n">sse</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="na">Data</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">))</span>
-<span class="w">                        </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+<span class="w">            </span><span class="s">&quot;/{name}&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">SseResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">sse</span><span class="p">:</span><span class="w"> </span><span class="n">Sse</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                    </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">namePath</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="w">                    </span><span class="n">thread</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                            </span><span class="n">sse</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">SseMessage</span><span class="p">.</span><span class="na">Data</span><span class="p">(</span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">                            </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">}</span>
+<span class="w">                        </span><span class="n">sse</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
 <span class="w">                    </span><span class="p">}</span>
-<span class="w">                    </span><span class="n">sse</span><span class="p">.</span><span class="na">close</span><span class="p">()</span>
+<span class="w">                    </span><span class="n">sse</span><span class="p">.</span><span class="na">onClose</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">                </span><span class="p">}</span>
-<span class="w">                </span><span class="n">sse</span><span class="p">.</span><span class="na">onClose</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">name</span><span class="s"> is closing&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">)</span>
 <span class="w">    </span><span class="p">)</span>
