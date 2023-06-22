@@ -1123,6 +1123,10 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API
 changes with their rationale when appropriate:</p>
+<h3 id="v5110">v5.1.1.0<a class="headerlink" href="#v5110" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>http4k-realtime-core</strong>* : Readd test client methods for SSE and WS </li>
+</ul>
 <h3 id="v5100">v5.1.0.0<a class="headerlink" href="#v5100" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-server-realtime-core</strong>* : [Breaking - Fix #931] Change Websocket and SSE interfaces to return <code>WsResponse</code> and <code>SseResponse</code> objects. This makes it easier to set response headers and control if a connection is made from the incoming request as it is no-longer hidden (it is exposed at the top level instead of being hidden in the SSE and Websocket objects). It also means that the interfaces for the protocols follow the same pattern.</li>
