@@ -1235,7 +1235,7 @@
 
 <h4 id="aws_lambda_integration_event-based_apps">AWS Lambda integration (Event-based apps)<a class="headerlink" href="#aws_lambda_integration_event-based_apps" title="Permanent link">&para;</a></h4>
 <p>http4k also supports writing Event-based functions to receive AWS events from services like SQS and Dynamo. One advantage of using http4k version is that it uses the AWS SDK RequestStreamHandler instead of the standard RequestHandler - which avoids the heavyweight Jackson deserialisation process (we use Moshi under the covers) utilised by the standard AWS runtime. To use this events functionality, you should also import the AWS Events JAR:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="w"> </span><span class="s">&quot;com.amazonaws:aws-lambda-java-events:3.8.0&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.amazonaws:aws-lambda-java-events:3.8.0&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Similarly to HttpHandler, for event processing in a functional style, the main body of the Lambda function is encapsulated in a single interface <code>FnHandler</code>. This typesafe class is created by an <code>FnLoader</code> function and simply passed into an extension of <code>AwsLambdaEventFunction</code> - which is the class configured as the entry point of your AWS lambda.</p>
