@@ -1125,8 +1125,10 @@
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
-<p>This module provides 2 things:
-1. a http4k compatible <code>SdkHttpClient</code>. This is so you can use the standard Amazon SDKs libraries by plugging in a standard <code>HttpHandler</code>. This simplifies fault testing and means that you can print out the exact traffic which is going to AWS - which is brilliant for both debugging and writing Fakes. :)</p>
+<p>This module provides 2 things: A http4k compatible <code>SdkHttpClient</code> and a super-simple AWS request signing functionality for talking to AWS services.</p>
+<ol>
+<li>With the <code>SdkHttpClient</code> you can use the standard Amazon SDKs libraries by plugging in a standard <code>HttpHandler</code>. This simplifies fault testing and means that you can print out the exact traffic which is going to AWS - which is brilliant for both debugging and writing Fakes. :)</li>
+</ol>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/aws/example_sdk.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.aws</span>
 
@@ -1153,7 +1155,7 @@
 </code></pre></div>
 
 <ol>
-<li>super-simple AWS request signing functionality for talking to AWS services. Once configured with the correct keys, the various AWS services are actually really simple to integrate with they're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.</li>
+<li>With the request signing functionality, once configured with the correct keys, the various AWS services are actually really simple to integrate with. They're just RESTy-type HTTPS services - the main difficulty is that all requests need to have their contents digitally signed with the AWS credentials to be authorised.</li>
 </ol>
 <p>http4k provides a <code>Filter</code> which does this request signing process. Just decorate a standard HTTP client and then make the relevant calls:</p>
 <h4 id="code_1">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/aws/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code_1" title="Permanent link">&para;</a></h4>
