@@ -1256,20 +1256,29 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.AwsLambdaEventFunction</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.FnHandler</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.FnLoader</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.ServerlessFilters.ReportFnTransaction</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.util.proxy</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">java.io.ByteArrayOutputStream</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Proxy</span>
 
 <span class="c1">// This is the handler for the incoming AWS SQS event. It&#39;s just a function so you can call it without any infrastructure</span>
-<span class="kd">fun</span><span class="w"> </span><span class="nf">EventFnHandler</span><span class="p">(</span><span class="n">http</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FnHandler</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">SQSEvent</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">    </span><span class="n">e</span><span class="p">.</span><span class="na">records</span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8080/&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">body</span><span class="p">.</span><span class="na">reversed</span><span class="p">()))</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">EventFnHandler</span><span class="p">(</span><span class="n">http</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">FnHandler</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">SQSEvent</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">e</span><span class="p">.</span><span class="na">records</span><span class="p">.</span><span class="na">forEach</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">http</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">POST</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8080/&quot;</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">body</span><span class="p">.</span><span class="na">reversed</span><span class="p">()))</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="s">&quot;processed </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">records</span><span class="p">.</span><span class="na">size</span><span class="si">}</span><span class="s"> messages&quot;</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="s">&quot;processed </span><span class="si">${</span><span class="n">e</span><span class="p">.</span><span class="na">records</span><span class="p">.</span><span class="na">size</span><span class="si">}</span><span class="s"> messages&quot;</span>
+
+<span class="c1">// We can add filters to the FnHandler if we want to - in this case print the transaction (with the letency).</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">loggingFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReportFnTransaction</span><span class="o">&lt;</span><span class="n">SQSEvent</span><span class="p">,</span><span class="w"> </span><span class="n">Context</span><span class="p">,</span><span class="w"> </span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">tx</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="c1">// The FnLoader is responsible for constructing the handler and for handling the serialisation of the request and response</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">EventFnLoader</span><span class="p">(</span><span class="n">http</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FnLoader</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">env</span><span class="p">:</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">    </span><span class="n">EventFnHandler</span><span class="p">(</span><span class="n">http</span><span class="p">)</span>
+<span class="w">    </span><span class="n">loggingFunction</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">EventFnHandler</span><span class="p">(</span><span class="n">http</span><span class="p">))</span>
 <span class="p">}</span>
 
 <span class="c1">// This class is the entry-point for the Lambda function call - configure it when deploying</span>

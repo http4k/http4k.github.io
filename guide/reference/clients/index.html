@@ -1231,7 +1231,7 @@
 <span class="w">    </span><span class="c1">// a standard websocket app</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">websockets</span><span class="p">(</span>
 <span class="w">        </span><span class="s">&quot;/bob&quot;</span><span class="w"> </span><span class="n">bind</span>
-<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">                </span><span class="n">WsResponse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ws</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">WsMessage</span><span class="p">(</span><span class="s">&quot;bob&quot;</span><span class="p">))</span>
 <span class="w">                    </span><span class="n">ws</span><span class="p">.</span><span class="na">onMessage</span><span class="w"> </span><span class="p">{</span>
