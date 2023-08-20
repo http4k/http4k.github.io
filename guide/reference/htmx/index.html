@@ -15,9 +15,9 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k HTMX Module">
-<meta name="twitter:title" content="http4k HTMX Module">
-<meta property="og:title" content="http4k HTMX Module" />
+<meta itemprop="name" content="http4k htmx Module">
+<meta name="twitter:title" content="http4k htmx Module">
+<meta property="og:title" content="http4k htmx Module" />
 
 
 
@@ -81,7 +81,7 @@
     
     
     
-    <title>http4k HTMX Module</title>
+    <title>http4k htmx Module</title>
     
     
     
@@ -1115,11 +1115,11 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>http4k HTMX Module</h1>
+                    <h1>http4k htmx Module</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.7.1.0&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.7.2.0&quot;</span><span class="p">))</span>
 <span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-htmx&quot;</span><span class="p">)</span>
 
 <span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-handlebars&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// for example</span>
@@ -1127,7 +1127,7 @@
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
-<p>Utilities to support <a href="https://htmx.org">HTMX</a> development. Includes the Webjar and a set of classes/functions to ease development of HTMX powered applications.</p>
+<p>Utilities to support <a href="https://htmx.org">htmx</a> development. Includes the Webjar and a set of classes/functions to ease development of htmx powered applications.</p>
 <h3 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/htmx/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.htmx</span>
 
@@ -1156,7 +1156,7 @@
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span>
 <span class="w">        </span><span class="n">htmxWebjar</span><span class="p">(),</span>
 <span class="w">        </span><span class="s">&quot;/&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span>
-<span class="w">            </span><span class="c1">// Respond to HTMX powered requests</span>
+<span class="w">            </span><span class="c1">// Respond to htmx powered requests</span>
 <span class="w">            </span><span class="n">Request</span><span class="p">.</span><span class="na">isHtmx</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">view</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Time</span><span class="p">(</span><span class="n">Date</span><span class="p">()))</span><span class="w"> </span><span class="p">},</span>
 <span class="w">            </span><span class="c1">// Standard requests get routed to here</span>
 <span class="w">            </span><span class="n">orElse</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">view</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Index</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
@@ -1165,7 +1165,7 @@
 
 <span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">9000</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
 
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;HTMX server started at http://localhost:9000&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">err</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;htmx server started at http://localhost:9000&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="c1">// We are using Handlebars to power the templates used by this app - see the *.hbs files</span>
