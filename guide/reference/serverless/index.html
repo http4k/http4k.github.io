@@ -1182,7 +1182,6 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.ApiGatewayV1LambdaFunction</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.AppLoader</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Proxy</span>
 
 <span class="c1">// This AppLoader is responsible for building our HttpHandler which is supplied to AWS</span>
 <span class="c1">// It is the only actual piece of code that needs to be written.</span>
@@ -1227,19 +1226,13 @@
 <span class="c1">//                &quot;isBase64Encoded&quot; to false,</span>
 <span class="c1">//                &quot;httpMethod&quot; to &quot;GET&quot;</span>
 <span class="c1">//            )</span>
-<span class="c1">//        ), proxy())</span>
+<span class="c1">//        ), mock())</span>
 <span class="c1">//        println(response)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="n">runLambdaLocally</span><span class="p">()</span>
 <span class="w">    </span><span class="n">runLambdaAsAwsWould</span><span class="p">()</span>
 <span class="p">}</span>
-
-<span class="c1">// helper method to stub the Lambda Context</span>
-<span class="kd">private</span><span class="w"> </span><span class="kd">inline</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="k">reified</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">proxy</span><span class="p">():</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Proxy</span><span class="p">.</span><span class="na">newProxyInstance</span><span class="p">(</span>
-<span class="w">    </span><span class="n">T</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">.</span><span class="na">classLoader</span><span class="p">,</span>
-<span class="w">    </span><span class="n">arrayOf</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">)</span>
-<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">TODO</span><span class="p">(</span><span class="s">&quot;not implemented&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">T</span>
 </code></pre></div>
 
 <h4 id="aws_lambda_integration_event-based_apps">AWS Lambda integration (Event-based apps)<a class="headerlink" href="#aws_lambda_integration_event-based_apps" title="Permanent link">&para;</a></h4>
@@ -1253,6 +1246,7 @@
 <div class="codehilite"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">com.amazonaws.services.lambda.runtime.Context</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">com.amazonaws.services.lambda.runtime.events.SQSEvent</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">com.amazonaws.services.lambda.runtime.events.SQSEvent.SQSMessage</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">dev.forkhandles.mock4k.mock</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.JavaHttpClient</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.POST</span>
@@ -1267,9 +1261,7 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.FnLoader</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.ServerlessFilters.ReportFnTransaction</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.then</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.util.proxy</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">java.io.ByteArrayOutputStream</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Proxy</span>
 
 <span class="c1">// This is the handler for the incoming AWS SQS event. It&#39;s just a function so you can call it without any infrastructure</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">EventFnHandler</span><span class="p">(</span><span class="n">http</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">)</span><span class="w"> </span><span class="o">=</span>
@@ -1310,7 +1302,7 @@
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">runLambdaInMemoryOrForTesting</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;RUNNING In memory:&quot;</span><span class="p">)</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EventFnHandler</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
-<span class="w">        </span><span class="n">app</span><span class="p">(</span><span class="n">sqsEvent</span><span class="p">,</span><span class="w"> </span><span class="n">proxy</span><span class="p">())</span>
+<span class="w">        </span><span class="n">app</span><span class="p">(</span><span class="n">sqsEvent</span><span class="p">,</span><span class="w"> </span><span class="n">mock</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">runLambdaAsAwsWould</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -1318,7 +1310,7 @@
 
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ByteArrayOutputStream</span><span class="p">()</span>
 
-<span class="w">        </span><span class="n">EventFunction</span><span class="p">().</span><span class="na">handleRequest</span><span class="p">(</span><span class="n">AwsLambdaMoshi</span><span class="p">.</span><span class="na">asInputStream</span><span class="p">(</span><span class="n">sqsEvent</span><span class="p">),</span><span class="w"> </span><span class="k">out</span><span class="p">,</span><span class="w"> </span><span class="n">proxy</span><span class="p">())</span>
+<span class="w">        </span><span class="n">EventFunction</span><span class="p">().</span><span class="na">handleRequest</span><span class="p">(</span><span class="n">AwsLambdaMoshi</span><span class="p">.</span><span class="na">asInputStream</span><span class="p">(</span><span class="n">sqsEvent</span><span class="p">),</span><span class="w"> </span><span class="k">out</span><span class="p">,</span><span class="w"> </span><span class="n">mock</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span>
 
 <span class="w">        </span><span class="c1">// the response is empty b</span>
 <span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="k">out</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span>
@@ -1329,12 +1321,6 @@
 
 <span class="w">    </span><span class="n">receivingServer</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
 <span class="p">}</span>
-
-<span class="c1">// helper method to stub the Lambda Context</span>
-<span class="kd">private</span><span class="w"> </span><span class="kd">inline</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="o">&lt;</span><span class="k">reified</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">proxy</span><span class="p">():</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Proxy</span><span class="p">.</span><span class="na">newProxyInstance</span><span class="p">(</span>
-<span class="w">    </span><span class="n">T</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">.</span><span class="na">classLoader</span><span class="p">,</span>
-<span class="w">    </span><span class="n">arrayOf</span><span class="p">(</span><span class="n">T</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">)</span>
-<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">TODO</span><span class="p">(</span><span class="s">&quot;not implemented&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">T</span>
 </code></pre></div>
 
 <h4 id="google_cloud_functions_integration">Google Cloud Functions integration<a class="headerlink" href="#google_cloud_functions_integration" title="Permanent link">&para;</a></h4>
