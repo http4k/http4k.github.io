@@ -1302,7 +1302,7 @@
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">runLambdaInMemoryOrForTesting</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;RUNNING In memory:&quot;</span><span class="p">)</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EventFnHandler</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
-<span class="w">        </span><span class="n">app</span><span class="p">(</span><span class="n">sqsEvent</span><span class="p">,</span><span class="w"> </span><span class="n">mock</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span>
+<span class="w">        </span><span class="n">app</span><span class="p">(</span><span class="n">sqsEvent</span><span class="p">,</span><span class="w"> </span><span class="n">mock</span><span class="p">())</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">runLambdaAsAwsWould</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -1310,7 +1310,7 @@
 
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ByteArrayOutputStream</span><span class="p">()</span>
 
-<span class="w">        </span><span class="n">EventFunction</span><span class="p">().</span><span class="na">handleRequest</span><span class="p">(</span><span class="n">AwsLambdaMoshi</span><span class="p">.</span><span class="na">asInputStream</span><span class="p">(</span><span class="n">sqsEvent</span><span class="p">),</span><span class="w"> </span><span class="k">out</span><span class="p">,</span><span class="w"> </span><span class="n">mock</span><span class="o">&lt;</span><span class="n">Context</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Context</span><span class="p">)</span>
+<span class="w">        </span><span class="n">EventFunction</span><span class="p">().</span><span class="na">handleRequest</span><span class="p">(</span><span class="n">AwsLambdaMoshi</span><span class="p">.</span><span class="na">asInputStream</span><span class="p">(</span><span class="n">sqsEvent</span><span class="p">),</span><span class="w"> </span><span class="k">out</span><span class="p">,</span><span class="w"> </span><span class="n">mock</span><span class="p">())</span>
 
 <span class="w">        </span><span class="c1">// the response is empty b</span>
 <span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="k">out</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span>
