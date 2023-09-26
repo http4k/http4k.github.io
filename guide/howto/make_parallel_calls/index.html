@@ -1137,7 +1137,7 @@
                     
                     <p>There are cases where an application needs to make multiple HTTP calls to other services as part of handling a particular request. 
 As a general rule-of-thumb, we recommend people to avoid <a href="https://wiki.c2.com/?PrematureOptimization">premature optimisation</a>, however sometimes the quantity of calls or performance of other services demand those to be executed in parallel.</p>
-<p>In this example, we show how to use a <a href="https://www.baeldung.com/thread-pool-java-and-guava">ThreadPoolExecutor</a> to manage multiple HTTP calls in parallel, and synchronise their results to produce a single response.</p>
+<p>In this example, we show how to use the extension function on [ExecutionService] to manage multiple HTTP calls in parallel, and synchronise their results to produce a single response.</p>
 <p>This recipe also covers how to make <a href="/guide/howto/monitor_http4k/#distributed_tracing">distributed tracing</a> work when tracing information is consumed by multiple threads.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.make_parallel_calls</span>
 
@@ -1153,10 +1153,11 @@ As a general rule-of-thumb, we recommend people to avoid <a href="https://wiki.c
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.DebuggingFilters</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ServerFilters</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ZipkinTracesStorage</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Undertow</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.util.withRequestTracing</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">java.util.concurrent.Callable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.concurrent.ExecutorService</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">java.util.concurrent.LinkedBlockingDeque</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">java.util.concurrent.ThreadPoolExecutor</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">java.util.concurrent.TimeUnit.SECONDS</span>
@@ -1172,16 +1173,21 @@ As a general rule-of-thumb, we recommend people to avoid <a href="https://wiki.c
 <span class="w">    </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">DebuggingFilters</span><span class="p">.</span><span class="na">PrintRequestAndResponse</span><span class="p">())</span>
 <span class="w">    </span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="n">OkHttp</span><span class="p">())</span>
 
-<span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">serverWithParallelCallsAndTracing</span><span class="p">(</span><span class="n">dependencyServerPort</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">executor</span><span class="p">:</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">serverWithParallelCallsAndTracing</span><span class="p">(</span>
+<span class="w">    </span><span class="n">dependencyServerPort</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="n">executor</span><span class="p">:</span><span class="w"> </span><span class="n">ExecutorService</span>
+<span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">localClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clientWithTracing</span><span class="p">()</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">serverWithTracing</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">parentThreadTraces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZipkinTracesStorage</span><span class="p">.</span><span class="na">THREAD_LOCAL</span><span class="p">.</span><span class="na">forCurrentThread</span><span class="p">()</span>
-
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">overallStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="m">1.</span><span class="p">.</span><span class="m">5</span><span class="p">).</span><span class="na">map</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="n">executor</span><span class="p">.</span><span class="na">submit</span><span class="p">(</span><span class="n">Callable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">ZipkinTracesStorage</span><span class="p">.</span><span class="na">THREAD_LOCAL</span><span class="p">.</span><span class="na">setForCurrentThread</span><span class="p">(</span><span class="n">parentThreadTraces</span><span class="p">)</span>
-<span class="w">                </span><span class="n">localClient</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">dependencyServerPort</span><span class="s">/sub-request-</span><span class="si">${</span><span class="nb">it</span><span class="si">}</span><span class="s">&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="n">localClient</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">Request</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">GET</span><span class="p">,</span>
+<span class="w">                        </span><span class="s">&quot;http://localhost:</span><span class="si">$</span><span class="n">dependencyServerPort</span><span class="s">/sub-request-</span><span class="si">${</span><span class="nb">it</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">)</span>
 <span class="w">            </span><span class="p">})</span>
 <span class="w">        </span><span class="p">}.</span><span class="na">foldRight</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">future</span><span class="p">,</span><span class="w"> </span><span class="n">overallStatus</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">nextResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">SECONDS</span><span class="p">)</span>
@@ -1193,7 +1199,11 @@ As a general rule-of-thumb, we recommend people to avoid <a href="https://wiki.c
 <span class="p">}</span>
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">executor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">SECONDS</span><span class="p">,</span><span class="w"> </span><span class="n">LinkedBlockingDeque</span><span class="p">())</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">originalExecutor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">SECONDS</span><span class="p">,</span><span class="w"> </span><span class="n">LinkedBlockingDeque</span><span class="p">())</span>
+
+<span class="w">    </span><span class="c1">// convert the execution service to one that propagates the trace information</span>
+<span class="w">    </span><span class="c1">// optionally pass a custom ZipkinStorage</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">executor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">originalExecutor</span><span class="p">.</span><span class="na">withRequestTracing</span><span class="p">()</span>
 
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">subServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serverWithTracing</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="m">500</span><span class="p">);</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">runningSubServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subServer</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">0</span><span class="p">)).</span><span class="na">start</span><span class="p">()</span>
