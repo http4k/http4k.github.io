@@ -1223,6 +1223,17 @@
 
 <h3 id="notes_for_rocker">Notes for Rocker<a class="headerlink" href="#notes_for_rocker" title="Permanent link">&para;</a></h3>
 <p>Rocker differs slightly from the dynamic templating engines in that it generates Java classes at compile time. In order to fit this into the http4k model, we have created a special superclass <code>RockerViewModel</code> (which combines the Rocker and the http4k <code>ViewModel</code> interfaces into a common supertype). This should be used as the <code>extendsModelClass</code> property in the generation process by configuration. Note that as the generated classes are Java and NOT Kotlin, Java syntax should be used inside the view files (which need to be named <code>Xyz.rocker.html</code>).</p>
+<h3 id="notes_for_pebble">Notes for Pebble<a class="headerlink" href="#notes_for_pebble" title="Permanent link">&para;</a></h3>
+<p>The way the underlying model is exposed for Pebble templates differs from the rest of the templating engines.
+The properties of the <code>ViewModel</code> object are bound to the view context under a <code>model</code> key, rather than directly into the template context itself.  </p>
+<p>This means that the <code>model.</code> prefix is required to access the properties of the underlying object in a Pebble template.</p>
+<p>In other words, rendering a <code>firstName</code> property, for example, is done using:</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">{{</span> <span class="nv">model.firstName</span> <span class="cp">}}</span>
+</code></pre></div>
+
+<p>instead of </p>
+<div class="codehilite"><pre><span></span><code><span class="cp">{{</span> <span class="nv">firstName</span> <span class="cp">}}</span>
+</code></pre></div>
                     
                 </div>
             </div>
