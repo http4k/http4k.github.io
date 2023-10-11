@@ -1189,6 +1189,7 @@ and clients. This is required to make the TracerBullet work.</p>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.Events</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.HttpEvent.Incoming</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.HttpEvent.Outgoing</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.and</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.events.then</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.ClientFilters.ResetRequestTracing</span>
@@ -1198,8 +1199,8 @@ and clients. This is required to make the TracerBullet work.</p>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.reverseProxy</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorResolver</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.Actor</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorResolver</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.ActorType</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.TraceRenderPersistence</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.tracing.junit.TracerBulletEvents</span>
@@ -1234,7 +1235,7 @@ and clients. This is required to make the TracerBullet work.</p>
 
 <span class="c1">// the first internal app</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">Internal1</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal1&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
@@ -1251,7 +1252,7 @@ and clients. This is required to make the TracerBullet work.</p>
 
 <span class="c1">// the second internal app</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">Internal2</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">:</span><span class="w"> </span><span class="n">Events</span><span class="p">,</span><span class="w"> </span><span class="n">rawHttp</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TraceEvents</span><span class="p">(</span><span class="s">&quot;internal2&quot;</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">).</span><span class="na">and</span><span class="p">(</span><span class="n">rawEvents</span><span class="p">)</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ClientStack</span><span class="p">(</span><span class="n">events</span><span class="p">).</span><span class="na">then</span><span class="p">(</span><span class="n">rawHttp</span><span class="p">)</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ServerStack</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
