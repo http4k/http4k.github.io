@@ -1151,7 +1151,7 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.path</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.ApiGatewayV1FnLoader</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.ApiGatewayV2FnLoader</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.AwsLambdaRuntime</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.serverless.asServer</span>
 
@@ -1165,7 +1165,7 @@
 <span class="p">)</span>
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">ApiGatewayV1FnLoader</span><span class="p">(</span><span class="n">http4kApp</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">AwsLambdaRuntime</span><span class="p">()).</span><span class="na">start</span><span class="p">()</span>
+<span class="w">    </span><span class="n">ApiGatewayV2FnLoader</span><span class="p">(</span><span class="n">http4kApp</span><span class="p">).</span><span class="na">asServer</span><span class="p">(</span><span class="n">AwsLambdaRuntime</span><span class="p">()).</span><span class="na">start</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 
