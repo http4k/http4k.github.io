@@ -1131,38 +1131,38 @@ generally performs at a very low overhead compared to the raw server.</p>
 <h3 id="tech_empower_benchmarks">Tech Empower Benchmarks<a class="headerlink" href="#tech_empower_benchmarks" title="Permanent link">&para;</a></h3>
 <p>We have entered http4k into the prominent <a href="https://www.techempower.com/benchmarks/">Tech Empower Framework Benchmarks</a> 
 project, which assesses frameworks over a series of realistic tests. </p>
-<p>For this benchmark, no customisation or performance tuning of the underlying servers was done - the default application 
-HttpHandler was used which is then plugged into each custom backend, as below:</p>
+<p>For this benchmark, no customisation or performance tuning of the underlying servers is done - the default application 
+HttpHandler is used which is then plugged into each custom backend, as below:</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">Http4kBenchmarkServer</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
+<span class="w">    </span><span class="n">Http4kBenchmarkServer</span><span class="p">(</span><span class="n">PostgresDatabase</span><span class="p">()).</span><span class="na">start</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">9000</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
 
 <p>Command-line JVM options, however, were tuned for the test to take advantage of various JVM features.</p>
 <p>The full implementation of the benchmark can be found <a href="https://github.com/TechEmpower/FrameworkBenchmarks/tree/master/frameworks/Kotlin/http4k">here</a>.</p>
-<h3 id="results_-_round_19">Results - Round 19<a class="headerlink" href="#results_-_round_19" title="Permanent link">&para;</a></h3>
-<p>Overall, http4k did very well in this round of benchmarking, placing 19/104 - especially considering that the <a href="/guide/concepts/rationale">ethos</a> of the library is one of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).</p>
-<p>The big surprise was the high performance of the Apache server backend, which consistently outranked Undertow (which is the most fully featured of all the supported backends and our default option). </p>
-<h4 id="overall_ranking_a_results">Overall ranking (a: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=composite">results</a>:<a class="headerlink" href="#overall_ranking_a_results" title="Permanent link">&para;</a></h4>
-<p>*Top rank: 9/29</p>
-<h4 id="db_query_html_rendering_results">DB query + HTML rendering: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=fortune&amp;l=fjd30b">results</a>:<a class="headerlink" href="#db_query_html_rendering_results" title="Permanent link">&para;</a></h4>
-<p><em>Top rank: 9/111 - Apache backend</em></p>
+<h3 id="results_-_round_22">Results - Round 22<a class="headerlink" href="#results_-_round_22" title="Permanent link">&para;</a></h3>
+<p>Overall, http4k continues to do very well in this round of benchmarking, placing 19/104 - especially considering that the <a href="/guide/concepts/rationale">ethos</a> of the library is one of excellent Developer experience over and above high-end performance (which tends to result in less friendly APIs).</p>
+<p>Rankings below are filtered for JVM libraries:</p>
+<h4 id="overall_ranking_a_results">Overall ranking (a: <a href="https://www.techempower.com/benchmarks/#section=data-r22&amp;hw=ph&amp;test=composite&amp;l=xan3h7-cn3">results</a>:<a class="headerlink" href="#overall_ranking_a_results" title="Permanent link">&para;</a></h4>
+<p>*Top rank: 13/76</p>
+<h4 id="db_query_html_rendering_results">DB query + HTML rendering: <a href="https://www.techempower.com/benchmarks/#section=data-r22&amp;hw=ph&amp;test=fortune&amp;l=xan3h7-cn3">results</a>:<a class="headerlink" href="#db_query_html_rendering_results" title="Permanent link">&para;</a></h4>
+<p><em>Top rank: 25/146 - Apache backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.
 Handlebars templating engine used for rendering.</p>
-<h4 id="multiple_db_queries_results">Multiple DB queries: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=query&amp;l=fjd30b">results</a>:<a class="headerlink" href="#multiple_db_queries_results" title="Permanent link">&para;</a></h4>
-<p><em>Top rank: 10/105 - Undertow backend</em></p>
+<h4 id="multiple_db_queries_results">Multiple DB queries: <a href="https://www.techempower.com/benchmarks/#section=data-r22&amp;hw=ph&amp;test=query&amp;l=xan3h7-cn3">results</a>:<a class="headerlink" href="#multiple_db_queries_results" title="Permanent link">&para;</a></h4>
+<p><em>Top rank: 23/145 - Jetty Loom backend</em></p>
+<p>Database driver used is Postgres Vertx Client backed by a Hikari pool.</p>
+<h4 id="single_db_query_results">Single DB query: <a href="https://www.techempower.com/benchmarks/#section=data-r22&amp;hw=ph&amp;test=db&amp;l=xan3h7-cn3">results</a>:<a class="headerlink" href="#single_db_query_results" title="Permanent link">&para;</a></h4>
+<p><em>Top rank: 25/151 - Apache backend</em></p>
 <p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="single_db_query_results">Single DB query: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=db&amp;l=fjd30b">results</a>:<a class="headerlink" href="#single_db_query_results" title="Permanent link">&para;</a></h4>
-<p><em>Top rank: 22/111 - Apache backend</em></p>
-<p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="random_db_updates_results">Random DB updates: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=update&amp;l=fjd30b">results</a>:<a class="headerlink" href="#random_db_updates_results" title="Permanent link">&para;</a></h4>
-<p><em>Top rank: 23/93 - Undertow backend</em></p>
-<p>Database driver used is PostgreSql backed by a Hikari pool.</p>
-<h4 id="json_serialization_results">JSON Serialization: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=json&amp;l=fjd30b">results</a>:<a class="headerlink" href="#json_serialization_results" title="Permanent link">&para;</a></h4>
-<p><em>Top rank: 35/110 - Apache backend</em></p>
-<p>The standard Jackson module used for JSON creation and marshalling.</p>
-<h4 id="plaintext_pipelining_results">Plaintext pipelining: <a href="https://www.techempower.com/benchmarks/#section=data-r19&amp;hw=ph&amp;test=plaintext&amp;l=fjd30b">results</a>:<a class="headerlink" href="#plaintext_pipelining_results" title="Permanent link">&para;</a></h4>
-<p><em>Top rank: 55/113 - Apache backend</em></p>
+<h4 id="random_db_updates_results">Random DB updates: <a href="https://www.techempower.com/benchmarks/#section=data-r22&amp;hw=ph&amp;test=update&amp;l=xan3h7-cn3">results</a>:<a class="headerlink" href="#random_db_updates_results" title="Permanent link">&para;</a></h4>
+<p><em>Top rank: 41/138 - Jetty Loom backend</em></p>
+<p>Database driver used is Postgres Vertx Client backed by a Hikari pool.</p>
+<h4 id="json_serialization_results">JSON Serialization: <a href="https://www.techempower.com/benchmarks/#section=data-r22&amp;hw=ph&amp;test=json&amp;l=xan3h7-cn3">results</a>:<a class="headerlink" href="#json_serialization_results" title="Permanent link">&para;</a></h4>
+<p><em>Top rank: 59/152 - Netty backend</em></p>
+<p>The standard Argo JSON module used for JSON creation and marshalling.</p>
+<h4 id="plaintext_pipelining_results">Plaintext pipelining: <a href="https://www.techempower.com/benchmarks/#section=data-r22&amp;hw=ph&amp;test=plaintext&amp;l=xan3h7-cn3">results</a>:<a class="headerlink" href="#plaintext_pipelining_results" title="Permanent link">&para;</a></h4>
+<p><em>Top rank: 84/153 - Netty backend</em></p>
 <h3 id="recommendations">Recommendations<a class="headerlink" href="#recommendations" title="Permanent link">&para;</a></h3>
 <p>Benchmark your own app's performance trying different engines if performance is critical.  The Tech Empower benchmarks attempt to simulate simple real-world scenarios, but they can behave drastically different than your app.  One other consideration is test time; some engines start up much faster than others.</p>
                     
