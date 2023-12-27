@@ -1134,8 +1134,12 @@
 changes with their rationale when appropriate:</p>
 <h3 id="v51200">v5.12.0.0<a class="headerlink" href="#v51200" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-aws</strong> : [Breaking] Tweaks to the signature of <code>AwsPreSignRequests</code>. Use <code>AwsRequestPreSigner</code> instead. H/T
-  @oharaandrew314</li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.9.22, and Jetty 12 (see below).</li>
+<li><strong>http4k-server-jetty</strong> - [Breaking] Upgrade to Jetty 12. This is a major rewrite of the Jetty engine and the API surface is incompatible with v11. If you are
+  using vanilla Jetty backend then this is a NoOp replacement, otherwise fallback to using the new <code>Jetty11</code> module and then plan migration accordingly.</li>
+<li><strong>http4k-server-jetty11</strong> - [New Module!] Drop-in replacement module for custom Jetty11 users. Constructor is now called <code>Jetty11()</code> instead of <code>Jetty()</code>, so
+  migration should be very simple. Other renames as required (using <code>11</code>) to avoid API clashes in the http4k codebase.</li>
+<li><strong>http4k-aws</strong> : [Breaking] Tweaks to the signature of <code>AwsPreSignRequests</code>. Use <code>AwsRequestPreSigner</code> instead. H/T @oharaandrew314</li>
 </ul>
 <h3 id="v51110">v5.11.1.0<a class="headerlink" href="#v51110" title="Permanent link">&para;</a></h3>
 <ul>

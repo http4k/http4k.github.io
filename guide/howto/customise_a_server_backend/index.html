@@ -1161,7 +1161,7 @@
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">sslPort</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">localKeyStorePath</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">localKeystorePassword</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">locakKeyManagerPassword</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">localKeyManagerPassword</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
 
 <span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ServerConfig</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">toServer</span><span class="p">(</span><span class="n">http</span><span class="p">:</span><span class="w"> </span><span class="n">HttpHandler</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="p">{</span>
@@ -1171,9 +1171,9 @@
 <span class="w">            </span><span class="p">}</span>
 
 <span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">sslContextFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SslContextFactory</span><span class="p">.</span><span class="na">Server</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">this</span><span class="p">.</span><span class="na">keyStorePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localKeyStorePath</span>
-<span class="w">                </span><span class="n">setKeyStorePassword</span><span class="p">(</span><span class="n">localKeystorePassword</span><span class="p">)</span>
-<span class="w">                </span><span class="n">setKeyManagerPassword</span><span class="p">(</span><span class="n">locakKeyManagerPassword</span><span class="p">)</span>
+<span class="w">                </span><span class="n">keyStorePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localKeyStorePath</span>
+<span class="w">                </span><span class="n">keyStorePassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localKeystorePassword</span>
+<span class="w">                </span><span class="n">keyManagerPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localKeyManagerPassword</span>
 <span class="w">            </span><span class="p">}</span>
 
 <span class="w">            </span><span class="n">connectors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arrayOf</span><span class="p">(</span>
@@ -1204,7 +1204,7 @@
 <span class="w">                </span><span class="n">sslPort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">9000</span><span class="p">,</span>
 <span class="w">                </span><span class="n">localKeyStorePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;keystore.jks&quot;</span><span class="p">,</span>
 <span class="w">                </span><span class="n">localKeystorePassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;password&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="n">locakKeyManagerPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;password&quot;</span>
+<span class="w">                </span><span class="n">localKeyManagerPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;password&quot;</span>
 <span class="w">            </span><span class="p">)</span>
 <span class="w">        </span><span class="p">).</span><span class="na">start</span><span class="p">()</span>
 <span class="p">}</span>

@@ -1216,7 +1216,7 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Path</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.websockets</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.ws.bind</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Jetty</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Undertow</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.testing.testWsClient</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.websocket.WsClient</span>
@@ -1262,7 +1262,7 @@
 <span class="kd">class</span><span class="w"> </span><span class="nc">WebsocketServerTest</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">WebsocketContract</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WebsocketClient</span><span class="p">.</span><span class="na">blocking</span><span class="p">(</span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;ws://localhost:8000/bob&quot;</span><span class="p">))</span>
 
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Jetty</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testApp</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">Undertow</span><span class="p">(</span><span class="m">8000</span><span class="p">))</span>
 
 <span class="w">    </span><span class="nd">@BeforeEach</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">before</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
