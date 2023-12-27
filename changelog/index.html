@@ -1132,20 +1132,28 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API
 changes with their rationale when appropriate:</p>
+<h3 id="v51200">v5.12.0.0<a class="headerlink" href="#v51200" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>http4k-aws</strong> : [Breaking] Tweaks to the signature of <code>AwsPreSignRequests</code>. Use <code>AwsRequestPreSigner</code> instead. H/T
+  @oharaandrew314</li>
+</ul>
 <h3 id="v51110">v5.11.1.0<a class="headerlink" href="#v51110" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-aws</strong> : Pre-sign AWS requests with the new <code>AwsPreSignRequests</code> class. H/T @oharaandrew314</li>
-<li><strong>http4k-serverless-lambda</strong> : [Fix #1013] Support multi value query parameters in ApiGatewayV2LambdaFunction (http4k-serverless/lambda)</li>
+<li><strong>http4k-serverless-lambda</strong> : [Fix #1013] Support multi value query parameters in ApiGatewayV2LambdaFunction (
+  http4k-serverless/lambda)</li>
 </ul>
 <h3 id="v51100">v5.11.0.0<a class="headerlink" href="#v51100" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
-<li><strong>http4k-core</strong> : [Unlikely Break: Fix #1011] Jackson does not honour serialisation of Enums when they are used as Map keys. The fix MAY break JSON serialisation (which actually is a bug as the expected behaviour is for the Enums to use the predefined mapping).</li>
+<li><strong>http4k-core</strong> : [Unlikely Break: Fix #1011] Jackson does not honour serialisation of Enums when they are used as Map
+  keys. The fix MAY break JSON serialisation (which actually is a bug as the expected behaviour is for the Enums to use
+  the predefined mapping).</li>
 </ul>
 <h3 id="v51070">v5.10.7.0<a class="headerlink" href="#v51070" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
-<li><strong>http4k-core</strong> : [Fix #1009] Extracting access token from non-standard AccessToken response fails </li>
+<li><strong>http4k-core</strong> : [Fix #1009] Extracting access token from non-standard AccessToken response fails</li>
 </ul>
 <h3 id="v51060">v5.10.6.0<a class="headerlink" href="#v51060" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1174,8 +1182,10 @@ changes with their rationale when appropriate:</p>
 </ul>
 <h3 id="v51010">v5.10.1.0<a class="headerlink" href="#v51010" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-testing-webdriver</strong>* : Allow the originalUri method of the OAuthRedirectionFilter to be configured when constructing an OAuthProvider H/T @mbcltd</li>
-<li><strong>http4k-format-</strong>* : Add alternative syntax for Automarshalling injection/extraction of bodies into and out of HttpMessages</li>
+<li><strong>http4k-testing-webdriver</strong>* : Allow the originalUri method of the OAuthRedirectionFilter to be configured when
+  constructing an OAuthProvider H/T @mbcltd</li>
+<li><strong>http4k-format-</strong>* : Add alternative syntax for Automarshalling injection/extraction of bodies into and out of
+  HttpMessages</li>
 </ul>
 <h3 id="v51000">v5.10.0.0<a class="headerlink" href="#v51000" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1216,7 +1226,8 @@ changes with their rationale when appropriate:</p>
 <h3 id="v5820">v5.8.2.0<a class="headerlink" href="#v5820" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-core</strong>* : Added extension function <code>ExecutionService.withRequestTracing()</code> to propagate Zipkin traces across threads</li>
+<li><strong>http4k-core</strong>* : Added extension function <code>ExecutionService.withRequestTracing()</code> to propagate Zipkin traces across
+  threads</li>
 </ul>
 <h3 id="v5810">v5.8.1.0<a class="headerlink" href="#v5810" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1236,7 +1247,8 @@ changes with their rationale when appropriate:</p>
 <h3 id="v5740">v5.7.4.0<a class="headerlink" href="#v5740" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
-<li><strong>http4k-testing-playwright</strong> : [New Module] Easily browser-test your http4k apps with this Playwright JUnit extension! H/T @dmcg for the inspiration.</li>
+<li><strong>http4k-testing-playwright</strong> : [New Module] Easily browser-test your http4k apps with this Playwright JUnit
+  extension! H/T @dmcg for the inspiration.</li>
 </ul>
 <h3 id="v5730">v5.7.3.0<a class="headerlink" href="#v5730" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1247,24 +1259,30 @@ changes with their rationale when appropriate:</p>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
 <li><strong>http4k-htmx</strong> : [New Module] Basic support for htmx development, including Webjar and custom lens types</li>
-<li><strong>http4k-testing-webdriver</strong> : Improve support for radio buttons and radio groups in the http4k-testing-webdriver. H/T @mbcltd</li>
+<li><strong>http4k-testing-webdriver</strong> : Improve support for radio buttons and radio groups in the http4k-testing-webdriver. H/T
+  @mbcltd</li>
 </ul>
 <h3 id="v5710">v5.7.1.0<a class="headerlink" href="#v5710" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
-<li><strong>http4k-contract</strong>* : [Fix #964] ContractRoute - inconsistent behavior on route matching. H/T @potfur for the investigation.</li>
+<li><strong>http4k-contract</strong>* : [Fix #964] ContractRoute - inconsistent behavior on route matching. H/T @potfur for the
+  investigation.</li>
 </ul>
 <h3 id="v5700">v5.7.0.0<a class="headerlink" href="#v5700" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
-<li><strong>http4k-server-undertow</strong> : [Unlikely break] - Reverse removal of the connectRequest from the SSE interface. This should undo the break caused by the recent rewrite.</li>
-<li><strong>http4k-server-jetty</strong> : [Unlikely break] - Reverse removal of the connectRequest from the SSE interface. This should undo the break caused by the recent rewrite.</li>
+<li><strong>http4k-server-undertow</strong> : [Unlikely break] - Reverse removal of the connectRequest from the SSE interface. This
+  should undo the break caused by the recent rewrite.</li>
+<li><strong>http4k-server-jetty</strong> : [Unlikely break] - Reverse removal of the connectRequest from the SSE interface. This should
+  undo the break caused by the recent rewrite.</li>
 </ul>
 <h3 id="v5650">v5.6.5.0<a class="headerlink" href="#v5650" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions</li>
-<li><strong>http4k-testing-approval</strong> : Whitespace is now trimmed from end of approval file content. Improves compatibility with IntelliJ (as final line endings might be added automatically)</li>
-<li><strong>http4k-testing-webdriver</strong> : [Fix #963] Submitting empty textarea form element in the webdriver causes a validation error</li>
+<li><strong>http4k-testing-approval</strong> : Whitespace is now trimmed from end of approval file content. Improves compatibility with
+  IntelliJ (as final line endings might be added automatically)</li>
+<li><strong>http4k-testing-webdriver</strong> : [Fix #963] Submitting empty textarea form element in the webdriver causes a validation
+  error</li>
 </ul>
 <h3 id="v5640">v5.6.4.0<a class="headerlink" href="#v5640" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1294,36 +1312,42 @@ changes with their rationale when appropriate:</p>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Added <code>nonBlank()</code> to set of standard BiDiMappings. H/T @dmcg</li>
-<li><strong>http4k-core</strong> : [Unlikely break: Fix #956] Lenses don't really work for optional fields in HTML form parsing. Form-fields are now filtered for values which are not blank. This means that you may need to change form lenses to be optional and default to an empty string if they are missing.</li>
+<li><strong>http4k-core</strong> : [Unlikely break: Fix #956] Lenses don't really work for optional fields in HTML form parsing.
+  Form-fields are now filtered for values which are not blank. This means that you may need to change form lenses to be
+  optional and default to an empty string if they are missing.</li>
 </ul>
 <h3 id="v5500">v5.5.0.0<a class="headerlink" href="#v5500" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-cloudnative</strong> - Add support for enums in EnvironmentKey</li>
-<li><strong>http4k-testing-tracerbullet</strong> : [Breaking] Fixed SequenceDiagrams for Mermaid to be formatted correctly. This may break approval files for any tests.</li>
+<li><strong>http4k-testing-tracerbullet</strong> : [Breaking] Fixed SequenceDiagrams for Mermaid to be formatted correctly. This may
+  break approval files for any tests.</li>
 </ul>
 <h3 id="v5410">v5.4.1.0<a class="headerlink" href="#v5410" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-client-helidon</strong> : API changes from Helidon alpha to M1</li>
 <li><strong>http4k-server-helidon</strong> : API changes from Helidon alpha to M1</li>
-<li><strong>http4k-contract</strong> : [Fix #750] JacksonFieldMetadataRetrievalStrategy is incompatible with kotlinx.serialization @Serializable classes. H/T @krissrex</li>
+<li><strong>http4k-contract</strong> : [Fix #750] JacksonFieldMetadataRetrievalStrategy is incompatible with kotlinx.serialization
+  @Serializable classes. H/T @krissrex</li>
 <li><strong>http4k-realtime-core</strong> : [Fix #951] Add filters to initialise request context for SSE and WS.</li>
 <li><strong>http4k-realtime-core</strong> : [Fix #885] Accept websocket subprotocols. Note that not all servers are currently supported</li>
 <li><strong>http4k-server-jetty</strong> : [Fix #885] Support subprotocols for Websockets</li>
 </ul>
 <h3 id="v5400">v5.4.0.0<a class="headerlink" href="#v5400" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-</strong>* : Upgrade some dependency versions. </li>
-<li><strong>http4k-aws</strong>: [Fix #656] AWS request signing issue for URLs with special characters. H/T @krissrex </li>
-<li><strong>http4k-aws</strong>: [Fix #947] AWS request signing issue for duplicated headers and header values with multiple spaces. H/T @krissrex </li>
-<li><strong>http4k-format-kondor-json</strong>: [Unlikely Break] Upgrade kondor-json to 2.0.0. H/T @FredNordin </li>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-aws</strong>: [Fix #656] AWS request signing issue for URLs with special characters. H/T @krissrex</li>
+<li><strong>http4k-aws</strong>: [Fix #947] AWS request signing issue for duplicated headers and header values with multiple spaces.
+  H/T @krissrex</li>
+<li><strong>http4k-format-kondor-json</strong>: [Unlikely Break] Upgrade kondor-json to 2.0.0. H/T @FredNordin</li>
 </ul>
 <h3 id="v5300">v5.3.0.0<a class="headerlink" href="#v5300" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions, including Kotlin to 1.9.0.</li>
 <li><strong>http4k-core</strong> : Surface root error messages in Body lenses when failure occurs on deserialisation.</li>
-<li><strong>http4k-template-thymeleaf</strong> : [Unlikely Break] Use HTML rendering mode and .html suffix by default for Thymeleaf templates. H/T @mikaelstaldal</li>
+<li><strong>http4k-template-thymeleaf</strong> : [Unlikely Break] Use HTML rendering mode and .html suffix by default for Thymeleaf
+  templates. H/T @mikaelstaldal</li>
 </ul>
 <h3 id="v5210">v5.2.1.0<a class="headerlink" href="#v5210" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1333,7 +1357,8 @@ changes with their rationale when appropriate:</p>
 <h3 id="v5200">v5.2.0.0<a class="headerlink" href="#v5200" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-contract-jsonschema</strong> : [New module] Extracted this so we can reuse in non-OpenAPI scenarios</li>
-<li><strong>http4k-contract</strong> : [Deprecation] Repackaging of JSON schema classes. Should only affect users if they have explicitly used/extended the standard behaviour.</li>
+<li><strong>http4k-contract</strong> : [Deprecation] Repackaging of JSON schema classes. Should only affect users if they have
+  explicitly used/extended the standard behaviour.</li>
 </ul>
 <h3 id="v5121">v5.1.2.1<a class="headerlink" href="#v5121" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1342,19 +1367,23 @@ changes with their rationale when appropriate:</p>
 <h3 id="v5120">v5.1.2.0<a class="headerlink" href="#v5120" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-security-oauth</strong>* : Remove dependency on Kotlin-reflect by adding custom adapters. H/T </li>
+<li><strong>http4k-security-oauth</strong>* : Remove dependency on Kotlin-reflect by adding custom adapters. H/T</li>
 </ul>
 <h3 id="v5111">v5.1.1.1<a class="headerlink" href="#v5111" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-serverless-lambda</strong>* : [Fix #933] AWS SQS deserialization issue when md5OfMessageAttributes is null. H/T @oharaandrew314</li>
+<li><strong>http4k-serverless-lambda</strong>* : [Fix #933] AWS SQS deserialization issue when md5OfMessageAttributes is null. H/T
+  @oharaandrew314</li>
 </ul>
 <h3 id="v5110">v5.1.1.0<a class="headerlink" href="#v5110" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-realtime-core</strong>* : Readd test client methods for SSE and WS </li>
+<li><strong>http4k-realtime-core</strong>* : Readd test client methods for SSE and WS</li>
 </ul>
 <h3 id="v5100">v5.1.0.0<a class="headerlink" href="#v5100" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-server-realtime-core</strong>* : [Breaking - Fix #931] Change Websocket and SSE interfaces to return <code>WsResponse</code> and <code>SseResponse</code> objects. This makes it easier to set response headers and control if a connection is made from the incoming request as it is no-longer hidden (it is exposed at the top level instead of being hidden in the SSE and Websocket objects). It also means that the interfaces for the protocols follow the same pattern.</li>
+<li><strong>http4k-server-realtime-core</strong>* : [Breaking - Fix #931] Change Websocket and SSE interfaces to return <code>WsResponse</code>
+  and <code>SseResponse</code> objects. This makes it easier to set response headers and control if a connection is made from the
+  incoming request as it is no-longer hidden (it is exposed at the top level instead of being hidden in the SSE and
+  Websocket objects). It also means that the interfaces for the protocols follow the same pattern.</li>
 <li><strong>http4k-server-jetty</strong>* : As above</li>
 <li><strong>http4k-server-undertow</strong>* : As above</li>
 <li><strong>http4k-core</strong>* : [Fix #930] Update content-length header after GZipping it. H/T @bjornbugge</li>
@@ -1362,16 +1391,28 @@ changes with their rationale when appropriate:</p>
 <h3 id="v5000">v5.0.0.0<a class="headerlink" href="#v5000" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
-<li><strong>http4k-</strong>* : [Breaking] Remove all previous deprecations from all modules for v4. To upgrade cleanly, first upgrade to <code>v4.48.0.0</code> and then re-upgrade to <code>v5.0.0.0</code>. This will ensure that you only have to deal with Deprecations between the major versions.</li>
-<li><strong>http4k-templates-dust</strong>: [Breaking] Nashorn is finally removed, so we are dropping support for this module. If you are on-pre Java 19 you can continue to use the old module version with no breaking changes.</li>
-<li><strong>http4k-</strong>*: [Breaking] http4k is now built with Java 20. We are still compiling for older Java versions. New major versions will now be incoming with every major JDK release in order to track new and retired JVM features (6 month cycle).</li>
-<li><strong>http4k-server-jetty</strong>: New Server Backend <code>JettyLoom</code>, based on Loom VirtualThreads. Requires Java 21 to use. Standard <code>Jetty</code> remains usable with any Java version.</li>
-<li><strong>http4k-core</strong>: New Server Backend <code>SunHttpLoom</code>, based on Loom VirtualThreads. Requires Java 21 to use. Standard <code>SunHttp</code> remains usable with any Java version.</li>
-<li><strong>http4k-server-helidon</strong>: [New Module] Helidon is a Loom-first rewrite of the popular server. Requires Java &gt;= 19 to use.</li>
-<li><strong>http4k-server-websocket</strong>: [New Module] A lightweight Websocket server built on  <a href="https://github.com/TooTallNate/Java-WebSocket">TooTallNate/Java-Websocket</a>. H/T @oharaandrew314</li>
-<li><strong>http4k-client-helidon</strong>: [New Module] An HTTP client build from the ground up to take advantage of project Loom. Requires Java &gt;= 19 to use.</li>
-<li><strong>http4k-format-kondor-json</strong>: [New Module] Support for <a href="https://github.com/uberto/kondor-json">KondorJson</a> , the reflection-free JSON library.</li>
-<li><strong>http4k-testing-tracerbullet</strong>: [New Module] TracerBullet allows you to hook into the http4k <code>Events</code> implementation to visually document your applications through testing. See example in reference guide.</li>
+<li><strong>http4k-</strong>* : [Breaking] Remove all previous deprecations from all modules for v4. To upgrade cleanly, first upgrade
+  to <code>v4.48.0.0</code> and then re-upgrade to <code>v5.0.0.0</code>. This will ensure that you only have to deal with Deprecations
+  between the major versions.</li>
+<li><strong>http4k-templates-dust</strong>: [Breaking] Nashorn is finally removed, so we are dropping support for this module. If you
+  are on-pre Java 19 you can continue to use the old module version with no breaking changes.</li>
+<li><strong>http4k-</strong>*: [Breaking] http4k is now built with Java 20. We are still compiling for older Java versions. New major
+  versions will now be incoming with every major JDK release in order to track new and retired JVM features (6 month
+  cycle).</li>
+<li><strong>http4k-server-jetty</strong>: New Server Backend <code>JettyLoom</code>, based on Loom VirtualThreads. Requires Java 21 to use.
+  Standard <code>Jetty</code> remains usable with any Java version.</li>
+<li><strong>http4k-core</strong>: New Server Backend <code>SunHttpLoom</code>, based on Loom VirtualThreads. Requires Java 21 to use.
+  Standard <code>SunHttp</code> remains usable with any Java version.</li>
+<li><strong>http4k-server-helidon</strong>: [New Module] Helidon is a Loom-first rewrite of the popular server. Requires Java &gt;= 19 to
+  use.</li>
+<li><strong>http4k-server-websocket</strong>: [New Module] A lightweight Websocket server built
+  on  <a href="https://github.com/TooTallNate/Java-WebSocket">TooTallNate/Java-Websocket</a>. H/T @oharaandrew314</li>
+<li><strong>http4k-client-helidon</strong>: [New Module] An HTTP client build from the ground up to take advantage of project Loom.
+  Requires Java &gt;= 19 to use.</li>
+<li><strong>http4k-format-kondor-json</strong>: [New Module] Support for <a href="https://github.com/uberto/kondor-json">KondorJson</a> , the
+  reflection-free JSON library.</li>
+<li><strong>http4k-testing-tracerbullet</strong>: [New Module] TracerBullet allows you to hook into the http4k <code>Events</code> implementation
+  to visually document your applications through testing. See example in reference guide.</li>
 <li><strong>http4k-contract</strong>: Allow RouteMetaDsl to be marked as hidden H/T @oharaandrew314</li>
 </ul>
 <h3 id="v44800">v4.48.0.0<a class="headerlink" href="#v44800" title="Permanent link">&para;</a></h3>
@@ -1385,16 +1426,19 @@ changes with their rationale when appropriate:</p>
 </ul>
 <h3 id="v44710">v4.47.1.0<a class="headerlink" href="#v44710" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-core</strong> Make it easy to propagate or update trace spans in ZipkinStorage </li>
+<li><strong>http4k-core</strong> Make it easy to propagate or update trace spans in ZipkinStorage</li>
 <li><strong>http4k-incubator</strong> Further simplifications of tracing algorithm</li>
 </ul>
 <h3 id="v44600">v4.46.0.0<a class="headerlink" href="#v44600" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Added status lookup by code. H/T @jhult</li>
-<li><strong>http4k-core</strong> : [Unlikely break] Client request tracing now sets and resets the ThreadLocal containing the current Zipkin traces. Possible break
-if you were relying on Zipkin state in a downstream handler. This change will allow better in-memory testing as traces will be reported correctly inside the context of the filter.</li>
-<li><strong>http4k-incubator</strong> : [Break] Changes to improve how we create Tracing trees, and this the signature of the Tracer to take EventNode which is a tree node.</li>
+<li><strong>http4k-core</strong> : [Unlikely break] Client request tracing now sets and resets the ThreadLocal containing the current
+  Zipkin traces. Possible break
+  if you were relying on Zipkin state in a downstream handler. This change will allow better in-memory testing as traces
+  will be reported correctly inside the context of the filter.</li>
+<li><strong>http4k-incubator</strong> : [Break] Changes to improve how we create Tracing trees, and this the signature of the Tracer to
+  take EventNode which is a tree node.</li>
 </ul>
 <h3 id="v44500">v4.45.0.0<a class="headerlink" href="#v44500" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1865,7 +1909,8 @@ if you were relying on Zipkin state in a downstream handler. This change will al
 </ul>
 <h3 id="v42570">v4.25.7.0<a class="headerlink" href="#v42570" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-client-fuel</strong>: [New module] An http4k client based on <a href="https://github.com/kittinunf/Fuel">Fuel</a> with both sync
+<li><strong>http4k-client-fuel</strong>: [New module] An http4k client based on <a href="https://github.com/kittinunf/Fuel">Fuel</a> with both
+  sync
   and async support.</li>
 </ul>
 <h3 id="v42560">v4.25.6.0<a class="headerlink" href="#v42560" title="Permanent link">&para;</a></h3>
@@ -2697,7 +2742,8 @@ data class MyDto(val field: String? = null)</code></p>
 </ul>
 <h3 id="v32580">v3.258.0<a class="headerlink" href="#v32580" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>http4k-testing-kotest</strong> : [New module] A set of matchers for use with the <code>kotest</code> library. H/T @nlochschmidt for the
+<li><strong>http4k-testing-kotest</strong> : [New module] A set of matchers for use with the <code>kotest</code> library. H/T @nlochschmidt for
+  the
   PR.</li>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 </ul>
