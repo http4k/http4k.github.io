@@ -1142,7 +1142,7 @@
 
 <p>This custom runtime is a lightweight, zero-reflection module which allows you to deploy both Java and GraalVM based binaries to AWS.</p>
 <h4 id="step_2">Step 2<a class="headerlink" href="#step_2" title="Permanent link">&para;</a></h4>
-<p>Lambdas working from a native binary have to supply their own <code>main</code> function to launch the runtime, instead of implementing the standard <code>Request/StreamHandler</code> interfaces. To use it on our app, we simply create a launcher and wrap our http4k <code>HttpHandler</code> with the appropriate FnHandler class before starting the Runtime:</p>
+<p>Lambdas working from a native binary have to supply their own <code>main</code> function to launch the runtime, instead of implementing the standard <code>Request/StreamHandler</code> interfaces. To use it on our app, we simply create a launcher and wrap our http4k <code>HttpHandler</code> with the appropriate FnHandler class before starting the Runtime. Put this into <code>HelloServerlessHttp4k.kt</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.tutorials.going_native_with_graal_on_aws_lambda</span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
@@ -1171,16 +1171,22 @@
 
 <h4 id="step_3">Step 3<a class="headerlink" href="#step_3" title="Permanent link">&para;</a></h4>
 <p>Compile the Lambda code into a GraalVM file is a 2 stage process. First, install and configure the ShadowJar plugin into <code>build.gradle</code> to merge the entire application into a single JAR file with a known main class. Add the following sections:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">buildScript</span><span class="w"> </span><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="n">buildscript</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">mavenCentral</span><span class="p">()</span>
+<span class="w">        </span><span class="n">gradlePluginPortal</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">classpath</span><span class="w"> </span><span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">jengelman</span><span class="p">.</span><span class="na">gradle</span><span class="p">.</span><span class="na">plugins</span><span class="p">:</span><span class="n">shadow</span><span class="p">:</span><span class="m">6.1</span><span class="p">.</span><span class="m">0</span><span class="err">&#39;</span>
+<span class="w">        </span><span class="n">classpath</span><span class="w"> </span><span class="s">&quot;com.github.johnrengelman:shadow:8.1.1&quot;</span>
+<span class="w">        </span><span class="n">classpath</span><span class="w"> </span><span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:</span><span class="si">${</span><span class="n">kotlinVersion</span><span class="si">}</span><span class="s">&quot;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="n">apply</span><span class="w"> </span><span class="n">plugin</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">github</span><span class="p">.</span><span class="na">johnrengelman</span><span class="p">.</span><span class="na">shadow</span><span class="err">&#39;</span>
+<span class="n">apply</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;java&quot;</span>
+<span class="n">apply</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;com.github.johnrengelman.shadow&quot;</span>
 
 <span class="n">shadowJar</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">manifest</span><span class="p">.</span><span class="na">attributes</span><span class="o">[</span><span class="err">&#39;</span><span class="n">Main</span><span class="o">-</span><span class="n">Class</span><span class="err">&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">&#39;</span><span class="n">guide</span><span class="p">.</span><span class="na">tutorials</span><span class="p">.</span><span class="na">going_native_with_graal_on_aws_lambda</span><span class="p">.</span><span class="na">HelloServerlessHttp4kKt</span><span class="err">&#39;</span>
+<span class="w">    </span><span class="n">manifest</span><span class="p">.</span><span class="na">attributes</span><span class="o">[</span><span class="s">&quot;Main-Class&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;guide.tutorials.going_native_with_graal_on_aws_lambda.HelloServerlessHttp4kKt&quot;</span>
 <span class="w">    </span><span class="n">archiveBaseName</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="na">name</span><span class="p">)</span>
 <span class="w">    </span><span class="n">archiveClassifier</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
 <span class="w">    </span><span class="n">archiveVersion</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
@@ -1195,9 +1201,9 @@
 <p>... and then take a note of the JAR file that appears in <code>build/libs</code>.</p>
 <h4 id="step_4">Step 4<a class="headerlink" href="#step_4" title="Permanent link">&para;</a></h4>
 <p>Now that we have our JAR file, we need to create a GraalVM image and package it into a ZIP file which can be uploaded to AWS. http4k supplies a convenience Docker image that uses the <code>native-image</code> program to create the binary and then packages the ZIP file:</p>
-<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/source<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>http4k/amazonlinux-java-graal-ce-lambda-runtime:latest<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>build/libs/HelloHttp4k.jar<span class="w"> </span><span class="se">\</span>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/source<span class="w">  </span>--platform<span class="o">=</span>linux/amd64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>http4k/amazonlinux-java-graal-community-lambda-runtime<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build/libs/HelloWorld.jar<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>HelloHttp4kGraal.zip
 </code></pre></div>
 
