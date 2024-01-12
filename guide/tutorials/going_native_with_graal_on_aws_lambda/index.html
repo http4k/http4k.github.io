@@ -1170,17 +1170,8 @@
 </code></pre></div>
 
 <p>Update the Pulumi config to point to the new file:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">lambdaFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nx">lambda</span><span class="p">.</span><span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;hello-http4k&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">code</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nx">pulumi</span><span class="p">.</span><span class="nx">asset</span><span class="p">.</span><span class="nx">FileArchive</span><span class="p">(</span><span class="s2">&quot;build/distributions/HelloWorld.zip&quot;</span><span class="p">),</span>
-<span class="w">    </span><span class="nx">handler</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;guide.tutorials.going_native_with_graal_on_aws_lambda.HelloServerlessHttp4kKt&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="kt">defaultRole.arn</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">runtime</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;java11&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="kt">15</span>
-<span class="p">});</span>
-</code></pre></div>
-
 <h4 id="step_3">Step 3<a class="headerlink" href="#step_3" title="Permanent link">&para;</a></h4>
-<p>Compile the Lambda code into a GraalVM file is a 2 stage process. First, install and configure the ShadowJar plugin into <code>build.gradle</code> to merge the entire application into a single JAR file with a known main class. Add the following sections:</p>
+<p>Compile the Lambda code into a GraalVM file is a 2 stage process. First, install and configure the ShadowJar plugin into <code>build.gradle</code> to merge the entire application into a single JAR file with a known main class. Update/add the following sections:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">buildscript</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">mavenCentral</span><span class="p">()</span>
@@ -1195,8 +1186,10 @@
 <span class="n">apply</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;java&quot;</span>
 <span class="n">apply</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;com.github.johnrengelman.shadow&quot;</span>
 
+<span class="n">mainClassName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;guide.tutorials.going_native_with_graal_on_aws_lambda.HelloServerlessHttp4kKt&quot;</span>
+
 <span class="n">shadowJar</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">manifest</span><span class="p">.</span><span class="na">attributes</span><span class="o">[</span><span class="s">&quot;Main-Class&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;guide.tutorials.going_native_with_graal_on_aws_lambda.HelloServerlessHttp4kKt&quot;</span>
+<span class="w">    </span><span class="n">manifest</span><span class="p">.</span><span class="na">attributes</span><span class="o">[</span><span class="s">&quot;Main-Class&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mainClassName</span>
 <span class="w">    </span><span class="n">archiveBaseName</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="na">name</span><span class="p">)</span>
 <span class="w">    </span><span class="n">archiveClassifier</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
 <span class="w">    </span><span class="n">archiveVersion</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
@@ -1214,10 +1207,10 @@
 <div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/source<span class="w">  </span>--platform<span class="o">=</span>linux/amd64<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>http4k/amazonlinux-java-graal-community-lambda-runtime<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>build/libs/HelloWorld.jar<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>HelloHttp4kGraal.zip
+<span class="w">    </span>HelloHttp4k.zip
 </code></pre></div>
 
-<p>GraalVM will churn away for a few minutes and all being well, the <code>HelloHttp4kGraal.zip</code> file will be generated in the main directory. </p>
+<p>GraalVM will churn away for a few minutes and all being well, the <code>HelloHttp4k.zip</code> file will be generated in the main directory. </p>
 <p><img class="blogImage" src="step4.png" alt="graalvm output"/></p>
 <h4 id="step_5">Step 5<a class="headerlink" href="#step_5" title="Permanent link">&para;</a></h4>
 <p>We need to update our Pulumi configuration to upload the new binary. This is pretty simple and just involves changing the runtime, ZIP target and handler in our <code>index.ts</code>. We can also remove the <code>timeout</code> as the native binary will startup in milliseconds:</p>
