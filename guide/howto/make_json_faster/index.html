@@ -15,19 +15,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k How-to: Use Moshi with "lite" Reflection">
-<meta name="twitter:title" content="http4k How-to: Use Moshi with "lite" Reflection">
-<meta property="og:title" content="http4k How-to: Use Moshi with "lite" Reflection" />
+<meta itemprop="name" content="http4k How-to: Make JSON Faster">
+<meta name="twitter:title" content="http4k How-to: Make JSON Faster">
+<meta property="og:title" content="http4k How-to: Make JSON Faster" />
 
 
 
-<meta name="description" content="Recipe to use Moshi AutoMarshalling with a "lite" reflection backend">
-<meta property="og:description" content="Recipe to use Moshi AutoMarshalling with a "lite" reflection backend" />
-<meta name="twitter:description" content="Recipe to use Moshi AutoMarshalling with a "lite" reflection backend">
+<meta name="description" content="Recipes to make JSON faster through the use of lighter reflection or code generation">
+<meta property="og:description" content="Recipes to make JSON faster through the use of lighter reflection or code generation" />
+<meta name="twitter:description" content="Recipes to make JSON faster through the use of lighter reflection or code generation">
 
 
 
-<link rel="canonical" href="https://www.http4k.org/guide/howto/moshi_lite/">
+<link rel="canonical" href="https://www.http4k.org/guide/howto/make_json_faster/">
 
 
 
@@ -81,7 +81,7 @@
     
     
     
-    <title>http4k How-to: Use Moshi with "lite" Reflection</title>
+    <title>http4k How-to: Make JSON Faster</title>
     
     
     
@@ -568,7 +568,7 @@
     
         <a class="dropdown-item active"
            href="./"
-           title="Use Moshi with "lite" Reflection">Use Moshi with "lite" Reflection</a>
+           title="Make JSON Faster">Make JSON Faster</a>
     
 
             
@@ -1133,38 +1133,92 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>Use Moshi with "lite" Reflection</h1>
+                    <h1>Make JSON Faster</h1>
                     
-                    <p>This recipe will teach you how to replace Moshi's default <code>kotlin-reflect</code> backend with the lightweight <code>kotlinx-metadata</code> variant.</p>
-<p>By default, the <code>moshi-kotlin</code> module uses <code>kotlin-reflect</code>, which is perfectly fine for most uses.
-However, at 3 MB, the relatively large JAR size of <code>kotlin-reflect</code> can have a meaningful performance impact in some scenarios:
-such as AWS Lambda cold-starts.</p>
-<p>Moshi is likely to adopt <code>kotlinx-metadata</code> in the future, as you can see in <a href="https://github.com/square/moshi/pull/1183">this approved pull request</a>.
-But until then, you can use this recipe to take advantage of the performance gains.</p>
-<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
-<p>This recipe uses the 3rd-party <a href="https://github.com/ZacSweers/MoshiX/tree/main/moshi-metadata-reflect">moshi-metadata-reflect</a> module.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+                    <p>The standard JSON format modules included in Http4k (like Jackson and Moshi) are good enough for most applications.
+However there are scenarios where you may want to further optimize them for runtime performance,
+or to achieve acceptable cold start times in serverless deployments.</p>
+<h2 id="kotlinxserialization">kotlinx.serialization<a class="headerlink" href="#kotlinxserialization" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/Kotlin/kotlinx.serialization">kotlinx.serialization</a> is a relatively simple and effective option.
+It's fully supported by Http4k, but we'll go over it first as a baseline to compare against the others.
+It generates the serialization adapters at compile time, which means it doesn't need reflection during runtime.</p>
+<p>kotlinx.serialization is a very fast and efficient module, but there are some caveats to consider:</p>
+<ol>
+<li>No support for many builtin JVM types (e.g. java.time, UUID)</li>
+<li>Custom serializers must be registered via annotation</li>
+<li>No support for values4k classes</li>
+</ol>
+<h3 id="gradle">Gradle<a class="headerlink" href="#gradle" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">kotlin</span><span class="p">(</span><span class="s">&quot;plugin.serialization&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;1.9.22&quot;</span>
+<span class="p">}</span>
+
+<span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.13.2.0&quot;</span><span class="p">))</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-moshi&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">exclude</span><span class="p">(</span><span class="s">&quot;com.squareup.moshi&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;moshi-kotlin&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;dev.zacsweers.moshix:moshi-metadata-reflect:0.19.0&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-kotlinx-serialization&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 
-<p>If you wish to take full advantage of the performance benefits, you need to ensure <code>kotlin-reflect</code> isn't bundled into your final jar.
-You must:</p>
-<ol>
-<li>Exclude the original <code>moshi-kotlin</code> module from <code>http4k-format-moshi</code></li>
-<li>Ensure you don't have other 3rd-party libraries that depend on <code>kotlin-reflect</code></li>
-</ol>
-<h3 id="recipe">Recipe<a class="headerlink" href="#recipe" title="Permanent link">&para;</a></h3>
-<p>The first step is to define a "lite" version of <code>ConfigurableMoshi</code>.
-This is done by overriding the default <code>kotlin-reflect</code> backend with the <code>kotlinx-metadata</code> backend, via the 3rd-party <a href="https://github.com/ZacSweers/MoshiX/tree/main/moshi-metadata-reflect">moshi-metadata-reflect</a> module.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.moshi_lite</span>
+<h3 id="example">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/make_json_faster/kotlinx_example.kt"><img class="octocat"/></a><a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.make_json_faster</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.serialization.Serializable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.KotlinxSerialization</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span>
+
+<span class="c1">// You must annotate your class to generate the adapter</span>
+<span class="nd">@Serializable</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">KotlinXCat</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="c1">// UUID not supported</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span>
+<span class="p">)</span>
+
+<span class="c1">// use the builtin http4k module</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KotlinxSerialization</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KotlinXCat</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Kratos&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// serialize</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="p">.</span><span class="na">asFormatString</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// deserialize</span>
+<span class="w">    </span><span class="n">json</span><span class="p">.</span><span class="na">asA</span><span class="o">&lt;</span><span class="n">KotlinXCat</span><span class="o">&gt;</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// make a lens</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">lens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="p">.</span><span class="na">autoBody</span><span class="o">&lt;</span><span class="n">KotlinXCat</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
+<span class="w">    </span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">lens</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">cat</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="moshi_metadata_reflect">Moshi Metadata Reflect<a class="headerlink" href="#moshi_metadata_reflect" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/ZacSweers/MoshiX/tree/main/moshi-metadata-reflect">moshi-metadata-reflect</a> is a plugin for Moshi that replaces the heavyweight <code>kotlin-reflect</code> with the lighter <code>kotlinx-metadata-jvm</code>.
+While this module still uses reflection, eliminating <code>kotlin-reflect</code> from your classpath will reduce your binary size by several MB and make a respectable improvement in cold start time.</p>
+<p>Moshi Metadata Reflect is very simple, and doesn't require any gradle plugins or finicky code generation.
+However, it will bring the smallest performance benefit out of these options.</p>
+<h3 id="gradle_1">Gradle<a class="headerlink" href="#gradle_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.13.2.0&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-moshi&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">exclude</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kotlin-reflect&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Exclude kotlin-reflect</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;dev.zacsweers.moshix:moshi-metadata-reflect:0.23.0&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="example_1">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/make_json_faster/moshi_metadata_reflect_example.kt"><img class="octocat"/></a><a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.make_json_faster</span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">com.squareup.moshi.Moshi</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">dev.zacsweers.moshix.reflect.MetadataKotlinJsonAdapterFactory</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ConfigurableMoshi</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.EventAdapter</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ListAdapter</span>
@@ -1172,8 +1226,10 @@ This is done by overriding the default <code>kotlin-reflect</code> backend with 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ThrowableAdapter</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.asConfigurable</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.withStandardMappings</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">se.ansman.kotshi.JsonSerializable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span>
 
-<span class="kd">object</span><span class="w"> </span><span class="nc">MoshiLite</span><span class="p">:</span><span class="w"> </span><span class="n">ConfigurableMoshi</span><span class="p">(</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConfigurableMoshi</span><span class="p">(</span>
 <span class="w">    </span><span class="n">Moshi</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
 <span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">EventAdapter</span><span class="p">)</span>
 <span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ThrowableAdapter</span><span class="p">)</span>
@@ -1183,32 +1239,103 @@ This is done by overriding the default <code>kotlin-reflect</code> backend with 
 <span class="w">        </span><span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span>
 <span class="w">        </span><span class="p">.</span><span class="na">done</span><span class="p">()</span>
 <span class="p">)</span>
-</code></pre></div>
-
-<p>Then you can use this new <code>ConfigurableMoshi</code> instance for auto-marshalling and lens creation, like normal.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.moshi_lite</span>
-
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span>
 
 <span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">MoshiCat</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiCat</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Tigger&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiCat</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Kratos&quot;</span><span class="p">)</span>
 
 <span class="w">    </span><span class="c1">// serialize</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">asFormatString</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="p">.</span><span class="na">asFormatString</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
 <span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
 
 <span class="w">    </span><span class="c1">// deserialize</span>
-<span class="w">    </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">asA</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="w">    </span><span class="n">json</span><span class="p">.</span><span class="na">asA</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
 <span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
 
 <span class="w">    </span><span class="c1">// make a lens</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">lens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MoshiLite</span><span class="p">.</span><span class="na">autoBody</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
-<span class="w">    </span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">lens</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">cat</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">lens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="p">.</span><span class="na">autoBody</span><span class="o">&lt;</span><span class="n">MoshiCat</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
+<span class="w">    </span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">lens</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">cat</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="kotshi">Kotshi<a class="headerlink" href="#kotshi" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/ansman/kotshi">Kotshi</a> is a plugin for Moshi.  It's very similar to <a href="https://github.com/square/moshi/tree/master/moshi-kotlin-codegen">moshi-kotlin-codegen</a>
+in that they both generate Moshi adapters at compile time.
+However, since <code>moshi-kotlin-codegen</code> still requires <code>kotlin-reflect</code> at runtime, <code>kotshi</code> can bring much greater cold start performance gains.</p>
+<p>Kotshi is a very fast and efficient module, but is the most difficult to set up.
+It requires a gradle plugin, several dependencies, and depends on code that only exists after compile.</p>
+<h3 id="gradle_2">Gradle<a class="headerlink" href="#gradle_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The KSP plugin is required to generate the adapters at compile time</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.google.devtools.ksp&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;1.9.22-1.0.16&quot;</span>
+<span class="p">}</span>
+
+<span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-moshi&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">exclude</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kotlin-reflect&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Exclude kotlin-reflect</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Get the Kotshi runtime library and configure KSP to generate the adapters</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;se.ansman.kotshi:api:2.15.0&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ksp</span><span class="p">(</span><span class="s">&quot;se.ansman.kotshi:compiler:2.15.0&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="example_2">Example <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/make_json_faster/kotshi_example.kt"><img class="octocat"/></a><a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.make_json_faster</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">com.squareup.moshi.JsonAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.squareup.moshi.Moshi</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.with</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ConfigurableMoshi</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.EventAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ListAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.MapAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.ThrowableAdapter</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.asConfigurable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.format.withStandardMappings</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">se.ansman.kotshi.JsonSerializable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">se.ansman.kotshi.KotshiJsonAdapterFactory</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">java.util.UUID</span>
+
+<span class="c1">// Annotation is required to generate the adapter</span>
+<span class="nd">@JsonSerializable</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">KotshiCat</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
+
+<span class="c1">// Build the kotshi adapter</span>
+<span class="nd">@KotshiJsonAdapterFactory</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">ExampleJsonAdapterFactory</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">JsonAdapter</span><span class="p">.</span><span class="na">Factory</span><span class="w"> </span><span class="k">by</span>
+<span class="w">    </span><span class="n">KotshiExampleJsonAdapterFactory</span><span class="w"> </span><span class="c1">// this class will be generated during compile</span>
+
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConfigurableMoshi</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Moshi</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">ExampleJsonAdapterFactory</span><span class="p">)</span><span class="w"> </span><span class="c1">// inject kotshi here</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">EventAdapter</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ThrowableAdapter</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">ListAdapter</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">addLast</span><span class="p">(</span><span class="n">MapAdapter</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">asConfigurable</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">withStandardMappings</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">done</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">cat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KotshiCat</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Kratos&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// serialize</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="p">.</span><span class="na">asFormatString</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// deserialize</span>
+<span class="w">    </span><span class="n">json</span><span class="p">.</span><span class="na">asA</span><span class="o">&lt;</span><span class="n">KotshiCat</span><span class="o">&gt;</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">also</span><span class="p">(</span><span class="o">::</span><span class="n">println</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// make a lens</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">lens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="p">.</span><span class="na">autoBody</span><span class="o">&lt;</span><span class="n">KotshiCat</span><span class="o">&gt;</span><span class="p">().</span><span class="na">toLens</span><span class="p">()</span>
+<span class="w">    </span><span class="n">Request</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="na">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="na">with</span><span class="p">(</span><span class="n">lens</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">cat</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
                     
