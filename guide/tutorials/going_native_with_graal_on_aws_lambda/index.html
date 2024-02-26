@@ -1187,13 +1187,13 @@
 <span class="w">        </span><span class="n">gradlePluginPortal</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">classpath</span><span class="w"> </span><span class="s">&quot;com.github.johnrengelman:shadow:8.1.1&quot;</span>
-<span class="w">        </span><span class="n">classpath</span><span class="w"> </span><span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:</span><span class="si">${</span><span class="n">kotlinVersion</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="w">        </span><span class="n">classpath</span><span class="p">(</span><span class="s">&quot;com.github.johnrengelman:shadow:8.1.1&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">classpath</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:</span><span class="si">${</span><span class="n">kotlinVersion</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="n">apply</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;java&quot;</span>
-<span class="n">apply</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;com.github.johnrengelman.shadow&quot;</span>
+<span class="n">apply</span><span class="p">(</span><span class="n">plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;java&quot;</span><span class="p">)</span>
+<span class="n">apply</span><span class="p">(</span><span class="n">plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.github.johnrengelman.shadow&quot;</span><span class="p">)</span>
 
 <span class="n">mainClassName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;guide.tutorials.going_native_with_graal_on_aws_lambda.HelloServerlessHttp4kKt&quot;</span>
 
