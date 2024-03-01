@@ -1172,8 +1172,13 @@
 </code></pre></div>
 
 <h3 id="http">HTTP<a class="headerlink" href="#http" title="Permanent link">&para;</a></h3>
-<p>Supported HTTP client adapter APIs are wrapped to provide an <code>HttpHandler</code> interface in 1 LOC.</p>
+<p>Supported HTTP client adapter APIs are wrapped to provide an <code>HttpHandler</code> interface in 1 LOC.
+Since each client acts as an <code>HttpHandler</code>, it can be decorated with various <code>Filter</code> implementations, such as those available in <code>ClientFilters</code>.
+This allows handling cross-cutting concerns independently of a specific client implementation, greatly facilitating testing.</p>
 <p>Activate streaming mode by passing a <code>BodyMode</code> (default is non-streaming).</p>
+<p><code>ClientFilters</code> offers a collection of filters that can be applied to an <code>HttpHandler</code> to manage common cross-cutting concernsas a chain of filters. 
+This chain allows for the easy configuration and management of complex processing sequences.
+<code>ClientFilters</code> includes specific filters that enable frequently needed functionalities like authentication, caching, or compression with minimal configuration.</p>
 <p>These examples are for the Apache HTTP client, but the API is similar for the others:</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/clients/example_http.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.clients</span>
