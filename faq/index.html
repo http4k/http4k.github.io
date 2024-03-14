@@ -1171,6 +1171,12 @@ do this by instruction http4k to ignore the incoming body for validation purpose
 <span class="w">    </span><span class="n">preFlightExtraction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PreFlightExtraction</span><span class="p">.</span><span class="na">IgnoreBody</span>
 <span class="p">}</span><span class="w"> </span><span class="n">bindContract</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">req</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
+
+<h3 id="serverless">Serverless<a class="headerlink" href="#serverless" title="Permanent link">&para;</a></h3>
+<p><strong>Q. When using AWS Lambda, I get an "method is invalid" error when testing my lambda.</strong></p>
+<p><strong>A.</strong> This comes from the fact that there are 2 different payload formats for AWS Lambda HTTP functions. We support both v1 and v2 formats, 
+but recommend V2 is used as the JSON format is superior. To fix the problem, ensure that your Lambda function payload version matches the name 
+of the AWS adapter function class being used (v1 or v2)</p>
                     
                 </div>
             </div>
