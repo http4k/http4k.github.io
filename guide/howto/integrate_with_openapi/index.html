@@ -1140,6 +1140,7 @@
 <li>2 endpoints with typesafe contracts (marshalling of path parameters and bodies)</li>
 <li>Custom filters (reporting latency)</li>
 <li>API key security via a typesafe Query parameter (this can be a header or a body parameter as well)</li>
+<li>A parameter lens that provides metadata for the output OpenApi schema node</li>
 <li>OpenApi v3 documentation - Run this example and point a browser <a href="https://http4k.org/openapi3?url=http%3A%2F%2Flocalhost%3A8000%2Fcontext%2Fdocs%2Fopenapi.json">here</a></li>
 </ul>
 <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
@@ -1200,7 +1201,7 @@
 <span class="w">        </span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ageQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">ageQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Query</span><span class="p">.</span><span class="na">int</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Your age&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;schema&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;minimum&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="m">18</span><span class="p">)))</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">echo</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">HttpHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">with</span><span class="p">(</span>
 <span class="w">            </span><span class="n">Body</span><span class="p">.</span><span class="na">string</span><span class="p">(</span><span class="n">TEXT_PLAIN</span><span class="p">).</span><span class="na">toLens</span><span class="p">()</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="s">&quot;hello </span><span class="si">$</span><span class="n">name</span><span class="s"> you are </span><span class="si">${</span><span class="n">ageQuery</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="si">}</span><span class="s">&quot;</span>
