@@ -1141,11 +1141,12 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API
 changes with their rationale when appropriate:</p>
-<h3 id="v51700_uncut">v5.17.0.0 (uncut)<a class="headerlink" href="#v51700_uncut" title="Permanent link">&para;</a></h3>
+<h3 id="v51700">v5.17.0.0<a class="headerlink" href="#v51700" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Tweaks to make the K2 compiler happy</li>
 <li><strong>http4k</strong> : Added convenience methods to set the body of an HTTP message. The works for both standard body types and with automarshallers. </li>
 <li><strong>http4k-core</strong> : Fix request source in SunHttp. H/T @dkandalov</li>
+<li><strong>http4k-contract</strong> : Added top-level MetadataRetrieval to schema objects. H/T @BBB</li>
 <li><strong>http4k-format-</strong>* : [Unlikely break] rename <code>with()</code> functions on auto-marshallers to match content type, so you can now do <code>req.json(myObj)</code> and get the content type and body set in one go. Likewise for other content types</li>
 </ul>
 <h3 id="v51620">v5.16.2.0<a class="headerlink" href="#v51620" title="Permanent link">&para;</a></h3>
