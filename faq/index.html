@@ -1143,7 +1143,7 @@
 <p><strong>A.</strong> Absolutely! Whilst overall stats are obviously hard to come by, the biggest known usage of the library is serving the global site traffic (rank ~700 globally) for a large academic publisher, easily serving 10s of millions of requests per day on a few nodes. Additionally judging from the download stats and interest in the Slack channel indicate that take-up is increasing nicely. http4k also appears in the <a href="https://www.thoughtworks.com/radar/languages-and-frameworks/http4k">Thoughtworks Tech Radar</a>, which covers useful and upcoming technologies used in Thoughtworks-delivered projects.</p>
 <p>If you're running http4k in production and would like to be listed on the site as an adopter, please get in touch.</p>
 <p><strong>Q. Does http4k support an Async model? I need webscale!</strong></p>
-<p><strong>A.</strong> Not at the moment. Adding Async support is a decision that we are thinking about carefully so that we don't end up complicating the API. When we do add it, it'll use co-routines model so we also want to ensure that the integrations with the various backends and clients are solid, as well as supporting essential features that currently rely on Threads, such as Zipkin Request Tracing and Resilience4j support. As for the scaling arguments, see the above answer relating to production usage, or checkout the <a href="/performance/">benchmark results</a> to see how http4k compares to other JVM-based sync and async web libraries.</p>
+<p><strong>A.</strong> Currently there is no coroutine support in http4k. However, with the advent of project Loom on the JVM, we get a lot of the benefits of async model out of the box without the need to complicate the API with the use of suspend etc. As for scaling arguments, see the above answer relating to production usage, or checkout the <a href="/performance/">benchmark results</a> to see how http4k compares to other JVM-based sync and async web libraries.</p>
 <h3 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
 <p><strong>Q. I'm attempting to build HTTP messages using the API, but changes don't affect the object (e.g. calling <code>request.body("hello")</code>)?</strong></p>
 <p><strong>A.</strong> http4k HTTP message objects are <em>immutable</em>, so you need to chain or reassign the value from the method call to get the updated version.</p>
@@ -1159,7 +1159,7 @@
 <li><code>org.http4k.filter.TrafficFilters</code></li>
 </ul>
 <h3 id="lenses_auto-marshalling">Lenses &amp; Auto-Marshalling<a class="headerlink" href="#lenses_auto-marshalling" title="Permanent link">&para;</a></h3>
-<p><strong>Q. I am having a problem with the usage of Jackson or GSON for auto marshalling</strong></p>
+<p><strong>Q. I am having a problem with the usage of Moshi, Jackson or GSON for auto marshalling</strong></p>
 <p><strong>A.</strong> Please see the <a href="/guide/reference/json/">custom FAQ</a> for JSON handling questions.</p>
 <p><strong>Q. My application uses Lenses, but when they fail I get an HTTP 500 instead of the promised 400.</strong></p>
 <p><strong>A.</strong> You forgot to add the <code>ServerFilters.CatchLensFailure</code> filter to your Server stack.</p>
