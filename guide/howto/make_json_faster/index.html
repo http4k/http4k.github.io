@@ -1150,7 +1150,7 @@ It generates the serialization adapters at compile time, which means it doesn't 
 </ol>
 <h3 id="gradle">Gradle<a class="headerlink" href="#gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">kotlin</span><span class="p">(</span><span class="s">&quot;plugin.serialization&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;1.9.22&quot;</span>
+<span class="w">    </span><span class="n">kotlin</span><span class="p">(</span><span class="s">&quot;plugin.serialization&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;&lt;kotlin version&gt;&quot;</span>
 <span class="p">}</span>
 
 <span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
@@ -1207,7 +1207,7 @@ However, it will bring the smallest performance benefit out of these options.</p
 <span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-moshi&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">exclude</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kotlin-reflect&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Exclude kotlin-reflect</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;dev.zacsweers.moshix:moshi-metadata-reflect:0.23.0&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;dev.zacsweers.moshix:moshi-metadata-reflect:&lt;moshi metadata version&gt;&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1268,7 +1268,7 @@ It requires a gradle plugin, several dependencies, and depends on code that only
 <h3 id="gradle_2">Gradle<a class="headerlink" href="#gradle_2" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// The KSP plugin is required to generate the adapters at compile time</span>
-<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.google.devtools.ksp&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;1.9.22-1.0.16&quot;</span>
+<span class="w">    </span><span class="n">id</span><span class="p">(</span><span class="s">&quot;com.google.devtools.ksp&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="s">&quot;&lt;ksp plugin version version&gt;&quot;</span>
 <span class="p">}</span>
 
 <span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
@@ -1277,8 +1277,8 @@ It requires a gradle plugin, several dependencies, and depends on code that only
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="c1">// Get the Kotshi runtime library and configure KSP to generate the adapters</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;se.ansman.kotshi:api:2.15.0&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="n">ksp</span><span class="p">(</span><span class="s">&quot;se.ansman.kotshi:compiler:2.15.0&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;se.ansman.kotshi:api:&lt;kotshi version&gt;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">ksp</span><span class="p">(</span><span class="s">&quot;se.ansman.kotshi:compiler:&lt;kotshi version&gt;&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 
