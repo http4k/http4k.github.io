@@ -1143,7 +1143,7 @@
 </code></pre></div>
 
 <h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
-<p>These modules add the ability to use <a href="https://kotlin.github.io/dataframe">Kotlin DataFrames</a> as a first-class citizen when reading from HTTP messages. Extraction from the HTTP message body is done automatically when using a lens with a DataFrame type.</p>
+<p>This module adds the ability to use <a href="https://kotlin.github.io/dataframe">Kotlin DataFrames</a> as a first-class citizen when reading from HTTP messages. Extraction from the HTTP message body is done automatically when using a lens with a DataFrame type.</p>
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/dataframe/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.dataframe</span>
 
@@ -1161,6 +1161,7 @@
 
 <span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
+<span class="w">    </span><span class="c1">// define a simple CSV endpoint</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">        </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span>
 <span class="w">            </span><span class="s">&quot;&quot;&quot;</span>
@@ -1188,7 +1189,8 @@
 <span class="w">    </span><span class="c1">// you can also use the Kotlin KSP DataFrame plugin to generate typed data classes</span>
 <span class="w">    </span><span class="c1">// . Then use the `dataFrameCsv` extension function to cast the DataFrame to a typed DataFrame</span>
 
-<span class="w">    </span><span class="c1">// this is a fake class - we would the generated one in a real project!</span>
+<span class="w">    </span><span class="c1">// this is a fake class - we would the generated one in a real project and to manipulate</span>
+<span class="w">    </span><span class="c1">// the dataframe as above</span>
 <span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Repository</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">fullName</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span>
 
 <span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="na">dataFrameCsv</span><span class="o">&lt;</span><span class="n">Repository</span><span class="o">&gt;</span><span class="p">())</span>
