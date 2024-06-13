@@ -1173,13 +1173,15 @@
 of the filters is important in order that we have the information at the point in the stack when we need it. For example - if we want to record all HTTP traffic, we much ensure that we 
 do this after any exception handling has occurred (so that we can record the 5XX properly). Experience has shown that there is a general formula to be used when constructing stacks.</p>
 <h3 id="serverside">Serverside<a class="headerlink" href="#serverside" title="Permanent link">&para;</a></h3>
-<p>A typical stack looks like:
-1. Debugging/Tracing &lt;-- to ensure that we see all traffic
-2. Reporting &amp; metrics capture &lt;-- to record accurately what we sent back
-3. Catch unexpected exceptions &lt;-- to ensure that all responses are handled by the application instead of the runtime
-4. Catching expected exceptions &lt;-- for instance LensFailures which are converted to 400s
-5. Routing &lt;-- if we want to route traffic based on the request (eg. <code>routes()</code>)
-6. HttpHandlers &lt;-- to process the traffic</p>
+<p>A typical stack looks like:</p>
+<ol>
+<li>Debugging/Tracing &lt;-- to ensure that we see all traffic</li>
+<li>Reporting &amp; metrics capture &lt;-- to record accurately what we sent back</li>
+<li>Catch unexpected exceptions &lt;-- to ensure that all responses are handled by the application instead of the runtime</li>
+<li>Catching expected exceptions &lt;-- for instance LensFailures which are converted to 400s</li>
+<li>Routing &lt;-- if we want to route traffic based on the request (eg. <code>routes()</code>)</li>
+<li>HttpHandlers &lt;-- to process the traffic</li>
+</ol>
 <h3 id="clientside">Clientside<a class="headerlink" href="#clientside" title="Permanent link">&para;</a></h3>
 <p>The client-side is similar, but simpler:</p>
 <ol>
