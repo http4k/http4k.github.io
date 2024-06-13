@@ -1153,14 +1153,7 @@
                     
                     <h1>Basic: Arrange Filters into Stacks</h1>
                     
-                    <h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.23.0.0&quot;</span><span class="p">))</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-core&quot;</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<p>http4k Filters are just decorator functions for HttpHandlers and process requests by applying the following process:</p>
+                    <p>http4k Filters are just decorator functions for HttpHandlers and process requests by applying the following process:</p>
 <ol>
 <li>Receive the Request</li>
 <li>Modify it</li>
@@ -1190,6 +1183,13 @@ do this after any exception handling has occurred (so that we can record the 5XX
 <li>Routing &lt;-- if we want to route traffic based on the request (eg. <code>reverseProxy()</code>)</li>
 <li>Http client &lt;-- to process the traffic</li>
 </ol>
+<h3 id="gradle_setup">Gradle setup<a class="headerlink" href="#gradle_setup" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.23.0.0&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-core&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
 <h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/howto/arrange_filters_into_stacks/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.howto.arrange_filters_into_stacks</span>
 
