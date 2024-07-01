@@ -1193,14 +1193,14 @@
 <li><strong>Application as a Function:</strong> Based on the Twitter paper <a href="https://monkey.org/~marius/funsrv.pdf">"Your Server as a Function"</a>, all HTTP services can be composed 
 of 2 types of simple function:<ul>
 <li><em>HttpHandler:</em> <code>(Request) -&gt; Response</code> - provides a remote call for processing a Request. </li>
-<li><em>Filter:</em> <code>(HttpHandler) -&gt; HttpHandler</code> - adds Request/Response pre/post processing. These filters are composed to make stacks of reusable behaviour that can 
+<li><em>Filter:</em> <code>(HttpHandler) -&gt; HttpHandler</code> - adds Request/Response pre/post-processing. These filters are composed to make stacks of reusable behaviour that can 
 then be applied to an <code>HttpHandler</code>.</li>
 </ul>
 </li>
 <li><strong>Immutability:</strong> All entities in the library are immutable unless their function explicitly disallows this.</li>
 <li><strong>Symmetric:</strong> The <code>HttpHandler</code> interface is identical for both HTTP services and clients. This allows for simple offline testability of applications, as well as 
 plugging together of services without HTTP container being required.</li>
-<li><strong>Dependency-lite:</strong> Apart the from Kotlin StdLib, <code>http4k-core</code> module has <strong>ZERO</strong> dependencies and weighs in at ~1mb. Add-on modules only have dependencies required for specific implementation.</li>
+<li><strong>Dependency-lite:</strong> Apart from the Kotlin StdLib, <code>http4k-core</code> module has <strong>ZERO</strong> dependencies and weighs in at ~1mb. Add-on modules only have dependencies required for specific implementation.</li>
 <li><strong>Testability</strong> Built by <strong>TDD</strong> enthusiasts, so supports <strong>super-easy</strong> mechanisms for both in-memory and port-based testing of:<ul>
 <li>individual endpoints</li>
 <li>applications</li>
@@ -1256,7 +1256,7 @@ plugging together of services without HTTP container being required.</li>
 <li><strong>Java-WebSocket</strong> (Websocket support only)</li>
 </ul>
 </li>
-<li>API design allows for simple customization of underying backend.</li>
+<li>API design allows for simple customization of underlying backend.</li>
 <li><strong>Native Friendly</strong> Several of the supported backends can be compiled with <strong>GraalVM</strong> and <strong>Quarkus</strong> with zero configuration.</li>
 </ul>
 </li>
@@ -1275,7 +1275,7 @@ plugging together of services without HTTP container being required.</li>
 <li>Define <strong>Typesafe</strong> HTTP contracts, with required and optional path/query/header/bodies</li>
 <li><strong>Typesafe</strong> path matching</li>
 <li><strong>Auto-validation</strong> of incoming requests == <strong>zero boilerplate validation code</strong></li>
-<li>Self-documenting for all routes - eg. Built in support for live <strong>OpenApi v2 and v3</strong> description endpoints including <strong>JSON Schema</strong> model breakdown.</li>
+<li>Self-documenting for all routes - e.g. Built in support for live <strong>OpenApi v2 and v3</strong> description endpoints including <strong>JSON Schema</strong> model breakdown.</li>
 <li><a href="https://http4k.org/guide/howto/create_a_swagger_ui">Redoc and Swagger UI</a> for OpenApi descriptions</li>
 </ul>
 </li>
