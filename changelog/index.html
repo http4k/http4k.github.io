@@ -1159,6 +1159,11 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API
 changes with their rationale when appropriate:</p>
+<h3 id="v52500">v5.25.0.0<a class="headerlink" href="#v52500" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
+<li><strong>http4k-serverless-lambda</strong>* : [Breaking Fix] Incorrect lambda request context variable is passed - we now pass the incoming reqeust object instead of the converted http4k request. If you were using the LAMBDA_REQUEST_KEY, you can just use the request passed into the handler instead.</li>
+</ul>
 <h3 id="v52410">v5.24.1.0<a class="headerlink" href="#v52410" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
