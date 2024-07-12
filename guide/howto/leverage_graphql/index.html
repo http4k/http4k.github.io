@@ -1234,13 +1234,13 @@
 <span class="w">        </span><span class="p">})</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span><span class="w"> </span><span class="n">GraphQLRequest</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GraphQLResponse</span><span class="p">.</span><span class="na">from</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span><span class="w"> </span><span class="n">GraphQLRequest</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GraphQLResponse</span><span class="p">.</span><span class="na">from</span><span class="p">(</span>
 <span class="w">        </span><span class="n">graphQL</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span>
 <span class="w">            </span><span class="n">Builder</span><span class="p">()</span>
 <span class="w">                </span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="n">payload</span><span class="p">.</span><span class="na">query</span><span class="p">)</span>
 <span class="w">                </span><span class="p">.</span><span class="na">variables</span><span class="p">(</span><span class="n">payload</span><span class="p">.</span><span class="na">variables</span><span class="p">.</span><span class="na">orEmpty</span><span class="p">())</span>
 <span class="w">                </span><span class="p">.</span><span class="na">dataLoaderRegistry</span><span class="p">(</span><span class="n">dataLoaderRegistry</span><span class="p">)</span>
-<span class="w">                </span><span class="p">.</span><span class="na">context</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">graphQLContext</span><span class="p">(</span><span class="n">mapOf</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">user</span><span class="p">))</span>
 <span class="w">        </span><span class="p">)</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">}</span>
