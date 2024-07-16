@@ -1361,7 +1361,7 @@ contexts.</p>
 component values. </p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.post</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Environment</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.Environment</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">java.io.File</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">systemEnv</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span>
@@ -1383,8 +1383,8 @@ using <code>EnviromentKey</code> Lenses, which are an extension of the http4k Le
 objects. </p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.post</span>
 
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Environment</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.Environment</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.EnvironmentKey</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.Lens</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.duration</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.int</span>
@@ -1427,9 +1427,9 @@ all outbound requests, as in the example below:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">blog.typesafe_configuration.post</span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.OkHttp</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Environment</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.EnvironmentKey</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.cloudnative.env.Secret</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.Environment</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.EnvironmentKey</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.Secret</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Filter</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.HttpHandler</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
