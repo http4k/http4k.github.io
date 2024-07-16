@@ -15,19 +15,19 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 
-<meta itemprop="name" content="http4k YAML Message Format Modules">
-<meta name="twitter:title" content="http4k YAML Message Format Modules">
-<meta property="og:title" content="http4k YAML Message Format Modules" />
+<meta itemprop="name" content="http4k Configuration tooling">
+<meta name="twitter:title" content="http4k Configuration tooling">
+<meta property="og:title" content="http4k Configuration tooling" />
 
 
 
-<meta name="description" content="Feature overview of the YAML http4k-format modules, several of which support auto-marshalling into data classes.">
-<meta property="og:description" content="Feature overview of the YAML http4k-format modules, several of which support auto-marshalling into data classes." />
-<meta name="twitter:description" content="Feature overview of the YAML http4k-format modules, several of which support auto-marshalling into data classes.">
+<meta name="description" content="Feature overview of the http4k-config module">
+<meta property="og:description" content="Feature overview of the http4k-config module" />
+<meta name="twitter:description" content="Feature overview of the http4k-config module">
 
 
 
-<link rel="canonical" href="https://www.http4k.org/guide/reference/yaml/">
+<link rel="canonical" href="https://www.http4k.org/guide/reference/config/">
 
 
 
@@ -81,7 +81,7 @@
     
     
     
-    <title>http4k YAML Message Format Modules</title>
+    <title>http4k Configuration tooling</title>
     
     
     
@@ -692,8 +692,8 @@
             
             
     
-        <a class="dropdown-item "
-           href="../config/"
+        <a class="dropdown-item active"
+           href="./"
            title="Typesafe Configuration">Typesafe Configuration</a>
     
 
@@ -836,8 +836,8 @@
             
             
     
-        <a class="dropdown-item active"
-           href="./"
+        <a class="dropdown-item "
+           href="../yaml/"
            title="YAML handling">YAML handling</a>
     
 
@@ -1160,18 +1160,91 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>YAML handling</h1>
+                    <h1>Typesafe Configuration</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.26.0.0&quot;</span><span class="p">))</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-jackson-yaml&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-format-moshi-yaml&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-config&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 
-<h3 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h3>
-<p>These modules add the ability to use YAML as a first-class citizen when reading from and to HTTP messages. </p>
+<p>http4k applications are naturally at home operating in distributed, Cloud Native environments. Whilst simple to create, this module
+provides requisite tooling to get apps up and running with the minimum of effort to enable the following operational aspects:</p>
+<h4 id="quick_start">Quick start<a class="headerlink" href="#quick_start" title="Permanent link">&para;</a></h4>
+<p>Because http4k does not use reflection or annotation process for application startup, all of the supported Server-backends
+start up and shutdown very quickly - this is crucial for cloud-based environments where an orchestration framework might move
+instances around to redistribute load or avoid problematic server/rack/DCs.</p>
+<h4 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h4>
+<p>All application configuration should be injected via environmental variables. http4k provides an <code>Environment</code> object, along with
+typesafe variable binding using the in-built Lenses mechanism. This typesafe API is consistent with the other usages of Lenses</p>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/config/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.config</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.JavaHttpClient</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.Environment</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.EnvironmentKey</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.config.Secret</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Method.GET</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Request</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Response</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Status.Companion.OK</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.Uri</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.core.then</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.filter.DebuggingFilters</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.secret</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.lens.uri</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.bind</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.routing.routes</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.Http4kServer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.SunHttp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.server.asServer</span>
+
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">uri</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">)</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EnvironmentKey</span><span class="p">.</span><span class="na">secret</span><span class="p">().</span><span class="na">required</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">)</span>
+
+<span class="kd">object</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">operator</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">env</span><span class="p">:</span><span class="w"> </span><span class="n">Environment</span><span class="p">):</span><span class="w"> </span><span class="n">Http4kServer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">routes</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;/config&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span>
+<span class="w">                    </span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">                        url: </span><span class="si">${</span><span class="n">url</span><span class="p">(</span><span class="n">env</span><span class="p">)</span><span class="si">}</span>
+<span class="s">                        secret: </span><span class="si">${</span><span class="n">secret</span><span class="p">(</span><span class="n">env</span><span class="p">)</span><span class="si">}</span>
+<span class="s">                    &quot;&quot;&quot;</span><span class="p">.</span><span class="na">trimIndent</span><span class="p">()</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">app</span><span class="p">.</span><span class="na">asServer</span><span class="p">(</span><span class="n">SunHttp</span><span class="p">(</span><span class="m">8001</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">defaultConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">defaults</span><span class="p">(</span>
+<span class="w">        </span><span class="n">url</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Uri</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;http://localhost:9000&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="n">secret</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Secret</span><span class="p">(</span><span class="s">&quot;mysecret&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// standard chaining order for properties is local file -&gt; JVM -&gt; Environment -&gt; defaults -&gt; boom!</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="na">fromResource</span><span class="p">(</span><span class="s">&quot;app.properties&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">overrides</span>
+<span class="w">        </span><span class="n">Environment</span><span class="p">.</span><span class="na">JVM_PROPERTIES</span><span class="w"> </span><span class="n">overrides</span>
+<span class="w">        </span><span class="n">Environment</span><span class="p">.</span><span class="na">ENV</span><span class="w"> </span><span class="n">overrides</span>
+<span class="w">        </span><span class="n">defaultConfig</span>
+
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">App</span><span class="p">(</span><span class="n">env</span><span class="p">).</span><span class="na">start</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">performHealthChecks</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">performHealthChecks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DebuggingFilters</span><span class="p">.</span><span class="na">PrintResponse</span><span class="p">().</span><span class="na">then</span><span class="p">(</span><span class="n">JavaHttpClient</span><span class="p">())</span>
+
+<span class="w">    </span><span class="n">client</span><span class="p">(</span><span class="n">Request</span><span class="p">(</span><span class="n">GET</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:8001/config&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
                     
                 </div>
             </div>

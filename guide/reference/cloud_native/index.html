@@ -692,9 +692,18 @@
             
             
     
+        <a class="dropdown-item "
+           href="../config/"
+           title="Typesafe Configuration">Typesafe Configuration</a>
+    
+
+            
+            
+            
+    
         <a class="dropdown-item active"
            href="./"
-           title="Cloud Native Configuration">Cloud Native Configuration</a>
+           title="Cloud Native Extensions">Cloud Native Extensions</a>
     
 
             
@@ -1151,11 +1160,11 @@
                     <img class="mb-3 sideToggle" src="/img/exchange-icon.svg" width="20" alt="" srcset=""/>
                     
                     
-                    <h1>Cloud Native Configuration</h1>
+                    <h1>Cloud Native Extensions</h1>
                     
                     <h3 id="installation_gradle">Installation (Gradle)<a class="headerlink" href="#installation_gradle" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><code><span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.25.0.0&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="n">platform</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-bom:5.26.0.0&quot;</span><span class="p">))</span>
 <span class="w">    </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;org.http4k:http4k-cloudnative&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1166,11 +1175,6 @@ provides requisite tooling to get apps up and running with the minimum of effort
 <p>Because http4k does not use reflection or annotation process for application startup, all of the supported Server-backends 
 start up and shutdown very quickly - this is crucial for cloud-based environments where an orchestration framework might move 
 instances around to redistribute load or avoid problematic server/rack/DCs.</p>
-<h4 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h4>
-<p>All application configuration should be injected via environmental variables. http4k provides an <code>Environment</code> object, along with 
-typesafe variable binding using the in-built Lenses mechanism. This typesafe API is consistent with the other usages of Lenses 
-throughout http4k, so should have a near-zero learning curve. Also provided are a set of extension methods for retrieving standard 
-environmental config for service ports from Kubernetes.</p>
 <h4 id="observability">Observability<a class="headerlink" href="#observability" title="Permanent link">&para;</a></h4>
 <p>Orchestration software such as Kubernetes and CloudFoundry regularly query a set of diagnostic endpoints to monitor the state of an 
 application. This module provides standardised <code>HttpHandler</code> implementations to model the following endpoints:</p>
@@ -1183,7 +1187,7 @@ and plugged into the endpoint.</li>
 </ul>
 <p>In Kubernetes, this set of endpoints is generally hosted on a second port to avoid the API clashes, so http4k provides the machinery to 
 easily start these services on a different port to the main application API via the <code>Http4kK8sServer</code> object.</p>
-<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/cloud_native/example_k8s.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
+<h4 id="code">Code <a href="https://github.com/http4k/http4k/blob/master/src/docs/guide/reference/cloud_native/example.kt"><img class="octocat"/></a><a class="headerlink" href="#code" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">guide.reference.cloud_native</span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">org.http4k.client.JavaHttpClient</span>
@@ -1228,7 +1232,7 @@ easily start these services on a different port to the main application API via 
 
 <span class="w">        </span><span class="c1">// define the health app API</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">healthApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Health</span><span class="p">(</span>
-<span class="w">            </span><span class="s">&quot;/config&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span><span class="w"> </span><span class="p">},</span>
+<span class="w">            </span><span class="s">&quot;/config&quot;</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Response</span><span class="p">(</span><span class="n">OK</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="na">keys</span><span class="p">().</span><span class="na">toString</span><span class="p">())</span><span class="w"> </span><span class="p">},</span>
 <span class="w">            </span><span class="n">checks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
 <span class="w">                </span><span class="n">DatabaseCheck</span><span class="p">(</span>
 <span class="w">                    </span><span class="n">RandomlyFailingDatabase</span><span class="p">(</span>
