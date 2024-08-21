@@ -1177,11 +1177,15 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API
 changes with their rationale when appropriate:</p>
+<h3 id="v52801_uncut">v5.28.0.1 (uncut)<a class="headerlink" href="#v52801_uncut" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>http4k-multipart</strong> : [Fix] Further fixes to deletion of temporary files. H/T @H/T @oharaandrew314</li>
+</ul>
 <h3 id="v52800">v5.28.0.0<a class="headerlink" href="#v52800" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-core</strong> : Include Vary header on CORS responses. H/T @ollieabbey</li>
-<li><strong>http4k-multipart</strong> : [Fix Break] Multipart form files were all calling deleteOnExit() instead of being deleted when the Body is closed. Possible memory leak for long running processes. The fix MAY be a change of OS files-system usage if you are not closing your MultiPart form body. #H/T @oharaandrew314 for the report.</li>
+<li><strong>http4k-multipart</strong> : [Fix Break] Multipart form files were all calling deleteOnExit() instead of being deleted when the Body is closed. Possible memory leak for long running processes. The fix MAY be a change of OS files-system usage if you are not closing your MultiPart form body. @H/T @oharaandrew314 for the report.</li>
 </ul>
 <h3 id="v52700">v5.27.0.0<a class="headerlink" href="#v52700" title="Permanent link">&para;</a></h3>
 <ul>
