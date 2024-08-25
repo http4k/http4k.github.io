@@ -1177,11 +1177,12 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API
 changes with their rationale when appropriate:</p>
-<h3 id="v52820">v5.28.2.0<a class="headerlink" href="#v52820" title="Permanent link">&para;</a></h3>
+<h3 id="v52900">v5.29.0.0<a class="headerlink" href="#v52900" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions including Kotlin to 2.0.20</li>
 <li><strong>http4k-server-</strong>* : [Fix #1163] Request.version is always HTTP/1.1 for server requests, even when using HTTP/2.0</li>
 <li><strong>http4k-</strong>* : [New module] Azure SDK integration - use an http4k client with the official libraries</li>
+<li><strong>http4k-security-oauth</strong> : [Breaking] OAuthProvider support for PKCE. This may break code because of the addition of an extra parameter in the OAuth construction. H/T @dkandalov </li>
 </ul>
 <h3 id="v52810">v5.28.1.0<a class="headerlink" href="#v52810" title="Permanent link">&para;</a></h3>
 <ul>
