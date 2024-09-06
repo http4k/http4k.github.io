@@ -1186,7 +1186,7 @@
 
 <p>This list is not intended to be all-encompassing - it will document major and breaking API
 changes with their rationale when appropriate:</p>
-<h3 id="v53000_uncut">v5.30.0.0 (uncut)<a class="headerlink" href="#v53000_uncut" title="Permanent link">&para;</a></h3>
+<h3 id="v53000">v5.30.0.0<a class="headerlink" href="#v53000" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>http4k-</strong>* : Upgrade some dependency versions.</li>
 <li><strong>http4k-multipart</strong> : [Fix] Further fixes to deletion of temporary files. Should fix memory leak. @H/T @oharaandrew314</li>
@@ -1194,8 +1194,7 @@ changes with their rationale when appropriate:</p>
 <li><strong>http4k-</strong>* : [Breaking] Make <code>WsMessage</code> mode explicit. @H/T @oharaandrew314</li>
 </ul>
 <h4 id="migration_guide">Migration Guide<a class="headerlink" href="#migration_guide" title="Permanent link">&para;</a></h4>
-<p>Previously, a <code>WsMessage</code> was sent in either <code>TEXT</code> or <code>BINARY</code> mode based on whether the <code>Body</code> was a <code>MemoryBody</code> or <code>StreamBody</code>, respectively.
-N</p>
+<p>Previously, a <code>WsMessage</code> was sent in either <code>TEXT</code> or <code>BINARY</code> mode based on whether the <code>Body</code> was a <code>MemoryBody</code> or <code>StreamBody</code>, respectively.</p>
 <p>:warning: <strong>Warning:</strong> If you were using the primary constructor of <code>WsMessage</code>, you will need to explicitly provide a <code>WsMessage.Mode</code> to resolve the new compiler errors.</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">textMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WsMessage</span><span class="p">(</span><span class="n">MemoryBody</span><span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">WsMessage</span><span class="p">.</span><span class="na">Mode</span><span class="p">.</span><span class="na">Text</span><span class="p">)</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">binaryMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WsMessage</span><span class="p">(</span><span class="n">StreamBody</span><span class="p">(</span><span class="n">imageStream</span><span class="p">),</span><span class="w"> </span><span class="n">WsMessage</span><span class="p">.</span><span class="na">Mode</span><span class="p">.</span><span class="na">Binary</span><span class="p">)</span>
