@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Http4k Connect on http4k</title><link>https://http4k.org/ecosystem/http4k-connect/</link><description>Recent content in Http4k Connect on http4k</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://http4k.org/ecosystem/http4k-connect/index.xml" rel="self" type="application/rss+xml"/><item><title>http4k Connect</title><link>https://http4k.org/ecosystem/connect/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/</guid><description/></item><item><title>AI: Anthropic</title><link>https://http4k.org/ecosystem/connect/reference/ai/anthropic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/anthropic/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-anthropic&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-anthropic-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-connect AnthropicAI integration provides:&lt;/p>
+&lt;ul>
+&lt;li>AnthropicAI API Client&lt;/li>
+&lt;li>FakeAnthropicAI server which can be used as testing harness for the API Client&lt;/li>
+&lt;/ul>
+&lt;h2 id="anthropicai-api-connector">AnthropicAI API connector&lt;/h2>
+&lt;p>The AnthropicAI connector provides the following Actions:&lt;/p></description></item><item><title>AI: Azure</title><link>https://http4k.org/ecosystem/connect/reference/ai/azure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/azure/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-azure&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-azure-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-connect AzureAI integration provides:&lt;/p>
+&lt;ul>
+&lt;li>AzureAI API Client&lt;/li>
+&lt;li>Compatibility with GitHub Models for testing, so you can use a GitHubToken instead of a deployed Azure model. Note that some endpoints are not available in GitHubModels APIs.&lt;/li>
+&lt;li>FakeAzureAI server which can be used as testing harness for the API Client&lt;/li>
+&lt;/ul>
+&lt;h2 id="azureai-api-connector">AzureAI API connector&lt;/h2>
+&lt;p>The AzureAI connector provides the following Actions:&lt;/p></description></item><item><title>AI: LangChain</title><link>https://http4k.org/ecosystem/connect/reference/ai/langchain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/langchain/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-langchain&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>LangChain4J is a versatile library that simplifies the creation and management of language processing workflows., It provides many integrations but does not allow for using http4k clients or http4k-connect clients. This module gives you some of these integrations by providing LangChain model adapters.&lt;/p></description></item><item><title>AI: LMStudio</title><link>https://http4k.org/ecosystem/connect/reference/ai/lmstudio/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/lmstudio/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-lmstudio&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-lmstudio-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-connect LmStudio integration provides:&lt;/p>
+&lt;ul>
+&lt;li>LmStudio API Client&lt;/li>
+&lt;li>FakeLmStudio server which can be used as testing harness for either API Client&lt;/li>
+&lt;/ul>
+&lt;h2 id="lmstudio-api-connector">LmStudio API connector&lt;/h2>
+&lt;p>The LmStudio connector provides the following Actions:&lt;/p></description></item><item><title>AI: Ollama</title><link>https://http4k.org/ecosystem/connect/reference/ai/ollama/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/ollama/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-ollama&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-ollama-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-connect Ollama integration provides:&lt;/p>
+&lt;ul>
+&lt;li>Ollama API Client&lt;/li>
+&lt;li>FakeOllama server which can be used as testing harness&lt;/li>
+&lt;/ul>
+&lt;h2 id="ollama-api-connector">Ollama API connector&lt;/h2>
+&lt;p>The Ollama connector provides the following Actions:&lt;/p></description></item><item><title>AI: OpenAI</title><link>https://http4k.org/ecosystem/connect/reference/ai/openai/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/openai/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-openai&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-openai-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-connect OpenAI integration provides:&lt;/p>
+&lt;ul>
+&lt;li>OpenAI API Client&lt;/li>
+&lt;li>FakeOpenAI server which can be used as testing harness&lt;/li>
+&lt;/ul>
+&lt;h2 id="openai-api-connector">OpenAI API connector&lt;/h2>
+&lt;p>The OpenAI connector provides the following Actions:&lt;/p></description></item><item><title>AWS</title><link>https://http4k.org/ecosystem/connect/reference/aws/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/aws/</guid><description>&lt;p>http4k-connect provides a standardised mechanism to connect to several AWS services. They all use the same mechanisms for authentication, which is what this page is about.&lt;/p></description></item><item><title>AWS: AppRunner</title><link>https://http4k.org/ecosystem/connect/reference/amazon/apprunner/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/apprunner/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-apprunner&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-apprunner-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The AppRunner connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * CreateService
+ * DeleteService
+ * ListServices
+&lt;/code>&lt;/pre>
+&lt;h3 id="example-usage">Example usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> USE_REAL_CLIENT = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> deployedLambda = FunctionName(&lt;span style="color:#e6db74">&amp;#34;http4kLambda&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> fakeAppRunner = FakeAppRunner(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can connect to the real service or the fake (drop in replacement)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> http: HttpHandler = &lt;span style="color:#66d9ef">if&lt;/span> (USE_REAL_CLIENT) JavaHttpClient() &lt;span style="color:#66d9ef">else&lt;/span> fakeAppRunner
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create a client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client = &lt;span style="color:#a6e22e">AppRunner&lt;/span>.Http(&lt;span style="color:#a6e22e">Region&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;us-east-1&amp;#34;&lt;/span>), { AwsCredentials(&lt;span style="color:#e6db74">&amp;#34;accessKeyId&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secretKey&amp;#34;&lt;/span>) }, http.debug())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// all operations return a Result monad of the API type
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> println(client.listServices())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: CloudFront</title><link>https://http4k.org/ecosystem/connect/reference/amazon/cloudfront/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/cloudfront/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-cloudfront&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-cloudfront-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The CloudFront connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * CreateInvalidation
+&lt;/code>&lt;/pre>
+&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Cloudwatch Evidently</title><link>https://http4k.org/ecosystem/connect/reference/amazon/evidently/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/evidently/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-evidently&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-evidently-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Evidently connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * CreateProject
+ * CreateFeature
+ * EvaluateFeature
+ * BatchEvaluateFeature
+ * DeleteFeature
+ * DeleteProject
+&lt;/code>&lt;/pre>
+&lt;h3 id="example-usage">Example usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> USE_REAL_CLIENT = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can connect to the real service or the fake (drop in replacement)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> http: HttpHandler = &lt;span style="color:#66d9ef">if&lt;/span> (USE_REAL_CLIENT) JavaHttpClient() &lt;span style="color:#66d9ef">else&lt;/span> FakeEvidently()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create a client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client = &lt;span style="color:#a6e22e">Evidently&lt;/span>.Http(&lt;span style="color:#a6e22e">Region&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;us-east-1&amp;#34;&lt;/span>), { AwsCredentials(&lt;span style="color:#e6db74">&amp;#34;accessKeyId&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secretKey&amp;#34;&lt;/span>) }, http.debug())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> projectName = &lt;span style="color:#a6e22e">ProjectName&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;acme-service&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> featureName = &lt;span style="color:#a6e22e">FeatureName&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;take-over-the-world&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create project
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> client.createProject(projectName)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .onFailure { &lt;span style="color:#66d9ef">it&lt;/span>.reason.throwIt() }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create feature
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> client.createFeature(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> project = projectName,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> name = featureName,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> defaultVariation = &lt;span style="color:#a6e22e">VariationName&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;bide-our-time&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> variations = mapOf(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">VariationName&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;bide-our-time&amp;#34;&lt;/span>) to VariableValue(&lt;span style="color:#66d9ef">false&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">VariationName&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;it-is-time&amp;#34;&lt;/span>) to VariableValue(&lt;span style="color:#66d9ef">true&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> entityOverrides = mapOf(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">EntityId&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;test-subject-1&amp;#34;&lt;/span>) to &lt;span style="color:#a6e22e">VariationName&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;it-is-time&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ).onFailure { &lt;span style="color:#66d9ef">it&lt;/span>.reason.throwIt() }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// evaluate feature
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> result = client.evaluateFeature(projectName, featureName, &lt;span style="color:#a6e22e">EntityId&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;test-subject-2&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .onFailure { &lt;span style="color:#66d9ef">it&lt;/span>.reason.throwIt() }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: CloudWatchLogs</title><link>https://http4k.org/ecosystem/connect/reference/amazon/cloudwatchlogs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/cloudwatchlogs/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-cloudwatchlogs&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-cloudwatchlogs-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The CloudWatchLogs connector provides the following Actions:&lt;/p>
+&lt;ul>
+&lt;li>CreateLogGroup&lt;/li>
+&lt;li>CreateLogStream&lt;/li>
+&lt;li>DeleteLogGroup&lt;/li>
+&lt;li>DeleteLogStream&lt;/li>
+&lt;li>FilterLogEvents&lt;/li>
+&lt;li>PutLogEvents&lt;/li>
+&lt;/ul>
+&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Cognito</title><link>https://http4k.org/ecosystem/connect/reference/amazon/cognito/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/cognito/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-cognito&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-cognito-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Cognito connector provides the following Actions:&lt;/p>
+&lt;ul>
+&lt;li>AdminCreateUser&lt;/li>
+&lt;li>AdminDeleteUser&lt;/li>
+&lt;li>AdminDisableUser&lt;/li>
+&lt;li>AdminEnableUser&lt;/li>
+&lt;li>AdminGetUser&lt;/li>
+&lt;li>AdminResetUserPassword&lt;/li>
+&lt;li>AdminSetUserPassword&lt;/li>
+&lt;li>AssociateSoftwareToken&lt;/li>
+&lt;li>ConfirmForgotPassword&lt;/li>
+&lt;li>CreateResourceServer&lt;/li>
+&lt;li>CreateUserPool&lt;/li>
+&lt;li>CreateUserPoolClient&lt;/li>
+&lt;li>CreateUserPoolDomain&lt;/li>
+&lt;li>DeleteUserPool&lt;/li>
+&lt;li>DeleteUserPoolClient&lt;/li>
+&lt;li>DeleteUserPoolDomain&lt;/li>
+&lt;li>ForgotPassword&lt;/li>
+&lt;li>GetJwks&lt;/li>
+&lt;li>ListUserPools&lt;/li>
+&lt;li>InitiateAuth&lt;/li>
+&lt;li>RespondToAuthChallenge&lt;/li>
+&lt;li>VerifySoftwareToken&lt;/li>
+&lt;/ul>
+&lt;h2 id="-fake"># Fake&lt;/h2>
+&lt;p>The Cognito Fake has very limited functionality for creating User Pools and User Pool Clients only.
+It can act as an OAuthServer for created User Pool Clients. It supports the ClientCredentials and
+Authorization Code grants and returns JWTs which have been signed with a private key. The matching public key can be
+retrieved from the following endpoint:&lt;/p></description></item><item><title>AWS: Container Credentials</title><link>https://http4k.org/ecosystem/connect/reference/amazon/containercredentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/containercredentials/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-containercredentials&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-containercredentials-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Container Credentials connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * GetCredentials
+&lt;/code>&lt;/pre>
+&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: DynamoDb</title><link>https://http4k.org/ecosystem/connect/reference/amazon/dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/dynamodb/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-dynamodb&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-dynamodb-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The DynamoDb connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code>* CreateTable
+* DeleteTable
+* DescribeTable
+* ListTables
+* UpdateTable
+* DeleteItem
+* GetItem
+* PutItem
+* Query
+* Scan
+* UpdateItem
+* TransactGetItems
+* TransactWriteItems
+* BatchGetItem
+* BatchWriteItem
+* ExecuteTransaction
+* ExecuteStatement
+* BatchExecuteStatement
+&lt;/code>&lt;/pre>
+&lt;p>Note that the FakeDynamo supports the majority of the Dynamo operations with the following exceptions. You can use &lt;a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html">DynamoDB&lt;/a> local instead to provide these functions:&lt;/p></description></item><item><title>AWS: EventBridge</title><link>https://http4k.org/ecosystem/connect/reference/amazon/eventbridge/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/eventbridge/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-eventbridge&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-eventbridge-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The EventBridge connector provides the following Actions:
+* CreateEventBus
+* DeleteEventBus
+* DescribeEventBus
+* PutEvents&lt;/p></description></item><item><title>AWS: Firehose</title><link>https://http4k.org/ecosystem/connect/reference/amazon/firehose/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/firehose/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-firehose&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-firehose-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Firehose connector provides the following Actions:
+* CreateDeliveryStream
+* DeleteDeliveryStream
+* ListDeliveryStreams
+* PutRecord
+* PutRecordBatch&lt;/p></description></item><item><title>AWS: IAM Identity Center</title><link>https://http4k.org/ecosystem/connect/reference/amazon/iamidentitycenter/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/iamidentitycenter/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-iamidentitycenter&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-iamidentitycenter-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The IAMIdentityCenter connector provides the following Fakes:&lt;/p>
+&lt;h2 id="oidc">OIDC&lt;/h2>
+&lt;p>Actions:&lt;/p>
+&lt;ul>
+&lt;li>RegisterClient&lt;/li>
+&lt;li>StartDeviceAuthentication&lt;/li>
+&lt;li>CreateToken&lt;/li>
+&lt;/ul>
+&lt;h3 id="default-fake-port-34160">Default Fake port: 34160&lt;/h3>
+&lt;p>To start:&lt;/p></description></item><item><title>AWS: Instance Metadata Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/instancemetadata/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/instancemetadata/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-instancemetadata&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-instancemetadata-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance Metadata Service&lt;/a> V1 connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * GetAmiId
+ * GetHostName
+ * GetInstanceIdentityDocument
+ * GetInstanceType
+ * GetLocalHostName
+ * GetLocalIpv4
+ * GetPublicHostName
+ * GetPublicIpv4
+ * GetSecurityCredentials
+ * ListSecurityCredentials
+&lt;/code>&lt;/pre>
+&lt;h3 id="example-usage">Example usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> USE_REAL_CLIENT = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can connect to the real service or the fake (drop in replacement)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> http: HttpHandler = &lt;span style="color:#66d9ef">if&lt;/span> (USE_REAL_CLIENT) JavaHttpClient() &lt;span style="color:#66d9ef">else&lt;/span> FakeInstanceMetadataService()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create a client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client = &lt;span style="color:#a6e22e">InstanceMetadataService&lt;/span>.Http(http.debug())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// get local ip address
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> localIp = client.getLocalIpv4()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(localIp)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// get identity document
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> identityDocument = client.getInstanceIdentityDocument()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(identityDocument)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="credentials-provider">Credentials Provider&lt;/h3>
+&lt;p>The Instance Metadata Service also offers a &lt;code>CredentialsProvider&lt;/code>.
+If the application is running inside an Amazon EC2 environment,
+this provider can authorize AWS requests using credentials from the instance profile.&lt;/p></description></item><item><title>AWS: KMS</title><link>https://http4k.org/ecosystem/connect/reference/amazon/kms/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/kms/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-kms&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-kms-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The KMS connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * CreateKey
+ * DescribeKey
+ * Decrypt
+ * Encrypt
+ * GetPublicKey
+ * ListKeys
+ * ScheduleKeyDeletion
+ * Sign
+ * Verify
+&lt;/code>&lt;/pre>
+&lt;h3 id="example-usage">Example usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> USE_REAL_CLIENT = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can connect to the real service or the fake (drop in replacement)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> http: HttpHandler = &lt;span style="color:#66d9ef">if&lt;/span>(USE_REAL_CLIENT) JavaHttpClient() &lt;span style="color:#66d9ef">else&lt;/span> FakeKMS()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create a client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client = &lt;span style="color:#a6e22e">KMS&lt;/span>.Http(&lt;span style="color:#a6e22e">Region&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;us-east-1&amp;#34;&lt;/span>), { AwsCredentials(&lt;span style="color:#e6db74">&amp;#34;accessKeyId&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secretKey&amp;#34;&lt;/span>) }, http.debug())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// all operations return a Result monad of the API type
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> createdKeyResult: Result&amp;lt;KeyCreated, RemoteFailure&amp;gt; = client.createKey(ECC_NIST_P384, ENCRYPT_DECRYPT)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> key: KeyCreated = createdKeyResult.valueOrNull()&lt;span style="color:#f92672">!!&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(key)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can encrypt some text...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> encrypted: Encrypted = client.encrypt(keyId = key.&lt;span style="color:#a6e22e">KeyMetadata&lt;/span>.KeyId, Base64Blob.encoded(&lt;span style="color:#e6db74">&amp;#34;hello&amp;#34;&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .valueOrNull()&lt;span style="color:#f92672">!!&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(encrypted.&lt;span style="color:#a6e22e">CiphertextBlob&lt;/span>.decoded())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// and decrypt it again!
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> decrypted: Decrypted = client.decrypt(keyId = key.&lt;span style="color:#a6e22e">KeyMetadata&lt;/span>.KeyId, encrypted.CiphertextBlob).valueOrNull()&lt;span style="color:#f92672">!!&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(decrypted.&lt;span style="color:#a6e22e">Plaintext&lt;/span>.decoded())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Lambda</title><link>https://http4k.org/ecosystem/connect/reference/amazon/lambda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/lambda/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-lambda&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-lambda-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Lambda connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * InvokeFunction
+&lt;/code>&lt;/pre>
+&lt;h3 id="example-usage">Example usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> USE_REAL_CLIENT = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> deployedLambda = FunctionName(&lt;span style="color:#e6db74">&amp;#34;http4kLambda&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> fakeLambda = FakeLambda(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> deployedLambda to { req: Request &lt;span style="color:#f92672">-&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> request = &lt;span style="color:#a6e22e">Moshi&lt;/span>.asA&amp;lt;Req&amp;gt;(req.bodyString())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Response(OK)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .body(&lt;span style="color:#a6e22e">Moshi&lt;/span>.asFormatString(Resp(request.&lt;span style="color:#66d9ef">value&lt;/span>)))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can connect to the real service or the fake (drop in replacement)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> http: HttpHandler = &lt;span style="color:#66d9ef">if&lt;/span> (USE_REAL_CLIENT) JavaHttpClient() &lt;span style="color:#66d9ef">else&lt;/span> fakeLambda
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create a client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client = &lt;span style="color:#a6e22e">Lambda&lt;/span>.Http(&lt;span style="color:#a6e22e">Region&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;us-east-1&amp;#34;&lt;/span>), { AwsCredentials(&lt;span style="color:#e6db74">&amp;#34;accessKeyId&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secretKey&amp;#34;&lt;/span>) }, http.debug())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// all operations return a Result monad of the API type
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> invokeResult: Result&amp;lt;Resp, RemoteFailure&amp;gt; = client.invokeFunction(deployedLambda, Req(&lt;span style="color:#e6db74">&amp;#34;hello&amp;#34;&lt;/span>), Moshi)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(invokeResult)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Note that the http4k-connect Fake Lambda implementation is designed to provide a runtime environment for function
+HttpHandlers that will be invoked directly using the Lambda URL
+pattern (&lt;code>https://lambda.${scope.region}.amazonaws.com/2015-03-31/functions/$name/invocations&lt;/code>), rather than being
+deployed behind APIGateway (where you have total control over the URL pattern where the lambda can be invoked).&lt;/p></description></item><item><title>AWS: S3</title><link>https://http4k.org/ecosystem/connect/reference/amazon/s3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/s3/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-s3&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-s3-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The S3 connector consists of 2 interfaces:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>S3&lt;/code> for global operations, providing the following Actions:&lt;/p></description></item><item><title>AWS: Secrets Manager</title><link>https://http4k.org/ecosystem/connect/reference/amazon/secretsmanager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/secretsmanager/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-secretsmanager&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-secretsmanager-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Secrets Manager connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * CreateSecret
+ * DeleteSecret
+ * GetSecretValue
+ * ListSecrets
+ * PutSecretValue
+ * UpdateSecret
+&lt;/code>&lt;/pre>
+&lt;h3 id="example-usage">Example usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> USE_REAL_CLIENT = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can connect to the real service or the fake (drop in replacement)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> http: HttpHandler = &lt;span style="color:#66d9ef">if&lt;/span> (USE_REAL_CLIENT) JavaHttpClient() &lt;span style="color:#66d9ef">else&lt;/span> FakeSecretsManager()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create a client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client =
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">SecretsManager&lt;/span>.Http(&lt;span style="color:#a6e22e">Region&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;us-east-1&amp;#34;&lt;/span>), { AwsCredentials(&lt;span style="color:#e6db74">&amp;#34;accessKeyId&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secretKey&amp;#34;&lt;/span>) }, http.debug())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> secretId = &lt;span style="color:#a6e22e">SecretId&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;a-secret-id&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// all operations return a Result monad of the API type
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> createdSecretResult: Result&amp;lt;CreatedSecret, RemoteFailure&amp;gt; =
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client.createSecret(secretId.&lt;span style="color:#66d9ef">value&lt;/span>, &lt;span style="color:#a6e22e">UUID&lt;/span>.randomUUID(), &lt;span style="color:#e6db74">&amp;#34;value&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(createdSecretResult.valueOrNull())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// get the secret value back
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> println(client.getSecretValue(secretId).valueOrNull())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Security Token Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/sts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/sts/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-sts&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-sts-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The STS connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * AssumeRole
+ * AssumeRoleWithWebIdentity
+&lt;/code>&lt;/pre>
+&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Simple Email Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/ses/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/ses/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-ses&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-ses-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The SES connector provides the following Actions:&lt;/p>
+&lt;ul>
+&lt;li>SendEmail&lt;/li>
+&lt;/ul>
+&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Simple Notification Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/sns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/sns/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-sns&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-sns-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The SNS connector provides the following Actions:&lt;/p>
+&lt;ul>
+&lt;li>CreateTopic&lt;/li>
+&lt;li>DeleteTopic&lt;/li>
+&lt;li>ListTopics&lt;/li>
+&lt;li>Publish&lt;/li>
+&lt;li>PublishBatch&lt;/li>
+&lt;/ul>
+&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Simple Queue Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/sqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/sqs/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-sqs&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-sqs-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The SQS connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * CreateQueue
+ * DeleteMessage
+ * DeleteQueue
+ * GetQueueAttributes
+ * ListQueues
+ * ReceiveMessage
+ * SendMessage
+&lt;/code>&lt;/pre>
+&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Systems Manager</title><link>https://http4k.org/ecosystem/connect/reference/amazon/systemsmanager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/systemsmanager/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-systemsmanager&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-systemsmanager-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Systems Manager connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * DeleteParameter
+ * GetParameter
+ * PutParameter
+&lt;/code>&lt;/pre>
+&lt;h3 id="example-usage">Example usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> USE_REAL_CLIENT = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> paramName = &lt;span style="color:#a6e22e">SSMParameterName&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;name&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can connect to the real service or the fake (drop in replacement)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> http: HttpHandler = &lt;span style="color:#66d9ef">if&lt;/span> (USE_REAL_CLIENT) JavaHttpClient() &lt;span style="color:#66d9ef">else&lt;/span> FakeSystemsManager()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create a client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client =
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">SystemsManager&lt;/span>.Http(&lt;span style="color:#a6e22e">Region&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;us-east-1&amp;#34;&lt;/span>), { AwsCredentials(&lt;span style="color:#e6db74">&amp;#34;accessKeyId&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secretKey&amp;#34;&lt;/span>) }, http.debug())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// all operations return a Result monad of the API type
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> putParameterResult: Result&amp;lt;PutParameterResult, RemoteFailure&amp;gt; =
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client.putParameter(paramName, &lt;span style="color:#e6db74">&amp;#34;value&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">ParameterType&lt;/span>.String)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(putParameterResult)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// get the parameter back again
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> println(client.getParameter(paramName))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>Changelog</title><link>https://http4k.org/ecosystem/connect/changelog/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/changelog/</guid><description/></item><item><title>Connect Overview</title><link>https://http4k.org/ecosystem/connect/concepts/pattern/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/concepts/pattern/</guid><description>&lt;p>The main bulk of non-operationally focussed application code in a modern Server-based HTTP microservice can be broken
+down into a few broad areas:&lt;/p></description></item><item><title>Contributors Guide</title><link>https://http4k.org/ecosystem/connect/contributing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/contributing/</guid><description/></item><item><title>GitHub</title><link>https://http4k.org/ecosystem/connect/reference/github/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/github/</guid><description>&lt;p>The GitHub connector currently provides basic action interfaces and support for verifying webhook signatures only.&lt;/p>
+&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-github&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>GitLab</title><link>https://http4k.org/ecosystem/connect/reference/gitlab/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/gitlab/</guid><description>&lt;p>The GitLab connector currently provides basic action interfaces.&lt;/p>
+&lt;h4 id="installation">Installation&lt;/h4>
+&lt;h3 id="installation-1">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-gitlab&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Google: Analytics GA4</title><link>https://http4k.org/ecosystem/connect/reference/google/analytics-ga4/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/google/analytics-ga4/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-google-analytics-ga4&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-google-analytics-ga4-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The GA connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * PageView
+ * Event
+&lt;/code>&lt;/pre>
+&lt;h3 id="default-fake-port-35628">Default Fake port: 35628&lt;/h3>
+&lt;p>To start:&lt;/p></description></item><item><title>Google: Analytics UA</title><link>https://http4k.org/ecosystem/connect/reference/google/analytics-ua/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/google/analytics-ua/</guid><description>&lt;h4 id="installation">Installation&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-google-analytics-ua&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-google-analytics-ua-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The GA connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code> * PageView
+ * Event
+&lt;/code>&lt;/pre>
+&lt;h3 id="default-fake-port-35628">Default Fake port: 35628&lt;/h3>
+&lt;p>To start:&lt;/p></description></item><item><title>Gradle KSP Plugin</title><link>https://http4k.org/ecosystem/connect/reference/ksp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ksp/</guid><description>&lt;p>http4k-connect ships with a KSP plugin to automate the generation of the client extension-methods that accompany each Connect client. This allows you to skip creating
+those extensions manually and maintain the API of the client appears to contain methods for each Action.&lt;/p></description></item><item><title>Kafka: Rest Proxy</title><link>https://http4k.org/ecosystem/connect/reference/kafka/rest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/kafka/rest/</guid><description>&lt;h4 id="installation">Installation&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-kafka-rest&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-kafka-rest-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>There are 2 distinct APIs in the Rest proxy:&lt;/p>
+&lt;h2 id="v2">v2&lt;/h2>
+&lt;p>The main &lt;code>KafkaRest&lt;/code> connector provides the following v2 Actions:&lt;/p></description></item><item><title>Kafka: Schema Registry</title><link>https://http4k.org/ecosystem/connect/reference/kafka/schemaregistry/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/kafka/schemaregistry/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-kafka-schemaregistry&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-kafka-schemaregistry-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The main &lt;code>SchemaRegistry&lt;/code> connector provides the following Actions:&lt;/p>
+&lt;ul>
+&lt;li>CheckSchemaRegistered&lt;/li>
+&lt;li>GetSchemaById&lt;/li>
+&lt;li>GetSubjects&lt;/li>
+&lt;li>GetSubjectVersion&lt;/li>
+&lt;li>GetSubjectVersions&lt;/li>
+&lt;li>RegisterSchema&lt;/li>
+&lt;/ul>
+&lt;h2 id="fake">Fake&lt;/h2>
+&lt;p>The Fake provides the above actions.&lt;/p></description></item><item><title>Mattermost</title><link>https://http4k.org/ecosystem/connect/reference/mattermost/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/mattermost/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-mattermost-rest&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Mattermost connector provides the following Actions:&lt;/p>
+&lt;ul>
+&lt;li>TriggerWebhook&lt;/li>
+&lt;/ul>
+&lt;h3 id="example-usage">Example usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> USE_REAL_CLIENT = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> payloads = &lt;span style="color:#a6e22e">Storage&lt;/span>.InMemory&amp;lt;List&amp;lt;TriggerWebhookPayload&amp;gt;&amp;gt;()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// we can connect to the real service or the fake (drop in replacement)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> http: HttpHandler = &lt;span style="color:#66d9ef">if&lt;/span> (USE_REAL_CLIENT) JavaHttpClient() &lt;span style="color:#66d9ef">else&lt;/span> FakeMattermost(payloads)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// create a client
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> mattermost = &lt;span style="color:#a6e22e">Mattermost&lt;/span>.Http(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> baseUri = &lt;span style="color:#a6e22e">Uri&lt;/span>.of(&lt;span style="color:#e6db74">&amp;#34;https://mattermost.com&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> http = http.debug()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> payload = TriggerWebhookPayload(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> text = &lt;span style="color:#e6db74">&amp;#34;Hello world&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> iconUrl = &lt;span style="color:#e6db74">&amp;#34;http://icon.url&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// all operations return a Result monad of the API type
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> result: Result&amp;lt;String, RemoteFailure&amp;gt; = mattermost.triggerWebhook(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> key = &lt;span style="color:#a6e22e">UUID&lt;/span>.randomUUID().toString(),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> payload = payload,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(result)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(payloads)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="default-fake-port-54786">Default Fake port: 54786&lt;/h3>
+&lt;p>To start:&lt;/p></description></item><item><title>Storage</title><link>https://http4k.org/ecosystem/connect/reference/storage/core/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/storage/core/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-storage-core&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>http4k-connect contains a simple lightweight pluggable Key-Value storage abstraction in the &lt;code>http4k-connect-storage-core&lt;/code> module, which can be used to serialise objects to an underlying store.&lt;/p></description></item><item><title>Storage: HTTP</title><link>https://http4k.org/ecosystem/connect/reference/storage/http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/storage/http/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-storage-http&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This storage implementation provides the ability to mount another storage implementation remotely over HTTP inside an OpenAPI compatible server.&lt;/p></description></item><item><title>Storage: JDBC</title><link>https://http4k.org/ecosystem/connect/reference/storage/jdbc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/storage/jdbc/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-storage-jdbc&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This implementation uses the Jetbrains Exposed library to store the data in the DB. All data is serialised to disk by
+passing it though an http4k AutoMarshalling adapter (see the &lt;code>http4k-format-XXX&lt;/code> modules). In the example below we use a
+JSON adapter backed by Moshi (which is the default).&lt;/p></description></item><item><title>Storage: Redis</title><link>https://http4k.org/ecosystem/connect/reference/storage/redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/storage/redis/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-storage-redis&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This implementation uses the Lettuce Client library to store the data in Redis. All data is serialised to disk by
+passing it though an http4k AutoMarshalling adapter (see the &lt;code>http4k-format-XXX&lt;/code> modules). In the example below we use a
+JSON adapter backed by Moshi (which is the default).&lt;/p></description></item><item><title>Storage: S3</title><link>https://http4k.org/ecosystem/connect/reference/storage/s3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/storage/s3/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-storage-s3&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This implementation uses the http4k Connect adapter to store the data in S3. All data is serialised to disk by
+passing it though an http4k AutoMarshalling adapter (see the &lt;code>http4k-format-XXX&lt;/code> modules). In the example below we use a
+JSON adapter backed by Moshi (which is the default).&lt;/p></description></item></channel></rss>

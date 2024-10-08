@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TDDing http4k on http4k</title><link>https://http4k.org/tutorial/tdding_http4k/</link><description>Recent content in TDDing http4k on http4k</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://http4k.org/tutorial/tdding_http4k/index.xml" rel="self" type="application/rss+xml"/><item><title>TDDing http4k Part 1: Building a walking skeleton</title><link>https://http4k.org/tutorial/tdding_http4k/part1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/tutorial/tdding_http4k/part1/</guid><description>&lt;p>Until we have an application that can be deployed, we cannot create any business value. The Walking Skeleton
+model dictates that putting the most trivial endpoint into a production environment will prove our deployment
+pipeline is sound, and helps to set the direction for the testing strategy that we will use going forward.&lt;/p></description></item><item><title>TDDing http4k Part 2: Adding an endpoint</title><link>https://http4k.org/tutorial/tdding_http4k/part2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/tutorial/tdding_http4k/part2/</guid><description>&lt;ul>
+&lt;li>&lt;a href="../part1/">Part 1: Building a walking skeleton&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Starting with another EndToEnd test, we can then drill-down into the functional behaviour of the system by introducing
+OCT (Out of Container) tests and converting the e2e test to just test endpoint wiring (so far). The common assertions have
+also been converted to reusable extension methods on Response.&lt;/p></description></item><item><title>TDDing http4k Part 3: Adding another endpoint</title><link>https://http4k.org/tutorial/tdding_http4k/part3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/tutorial/tdding_http4k/part3/</guid><description>&lt;ul>
+&lt;li>&lt;a href="../part1/">Part 1: Building a walking skeleton&lt;/a>&lt;/li>
+&lt;li>&lt;a href="../part2/">Part 2: Adding an endpoint&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="requirements">Requirements:&lt;/h3>
+&lt;ul>
+&lt;li>Implement a &amp;ldquo;multiply&amp;rdquo; service, which will find the product of a number of integer values.&lt;/li>
+&lt;/ul>
+&lt;h3 id="tests">Tests:&lt;/h3>
+
+
+
+
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">package&lt;/span> content.tutorial.tdding_http4k.part3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> com.natpryce.hamkrest.and
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> com.natpryce.hamkrest.assertion.assertThat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> content.tutorial.tdding_http4k.part3.Matchers.answerShouldBe
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.client.OkHttp
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Method.GET
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Request
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Response
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Status.Companion.BAD_REQUEST
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Status.Companion.OK
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.hamkrest.hasBody
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.hamkrest.hasStatus
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.junit.jupiter.api.AfterEach
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.junit.jupiter.api.BeforeEach
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.junit.jupiter.api.Test
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">object&lt;/span> &lt;span style="color:#a6e22e">Matchers&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">Response&lt;/span>.answerShouldBe(expected: Int) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> assertThat(&lt;span style="color:#66d9ef">this&lt;/span>, hasStatus(OK).and(hasBody(expected.toString())))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">EndToEndTest&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client = OkHttp()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> server = MyMathServer(&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@BeforeEach&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">setup&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server.start()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@AfterEach&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">teardown&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> server.stop()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@Test&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">`all endpoints are mounted correctly`&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> assertThat(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(Request(GET, &lt;span style="color:#e6db74">&amp;#34;http://localhost:&lt;/span>&lt;span style="color:#e6db74">${server.port()}&lt;/span>&lt;span style="color:#e6db74">/ping&amp;#34;&lt;/span>)),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hasStatus(OK)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Request(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> GET,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;http://localhost:&lt;/span>&lt;span style="color:#e6db74">${server.port()}&lt;/span>&lt;span style="color:#e6db74">/add?value=1&amp;amp;value=2&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ).answerShouldBe(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Request(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> GET,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;http://localhost:&lt;/span>&lt;span style="color:#e6db74">${server.port()}&lt;/span>&lt;span style="color:#e6db74">/multiply?value=2&amp;amp;value=4&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ).answerShouldBe(&lt;span style="color:#ae81ff">8&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">AddFunctionalTest&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client = MyMathsApp()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@Test&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">`adds values together`&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(Request(GET, &lt;span style="color:#e6db74">&amp;#34;/add?value=1&amp;amp;value=2&amp;#34;&lt;/span>)).answerShouldBe(&lt;span style="color:#ae81ff">3&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@Test&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">`answer is zero when no values`&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(Request(GET, &lt;span style="color:#e6db74">&amp;#34;/add&amp;#34;&lt;/span>)).answerShouldBe(&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@Test&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">`bad request when some values are not numbers`&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> assertThat(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(Request(GET, &lt;span style="color:#e6db74">&amp;#34;/add?value=1&amp;amp;value=notANumber&amp;#34;&lt;/span>)),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hasStatus(BAD_REQUEST)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MultiplyFunctionalTest&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> client = MyMathsApp()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@Test&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">`products values together`&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(Request(GET, &lt;span style="color:#e6db74">&amp;#34;/multiply?value=2&amp;amp;value=4&amp;#34;&lt;/span>)).answerShouldBe(&lt;span style="color:#ae81ff">8&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@Test&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">`answer is zero when no values`&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(Request(GET, &lt;span style="color:#e6db74">&amp;#34;/multiply&amp;#34;&lt;/span>)).answerShouldBe(&lt;span style="color:#ae81ff">0&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">@Test&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">`bad request when some values are not numbers`&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> assertThat(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> client(Request(GET, &lt;span style="color:#e6db74">&amp;#34;/multiply?value=1&amp;amp;value=notANumber&amp;#34;&lt;/span>)),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> hasStatus(BAD_REQUEST)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+
+&lt;h3 id="production">Production:&lt;/h3>
+
+
+
+
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">package&lt;/span> content.tutorial.tdding_http4k.part3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.HttpHandler
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Method.GET
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Request
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Response
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.Status.Companion.OK
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.core.then
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.filter.ServerFilters.CatchLensFailure
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.lens.Query
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.lens.int
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.routing.bind
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.routing.routes
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.server.Http4kServer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.server.Jetty
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">import&lt;/span> org.http4k.server.asServer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">MyMathServer&lt;/span>(port: Int): Http4kServer = MyMathsApp().asServer(Jetty(port))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">MyMathsApp&lt;/span>(): HttpHandler = &lt;span style="color:#a6e22e">CatchLensFailure&lt;/span>.then(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> routes(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;/ping&amp;#34;&lt;/span> bind GET to { _: Request &lt;span style="color:#f92672">-&amp;gt;&lt;/span> Response(OK) },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;/add&amp;#34;&lt;/span> bind GET to calculate { &lt;span style="color:#66d9ef">it&lt;/span>.sum() },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;/multiply&amp;#34;&lt;/span> bind GET to calculate { &lt;span style="color:#66d9ef">it&lt;/span>.fold(&lt;span style="color:#ae81ff">1&lt;/span>) { memo, next &lt;span style="color:#f92672">-&amp;gt;&lt;/span> memo * next } }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">fun&lt;/span> &lt;span style="color:#a6e22e">calculate&lt;/span>(fn: (List&amp;lt;Int&amp;gt;) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> Int): (Request) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> Response {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> values = &lt;span style="color:#a6e22e">Query&lt;/span>.int().multi.defaulted(&lt;span style="color:#e6db74">&amp;#34;value&amp;#34;&lt;/span>, listOf())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> { request: Request &lt;span style="color:#f92672">-&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> valuesToCalc = values(request)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">val&lt;/span> answer = &lt;span style="color:#66d9ef">if&lt;/span> (valuesToCalc.isEmpty()) &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#66d9ef">else&lt;/span> fn(valuesToCalc)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Response(OK).body(answer.toString())
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+
+&lt;ul>
+&lt;li>&lt;a href="../part4/">Part 4: Adding an external dependency&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>TDDing http4k Part 4: Adding an external dependency</title><link>https://http4k.org/tutorial/tdding_http4k/part4/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/tutorial/tdding_http4k/part4/</guid><description>&lt;ul>
+&lt;li>&lt;a href="../part1/">Part 1: Building a walking skeleton&lt;/a>&lt;/li>
+&lt;li>&lt;a href="../part2/">Part 2: Adding an endpoint&lt;/a>&lt;/li>
+&lt;li>&lt;a href="../part3/">Part 3: Adding another endpoint&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>At this point, the separation of the layers starts to become clear:&lt;/p></description></item></channel></rss>
