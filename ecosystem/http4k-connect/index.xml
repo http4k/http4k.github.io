@@ -1,5 +1,252 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Http4k Connect on http4k</title><link>https://http4k.org/ecosystem/http4k-connect/</link><description>Recent content in Http4k Connect on http4k</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://http4k.org/ecosystem/http4k-connect/index.xml" rel="self" type="application/rss+xml"/><item><title>Connect Overview</title><link>https://http4k.org/ecosystem/connect/concepts/pattern/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/concepts/pattern/</guid><description>&lt;p>The main bulk of non-operationally focussed application code in a modern Server-based HTTP microservice can be broken
-down into a few broad areas:&lt;/p></description></item><item><title>http4k Connect</title><link>https://http4k.org/ecosystem/connect/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/</guid><description/></item><item><title>AI: Anthropic</title><link>https://http4k.org/ecosystem/connect/reference/ai/anthropic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/anthropic/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+down into a few broad areas:&lt;/p></description></item><item><title>Module Overview</title><link>https://http4k.org/ecosystem/connect/reference/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/overview/</guid><description>&lt;p>A quick reference as to what is what with the http4k Connect modules.&lt;/p>
+&lt;h2 id="cloud-services">Cloud Services&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Vendor&lt;/th>
+ &lt;th style="text-align: left">System&lt;/th>
+ &lt;th style="text-align: left">In-Memory Fake&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/apprunner">AppRunner&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/cloudfront">CloudFront&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/cloudwatchlogs">Cloudwatch Logs&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/dynamodb">DynamoDb&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/eventbridge">EventBridge&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/evidently">Evidently&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/firehose">Firehose&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/iamidentitycenter">IAM Identity Center&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/instancemetadata">Instance Metadata&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/kms">KMS&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/lambda">Lambda&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/s3">S3&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/secretsmanager">Secrets Manager&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/ses">SES&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/sns">SNS&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/sqs">SQS&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/sts">STS&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AWS&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./amazon/systemsmanager">Systems Manager&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">GitHub&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./github">V3 API&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">❌&lt;/td>
+ &lt;td style="text-align: left">Client Shell and WebHook Signing only&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">GitLab&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./gitlab">API&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">❌&lt;/td>
+ &lt;td style="text-align: left">Client Shell and WebHook Signing only&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Google&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./google/analytics-ga4">Analytics GA4&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Google&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./google/analytics-ua">Analytics UA&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Kafka&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./kafka/rest">Rest Proxy&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Kafka&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./kafka/schemaregistry">Schema Registry&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Mattermost&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./mattermost">WebHook&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">❌&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;br/>
+&lt;br/>
+&lt;h3 id="ai-services">AI Services&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Vendor&lt;/th>
+ &lt;th style="text-align: left">System&lt;/th>
+ &lt;th style="text-align: left">In-Memory Fake&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">AnthropicAI&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./anthropic">API&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">Includes content generators&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">AzureAI&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./azure">API&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">Includes content generators and GitHubModels compatability&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">LangChain4J&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./langchain">Adapters&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">❌&lt;/td>
+ &lt;td style="text-align: left">Adapters to be plugged into LangChains&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">LM Studio&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./lmstudio">API&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Ollama&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./ollama">API&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">Includes content generators and image generation&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Open AI&lt;/td>
+ &lt;td style="text-align: left">&lt;a href="./openai">API&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">✅&lt;/td>
+ &lt;td style="text-align: left">Includes content generators and image generation&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;br/>
+&lt;br/>
+&lt;h3 id="storage-implementations">Storage Implementations&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Implementation&lt;/th>
+ &lt;th style="text-align: left">Notes&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;a href="./storage/core">In-Memory&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">Included with all Fakes&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;a href="./storage/core">File-Based&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">Included with all Fakes&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;a href="./storage/jdbc">JDBC&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;a href="./storage/redis">Redis&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">&lt;a href="./storage/s3">S3&lt;/a>&lt;/td>
+ &lt;td style="text-align: left">&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>http4k Connect</title><link>https://http4k.org/ecosystem/connect/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/</guid><description/></item><item><title>AI: Anthropic</title><link>https://http4k.org/ecosystem/connect/reference/ai/anthropic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/anthropic/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-connect-bom:5.25.0.0"))
