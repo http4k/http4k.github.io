@@ -2,7 +2,7 @@
 down into a few broad areas:&lt;/p></description></item><item><title>Core</title><link>https://http4k.org/ecosystem/http4k/reference/core/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/core/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -340,7 +340,7 @@ of HTTP services in a functional and consistent way.&lt;/p></description></item>
 &lt;p>The OpenAI connector provides the following Actions:&lt;/p></description></item><item><title>API Clients</title><link>https://http4k.org/ecosystem/connect/concepts/clients/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/concepts/clients/</guid><description>&lt;p>Each system API Client is modelled as a single function with arity 1 (that is it takes only a single parameter) returning a &lt;a href="https://github.com/fork-handles/forkhandles/tree/trunk/result4k">Result4k&lt;/a> Success/Failure monad type), which is known as an &lt;code>Action&lt;/code>. The Client is responsible for managing the overall protocol with the remote system. There are also a set of extension methods generated to provide a more traditional function-based version of the same interface.&lt;/p></description></item><item><title>Approval Testing</title><link>https://http4k.org/ecosystem/http4k/reference/approvaltests/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/approvaltests/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-approval&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -360,7 +360,7 @@ of the filters is important in order that we have the information at the point i
 do this after any exception handling has occurred (so that we can record the 5XX properly). Experience has shown that there is a general formula to be used when constructing stacks.&lt;/p></description></item><item><title>Authentication for HTTP services</title><link>https://http4k.org/howto/secure_and_auth_http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/secure_and_auth_http/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
@@ -370,7 +370,7 @@ do this after any exception handling has occurred (so that we can record the 5XX
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>http4k provides a set of Filters for authenticating into other HTTP services. Usage of these filters is shown below to authenticate into a service. Each authentication type is generally available using both dynamic and static credential provision and checking mechanisms.&lt;/p></description></item><item><title>AWS</title><link>https://http4k.org/ecosystem/connect/reference/aws/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/aws/</guid><description>&lt;p>http4k-connect provides a standardised mechanism to connect to several AWS services. They all use the same mechanisms for authentication, which is what this page is about.&lt;/p></description></item><item><title>AWS</title><link>https://http4k.org/ecosystem/http4k/reference/aws/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/aws/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-aws&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -873,7 +873,7 @@ Amazon-SDK JARs. This means this integration is perfect for running Serverless L
 performance factor.&lt;/p></description></item><item><title>Azure</title><link>https://http4k.org/ecosystem/http4k/reference/azure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/azure/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-azure&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -881,7 +881,7 @@ performance factor.&lt;/p></description></item><item><title>Azure</title><link>h
 &lt;p>This module provides a http4k compatible &lt;code>HttpClient&lt;/code> so you can http4k-ise your use of the standard Azure SDKs libraries by plugging in a standard &lt;code>HttpHandler&lt;/code>. This simplifies fault testing and means that you can print out the exact traffic which is going to Azure - which is brilliant for both debugging and writing Fakes. :)&lt;/p></description></item><item><title>Changelog</title><link>https://http4k.org/ecosystem/connect/changelog/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/changelog/</guid><description/></item><item><title>Changelog</title><link>https://http4k.org/ecosystem/http4k/changelog/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/changelog/</guid><description/></item><item><title>Chaos</title><link>https://http4k.org/ecosystem/http4k/reference/chaos/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/chaos/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-chaos&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -890,7 +890,7 @@ performance factor.&lt;/p></description></item><item><title>Azure</title><link>h
 &lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -917,7 +917,7 @@ performance factor.&lt;/p></description></item><item><title>Azure</title><link>h
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Clients</title><link>https://http4k.org/ecosystem/http4k/reference/clients/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/clients/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Java (for development only):
@@ -956,14 +956,14 @@ Since each client acts as an &lt;code>HttpHandler&lt;/code>, it can be decorated
 This allows handling cross-cutting concerns independently of a specific client implementation, greatly facilitating testing.&lt;/p></description></item><item><title>Cloud Events</title><link>https://http4k.org/ecosystem/http4k/reference/cloud_events/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/cloud_events/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-cloudevents&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;a href="https://cloudevents.io/">Cloud Events&lt;/a> spec defines a common format for Events produced by Cloud services.&lt;/p></description></item><item><title>Cloud Native tooling</title><link>https://http4k.org/ecosystem/http4k/reference/cloud_native/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/cloud_native/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-cloudnative&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -974,7 +974,7 @@ clarity, enabling developers to build robust applications without the complexiti
 frameworks.&lt;/p></description></item><item><title>Config</title><link>https://http4k.org/ecosystem/http4k/reference/config/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/config/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-config&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -982,7 +982,7 @@ frameworks.&lt;/p></description></item><item><title>Config</title><link>https://
 provides requisite tooling to get apps up and running with the minimum of effort to enable the following operational aspects:&lt;/p></description></item><item><title>Configure an OAuth_Server</title><link>https://http4k.org/howto/configure_an_oauth_server/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/configure_an_oauth_server/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-security-oauth&amp;#34;&lt;/span>)
@@ -990,7 +990,7 @@ provides requisite tooling to get apps up and running with the minimum of effort
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>For this example, you need to configure &lt;code>OAuthServer&lt;/code> instance with the correct implementations of your login pages, generation of authentication codes and access tokens.&lt;/p></description></item><item><title>Consulting</title><link>https://http4k.org/consulting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/consulting/</guid><description>&lt;p>Unlock the full potential of your applications with consulting services directly from the architects of &lt;strong>http4k&lt;/strong>. We provide tailored guidance and support at every stage of your journey through the http4k ecosystem.&lt;/p></description></item><item><title>Contract</title><link>https://http4k.org/ecosystem/http4k/reference/contracts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/contracts/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-contract&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-&amp;lt;insert json lib&amp;gt;&amp;#34;&lt;/span>)
@@ -1006,7 +1006,7 @@ nationality, personal appearance, race, religion, or sexual identity
 and orientation.&lt;/p></description></item><item><title>Contributors Guide</title><link>https://http4k.org/ecosystem/connect/contributing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/contributing/</guid><description/></item><item><title>Contributors Guide</title><link>https://http4k.org/ecosystem/http4k/contributing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/contributing/</guid><description/></item><item><title>Create a custom JSON marshaller</title><link>https://http4k.org/howto/create_a_custom_json_marshaller/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/create_a_custom_json_marshaller/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-jackson&amp;#34;&lt;/span>)
@@ -1019,7 +1019,7 @@ contained in a custom wrapper class before transmission.&lt;/p></description></i
 &lt;p>Whilst the http4k server modules ship with a sensibly configured standard server-backend setup, a lot of projects will require specialised implementations of the underlying server backend. http4k makes this easy with the &lt;code>ServerConfig&lt;/code> interface.&lt;/p></description></item><item><title>Deploy WebJars</title><link>https://http4k.org/howto/deploy_webjars/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/deploy_webjars/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
@@ -1029,7 +1029,7 @@ contained in a custom wrapper class before transmission.&lt;/p></description></i
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;a href="https://www.webjars.org/">WebJars&lt;/a> is a library to ship pre-packaged Web assets on your classpath by just adding the dependency. The assets are rehoused under the META-INF directory and end up with URLs such as:&lt;/p></description></item><item><title>Developer Training</title><link>https://http4k.org/training/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/training/</guid><description>&lt;p>The &lt;strong>http4k&lt;/strong> project is a culmination of work on real-world projects in many different industries. Whilst the library is designed to be simple to learn and use, there are many advantages to learning from our mistakes when using it! To this end, the team have developed a significant amount of training materials which can be used to give teams new to &lt;strong>http4k&lt;/strong> the best possible start, especially around the following areas:&lt;/p></description></item><item><title>Digest security</title><link>https://http4k.org/ecosystem/http4k/reference/digest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/digest/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-security-digest&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1040,7 +1040,7 @@ servers or IOT devices that don&amp;rsquo;t typically support TLS. For completen
 &lt;p>The information provided by &lt;strong>http4k Ltd&lt;/strong> (“Company”, “we”, “our”, “us”) on &lt;strong>http4k.org&lt;/strong> (the “Site”) is for general informational purposes only. All information on the Site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site.&lt;/p></description></item><item><title>Failsafe</title><link>https://http4k.org/ecosystem/http4k/reference/failsafe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/failsafe/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-failsafe&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1095,7 +1095,7 @@ by integrating with the &lt;a href="https://failsafe.dev/">Failsafe&lt;/a> libra
 those extensions manually and maintain the API of the client appears to contain methods for each Action.&lt;/p></description></item><item><title>GraphQL module</title><link>https://http4k.org/ecosystem/http4k/reference/graphql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/graphql/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-graphql&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
@@ -1106,7 +1106,7 @@ those extensions manually and maintain the API of the client appears to contain 
 &lt;p>This module provides http4k integration for the excellent &lt;a href="https://www.graphql-java.com/">GraphQL-java&lt;/a> library, allowing you to either serve or consume &lt;a href="https://graphql.org">GraphQL&lt;/a> services using a simple adapter API.&lt;/p></description></item><item><title>Hamkrest</title><link>https://http4k.org/ecosystem/http4k/reference/hamkrest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/hamkrest/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-hamkrest&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1114,7 +1114,7 @@ those extensions manually and maintain the API of the client appears to contain 
 &lt;p>A set of Hamkrest matchers for use when testing http4k apps.&lt;/p></description></item><item><title>htmx</title><link>https://http4k.org/ecosystem/http4k/reference/htmx/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/htmx/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-htmx&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
@@ -1132,7 +1132,7 @@ those extensions manually and maintain the API of the client appears to contain 
 &lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-contract&amp;#34;&lt;/span>)
@@ -1141,7 +1141,7 @@ those extensions manually and maintain the API of the client appears to contain 
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Note: although we use Argo here as our JSON API, you could also switch in any of the &lt;code>http4k-format-xxx&lt;/code> JSON modules.&lt;/p></description></item><item><title>JSON</title><link>https://http4k.org/ecosystem/http4k/reference/json/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/json/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Argo: 
@@ -1172,7 +1172,7 @@ objects, including custom Lens methods for each library so that JSON node object
 HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>https://http4k.org/ecosystem/http4k/reference/jsonrpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/jsonrpc/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-jsonrpc&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1207,7 +1207,7 @@ HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>htt
 &lt;p>The Fake provides the above actions.&lt;/p></description></item><item><title>Kotest</title><link>https://http4k.org/ecosystem/http4k/reference/kotest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/kotest/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-kotest&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1215,7 +1215,7 @@ HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>htt
 &lt;p>A set of &lt;a href="https://github.com/kotest/kotest">Kotest&lt;/a> matchers for use when testing http4k apps.&lt;/p></description></item><item><title>KotlinX DataFrame</title><link>https://http4k.org/ecosystem/http4k/reference/dataframe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/dataframe/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-dataframe&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1223,7 +1223,7 @@ HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>htt
 &lt;p>This module adds the ability to use &lt;a href="https://kotlin.github.io/dataframe">Kotlin DataFrames&lt;/a> as a first-class citizen when reading from HTTP messages. Extraction from the HTTP message body is done automatically when using a lens with a DataFrame type.&lt;/p></description></item><item><title>Lenses</title><link>https://http4k.org/ecosystem/http4k/concepts/lens/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/concepts/lens/</guid><description>&lt;p>Lenses provide typesafe parameter destructuring/construction of HTTP messages. Getting values from HTTP messages is one thing, but we want to ensure that those values are both present and valid. For this purpose, we can use a &lt;a href="https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/basic-lensing">Lens&lt;/a>.&lt;/p></description></item><item><title>Leverage GraphQL</title><link>https://http4k.org/howto/leverage_graphql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/leverage_graphql/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-graphql&amp;#34;&lt;/span>)
@@ -1369,7 +1369,7 @@ HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>htt
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Long-Term Support (LTS)</title><link>https://http4k.org/lts-support/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/lts-support/</guid><description>&lt;p>Enjoy long-term stability and support with &lt;strong>http4k’s Long-Term Support (LTS)&lt;/strong> offering, designed for organisations that rely on http4k for their critical applications. Our LTS version of http4k provides guaranteed maintenance and updates for a stable release, ensuring your projects remain secure and fully functional without needing frequent upgrades. Additionally, our priority support extends up to 24 months, meaning &lt;strong>http4k LTS&lt;/strong> is your key to maintaining focus on feature delivery while ensuring your http4k applications are future-proof.&lt;/p></description></item><item><title>Lookup a user principal</title><link>https://http4k.org/howto/lookup_a_user_principal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/lookup_a_user_principal/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1419,7 +1419,7 @@ or to achieve acceptable cold start times in serverless deployments.&lt;/p></des
 &lt;p>To start:&lt;/p></description></item><item><title>Micrometer</title><link>https://http4k.org/ecosystem/http4k/reference/micrometer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/micrometer/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-metrics-micrometer&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1427,7 +1427,7 @@ or to achieve acceptable cold start times in serverless deployments.&lt;/p></des
 &lt;p>This module provides configurable Filters to provide metrics for http4k apps, plugging into the awesome &lt;a href="http://micrometer.io/">Micrometer&lt;/a> library.&lt;/p></description></item><item><title>Monitor http4k</title><link>https://http4k.org/howto/monitor_http4k/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/monitor_http4k/</guid><description>&lt;p>Measuring performance of application estate is crucial in today&amp;rsquo;s microservice world - it is crucial that dev-ops enabled teams can monitor, react and scale dynamically to changes in the runtime environment. However, because of the plethora of monitoring tools on the market, and because &lt;a href="https://github.com/http4k/http4k">&lt;strong>http4k&lt;/strong>&lt;/a> is a toolkit and not a complete &amp;ldquo;batteries included&amp;rdquo; framework, it provides a number of integration points to enable monitoring systems to be plugged in as required. Additionally, it is envisaged that users will probably want to provide their own implementations of the &lt;a href="https://github.com/http4k/http4k">&lt;strong>http4k&lt;/strong>&lt;/a> &lt;code>ServerConfig&lt;/code> classes (&lt;code>Jetty&lt;/code>, &lt;code>Undertow&lt;/code> etc..) so that tweaking and tuning to their exact requirements is accessible, instead of &lt;a href="https://github.com/http4k/http4k">&lt;strong>http4k&lt;/strong>&lt;/a> attempting to provide some generic configuration API to achieve it.&lt;/p></description></item><item><title>Multipart</title><link>https://http4k.org/ecosystem/http4k/reference/multipart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/multipart/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-multipart&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1435,7 +1435,7 @@ or to achieve acceptable cold start times in serverless deployments.&lt;/p></des
 &lt;p>Multipart form support for fields and files, including a set of lens extensions for fields/files.&lt;/p></description></item><item><title>OAuth security</title><link>https://http4k.org/ecosystem/http4k/reference/oauth/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/oauth/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-security-oauth&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1443,7 +1443,7 @@ or to achieve acceptable cold start times in serverless deployments.&lt;/p></des
 &lt;p>Support for using integrating with external OAuth2 providers for authentication purposes and to provide access to external APIs of entities such as Auth0, Google etc.&lt;/p></description></item><item><title>OpenTelemetry</title><link>https://http4k.org/ecosystem/http4k/reference/opentelemetry/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/opentelemetry/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-opentelemetry&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1453,7 +1453,7 @@ generally performs at a very low overhead compared to the raw server.&lt;/p></de
 those extensions manually and maintain the API of the client appears to contain methods for each Action.&lt;/p></description></item><item><title>Playwright</title><link>https://http4k.org/ecosystem/http4k/reference/playwright/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/playwright/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-playwright&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1468,7 +1468,7 @@ These UIs can often replace traditional hand-written documentation for API consu
 and can even serve as useful debugging tools.&lt;/p></description></item><item><title>Request Contexts</title><link>https://http4k.org/howto/attach_context_to_a_request/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/attach_context_to_a_request/</guid><description>&lt;p>A &lt;code>RequestContext&lt;/code> makes it possible to attach objects to a request whilst it is being passed down through the layers of an application.&lt;/p></description></item><item><title>Resilience4J</title><link>https://http4k.org/ecosystem/http4k/reference/resilience4j/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/resilience4j/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-resilience4j&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1491,7 +1491,7 @@ and can even serve as useful debugging tools.&lt;/p></description></item><item><
 private vulnerability reporting feature.&lt;/p></description></item><item><title>Self Document Systems with Tests</title><link>https://http4k.org/howto/self_document_systems_with_tests/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/self_document_systems_with_tests/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> testImplementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-tracerbullet&amp;#34;&lt;/span>)
@@ -1499,7 +1499,7 @@ private vulnerability reporting feature.&lt;/p></description></item><item><title
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>When composing several http4k services together and talking to Fakes representing external systems, we can use a combination of request tracing filters (utilising distributed tracing headers) and the http4k event stream to capture and record events. This stream can be stored to disk or outputted to various rendered formats such as &lt;a href="https://plantuml.com/">PlantUML&lt;/a> or &lt;a href="https://mermaid.js.org/">Mermaid&lt;/a>.&lt;/p></description></item><item><title>Serve SSE</title><link>https://http4k.org/howto/serve_sse/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/serve_sse/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-server-undertow&amp;#34;&lt;/span>)
@@ -1508,7 +1508,7 @@ private vulnerability reporting feature.&lt;/p></description></item><item><title
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>http4k&lt;/strong> provides SSE (Server Sent Events) support using a simple, consistent, typesafe, and testable API on supported server backends (see above). SSE communication consists of 3 main concepts:&lt;/p></description></item><item><title>Serve Websocket</title><link>https://http4k.org/howto/serve_websockets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/serve_websockets/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-server-undertow&amp;#34;&lt;/span>)
@@ -1520,7 +1520,7 @@ private vulnerability reporting feature.&lt;/p></description></item><item><title
 &lt;p>There are two main types of API that can be served using the http4k infrastructure, although they are backed by the same lightweight system. As with the http4k ethos, there is a primary focus on simplicity, testability and portability - http4k simply acts as a shim layer over the top of the underlying platform.&lt;/p></description></item><item><title>Serverless</title><link>https://http4k.org/ecosystem/http4k/reference/serverless/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/serverless/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// AWS Lambda: 
@@ -1545,7 +1545,7 @@ private vulnerability reporting feature.&lt;/p></description></item><item><title
 &lt;p>These modules provide integration with Serverless deployment environments, such as AWS Lambda or Google Cloud Functions by implementing a single interface.&lt;/p></description></item><item><title>Servers</title><link>https://http4k.org/ecosystem/http4k/reference/servers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/servers/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Apache v5: 
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-server-apache&amp;#34;&lt;/span>)
@@ -1585,7 +1585,7 @@ private vulnerability reporting feature.&lt;/p></description></item><item><title
 simply passing it to the relevant &lt;code>ServerConfig&lt;/code> implementation (in this case &lt;code>Jetty&lt;/code>):&lt;/p></description></item><item><title>Servirtium Testing</title><link>https://http4k.org/ecosystem/http4k/reference/servicevirtualisation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/servicevirtualisation/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-servirtium&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1634,7 +1634,7 @@ passing it though an http4k AutoMarshalling adapter (see the &lt;code>http4k-for
 JSON adapter backed by Moshi (which is the default).&lt;/p></description></item><item><title>Strikt</title><link>https://http4k.org/ecosystem/http4k/reference/strikt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/strikt/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-strikt&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -1642,7 +1642,7 @@ JSON adapter backed by Moshi (which is the default).&lt;/p></description></item>
 &lt;p>A set of Strikt matchers for use when testing http4k apps.&lt;/p></description></item><item><title>Structure your logs with Events</title><link>https://http4k.org/howto/structure_your_logs_with_events/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/structure_your_logs_with_events/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-jackson&amp;#34;&lt;/span>)
@@ -1823,7 +1823,7 @@ also been converted to reusable extension methods on Response.&lt;/p></descripti
 &lt;p>At this point, the separation of the layers starts to become clear:&lt;/p></description></item><item><title>Templating</title><link>https://http4k.org/ecosystem/http4k/reference/templating/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/templating/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Dust: 
@@ -2209,7 +2209,7 @@ let&amp;rsquo;s you answer questions about your system with your tests apart fro
 &lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-security-oauth&amp;#34;&lt;/span>)
@@ -2222,7 +2222,7 @@ let&amp;rsquo;s you answer questions about your system with your tests apart fro
 &lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -2330,7 +2330,7 @@ let&amp;rsquo;s you answer questions about your system with your tests apart fro
 &lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-multipart&amp;#34;&lt;/span>)
@@ -2683,7 +2683,7 @@ let&amp;rsquo;s you answer questions about your system with your tests apart fro
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Webdriver</title><link>https://http4k.org/ecosystem/http4k/reference/webdriver/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/webdriver/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-testing-webdriver&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -2691,7 +2691,7 @@ let&amp;rsquo;s you answer questions about your system with your tests apart fro
 &lt;p>A basic Selenium WebDriver API implementation for http4k HttpHandlers, which runs completely out of container (no network) for ultra fast tests, backed by JSoup.&lt;/p></description></item><item><title>Webhooks</title><link>https://http4k.org/ecosystem/http4k/reference/webhooks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/webhooks/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-webhooks&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
@@ -2847,7 +2847,7 @@ backends.&lt;/p>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>XML</title><link>https://http4k.org/ecosystem/http4k/reference/xml/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/xml/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// json.org XML:
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-xml&amp;#34;&lt;/span>)
@@ -2859,7 +2859,7 @@ backends.&lt;/p>
 &lt;p>These modules provide auto-marshalling functionality to convert XML into arbitrary data classes. The 2 differ slightly in their behaviour, due to the underlying libraries used for implementation. We recommend using &lt;code>http4k-format-jackson-xml&lt;/code> as it has more predictable and consistent behaviour.&lt;/p></description></item><item><title>YAML</title><link>https://http4k.org/ecosystem/http4k/reference/yaml/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/yaml/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.32.4.0"))
+ implementation(platform("org.http4k:http4k-bom:5.33.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-jackson-yaml&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-moshi-yaml&amp;#34;&lt;/span>)
