@@ -20,7 +20,7 @@ a test to be specified in a non-code but still source-controlled format, such as
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-aws&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-platform-aws&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides 2 things: a http4k compatible &lt;code>SdkHttpClient&lt;/code> and a super-simple AWS request signing functionality for talking to AWS services.&lt;/p></description></item><item><title>Azure</title><link>https://http4k.org/ecosystem/http4k/reference/azure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/azure/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
@@ -28,7 +28,7 @@ a test to be specified in a non-code but still source-controlled format, such as
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-azure&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-platform-azure&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides a http4k compatible &lt;code>HttpClient&lt;/code> so you can http4k-ise your use of the standard Azure SDKs libraries by plugging in a standard &lt;code>HttpHandler&lt;/code>. This simplifies fault testing and means that you can print out the exact traffic which is going to Azure - which is brilliant for both debugging and writing Fakes. :)&lt;/p></description></item><item><title>Changelog</title><link>https://http4k.org/ecosystem/changelog/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/changelog/</guid><description/></item><item><title>Chaos</title><link>https://http4k.org/ecosystem/http4k/reference/chaos/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/chaos/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
@@ -106,11 +106,11 @@ provides requisite tooling to get apps up and running with the minimum of effort
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-contract&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-api-openapi&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-&amp;lt;insert json lib&amp;gt;&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
-&lt;p>The &lt;code>http4k-contract&lt;/code> module adds a much more sophisticated routing mechanism to that available in &lt;code>http4k-core&lt;/code>. It adds the facility
+&lt;p>The &lt;code>http4k-api-openapi&lt;/code> module adds a much more sophisticated routing mechanism to that available in &lt;code>http4k-core&lt;/code>. It adds the facility
 to declare server-side &lt;code>Routes&lt;/code> in a completely typesafe way, leveraging the Lens functionality from the core. These &lt;code>Routes&lt;/code> are combined into &lt;code>Contracts&lt;/code>, which have the following features:&lt;/p></description></item><item><title>Contributors Guide</title><link>https://http4k.org/ecosystem/contributing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/contributing/</guid><description/></item><item><title>Digest security</title><link>https://http4k.org/ecosystem/http4k/reference/digest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/digest/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -125,7 +125,7 @@ servers or IOT devices that don&amp;rsquo;t typically support TLS. For completen
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-failsafe&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ops-failsafe&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides a configurable Filter to provide fault tolerance (CircuitBreaking, RateLimiting, Retrying, Bulkheading, Timeouts etc.),
@@ -218,7 +218,7 @@ HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>htt
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-metrics-micrometer&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ops-micrometer&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides configurable Filters to provide metrics for http4k apps, plugging into the awesome &lt;a href="http://micrometer.io/">Micrometer&lt;/a> library.&lt;/p></description></item><item><title>Multipart</title><link>https://http4k.org/ecosystem/http4k/reference/multipart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/multipart/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
@@ -242,7 +242,7 @@ HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>htt
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-opentelemetry&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ops-http4k-opentelemetry&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides configurable Filters to provide distributed tracing and metrics for http4k apps, plugging into the awesome &lt;a href="https://opentelemetry.io/">OpenTelemetry&lt;/a> APIs.&lt;/p></description></item><item><title>Playwright</title><link>https://http4k.org/ecosystem/http4k/reference/playwright/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/playwright/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
@@ -258,7 +258,7 @@ HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>htt
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-resilience4j&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ops-resilience4j&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides configurable Filters to provide CircuitBreaking, RateLimiting, Retrying and Bulkheading, by integrating with the awesome &lt;a href="http://resilience4j.github.io/resilience4j/">Resilience4J&lt;/a> library.&lt;/p></description></item><item><title>Server-Sent Events</title><link>https://http4k.org/ecosystem/http4k/concepts/server-sent-events/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/concepts/server-sent-events/</guid><description>&lt;p>&lt;strong>http4k&lt;/strong> provides SSE (Server-Sent Events) support using a simple, consistent, typesafe, and testable API on supported server backends.&lt;/p>

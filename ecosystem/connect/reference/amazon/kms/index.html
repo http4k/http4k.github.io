@@ -111,7 +111,7 @@
 </span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>val</span> decrypted: Decrypted = client.decrypt(keyId = key.<span style=color:#a6e22e>KeyMetadata</span>.KeyId, encrypted.CiphertextBlob).valueOrNull()<span style=color:#f92672>!!</span>
 </span></span><span style=display:flex><span>    println(decrypted.<span style=color:#a6e22e>Plaintext</span>.decoded())
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>The client APIs utilise the <code>http4k-aws</code> module for request signing, which means no dependencies on the incredibly fat
+</span></span></code></pre></div><p>The client APIs utilise the <code>http4k-platform-aws</code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.</p><p>The FakeKMS implementation currently does not properly encrypt/decrypt or sign/verify the contents of messages - it uses
 a trivially simple (and fast) reversible algorithm which simulates this functionality.</p><h3 id=default-fake-port-45302>Default Fake port: 45302</h3><p>To start:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>FakeKMS().start()

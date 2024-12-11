@@ -106,7 +106,7 @@
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> content: InputStream = getResult.valueOrNull()<span style=color:#f92672>!!</span>
 </span></span><span style=display:flex><span>    println(content.reader().readText())
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>The client APIs utilise the <code>http4k-aws</code> module for request signing, which means no dependencies on the incredibly fat
+</span></span></code></pre></div><p>The client APIs utilise the <code>http4k-platform-aws</code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.</p><h3 id=how-the-fake-works-with-bucket-level-operations>How the Fake works with bucket-level operations</h3><p>S3 is a bit of a strange beast in that it each bucket gets its own virtual hostname. This makes running a Fake an
 interesting challenge without messing around with DNS and hostname files.</p><p>This implementation supports both global and bucket level operations by inspecting the subdomain of the X-Forwarded-For

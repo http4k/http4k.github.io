@@ -380,7 +380,7 @@ do this after any exception handling has occurred (so that we can record the 5XX
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-aws&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-platform-aws&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides 2 things: a http4k compatible &lt;code>SdkHttpClient&lt;/code> and a super-simple AWS request signing functionality for talking to AWS services.&lt;/p></description></item><item><title>AWS: AppRunner</title><link>https://http4k.org/ecosystem/connect/reference/amazon/apprunner/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/apprunner/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
@@ -413,7 +413,7 @@ do this after any exception handling has occurred (so that we can record the 5XX
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// all operations return a Result monad of the API type
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> println(client.listServices())
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: CloudFront</title><link>https://http4k.org/ecosystem/connect/reference/amazon/cloudfront/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/cloudfront/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -425,7 +425,7 @@ performance factor.&lt;/p></description></item><item><title>AWS: CloudFront</tit
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The CloudFront connector provides the following Actions:&lt;/p>
 &lt;pre>&lt;code> * CreateInvalidation
 &lt;/code>&lt;/pre>
-&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Cloudwatch Evidently</title><link>https://http4k.org/ecosystem/connect/reference/amazon/evidently/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/evidently/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -479,7 +479,7 @@ performance factor.&lt;/p></description></item><item><title>AWS: Cloudwatch Evid
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(result)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: CloudWatchLogs</title><link>https://http4k.org/ecosystem/connect/reference/amazon/cloudwatchlogs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/cloudwatchlogs/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -497,7 +497,7 @@ performance factor.&lt;/p></description></item><item><title>AWS: CloudWatchLogs<
 &lt;li>FilterLogEvents&lt;/li>
 &lt;li>PutLogEvents&lt;/li>
 &lt;/ul>
-&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Cognito</title><link>https://http4k.org/ecosystem/connect/reference/amazon/cognito/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/cognito/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -545,7 +545,7 @@ retrieved from the following endpoint:&lt;/p></description></item><item><title>A
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Container Credentials connector provides the following Actions:&lt;/p>
 &lt;pre>&lt;code> * GetCredentials
 &lt;/code>&lt;/pre>
-&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: DynamoDb</title><link>https://http4k.org/ecosystem/connect/reference/amazon/dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/dynamodb/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -695,7 +695,7 @@ this provider can authorize AWS requests using credentials from the instance pro
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">val&lt;/span> decrypted: Decrypted = client.decrypt(keyId = key.&lt;span style="color:#a6e22e">KeyMetadata&lt;/span>.KeyId, encrypted.CiphertextBlob).valueOrNull()&lt;span style="color:#f92672">!!&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> println(decrypted.&lt;span style="color:#a6e22e">Plaintext&lt;/span>.decoded())
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Lambda</title><link>https://http4k.org/ecosystem/connect/reference/amazon/lambda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/lambda/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -780,7 +780,7 @@ deployed behind APIGateway (where you have total control over the URL pattern wh
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// get the secret value back
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> println(client.getSecretValue(secretId).valueOrNull())
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Security Token Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/sts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/sts/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -793,7 +793,7 @@ performance factor.&lt;/p></description></item><item><title>AWS: Security Token 
 &lt;pre>&lt;code> * AssumeRole
  * AssumeRoleWithWebIdentity
 &lt;/code>&lt;/pre>
-&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Simple Email Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/ses/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/ses/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -806,7 +806,7 @@ performance factor.&lt;/p></description></item><item><title>AWS: Simple Email Se
 &lt;ul>
 &lt;li>SendEmail&lt;/li>
 &lt;/ul>
-&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Simple Notification Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/sns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/sns/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -823,7 +823,7 @@ performance factor.&lt;/p></description></item><item><title>AWS: Simple Notifica
 &lt;li>Publish&lt;/li>
 &lt;li>PublishBatch&lt;/li>
 &lt;/ul>
-&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Simple Queue Service</title><link>https://http4k.org/ecosystem/connect/reference/amazon/sqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/sqs/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -841,7 +841,7 @@ performance factor.&lt;/p></description></item><item><title>AWS: Simple Queue Se
  * ReceiveMessage
  * SendMessage
 &lt;/code>&lt;/pre>
-&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Systems Manager</title><link>https://http4k.org/ecosystem/connect/reference/amazon/systemsmanager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/systemsmanager/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -876,14 +876,14 @@ performance factor.&lt;/p></description></item><item><title>AWS: Systems Manager
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// get the parameter back again
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> println(client.getParameter(paramName))
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>Azure</title><link>https://http4k.org/ecosystem/http4k/reference/azure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/azure/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-azure&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-platform-azure&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides a http4k compatible &lt;code>HttpClient&lt;/code> so you can http4k-ise your use of the standard Azure SDKs libraries by plugging in a standard &lt;code>HttpHandler&lt;/code>. This simplifies fault testing and means that you can print out the exact traffic which is going to Azure - which is brilliant for both debugging and writing Fakes. :)&lt;/p></description></item><item><title>Changelog</title><link>https://http4k.org/ecosystem/changelog/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/changelog/</guid><description/></item><item><title>Chaos</title><link>https://http4k.org/ecosystem/http4k/reference/chaos/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/chaos/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
@@ -1000,11 +1000,11 @@ provides requisite tooling to get apps up and running with the minimum of effort
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-contract&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-api-openapi&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-&amp;lt;insert json lib&amp;gt;&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
-&lt;p>The &lt;code>http4k-contract&lt;/code> module adds a much more sophisticated routing mechanism to that available in &lt;code>http4k-core&lt;/code>. It adds the facility
+&lt;p>The &lt;code>http4k-api-openapi&lt;/code> module adds a much more sophisticated routing mechanism to that available in &lt;code>http4k-core&lt;/code>. It adds the facility
 to declare server-side &lt;code>Routes&lt;/code> in a completely typesafe way, leveraging the Lens functionality from the core. These &lt;code>Routes&lt;/code> are combined into &lt;code>Contracts&lt;/code>, which have the following features:&lt;/p></description></item><item><title>Contributor Covenant Code of Conduct</title><link>https://http4k.org/code-of-conduct/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/code-of-conduct/</guid><description>&lt;h2 id="our-pledge">Our Pledge&lt;/h2>
 &lt;p>We as members, contributors, and leaders pledge to make participation in our
 community a harassment-free experience for everyone, regardless of age, body
@@ -1050,7 +1050,7 @@ servers or IOT devices that don&amp;rsquo;t typically support TLS. For completen
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-failsafe&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ops-failsafe&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides a configurable Filter to provide fault tolerance (CircuitBreaking, RateLimiting, Retrying, Bulkheading, Timeouts etc.),
@@ -1143,7 +1143,7 @@ those extensions manually and maintain the API of the client appears to contain 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-contract&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-api-openapi&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-argo&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Note: although we use Argo here as our JSON API, you could also switch in any of the &lt;code>http4k-format-xxx&lt;/code> JSON modules.&lt;/p></description></item><item><title>JSON</title><link>https://http4k.org/ecosystem/http4k/reference/json/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/json/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
@@ -1429,7 +1429,7 @@ or to achieve acceptable cold start times in serverless deployments.&lt;/p></des
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-metrics-micrometer&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ops-micrometer&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides configurable Filters to provide metrics for http4k apps, plugging into the awesome &lt;a href="http://micrometer.io/">Micrometer&lt;/a> library.&lt;/p></description></item><item><title>Monitor http4k</title><link>https://http4k.org/howto/monitor_http4k/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/monitor_http4k/</guid><description>&lt;p>Measuring performance of application estate is crucial in today&amp;rsquo;s microservice world - it is crucial that dev-ops enabled teams can monitor, react and scale dynamically to changes in the runtime environment. However, because of the plethora of monitoring tools on the market, and because &lt;a href="https://github.com/http4k/http4k">&lt;strong>http4k&lt;/strong>&lt;/a> is a toolkit and not a complete &amp;ldquo;batteries included&amp;rdquo; framework, it provides a number of integration points to enable monitoring systems to be plugged in as required. Additionally, it is envisaged that users will probably want to provide their own implementations of the &lt;a href="https://github.com/http4k/http4k">&lt;strong>http4k&lt;/strong>&lt;/a> &lt;code>ServerConfig&lt;/code> classes (&lt;code>Jetty&lt;/code>, &lt;code>Undertow&lt;/code> etc..) so that tweaking and tuning to their exact requirements is accessible, instead of &lt;a href="https://github.com/http4k/http4k">&lt;strong>http4k&lt;/strong>&lt;/a> attempting to provide some generic configuration API to achieve it.&lt;/p></description></item><item><title>Multipart</title><link>https://http4k.org/ecosystem/http4k/reference/multipart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/multipart/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
@@ -1453,7 +1453,7 @@ or to achieve acceptable cold start times in serverless deployments.&lt;/p></des
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-opentelemetry&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ops-http4k-opentelemetry&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides configurable Filters to provide distributed tracing and metrics for http4k apps, plugging into the awesome &lt;a href="https://opentelemetry.io/">OpenTelemetry&lt;/a> APIs.&lt;/p></description></item><item><title>Our Community of Contributors</title><link>https://http4k.org/community/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/community/</guid><description/></item><item><title>Overview</title><link>https://http4k.org/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/overview/</guid><description>&lt;p>http4k is a Kotlin-based HTTP toolkit which is designed to be simple, lightweight, and easy to use. It is built on functional programming principles, and is designed to be testable and easy to reason about. Since it&amp;rsquo;s release it has been used in production by a vast number of companies, and has been used to build a wide range of applications, from simple microservices to complex distributed systems, garnered millions of downloads per month and powers several globally significant websites.&lt;/p></description></item><item><title>Performance</title><link>https://http4k.org/performance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/performance/</guid><description>&lt;p>The http4k server-backend modules provide a very thin adapter layer over the raw APIs of the underlying servers, so
@@ -1478,7 +1478,7 @@ and can even serve as useful debugging tools.&lt;/p></description></item><item><
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-resilience4j&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ops-resilience4j&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
 &lt;p>This module provides configurable Filters to provide CircuitBreaking, RateLimiting, Retrying and Bulkheading, by integrating with the awesome &lt;a href="http://resilience4j.github.io/resilience4j/">Resilience4J&lt;/a> library.&lt;/p></description></item><item><title>Routing API (Advanced)</title><link>https://http4k.org/howto/nestable_routes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/nestable_routes/</guid><description>&lt;p>This is a fairly comprehensive example of the core-routing logic available:&lt;/p>
