@@ -968,15 +968,7 @@ This allows handling cross-cutting concerns independently of a specific client i
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-api-cloudevents&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;a href="https://cloudevents.io/">Cloud Events&lt;/a> spec defines a common format for Events produced by Cloud services.&lt;/p></description></item><item><title>Cloud Native tooling</title><link>https://http4k.org/ecosystem/http4k/reference/cloud_native/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/cloud_native/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
-
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-platform-k8s&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>http4k applications are naturally at home operating in distributed, Cloud Native environments. Whilst simple to create, this module
-provides requisite tooling to get apps up and running with the minimum of effort to enable the following operational aspects:&lt;/p></description></item><item><title>Company</title><link>https://http4k.org/company/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/company/</guid><description>&lt;p>Founded in 2017, http4k has grown into one of the most popular HTTP libraries for Kotlin, reflecting over 15 years of
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;a href="https://cloudevents.io/">Cloud Events&lt;/a> spec defines a common format for Events produced by Cloud services.&lt;/p></description></item><item><title>Company</title><link>https://http4k.org/company/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/company/</guid><description>&lt;p>Founded in 2017, http4k has grown into one of the most popular HTTP libraries for Kotlin, reflecting over 15 years of
 combined experience in server-side development. Our mission was to create a library that embodies simplicity and
 clarity, enabling developers to build robust applications without the complexities often associated with traditional
 frameworks.&lt;/p></description></item><item><title>Config</title><link>https://http4k.org/ecosystem/http4k/reference/config/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/config/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
@@ -1185,7 +1177,15 @@ HTTP messages:&lt;/p></description></item><item><title>JSON-RPC</title><link>htt
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-api-jsonrpc&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
-&lt;p>Support for JSON-RPC handlers, with support for both manual and automatic marshalling modes.&lt;/p></description></item><item><title>Kafka: Rest Proxy</title><link>https://http4k.org/ecosystem/connect/reference/kafka/rest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/kafka/rest/</guid><description>&lt;h4 id="installation">Installation&lt;/h4>
+&lt;p>Support for JSON-RPC handlers, with support for both manual and automatic marshalling modes.&lt;/p></description></item><item><title>K8S integrations</title><link>https://http4k.org/ecosystem/http4k/reference/k8s/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/k8s/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-platform-k8s&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>http4k applications are naturally at home operating in distributed, Kubernetes (k8s) environments. Whilst simple to create, this module
+provides requisite tooling to get apps up and running with the minimum of effort to enable the following operational aspects:&lt;/p></description></item><item><title>Kafka: Rest Proxy</title><link>https://http4k.org/ecosystem/connect/reference/kafka/rest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/kafka/rest/</guid><description>&lt;h4 id="installation">Installation&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:5.40.0.0"))
