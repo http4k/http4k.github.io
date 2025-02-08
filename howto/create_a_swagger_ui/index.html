@@ -116,7 +116,7 @@ but any hand-crafted or external description can be used as well.</p><p>For more
 </span></span></code></pre></div><h2 id=build-the-ui>Build the UI</h2><p>The <code>http4-contract</code> module includes functions to configure and serve Swagger UI, Redoc, or both.
 These &ldquo;lite&rdquo; UIs are thin; meaning most of the assets are pulled from an external Public CDN.</p><h3 id=installation-gradle>Installation (Gradle)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>dependencies {
 </span></span><span style=display:flex><span>    
-    implementation(platform("org.http4k:http4k-bom:5.46.0.0"))
+    implementation(platform("org.http4k:http4k-bom:5.47.0.0"))
 
 </span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-api-openapi&#34;</span>)
 </span></span><span style=display:flex><span>}
@@ -157,7 +157,7 @@ These &ldquo;lite&rdquo; UIs are thin; meaning most of the assets are pulled fro
 </span></span></code></pre></div><h2 id=bundle-the-ui-with-webjars>Bundle the UI with Webjars</h2><p>The &ldquo;lite&rdquo; UIs included in the <code>http4k-api-openapi</code> module are great for serverless APIs, where binary size is a major concern.
 For more control over the assets, http4k has optional modules to bundle the assets into your application.</p><h3 id=installation-gradle-1>Installation (Gradle)</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>dependencies {
 </span></span><span style=display:flex><span>    
-    implementation(platform("org.http4k:http4k-bom:5.46.0.0"))
+    implementation(platform("org.http4k:http4k-bom:5.47.0.0"))
 
 </span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-api-ui-swagger&#34;</span>)
 </span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-api-ui-redoc&#34;</span>)

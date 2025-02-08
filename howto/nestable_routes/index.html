@@ -86,7 +86,7 @@
 &#34;/sales/{region:(?:northeast|southeast|west|international)}&#34; 
 </code></pre><p>There are no pre-defined types such as <code>int</code> or <code>path</code> for matching but these are easy to replicate with RegEx&rsquo;s:</p><ul><li>string (excluding slashes) : <code>[^\\/]+</code> (note that Kotlin requires backslashes to be escaped, so <code>\w</code> in RegEx is expressed as <code>\\w</code> in Kotlin)</li><li>int : <code>\\d+</code></li><li>float : <code>[+-]?([0-9]*[.])?[0-9]+</code> (this will match basic floats. Does not match exponents, or scientific notation)</li><li>path : <code>.*</code></li></ul><p>Note that paths, not strings, will match by default. <code>"/news/{date}"</code> will match <code>www.example.com/news/2018/05/26</code>, making <code>request.path("date")</code> equal to <code>2018/05/26</code>. This may be exactly what you want, or it may produce unexpected results, depending on how your URLs are structured.</p><h3 id=gradle-setup>Gradle setup</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>dependencies {
 </span></span><span style=display:flex><span>    
-    implementation(platform("org.http4k:http4k-bom:5.46.0.0"))
+    implementation(platform("org.http4k:http4k-bom:5.47.0.0"))
 
 </span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-core&#34;</span>)
 </span></span><span style=display:flex><span>}
