@@ -125,7 +125,7 @@ simply passing it to the relevant <code>ServerConfig</code> implementation (in t
 </span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
 </span></span><span style=display:flex><span>    { _: Request <span style=color:#f92672>-&gt;</span> Response(OK).body(<span style=color:#e6db74>&#34;Hello World&#34;</span>) }.asServer(Jetty(<span style=color:#ae81ff>8000</span>)).start()
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=servlets>Servlets</h3><p>To mount any <code>HttpHandler</code> in a container, you can install the <code>http4k-server-servlet</code> dependency and then simply be converted to a Servlet by calling <code>handler.asServlet()</code></p><h3 id=customisation>Customisation</h3><p>Each of the server backends implement an interface <code>ServerConfig</code>, which is written with sensible defaults for the
+</span></span></code></pre></div><script language=JavaScript>document.querySelectorAll('span[style*="color:#66d9ef"]').forEach(e=>{e.textContent==="import"&&(e.closest('span[style*="display:flex"]').style.display="none")})</script><h3 id=servlets>Servlets</h3><p>To mount any <code>HttpHandler</code> in a container, you can install the <code>http4k-server-servlet</code> dependency and then simply be converted to a Servlet by calling <code>handler.asServlet()</code></p><h3 id=customisation>Customisation</h3><p>Each of the server backends implement an interface <code>ServerConfig</code>, which is written with sensible defaults for the
 server in questions,
 but is also designed to be used as a starting point for tweaking to API user needs. To customize, simply use the
 relevant <code>ServerConfig</code>
