@@ -338,7 +338,19 @@ description: Feature overview of the http4k Connect Slack modules&lt;/h2>
 &lt;li>FakeLmStudio server which can be used as testing harness for either API Client&lt;/li>
 &lt;/ul>
 &lt;h2 id="lmstudio-api-connector">LmStudio API connector&lt;/h2>
-&lt;p>The LmStudio connector provides the following Actions:&lt;/p></description></item><item><title>AI: Ollama</title><link>https://http4k.org/ecosystem/connect/reference/ai/ollama/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/ollama/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;p>The LmStudio connector provides the following Actions:&lt;/p></description></item><item><title>AI: MCP SDK</title><link>https://http4k.org/ecosystem/http4k/reference/mcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/mcp/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> { { &amp;lt; http4k_bom &amp;gt; } }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// If you are developing an MCP enabled service (StdIO or SSE)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k.pro:http4k-mcp-sdk&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// If you want to build the MCP desktop client from source
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k.pro:http4k-mcp-desktop&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="about">About&lt;/h2>
+&lt;p>The &lt;a href="https://modelcontextprotocol.info/">Model Context Protocol&lt;/a> is an open standard created by Anthropic that defines
+how apps can feed information to AI language models. It creates a uniform way to link these models with various data
+sources and tools, which streamlines the integration process.&lt;/p></description></item><item><title>AI: Ollama</title><link>https://http4k.org/ecosystem/connect/reference/ai/ollama/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/ai/ollama/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:6.4.0.0"))
