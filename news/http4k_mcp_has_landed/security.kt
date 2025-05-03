@@ -1,21 +1,23 @@
 package content.news.http4k_mcp_has_landed
 
-import org.http4k.core.Credentials
+import org.http4k.mcp.ToolResponse
+import org.http4k.mcp.model.Content
 import org.http4k.mcp.model.McpEntity
+import org.http4k.mcp.model.Tool
 import org.http4k.mcp.protocol.ServerMetaData
 import org.http4k.mcp.protocol.Version
+import org.http4k.mcp.server.security.BearerAuthMcpSecurity
+import org.http4k.routing.bind
 import org.http4k.routing.mcpHttpStreaming
-import org.http4k.security.BasicAuthSecurity
-import org.http4k.security.then
-import org.http4k.server.Helidon
+import org.http4k.server.JettyLoom
 import org.http4k.server.asServer
+import java.time.Instant
 
 fun main() {
-    val secureMcp = BasicAuthSecurity("realm", Credentials("foo", "bar")).then(
-        mcpHttpStreaming(
-            ServerMetaData(McpEntity.of("http4k mcp server"), Version.of("0.1.0"))
-        )
+    mcpHttpStreaming(
+        ServerMetaData(McpEntity.of("foo"), Version.of("bar")),
+        BearerAuthMcpSecurity { it == "my_oauth_token" },
+        Tool("time", "Get the current time") bind { ToolResponse.Ok(listOf(Content.Text(Instant.now().toString()))) }
     )
-
-    secureMcp.asServer(Helidon(3001)).start()
+        .asServer(JettyLoom(3001)).start()
 }
