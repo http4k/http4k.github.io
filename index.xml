@@ -1864,13 +1864,12 @@ servers or IOT devices that don&amp;rsquo;t typically support TLS. For completen
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>When composing several http4k services together and talking to Fakes representing external systems, we can use a combination of request tracing filters (utilising distributed tracing headers) and the http4k event stream to capture and record events. This stream can be stored to disk or outputted to various rendered formats such as &lt;a href="https://plantuml.com/">PlantUML&lt;/a> or &lt;a href="https://mermaid.js.org/">Mermaid&lt;/a>.&lt;/p></description></item><item><title>Serve SSE</title><link>https://http4k.org/howto/serve_sse/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/serve_sse/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:6.9.0.0"))
-
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> { { &amp;lt; http4k_bom &amp;gt; } }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-server-undertow&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>http4k&lt;/strong> provides SSE (Server Sent Events) support using a simple, consistent, typesafe, and testable API on supported server backends (see above). SSE communication consists of 3 main concepts:&lt;/p></description></item><item><title>Serve Websocket</title><link>https://http4k.org/howto/serve_websockets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/serve_websockets/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>http4k&lt;/strong> provides SSE (Server Sent Events) support using a simple, consistent, typesafe, and testable API on supported
+server backends (see above). SSE communication consists of 3 main concepts:&lt;/p></description></item><item><title>Serve Websocket</title><link>https://http4k.org/howto/serve_websockets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/howto/serve_websockets/</guid><description>&lt;h3 id="gradle-setup">Gradle setup&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:6.9.0.0"))
