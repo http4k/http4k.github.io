@@ -7,7 +7,58 @@ down into a few broad areas:&lt;/p></description></item><item><title>Core</title
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-core&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
-&lt;p>Apart from Kotlin StdLib, the core module has ZERO dependencies and provides the following:&lt;/p></description></item><item><title>Module Overview</title><link>https://http4k.org/ecosystem/connect/reference/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/overview/</guid><description>&lt;p>A quick reference as to what is what with the http4k Connect modules.&lt;/p>
+&lt;p>Apart from Kotlin StdLib, the core module has ZERO dependencies and provides the following:&lt;/p></description></item><item><title>Overview</title><link>https://http4k.org/ecosystem/ai/reference/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/overview/</guid><description>&lt;p>A quick reference as to what is what with the http4k AI modules.&lt;/p>
+&lt;h1 id="universal-llm-adapters">Universal LLM adapters&lt;/h1>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Provider&lt;/th>
+ &lt;th>Chat&lt;/th>
+ &lt;th>Streaming Chat&lt;/th>
+ &lt;th>Image Generation&lt;/th>
+ &lt;th>In-Memory Fake&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>AnthropicAI&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>❌&lt;/td>
+ &lt;td>❌&lt;/td>
+ &lt;td>http4k-connect-ai-anthropic-fake&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Azure&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>❌&lt;/td>
+ &lt;td>http4k-connect-ai-openai-fake&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Gemini&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>❌&lt;/td>
+ &lt;td>http4k-connect-ai-openai-fake&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Github Models&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>❌&lt;/td>
+ &lt;td>http4k-connect-ai-openai-fake&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Open AI&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>http4k-connect-ai-openai-fake&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h1 id="langchain4j">LangChain4J&lt;/h1>
+&lt;p>Plug-in http4k clients into any Langchain-compatible AI model, embedding, or vector store.&lt;/p></description></item><item><title>Overview</title><link>https://http4k.org/ecosystem/connect/reference/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/overview/</guid><description>&lt;p>A quick reference as to what is what with the http4k Connect modules.&lt;/p>
 &lt;h2 id="cloud-services">Cloud Services&lt;/h2>
 &lt;table>
  &lt;thead>
@@ -203,12 +254,6 @@ down into a few broad areas:&lt;/p></description></item><item><title>Core</title
  &lt;td>Includes content generators and GitHubModels compatibility&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>LangChain4J&lt;/td>
- &lt;td>Adapters&lt;/td>
- &lt;td>❌&lt;/td>
- &lt;td>Adapters to be plugged into LangChains&lt;/td>
- &lt;/tr>
- &lt;tr>
  &lt;td>LM Studio&lt;/td>
  &lt;td>API&lt;/td>
  &lt;td>✅&lt;/td>
@@ -304,7 +349,7 @@ description: Feature overview of the http4k Connect Slack modules&lt;/h2>
  implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the AnthropicAI LLM client
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the Universal LLM adapter
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ai-llm-anthropic&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the low-level AnthropicAI API client
@@ -865,20 +910,19 @@ performance factor.&lt;/p></description></item><item><title>AWS: Systems Manager
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
-performance factor.&lt;/p></description></item><item><title>Azure</title><link>https://http4k.org/ecosystem/ai/reference/azure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/azure/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+performance factor.&lt;/p></description></item><item><title>AzureAI</title><link>https://http4k.org/ecosystem/ai/reference/azure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/azure/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the AnthropicAI LLM client
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the Universal LLM adapter (uses the OpenAI fake)
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ai-llm-azure&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-openai-fake&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the low-level Azure API client
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-azure&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the FakeAzure server
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-azure-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-azure-fake&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-ai AzureAI integration provides:&lt;/p></description></item><item><title>Bridges</title><link>https://http4k.org/ecosystem/http4k/reference/bridge/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/http4k/reference/bridge/</guid><description>&lt;h3 id="installation-gradle">Installation (Gradle)&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
@@ -1090,7 +1134,17 @@ HTTP messages:&lt;/p></description></item><item><title>Format: XML</title><link>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-format-moshi-yaml&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="about">About&lt;/h3>
-&lt;p>These modules add the ability to use YAML as a first-class citizen when reading from and to HTTP messages.&lt;/p></description></item><item><title>GitHub</title><link>https://http4k.org/ecosystem/connect/reference/github/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/github/</guid><description>&lt;p>The GitHub connector currently provides basic action interfaces and support for verifying webhook signatures only.&lt;/p>
+&lt;p>These modules add the ability to use YAML as a first-class citizen when reading from and to HTTP messages.&lt;/p></description></item><item><title>GeminiAI</title><link>https://http4k.org/ecosystem/ai/reference/gemini/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/gemini/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the Universal LLM adapter (uses the OpenAI fake)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ai-llm-gemini&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-openai-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-ai Gemini integration provides:&lt;/p></description></item><item><title>GitHub</title><link>https://http4k.org/ecosystem/connect/reference/github/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/github/</guid><description>&lt;p>The GitHub connector currently provides basic action interfaces and support for verifying webhook signatures only.&lt;/p>
 &lt;h3 id="installation">Installation&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
@@ -1098,7 +1152,17 @@ HTTP messages:&lt;/p></description></item><item><title>Format: XML</title><link>
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-github&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>GitLab</title><link>https://http4k.org/ecosystem/connect/reference/gitlab/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/gitlab/</guid><description>&lt;p>The GitLab connector currently provides basic action interfaces.&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>GitHub Models</title><link>https://http4k.org/ecosystem/ai/reference/github/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/github/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the Universal LLM adapter (uses the OpenAI fake)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ai-llm-github&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-openai-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-ai GitHub integration provides:&lt;/p></description></item><item><title>GitLab</title><link>https://http4k.org/ecosystem/connect/reference/gitlab/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/gitlab/</guid><description>&lt;p>The GitLab connector currently provides basic action interfaces.&lt;/p>
 &lt;h4 id="installation">Installation&lt;/h4>
 &lt;h3 id="installation-1">Installation&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
@@ -1186,7 +1250,7 @@ regulated environments.&lt;/p></description></item><item><title>Implement your o
 &lt;li>RegisterSchema&lt;/li>
 &lt;/ul>
 &lt;h2 id="fake">Fake&lt;/h2>
-&lt;p>The Fake provides the above actions.&lt;/p></description></item><item><title>LangChain</title><link>https://http4k.org/ecosystem/ai/reference/langchain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/langchain/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
+&lt;p>The Fake provides the above actions.&lt;/p></description></item><item><title>LangChain4J</title><link>https://http4k.org/ecosystem/ai/reference/langchain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/langchain/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
@@ -1347,9 +1411,6 @@ programming principles, rather than complex abstractions and magic.&lt;/p></desc
  implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the LMStudio LLM client
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ai-llm-lmstudio&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the low-level LMStudio API client
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-lmstudio&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
@@ -1412,7 +1473,7 @@ or to achieve acceptable cold start times in serverless deployments.&lt;/p></des
  implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for general MCP development
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for general MCP server development
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k.pro:http4k-ai-mcp-sdk&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// if you just want to connect to an MCP server
@@ -1449,9 +1510,6 @@ upgrade at their own pace in the knowledge that they will not encounter any unex
  implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the Ollama LLM client
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ai-llm-ollama&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the low-level Ollama API client
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-ai-ollama&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
@@ -1460,11 +1518,9 @@ upgrade at their own pace in the knowledge that they will not encounter any unex
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The http4k-ai Ollama integration provides:&lt;/p></description></item><item><title>OpenAI</title><link>https://http4k.org/ecosystem/ai/reference/openai/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/openai/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
- implementation(platform("org.http4k:http4k-bom:6.12.0.0"))
-
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> { { &amp;lt; http4k_bom &amp;gt; } }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the OpenAI LLM client
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the Universal LLM adapter
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-ai-llm-openai&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for the low-level OpenAI API client
