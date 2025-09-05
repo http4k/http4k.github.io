@@ -84,6 +84,12 @@ down into a few broad areas:&lt;/p></description></item><item><title>Core</title
  &lt;/tr>
  &lt;tr>
  &lt;td>AWS&lt;/td>
+ &lt;td>CloudWatch&lt;/td>
+ &lt;td>✅&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>AWS&lt;/td>
  &lt;td>Cloudwatch Logs&lt;/td>
  &lt;td>✅&lt;/td>
  &lt;td>&lt;/td>
@@ -458,6 +464,33 @@ performance factor.&lt;/p></description></item><item><title>AWS: CloudFront</tit
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The CloudFront connector provides the following Actions:&lt;/p>
 &lt;pre>&lt;code> * CreateInvalidation
 &lt;/code>&lt;/pre>
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: CloudWatch</title><link>https://http4k.org/ecosystem/connect/reference/amazon/cloudwatch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/cloudwatch/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-bom:6.17.0.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-cloudwatch&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-cloudwatch-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The CloudWatch connector provides the following Actions:&lt;/p>
+&lt;ul>
+&lt;li>DeleteAlarms&lt;/li>
+&lt;li>DescribeAlarms&lt;/li>
+&lt;li>DescribeAlarmsForMetric&lt;/li>
+&lt;li>DisableAlarmActions&lt;/li>
+&lt;li>EnableAlarmActions&lt;/li>
+&lt;li>GetMetricData&lt;/li>
+&lt;li>GetMetricStatistics&lt;/li>
+&lt;li>ListMetrics&lt;/li>
+&lt;li>ListTagsForResource&lt;/li>
+&lt;li>PutCompositeAlarm&lt;/li>
+&lt;li>PutMetricAlarm&lt;/li>
+&lt;li>PutMetricData&lt;/li>
+&lt;li>SetAlarmState&lt;/li>
+&lt;li>TagResource&lt;/li>
+&lt;li>UntagResource&lt;/li>
+&lt;/ul>
 &lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
 Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
 performance factor.&lt;/p></description></item><item><title>AWS: Cloudwatch Evidently</title><link>https://http4k.org/ecosystem/connect/reference/amazon/evidently/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/evidently/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
