@@ -644,7 +644,27 @@ deployed behind APIGateway (where you have total control over the URL pattern wh
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The S3 connector consists of 2 interfaces:&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;code>S3&lt;/code> for global operations, providing the following Actions:&lt;/p></description></item><item><title>AWS: Secrets Manager</title><link>https://http4k.org/ecosystem/connect/reference/amazon/secretsmanager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/secretsmanager/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;p>&lt;code>S3&lt;/code> for global operations, providing the following Actions:&lt;/p></description></item><item><title>AWS: Scheduler</title><link>https://http4k.org/ecosystem/connect/reference/amazon/scheduler/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/scheduler/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
+ implementation(platform("org.http4k:http4k-bom:6.24.1.0"))
+
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-scheduler&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k:http4k-connect-amazon-scheduler-fake&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The Scheduler connector provides the following Actions:&lt;/p>
+&lt;pre>&lt;code>* CreateSchedule
+* CreateScheduleGroup
+* DeleteSchedule
+* DeleteScheduleGroup
+* GetSchedule
+* GetScheduleGroup
+* ListScheduleGroups
+* ListSchedules
+ * CreateInvalidation
+&lt;/code>&lt;/pre>
+&lt;p>The client APIs utilise the &lt;code>http4k-platform-aws&lt;/code> module for request signing, which means no dependencies on the incredibly fat
+Amazon-SDK JARs. This means this integration is perfect for running Serverless Lambdas where binary size is a
+performance factor.&lt;/p></description></item><item><title>AWS: Secrets Manager</title><link>https://http4k.org/ecosystem/connect/reference/amazon/secretsmanager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/connect/reference/amazon/secretsmanager/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 
  implementation(platform("org.http4k:http4k-bom:6.24.1.0"))
 
