@@ -89,7 +89,7 @@ environment.</p><p>MCP itself is based on the JSON RPC standard, which is used t
 sent from client to server and then asynchronously from server to client. MCP defines a set of standardised capabilities
 which can be provided by the server or client. One use of these capabilities is to allow pre-trained models to have
 access to both live data and APIs that can be used by the model to provide answers to user requests. Another use is to
-provide agentic behaviour by providing standard communications between several MCP entities.</p><p>Currently the MCP standard supports the following transports:</p><ul><li><strong>HTTP Steaming:</strong> Clients can interact with the MCP server by either a SSE connection (accepting
+provide agentic behaviour by providing standard communications between several MCP entities.</p><p>Currently the MCP standard supports the following transports:</p><ul><li><strong>HTTP Streaming:</strong> Clients can interact with the MCP server by either a SSE connection (accepting
 <code>application/event-stream</code> or via plain HTTP (accepting <code>application/json</code>). Stream resumption and replay is supported
 on the SSE connection by calling GET with the <code>Last-Event-ID</code> header. All traffic is served by calling the <code>/mcp</code>
 endpoint.</li><li><strong>Server Sent Events + HTTP:</strong> Clients initiate an SSE connection to the server (on <code>/sse</code>) which is used to send
