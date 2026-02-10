@@ -130,14 +130,14 @@ programming principles, rather than complex abstractions and magic.&lt;/p></desc
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// for general MCP server development
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k.pro:http4k-ai-mcp-sdk&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// if you just want to connect to an MCP server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// if you want to connect to an MCP server
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k.pro:http4k-ai-mcp-client&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// if you want to test MCP servers or MCP Apps
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> implementation(&lt;span style="color:#e6db74">&amp;#34;org.http4k.pro:http4k-ai-mcp-testing&amp;#34;&lt;/span>)
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="about">About&lt;/h2>
-&lt;p>The &lt;a href="https://modelcontextprotocol.info/">Model Context Protocol&lt;/a> is an open standard created by Anthropic that defines
-how apps can feed information to AI language models. It creates a uniform way to link these models with various data
-sources and tools, which streamlines the integration process. MCP services can be deployed in a Server or Serverless
-environment.&lt;/p></description></item><item><title>Messages and Content</title><link>https://http4k.org/ecosystem/ai/concepts/messages/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/concepts/messages/</guid><description>&lt;p>The http4k AI/LLM module uses &lt;strong>sealed class hierarchies&lt;/strong> to provide type-safe, compile-time validated message structures with limited, well-defined options.&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="try-it-out">Try it out!&lt;/h3>
+&lt;p>Want to see http4k MCP in action? Visit the &lt;a href="https://toolbox.http4k.org">http4k Toolbox&lt;/a> where you can download and install a fully working MCP app that integrates directly with Claude Desktop and other MCP clients.&lt;/p></description></item><item><title>Messages and Content</title><link>https://http4k.org/ecosystem/ai/concepts/messages/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/concepts/messages/</guid><description>&lt;p>The http4k AI/LLM module uses &lt;strong>sealed class hierarchies&lt;/strong> to provide type-safe, compile-time validated message structures with limited, well-defined options.&lt;/p>
 &lt;h2 id="message-types">Message Types&lt;/h2>
 &lt;p>There are five main message types, each serving a specific purpose in the conversation flow:&lt;/p></description></item><item><title>Ollama</title><link>https://http4k.org/ecosystem/ai/reference/ollama/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/ai/reference/ollama/</guid><description>&lt;h3 id="installation">Installation&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-kotlin" data-lang="kotlin">&lt;span style="display:flex;">&lt;span>dependencies {
