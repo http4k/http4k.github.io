@@ -175,7 +175,7 @@ configure your server to allow cross-origin requests only from trusted domains.<
 </span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.CorsAndRebindProtection
 </span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.CorsPolicy
 </span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.OriginPolicy
-</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ServerFilters
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.PolyFilters
 </span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.poly
 </span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.sse
 </span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.sse.bind
@@ -198,7 +198,7 @@ configure your server to allow cross-origin requests only from trusted domains.<
 </span></span><span style=display:flex><span>        listOf(<span style=color:#e6db74>&#34;allowed-header&#34;</span>), listOf(GET, POST, DELETE)
 </span></span><span style=display:flex><span>    )
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>ServerFilters</span>.CorsAndRebindProtection(corsPolicy)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>PolyFilters</span>.CorsAndRebindProtection(corsPolicy)
 </span></span><span style=display:flex><span>        .then(sseServer)
 </span></span><span style=display:flex><span>        .asServer(Helidon(<span style=color:#ae81ff>3002</span>)).start()
 </span></span><span style=display:flex><span>}
