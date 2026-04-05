@@ -1,0 +1,6 @@
+package content.ecosystem.connect.reference.amazon.cognito
+
+import org.http4k.chaos.start
+import org.http4k.connect.amazon.cloudfront.FakeCloudFront
+
+val cloudFront = FakeCloudFront().start()
