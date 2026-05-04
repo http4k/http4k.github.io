@@ -1,0 +1,189 @@
+# http4k Commercial License
+
+
+All Pro-tier http4k modules are licensed under the following commercial license. 
+
+
+
+# The http4k Commercial License (the "Commercial License")
+Copyright (c) 2025-present http4k Ltd, a company registered in England and Wales.
+
+## 1. Definitions
+
+"Software" means the http4k software and associated documentation files.
+
+"Commercial Terms" means the http4k Commercial Subscription Terms of Service available at https://http4k.org/commercial-terms.
+
+"Subscription Tier" means the specific commercial subscription offering as defined in the Commercial Terms.
+
+"Host" means each individual machine (real or virtual, including servers, containers, workstations, smartphones, POS, industrial controls, gateways, sensors, IoT endpoints, or any other physical or simulated computing interface or machine) of Customer and/or its Affiliates (including, without limitation, employees, agents or consultants thereof) with access to Licensed Materials hereunder.
+
+"Developer Workstation" means a single physical or virtual machine operated interactively by one or more human developers for the purpose of writing, running, or testing software. A Developer Workstation must have a single active interactive session. The following are explicitly excluded from this definition and are treated as Hosts for licensing purposes:
+- Shared servers accessed concurrently by multiple developers via remote sessions (e.g. SSH)
+- Continuous integration or continuous delivery (CI/CD) runners or build agents
+- Automated test execution environments not directly operated by a human
+- Staging, pre-production, or any environment used to run software outside of direct human development activity
+
+"Floating Developer License" means a license that permits installation of the Proprietary Components on any number of Developer Workstations, provided that the number of concurrently active Developer Workstations does not exceed the number of Floating Developer Licenses held by the Customer. Collaborative development practices such as pair programming or mob programming on a single Developer Workstation consume only one Floating Developer License.
+
+"Proprietary Components" means all portions of the Software not released under Apache 2 license.
+
+"License Term" means the period of time for which a subscription is valid.
+
+"Derivative Works" means any software that incorporates, extends, or modifies the Software.
+
+"Annual Recurring Revenue" or "ARR" means the total gross revenue received by an organization and its Affiliates from all sources during a twelve-month period, including but not limited to sales of products or services, licensing fees, subscriptions, consulting revenue, and any other commercial income, calculated on a rolling twelve-month basis.
+
+"Evaluation Period" means a single, non-renewable period of ninety (90) days commencing on the date of first access to or use of any Proprietary Component by or on behalf of an organization, during which that organization may use the Software for internal evaluation purposes without a paid subscription, subject to the conditions of Section 2.3.
+
+## 2. License Grant and Restrictions
+
+2.1 License Types and Conditions
+This Software is governed by this Commercial License. The Software may be used under one of the following conditions:
+
+a) Commercial Usage:
+- Have a valid subscription (paid or free) obtained through http4k's official channels
+- Have agreed to and are in compliance with the Commercial Terms
+- Maintain the correct number of Floating Developer Licenses for your usage
+- Comply with all subscription requirements as specified by http4k Ltd
+
+b) Non-Commercial Usage:
+- Use is strictly for non-commercial purposes (including personal projects, research, education, and non-profit organizations)
+- Attribution is provided to http4k Ltd in any resulting work or publication
+
+c) Small Business Exception:
+- Organizations with Annual Recurring Revenue of less than $1,000,000 USD may use the Software without a paid subscription
+- Must provide annual self-certification of revenue status upon request
+- Must obtain a commercial subscription within 60 days of exceeding the $1,000,000 ARR threshold
+- Attribution is required in any resulting work or publication
+- This exception applies only to for-profit organizations; non-profit organizations continue to qualify under Non-Commercial Usage
+
+Subject to the foregoing conditions, you are permitted to:
+- Use the Software's development tools and tooling modules
+- Modify the Software and publish patches to the Software
+- Copy and modify the Software for development and testing purposes
+- Access security patches, bug fixes, and updates through private repositories as per your subscription tier or license type
+
+All modifications, patches, and derivatives remain the property of http4k Ltd and/or its licensors. Such modifications may only be used, copied, modified, displayed, distributed, or otherwise exploited in accordance with your applicable license type.
+
+2.2 Development, Deployment, and Testing
+For development purposes, a subscription includes Floating Developer Licenses as specified in the applicable Subscription Tier or Quote. Each Floating Developer License permits installation of the Proprietary Components on any number of Developer Workstations, provided that the total number of concurrently active Developer Workstations does not exceed the number of Floating Developer Licenses held. A valid subscription includes the right to deploy and use the Licensed Materials in production, staging, CI/CD, and other non-development environments. The Floating Developer License count applies only to concurrent Developer Workstation usage; deployment of the Licensed Materials to non-development Hosts does not require additional licenses.
+
+2.3 Evaluation Period for Commercial Entities
+Organizations with ARR of $1,000,000 USD or more that have not yet obtained a paid subscription may use the Proprietary Components solely for internal evaluation during the Evaluation Period, subject to the following conditions:
+
+- The Evaluation Period begins on the date of first access to or use of any Proprietary Component and runs for ninety (90) consecutive days
+- The Evaluation Period is non-renewable and may not be reset or restarted under any circumstances
+- Evaluation use is permitted on Developer Workstations, CI/CD runners, staging, and other non-production environments. Use in any Production Environment, defined as any environment used to serve real end users, process live transactions, or generate revenue directly or indirectly, is not permitted during the Evaluation Period
+- Upon expiry of the Evaluation Period, the organization must either obtain a valid subscription or cease all use of the Proprietary Components immediately
+- Organizations that have previously held a subscription are not eligible for a new Evaluation Period
+
+2.4 Copying and Modification
+You may:
+- Copy and modify the Software for your own use in accordance with your license type
+- Create derivative works based on the Software
+- Distribute such modifications or derivative works, provided that:
+a) They are distributed only to users who have a valid license
+b) They clearly indicate they are modified versions of http4k Software
+c) You include a copy of this license and attribution to http4k Ltd
+d) The modifications are made available under the same terms as this license
+
+You may not:
+- Remove or modify any copyright, trademark or attribution notices
+- Use http4k trademarks without written permission
+- Redistribute the original Software or modifications thereof as standalone products competing with http4k
+
+2.5 License Validation and Access Control
+- The commercially licensed components include protected source code and technical measures that control access
+- You are responsible for maintaining valid license keys or access tokens provided by http4k Ltd
+- You may not share, publish, distribute, or expose license keys or protected source code to unauthorized users
+- You must ensure your usage complies with the license grant for your subscription tier
+
+2.6 Prohibited Activities
+
+You may not, with respect to the Proprietary Components, directly or indirectly:
+- Create commercial products that:
+  a) Replicate or repackage any functionality of the Proprietary Components
+  b) Are designed to circumvent the need for commercial licensing
+  c) Provide commercial alternatives to licensed features
+- Resell, relicense, or redistribute commercially licensed components except as explicitly permitted
+- Use commercially licensed components in a way that exceeds your license grant
+- Publish benchmarks or comparative analysis without written permission of http4k Ltd
+- Automate access to, or create automated variants of, the Software
+
+The above restrictions do not apply to http4k components released under the Apache 2 license.
+
+2.7 Access to Protected Components
+- Access to protected source code and binary distributions is provided through designated private repositories
+- Your rights to access these repositories are determined by your subscription tier
+- You may not redistribute protected source code or binaries except as explicitly permitted
+- You must maintain the confidentiality of protected source code and repository access credentials
+
+## 3. Revenue Reporting and Compliance
+
+3.1 Organizations using the Small Business Exception must:
+- Maintain accurate records of their Annual Recurring Revenue
+- Provide annual self-certification of revenue status within 30 days of http4k Ltd's written request
+- Notify http4k Ltd within 30 days of exceeding the $1,000,000 ARR threshold
+- Obtain a commercial subscription within 60 days of exceeding the threshold
+
+3.2 Failure to comply with revenue reporting requirements or obtain required licenses constitutes a material breach of this license.
+
+## 4. Term and Termination
+
+4.1. This license is effective until terminated.
+
+4.2. Your rights under this license will terminate automatically if you fail to comply with its terms.
+
+4.3. Upon termination:
+- All rights granted under this license cease immediately
+- You must cease all use of the Software
+- You must destroy all copies of the Software in your possession
+
+## 5. Support and Updates
+
+Support and updates are provided according to your Subscription Tier as specified in the Commercial Terms.
+
+## 6. Compliance and Auditing
+
+6.1. You agree to maintain accurate records regarding your use of the Software and, if applicable, your Annual Recurring Revenue.
+
+6.2. http4k Ltd reserves the right to audit your use of the Software and revenue compliance upon reasonable notice.
+
+6.3. You agree to cooperate with http4k Ltd in such audits and provide reasonable access to records relating to Software use and revenue calculations.
+
+## 7. Payment Terms
+
+7.1. License fees shall be paid in accordance with the Commercial Terms.
+
+7.2. Failure to pay required fees constitutes grounds for license termination.
+
+## 8. Export Compliance
+
+Use and distribution of the Software may be subject to export and import laws. You agree to comply with all applicable export and import laws and regulations.
+
+## 9. Apache License Exclusion
+
+This Commercial License applies only to the part of this Software that is not distributed under the Apache2 license.
+
+## 10. Warranty Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## 11. Third Party Components
+
+For all third party components incorporated into the http4k Software, those components are licensed under the original license provided by the owner of the applicable component.
+
+## 12. Assignment
+
+You may not assign or transfer your rights and obligations under this License without prior written consent from http4k Ltd. http4k Ltd may assign its rights to any successor in interest to the Software.
+
+## 13. Severability
+
+If any provision of this License is held to be unenforceable or invalid, that provision will be enforced to the maximum extent possible and the other provisions will remain in full force and effect.
+
+All copies or substantial portions of the Software shall include a reference to this Commercial License and the Commercial Terms.
+
+
+
+

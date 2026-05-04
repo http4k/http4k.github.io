@@ -1,0 +1,64 @@
+# Overview
+
+
+A quick reference as to what is what with the http4k Connect modules.
+
+## Cloud Services
+
+| Vendor     | System              | In-Memory Fake | Notes                                                           |
+|------------|---------------------|----------------|-----------------------------------------------------------------|
+| AWS        | AppRunner           | ✅              |                                                                 |
+| AWS        | CloudFront          | ✅              |                                                                 |
+| AWS        | CloudWatch          | ✅              |                                                                 |
+| AWS        | Cloudwatch Logs     | ✅              |                                                                 |
+| AWS        | DynamoDb            | ✅              |                                                                 |
+| AWS        | EventBridge         | ✅              |                                                                 |
+| AWS        | Evidently           | ✅              |                                                                 |
+| AWS        | Firehose            | ✅              |                                                                 |
+| AWS        | IAM Identity Center | ✅              |                                                                 |
+| AWS        | Instance Metadata   | ✅              |                                                                 |
+| AWS        | KMS                 | ✅              |                                                                 |
+| AWS        | Lambda              | ✅              |                                                                 |
+| AWS        | S3                  | ✅              |                                                                 |
+| AWS        | Secrets Manager     | ✅              |                                                                 |
+| AWS        | SES                 | ✅              |                                                                 |
+| AWS        | SNS                 | ✅              |                                                                 |
+| AWS        | SQS                 | ✅              |                                                                 |
+| AWS        | STS                 | ✅              |                                                                 |
+| AWS        | Systems Manager     | ✅              |                                                                 |
+| GitHub     | V3 API              | ❌              | Client Shell and WebHook Signing only                           |
+| GitLab     | API                 | ❌              | Client Shell and WebHook Signing only                           |
+| Google     | Analytics GA4       | ✅              |                                                                 |
+| Google     | Analytics UA        | ✅              |                                                                 |
+| Kafka      | Rest Proxy          | ✅              |                                                                 |
+| Kafka      | Schema Registry     | ✅              |                                                                 |
+| Mattermost | WebHook             | ❌              |                                                                 |
+| Slack      | Slack               | ✅              | Minimal support for sending messages to channel and via webhook |
+| X402       | X402                | ✅              | X402 payment gateway filters and facilitator client             |
+
+<br/>
+<br/>
+
+### AI Services
+
+| Vendor      | System   | In-Memory Fake | Notes                                                      |
+|-------------|----------|----------------|------------------------------------------------------------|
+| AnthropicAI | API      | ✅              | Includes content generators                                |
+| AzureAI     | API      | ✅              | Includes content generators and GitHubModels compatibility |
+| LM Studio   | API      | ✅              |                                                            |
+| Ollama      | API      | ✅              | Includes content generators and image generation           |
+| Open AI     | API      | ✅              | Includes content generators and image generation           |
+
+<br/>
+<br/>
+
+### Storage Implementations
+
+| Implementation | Notes                   |
+|----------------|-------------------------|
+| In-Memory      | Included with all Fakes |
+| File-Based     | Included with all Fakes |
+| JDBC           |                         |
+| Redis          |                         |
+| S3             |                         |
+

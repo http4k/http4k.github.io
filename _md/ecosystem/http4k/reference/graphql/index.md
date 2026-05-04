@@ -1,0 +1,110 @@
+# API: GraphQL
+
+
+
+### Installation (Gradle)
+
+```kotlin
+dependencies {
+    
+    implementation(platform("org.http4k:http4k-bom:6.45.1.0"))
+
+    implementation("org.http4k:http4k-api-graphql")
+
+    // for the example below you will also need this dependency...
+    implementation("com.expediagroup:graphql-kotlin-schema-generator", version = "5.3.2"
+}
+```
+
+
+### About
+This module provides http4k integration for the excellent [GraphQL-java](https://www.graphql-java.com/) library, allowing you to either serve or consume [GraphQL] services using a simple adapter API.
+
+As with the [ethos](/overview/) of http4k, the uniform Server/Client GraphQLHandler model means that you can test applications entirely in-memory without binding to a port. Http4k also ships with a page serving the GraphQL playground which can be added as a simple route.
+
+#### Code
+
+
+
+
+
+```kotlin
+package content.ecosystem.http4k.reference.graphql
+
+import com.expediagroup.graphql.generator.SchemaGeneratorConfig
+import com.expediagroup.graphql.generator.TopLevelObject
+import com.expediagroup.graphql.generator.toSchema
+import graphql.GraphQL.newGraphQL
+import org.http4k.client.JavaHttpClient
+import org.http4k.client.asGraphQLHandler
+import org.http4k.core.HttpHandler
+import org.http4k.core.Uri
+import org.http4k.graphql.GraphQLHandler
+import org.http4k.graphql.GraphQLRequest
+import org.http4k.graphql.GraphQLResponse
+import org.http4k.routing.bind
+import org.http4k.routing.graphQL
+import org.http4k.routing.graphQLPlayground
+import org.http4k.routing.routes
+import org.http4k.server.SunHttp
+import org.http4k.server.asServer
+
+object MyGraphQLHandler : GraphQLHandler {
+    private val graphQL = newGraphQL(
+        toSchema(
+            SchemaGeneratorConfig(supportedPackages = listOf("content.ecosystems.http4k.module.graphql")),
+            listOf(TopLevelObject(UserQueries())),
+            listOf()
+        )
+    ).build()
+
+    override fun invoke(request: GraphQLRequest) =
+        GraphQLResponse.from(graphQL.execute(request.query))
+}
+
+data class User(val id: Int, val name: String)
+data class Params(val ids: List<Int>)
+
+class UserQueries {
+    private val userDb = listOf(
+        User(id = 1, name = "Jim"),
+        User(id = 2, name = "Bob"),
+    )
+
+    fun search(params: Params) = userDb.firstOrNull { it.id in params.ids }
+}
+
+fun main() {
+    val app: HttpHandler = routes(
+        "/graphql" bind graphQL(MyGraphQLHandler),
+        graphQLPlayground(Uri.of("/graphql"))
+    )
+
+    // serve GQL queries/mutations at /graphql
+    app.asServer(SunHttp(8000)).start()
+
+    // for clients, just convert any app into a GQL handler
+    val gql: GraphQLHandler =
+        JavaHttpClient().asGraphQLHandler(Uri.of("http://localhost:8000/graphql"))
+    val response: GraphQLResponse = gql(
+        GraphQLRequest(
+            """{
+        search(params: { ids: [1]}) {
+            id
+            name
+        }
+    }"""
+        )
+    )
+    println(response)
+
+    println("You can visit the GraphQL playground at: http://localhost:8000")
+}
+
+```
+
+
+
+[http4k]: https://http4k.org
+[GraphQL]: https://graphql.org
+
