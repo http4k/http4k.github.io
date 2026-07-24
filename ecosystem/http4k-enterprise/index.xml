@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Http4k Enterprise on http4k</title><link>https://http4k.org/ecosystem/http4k-enterprise/</link><description>Recent content in Http4k Enterprise on http4k</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://http4k.org/ecosystem/http4k-enterprise/index.xml" rel="self" type="application/rss+xml"/><item><title>http4k Enterprise</title><link>https://http4k.org/ecosystem/enterprise/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/enterprise/</guid><description>&lt;p&gt;The http4k Enterprise ecosystem provides the infrastructure and tooling that organisations need to use http4k with confidence in regulated and security-conscious environments. It covers authenticated repository access, build-time artifact verification, and supply chain security - ensuring that every http4k dependency in your build is traceable, signed, and verified.&lt;/p&gt;</description></item><item><title>A2A SDK</title><link>https://http4k.org/ecosystem/pro/reference/a2a/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/pro/reference/a2a/</guid><description>&lt;h3 id="installation-gradle"&gt;Installation (Gradle)&lt;a class="heading-link" href="#installation-gradle" aria-label="Link to Installation (Gradle)"&gt;#&lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-kotlin" data-lang="kotlin"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;dependencies {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+ implementation(platform("org.http4k:http4k-bom:6.56.0.0"))
+
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// for A2A server development
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-a2a-sdk&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// for connecting to A2A agents
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-a2a-client&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// for exposing an A2A agent to MCP clients (the MCP bridge)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-mcp-a2a-bridge&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="about"&gt;About&lt;a class="heading-link" href="#about" aria-label="Link to About"&gt;#&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The &lt;a href="https://a2a-protocol.org/"&gt;Agent2Agent (A2A) Protocol&lt;/a&gt; is an open standard designed to facilitate communication and interoperability between independent AI agent systems. In an ecosystem where agents might be built using different frameworks, languages, or by different vendors, A2A provides a common language and interaction model.&lt;/p&gt;</description></item><item><title>enterprise infrastructure and tools</title><link>https://http4k.org/ecosystem/enterprise/reference/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/enterprise/reference/</guid><description/></item><item><title>Enterprise Maven</title><link>https://http4k.org/ecosystem/enterprise/reference/repository/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/enterprise/reference/repository/</guid><description>&lt;p&gt;All http4k Enterprise Edition artifacts are available through &lt;strong&gt;&lt;a href="https://maven.http4k.org"&gt;maven.http4k.org&lt;/a&gt;&lt;/strong&gt;. This includes community (&lt;code&gt;org.http4k&lt;/code&gt;) and pro (&lt;code&gt;org.http4k.pro&lt;/code&gt;) modules, each published with cryptographically signed provenance, CycloneDX SBOMs, and license compliance reports.&lt;/p&gt;</description></item><item><title>Machine Payments Protocol</title><link>https://http4k.org/ecosystem/pro/reference/mpp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/pro/reference/mpp/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-kotlin" data-lang="kotlin"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;dependencies {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+ implementation(platform("org.http4k:http4k-bom:6.56.0.0"))
+
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-connect-mpp&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;http4k Connect provides support for the &lt;a href="https://paymentauth.org/"&gt;Machine Payments Protocol (MPP)&lt;/a&gt;, enabling HTTP 402 Payment Required flows for APIs. MPP supports multiple payment methods (Stripe, crypto, etc.) and provides a protocol-level standard for machine-to-machine payments.&lt;/p&gt;</description></item><item><title>MCP SDK</title><link>https://http4k.org/ecosystem/pro/reference/mcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/pro/reference/mcp/</guid><description>&lt;h3 id="installation-gradle"&gt;Installation (Gradle)&lt;a class="heading-link" href="#installation-gradle" aria-label="Link to Installation (Gradle)"&gt;#&lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-kotlin" data-lang="kotlin"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;dependencies {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+ implementation(platform("org.http4k:http4k-bom:6.56.0.0"))
+
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// for general MCP server development
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-mcp-sdk&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// if you want to connect to an MCP server
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-mcp-client&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// if you want to test MCP servers or MCP Apps
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-mcp-testing&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// for x402 payment-protected MCP tools
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-mcp-x402&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// for MPP payment-protected MCP tools
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-mcp-mpp&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// for exposing an A2A agent as MCP tools (the A2A bridge)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-ai-mcp-a2a-bridge&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="try-it-out"&gt;Try it out!&lt;a class="heading-link" href="#try-it-out" aria-label="Link to Try it out!"&gt;#&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Want to see http4k MCP in action? Visit the &lt;a href="https://toolbox.http4k.org"&gt;http4k Toolbox&lt;/a&gt; where you can download and install a fully working MCP app that integrates directly with Claude Desktop and other MCP clients.&lt;/p&gt;</description></item><item><title>Security: WebAuthn</title><link>https://http4k.org/ecosystem/pro/reference/webauthn/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/pro/reference/webauthn/</guid><description>&lt;h3 id="installation-gradle"&gt;Installation (Gradle)&lt;a class="heading-link" href="#installation-gradle" aria-label="Link to Installation (Gradle)"&gt;#&lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-kotlin" data-lang="kotlin"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;dependencies {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+ implementation(platform("org.http4k:http4k-bom:6.56.0.0"))
+
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k:http4k-security-webauthn&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="about"&gt;About&lt;a class="heading-link" href="#about" aria-label="Link to About"&gt;#&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Passwordless authentication using &lt;a href="https://www.w3.org/TR/webauthn-2/"&gt;WebAuthn&lt;/a&gt;/FIDO2 &lt;strong&gt;passkeys&lt;/strong&gt;. The module handles
+the full registration and authentication ceremonies, session management, and cryptographic verification of credentials,
+so users can sign in with a fingerprint, face, security key, or device PIN instead of a password.&lt;/p&gt;</description></item><item><title>Tools: Hot Reload</title><link>https://http4k.org/ecosystem/pro/reference/hot_reload/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/pro/reference/hot_reload/</guid><description>&lt;h3 id="installation-gradle"&gt;Installation (Gradle)&lt;a class="heading-link" href="#installation-gradle" aria-label="Link to Installation (Gradle)"&gt;#&lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-kotlin" data-lang="kotlin"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;dependencies {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+ implementation(platform("org.http4k:http4k-bom:6.56.0.0"))
+
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-tools-hotreload&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="about"&gt;About&lt;a class="heading-link" href="#about" aria-label="Link to About"&gt;#&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;http4k-tools-hotreload&lt;/code&gt; module provides a simple mechanism to dynamically reload the application when the source
+code changes. This is extremely useful for web development when used in combination with a templating system such as
+Handlebars, as it allows you to see live changes in both the application logic and the templates without having to
+restart the application.&lt;/p&gt;</description></item><item><title>Verify</title><link>https://http4k.org/ecosystem/enterprise/reference/verify/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/enterprise/reference/verify/</guid><description>&lt;p&gt;The &lt;strong&gt;http4k Verify&lt;/strong&gt; plugin automatically verifies cosign signatures on every http4k dependency before your code compiles. It covers JARs, CycloneDX SBOMs, SLSA provenance attestations, and license compliance reports - and exports all verification artifacts to your project for independent inspection and attestation.&lt;/p&gt;</description></item><item><title>Wiretap</title><link>https://http4k.org/ecosystem/pro/reference/wiretap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/pro/reference/wiretap/</guid><description>&lt;h2 id="what-is-wiretap"&gt;What is Wiretap?&lt;a class="heading-link" href="#what-is-wiretap" aria-label="Link to What is Wiretap?"&gt;#&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;When something goes wrong in a distributed system, the hardest part is understanding what actually happened. Which services were called? What did the requests and responses look like? Where did the time go? Where did the error originate?&lt;/p&gt;</description></item><item><title>X402</title><link>https://http4k.org/ecosystem/pro/reference/x402/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://http4k.org/ecosystem/pro/reference/x402/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-kotlin" data-lang="kotlin"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;dependencies {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+ implementation(platform("org.http4k:http4k-bom:6.56.0.0"))
+
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-connect-x402&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; implementation(&lt;span style="color:#e6db74"&gt;&amp;#34;org.http4k.pro:http4k-connect-x402-fake&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;http4k Connect provides support for the &lt;a href="https://www.x402.org/"&gt;x402 protocol&lt;/a&gt;, enabling HTTP 402 Payment Required flows for APIs. The module includes both client and server-side components for integrating cryptocurrency-based payments into your http4k applications.&lt;/p&gt;</description></item></channel></rss>
