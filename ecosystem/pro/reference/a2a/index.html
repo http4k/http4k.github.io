@@ -1,0 +1,491 @@
+<!doctype html><html lang=en><head><title>A2A SDK | http4k</title><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=description content="Feature overview of the http4k-ai-a2a modules"><link rel=preload as=font type=font/woff2 href=/fonts/space-grotesk-latin.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/jetbrains-mono-latin.woff2 crossorigin><link rel=stylesheet media=all href=/main.f93b3d248e9bd06e9639255d1100329adb208cdac2907507d7cdb6d670e3598a.css integrity="sha256-+Ts9JI6b0G6WOSVdEQAymtsgjNrCkHUH18221nDjWYo="><script defer src=/js/shared/shared.794e279e18e8d0c7343e9a15e1bb4c3b1bb3a8444d0f12a831c9f3d352fe38e8.js integrity="sha256-eU4nnhjo0Mc0PpoV4btMOxuzqERNDxKoMcnz01L+OOg="></script><script defer src=/js/timeline.js></script><link rel=apple-touch-icon-precomposed href=https://http4k.org/favicon-180.png><meta name=msapplication-TileColor content="#FFFFFF"><meta name=msapplication-TileImage content="https://http4k.org/favicon-144.png"><meta name=application-name content="http4k"><meta name=msapplication-tooltip content="The Functional toolkit for Kotlin HTTP applications"><meta name=msapplication-config content="https://http4k.org/ieconfig.xml"><link rel=apple-touch-icon-precomposed sizes=180x180 href=https://http4k.org/favicon-180.png><link rel=apple-touch-icon-precomposed sizes=152x152 href=https://http4k.org/favicon-152.png><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://http4k.org/favicon-144.png><link rel=apple-touch-icon-precomposed sizes=120x120 href=https://http4k.org/favicon-120.png><link rel=apple-touch-icon-precomposed sizes=114x114 href=https://http4k.org/favicon-114.png><link rel=apple-touch-icon-precomposed sizes=76x76 href=https://http4k.org/favicon-76.png><link rel=apple-touch-icon-precomposed sizes=72x72 href=https://http4k.org/favicon-72.png><link rel=icon href=https://http4k.org/favicon-32.png sizes=32x32><link rel="shortcut icon" sizes=196x196 href=https://http4k.org/favicon-196.png><link rel=apple-touch-icon sizes=180x180 href=/favicon-180.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16.png><link rel=manifest href=/site.webmanifest><meta name=apple-mobile-web-app-title content="http4k"><meta name=application-name content="http4k"><meta name=msapplication-TileColor content="#FFFFFF"><meta name=theme-color content="#FFFFFF"><script async src="https://www.googletagmanager.com/gtag/js?id=G-YSM9QLBYXY"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-YSM9QLBYXY",{url_passthrough:!1})</script><script src=https://cdn.usefathom.com/script.js data-site=BGFZWRDS defer></script><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://http4k.org/images/social-logo.png"><meta name=twitter:title content="A2A SDK"><meta name=twitter:description content="Feature overview of the http4k-ai-a2a modules"><meta property="og:url" content="https://http4k.org/ecosystem/pro/reference/a2a/"><meta property="og:site_name" content="http4k"><meta property="og:title" content="A2A SDK"><meta property="og:description" content="Feature overview of the http4k-ai-a2a modules"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="ecosystem"><meta property="og:image" content="https://http4k.org/images/social-logo.png"><meta itemprop=name content="A2A SDK"><meta itemprop=description content="Feature overview of the http4k-ai-a2a modules"><meta itemprop=wordCount content="1849"><meta itemprop=image content="https://http4k.org/images/social-logo.png"><meta itemprop=keywords content="Http4k AI,Http4k Enterprise,Http4k Pro"></head><body><header class=site-header><nav class="navbar navbar-expand-xl navbar-dark"><div class=container><a class="navbar-brand d-flex align-items-center" href=https://http4k.org/><img class="nav-logo nav-logo--white" style=min-height:40px src=/images/logo_hu_d370df57676f24c3.webp width=128 height=40 alt=http4k>
+<img class="nav-logo nav-logo--colour" style=min-height:40px src=/images/logo-http4k_hu_c8395767f4abab1b.webp width=128 height=40 alt=http4k>
+</a><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarContent aria-controls=navbarContent aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarContent><ul class="navbar-nav ms-auto mb-2 mb-xl-0"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>About</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/overview/>Why http4k</a></li><li><a class=dropdown-item href=/company/>Company</a></li><li><a class=dropdown-item href=/news/>News</a></li><li><a class=dropdown-item href=/showcase/>Showcase</a></li><li><a class=dropdown-item href=/community/>Community</a></li><li><a class=dropdown-item href=https://kotlinlang.slack.com/archives/C5AL3AKUY>Community Slack</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Learn</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/learn/>About the docs</a></li><li><a class=dropdown-item href=/quickstart/>Quickstart</a></li><li><a class=dropdown-item href=/tutorial/>Tutorials</a></li><li><a class=dropdown-item href=/howto/>How-to guides</a></li><li><a class=dropdown-item href=/performance/>Performance</a></li><li><a class=dropdown-item href=/faq/>FAQ</a></li><li><a class=dropdown-item href=https://toolbox.http4k.org/>Toolbox</a></li><li><a class=dropdown-item href=https://plugins.jetbrains.com/plugin/25243-http4k-toolbox>IntelliJ Plugin</a></li><li><a class=dropdown-item href=https://github.com/http4k/agent-skills>Agent Skills</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Ecosystem</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/ecosystem/>Overview</a></li><li><a class=dropdown-item href=/ecosystem/http4k/>http4k Core</a></li><li><a class=dropdown-item href=/ecosystem/ai/>http4k AI</a></li><li><a class=dropdown-item href=/ecosystem/connect/>http4k Connect</a></li><li><a class=dropdown-item href=/ecosystem/pro/>http4k Pro</a></li><li><a class=dropdown-item href=/ecosystem/enterprise/>http4k Enterprise</a></li><li><a class=dropdown-item href=/ecosystem/changelog/>Changelog</a></li></ul></li><li class=nav-item><a class="nav-link text-primary px-3" href=/pro/>Pro</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Enterprise</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/enterprise/>Enterprise Edition</a></li><li><a class=dropdown-item href=/consulting/>Consulting</a></li><li><a class=dropdown-item href=/training/>Developer Training</a></li><li><a class=dropdown-item href=http://http4k.slack.com/>http4k EE Slack</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Security</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/supply-chain-security/>Supply Chain Security</a></li><li><a class=dropdown-item href=https://verify.http4k.org>http4k Verify</a></li><li><a class=dropdown-item href=/security/>Security Advisories</a></li><li><a class=dropdown-item href=/cvd-policy/>CVD Policy</a></li></ul></li><li id=searchBox class="nav-item searchBox align-content-center"></li><li class=nav-item><a class="nav-link text-primary px-3" href=https://github.com/http4k/http4k><img src=/images/octocat-inverted-64.png style=height:1.5rem alt=github></a></li><li class="nav-item align-content-center"><a class="cta-btn cta-btn--primary nav-cta" href=mailto:solutions@http4k.org>Talk to us</a></li></ul></div></div></nav></header><style>.github{display:none}</style><div class=docs><aside class="aside col-auto"><div><img class="mb-3 sideToggle" src=/images/exchange-icon.svg width=20 alt srcset><ul class=list-unstyled><li><h2><a href=/ecosystem/ai/>http4k AI</a></h2></li><li><h6>Latest version: <span class="badge text-bg-secondary">6.57.1.0</span></h6></li><li class=mt-3><h4>Concepts</h4><ul class="list-unstyled ms-3"><li class=mt-1><a href=/ecosystem/ai/concepts/models/ class=ecoLink>LLM Models</a></li><li class=mt-1><a href=/ecosystem/ai/concepts/messages/ class=ecoLink>Messages and Content</a></li><li class=mt-1><a href=/ecosystem/ai/concepts/tools/ class=ecoLink>Using Tools</a></li></ul></li><li class=mt-3><h4>Project</h4><ul class="list-unstyled ms-3"><li class=mt-1><a class=ecoLink href=/ecosystem/changelog/>Changelog</a></li><li class=mt-1><a class=ecoLink href=https://github.com/http4k/http4k>GitHub</a></li><li class=mt-1><a class=ecoLink href=/ecosystem/contributing/>Contributing</a></li><li class=mt-1><a class=ecoLink href=https://github.com/http4k/http4k/issues>Issue Tracker</a></li></ul></li><li class=mt-3><h4>Reference</h4><ul class="list-unstyled ms-3"><li class=mt-1><a href=/ecosystem/pro/reference/a2a/ class="ecoLink active">A2A SDK</a>
+<a href=/pro class=text-decoration-none title="Get http4k Pro modules!"><span style=transform:translateY(-10%) class="ms-1 badge text-bg-pro hover:opacity-80 transition-opacity">pro</span></a></li><li class=mt-1><a href=/ecosystem/ai/reference/anthropic/ class=ecoLink>Anthropic</a></li><li class=mt-1><a href=/ecosystem/ai/reference/azure/ class=ecoLink>AzureAI</a></li><li class=mt-1><a href=/ecosystem/ai/reference/gemini/ class=ecoLink>GeminiAI</a></li><li class=mt-1><a href=/ecosystem/ai/reference/github/ class=ecoLink>GitHub Models</a></li><li class=mt-1><a href=/ecosystem/ai/reference/langchain/ class=ecoLink>LangChain4J</a></li><li class=mt-1><a href=/ecosystem/ai/reference/lmstudio/ class=ecoLink>LMStudio</a></li><li class=mt-1><a href=/ecosystem/pro/reference/mcp/ class=ecoLink>MCP SDK</a>
+<a href=/pro class=text-decoration-none title="Get http4k Pro modules!"><span style=transform:translateY(-10%) class="ms-1 badge text-bg-pro hover:opacity-80 transition-opacity">pro</span></a></li><li class=mt-1><a href=/ecosystem/ai/reference/ollama/ class=ecoLink>Ollama</a></li><li class=mt-1><a href=/ecosystem/ai/reference/openai/ class=ecoLink>OpenAI</a></li><li class=mt-1><a href=/ecosystem/ai/reference/overview/ class=ecoLink>Overview</a></li></ul></li></ul></div></aside><main class="page-content col"><article><img class="mb-3 sideToggle" src=/images/exchange-icon.svg width=20 alt srcset><nav class=docs-crumbs><a href=/ecosystem/>docs</a>
+<span>/</span>http4k AI
+<span>/</span>A2A SDK</nav><div class=eyebrow>// REFERENCE</div><div class="d-flex align-items-center"><h1>A2A SDK</h1><a href=/pro class=text-decoration-none title="Get http4k Pro modules!"><span class="badge ms-2 text-bg-pro hover:opacity-80 transition-opacity">pro</span></a></div><div class="mt-3 alert alert-warning border d-flex align-items-center justify-content-between"><span>This is an http4k Pro feature, licensed under the <a href=/commercial-license/>http4k Commercial License</a></span>
+<a href=/pro class="btn btn-secondary">Find out more</a></div><div class=mt-5><h3 id=installation-gradle>Installation (Gradle)<a class=heading-link href=#installation-gradle aria-label="Link to Installation (Gradle)">#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>dependencies {
+</span></span><span style=display:flex><span>    
+    implementation(platform("org.http4k:http4k-bom:6.57.1.0"))
+
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// for A2A server development
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k.pro:http4k-ai-a2a-sdk&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// for connecting to A2A agents
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k.pro:http4k-ai-a2a-client&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// for exposing an A2A agent to MCP clients (the MCP bridge)
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k.pro:http4k-ai-mcp-a2a-bridge&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=about>About<a class=heading-link href=#about aria-label="Link to About">#</a></h2><p>The <a href=https://a2a-protocol.org/>Agent2Agent (A2A) Protocol</a> is an open standard designed to facilitate communication and interoperability between independent AI agent systems. In an ecosystem where agents might be built using different frameworks, languages, or by different vendors, A2A provides a common language and interaction model.</p><p>A2A supports two protocol bindings:</p><ul><li><strong>JSON-RPC:</strong> Single endpoint for all operations. Streaming via Server-Sent Events on the same path.</li><li><strong>REST/HTTP:</strong> RESTful endpoints for tasks, messages, and push notification configs. Streaming via SSE.</li></ul><p>Both bindings support the same capabilities: Agent Cards, Tasks, Messages, Artifacts, Streaming, Push Notifications, and multi-turn conversations.</p><h2 id=http4k-and-agent2agent>http4k and Agent2Agent<a class=heading-link href=#http4k-and-agent2agent aria-label="Link to http4k and Agent2Agent">#</a></h2><p>http4k provides a complete, type-safe implementation of the A2A protocol - both server and client - using the familiar http4k patterns of composable functional protocols. The core extension point is the <code>MessageHandler</code>, a simple function that receives a message and returns a response.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>typealias</span> MessageHandler = (MessageRequest) <span style=color:#f92672>-&gt;</span> MessageResponse
+</span></span></code></pre></div><p>A <code>MessageHandler</code> can return:</p><ul><li>A <strong>Task</strong> for long-running operations with state tracking</li><li>A <strong>Message</strong> for immediate responses</li><li>A <strong>ResponseStream</strong> for streaming multiple results</li></ul><h1 id=server-http4k-ai-a2a-sdk>Server: http4k-ai-a2a-sdk<a class=heading-link href=#server-http4k-ai-a2a-sdk aria-label="Link to Server: http4k-ai-a2a-sdk">#</a></h1><h2 id=creating-a-server>Creating a Server<a class=heading-link href=#creating-a-server aria-label="Link to Creating a Server">#</a></h2><p>The simplest way to create an A2A server is to define an <code>AgentCard</code> and a <code>MessageHandler</code>:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>server_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.A2ARole.ROLE_AGENT
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Message
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.MessageId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Part
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.a2aJsonRpc
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.Helidon
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> agentCard = AgentCard(
+</span></span><span style=display:flex><span>        name = <span style=color:#e6db74>&#34;My Agent&#34;</span>,
+</span></span><span style=display:flex><span>        version = <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>),
+</span></span><span style=display:flex><span>        description = <span style=color:#e6db74>&#34;An example A2A agent&#34;</span>
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// The MessageHandler is a simple function (MessageRequest) -&gt; MessageResponse
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> server = a2aJsonRpc(agentCard) { req <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        Message(
+</span></span><span style=display:flex><span>            messageId = <span style=color:#a6e22e>MessageId</span>.random(),
+</span></span><span style=display:flex><span>            role = ROLE_AGENT,
+</span></span><span style=display:flex><span>            parts = listOf(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Hello from My Agent!&#34;</span>))
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// For REST protocol binding, use a2aRest() instead:
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// val server = a2aRest(agentCard) { request -&gt; ... }
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    server.asServer(Helidon(<span style=color:#ae81ff>8080</span>)).start()
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><p>Both <code>a2aJsonRpc()</code> and <code>a2aRest()</code> return a <code>PolyHandler</code> which can be served by any http4k server backend.</p><h2 id=agent-cards>Agent Cards<a class=heading-link href=#agent-cards aria-label="Link to Agent Cards">#</a></h2><p>Agent Cards describe your agent&rsquo;s identity, capabilities, and skills. They are served at <code>/.well-known/agent-card.json</code> and discovered by clients automatically.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>agent_card_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCapabilities
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentProvider
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentSkill
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.SkillId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.connect.model.MimeType
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> agentCard = AgentCard(
+</span></span><span style=display:flex><span>    name = <span style=color:#e6db74>&#34;Recipe Agent&#34;</span>,
+</span></span><span style=display:flex><span>    version = <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>),
+</span></span><span style=display:flex><span>    description = <span style=color:#e6db74>&#34;An agent that helps users with recipes and cooking&#34;</span>,
+</span></span><span style=display:flex><span>    provider = AgentProvider(organization = <span style=color:#e6db74>&#34;http4k&#34;</span>, url = <span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;https://http4k.org&#34;</span>)),
+</span></span><span style=display:flex><span>    documentationUrl = <span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;https://http4k.org/docs/a2a&#34;</span>),
+</span></span><span style=display:flex><span>    capabilities = AgentCapabilities(
+</span></span><span style=display:flex><span>        streaming = <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>        pushNotifications = <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>        extendedAgentCard = <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    ),
+</span></span><span style=display:flex><span>    defaultInputModes = listOf(<span style=color:#a6e22e>MimeType</span>.of(<span style=color:#e6db74>&#34;text/plain&#34;</span>)),
+</span></span><span style=display:flex><span>    defaultOutputModes = listOf(<span style=color:#a6e22e>MimeType</span>.of(<span style=color:#e6db74>&#34;text/plain&#34;</span>), <span style=color:#a6e22e>MimeType</span>.of(<span style=color:#e6db74>&#34;application/json&#34;</span>)),
+</span></span><span style=display:flex><span>    skills = listOf(
+</span></span><span style=display:flex><span>        AgentSkill(
+</span></span><span style=display:flex><span>            id = <span style=color:#a6e22e>SkillId</span>.of(<span style=color:#e6db74>&#34;find-recipe&#34;</span>),
+</span></span><span style=display:flex><span>            name = <span style=color:#e6db74>&#34;Find Recipe&#34;</span>,
+</span></span><span style=display:flex><span>            description = <span style=color:#e6db74>&#34;Search for recipes by ingredients or cuisine&#34;</span>,
+</span></span><span style=display:flex><span>            tags = listOf(<span style=color:#e6db74>&#34;cooking&#34;</span>, <span style=color:#e6db74>&#34;recipes&#34;</span>, <span style=color:#e6db74>&#34;search&#34;</span>)
+</span></span><span style=display:flex><span>        ),
+</span></span><span style=display:flex><span>        AgentSkill(
+</span></span><span style=display:flex><span>            id = <span style=color:#a6e22e>SkillId</span>.of(<span style=color:#e6db74>&#34;nutrition-info&#34;</span>),
+</span></span><span style=display:flex><span>            name = <span style=color:#e6db74>&#34;Nutrition Info&#34;</span>,
+</span></span><span style=display:flex><span>            description = <span style=color:#e6db74>&#34;Get nutritional information for a recipe&#34;</span>,
+</span></span><span style=display:flex><span>            tags = listOf(<span style=color:#e6db74>&#34;nutrition&#34;</span>, <span style=color:#e6db74>&#34;health&#34;</span>)
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div></div><p>For agents that expose additional capabilities to authenticated users, use <code>AgentCardProvider</code> to serve both standard and extended cards:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>extended_card_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCapabilities
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCardProvider
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentSkill
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.SkillId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.a2aJsonRpc
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> standardCard = AgentCard(
+</span></span><span style=display:flex><span>    name = <span style=color:#e6db74>&#34;My Agent&#34;</span>,
+</span></span><span style=display:flex><span>    version = <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>),
+</span></span><span style=display:flex><span>    description = <span style=color:#e6db74>&#34;Public agent capabilities&#34;</span>,
+</span></span><span style=display:flex><span>    capabilities = AgentCapabilities(extendedAgentCard = <span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> extendedCard = standardCard.copy(
+</span></span><span style=display:flex><span>    description = <span style=color:#e6db74>&#34;Full agent capabilities (authenticated)&#34;</span>,
+</span></span><span style=display:flex><span>    skills = listOf(
+</span></span><span style=display:flex><span>        AgentSkill(
+</span></span><span style=display:flex><span>            id = <span style=color:#a6e22e>SkillId</span>.of(<span style=color:#e6db74>&#34;admin&#34;</span>),
+</span></span><span style=display:flex><span>            name = <span style=color:#e6db74>&#34;Admin Operations&#34;</span>,
+</span></span><span style=display:flex><span>            description = <span style=color:#e6db74>&#34;Privileged operations for authenticated users&#34;</span>
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// AgentCardProvider serves both standard and extended cards
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> agentCardServer = a2aJsonRpc(messageHandler = {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// handle messages...
+</span></span></span><span style=display:flex><span>    TODO()
+</span></span><span style=display:flex><span>}, cards = AgentCardProvider(standardCard, extendedCard))
+</span></span></code></pre></div></div><h2 id=streaming-responses>Streaming Responses<a class=heading-link href=#streaming-responses aria-label="Link to Streaming Responses">#</a></h2><p>To stream responses back to clients, return a <code>ResponseStream</code> from your handler. The stream is delivered via Server-Sent Events:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>streaming_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.A2ARole.ROLE_AGENT
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCapabilities
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.ContextId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Message
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.MessageId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Part
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.ResponseStream
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Task
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.TaskId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.TaskState.TASK_STATE_COMPLETED
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.TaskState.TASK_STATE_WORKING
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.TaskStatus
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.a2aJsonRpc
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> streamingAgent = a2aJsonRpc(
+</span></span><span style=display:flex><span>    AgentCard(
+</span></span><span style=display:flex><span>        name = <span style=color:#e6db74>&#34;Streaming Agent&#34;</span>,
+</span></span><span style=display:flex><span>        version = <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>),
+</span></span><span style=display:flex><span>        description = <span style=color:#e6db74>&#34;Agent with streaming support&#34;</span>,
+</span></span><span style=display:flex><span>        capabilities = AgentCapabilities(streaming = <span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span>    ),
+</span></span><span style=display:flex><span>    messageHandler = { request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> taskId = <span style=color:#a6e22e>TaskId</span>.of(<span style=color:#e6db74>&#34;task-1&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> contextId = <span style=color:#a6e22e>ContextId</span>.of(<span style=color:#e6db74>&#34;context-1&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Return a ResponseStream to stream multiple updates to the client
+</span></span></span><span style=display:flex><span>        ResponseStream(
+</span></span><span style=display:flex><span>            sequenceOf(
+</span></span><span style=display:flex><span>                Task(
+</span></span><span style=display:flex><span>                    id = taskId,
+</span></span><span style=display:flex><span>                    status = TaskStatus(state = TASK_STATE_WORKING),
+</span></span><span style=display:flex><span>                    contextId = contextId,
+</span></span><span style=display:flex><span>                    history = listOf(request.message)
+</span></span><span style=display:flex><span>                ),
+</span></span><span style=display:flex><span>                Message(
+</span></span><span style=display:flex><span>                    messageId = <span style=color:#a6e22e>MessageId</span>.random(),
+</span></span><span style=display:flex><span>                    role = ROLE_AGENT,
+</span></span><span style=display:flex><span>                    parts = listOf(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Processing your request...&#34;</span>))
+</span></span><span style=display:flex><span>                ),
+</span></span><span style=display:flex><span>                Task(
+</span></span><span style=display:flex><span>                    id = taskId,
+</span></span><span style=display:flex><span>                    status = TaskStatus(state = TASK_STATE_COMPLETED),
+</span></span><span style=display:flex><span>                    contextId = contextId
+</span></span><span style=display:flex><span>                )
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div></div><h2 id=task-management>Task Management<a class=heading-link href=#task-management aria-label="Link to Task Management">#</a></h2><p>Tasks are the core unit of work in A2A. The server automatically manages task storage and lifecycle. You can provide custom storage implementations:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>task_storage_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.A2ARole.ROLE_AGENT
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.ContextId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Message
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.MessageId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Part
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Task
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.TaskId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.TaskState.TASK_STATE_COMPLETED
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.TaskStatus
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.server.storage.TaskStorage
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.a2aJsonRpc
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Use the built-in in-memory storage (default)
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> tasks = <span style=color:#a6e22e>TaskStorage</span>.InMemory()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> serverForStorage = a2aJsonRpc(
+</span></span><span style=display:flex><span>    agentCard = AgentCard(<span style=color:#e6db74>&#34;My Agent&#34;</span>, <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>), <span style=color:#e6db74>&#34;Example&#34;</span>),
+</span></span><span style=display:flex><span>    tasks = tasksWithPush,
+</span></span><span style=display:flex><span>    messageHandler = { request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> task = Task(
+</span></span><span style=display:flex><span>            id = <span style=color:#a6e22e>TaskId</span>.of(<span style=color:#e6db74>&#34;my-task&#34;</span>),
+</span></span><span style=display:flex><span>            status = TaskStatus(state = TASK_STATE_COMPLETED),
+</span></span><span style=display:flex><span>            contextId = <span style=color:#a6e22e>ContextId</span>.of(<span style=color:#e6db74>&#34;my-context&#34;</span>),
+</span></span><span style=display:flex><span>            history = listOf(
+</span></span><span style=display:flex><span>                request.message,
+</span></span><span style=display:flex><span>                Message(<span style=color:#a6e22e>MessageId</span>.random(), ROLE_AGENT, listOf(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Done!&#34;</span>)))
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Store task for later retrieval via GetTask/ListTasks
+</span></span></span><span style=display:flex><span>        tasksWithPush.store(task)
+</span></span><span style=display:flex><span>        task
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div></div><h2 id=push-notifications>Push Notifications<a class=heading-link href=#push-notifications aria-label="Link to Push Notifications">#</a></h2><p>Push notifications allow agents to notify clients of task status changes via webhooks:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>push_notification_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCapabilities
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.server.notification.PushNotificationSender
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.server.storage.PushNotificationConfigStorage
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.server.storage.TaskStorage
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.server.storage.withPushNotifications
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.a2aJsonRpc
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Enable push notifications in the agent capabilities
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> agentCardWithPush = AgentCard(
+</span></span><span style=display:flex><span>    name = <span style=color:#e6db74>&#34;Notifying Agent&#34;</span>,
+</span></span><span style=display:flex><span>    version = <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>),
+</span></span><span style=display:flex><span>    description = <span style=color:#e6db74>&#34;Agent with push notification support&#34;</span>,
+</span></span><span style=display:flex><span>    capabilities = AgentCapabilities(pushNotifications = <span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> pushConfigs = <span style=color:#a6e22e>PushNotificationConfigStorage</span>.InMemory()
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> pushSender = <span style=color:#a6e22e>PushNotificationSender</span>.Http()  <span style=color:#75715e>// sends POST to configured webhook URLs
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Wrap task storage to automatically send push notifications on task updates
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> tasksWithPush = <span style=color:#a6e22e>TaskStorage</span>.InMemory().withPushNotifications(pushConfigs, pushSender)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> serverWithPush = a2aJsonRpc(
+</span></span><span style=display:flex><span>    agentCard = agentCardWithPush,
+</span></span><span style=display:flex><span>    tasks = tasksWithPush,
+</span></span><span style=display:flex><span>    pushNotifications = pushConfigs,
+</span></span><span style=display:flex><span>    messageHandler = { request <span style=color:#f92672>-&gt;</span> TODO() }
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div></div><h2 id=multi-tenancy>Multi-tenancy<a class=heading-link href=#multi-tenancy aria-label="Link to Multi-tenancy">#</a></h2><p>Both protocol bindings support multi-tenant routing. REST endpoints accept an optional <code>/{tenant}</code> path prefix, and JSON-RPC passes tenant via request parameters:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>multi_tenant_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.a2aRest
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// REST binding supports multi-tenant routing with /{tenant} prefix
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Requests to /acme/message:send will have tenant=&#34;acme&#34;
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> restServer = a2aRest(
+</span></span><span style=display:flex><span>    agentCard = AgentCard(<span style=color:#e6db74>&#34;Multi-tenant Agent&#34;</span>, <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>), <span style=color:#e6db74>&#34;Serves multiple tenants&#34;</span>),
+</span></span><span style=display:flex><span>    messageHandler = { request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Tenant is available in the HTTP request headers/path
+</span></span></span><span style=display:flex><span>        TODO()
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// JSON-RPC passes tenant via the request params
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// val server = a2aJsonRpc(agentCard) { request -&gt; ... }
+</span></span></span></code></pre></div></div><h2 id=message-filters>Message Filters<a class=heading-link href=#message-filters aria-label="Link to Message Filters">#</a></h2><p>Similar to http4k&rsquo;s <code>Filter</code>, the <code>MessageFilter</code> allows cross-cutting concerns to be applied to all message handling:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>message_filter_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> content._sites.a2a.handler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.MessageFilter
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.a2aJsonRpc
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// MessageFilter works like http4k&#39;s Filter but for A2A message handling
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> logging = MessageFilter { next <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>    { request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;Received message: </span><span style=color:#e6db74>${request.message.parts}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>        next(request).also { println(<span style=color:#e6db74>&#34;Response: </span><span style=color:#e6db74>$it</span><span style=color:#e6db74>&#34;</span>) }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> auth = MessageFilter { next <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>    { request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Check authorization from the HTTP request
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> token = request.http.header(<span style=color:#e6db74>&#34;Authorization&#34;</span>)
+</span></span><span style=display:flex><span>        requireNotNull(token) { <span style=color:#e6db74>&#34;Missing authorization&#34;</span> }
+</span></span><span style=display:flex><span>        next(request)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Compose filters and handler
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> handler = logging.then(auth).then { request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>    TODO(<span style=color:#e6db74>&#34;handle message&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> serverWithFilter = a2aJsonRpc(
+</span></span><span style=display:flex><span>    AgentCard(<span style=color:#e6db74>&#34;Filtered Agent&#34;</span>, <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>), <span style=color:#e6db74>&#34;With filters&#34;</span>),
+</span></span><span style=display:flex><span>    messageHandler = handler
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div></div><h1 id=client-http4k-ai-a2a-client>Client: http4k-ai-a2a-client<a class=heading-link href=#client-http4k-ai-a2a-client aria-label="Link to Client: http4k-ai-a2a-client">#</a></h1><h2 id=connecting-to-an-agent>Connecting to an Agent<a class=heading-link href=#connecting-to-an-agent aria-label="Link to Connecting to an Agent">#</a></h2><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>client_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> dev.forkhandles.result4k.valueOrNull
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.client.HttpA2AClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.client.RestA2AClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.A2ARole.ROLE_USER
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Message
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.MessageId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Part
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// JSON-RPC client
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> jsonRpcClient = HttpA2AClient(<span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;http://localhost:8080&#34;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Or REST client
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> restClient = RestA2AClient(<span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;http://localhost:8080&#34;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    jsonRpcClient.use { client <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Discover agent capabilities
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> card = client.agentCard().valueOrNull()<span style=color:#f92672>!!</span>
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;Connected to: </span><span style=color:#e6db74>${card.name}</span><span style=color:#e6db74> v</span><span style=color:#e6db74>${card.version}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Send a message
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> response = client.message(
+</span></span><span style=display:flex><span>            Message(
+</span></span><span style=display:flex><span>                messageId = <span style=color:#a6e22e>MessageId</span>.random(),
+</span></span><span style=display:flex><span>                role = ROLE_USER,
+</span></span><span style=display:flex><span>                parts = listOf(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Hello, agent!&#34;</span>))
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>        ).valueOrNull()<span style=color:#f92672>!!</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;Response: </span><span style=color:#e6db74>$response</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><h2 id=streaming-messages>Streaming Messages<a class=heading-link href=#streaming-messages aria-label="Link to Streaming Messages">#</a></h2><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>client_streaming_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> dev.forkhandles.result4k.valueOrNull
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.client.HttpA2AClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.A2ARole.ROLE_USER
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Message
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.MessageId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Part
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.ResponseStream
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Task
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    HttpA2AClient(<span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;http://localhost:8080&#34;</span>)).use { client <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> stream = client.messageStream(
+</span></span><span style=display:flex><span>            Message(
+</span></span><span style=display:flex><span>                messageId = <span style=color:#a6e22e>MessageId</span>.random(),
+</span></span><span style=display:flex><span>                role = ROLE_USER,
+</span></span><span style=display:flex><span>                parts = listOf(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Process this data&#34;</span>))
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>        ).valueOrNull()<span style=color:#f92672>!!</span> <span style=color:#66d9ef>as</span> ResponseStream
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Iterate over streaming responses
+</span></span></span><span style=display:flex><span>        stream.forEach { item <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>when</span> (item) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>is</span> Task <span style=color:#f92672>-&gt;</span> println(<span style=color:#e6db74>&#34;Task </span><span style=color:#e6db74>${item.id}</span><span style=color:#e6db74>: </span><span style=color:#e6db74>${item.status.state}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>is</span> Message <span style=color:#f92672>-&gt;</span> println(<span style=color:#e6db74>&#34;Message: </span><span style=color:#e6db74>${item.parts}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>else</span> <span style=color:#f92672>-&gt;</span> {}
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><h2 id=task-operations>Task Operations<a class=heading-link href=#task-operations aria-label="Link to Task Operations">#</a></h2><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>client_tasks_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> dev.forkhandles.result4k.valueOrNull
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.client.HttpA2AClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.A2ARole.ROLE_USER
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Message
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.MessageId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Part
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Task
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.TaskState
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    HttpA2AClient(<span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;http://localhost:8080&#34;</span>)).use { client <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Send a message that creates a task
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> task = client.message(
+</span></span><span style=display:flex><span>            Message(<span style=color:#a6e22e>MessageId</span>.random(), ROLE_USER, listOf(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Start processing&#34;</span>)))
+</span></span><span style=display:flex><span>        ).valueOrNull()<span style=color:#f92672>!!</span> <span style=color:#66d9ef>as</span> Task
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Get task by ID
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> retrieved = client.tasks().<span style=color:#66d9ef>get</span>(task.id).valueOrNull()<span style=color:#f92672>!!</span>
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;Task state: </span><span style=color:#e6db74>${retrieved.status.state}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// List tasks with filtering
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> page = client.tasks().list(
+</span></span><span style=display:flex><span>            status = <span style=color:#a6e22e>TaskState</span>.TASK_STATE_WORKING,
+</span></span><span style=display:flex><span>            pageSize = <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>        ).valueOrNull()<span style=color:#f92672>!!</span>
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;Found </span><span style=color:#e6db74>${page.totalSize}</span><span style=color:#e6db74> working tasks&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// Cancel a task
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> cancelled = client.tasks().cancel(task.id).valueOrNull()<span style=color:#f92672>!!</span>
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;Cancelled: </span><span style=color:#e6db74>${cancelled.status.state}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><h1 id=exposing-an-a2a-agent-to-mcp-clients>Exposing an A2A Agent to MCP Clients<a class=heading-link href=#exposing-an-a2a-agent-to-mcp-clients aria-label="Link to Exposing an A2A Agent to MCP Clients">#</a></h1><p>The <code>http4k-ai-mcp-a2a-bridge</code> module wraps any A2A agent as an <a href=/ecosystem/ai/reference/mcp/>MCP</a> HTTP server. This lets an LLM in any MCP client (Claude Desktop, Cursor, etc.) discover and talk to your A2A agent without writing custom MCP integration code.</p><p>The bridge fetches the agent card once at startup and folds the name, description, and skill catalog into the <code>send_message</code> tool description, then exposes four MCP tools: <code>send_message</code>, <code>get_task</code>, <code>cancel_task</code>, and <code>list_tasks</code>. Responses come back as MCP <code>structuredContent</code> carrying the full A2A <code>Task</code> / <code>Message</code> shape - including <code>taskId</code> and <code>contextId</code> - so the LLM can chain follow-up calls.</p><p>The inbound MCP request&rsquo;s <code>Authorization</code> header is forwarded to the A2A agent on every tool call, so each MCP caller authenticates as itself.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>mcp_bridge_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.mcp.model.McpEntity
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.mcp.protocol.ServerMetaData
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.mcp.protocol.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.mcp.server.security.NoMcpSecurity
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.mcpA2aBridgeServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.Helidon
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Expose an existing A2A agent as a full MCP HTTP server. Tools generated:
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>//  - send_message: send a free-text message to the agent (with skill catalog in the description)
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>//  - get_task / cancel_task / list_tasks: task lifecycle management
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>//
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// The inbound MCP request&#39;s Authorization header is forwarded to the A2A
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// agent, so each MCP caller authenticates as itself against the agent.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> server = mcpA2aBridgeServer(
+</span></span><span style=display:flex><span>        identity = ServerMetaData(<span style=color:#a6e22e>McpEntity</span>.of(<span style=color:#e6db74>&#34;a2a-bridge&#34;</span>), <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>)),
+</span></span><span style=display:flex><span>        baseUri = <span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;https://my-a2a-agent.example.com&#34;</span>),
+</span></span><span style=display:flex><span>        security = NoMcpSecurity
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    server.asServer(Helidon(<span style=color:#ae81ff>3001</span>)).start()
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><p>For finer control - custom auth headers, a pre-built <code>A2AClient</code>, or composing the bridge alongside other MCP capabilities - use <code>mcpA2aBridge(...)</code> directly and wrap it with <code>mcp(...)</code> yourself.</p><h1 id=testing>Testing<a class=heading-link href=#testing aria-label="Link to Testing">#</a></h1><p>A2A servers can be tested fully in-memory without starting a real server, using the test client factories:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>testing_example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.pro.reference.a2a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> com.natpryce.hamkrest.assertion.assertThat
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> com.natpryce.hamkrest.equalTo
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> dev.forkhandles.result4k.Success
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> dev.forkhandles.result4k.valueOrNull
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.client.testA2AJsonRpcClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.A2ARole.ROLE_AGENT
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.A2ARole.ROLE_USER
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.AgentCard
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Message
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.MessageId
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Part
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.ai.a2a.model.Version
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.a2aJsonRpc
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.junit.jupiter.api.Test
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>A2ATestingExample</span> {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>val</span> agentCard = AgentCard(<span style=color:#e6db74>&#34;Test Agent&#34;</span>, <span style=color:#a6e22e>Version</span>.of(<span style=color:#e6db74>&#34;1.0.0&#34;</span>), <span style=color:#e6db74>&#34;For testing&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Create an A2A server as a PolyHandler
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>val</span> server = a2aJsonRpc(agentCard, messageHandler = { request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        Message(<span style=color:#a6e22e>MessageId</span>.of(<span style=color:#e6db74>&#34;response-1&#34;</span>), ROLE_AGENT, listOf(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Echo&#34;</span>)))
+</span></span><span style=display:flex><span>    })
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Create an in-memory test client - no network, no ports
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>val</span> client = server.testA2AJsonRpcClient()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`can discover agent card`</span>() {
+</span></span><span style=display:flex><span>        assertThat(client.agentCard(), equalTo(Success(agentCard)))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@Test</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`can send message and get response`</span>() {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> response = client.message(
+</span></span><span style=display:flex><span>            Message(<span style=color:#a6e22e>MessageId</span>.of(<span style=color:#e6db74>&#34;msg-1&#34;</span>), ROLE_USER, listOf(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Hello&#34;</span>)))
+</span></span><span style=display:flex><span>        ).valueOrNull()<span style=color:#f92672>!!</span> <span style=color:#66d9ef>as</span> Message
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        assertThat(response.role, equalTo(ROLE_AGENT))
+</span></span><span style=display:flex><span>        assertThat(response.parts.first(), equalTo(<span style=color:#a6e22e>Part</span>.Text(<span style=color:#e6db74>&#34;Echo&#34;</span>)))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></div><nav class=docs-pager><a class="docs-pager__link docs-pager__prev" href=/ecosystem/ai/concepts/tools/><span>&larr; Previous</span><strong>Using Tools</strong>
+</a><a class="docs-pager__link docs-pager__next" href=/ecosystem/ai/reference/anthropic/><span>Next &rarr;</span><strong>Anthropic</strong></a></nav></article></main><aside class=docs-toc><div class=docs-toc__title>On this page</div><nav id=TableOfContents><ul><li><ul><li><a href=#installation-gradle>Installation (Gradle)</a></li></ul></li><li><a href=#about>About</a></li><li><a href=#http4k-and-agent2agent>http4k and Agent2Agent</a></li></ul><ul><li><a href=#creating-a-server>Creating a Server</a></li><li><a href=#agent-cards>Agent Cards</a></li><li><a href=#streaming-responses>Streaming Responses</a></li><li><a href=#task-management>Task Management</a></li><li><a href=#push-notifications>Push Notifications</a></li><li><a href=#multi-tenancy>Multi-tenancy</a></li><li><a href=#message-filters>Message Filters</a></li></ul><ul><li><a href=#connecting-to-an-agent>Connecting to an Agent</a></li><li><a href=#streaming-messages>Streaming Messages</a></li><li><a href=#task-operations>Task Operations</a></li></ul></nav></aside></div><script>document.querySelectorAll(".sideToggle").forEach(function(e){e.addEventListener("click",function(){document.querySelectorAll(".aside").forEach(function(e){e.classList.toggle("no-side")})})}),function(){var e,n,s,t=document.querySelectorAll(".docs-toc a");if(!t.length||!("IntersectionObserver"in window))return;e={},t.forEach(function(t){e[decodeURIComponent(t.getAttribute("href").slice(1))]=t}),n=document.querySelectorAll(".page-content h2[id], .page-content h3[id]"),s=new IntersectionObserver(function(n){n.forEach(function(n){n.isIntersecting&&e[n.target.id]&&(t.forEach(function(e){e.classList.remove("active")}),e[n.target.id].classList.add("active"))})},{rootMargin:"0px 0px -75% 0px"}),n.forEach(function(e){s.observe(e)})}()</script><footer><div class=container><div class="row pb-3 text-start text-xl-start"><div class="col-md-6 col-lg-3" style=width:200px><a class=p-0 href=https://http4k.org/><img src=/images/logo_hu_d370df57676f24c3.webp alt=logo width=50% loading=lazy></a><p></p><ul class=list-unstyled><li class="small text-white text-decoration-none">http4k Limited</li><li class="small text-white text-decoration-none">Registered in England & Wales</li><li class="small text-white text-decoration-none">Reg no: 14687467</li></ul></div><div class="col-xs-6 col-md"><h5>Product</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/pro/>Pro</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/enterprise/>Enterprise</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/supply-chain-security/>Supply Chain Security</a></li><li><a class="small text-white text-decoration-none" href=https://verify.http4k.org>http4k Verify</a></li></ul></div><div class="col-xs-6 col-md"><h5>Learn</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/quickstart/>Quickstart</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/tutorial/>Tutorials</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/howto/>How-to guides</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/ecosystem/>Docs</a></li></ul></div><div class="col-xs-6 col-md"><h5>Resources</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/news/>News</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/showcase/>Showcase</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/community/>Community</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/security/>Security Advisories</a></li></ul></div><div class="col-xs-6 col-md"><h5>Company</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/company/>About</a></li><li><a class="small text-white text-decoration-none" href=mailto:info@http4k.org>Contact</a></li><li><a class="small text-white text-decoration-none" href=https://status.http4k.org/>System Status</a></li><li><a class="small text-white text-decoration-none" href=https://www.linkedin.com/company/http4k>LinkedIn</a></li></ul></div></div></div><div class="row text-center g-0"><div class=col><p class="small text-white text-decoration-none">© 2026&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;All Rights Reserved&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/privacy-policy/>Privacy policy</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/terms-and-conditions/>Terms & conditions</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/disclaimer/>Disclaimer</a>&nbsp;&nbsp;&nbsp;</p></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/fuse.js@6.6.2></script><script defer src=https://http4k.org/js/fuse-search.js></script><script defer src=https://http4k.org/js/footer.js></script><img src="https://static.scarf.sh/a.png?x-pxid=e1c296ba-34c0-4342-8d2c-3a023d5dcec3" alt=scarf></body></html>

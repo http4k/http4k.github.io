@@ -1,0 +1,376 @@
+<!doctype html><html lang=en><head><title>Serverless | http4k</title><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=description content="Feature overview of the http4k-serverless modules, covering Serverless backends"><link rel=preload as=font type=font/woff2 href=/fonts/space-grotesk-latin.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/jetbrains-mono-latin.woff2 crossorigin><link rel=stylesheet media=all href=/main.f93b3d248e9bd06e9639255d1100329adb208cdac2907507d7cdb6d670e3598a.css integrity="sha256-+Ts9JI6b0G6WOSVdEQAymtsgjNrCkHUH18221nDjWYo="><script defer src=/js/shared/shared.794e279e18e8d0c7343e9a15e1bb4c3b1bb3a8444d0f12a831c9f3d352fe38e8.js integrity="sha256-eU4nnhjo0Mc0PpoV4btMOxuzqERNDxKoMcnz01L+OOg="></script><script defer src=/js/timeline.js></script><link rel=apple-touch-icon-precomposed href=https://http4k.org/favicon-180.png><meta name=msapplication-TileColor content="#FFFFFF"><meta name=msapplication-TileImage content="https://http4k.org/favicon-144.png"><meta name=application-name content="http4k"><meta name=msapplication-tooltip content="The Functional toolkit for Kotlin HTTP applications"><meta name=msapplication-config content="https://http4k.org/ieconfig.xml"><link rel=apple-touch-icon-precomposed sizes=180x180 href=https://http4k.org/favicon-180.png><link rel=apple-touch-icon-precomposed sizes=152x152 href=https://http4k.org/favicon-152.png><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://http4k.org/favicon-144.png><link rel=apple-touch-icon-precomposed sizes=120x120 href=https://http4k.org/favicon-120.png><link rel=apple-touch-icon-precomposed sizes=114x114 href=https://http4k.org/favicon-114.png><link rel=apple-touch-icon-precomposed sizes=76x76 href=https://http4k.org/favicon-76.png><link rel=apple-touch-icon-precomposed sizes=72x72 href=https://http4k.org/favicon-72.png><link rel=icon href=https://http4k.org/favicon-32.png sizes=32x32><link rel="shortcut icon" sizes=196x196 href=https://http4k.org/favicon-196.png><link rel=apple-touch-icon sizes=180x180 href=/favicon-180.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16.png><link rel=manifest href=/site.webmanifest><meta name=apple-mobile-web-app-title content="http4k"><meta name=application-name content="http4k"><meta name=msapplication-TileColor content="#FFFFFF"><meta name=theme-color content="#FFFFFF"><script async src="https://www.googletagmanager.com/gtag/js?id=G-YSM9QLBYXY"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-YSM9QLBYXY",{url_passthrough:!1})</script><script src=https://cdn.usefathom.com/script.js data-site=BGFZWRDS defer></script><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://http4k.org/images/social-logo.png"><meta name=twitter:title content="Serverless"><meta name=twitter:description content="Feature overview of the http4k-serverless modules, covering Serverless backends"><meta property="og:url" content="https://http4k.org/ecosystem/http4k/reference/serverless/"><meta property="og:site_name" content="http4k"><meta property="og:title" content="Serverless"><meta property="og:description" content="Feature overview of the http4k-serverless modules, covering Serverless backends"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="ecosystem"><meta property="og:image" content="https://http4k.org/images/social-logo.png"><meta itemprop=name content="Serverless"><meta itemprop=description content="Feature overview of the http4k-serverless modules, covering Serverless backends"><meta itemprop=wordCount content="1856"><meta itemprop=image content="https://http4k.org/images/social-logo.png"><meta itemprop=keywords content="Http4k Core"></head><body><header class=site-header><nav class="navbar navbar-expand-xl navbar-dark"><div class=container><a class="navbar-brand d-flex align-items-center" href=https://http4k.org/><img class="nav-logo nav-logo--white" style=min-height:40px src=/images/logo_hu_d370df57676f24c3.webp width=128 height=40 alt=http4k>
+<img class="nav-logo nav-logo--colour" style=min-height:40px src=/images/logo-http4k_hu_c8395767f4abab1b.webp width=128 height=40 alt=http4k>
+</a><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarContent aria-controls=navbarContent aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarContent><ul class="navbar-nav ms-auto mb-2 mb-xl-0"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>About</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/overview/>Why http4k</a></li><li><a class=dropdown-item href=/company/>Company</a></li><li><a class=dropdown-item href=/news/>News</a></li><li><a class=dropdown-item href=/showcase/>Showcase</a></li><li><a class=dropdown-item href=/community/>Community</a></li><li><a class=dropdown-item href=https://kotlinlang.slack.com/archives/C5AL3AKUY>Community Slack</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Learn</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/learn/>About the docs</a></li><li><a class=dropdown-item href=/quickstart/>Quickstart</a></li><li><a class=dropdown-item href=/tutorial/>Tutorials</a></li><li><a class=dropdown-item href=/howto/>How-to guides</a></li><li><a class=dropdown-item href=/performance/>Performance</a></li><li><a class=dropdown-item href=/faq/>FAQ</a></li><li><a class=dropdown-item href=https://toolbox.http4k.org/>Toolbox</a></li><li><a class=dropdown-item href=https://plugins.jetbrains.com/plugin/25243-http4k-toolbox>IntelliJ Plugin</a></li><li><a class=dropdown-item href=https://github.com/http4k/agent-skills>Agent Skills</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Ecosystem</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/ecosystem/>Overview</a></li><li><a class=dropdown-item href=/ecosystem/http4k/>http4k Core</a></li><li><a class=dropdown-item href=/ecosystem/ai/>http4k AI</a></li><li><a class=dropdown-item href=/ecosystem/connect/>http4k Connect</a></li><li><a class=dropdown-item href=/ecosystem/pro/>http4k Pro</a></li><li><a class=dropdown-item href=/ecosystem/enterprise/>http4k Enterprise</a></li><li><a class=dropdown-item href=/ecosystem/changelog/>Changelog</a></li></ul></li><li class=nav-item><a class="nav-link text-primary px-3" href=/pro/>Pro</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Enterprise</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/enterprise/>Enterprise Edition</a></li><li><a class=dropdown-item href=/consulting/>Consulting</a></li><li><a class=dropdown-item href=/training/>Developer Training</a></li><li><a class=dropdown-item href=http://http4k.slack.com/>http4k EE Slack</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Security</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/supply-chain-security/>Supply Chain Security</a></li><li><a class=dropdown-item href=https://verify.http4k.org>http4k Verify</a></li><li><a class=dropdown-item href=/security/>Security Advisories</a></li><li><a class=dropdown-item href=/cvd-policy/>CVD Policy</a></li></ul></li><li id=searchBox class="nav-item searchBox align-content-center"></li><li class=nav-item><a class="nav-link text-primary px-3" href=https://github.com/http4k/http4k><img src=/images/octocat-inverted-64.png style=height:1.5rem alt=github></a></li><li class="nav-item align-content-center"><a class="cta-btn cta-btn--primary nav-cta" href=mailto:solutions@http4k.org>Talk to us</a></li></ul></div></div></nav></header><style>.github{display:none}</style><div class=docs><aside class="aside col-auto"><div><img class="mb-3 sideToggle" src=/images/exchange-icon.svg width=20 alt srcset><ul class=list-unstyled><li><h2><a href=/ecosystem/http4k/>http4k Core</a></h2></li><li><h6>Latest version: <span class="badge text-bg-secondary">6.57.1.0</span></h6></li><li class=mt-3><h4>Concepts</h4><ul class="list-unstyled ms-3"><li class=mt-1><a href=/ecosystem/http4k/concepts/http/ class=ecoLink>HTTP</a></li><li class=mt-1><a href=/ecosystem/http4k/concepts/lens/ class=ecoLink>Lenses</a></li><li class=mt-1><a href=/ecosystem/http4k/concepts/server-sent-events/ class=ecoLink>Server-Sent Events</a></li><li class=mt-1><a href=/ecosystem/http4k/concepts/serverless/ class=ecoLink>Serverless</a></li><li class=mt-1><a href=/ecosystem/http4k/concepts/websockets/ class=ecoLink>WebSockets</a></li></ul></li><li class=mt-3><h4>Project</h4><ul class="list-unstyled ms-3"><li class=mt-1><a class=ecoLink href=/ecosystem/changelog/>Changelog</a></li><li class=mt-1><a class=ecoLink href=https://github.com/http4k/http4k>GitHub</a></li><li class=mt-1><a class=ecoLink href=/ecosystem/contributing/>Contributing</a></li><li class=mt-1><a class=ecoLink href=https://github.com/http4k/http4k/issues>Issue Tracker</a></li></ul></li><li class=mt-3><h4>Reference</h4><ul class="list-unstyled ms-3"><li class=mt-1><a href=/ecosystem/http4k/reference/cloud_events/ class=ecoLink>API: CloudEvents</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/graphql/ class=ecoLink>API: GraphQL</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/jsonrpc/ class=ecoLink>API: JSON-RPC</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/contracts/ class=ecoLink>API: OpenApi</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/bridge/ class=ecoLink>Bridges</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/clients/ class=ecoLink>Clients</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/config/ class=ecoLink>Config</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/core/ class=ecoLink>Core</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/dataframe/ class=ecoLink>Format: DataFrame</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/json/ class=ecoLink>Format: JSON</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/toon/ class=ecoLink>Format: Toon</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/xml/ class=ecoLink>Format: XML</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/yaml/ class=ecoLink>Format: YAML</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/multipart/ class=ecoLink>Multipart</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/failsafe/ class=ecoLink>Ops: Failsafe</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/micrometer/ class=ecoLink>Ops: Micrometer</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/openfeature/ class=ecoLink>Ops: OpenFeature</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/opentelemetry/ class=ecoLink>Ops: OpenTelemetry</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/resilience4j/ class=ecoLink>Ops: Resilience4J</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/aws/ class=ecoLink>Platform: AWS</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/azure/ class=ecoLink>Platform: Azure</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/docker/ class=ecoLink>Platform: Docker</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/gcp/ class=ecoLink>Platform: GCP</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/k8s/ class=ecoLink>Platform: K8S</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/digest/ class=ecoLink>Security: Digest</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/oauth/ class=ecoLink>Security: OAuth</a></li><li class=mt-1><a href=/ecosystem/pro/reference/webauthn/ class=ecoLink>Security: WebAuthn</a>
+<a href=/pro class=text-decoration-none title="Get http4k Pro modules!"><span style=transform:translateY(-10%) class="ms-1 badge text-bg-pro hover:opacity-80 transition-opacity">pro</span></a></li><li class=mt-1><a href=/ecosystem/http4k/reference/serverless/ class="ecoLink active">Serverless</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/servers/ class=ecoLink>Servers</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/templating/ class=ecoLink>Templating</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/testing/ class=ecoLink>Testing http4k</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/approvaltests/ class=ecoLink>Testing: Approval</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/chaos/ class=ecoLink>Testing: Chaos</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/hamkrest/ class=ecoLink>Testing: Hamkrest</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/kotest/ class=ecoLink>Testing: Kotest</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/playwright/ class=ecoLink>Testing: Playwright</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/powerassert/ class=ecoLink>Testing: Power Assert</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/servicevirtualisation/ class=ecoLink>Testing: Servirtium</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/strikt/ class=ecoLink>Testing: Strikt</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/tracerbullet/ class=ecoLink>Testing: TracerBullet</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/webdriver/ class=ecoLink>Testing: WebDriver</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/webdriver-datastar/ class=ecoLink>Testing: WebDriver (Datastar)</a></li><li class=mt-1><a href=/ecosystem/pro/reference/hot_reload/ class=ecoLink>Tools: Hot Reload</a>
+<a href=/pro class=text-decoration-none title="Get http4k Pro modules!"><span style=transform:translateY(-10%) class="ms-1 badge text-bg-pro hover:opacity-80 transition-opacity">pro</span></a></li><li class=mt-1><a href=/ecosystem/http4k/reference/datastar/ class=ecoLink>Web: Datastar</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/htmx/ class=ecoLink>Web: HTMX</a></li><li class=mt-1><a href=/ecosystem/http4k/reference/webhooks/ class=ecoLink>Webhooks</a></li><li class=mt-1><a href=/ecosystem/pro/reference/wiretap/ class=ecoLink>Wiretap</a>
+<a href=/pro class=text-decoration-none title="Get http4k Pro modules!"><span style=transform:translateY(-10%) class="ms-1 badge text-bg-pro hover:opacity-80 transition-opacity">pro</span></a></li></ul></li></ul></div></aside><main class="page-content col"><article><img class="mb-3 sideToggle" src=/images/exchange-icon.svg width=20 alt srcset><nav class=docs-crumbs><a href=/ecosystem/>docs</a>
+<span>/</span>http4k Core
+<span>/</span>Serverless</nav><div class=eyebrow>// REFERENCE</div><div class="d-flex align-items-center"><h1>Serverless</h1></div><div class=mt-5><h3 id=installation-gradle>Installation (Gradle)<a class=heading-link href=#installation-gradle aria-label="Link to Installation (Gradle)">#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>dependencies {
+</span></span><span style=display:flex><span>    
+    implementation(platform("org.http4k:http4k-bom:6.57.1.0"))
+
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// AWS Lambda: 
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-serverless-lambda&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Google Cloud Functions: 
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-serverless-gcf&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Apache OpenWhisk (IBM Cloud Functions): 
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-serverless-openwhisk&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Azure Functions: 
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-serverless-azure&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Alibaba Function Compute: 
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-serverless-alibaba&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Tencent Serverless Cloud Functions: 
+</span></span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-serverless-tencent&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=about>About<a class=heading-link href=#about aria-label="Link to About">#</a></h3><p>These modules provide integration with Serverless deployment environments, such as AWS Lambda or Google Cloud Functions by implementing a single interface.</p><h4 id=aws-lambda-integration-http-apps>AWS Lambda integration (HTTP apps)<a class=heading-link href=#aws-lambda-integration-http-apps aria-label="Link to AWS Lambda integration (HTTP apps)">#</a></h4><p>Since http4k is server independent, it turns out to be fairly trivial to deploy full applications to <a href=https://aws.amazon.com/lambda>AWS Lambda</a>, and then call them by setting up the <a href=https://aws.amazon.com/api-gateway>API Gateway</a> to proxy requests to the function. Effectively, the combination of these two services become just another Server back-end supported by the library. This has the added bonus that you can test your applications in a local environment and then simply deploy them to AWS Lambda via S3 upload.</p><p>In order to achieve this, only a single interface <code>AppLoader</code> needs to be implemented and a simple extension of <code>AwsLambdaFunction</code> supplied depending on which invocation type is required - Direct, ApiGateway V1/2 or ApplicationLoadBalancer.</p><p>This is far from a complete guide, but configuring AWS Lambda and the API Gateway involves several stages:</p><ol><li>Users, Roles and Policies for the API Gateway and Lambda.</li><li>API Gateway to proxy all requests to your Lambda.</li><li>Building your http4k application into a standard UberJar.</li><li>Optionally using Proguard to minify the JAR.</li><li>Package up the (minified) JAR into a standard Zip distribution.</li><li>Create and configure the Lambda function, and at the same time:<ul><li>Upload the standard Zip file to S3.</li><li>Set the function execution to call the main http4k entry point: <code>guide.modules.serverless.lambda.FunctionsExampleEntryClass</code></li></ul></li></ol><p>We hope to soon provide some tools to automate at least some of the above process, or at least document it somewhat. However, AWS is a complicated beast and many people have a preferred way to set it up: CloudFormation templates, Serverless framework, Terraform, etc. In the meantime, here is an example of how the <code>AppLoader</code> is created and how to launch the app locally:</p><h4 id=code>Code<a class=heading-link href=#code aria-label="Link to Code">#</a></h4><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>lambda/example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.http4k.reference.serverless.lambda
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.ApacheClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpHandler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.POST
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.ApiGatewayV1LambdaFunction
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.AppLoader
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This AppLoader is responsible for building our HttpHandler which is supplied to AWS
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// It is the only actual piece of code that needs to be written.
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>object</span> <span style=color:#a6e22e>TweetEchoLambda</span> : AppLoader {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>override</span> <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>invoke</span>(env: Map&lt;String, String&gt;): HttpHandler = {
+</span></span><span style=display:flex><span>        Response(OK).body(<span style=color:#66d9ef>it</span>.bodyString().take(<span style=color:#ae81ff>17</span>))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This class is the entry-point for the function call - configure it when deploying
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FunctionsExampleEntryClass</span> : ApiGatewayV1LambdaFunction(TweetEchoLambda)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Launching your Lambda Function locally - by simply providing the operating ENVIRONMENT map as would
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// be configured on AWS.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>runLambdaLocally</span>() {
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;RUNNING LOCALLY:&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> app: HttpHandler = TweetEchoLambda(mapOf())
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> localLambda = app.asServer(SunHttp(<span style=color:#ae81ff>8000</span>)).start()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> response = ApacheClient()(
+</span></span><span style=display:flex><span>            Request(
+</span></span><span style=display:flex><span>                POST,
+</span></span><span style=display:flex><span>                <span style=color:#e6db74>&#34;http://localhost:8000/&#34;</span>
+</span></span><span style=display:flex><span>            ).body(<span style=color:#e6db74>&#34;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&#34;</span>)
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        println(response)
+</span></span><span style=display:flex><span>        localLambda.stop()
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// the following code is purely here for demonstration purposes, to explain exactly what is happening at AWS.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>runLambdaAsAwsWould</span>() {
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;RUNNING AS LAMBDA:&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//        val response = FunctionsExampleEntryClass().handleRequest(ServerlessMoshi.asInputStream(
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//            mapOf(
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//                &#34;path&#34; to &#34;/&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//                &#34;queryStringParameters&#34; to emptyMap&lt;String, String&gt;(),
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//                &#34;body&#34; to &#34;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//                &#34;headers&#34; to emptyMap&lt;String, String&gt;(),
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//                &#34;isBase64Encoded&#34; to false,
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//                &#34;httpMethod&#34; to &#34;GET&#34;
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//            )
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//        ), mock())
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//        println(response)
+</span></span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    runLambdaLocally()
+</span></span><span style=display:flex><span>    runLambdaAsAwsWould()
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><h4 id=aws-lambda-integration-event-based-apps>AWS Lambda integration (Event-based apps)<a class=heading-link href=#aws-lambda-integration-event-based-apps aria-label="Link to AWS Lambda integration (Event-based apps)">#</a></h4><p>http4k also supports writing Event-based functions to receive AWS events from services like SQS and Dynamo. One advantage of using http4k version is that it uses the AWS SDK RequestStreamHandler instead of the standard RequestHandler - which avoids the heavyweight Jackson deserialisation process (we use Moshi under the covers) utilised by the standard AWS runtime. To use this events functionality, you should also import the AWS Events JAR:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>implementation(<span style=color:#e6db74>&#34;com.amazonaws:aws-lambda-java-events:3.8.0&#34;</span>)
+</span></span></code></pre></div><p>Similarly to HttpHandler, for event processing in a functional style, the main body of the Lambda function is encapsulated in a single interface <code>FnHandler</code>. This typesafe class is created by an <code>FnLoader</code> function and simply passed into an extension of <code>AwsLambdaEventFunction</code> - which is the class configured as the entry point of your AWS lambda.</p><p>The process of configuration is the same as for HTTP apps above.</p><h4 id=code-1>Code<a class=heading-link href=#code-1 aria-label="Link to Code">#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>import</span> com.amazonaws.services.lambda.runtime.Context
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> com.amazonaws.services.lambda.runtime.events.SQSEvent
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> com.amazonaws.services.lambda.runtime.events.SQSEvent.SQSMessage
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> dev.forkhandles.mock4k.mock
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.JavaHttpClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpHandler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.POST
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.format.AwsLambdaMoshi
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.AwsLambdaEventFunction
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.FnHandler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.FnLoader
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.ServerlessFilters.ReportFnTransaction
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.io.ByteArrayOutputStream
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This is the handler for the incoming AWS SQS event. It&#39;s just a function so you can call it without any infrastructure
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>EventFnHandler</span>(http: HttpHandler) =
+</span></span><span style=display:flex><span>    FnHandler { e: SQSEvent, _: Context <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        e.records.forEach {
+</span></span><span style=display:flex><span>            http(Request(POST, <span style=color:#e6db74>&#34;http://localhost:8080/&#34;</span>).body(<span style=color:#66d9ef>it</span>.body.reversed()))
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;processed </span><span style=color:#e6db74>${e.records.size}</span><span style=color:#e6db74> messages&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// We can add filters to the FnHandler if we want to - in this case print the transaction (with the letency).
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>val</span> loggingFunction = ReportFnTransaction&lt;SQSEvent, Context, String&gt; { tx <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>    println(tx)
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// The FnLoader is responsible for constructing the handler and for handling the serialisation of the request and response
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>EventFnLoader</span>(http: HttpHandler) = FnLoader { env: Map&lt;String, String&gt; <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>    loggingFunction.then(EventFnHandler(http))
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This class is the entry-point for the Lambda function call - configure it when deploying
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>EventFunction</span> : AwsLambdaEventFunction(EventFnLoader(JavaHttpClient()))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// this server receives the reversed event
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> receivingServer = { req: Request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        println(req.bodyString())
+</span></span><span style=display:flex><span>        Response(OK)
+</span></span><span style=display:flex><span>    }.asServer(SunHttp(<span style=color:#ae81ff>8080</span>)).start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> sqsEvent = SQSEvent().apply {
+</span></span><span style=display:flex><span>        records = listOf(
+</span></span><span style=display:flex><span>            SQSMessage().apply { body = <span style=color:#e6db74>&#34;hello world&#34;</span> },
+</span></span><span style=display:flex><span>            SQSMessage().apply { body = <span style=color:#e6db74>&#34;goodbye world&#34;</span> }
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>runLambdaInMemoryOrForTesting</span>() {
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;RUNNING In memory:&#34;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> app = EventFnHandler(JavaHttpClient())
+</span></span><span style=display:flex><span>        app(sqsEvent, mock())
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>runLambdaAsAwsWould</span>() {
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;RUNNING as AWS would invoke the function:&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> out = ByteArrayOutputStream()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        EventFunction().handleRequest(<span style=color:#a6e22e>AwsLambdaMoshi</span>.asInputStream(sqsEvent), <span style=color:#66d9ef>out</span>, mock())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// the response is empty b
+</span></span></span><span style=display:flex><span>        println(<span style=color:#66d9ef>out</span>.toString())
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    runLambdaInMemoryOrForTesting()
+</span></span><span style=display:flex><span>    runLambdaAsAwsWould()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    receivingServer.stop()
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h4 id=google-cloud-functions-integration>Google Cloud Functions integration<a class=heading-link href=#google-cloud-functions-integration aria-label="Link to Google Cloud Functions integration">#</a></h4><p>Google Cloud Functions are triggered in the cloud by calling an entry point class which implements their <code>HttpFunction</code> interface.</p><p>In order to achieve this in http4k, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple extension class needs to be written which accepts this interface.</p><p>You can compose filters and handlers as usual and pass them to the constructor of the <code>GoogleCloudFunction</code> and make your entry point class extend from it.
+Here is an example:</p><h4 id=code-2>Code<a class=heading-link href=#code-2 aria-label="Link to Code">#</a></h4><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>gcf/example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.http4k.reference.serverless.gcf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.ApacheClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Filter
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpHandler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.POST
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.bind
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.routes
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.AppLoader
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.GoogleCloudHttpFunction
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This AppLoader is responsible for building our HttpHandler which is supplied to GCF
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Along with the extension class below, is the only actual piece of code that needs to be written.
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>object</span> <span style=color:#a6e22e>TweetEchoLambda</span> : AppLoader {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>val</span> timer = Filter { next: HttpHandler <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        { request: Request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>val</span> start = <span style=color:#a6e22e>System</span>.currentTimeMillis()
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>val</span> response = next(request)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>val</span> latency = <span style=color:#a6e22e>System</span>.currentTimeMillis() - start
+</span></span><span style=display:flex><span>            println(<span style=color:#e6db74>&#34;I took </span><span style=color:#e6db74>$latency</span><span style=color:#e6db74> ms&#34;</span>)
+</span></span><span style=display:flex><span>            response
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>override</span> <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>invoke</span>(env: Map&lt;String, String&gt;): HttpHandler =
+</span></span><span style=display:flex><span>        timer
+</span></span><span style=display:flex><span>            .then(
+</span></span><span style=display:flex><span>                routes(
+</span></span><span style=display:flex><span>                    <span style=color:#e6db74>&#34;/echo&#34;</span> bind POST to { Response(OK).body(<span style=color:#66d9ef>it</span>.bodyString().take(<span style=color:#ae81ff>18</span>)) }
+</span></span><span style=display:flex><span>                )
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This class is the entry-point for the function call - configure it when deploying
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>FunctionsExampleEntryClass</span> : GoogleCloudHttpFunction(TweetEchoLambda)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Launching your Function locally - by simply providing the operating ENVIRONMENT map as would
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// be configured in GCP.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>runFunctionLocally</span>() {
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;RUNNING LOCALLY:&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> app: HttpHandler = TweetEchoLambda(<span style=color:#a6e22e>System</span>.getenv())
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> localLambda = app.asServer(SunHttp(<span style=color:#ae81ff>8000</span>)).start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        println(
+</span></span><span style=display:flex><span>            ApacheClient()(
+</span></span><span style=display:flex><span>                Request(
+</span></span><span style=display:flex><span>                    POST,
+</span></span><span style=display:flex><span>                    <span style=color:#e6db74>&#34;http://localhost:8000/echo&#34;</span>
+</span></span><span style=display:flex><span>                ).body(<span style=color:#e6db74>&#34;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&#34;</span>)
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>        localLambda.stop()
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// the following code is purely here for demonstration purposes, to explain exactly what is happening at GCP.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>runFunctionAsGCFWould</span>() {
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;RUNNING AS GCF:&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> response = FakeGCFResponse()
+</span></span><span style=display:flex><span>        FunctionsExampleEntryClass().service(
+</span></span><span style=display:flex><span>            FakeGCFRequest
+</span></span><span style=display:flex><span>                (
+</span></span><span style=display:flex><span>                Request(
+</span></span><span style=display:flex><span>                    POST,
+</span></span><span style=display:flex><span>                    <span style=color:#e6db74>&#34;http://localhost:8000/echo&#34;</span>
+</span></span><span style=display:flex><span>                ).body(<span style=color:#e6db74>&#34;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&#34;</span>)
+</span></span><span style=display:flex><span>            ), response
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>        println(response.status)
+</span></span><span style=display:flex><span>        println(response.headers)
+</span></span><span style=display:flex><span>        println(response.body)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    runFunctionLocally()
+</span></span><span style=display:flex><span>    runFunctionAsGCFWould()
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><p>If you are using gradle, gcloud can&rsquo;t deploy the function directly from the project, you must build the fat jar first.
+Applying this plugin <a href=https://gradleup.com/shadow/>shadow jar</a> will provide you with appropriate gradle task to build the fat jar.</p><p>After building, and having your jar as the only file in the <code>libs/</code> folder you can deploy the function from the parent folder with :</p><p><code>gcloud functions deploy example-function --runtime=java11 --entry-point=guide.modules.serverless.gcf.FunctionsExampleEntryClass --trigger-http --source=libs/</code></p><p>If you want to invoke functions locally you can do it with this gradle setup and passing a <code>-PrunFunction.target</code> parameter to the build task :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>configurations {
+</span></span><span style=display:flex><span>    invoker
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>dependencies {
+</span></span><span style=display:flex><span>    invoker <span style=color:#960050;background-color:#1e0010>&#39;</span>com.google.cloud.functions.invoker:java-function-invoker:<span style=color:#ae81ff>1.0.0</span>-alpha-<span style=color:#ae81ff>2</span>-rc5<span style=color:#960050;background-color:#1e0010>&#39;</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>tasks.register(<span style=color:#e6db74>&#34;runFunction&#34;</span>, JavaExec) {
+</span></span><span style=display:flex><span>    main = <span style=color:#960050;background-color:#1e0010>&#39;</span>com.google.cloud.functions.invoker.runner.Invoker<span style=color:#960050;background-color:#1e0010>&#39;</span>
+</span></span><span style=display:flex><span>    classpath(configurations.invoker)
+</span></span><span style=display:flex><span>    inputs.files(configurations.runtimeClasspath, sourceSets.main.output)
+</span></span><span style=display:flex><span>    args(
+</span></span><span style=display:flex><span>            <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#f92672>--</span>target<span style=color:#960050;background-color:#1e0010>&#39;</span>, project.findProperty(<span style=color:#960050;background-color:#1e0010>&#39;</span>runFunction.target<span style=color:#960050;background-color:#1e0010>&#39;</span>),
+</span></span><span style=display:flex><span>            <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#f92672>--</span>port<span style=color:#960050;background-color:#1e0010>&#39;</span>, project.findProperty(<span style=color:#960050;background-color:#1e0010>&#39;</span>runFunction.port<span style=color:#960050;background-color:#1e0010>&#39;</span>) <span style=color:#f92672>?:</span> <span style=color:#ae81ff>8080</span>
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>    doFirst {
+</span></span><span style=display:flex><span>        args(<span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#f92672>--</span>classpath<span style=color:#960050;background-color:#1e0010>&#39;</span>, files(configurations.runtimeClasspath, sourceSets.main.output).asPath)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>If you are using Maven, you do not have to build the fat JAR and can deploy the function from the project folder.
+Simple example on how to setup <code>pom.xml</code> to run functions locally and deploy Maven project to the cloud is shown <a href=https://cloud.google.com/functions/docs/first-java>here</a></p><h4 id=apache-openwhisk-integration>Apache OpenWhisk integration<a class=heading-link href=#apache-openwhisk-integration aria-label="Link to Apache OpenWhisk integration">#</a></h4><p>OpenWhisk has a Java runtime which is triggered by calling an entry point class which contains a static <code>main()</code> function receiving a GSON <code>JsonObject</code>.</p><p>In order to achieve this in http4k, only a single interface <code>AppLoader</code> needs to be implemented, and then a simple class needs to be written which uses the <code>OpenWhiskFunction</code> wrapper. Because of the OpenWhisk runtime usage of the library, a <code>compileOnly</code> dependency also needs to be added on GSON to ensure that your function can build correctly.</p><h4 id=code-3>Code<a class=heading-link href=#code-3 aria-label="Link to Code">#</a></h4><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>openwhisk/example.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.ecosystem.http4k.reference.serverless.openwhisk
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> com.google.gson.JsonObject
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.ApacheClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Filter
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpHandler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.POST
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.format.Gson
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.bind
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.routes
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.AppLoader
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.serverless.OpenWhiskFunction
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This AppLoader is responsible for building our HttpHandler which is supplied to OpenWhisk
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Along with the extension class below, is the only actual piece of code that needs to be written.
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>object</span> <span style=color:#a6e22e>TweetEchoLambda</span> : AppLoader {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>val</span> timer = Filter { next: HttpHandler <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        { request: Request <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>val</span> start = <span style=color:#a6e22e>System</span>.currentTimeMillis()
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>val</span> response = next(request)
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>val</span> latency = <span style=color:#a6e22e>System</span>.currentTimeMillis() - start
+</span></span><span style=display:flex><span>            println(<span style=color:#e6db74>&#34;I took </span><span style=color:#e6db74>$latency</span><span style=color:#e6db74> ms&#34;</span>)
+</span></span><span style=display:flex><span>            response
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>override</span> <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>invoke</span>(env: Map&lt;String, String&gt;): HttpHandler =
+</span></span><span style=display:flex><span>        timer
+</span></span><span style=display:flex><span>            .then(
+</span></span><span style=display:flex><span>                routes(
+</span></span><span style=display:flex><span>                    <span style=color:#e6db74>&#34;/echo&#34;</span> bind POST to { Response(OK).body(<span style=color:#66d9ef>it</span>.bodyString().take(<span style=color:#ae81ff>18</span>)) }
+</span></span><span style=display:flex><span>                )
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// This class is the entry-point for the function call - configure it when deploying
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>object</span> <span style=color:#a6e22e>FunctionsExampleEntryClass</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@JvmStatic</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>(request: JsonObject) = OpenWhiskFunction(TweetEchoLambda)(request)
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Launching your Function locally - by simply providing the operating ENVIRONMENT map as would
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// be configured in OpenWhisk.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>runFunctionLocally</span>() {
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;RUNNING LOCALLY:&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> app: HttpHandler = TweetEchoLambda(<span style=color:#a6e22e>System</span>.getenv())
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> localLambda = app.asServer(SunHttp(<span style=color:#ae81ff>8000</span>)).start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        println(
+</span></span><span style=display:flex><span>            ApacheClient()(
+</span></span><span style=display:flex><span>                Request(
+</span></span><span style=display:flex><span>                    POST,
+</span></span><span style=display:flex><span>                    <span style=color:#e6db74>&#34;http://localhost:8000/echo&#34;</span>
+</span></span><span style=display:flex><span>                ).body(<span style=color:#e6db74>&#34;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&#34;</span>)
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>        localLambda.stop()
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// the following code is purely here for demonstration purposes, to explain exactly what is happening in OpenWhisk.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>runFunctionAsOpenWhiskWould</span>() {
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;RUNNING AS OpenWhisk:&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> fakeOpenWhiskRequest = FakeOpenWhiskRawRequest(
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;POST&#34;</span>, <span style=color:#e6db74>&#34;/echo&#34;</span>, <span style=color:#e6db74>&#34;&#34;</span>, emptyMap(),
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;hello hello hello, i suppose this isn&#39;t 140 characters anymore..&#34;</span>
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> response =
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>FunctionsExampleEntryClass</span>.main(<span style=color:#a6e22e>Gson</span>.asJsonObject(fakeOpenWhiskRequest) <span style=color:#66d9ef>as</span> JsonObject)
+</span></span><span style=display:flex><span>        println(response)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    runFunctionLocally()
+</span></span><span style=display:flex><span>    runFunctionAsOpenWhiskWould()
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><p>Packaging of the app should be done using <a href=https://gradleup.com/shadow/>ShadowJar</a> and then an action created with the <code>wsk</code> CLI:</p><pre tabindex=0><code>wsk -i action create myFunctionName myApp.jar --main org.http4k.example.MyFunctionClass --web true
+</code></pre><p>Locally, you can then just call the function with <code>curl</code>:</p><pre tabindex=0><code>curl -k `wsk -i action get test --url | tail -1`
+</code></pre></div><nav class=docs-pager><a class="docs-pager__link docs-pager__prev" href=/ecosystem/pro/reference/webauthn/><span>&larr; Previous</span><strong>Security: WebAuthn</strong>
+</a><a class="docs-pager__link docs-pager__next" href=/ecosystem/http4k/reference/servers/><span>Next &rarr;</span><strong>Servers</strong></a></nav></article></main><aside class=docs-toc><div class=docs-toc__title>On this page</div><nav id=TableOfContents><ul><li><ul><li><a href=#installation-gradle>Installation (Gradle)</a></li><li><a href=#about>About</a></li></ul></li></ul></nav></aside></div><script>document.querySelectorAll(".sideToggle").forEach(function(e){e.addEventListener("click",function(){document.querySelectorAll(".aside").forEach(function(e){e.classList.toggle("no-side")})})}),function(){var e,n,s,t=document.querySelectorAll(".docs-toc a");if(!t.length||!("IntersectionObserver"in window))return;e={},t.forEach(function(t){e[decodeURIComponent(t.getAttribute("href").slice(1))]=t}),n=document.querySelectorAll(".page-content h2[id], .page-content h3[id]"),s=new IntersectionObserver(function(n){n.forEach(function(n){n.isIntersecting&&e[n.target.id]&&(t.forEach(function(e){e.classList.remove("active")}),e[n.target.id].classList.add("active"))})},{rootMargin:"0px 0px -75% 0px"}),n.forEach(function(e){s.observe(e)})}()</script><footer><div class=container><div class="row pb-3 text-start text-xl-start"><div class="col-md-6 col-lg-3" style=width:200px><a class=p-0 href=https://http4k.org/><img src=/images/logo_hu_d370df57676f24c3.webp alt=logo width=50% loading=lazy></a><p></p><ul class=list-unstyled><li class="small text-white text-decoration-none">http4k Limited</li><li class="small text-white text-decoration-none">Registered in England & Wales</li><li class="small text-white text-decoration-none">Reg no: 14687467</li></ul></div><div class="col-xs-6 col-md"><h5>Product</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/pro/>Pro</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/enterprise/>Enterprise</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/supply-chain-security/>Supply Chain Security</a></li><li><a class="small text-white text-decoration-none" href=https://verify.http4k.org>http4k Verify</a></li></ul></div><div class="col-xs-6 col-md"><h5>Learn</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/quickstart/>Quickstart</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/tutorial/>Tutorials</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/howto/>How-to guides</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/ecosystem/>Docs</a></li></ul></div><div class="col-xs-6 col-md"><h5>Resources</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/news/>News</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/showcase/>Showcase</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/community/>Community</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/security/>Security Advisories</a></li></ul></div><div class="col-xs-6 col-md"><h5>Company</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/company/>About</a></li><li><a class="small text-white text-decoration-none" href=mailto:info@http4k.org>Contact</a></li><li><a class="small text-white text-decoration-none" href=https://status.http4k.org/>System Status</a></li><li><a class="small text-white text-decoration-none" href=https://www.linkedin.com/company/http4k>LinkedIn</a></li></ul></div></div></div><div class="row text-center g-0"><div class=col><p class="small text-white text-decoration-none">© 2026&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;All Rights Reserved&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/privacy-policy/>Privacy policy</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/terms-and-conditions/>Terms & conditions</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/disclaimer/>Disclaimer</a>&nbsp;&nbsp;&nbsp;</p></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/fuse.js@6.6.2></script><script defer src=https://http4k.org/js/fuse-search.js></script><script defer src=https://http4k.org/js/footer.js></script><img src="https://static.scarf.sh/a.png?x-pxid=e1c296ba-34c0-4342-8d2c-3a023d5dcec3" alt=scarf></body></html>
