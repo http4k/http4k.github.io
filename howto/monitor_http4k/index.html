@@ -1,0 +1,227 @@
+<!doctype html><html lang=en><head><title>Monitor http4k | http4k</title><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=description content="How to monitor http4k endpoints and applications"><link rel=preload as=font type=font/woff2 href=/fonts/space-grotesk-latin.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/jetbrains-mono-latin.woff2 crossorigin><link rel=stylesheet media=all href=/main.ec70d3365456bcdf731a5846db9505c90d9008c73ee5fd83215a6ecba4c22252.css integrity="sha256-7HDTNlRWvN9zGlhG25UFyQ2QCMc+5f2DIVpuy6TCIlI="><script defer src=/js/shared/shared.794e279e18e8d0c7343e9a15e1bb4c3b1bb3a8444d0f12a831c9f3d352fe38e8.js integrity="sha256-eU4nnhjo0Mc0PpoV4btMOxuzqERNDxKoMcnz01L+OOg="></script><script defer src=/js/timeline.js></script><link rel=apple-touch-icon-precomposed href=https://http4k.org/favicon-180.png><meta name=msapplication-TileColor content="#FFFFFF"><meta name=msapplication-TileImage content="https://http4k.org/favicon-144.png"><meta name=application-name content="http4k"><meta name=msapplication-tooltip content="The Functional toolkit for Kotlin HTTP applications"><meta name=msapplication-config content="https://http4k.org/ieconfig.xml"><link rel=apple-touch-icon-precomposed sizes=180x180 href=https://http4k.org/favicon-180.png><link rel=apple-touch-icon-precomposed sizes=152x152 href=https://http4k.org/favicon-152.png><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://http4k.org/favicon-144.png><link rel=apple-touch-icon-precomposed sizes=120x120 href=https://http4k.org/favicon-120.png><link rel=apple-touch-icon-precomposed sizes=114x114 href=https://http4k.org/favicon-114.png><link rel=apple-touch-icon-precomposed sizes=76x76 href=https://http4k.org/favicon-76.png><link rel=apple-touch-icon-precomposed sizes=72x72 href=https://http4k.org/favicon-72.png><link rel=icon href=https://http4k.org/favicon-32.png sizes=32x32><link rel="shortcut icon" sizes=196x196 href=https://http4k.org/favicon-196.png><link rel=apple-touch-icon sizes=180x180 href=/favicon-180.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16.png><link rel=manifest href=/site.webmanifest><meta name=apple-mobile-web-app-title content="http4k"><meta name=application-name content="http4k"><meta name=msapplication-TileColor content="#FFFFFF"><meta name=theme-color content="#FFFFFF"><script async src="https://www.googletagmanager.com/gtag/js?id=G-YSM9QLBYXY"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-YSM9QLBYXY",{url_passthrough:!1})</script><script src=https://cdn.usefathom.com/script.js data-site=BGFZWRDS defer></script><meta property="og:site_name" content="http4k"><meta property="og:url" content="https://http4k.org/howto/monitor_http4k/"><meta property="og:title" content="Monitor http4k"><meta property="og:description" content="How to monitor http4k endpoints and applications"><meta property="og:type" content="article"><meta property="og:locale" content="en_us"><meta property="og:image" content="https://http4k.org/images/social-logo.png"><meta property="og:image:width" content="1200"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Monitor http4k"><meta name=twitter:description content="How to monitor http4k endpoints and applications"><meta name=twitter:image content="https://http4k.org/images/social-logo.png"><meta itemprop=name content="Monitor http4k"><meta itemprop=description content="How to monitor http4k endpoints and applications"><meta itemprop=wordCount content="820"><meta itemprop=image content="https://http4k.org/images/social-logo.png"></head><body><style>.dist-banner{background:var(--ink);color:#fff;font-family:var(--font-sans);font-size:.875rem;line-height:1.4;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:16px;position:relative;z-index:1031}.dist-banner[hidden]{display:none}.dist-banner a{color:var(--orange);text-decoration:none;white-space:nowrap}.dist-banner a:hover{text-decoration:underline}.dist-banner__close{background:0 0;border:0;color:#fff;opacity:.7;font-size:1.25rem;line-height:1;padding:0 4px;cursor:pointer;flex-shrink:0}.dist-banner__close:hover{opacity:1}.dist-banner__short{display:none}@media(max-width:575.98px){.dist-banner{padding:8px 14px;gap:10px}.dist-banner__full{display:none}.dist-banner__short{display:inline}}.dist-banner:not([hidden])~.site-header:has(+.ink-hero){top:var(--dist-banner-h,0px)}</style><div class=dist-banner id=dist-banner hidden><span><span class=dist-banner__full>From 1 October 2026, http4k releases reach Maven Central
+quarterly. <a href=https://maven.http4k.org>maven.http4k.org</a> releases
+continue every 1-2 weeks.
+<a href=https://http4k.org/distribution/>What this means &rarr;</a>
+</span><span class=dist-banner__short>From 1 October 2026, http4k distribution is changing.
+<a href=https://http4k.org/distribution/>Details &rarr;</a>
+</span></span><button type=button class=dist-banner__close aria-label="Dismiss notice">&#215;</button></div><script>(function(){var t,n,s="http4k-distribution-notice-dismissed",i=7*24*60*60*1e3,e=document.getElementById("dist-banner"),o=document.documentElement;try{if(t=parseInt(localStorage.getItem(s),10),t>0&&Date.now()-t<i)return}catch{}n=function(){o.style.setProperty("--dist-banner-h",e.offsetHeight+"px")},e.hidden=!1,n(),window.ResizeObserver&&new ResizeObserver(n).observe(e),e.querySelector(".dist-banner__close").addEventListener("click",function(){e.hidden=!0,o.style.setProperty("--dist-banner-h","0px");try{localStorage.setItem(s,String(Date.now()))}catch{}})})()</script><header class=site-header><nav class="navbar navbar-expand-xl navbar-dark"><div class=container><a class="navbar-brand d-flex align-items-center" href=https://http4k.org/><img class="nav-logo nav-logo--white" style=min-height:40px src=/images/logo_hu_d370df57676f24c3.webp width=128 height=40 alt=http4k>
+<img class="nav-logo nav-logo--colour" style=min-height:40px src=/images/logo-http4k_hu_c8395767f4abab1b.webp width=128 height=40 alt=http4k>
+</a><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarContent aria-controls=navbarContent aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarContent><ul class="navbar-nav ms-auto mb-2 mb-xl-0"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>About</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/overview/>Why http4k</a></li><li><a class=dropdown-item href=/company/>Company</a></li><li><a class=dropdown-item href=/news/>News</a></li><li><a class=dropdown-item href=/showcase/>Showcase</a></li><li><a class=dropdown-item href=/community/>Community</a></li><li><a class=dropdown-item href=https://kotlinlang.slack.com/archives/C5AL3AKUY>Community Slack</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Learn</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/learn/>About the docs</a></li><li><a class=dropdown-item href=/quickstart/>Quickstart</a></li><li><a class=dropdown-item href=/tutorial/>Tutorials</a></li><li><a class=dropdown-item href=/howto/>How-to guides</a></li><li><a class=dropdown-item href=/performance/>Performance</a></li><li><a class=dropdown-item href=/faq/>FAQ</a></li><li><a class=dropdown-item href=https://toolbox.http4k.org/>Toolbox</a></li><li><a class=dropdown-item href=https://plugins.jetbrains.com/plugin/25243-http4k-toolbox>IntelliJ Plugin</a></li><li><a class=dropdown-item href=https://github.com/http4k/agent-skills>Agent Skills</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Ecosystem</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/ecosystem/>Overview</a></li><li><a class=dropdown-item href=/ecosystem/http4k/>http4k Core</a></li><li><a class=dropdown-item href=/ecosystem/ai/>http4k AI</a></li><li><a class=dropdown-item href=/ecosystem/connect/>http4k Connect</a></li><li><a class=dropdown-item href=/ecosystem/pro/>http4k Pro</a></li><li><a class=dropdown-item href=/ecosystem/enterprise/>http4k Enterprise</a></li><li><a class=dropdown-item href=/ecosystem/changelog/>Changelog</a></li></ul></li><li class=nav-item><a class="nav-link text-primary px-3" href=/pro/>Pro</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Enterprise</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/enterprise/>Enterprise Edition</a></li><li><a class=dropdown-item href=/consulting/>Consulting</a></li><li><a class=dropdown-item href=/training/>Developer Training</a></li><li><a class=dropdown-item href=http://http4k.slack.com/>http4k EE Slack</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Security</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/supply-chain-security/>Supply Chain Security</a></li><li><a class=dropdown-item href=https://verify.http4k.org>http4k Verify</a></li><li><a class=dropdown-item href=/security/>Security Advisories</a></li><li><a class=dropdown-item href=/cvd-policy/>CVD Policy</a></li></ul></li><li id=searchBox class="nav-item searchBox align-content-center"></li><li class=nav-item><a class="nav-link text-primary px-3" href=https://github.com/http4k/http4k><img src=/images/octocat-inverted-64.png style=height:1.5rem alt=github></a></li><li class="nav-item align-content-center"><a class="cta-btn cta-btn--primary nav-cta" href=mailto:solutions@http4k.org>Talk to us</a></li></ul></div></div></nav></header><div class=reading><main class=reading__main><nav class=docs-crumbs><a href=/learn/>learn</a>
+<span>/</span><a href=/howto/>how-to guides</a>
+<span>/</span>monitor http4k</nav><div class=reading__meta><span class=reading__chip>http4k Core</span></div><h1 class=reading__title>Monitor http4k</h1><p class=reading__lede>How to monitor http4k endpoints and applications</p><div class=article-body><p>Measuring performance of application estate is crucial in today&rsquo;s microservice world - it is crucial that dev-ops enabled teams can monitor, react and scale dynamically to changes in the runtime environment. However, because of the plethora of monitoring tools on the market, and because <a href=https://github.com/http4k/http4k><strong>http4k</strong></a> is a toolkit and not a complete &ldquo;batteries included&rdquo; framework, it provides a number of integration points to enable monitoring systems to be plugged in as required. Additionally, it is envisaged that users will probably want to provide their own implementations of the <a href=https://github.com/http4k/http4k><strong>http4k</strong></a> <code>ServerConfig</code> classes (<code>Jetty</code>, <code>Undertow</code> etc..) so that tweaking and tuning to their exact requirements is accessible, instead of <a href=https://github.com/http4k/http4k><strong>http4k</strong></a> attempting to provide some generic configuration API to achieve it.</p><h3 id=gradle-setup>Gradle setup<a class=heading-link href=#gradle-setup aria-label="Link to Gradle setup">#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span>dependencies {
+</span></span><span style=display:flex><span>    
+    implementation(platform("org.http4k:http4k-bom:6.58.0.0"))
+
+</span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-core&#34;</span>)
+</span></span><span style=display:flex><span>    implementation(<span style=color:#e6db74>&#34;org.http4k:http4k-ops-micrometer&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=metrics-micrometer>Metrics (Micrometer)<a class=heading-link href=#metrics-micrometer aria-label="Link to Metrics (Micrometer)">#</a></h3><p><a href=https://github.com/http4k/http4k><strong>http4k</strong></a> provides module support for monitoring application endpoints using the <a href=http://micrometer.io/><strong>micrometer</strong></a> metrics abstraction library, which currently enables support for libraries such as Graphite, StatsD, Prometheus and Netflix Atlas. This also provides drop-in classes to record stats such as JVM performance, GC and thread usage.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>example_micrometer.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.howto.monitor_http4k
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> io.micrometer.core.instrument.simple.SimpleMeterRegistry
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.ApacheClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ClientFilters
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.MicrometerMetrics
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ServerFilters
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.bind
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.routes
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// this is a micrometer registry used mostly for testing - substitute the correct implementation.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> registry = SimpleMeterRegistry()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> server = routes(<span style=color:#e6db74>&#34;/metrics/{name}&#34;</span> bind GET to { Response(OK) })
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// apply filters to a server...
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> app = <span style=color:#a6e22e>ServerFilters</span>.<span style=color:#a6e22e>MicrometerMetrics</span>.RequestCounter(registry)
+</span></span><span style=display:flex><span>        .then(<span style=color:#a6e22e>ServerFilters</span>.<span style=color:#a6e22e>MicrometerMetrics</span>.RequestTimer(registry))
+</span></span><span style=display:flex><span>        .then(server)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// ... or to a client
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> client = <span style=color:#a6e22e>ClientFilters</span>.<span style=color:#a6e22e>MicrometerMetrics</span>.RequestCounter(registry)
+</span></span><span style=display:flex><span>        .then(<span style=color:#a6e22e>ClientFilters</span>.<span style=color:#a6e22e>MicrometerMetrics</span>.RequestTimer(registry))
+</span></span><span style=display:flex><span>        .then(ApacheClient())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// make some calls
+</span></span></span><span style=display:flex><span>    (<span style=color:#ae81ff>0</span><span style=color:#f92672>..</span><span style=color:#ae81ff>10</span>).forEach {
+</span></span><span style=display:flex><span>        app(Request(GET, <span style=color:#e6db74>&#34;/metrics/</span><span style=color:#e6db74>$it</span><span style=color:#e6db74>&#34;</span>))
+</span></span><span style=display:flex><span>        client(Request(GET, <span style=color:#e6db74>&#34;https://http4k.org&#34;</span>))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// see some results
+</span></span></span><span style=display:flex><span>    registry.forEachMeter { println(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${it.id}</span><span style=color:#e6db74> </span><span style=color:#e6db74>${it.measure().joinToString(&#34;,&#34;)}</span><span style=color:#e6db74>&#34;</span>) }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><h3 id=metrics-other-apis>Metrics (other APIs)<a class=heading-link href=#metrics-other-apis aria-label="Link to Metrics (other APIs)">#</a></h3><p>Alternatively, it&rsquo;s very easy to use a standard <code>Filter</code> to report on stats:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>example_metrics.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.howto.monitor_http4k
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpHandler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpTransaction
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.HttpTransactionLabeler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ResponseFilters
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.bind
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.routes
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.time.Duration
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> app = routes(<span style=color:#e6db74>&#34;foo/{name}&#34;</span> bind { _: Request <span style=color:#f92672>-&gt;</span> Response(OK) })
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>metricConsumer</span>(name: String, time: Duration) = println(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$name</span><span style=color:#e6db74> </span><span style=color:#e6db74>${time.toMillis()}</span><span style=color:#e6db74>ms&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// this is a general use filter for reporting on http transactions
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> standardFilter = <span style=color:#a6e22e>ResponseFilters</span>.ReportHttpTransaction { tx: HttpTransaction <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        metricConsumer(<span style=color:#e6db74>&#34;txLabels are: </span><span style=color:#e6db74>${tx.labels}</span><span style=color:#e6db74>&#34;</span>, tx.duration)
+</span></span><span style=display:flex><span>        metricConsumer(<span style=color:#e6db74>&#34;uri is: </span><span style=color:#e6db74>${tx.request.uri}</span><span style=color:#e6db74>&#34;</span>, tx.duration)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> addCustomLabels: HttpTransactionLabeler = { tx: HttpTransaction <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        tx.label(<span style=color:#e6db74>&#34;status&#34;</span>, tx.response.status.code.toString())
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> withCustomLabels = <span style=color:#a6e22e>ResponseFilters</span>.ReportHttpTransaction(
+</span></span><span style=display:flex><span>        transactionLabeler = addCustomLabels
+</span></span><span style=display:flex><span>    ) { tx: HttpTransaction <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// send metrics to some custom system here...
+</span></span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;custom txLabels are: </span><span style=color:#e6db74>${tx.labels}</span><span style=color:#e6db74> </span><span style=color:#e6db74>${tx.duration}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// this filter provides an anonymous identifier of the route
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> identifiedRouteFilter =
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>ResponseFilters</span>.ReportRouteLatency { requestGroup: String, duration: Duration <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>            metricConsumer(<span style=color:#e6db74>&#34;requestGroup is: </span><span style=color:#e6db74>$requestGroup</span><span style=color:#e6db74>&#34;</span>, duration)
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> monitoredApp: HttpHandler = standardFilter
+</span></span><span style=display:flex><span>        .then(withCustomLabels)
+</span></span><span style=display:flex><span>        .then(identifiedRouteFilter)
+</span></span><span style=display:flex><span>        .then(app)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    monitoredApp(Request(GET, <span style=color:#e6db74>&#34;/foo/bob&#34;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//    prints...
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//    requestGroup is: GET.foo_{name}.2xx.200 7ms
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//    custom txLabels are: {routingGroup=foo/{name}, status=200} PT0.05S
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//        txLabels are: {routingGroup=foo/{name}} 51ms
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//    uri is: /foo/bob 51ms
+</span></span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><h3 id=logging>Logging<a class=heading-link href=#logging aria-label="Link to Logging">#</a></h3><p>This is trivial to achieve by using a Filter:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>example_logging.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.howto.monitor_http4k
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpHandler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpTransaction
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ResponseFilters
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.bind
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.routes
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.time.Clock
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> app = routes(<span style=color:#e6db74>&#34;/{name}&#34;</span> bind { _: Request <span style=color:#f92672>-&gt;</span> Response(OK) })
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>logger</span>(message: String) = println(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${Clock.systemUTC().instant()}</span><span style=color:#e6db74> </span><span style=color:#e6db74>$message</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> audit = <span style=color:#a6e22e>ResponseFilters</span>.ReportHttpTransaction { tx: HttpTransaction <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        logger(<span style=color:#e6db74>&#34;my call to </span><span style=color:#e6db74>${tx.request.uri}</span><span style=color:#e6db74> returned </span><span style=color:#e6db74>${tx.response.status}</span><span style=color:#e6db74> and took </span><span style=color:#e6db74>${tx.duration.toMillis()}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> monitoredApp: HttpHandler = audit.then(app)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    monitoredApp(Request(GET, <span style=color:#e6db74>&#34;/foo&#34;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//    prints...
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//    2017-12-04T08:38:27.499Z my call to /foo returned 200 OK and took 5
+</span></span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><h3 id=distributed-tracing>Distributed tracing<a class=heading-link href=#distributed-tracing aria-label="Link to Distributed tracing">#</a></h3><p>This allows a chain of application calls to be tied together and is generally done through the setting of HTTP headers on each call. <a href=https://github.com/http4k/http4k><strong>http4k</strong></a> supports the <a href=https://zipkin.io/>OpenZipkin</a> standard for achieving this and provides both Server-side and Client-side <code>Filters</code> for this purpose. This example shows a chain of two proxies and an endpoint - run it to observe the changes to the tracing headers as the request flows through the system:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>example_tracing.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.howto.monitor_http4k
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.ApacheClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpHandler
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.HttpMessage
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ClientFilters
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ResponseFilters
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ServerFilters
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>HttpMessage</span>.logHeader(name: String) = <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n\t\t</span><span style=color:#e6db74>$name</span><span style=color:#e6db74>=</span><span style=color:#e6db74>${header(name)}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>HttpMessage</span>.traces() = logHeader(<span style=color:#e6db74>&#34;x-b3-traceid&#34;</span>) +
+</span></span><span style=display:flex><span>        logHeader(<span style=color:#e6db74>&#34;x-b3-spanid&#34;</span>) +
+</span></span><span style=display:flex><span>        logHeader(<span style=color:#e6db74>&#34;x-b3-parentspanid&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>audit</span>(name: String) = <span style=color:#a6e22e>ResponseFilters</span>.ReportHttpTransaction { tx <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        println(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$name</span><span style=color:#e6db74>: </span><span style=color:#e6db74>${tx.request.uri}</span><span style=color:#ae81ff>\n\t</span><span style=color:#e6db74>request:</span><span style=color:#e6db74>${tx.request.traces()}</span><span style=color:#ae81ff>\n\t</span><span style=color:#e6db74>response:</span><span style=color:#e6db74>${tx.response.traces()}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// a simple proxy to another app
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>proxy</span>(name: String, port: Int): HttpHandler {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> proxyClient = <span style=color:#a6e22e>ClientFilters</span>.RequestTracing()
+</span></span><span style=display:flex><span>            .then(<span style=color:#a6e22e>ClientFilters</span>.SetHostFrom(<span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;http://localhost:</span><span style=color:#e6db74>$port</span><span style=color:#e6db74>&#34;</span>)))
+</span></span><span style=display:flex><span>            .then(audit(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$name</span><span style=color:#e6db74>-client&#34;</span>))
+</span></span><span style=display:flex><span>            .then(ApacheClient())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>ServerFilters</span>.RequestTracing().then(audit(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$name</span><span style=color:#e6db74>-server&#34;</span>))
+</span></span><span style=display:flex><span>            .then { proxyClient(Request(GET, <span style=color:#66d9ef>it</span>.uri)) }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// provides a simple ping
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>ping</span>(): HttpHandler = <span style=color:#a6e22e>ServerFilters</span>.RequestTracing().then(audit(<span style=color:#e6db74>&#34;ping-server&#34;</span>))
+</span></span><span style=display:flex><span>        .then { Response(OK).body(<span style=color:#e6db74>&#34;pong&#34;</span>) }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> proxy1 = proxy(<span style=color:#e6db74>&#34;proxy1&#34;</span>, <span style=color:#ae81ff>8001</span>).asServer(SunHttp(<span style=color:#ae81ff>8000</span>)).start()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> proxy2 = proxy(<span style=color:#e6db74>&#34;proxy2&#34;</span>, <span style=color:#ae81ff>8002</span>).asServer(SunHttp(<span style=color:#ae81ff>8001</span>)).start()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> server3 = ping().asServer(SunHttp(<span style=color:#ae81ff>8002</span>)).start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    audit(<span style=color:#e6db74>&#34;client&#34;</span>).then(ApacheClient())(Request(GET, <span style=color:#e6db74>&#34;http://localhost:8000/ping&#34;</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    proxy1.stop()
+</span></span><span style=display:flex><span>    proxy2.stop()
+</span></span><span style=display:flex><span>    server3.stop()
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><h3 id=debugging>Debugging<a class=heading-link href=#debugging aria-label="Link to Debugging">#</a></h3><p>Easily wrap an <code>HttpHandler</code> in a debugging filter to check out what is going on under the covers:</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>example_debugging.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.howto.monitor_http4k
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Response
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Status.Companion.OK
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.DebuggingFilters
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> app = { _: Request <span style=color:#f92672>-&gt;</span> Response(OK).body(<span style=color:#e6db74>&#34;hello there you look nice today&#34;</span>) }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> debuggedApp = <span style=color:#a6e22e>DebuggingFilters</span>.PrintRequestAndResponse().then(app)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    debuggedApp(Request(GET, <span style=color:#e6db74>&#34;/foobar&#34;</span>).header(<span style=color:#e6db74>&#34;Accepted&#34;</span>, <span style=color:#e6db74>&#34;my-great-content/type&#34;</span>))
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></div><nav class=docs-pager><a class=docs-pager__link href=/howto/><span>&larr; All how-to guides</span><strong>Browse the recipes</strong></a></nav></main><aside class="docs-toc reading__toc"><div class=docs-toc__title>On this page</div><nav><ul><ul><ul><li><a href=#gradle-setup>Gradle setup</a></li><li><a href=#metrics-micrometer>Metrics (Micrometer)</a></li><li><a href=#metrics-other-apis>Metrics (other APIs)</a></li><li><a href=#logging>Logging</a></li><li><a href=#distributed-tracing>Distributed tracing</a></li><li><a href=#debugging>Debugging</a></li></ul></ul></ul></nav><a class=reading__toc-link href=https://github.com/http4k/http4k/blob/master/.github/RECIPE_TEMPLATE.md>Improve this recipe &#9998;</a></aside></div><footer><div class=container><div class="row pb-3 text-start text-xl-start"><div class="col-md-6 col-lg-3" style=width:200px><a class=p-0 href=https://http4k.org/><img src=/images/logo_hu_d370df57676f24c3.webp alt=logo width=50% loading=lazy></a><p></p><ul class=list-unstyled><li class="small text-white text-decoration-none">http4k Limited</li><li class="small text-white text-decoration-none">Registered in England & Wales</li><li class="small text-white text-decoration-none">Reg no: 14687467</li></ul></div><div class="col-xs-6 col-md"><h5>Product</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/pro/>Pro</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/enterprise/>Enterprise</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/supply-chain-security/>Supply Chain Security</a></li><li><a class="small text-white text-decoration-none" href=https://verify.http4k.org>http4k Verify</a></li></ul></div><div class="col-xs-6 col-md"><h5>Learn</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/quickstart/>Quickstart</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/tutorial/>Tutorials</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/howto/>How-to guides</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/ecosystem/>Docs</a></li></ul></div><div class="col-xs-6 col-md"><h5>Resources</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/news/>News</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/showcase/>Showcase</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/community/>Community</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/security/>Security Advisories</a></li></ul></div><div class="col-xs-6 col-md"><h5>Company</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/company/>About</a></li><li><a class="small text-white text-decoration-none" href=mailto:info@http4k.org>Contact</a></li><li><a class="small text-white text-decoration-none" href=https://status.http4k.org/>System Status</a></li><li><a class="small text-white text-decoration-none" href=https://www.linkedin.com/company/http4k>LinkedIn</a></li></ul></div></div></div><div class="row text-center g-0"><div class=col><p class="small text-white text-decoration-none">© 2016&ndash;2026 http4k Ltd&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;All Rights Reserved&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/privacy-policy/>Privacy policy</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/terms-and-conditions/>Terms & conditions</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/disclaimer/>Disclaimer</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/trademark/>Trademark Policy</a>&nbsp;&nbsp;&nbsp;</p></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/fuse.js@6.6.2></script><script defer src=https://http4k.org/js/fuse-search.js></script><script defer src=https://http4k.org/js/footer.js></script><img src="https://static.scarf.sh/a.png?x-pxid=e1c296ba-34c0-4342-8d2c-3a023d5dcec3" alt=scarf></body></html>
