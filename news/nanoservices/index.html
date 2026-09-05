@@ -1,0 +1,334 @@
+<!doctype html><html lang=en><head><title>Nanoservices - The Power of Composition | http4k</title><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=description content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet."><link rel=preload as=font type=font/woff2 href=/fonts/space-grotesk-latin.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/jetbrains-mono-latin.woff2 crossorigin><link rel=stylesheet media=all href=/main.62627fb2a0ae7d46de024bfd8a6cbd4c2e31e8d680935cd278e35137811385e1.css integrity="sha256-YmJ/sqCufUbeAkv9imy9TC4x6NaAk1zSeONRN4ETheE="><script defer src=/js/shared/shared.794e279e18e8d0c7343e9a15e1bb4c3b1bb3a8444d0f12a831c9f3d352fe38e8.js integrity="sha256-eU4nnhjo0Mc0PpoV4btMOxuzqERNDxKoMcnz01L+OOg="></script><script defer src=/js/timeline.js></script><link rel=apple-touch-icon-precomposed href=https://http4k.org/favicon-180.png><meta name=msapplication-TileColor content="#FFFFFF"><meta name=msapplication-TileImage content="https://http4k.org/favicon-144.png"><meta name=application-name content="http4k"><meta name=msapplication-tooltip content="The Functional toolkit for Kotlin HTTP applications"><meta name=msapplication-config content="https://http4k.org/ieconfig.xml"><link rel=apple-touch-icon-precomposed sizes=180x180 href=https://http4k.org/favicon-180.png><link rel=apple-touch-icon-precomposed sizes=152x152 href=https://http4k.org/favicon-152.png><link rel=apple-touch-icon-precomposed sizes=144x144 href=https://http4k.org/favicon-144.png><link rel=apple-touch-icon-precomposed sizes=120x120 href=https://http4k.org/favicon-120.png><link rel=apple-touch-icon-precomposed sizes=114x114 href=https://http4k.org/favicon-114.png><link rel=apple-touch-icon-precomposed sizes=76x76 href=https://http4k.org/favicon-76.png><link rel=apple-touch-icon-precomposed sizes=72x72 href=https://http4k.org/favicon-72.png><link rel=icon href=https://http4k.org/favicon-32.png sizes=32x32><link rel="shortcut icon" sizes=196x196 href=https://http4k.org/favicon-196.png><link rel=apple-touch-icon sizes=180x180 href=/favicon-180.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16.png><link rel=manifest href=/site.webmanifest><meta name=apple-mobile-web-app-title content="http4k"><meta name=application-name content="http4k"><meta name=msapplication-TileColor content="#FFFFFF"><meta name=theme-color content="#FFFFFF"><script async src="https://www.googletagmanager.com/gtag/js?id=G-YSM9QLBYXY"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-YSM9QLBYXY",{url_passthrough:!1})</script><script src=https://cdn.usefathom.com/script.js data-site=BGFZWRDS defer></script><meta property="og:site_name" content="http4k"><meta property="og:url" content="https://http4k.org/news/nanoservices/"><meta property="og:title" content="Nanoservices - The Power of Composition"><meta property="og:description" content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet."><meta property="og:type" content="article"><meta property="og:locale" content="en_us"><meta property="og:image" content="https://http4k.org/images/social-logo.png"><meta property="og:image:width" content="1200"><meta property="article:published_time" content="2020-10-01T00:00:00Z"><meta property="article:section" content="Ecosystem"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Nanoservices - The Power of Composition"><meta name=twitter:description content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet."><meta name=twitter:image content="https://http4k.org/images/social-logo.png"><meta itemprop=name content="Nanoservices - The Power of Composition"><meta itemprop=description content="You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet."><meta itemprop=datePublished content="2020-10-01T00:00:00+00:00"><meta itemprop=dateModified content="2020-10-01T00:00:00+00:00"><meta itemprop=wordCount content="1202"><meta itemprop=image content="https://http4k.org/images/social-logo.png"></head><body><style>.dist-banner{background:var(--ink);color:#fff;font-family:var(--font-sans);font-size:.875rem;line-height:1.4;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:16px;position:relative;z-index:1031}.dist-banner[hidden]{display:none}.dist-banner a{color:var(--orange);text-decoration:none;white-space:nowrap}.dist-banner a:hover{text-decoration:underline}.dist-banner__close{background:0 0;border:0;color:#fff;opacity:.7;font-size:1.25rem;line-height:1;padding:0 4px;cursor:pointer;flex-shrink:0}.dist-banner__close:hover{opacity:1}.dist-banner__short{display:none}@media(max-width:575.98px){.dist-banner{padding:8px 14px;gap:10px}.dist-banner__full{display:none}.dist-banner__short{display:inline}}.dist-banner:not([hidden])~.site-header:has(+.ink-hero){top:var(--dist-banner-h,0px)}</style><div class=dist-banner id=dist-banner hidden><span><span class=dist-banner__full>From 1 October 2026, http4k releases reach Maven Central
+quarterly. <a href=https://maven.http4k.org>maven.http4k.org</a> releases
+continue every 1-2 weeks.
+<a href=https://http4k.org/distribution/>What this means &rarr;</a>
+</span><span class=dist-banner__short>From 1 October 2026, http4k distribution is changing.
+<a href=https://http4k.org/distribution/>Details &rarr;</a>
+</span></span><button type=button class=dist-banner__close aria-label="Dismiss notice">&#215;</button></div><script>(function(){var t,n,s="http4k-distribution-notice-dismissed",i=7*24*60*60*1e3,e=document.getElementById("dist-banner"),o=document.documentElement;try{if(t=parseInt(localStorage.getItem(s),10),t>0&&Date.now()-t<i)return}catch{}n=function(){o.style.setProperty("--dist-banner-h",e.offsetHeight+"px")},e.hidden=!1,n(),window.ResizeObserver&&new ResizeObserver(n).observe(e),e.querySelector(".dist-banner__close").addEventListener("click",function(){e.hidden=!0,o.style.setProperty("--dist-banner-h","0px");try{localStorage.setItem(s,String(Date.now()))}catch{}})})()</script><header class=site-header><nav class="navbar navbar-expand-xl navbar-dark"><div class=container><a class="navbar-brand d-flex align-items-center" href=https://http4k.org/><img class="nav-logo nav-logo--white" style=min-height:40px src=/images/logo_hu_d370df57676f24c3.webp width=128 height=40 alt=http4k>
+<img class="nav-logo nav-logo--colour" style=min-height:40px src=/images/logo-http4k_hu_c8395767f4abab1b.webp width=128 height=40 alt=http4k>
+</a><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarContent aria-controls=navbarContent aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarContent><ul class="navbar-nav ms-auto mb-2 mb-xl-0"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>About</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/overview/>Why http4k</a></li><li><a class=dropdown-item href=/company/>Company</a></li><li><a class=dropdown-item href=/news/>News</a></li><li><a class=dropdown-item href=/showcase/>Showcase</a></li><li><a class=dropdown-item href=/community/>Community</a></li><li><a class=dropdown-item href=https://kotlinlang.slack.com/archives/C5AL3AKUY>Community Slack</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Learn</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/learn/>About the docs</a></li><li><a class=dropdown-item href=/quickstart/>Quickstart</a></li><li><a class=dropdown-item href=/tutorial/>Tutorials</a></li><li><a class=dropdown-item href=/howto/>How-to guides</a></li><li><a class=dropdown-item href=/performance/>Performance</a></li><li><a class=dropdown-item href=/faq/>FAQ</a></li><li><a class=dropdown-item href=https://toolbox.http4k.org/>Toolbox</a></li><li><a class=dropdown-item href=https://plugins.jetbrains.com/plugin/25243-http4k-toolbox>IntelliJ Plugin</a></li><li><a class=dropdown-item href=https://github.com/http4k/agent-skills>Agent Skills</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Ecosystem</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/ecosystem/>Overview</a></li><li><a class=dropdown-item href=/ecosystem/http4k/>http4k Core</a></li><li><a class=dropdown-item href=/ecosystem/ai/>http4k AI</a></li><li><a class=dropdown-item href=/ecosystem/connect/>http4k Connect</a></li><li><a class=dropdown-item href=/ecosystem/pro/>http4k Pro</a></li><li><a class=dropdown-item href=/ecosystem/enterprise/>http4k Enterprise</a></li><li><a class=dropdown-item href=/ecosystem/changelog/>Changelog</a></li></ul></li><li class=nav-item><a class="nav-link text-primary px-3" href=/pro/>Pro</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Enterprise</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/enterprise/>Enterprise Edition</a></li><li><a class=dropdown-item href=/consulting/>Consulting</a></li><li><a class=dropdown-item href=/training/>Developer Training</a></li><li><a class=dropdown-item href=http://http4k.slack.com/>http4k EE Slack</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white px-3" id=navbarDropdown role=button data-bs-toggle=dropdown aria-expanded=false>Security</a><ul class=dropdown-menu aria-labelledby=navbarDropdown><li><a class=dropdown-item href=/supply-chain-security/>Supply Chain Security</a></li><li><a class=dropdown-item href=https://verify.http4k.org>http4k Verify</a></li><li><a class=dropdown-item href=/security/>Security Advisories</a></li><li><a class=dropdown-item href=/cvd-policy/>CVD Policy</a></li></ul></li><li id=searchBox class="nav-item searchBox align-content-center"></li><li class=nav-item><a class="nav-link text-primary px-3" href=https://github.com/http4k/http4k><img src=/images/octocat-inverted-64.png style=height:1.5rem alt=github></a></li><li class="nav-item align-content-center"><a class="cta-btn cta-btn--primary nav-cta" href=mailto:solutions@http4k.org>Talk to us</a></li></ul></div></div></nav></header><article class="article article--toc"><div class=article-layout><div class=article-main><div class=article-head><nav class=article-crumbs><a href=/news/>news</a>
+<span>/</span><span>ecosystem</span></nav><div class=article-badges><span class=badge-cat>Ecosystem</span></div><h1 class=article-title>Nanoservices - The Power of Composition</h1><p class=article-lead>You thought that microservices were a thing? Pah! The powerful abstractions in the http4k toolkit allow you to write entire useful apps which fit in a Tweet.</p><div class=article-byline><span class=article-byline__avatar>h4k</span><div><div class=article-byline__name>the http4k team</div><div class=article-byline__meta>1 Oct 2020 &#183; 6 min read</div></div></div></div><div class=article-body><p>http4k is a small library with a zero dependencies (apart from Kotlin StdLib), but what really makes it shine is the power afforded by the combination of the &ldquo;Server as a Function&rdquo; concepts of <code>HttpHandler</code> and <code>Filter</code>.</p><p>Skeptical? We would be disappointed if you weren&rsquo;t! Hence, we decided to prove the types of things that can be accomplished with the APIs provided by http4k and a little ingenuity.</p><p>For each of the examples below, there is a fully formed http4k application declared inside a function, and the scaffolding to demonstrating it working in an accompanying <code>main()</code> using one of the swappable server backends. Even better, each of app&rsquo;s code (excluding import statements 🙂 ) fits in a single Tweet.</p><h3 id=1-build-a-simple-proxy>1. Build a simple proxy<a class=heading-link href=#1-build-a-simple-proxy aria-label="Link to 1. Build a simple proxy">#</a></h3><p>Requires: <code>http4k-core</code></p><p>This simple proxy converts HTTP requests to HTTPS. Because of the symmetrical server/client <code>HttpHandler</code> signature, we can simply pipe an HTTP Client onto a server, then add a <code>ProxyHost</code> filter to do the protocol conversion.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>simple_proxy.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.JavaHttpClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.lang.System.setProperty
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`simple proxy`</span>() =
+</span></span><span style=display:flex><span>    JavaHttpClient()
+</span></span><span style=display:flex><span>        .asServer(SunHttp())
+</span></span><span style=display:flex><span>        .start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyHost&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyPort&#34;</span>, <span style=color:#e6db74>&#34;8000&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.nonProxyHosts&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>simple proxy<span style=color:#960050;background-color:#1e0010>`</span>().use {
+</span></span><span style=display:flex><span>        println(JavaHttpClient()(Request(GET, <span style=color:#e6db74>&#34;http://github.com/&#34;</span>)))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=2-report-latency-through-a-proxy>2. Report latency through a proxy<a class=heading-link href=#2-report-latency-through-a-proxy aria-label="Link to 2. Report latency through a proxy">#</a></h3><p>Requires: <code>http4k-core</code></p><p>Building on the Simple Proxy example, we can simply layer on extra filters to add features to the proxy, in this case reporting the latency of each call.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>latency_reporting_proxy.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.JavaHttpClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyHost
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyProtocolMode.Https
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ResponseFilters.ReportRouteLatency
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.lang.System.setProperty
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`latency reporting proxy`</span>() =
+</span></span><span style=display:flex><span>    ProxyHost(Https)
+</span></span><span style=display:flex><span>        .then(ReportRouteLatency { req, ms <span style=color:#f92672>-&gt;</span> println(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$req</span><span style=color:#e6db74> took </span><span style=color:#e6db74>$ms</span><span style=color:#e6db74>&#34;</span>) })
+</span></span><span style=display:flex><span>        .then(JavaHttpClient())
+</span></span><span style=display:flex><span>        .asServer(SunHttp())
+</span></span><span style=display:flex><span>        .start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyHost&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyPort&#34;</span>, <span style=color:#e6db74>&#34;8000&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.nonProxyHosts&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>latency reporting proxy<span style=color:#960050;background-color:#1e0010>`</span>().use {
+</span></span><span style=display:flex><span>        JavaHttpClient()(Request(GET, <span style=color:#e6db74>&#34;http://github.com/&#34;</span>))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=3-build-a-wireshark-to-sniff-inter-service-traffic>3. Build a Wireshark to sniff inter-service traffic<a class=heading-link href=#3-build-a-wireshark-to-sniff-inter-service-traffic aria-label="Link to 3. Build a Wireshark to sniff inter-service traffic">#</a></h3><p>Requires: <code>http4k-core</code></p><p>Applying a <code>DebuggingFilter</code> to the HTTP calls in a proxy dumps the entire contents out to <code>StdOut</code> (or other stream).</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>wire_sniffing_proxy.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.JavaHttpClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.DebuggingFilters.PrintRequestAndResponse
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyHost
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyProtocolMode.Https
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.lang.System.setProperty
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`wire sniffing proxy`</span>() =
+</span></span><span style=display:flex><span>    ProxyHost(Https)
+</span></span><span style=display:flex><span>        .then(PrintRequestAndResponse())
+</span></span><span style=display:flex><span>        .then(JavaHttpClient())
+</span></span><span style=display:flex><span>        .asServer(SunHttp())
+</span></span><span style=display:flex><span>        .start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyHost&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyPort&#34;</span>, <span style=color:#e6db74>&#34;8000&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.nonProxyHosts&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>wire sniffing proxy<span style=color:#960050;background-color:#1e0010>`</span>().use {
+</span></span><span style=display:flex><span>        JavaHttpClient()(Request(GET, <span style=color:#e6db74>&#34;http://github.com/http4k&#34;</span>))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=4-build-a-ticking-websocket-clock>4. Build a ticking Websocket clock<a class=heading-link href=#4-build-a-ticking-websocket-clock aria-label="Link to 4. Build a ticking Websocket clock">#</a></h3><p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p><p>Like HTTP handlers, Websockets in http4k can be modelled as simple functions that can be mounted onto a Server, or combined with path patterns if required.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>websocket_clock.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.WebsocketClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.Netty
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.websocket.Websocket
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.websocket.WsMessage
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.time.Instant
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`ticking websocket clock`</span>() =
+</span></span><span style=display:flex><span>    { ws: Websocket <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (<span style=color:#66d9ef>true</span>) {
+</span></span><span style=display:flex><span>            ws.send(WsMessage(<span style=color:#a6e22e>Instant</span>.now().toString()))
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>Thread</span>.sleep(<span style=color:#ae81ff>1000</span>)
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }.asServer(Netty()).start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>ticking websocket clock<span style=color:#960050;background-color:#1e0010>`</span>()
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>WebsocketClient</span>.nonBlocking(<span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;http://localhost:8000&#34;</span>)).onMessage { println(<span style=color:#66d9ef>it</span>) }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=5-build-a-web-cache>5. Build a web cache<a class=heading-link href=#5-build-a-web-cache aria-label="Link to 5. Build a web cache">#</a></h3><p>Requires: <code>http4k-core</code>, <code>http4k-server-ktorcio</code></p><p>Recording all traffic to disk can be achieved by just creating a <code>ReadWriteCache</code> and then adding a couple of pre-supplied Filters to a proxy. When running this example you can see that only the first request is audited.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>disk_cache.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.JavaHttpClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyHost
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyProtocolMode.Https
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.ResponseFilters.ReportHttpTransaction
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.TrafficFilters.RecordTo
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.TrafficFilters.ServeCachedFrom
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.Http4kServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.KtorCIO
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.traffic.ReadWriteCache
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.io.File
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`disk cache!`</span>(dir: String): Http4kServer {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> cache = <span style=color:#a6e22e>ReadWriteCache</span>.Disk(dir)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> ProxyHost(Https)
+</span></span><span style=display:flex><span>        .then(RecordTo(cache))
+</span></span><span style=display:flex><span>        .then(ServeCachedFrom(cache))
+</span></span><span style=display:flex><span>        .then(ReportHttpTransaction { println(<span style=color:#66d9ef>it</span>.request.uri) })
+</span></span><span style=display:flex><span>        .then(JavaHttpClient())
+</span></span><span style=display:flex><span>        .asServer(KtorCIO())
+</span></span><span style=display:flex><span>        .start()
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>System</span>.setProperty(<span style=color:#e6db74>&#34;http.proxyHost&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>System</span>.setProperty(<span style=color:#e6db74>&#34;http.proxyPort&#34;</span>, <span style=color:#e6db74>&#34;8000&#34;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>System</span>.setProperty(<span style=color:#e6db74>&#34;http.nonProxyHosts&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> client = JavaHttpClient()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> dir = <span style=color:#e6db74>&#34;store&#34;</span>
+</span></span><span style=display:flex><span>    File(dir).deleteRecursively()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>disk cache!<span style=color:#960050;background-color:#1e0010>`</span>(dir).use {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> request = Request(GET, <span style=color:#e6db74>&#34;http://api.github.com/users/http4k&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        println(client(request).bodyString())
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// this request is served from the cache, so will not generate a call
+</span></span></span><span style=display:flex><span>        println(client(request).bodyString())
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=6-record-all-traffic-to-disk-and-replay-it-later>6. Record all traffic to disk and replay it later<a class=heading-link href=#6-record-all-traffic-to-disk-and-replay-it-later aria-label="Link to 6. Record all traffic to disk and replay it later">#</a></h3><p>Requires: <code>http4k-core</code></p><p>This example contains two apps. The first is a proxy which captures streams of traffic and records it to a directory on disk. The second app is configured to replay the requests from that disk store at the original server. This kind of traffic capture/replay is very useful for load testing or for tracking down hard-to-diagnose bugs - and it&rsquo;s easy to write other other stores such as an S3 bucket etc.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>record_and_replay_http_traffic_proxy.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.JavaHttpClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyHost
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyProtocolMode.Https
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.TrafficFilters.RecordTo
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.traffic.ReadWriteStream.Companion.Disk
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.lang.System.setProperty
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`recording traffic to disk proxy`</span>() =
+</span></span><span style=display:flex><span>    ProxyHost(Https)
+</span></span><span style=display:flex><span>        .then(RecordTo(Disk(<span style=color:#e6db74>&#34;store&#34;</span>)))
+</span></span><span style=display:flex><span>        .then(JavaHttpClient())
+</span></span><span style=display:flex><span>        .asServer(SunHttp())
+</span></span><span style=display:flex><span>        .start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`replay previously recorded traffic from a disk store`</span>() =
+</span></span><span style=display:flex><span>    JavaHttpClient().let { client <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        Disk(<span style=color:#e6db74>&#34;store&#34;</span>).requests()
+</span></span><span style=display:flex><span>            .forEach {
+</span></span><span style=display:flex><span>                println(<span style=color:#66d9ef>it</span>)
+</span></span><span style=display:flex><span>                client(<span style=color:#66d9ef>it</span>)
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyHost&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyPort&#34;</span>, <span style=color:#e6db74>&#34;8000&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.nonProxyHosts&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>recording traffic to disk proxy<span style=color:#960050;background-color:#1e0010>`</span>().use {
+</span></span><span style=display:flex><span>        JavaHttpClient()(Request(GET, <span style=color:#e6db74>&#34;http://github.com/&#34;</span>))
+</span></span><span style=display:flex><span>        JavaHttpClient()(Request(GET, <span style=color:#e6db74>&#34;http://github.com/http4k&#34;</span>))
+</span></span><span style=display:flex><span>        JavaHttpClient()(Request(GET, <span style=color:#e6db74>&#34;http://github.com/http4k/http4k&#34;</span>))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>replay previously recorded traffic from a disk store<span style=color:#960050;background-color:#1e0010>`</span>()
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=7-watch-your-fs-for-file-changes>7. Watch your FS for file changes<a class=heading-link href=#7-watch-your-fs-for-file-changes aria-label="Link to 7. Watch your FS for file changes">#</a></h3><p>Requires: <code>http4k-core</code>, <code>http4k-server-undertow</code></p><p>Back to Websockets, we can watch the file system for changes and subscribe to the event feed.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>file_watcher.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.WebsocketClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.Jetty
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.websocket.Websocket
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.websocket.WsMessage
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.nio.file.FileSystems.getDefault
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.nio.file.Paths
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`file watcher`</span>() =
+</span></span><span style=display:flex><span>    { ws: Websocket <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> w = getDefault().newWatchService()
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>Paths</span>.<span style=color:#66d9ef>get</span>(<span style=color:#e6db74>&#34;&#34;</span>).register(w, ENTRY_MODIFY)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>val</span> key = w.take()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (<span style=color:#66d9ef>true</span>)
+</span></span><span style=display:flex><span>            key.pollEvents()
+</span></span><span style=display:flex><span>                .forEach { ws.send(WsMessage(<span style=color:#66d9ef>it</span>.context().toString())) }
+</span></span><span style=display:flex><span>    }.asServer(Jetty()).start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span><span style=color:#66d9ef>file</span> watcher<span style=color:#960050;background-color:#1e0010>`</span>()
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>WebsocketClient</span>.nonBlocking(<span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;http://localhost:8000&#34;</span>)).onMessage { println(<span style=color:#66d9ef>it</span>) }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=8-serve-static-files-from-disk>8. Serve static files from disk<a class=heading-link href=#8-serve-static-files-from-disk aria-label="Link to 8. Serve static files from disk">#</a></h3><p>Requires: <code>http4k-core</code>, <code>http4k-server-undertow</code></p><p>Longer than the Python <code>SimpleHttpServer</code>, but still pretty small!</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>static_file_server.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.JavaHttpClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.ResourceLoader.Companion.Directory
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.routing.static
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.Undertow
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`static file server`</span>() =
+</span></span><span style=display:flex><span>    static(Directory())
+</span></span><span style=display:flex><span>        .asServer(Undertow())
+</span></span><span style=display:flex><span>        .start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>static <span style=color:#66d9ef>file</span> server<span style=color:#960050;background-color:#1e0010>`</span>().use {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// by default, static servers will only serve known file types,
+</span></span></span><span style=display:flex><span>        <span style=color:#75715e>// or those registered on construction
+</span></span></span><span style=display:flex><span>        println(JavaHttpClient()(Request(GET, <span style=color:#e6db74>&#34;http://localhost:8000/version.json&#34;</span>)))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=9-build-your-own-chaosmonkey>9. Build your own ChaosMonkey<a class=heading-link href=#9-build-your-own-chaosmonkey aria-label="Link to 9. Build your own ChaosMonkey">#</a></h3><p>Requires: <code>http4k-core</code>, <code>http4k-testing-chaos</code></p><p>As per the [Principles of Chaos], this proxy adds Chaotic behaviour to a remote service, which is useful for modelling how a system might behave under various failure modes. Chaos can be dynamically injected via an <code>OpenApi</code> documented set of RPC endpoints.</p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>chaos_proxy.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.chaos.ChaosBehaviours.Latency
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.chaos.ChaosEngine
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.chaos.withChaosApi
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.JavaHttpClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.GET
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Method.POST
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Request
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.then
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyHost
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.filter.RequestFilters.ProxyProtocolMode.Https
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.SunHttp
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.lang.System.setProperty
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`latency injection proxy (between 100ms-500ms)`</span>() =
+</span></span><span style=display:flex><span>    ProxyHost(Https)
+</span></span><span style=display:flex><span>        .then(JavaHttpClient())
+</span></span><span style=display:flex><span>        .withChaosApi(ChaosEngine(Latency()).enable())
+</span></span><span style=display:flex><span>        .asServer(SunHttp())
+</span></span><span style=display:flex><span>        .start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyHost&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.proxyPort&#34;</span>, <span style=color:#e6db74>&#34;8000&#34;</span>)
+</span></span><span style=display:flex><span>    setProperty(<span style=color:#e6db74>&#34;http.nonProxyHosts&#34;</span>, <span style=color:#e6db74>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>latency injection proxy (between <span style=color:#ae81ff>100</span>ms-<span style=color:#ae81ff>500</span>ms)<span style=color:#960050;background-color:#1e0010>`</span>().use {
+</span></span><span style=display:flex><span>        println(JavaHttpClient()(Request(POST, <span style=color:#e6db74>&#34;http://localhost:8000/chaos/activate&#34;</span>)))
+</span></span><span style=display:flex><span>        println(JavaHttpClient()(Request(GET, <span style=color:#e6db74>&#34;http://github.com/&#34;</span>)).header(<span style=color:#e6db74>&#34;X-http4k-chaos&#34;</span>))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><h3 id=10-build-a-remote-terminal>10. Build a remote terminal!<a class=heading-link href=#10-build-a-remote-terminal aria-label="Link to 10. Build a remote terminal!">#</a></h3><p>Requires: <code>http4k-core</code>, <code>http4k-server-netty</code></p><p>Use Websockets to remote control a terminal!* Run the example and just type commands into the prompt to have them magicked to the server backend</p><p><sub>*Obviously this is, in general, a really (really) bad idea.</sub></p><div class=code-example><div class=code-example-header><span class=code-example-lang>Kotlin</span>
+<span class=code-example-file>web_terminal.kt</span></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-kotlin data-lang=kotlin><span style=display:flex><span><span style=color:#66d9ef>package</span> content.news.nanoservices
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.client.WebsocketClient
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.core.Uri
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.Netty
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.server.asServer
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.websocket.Websocket
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> org.http4k.websocket.WsMessage
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.lang.Runtime.getRuntime
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> java.util.Scanner
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@Suppress</span>(<span style=color:#e6db74>&#34;DEPRECATION&#34;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>`websocket terminal`</span>() =
+</span></span><span style=display:flex><span>    { ws: Websocket <span style=color:#f92672>-&gt;</span>
+</span></span><span style=display:flex><span>        ws.onMessage {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>val</span> text = getRuntime().exec(<span style=color:#66d9ef>it</span>.bodyString())
+</span></span><span style=display:flex><span>                .inputStream
+</span></span><span style=display:flex><span>                .reader()
+</span></span><span style=display:flex><span>                .readText()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            ws.send(WsMessage(text))
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }.asServer(Netty()).start()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#960050;background-color:#1e0010>`</span>websocket terminal<span style=color:#960050;background-color:#1e0010>`</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> ws = <span style=color:#a6e22e>WebsocketClient</span>.nonBlocking(<span style=color:#a6e22e>Uri</span>.of(<span style=color:#e6db74>&#34;http://localhost:8000&#34;</span>))
+</span></span><span style=display:flex><span>    ws.onMessage { println(<span style=color:#66d9ef>it</span>.bodyString()) }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>val</span> scan = Scanner(<span style=color:#a6e22e>System</span>.`in`)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> (<span style=color:#66d9ef>true</span>) {
+</span></span><span style=display:flex><span>        ws.send(WsMessage(scan.nextLine()))
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div><hr><p>Obviously we haven&rsquo;t thought of everything here. We&rsquo;d love to hear your ideas about other clever uses of the http4k building blocks, or to take PRs to integrate them into the library for wider use. You can get in touch through <a href=http://github.com/http4k>GitHub</a> or the usual [channels].</p><p><a href=https://principlesofchaos.org/>Principles of Chaos</a>
+[channels]: <a href=https://http4k.org/support>https://http4k.org/support</a></p></div><div class=article-cta-wrap><div class=article-cta><script async data-uid=33ef03f749 src=https://http4k.kit.com/33ef03f749/index.js></script></div></div></div><aside class=article-toc><div class=article-toc__title>On this page</div><nav id=TableOfContents><ul><li><ul><li><a href=#1-build-a-simple-proxy>1. Build a simple proxy</a></li><li><a href=#2-report-latency-through-a-proxy>2. Report latency through a proxy</a></li><li><a href=#3-build-a-wireshark-to-sniff-inter-service-traffic>3. Build a Wireshark to sniff inter-service traffic</a></li><li><a href=#4-build-a-ticking-websocket-clock>4. Build a ticking Websocket clock</a></li><li><a href=#5-build-a-web-cache>5. Build a web cache</a></li><li><a href=#6-record-all-traffic-to-disk-and-replay-it-later>6. Record all traffic to disk and replay it later</a></li><li><a href=#7-watch-your-fs-for-file-changes>7. Watch your FS for file changes</a></li><li><a href=#8-serve-static-files-from-disk>8. Serve static files from disk</a></li><li><a href=#9-build-your-own-chaosmonkey>9. Build your own ChaosMonkey</a></li><li><a href=#10-build-a-remote-terminal>10. Build a remote terminal!</a></li></ul></li></ul></nav></aside></div><section class=article-related><div class=eyebrow>// KEEP READING</div><div class="card-grid article-grid"><article class=article-card data-category=Ecosystem><div class=article-thumb><img src=/news/typesafe_configuration/image.png alt loading=lazy></div><div class=article-card__body><div class=article-card__badges><span class=badge-cat>Ecosystem</span></div><h3 class=article-card__title><a class=article-card__link href=/news/typesafe_configuration/>Add typesafe 12-factor configuration to http4k apps with Environments</a></h3><p class=article-card__excerpt>An overview of how to configure http4k applications using the http4k-config module</p><div class=article-card__foot><span class=article-card__date>Oct 2021</span></div></div></article><article class=article-card data-category=Ecosystem><div class=article-thumb><img src=/news/toolbox/guns.jpg alt loading=lazy></div><div class=article-card__body><div class=article-card__badges><span class=badge-cat>Ecosystem</span></div><h3 class=article-card__title><a class=article-card__link href=/news/toolbox/>http4k Toolbox - Guns for show, knives for a pro</a></h3><p class=article-card__excerpt>An introduction to the http4k Toolbox website and CLI.</p><div class=article-card__foot><span class=article-card__date>Nov 2020</span></div></div></article><article class=article-card data-category=Ecosystem><div class=article-thumb><img src=/news/documenting_apis_with_openapi/openapi.png alt loading=lazy></div><div class=article-card__body><div class=article-card__badges><span class=badge-cat>Ecosystem</span></div><h3 class=article-card__title><a class=article-card__link href=/news/documenting_apis_with_openapi/>Documenting http4k APIs with OpenApi3</a></h3><p class=article-card__excerpt>An overview of the OpenApi3 support available in the http4k library.</p><div class=article-card__foot><span class=article-card__date>May 2019</span></div></div></article></div></section></article><script>(function(){var e,n,s,t=document.querySelectorAll(".article-toc a");if(!t.length||!("IntersectionObserver"in window))return;e={},t.forEach(function(t){e[decodeURIComponent(t.getAttribute("href").slice(1))]=t}),n=document.querySelectorAll(".article-body h2[id], .article-body h3[id]"),s=new IntersectionObserver(function(n){n.forEach(function(n){n.isIntersecting&&e[n.target.id]&&(t.forEach(function(e){e.classList.remove("active")}),e[n.target.id].classList.add("active"))})},{rootMargin:"0px 0px -75% 0px"}),n.forEach(function(e){s.observe(e)})})()</script><footer><div class=container><div class="row pb-3 text-start text-xl-start"><div class="col-md-6 col-lg-3" style=width:200px><a class=p-0 href=https://http4k.org/><img src=/images/logo_hu_d370df57676f24c3.webp alt=logo width=50% loading=lazy></a><p></p><ul class=list-unstyled><li class="small text-white text-decoration-none">http4k Limited</li><li class="small text-white text-decoration-none">Registered in England & Wales</li><li class="small text-white text-decoration-none">Reg no: 14687467</li></ul></div><div class="col-xs-6 col-md"><h5>Product</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/pro/>Pro</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/enterprise/>Enterprise</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/supply-chain-security/>Supply Chain Security</a></li><li><a class="small text-white text-decoration-none" href=https://verify.http4k.org>http4k Verify</a></li></ul></div><div class="col-xs-6 col-md"><h5>Learn</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/quickstart/>Quickstart</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/tutorial/>Tutorials</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/howto/>How-to guides</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/ecosystem/>Docs</a></li></ul></div><div class="col-xs-6 col-md"><h5>Resources</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/news/>News</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/showcase/>Showcase</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/community/>Community</a></li><li><a class="small text-white text-decoration-none" href=https://http4k.org/security/>Security Advisories</a></li></ul></div><div class="col-xs-6 col-md"><h5>Company</h5><ul class=list-unstyled><li><a class="small text-white text-decoration-none" href=https://http4k.org/company/>About</a></li><li><a class="small text-white text-decoration-none" href=mailto:info@http4k.org>Contact</a></li><li><a class="small text-white text-decoration-none" href=https://status.http4k.org/>System Status</a></li><li><a class="small text-white text-decoration-none" href=https://www.linkedin.com/company/http4k>LinkedIn</a></li></ul></div></div></div><div class="row text-center g-0"><div class=col><p class="small text-white text-decoration-none">© 2016&ndash;2026 http4k Ltd&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;All Rights Reserved&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/privacy-policy/>Privacy policy</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/terms-and-conditions/>Terms & conditions</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/disclaimer/>Disclaimer</a>&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;<a class="text-white text-decoration-none" href=https://http4k.org/trademark/>Trademark Policy</a>&nbsp;&nbsp;&nbsp;</p></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/fuse.js@6.6.2></script><script defer src=https://http4k.org/js/fuse-search.js></script><script defer src=https://http4k.org/js/footer.js></script><img src="https://static.scarf.sh/a.png?x-pxid=e1c296ba-34c0-4342-8d2c-3a023d5dcec3" alt=scarf></body></html>
