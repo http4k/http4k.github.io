@@ -1,0 +1,147 @@
+# Going native with Graal on AWS Lambda
+
+
+In this guide, we'll run you through the steps required to get an http4k application deployed and running on AWS Lambda with GraalVM and available to call over the internet using AWS ApiGateway. If you're not familiar with the http4k concepts for HTTP and Serverless apps, then we advise you read them [here](/ecosystem/http4k/concepts/http/) and [here](/ecosystem/http4k/concepts/serverless/). To make an app you can follow the [Your first http4k app] tutorial. Then follow the steps in the [Serverless http4k with AWS Lambda] tutorial before tackling this guide.
+
+We'll take an existing http4k application built with Gradle and deployed with Pulumi, add the bits that are important to GraalVM Serverless HTTP apps, then compile it natively and deploy it to AWS Lambda and API Gateway using Pulumi. The resulting Lambda has super-quick startup time and low memory footprint.
+
+## Pre-requisites:
+- All the pre-requisites from the [Your first http4k app] and [Serverless http4k with AWS Lambda] tutorials. This will give you a working http4k application deployed to AWS Lambda.
+- Docker installed and running on your system. See [here](https://docs.docker.com/engine/install/) for details.
+<hr/>
+
+#### Step 1
+We need to add the http4k AWS Lambda Serverless Runtime module to our project. Install it into your `build.gradle` file with:
+
+```kotlin
+implementation("org.http4k:http4k-serverless-lambda-runtime:${http4kVersion}")
+```
+
+This custom runtime is a lightweight, zero-reflection module which allows you to deploy both Java and GraalVM based binaries to AWS.
+
+#### Step 2
+Lambdas working from a native binary have to supply their own `main` function to launch the runtime, instead of implementing the standard `Request/StreamHandler` interfaces. To use it on our app, we simply create a launcher and wrap our http4k `HttpHandler` with the appropriate FnHandler class before starting the Runtime. Put this into a new `HelloServerlessHttp4k.kt` (different package to before:
+
+
+
+
+
+```kotlin
+package content.tutorial.going_native_with_graal_on_aws_lambda
+
+import org.http4k.core.Method.GET
+import org.http4k.core.Response
+import org.http4k.core.Status.Companion.OK
+import org.http4k.routing.bind
+import org.http4k.routing.path
+import org.http4k.routing.routes
+import org.http4k.serverless.ApiGatewayV2FnLoader
+import org.http4k.serverless.AwsLambdaRuntime
+import org.http4k.serverless.asServer
+
+val http4kApp = routes(
+    "/echo/{message:.*}" bind GET to {
+        Response(OK).body(
+            it.path("message") ?: "(nothing to echo, use /echo/<message>)"
+        )
+    },
+    "/" bind GET to { Response(OK).body("ok") }
+)
+
+fun main() {
+    ApiGatewayV2FnLoader(http4kApp).asServer(AwsLambdaRuntime()).start()
+}
+
+```
+
+
+
+Update the Pulumi config to point to the new file:
+
+#### Step 3
+Compile the Lambda code into a GraalVM file is a 2 stage process. First, install and configure the ShadowJar plugin into `build.gradle` to merge the entire application into a single JAR file with a known main class. Update/add the following sections:
+```kotlin
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.github.johnrengelman:shadow:8.1.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+    }
+}
+
+apply(plugin = "java")
+apply(plugin = "com.github.johnrengelman.shadow")
+
+mainClassName = "content.tutorial.going_native_with_graal_on_aws_lambda.HelloServerlessHttp4kKt"
+
+shadowJar {
+    manifest.attributes["Main-Class"] = mainClassName
+    archiveBaseName.set(project.name)
+    archiveClassifier.set(null)
+    archiveVersion.set(null)
+    mergeServiceFiles()
+}
+```
+Run the new task with:
+
+```shell
+./gradlew shadowJar
+``` 
+
+... and then take a note of the JAR file that appears in `build/libs`.
+
+#### Step 4
+Now that we have our JAR file, we need to create a GraalVM image and package it into a ZIP file which can be uploaded to AWS. http4k supplies a convenience Docker image that uses the `native-image` program to create the binary and then packages the ZIP file:
+```shell
+docker run -v $(pwd):/source  --platform=linux/amd64 \
+    http4k/amazonlinux-java-graal-community-lambda-runtime \
+    build/libs/HelloWorld.jar \
+    HelloHttp4k.zip
+```
+
+GraalVM will churn away for a few minutes and all being well, the `HelloHttp4k.zip` file will be generated in the main directory. 
+
+<img class="imageMid" src="step4.png" alt="graalvm output"/>
+
+#### Step 5
+We need to update our Pulumi configuration to upload the new binary. This is pretty simple and just involves changing the runtime, ZIP target and handler in our `index.ts`. We can also remove the `timeout` as the native binary will startup in milliseconds:
+
+```typescript
+const lambdaFunction = new aws.lambda.Function("hello-http4k", {
+    code: new pulumi.asset.FileArchive("HelloHttp4k.zip"),
+    handler: "unused",
+    role: defaultRole.arn,
+    runtime: "provided.al2"
+});
+```
+
+#### Step 6
+Deploy your ZIP file to AWS with:
+```shell
+pulumi up --stack dev --yes
+```
+Pulumi will churn for a bit and all being well will display the URL at the end of the process.
+
+<img class="imageMid" src="../serverless_http4k_with_aws_lambda/step6.png" alt="pulumi output"/>
+
+#### Step 7
+You can now call your deployed lambda by visiting: `https://{publishedUrl}/echo/helloHttp4k`. You should see `helloHttp4k` in the response body. Notice that the response time is super-super quick, especially after the lambda is warm. If we invoke it from the console, you should see something similar:
+
+<img class="imageMid" src="step7.png" alt="pulumi output"/>
+
+#### Step 8
+To avoid any unwanted AWS charges, don't forget to delete all of the resources in your stack when you've finished by running:
+```shell
+pulumi destroy --stack dev --yes
+```
+
+#### Congratulations!
+You have successfully compiled an http4k application with GraalVM, then deployed and invoked it as a Lambda in AWS!
+
+[Your first http4k app]: /tutorial/your_first_http4k_app/
+[Serverless http4k with AWS Lambda]: /tutorial/serverless_http4k_with_aws_lambda/
+[pulumi]: https://www.pulumi.com/docs/get-started/install/
+
