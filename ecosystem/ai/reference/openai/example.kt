@@ -1,0 +1,25 @@
+package content.ecosystem.ai.reference.openai
+
+import org.http4k.ai.model.ApiKey
+import org.http4k.client.JavaHttpClient
+import org.http4k.connect.openai.FakeOpenAI
+import org.http4k.connect.openai.Http
+import org.http4k.connect.openai.OpenAI
+import org.http4k.connect.openai.getModels
+import org.http4k.core.HttpHandler
+import org.http4k.filter.debug
+
+const val USE_REAL_CLIENT = false
+
+fun main() {
+    // we can connect to the real service or the fake (drop in replacement)
+    val http: HttpHandler = if (USE_REAL_CLIENT) JavaHttpClient() else FakeOpenAI()
+
+    // create a client
+    val client = OpenAI.Http(ApiKey.of("foobar"), http.debug())
+
+    // all operations return a Result monad of the API type
+    val result = client.getModels()
+
+    println(result)
+}
